@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+import { createVanillaExtractPlugin } from '@vanilla-extract/next-plugin';
+const withVanillaExtract = createVanillaExtractPlugin();
+
 const nextConfig = {
   webpack(config) {
     // SVG imports를 처리하는 기존 규칙 가져오기
