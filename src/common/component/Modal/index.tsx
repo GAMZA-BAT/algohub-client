@@ -73,8 +73,8 @@ const Modal = ({
                   <IcnBtnDelete
                     role="button"
                     aria-label="Close Modal"
-                    width={10}
-                    height={10}
+                    width={28}
+                    height={28}
                     className={exitStyle}
                     onClick={onClose}
                   />
