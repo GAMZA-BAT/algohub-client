@@ -11,12 +11,12 @@ interface FooterProps {
 
 const Footer = ({ guideLabel, link: { label, href } }: FooterProps) => {
   return (
-    <div className={labelContainer}>
+    <footer className={labelContainer}>
       <p className={labelStyle.guide}>{guideLabel}</p>
-      <Link href={href} className={labelStyle.link}>
+      <Link href={href} className={labelStyle.link} scroll={false}>
         {label}
       </Link>
-    </div>
+    </footer>
   );
 };
 

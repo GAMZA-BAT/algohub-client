@@ -1,22 +1,10 @@
 import type { ChangeEvent } from "react";
 import type {
   ControllerRenderProps,
-  DeepMap,
   FieldPath,
   FieldValues,
   UseFormReturn,
 } from "react-hook-form";
-
-const shouldValidateOnChange = <
-  TFieldValues extends FieldValues,
-  TFieldName extends keyof DeepMap<TFieldValues, boolean>,
->(
-  fieldName: TFieldName,
-  touchedFields: DeepMap<TFieldValues, boolean>,
-  dirtyFields: DeepMap<TFieldValues, boolean>,
-) => {
-  return touchedFields[fieldName] && dirtyFields[fieldName];
-};
 
 /**
  * 비밀번호 확인처럼 여러 필드의 유효성 검사를 한번에 하는 handlers를 반환하는 함수
@@ -30,10 +18,7 @@ export const getMultipleRevalidationHandlers =
     ...otherFieldNames: TFieldName[]
   ) =>
   (form: UseFormReturn, field: ControllerRenderProps) => {
-    const {
-      trigger,
-      formState: { touchedFields, dirtyFields },
-    } = form;
+    const { trigger } = form;
     const { name } = field;
     const fieldNames = [name, ...otherFieldNames];
     return {
@@ -43,13 +28,7 @@ export const getMultipleRevalidationHandlers =
       },
       onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         field.onChange(e);
-        if (
-          fieldNames.every((fieldName) =>
-            shouldValidateOnChange(fieldName, touchedFields, dirtyFields),
-          )
-        ) {
-          trigger(fieldNames);
-        }
+        trigger(fieldNames);
       },
     };
   };

@@ -1,24 +1,14 @@
 import { validateNickname } from "@/api/validate";
+import { baseSignupSchema } from "@/view/signup/SignupForm/schema";
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
 // TODO: API연결 후 useQuery로 교체하며 동일하게 기능 적용하기
-export const useCheckOnServer = <
-  T extends UseFormReturn<{
-    nickname: string;
-    baekjoonId: string;
-    introduction: string;
-  }>,
->(
-  form: T,
+export const useCheckOnServer = (
+  form: UseFormReturn<z.infer<typeof baseSignupSchema>>,
   nickname: string,
   baekjoonId: string,
-  serverValidationSchema: z.ZodObject<{
-    nickname: z.ZodString;
-    baekjoonId: z.ZodString;
-    introduction: z.ZodString;
-  }>,
 ) => {
   const [isNicknameLoading, setNicknameLoading] = useState(false);
   const [isBaekjoonIdLoading, setBaekjoonIdLoading] = useState(false);
@@ -33,10 +23,9 @@ export const useCheckOnServer = <
       form.clearErrors(fieldName);
       return;
     }
-
-    const partialSchema = serverValidationSchema.partial();
-    const parseResult = partialSchema.safeParse({ [fieldName]: value });
-
+    const parseResult = baseSignupSchema.partial().safeParse({
+      [fieldName]: value,
+    });
     if (!parseResult.success) {
       form.setError(fieldName, parseResult.error);
       return;
