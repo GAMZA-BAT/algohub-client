@@ -7,7 +7,6 @@ import {
   memberWrapper,
   sidebarWrapper,
 } from "@/view/group/dashboard/GroupSidebar/index.css";
-import MemberAvatar from "@/view/group/index/MemberAvatar";
 
 type GroupCardProps = {
   info: GroupInfoResponse;
@@ -23,9 +22,7 @@ const GroupSidebar = ({ info }: GroupCardProps) => {
       </div>
       <ul className={memberWrapper}>
         {[0, 1, 2, 3, 4].map((_elem, idx) => (
-          <li key={idx}>
-            <MemberAvatar src="" isLeader />
-          </li>
+          <li key={idx}>멤버 아바타</li>
         ))}
       </ul>
       <div className={labelWrapper}>
@@ -34,9 +31,7 @@ const GroupSidebar = ({ info }: GroupCardProps) => {
       </div>
       <ul className={memberWrapper}>
         {[0, 1, 2].map((_elem, idx) => (
-          <li key={idx}>
-            <MemberAvatar src="" />
-          </li>
+          <li key={idx}>멤버 아바타</li>
         ))}
       </ul>
     </div>

@@ -20,7 +20,8 @@ interface NavBarItemProps extends HTMLAttributes<HTMLLIElement> {
 const NavBarItem = ({ href, icon, mode, children }: NavBarItemProps) => {
   const pathname = usePathname();
 
-  const isSelected = pathname.includes(href);
+  const isSelected = href.split("?").at(0) === pathname;
+
   const variant = isSelected
     ? mode
     : (`none${mode}` as NavBarItemProps["mode"]);

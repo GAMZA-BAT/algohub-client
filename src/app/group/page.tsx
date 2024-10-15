@@ -9,7 +9,7 @@ const GroupDashboardPage = () => {
       <Sidebar>
         <GroupSidebar info={tmpGroupData} />
       </Sidebar>
-      {/* children */}
+      {/** children */}
     </main>
   );
 };
