@@ -18,3 +18,10 @@ export interface GroupInfoResponse {
   isOwner: boolean;
   ownerNickname: string;
 }
+
+export interface GroupRankingResponse {
+  userNickname: string;
+  profileImage: string;
+  rank: number;
+  solvedCount: number;
+}

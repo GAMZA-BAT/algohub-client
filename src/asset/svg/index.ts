@@ -84,3 +84,6 @@ export { default as IcnEditProfile } from "./icn_edit_profile.svg";
 export { default as IcnBtnDelete } from "./icn_btn_delete.svg";
 export { default as IcnGroupInfoCard } from "./group_info_card.svg";
 export { default as IcnCopyCheck } from "./icn_copy_check.svg";
+export { default as IcnRankingCard } from "./icn_ranking_card.svg";
+export { default as IcnRankingCardHover } from "./icn_ranking_card_hover.svg";
+export { default as IcnMiniLogo } from "./icn_mini_logo.svg";

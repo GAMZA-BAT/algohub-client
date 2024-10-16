@@ -19,3 +19,5 @@ export type tier =
   | "ruby";
 
 export type TierDetail = `${tier} ${1 | 2 | 3 | 4 | 5}` | "master";
+
+export type Status = "Favorites" | "Queued" | "Progress" | "Done";

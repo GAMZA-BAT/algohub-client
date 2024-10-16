@@ -1,4 +1,4 @@
-import type { Status } from "@/view/user/index/type";
+import type { Status } from "@/shared/type";
 import type { ComponentProps, FC } from "react";
 import type TableHead from "../component/Table/TableElements/TableHead";
 
