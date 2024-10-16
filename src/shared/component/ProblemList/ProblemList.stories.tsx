@@ -5,8 +5,10 @@ import ProblemList from ".";
 const meta: Meta<typeof ProblemList> = {
   title: "Shared/ProblemList",
   component: ProblemList,
+  parameters: {
+    layout: "centered",
+  },
   tags: ["autodocs"],
-  args: {},
 } satisfies Meta<typeof ProblemList>;
 export default meta;
 

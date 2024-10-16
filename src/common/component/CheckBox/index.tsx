@@ -1,4 +1,5 @@
 import { boxStyle } from "@/common/component/CheckBox/index.css";
+import clsx from "clsx";
 import type { HTMLAttributes } from "react";
 
 interface CheckBoxProps
@@ -11,7 +12,7 @@ const CheckBox = ({ checked, onChange, ...props }: CheckBoxProps) => {
   return (
     <input
       {...props}
-      className={boxStyle}
+      className={clsx(boxStyle, props.className)}
       type="checkbox"
       checked={checked}
       onChange={() => onChange?.(!checked)}

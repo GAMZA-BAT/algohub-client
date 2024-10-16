@@ -1,15 +1,29 @@
 import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
-export const itemStyle = style({
-  display: "grid",
-  gridTemplateColumns: "0.6fr 2.7fr 2fr 2fr 2fr 2fr",
-  alignItems: "center",
-  gap: "2.4rem",
+export const itemStyle = recipe({
+  base: {
+    position: "relative",
 
-  width: "100%",
+    display: "grid",
+    gridTemplateColumns: "0.6fr 2.7fr 2fr 2fr 2fr 2fr",
+    alignItems: "center",
+    gap: "2.4rem",
 
-  padding: "0.8rem 1.6rem",
+    width: "100%",
+
+    padding: "0.8rem 1.6rem",
+
+    transition: "all 0.3s ease",
+  },
+  variants: {
+    isHover: {
+      true: {
+        backgroundColor: "rgba(34, 39, 52, 1)",
+      },
+    },
+  },
 });
 
 export const textStyle = style({
@@ -18,9 +32,12 @@ export const textStyle = style({
 
   overflow: "hidden",
   textOverflow: "ellipsis",
+  textAlign: "center",
 });
 
 export const titleStyle = style({
+  textAlign: "start",
+
   whiteSpace: "nowrap",
 });
 
@@ -31,9 +48,6 @@ export const wrongCheckBoxStyle = style({
   alignItems: "center",
   justifyContent: "center",
 
-  width: "14px",
-  height: "14px",
-
   border: "none",
   borderRadius: "1px",
 
@@ -43,5 +57,39 @@ export const wrongCheckBoxStyle = style({
     content: "Ｘ",
 
     color: theme.color.white,
+  },
+});
+
+export const checkboxStyle = style({
+  width: "1.4rem",
+  height: "1.4rem",
+
+  justifySelf: "start",
+
+  cursor: "pointer",
+});
+
+export const editIconStyle = recipe({
+  base: {
+    position: "absolute",
+
+    top: 0,
+    bottom: 0,
+    right: 20,
+
+    margin: "auto 0",
+
+    opacity: 0,
+
+    cursor: "pointer",
+
+    transition: "all 0.3s ease",
+  },
+  variants: {
+    isHover: {
+      true: {
+        opacity: 1,
+      },
+    },
   },
 });
