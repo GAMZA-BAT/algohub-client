@@ -1,4 +1,4 @@
-import type { Status } from "@/view/user/index/type";
+import type { GroupStatusLabel } from "@/api/user/type";
 import type { ComponentProps, FC } from "react";
 import type TableHead from "../component/Table/TableElements/TableHead";
 
@@ -20,7 +20,7 @@ export type StudyListDataType = {
   endDate: Date;
   role: string;
   isPublic: boolean;
-  status: Status;
+  status: GroupStatusLabel;
 };
 
 export type AlarmSettingsDataType = {

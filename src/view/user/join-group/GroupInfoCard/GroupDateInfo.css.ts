@@ -7,6 +7,7 @@ export const groupDateInfoWrapper = style({
   gap: "0.4rem",
 
   marginBottom: "0.8rem",
+  color: theme.color.mg1,
 });
 
 export const groupDateStyle = style({

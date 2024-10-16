@@ -63,3 +63,7 @@ export const chipWrapper = style({
   lineHeight: "normal",
   letterSpacing: "-0.25px",
 });
+
+export const calandarIconStyle = style({
+  color: theme.color.mg1,
+});

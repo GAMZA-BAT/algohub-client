@@ -19,18 +19,13 @@ export const calendarIcnStyle = recipe({
   base: {
     width: "2rem",
     height: "2rem",
-
-    ["[stroke='#9BA1B4']" as string]: {
-      stroke: theme.color.mg4,
-    },
+    color: theme.color.mg4,
   },
 
   variants: {
     selected: {
       true: {
-        ["[stroke='#9BA1B4']" as string]: {
-          stroke: theme.color.lg2,
-        },
+        color: theme.color.lg2,
       },
     },
   },

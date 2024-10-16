@@ -95,7 +95,7 @@ export const itemStyle = style({
   justifyContent: "center",
 
   width: "calc(25% - 1.5rem)",
-  minWidth: "23rem",
+  minWidth: "23.6rem",
   maxWidth: "30rem",
   height: "100%",
 

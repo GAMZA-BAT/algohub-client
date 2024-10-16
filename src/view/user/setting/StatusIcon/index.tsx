@@ -1,13 +1,13 @@
+import type { GroupStatusLabel } from "@/api/user/type";
 import {
   IcnStatusDone,
   IcnStatusFavorites,
   IcnStatusProgress,
   IcnStatusQueued,
 } from "@/asset/svg";
-import type { Status } from "../../index/type";
 
 type StatusIconProps = {
-  status: Status;
+  status: GroupStatusLabel;
 };
 
 const StatusIcon = ({ status }: StatusIconProps) => {
