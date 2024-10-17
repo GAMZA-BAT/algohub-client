@@ -1,5 +1,4 @@
 import SupportingText from "@/common/component/SupportingText";
-import type { groupSchema } from "@/shared/api/schema";
 import { Form } from "@/shared/component/Form";
 import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";
 import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
@@ -10,6 +9,7 @@ import {
   formLabelStyle,
   formStyle,
 } from "@/shared/component/GroupInfoForm/index.css";
+import type { groupSchema } from "@/shared/type/schema";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
