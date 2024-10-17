@@ -1,9 +1,8 @@
 import { StudyListData, alarmSettingsData } from "@/shared/constant/example";
 import { theme } from "@/styles/themes.css";
-import {
-  ALARM_SETTINGS_COLUMNS,
-  STUDY_LIST_COLUMNS,
-} from "@/view/user/setting/constant";
+
+import { STUDY_LIST_COLUMNS } from "@/view/user/setting/StudyList/StudyListTable/constant";
+import { ALARM_SETTINGS_COLUMNS } from "@/view/user/setting/constant";
 import type { Meta } from "@storybook/react";
 import { DataTable } from ".";
 

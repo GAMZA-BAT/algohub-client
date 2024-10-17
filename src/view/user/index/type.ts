@@ -1,1 +1,3 @@
-export type Status = "Favorites" | "Queued" | "Progress" | "Done";
+import type { StudyGroupListsResponse } from "@/api/group/type";
+
+export type Status = keyof StudyGroupListsResponse;
