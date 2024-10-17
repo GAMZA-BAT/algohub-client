@@ -31,7 +31,7 @@ export const dialogStyle = style({
   right: 0,
   bottom: 0,
 
-  margin: "auto auto",
+  margin: "auto",
 
   backgroundColor: "transparent",
 

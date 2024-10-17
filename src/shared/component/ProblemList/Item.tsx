@@ -9,10 +9,11 @@ import {
   wrongCheckBoxStyle,
 } from "@/shared/component/ProblemList/index.css";
 import type { Problem } from "@/shared/type";
+import clsx from "clsx";
 import { format } from "date-fns";
 import Link from "next/link";
 
-type ProblemListItemProps = Problem;
+type ProblemListItemProps = Problem & { className?: string };
 
 const JSX_BY_STATUS = {
   wrong: <input type="checkbox" disabled className={wrongCheckBoxStyle} />,
@@ -28,13 +29,14 @@ const ProblemListItem = ({
   status,
   solved,
   total,
+  className,
 }: ProblemListItemProps) => {
   const Icon = getTierImage(tier);
 
   const accuracy = ((solved / total) * 100).toFixed(0);
 
   return (
-    <li aria-label={`문제: ${title}`} className={itemStyle}>
+    <li aria-label={`문제: ${title}`} className={clsx(itemStyle, className)}>
       <Icon width={25} height={32} />
       <Link className={`${titleStyle} ${textStyle}`} href={`/problem/${id}`}>
         <span className={textStyle}>{title}</span>
