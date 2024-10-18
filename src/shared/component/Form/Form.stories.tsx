@@ -1,5 +1,4 @@
 import Button from "@/common/component/Button";
-import { useCheckOnServer } from "@/shared/hook/useCheckOnServer";
 import {
   getMultipleRevalidationHandlers,
   handleOnChangeMode,
@@ -211,35 +210,20 @@ export const ValidateOnServer: Story = {
       mode: "onTouched",
     });
 
-    const nickname = form.watch("nickname");
-    const backjoonId = form.watch("baekjoonId");
-
-    const { isNicknameLoading, isBaekjoonIdLoading } = useCheckOnServer(
-      // useQuery 모방용 임시 훅
-      form,
-      nickname,
-      backjoonId,
-      serverValidationSchema,
-    );
     const { errors, dirtyFields } = form.formState;
 
-    // 기본적으로 메세지 표시x, 서버 검증 시 로딩중 표시
-    // 검증 완료 시 메시지 표시, 에러 발생 시 에러 & 에러 메세지 표시
-    const nicknameValidationSuccess =
-      !(errors.nickname || isNicknameLoading) && dirtyFields.nickname;
-    const nicknameMsg = isNicknameLoading
-      ? "로딩중"
-      : nicknameValidationSuccess
-        ? "사용가능한 닉네임이에요."
-        : errors.nickname?.message;
+    // 기본적으로 메세지 표시x,
+    // 에러 발생 시 에러 & 에러 메세지 표시
+    const nicknameValidationSuccess = !errors.nickname && dirtyFields.nickname;
+    const nicknameMsg = nicknameValidationSuccess
+      ? "사용가능한 닉네임이에요."
+      : errors.nickname?.message;
 
     const baekjoonIdValidationSuccess =
-      !(errors.baekjoonId || isBaekjoonIdLoading) && dirtyFields.baekjoonId;
-    const bjMsg = isBaekjoonIdLoading
-      ? "로딩중"
-      : baekjoonIdValidationSuccess
-        ? "정상적으로 연동되었어요."
-        : errors.baekjoonId?.message;
+      !errors.baekjoonId && dirtyFields.baekjoonId;
+    const bjMsg = baekjoonIdValidationSuccess
+      ? "정상적으로 연동되었어요."
+      : errors.baekjoonId?.message;
 
     const onSubmit = (_values: z.infer<typeof serverValidationSchema>) => {};
     return (

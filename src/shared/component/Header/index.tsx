@@ -1,11 +1,11 @@
 import { IcnLogo } from "@/asset/svg";
-import LoginMenu from "@/shared/component/Header/LoginMenu";
 import UserMenu from "@/shared/component/Header/UserMenu";
 import {
   headerStyle,
   logoContainer,
   logoStyle,
 } from "@/shared/component/Header/index.css";
+import LoginMenu from "@/view/login/LoginMenu/LoginMenu";
 import Link from "next/link";
 
 const Header = () => {

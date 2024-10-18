@@ -200,6 +200,8 @@ export const fadeInStyle = style({
 export const arrowContainer = style({
   display: "flex",
   justifyContent: "center",
+
+  height: "12.8rem",
 });
 
 export const arrowStyle = style({

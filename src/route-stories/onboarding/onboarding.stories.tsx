@@ -1,4 +1,3 @@
-import RootLayout from "@/app/layout";
 import OnboardingPage from "@/app/page";
 import type { Meta, StoryObj } from "@storybook/react";
 
@@ -11,13 +10,6 @@ const meta: Meta<typeof OnboardingPage> = {
       url: "https://www.figma.com/design/PBHmaVSKndAId6lY6G2qEb/AlgoHub?node-id=491-26604&t=BZcUqksImvGD8cnl-4",
     },
   },
-  decorators: [
-    (Story) => (
-      <RootLayout>
-        <Story />
-      </RootLayout>
-    ),
-  ],
 };
 
 type Story = StoryObj<typeof OnboardingPage>;
