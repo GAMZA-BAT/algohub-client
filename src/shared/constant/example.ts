@@ -1,5 +1,6 @@
 import IcnNew from "@/asset/svg/icn_new.svg?url";
-import type { AlarmSettingsDataType, StudyListType } from "../type/table";
+import type { AlarmSettingsDataType } from "@/view/user/setting/AlarmSetting/AlarmSettingTable/type";
+import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
 
 export const alarms = [
   {
@@ -119,7 +120,7 @@ export const StudyListData: StudyListType[] = [
   },
 ];
 
-export const alarmSettingsData: AlarmSettingsDataType[] = [
+export const AlarmSettingsData: AlarmSettingsDataType[] = [
   {
     alarm: true,
     groupName: "숭실대학교 알고리즘 스터디",
@@ -139,7 +140,25 @@ export const alarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: true,
+    alarm: false,
+    groupName: "숭실대학교 알고리즘 스터디",
+    problemRegistration: false,
+    solutionRegistration: false,
+    commentRegistration: false,
+    newMemberAllowed: false,
+    endDateImminent: false,
+  },
+  {
+    alarm: false,
+    groupName: "숭실대학교 알고리즘 스터디",
+    problemRegistration: false,
+    solutionRegistration: false,
+    commentRegistration: false,
+    newMemberAllowed: false,
+    endDateImminent: false,
+  },
+  {
+    alarm: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -157,25 +176,7 @@ export const alarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: true,
-    groupName: "숭실대학교 알고리즘 스터디",
-    problemRegistration: false,
-    solutionRegistration: false,
-    commentRegistration: false,
-    newMemberAllowed: false,
-    endDateImminent: false,
-  },
-  {
-    alarm: true,
-    groupName: "숭실대학교 알고리즘 스터디",
-    problemRegistration: false,
-    solutionRegistration: false,
-    commentRegistration: false,
-    newMemberAllowed: false,
-    endDateImminent: false,
-  },
-  {
-    alarm: true,
+    alarm: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,

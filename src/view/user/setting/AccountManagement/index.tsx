@@ -1,5 +1,5 @@
-import AccountManagementForm from "../AccountManagementForm";
 import { headingStyle } from "../index.css";
+import AccountManagementForm from "./AccountManagementForm";
 import { containerStyle } from "./index.css";
 
 const AccountManagement = () => {

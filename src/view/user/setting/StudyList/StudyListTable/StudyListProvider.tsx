@@ -1,6 +1,6 @@
-import type { StudyListType } from "@/shared/type/table";
 import type React from "react";
 import { createContext, useReducer } from "react";
+import type { StudyListType } from "./type";
 
 type TableDataContextType =
   | { processedData: StudyListType[]; state: State }

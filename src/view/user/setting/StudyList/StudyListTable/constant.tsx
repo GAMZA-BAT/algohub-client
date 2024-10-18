@@ -4,13 +4,14 @@ import {
   withdrawTextStyle,
 } from "@/shared/component/Table/TableElements/index.css";
 import { pinStyle } from "@/shared/component/Table/index.css";
-import type { StudyListType, TableDataType } from "@/shared/type/table";
+import type { TableDataType } from "@/shared/type/table";
 import { format } from "date-fns";
 import SortIcon from "../SortIcon";
 import StatusDropdownMenu from "../StatusDropdownMenu";
 import { textStyle } from "../StatusDropdownMenu/index.css";
 import StatusIcon from "../StatusIcon";
 import { useStudyListDispatch, useStudyListState } from "./hook";
+import type { StudyListType } from "./type";
 
 export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
   {
