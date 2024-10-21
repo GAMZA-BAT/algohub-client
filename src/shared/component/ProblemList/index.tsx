@@ -1,10 +1,16 @@
 import ProblemListItem from "@/shared/component/ProblemList/Item";
 import type { PropsWithChildren } from "react";
 
-type ProblemListProps = PropsWithChildren;
+type ProblemListProps = PropsWithChildren & {
+  className?: string;
+};
 
-const ProblemList = ({ children, ...props }: ProblemListProps) => {
-  return <ul {...props}>{children}</ul>;
+const ProblemList = ({ className, children, ...props }: ProblemListProps) => {
+  return (
+    <ul className={className} {...props}>
+      {children}
+    </ul>
+  );
 };
 
 ProblemList.Item = ProblemListItem;

@@ -2,6 +2,8 @@
 
 import CheckBox from "@/common/component/CheckBox";
 import {
+  commonTextStyle,
+  iconStyle,
   itemStyle,
   textStyle,
   titleStyle,
@@ -39,24 +41,25 @@ const ProblemListItem = ({
 
   const status = solved ? "solved" : isExpired ? "wrong" : "unsolved";
 
+  const commonStyle = `${commonTextStyle} ${textStyle}`;
+
   return (
     <li
       aria-label={`${level}: ${title}`}
       className={clsx(itemStyle, className)}
     >
       <Icon width={25} height={32} />
-      <Link
-        className={`${titleStyle} ${textStyle}`}
-        href={`/problem/${problemId}`}
-      >
-        <span className={textStyle}>{title}</span>
+      <Link className={titleStyle} href={`/problem/${problemId}`}>
+        <span className={commonStyle}>{title}</span>
       </Link>
-      <time dateTime={endDate} className={textStyle}>
+      <time dateTime={endDate} className={commonStyle}>
         {format(endDate, "yyyy.MM.dd")}
       </time>
-      <span className={textStyle}>{`${submitMemberCount}/${memberCount}`}</span>
-      <span className={textStyle}>{accuracy}</span>
-      {JSX_BY_STATUS[status]}
+      <span
+        className={commonStyle}
+      >{`${submitMemberCount}/${memberCount}`}</span>
+      <span className={commonStyle}>{accuracy}</span>
+      <div className={iconStyle}>{JSX_BY_STATUS[status]}</div>
     </li>
   );
 };

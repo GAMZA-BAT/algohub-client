@@ -14,6 +14,10 @@ export const itemStyle = style({
 });
 
 export const textStyle = style({
+  textAlign: "center",
+});
+
+export const commonTextStyle = style({
   ...theme.font.Caption3_M_12,
   color: theme.color.white,
 
@@ -23,6 +27,11 @@ export const textStyle = style({
 
 export const titleStyle = style({
   whiteSpace: "nowrap",
+});
+
+export const iconStyle = style({
+  display: "flex",
+  justifyContent: "center",
 });
 
 export const wrongCheckBoxStyle = style({
