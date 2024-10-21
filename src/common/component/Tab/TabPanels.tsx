@@ -21,7 +21,7 @@ const TabPanels = ({ children }: TabPanelsProps) => {
             key: idx + 1,
             role: "tabpanel",
             id: `tabpanel-${idx + 1}`,
-            ariaLabelledby: `tab-${idx + 1}`,
+            "aria-labelledby": `tab-${idx + 1}`,
           });
         }
       })}
