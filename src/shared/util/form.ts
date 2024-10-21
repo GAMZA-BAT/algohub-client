@@ -26,7 +26,9 @@ export const getMultipleRevalidationHandlers =
         field.onBlur();
         trigger(fieldNames);
       },
-      onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      onChange: (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | Date,
+      ) => {
         field.onChange(e);
         trigger(fieldNames);
       },
@@ -52,7 +54,9 @@ export const handleOnChangeMode = (
       field.onBlur();
       trigger(name);
     },
-    onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    onChange: (
+      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | Date,
+    ) => {
       field.onChange(e);
       trigger(name);
     },
