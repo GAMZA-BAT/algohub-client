@@ -1,4 +1,5 @@
 export const SOLVED_RESULT = Object.freeze([
+  "모든 언어",
   "C++17",
   "Python 3",
   "PyPy3",
