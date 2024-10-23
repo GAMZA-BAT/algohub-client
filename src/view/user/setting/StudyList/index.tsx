@@ -1,14 +1,17 @@
 "use client";
 
 import { StudyListData } from "@/shared/constant/example";
-import { headingStyle } from "../index.css";
+import {
+  backPanelStyle,
+  headingStyle,
+  wrapperStyle,
+} from "@/view/user/setting/index.css";
+import StudyListTable from "./StudyListTable";
 import { StudyListTableProvider } from "./StudyListTable/StudyListProvider";
-import StudyListTable from "./StudyListTable/StudyListTable";
-import { backPanelStyle, wrapperStyle } from "./index.css";
 
 const StudyList = () => {
   return (
-    <article className={wrapperStyle}>
+    <article className={wrapperStyle({ type: "스터디리스트" })}>
       <h1 className={headingStyle}>스터디 관리</h1>
       <div className={backPanelStyle} />
       <StudyListTableProvider data={StudyListData}>

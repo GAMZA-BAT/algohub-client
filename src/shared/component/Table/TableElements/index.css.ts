@@ -64,6 +64,8 @@ export const tableStyle = recipe({
       },
       알림설정: {
         borderCollapse: "collapse",
+
+        width: "92.5%",
       },
     },
   },

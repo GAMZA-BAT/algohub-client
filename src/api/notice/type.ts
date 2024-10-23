@@ -1,5 +1,6 @@
 export interface NoticeResponse {
   author: string;
+  noticeCategory: string;
   noticeId: number;
   noticeContent: string;
   noticeTitle: string;

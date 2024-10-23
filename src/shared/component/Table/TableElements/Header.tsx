@@ -1,6 +1,6 @@
+import { headWrapper } from "@/shared/component/Table/index.css";
 import type { TableDataType, TableType } from "@/shared/type/table";
 import { memo } from "react";
-import { headWrapper } from "../index.css";
 import TableHead from "./TableHead";
 import { tableHeaderStyle } from "./index.css";
 

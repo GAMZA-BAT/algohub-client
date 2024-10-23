@@ -1,4 +1,3 @@
-import type { GroupListItem, GroupStatus } from "@/api/group/type";
 import type { ComponentProps, FC } from "react";
 import type TableHead from "../component/Table/TableElements/TableHead";
 
@@ -11,28 +10,4 @@ export type TableDataType<T> = {
   props?: ComponentProps<typeof TableHead>;
   align?: "left" | "right";
   width: number;
-};
-
-export type StudyListType = {
-  status: GroupStatus;
-  startDate: Date;
-  endDate: Date;
-} & Omit<
-  GroupListItem,
-  | "introduction"
-  | "groupImage"
-  | "ownerNickname"
-  | "id"
-  | "startDate"
-  | "endDate"
->;
-
-export type AlarmSettingsDataType = {
-  alarm: boolean;
-  groupName: string;
-  problemRegistration: boolean;
-  solutionRegistration: boolean;
-  commentRegistration: boolean;
-  newMemberAllowed: boolean;
-  endDateImminent: boolean;
 };

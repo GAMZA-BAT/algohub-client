@@ -1,6 +1,6 @@
 import { Form, FormController } from "@/shared/component/Form";
+import SubmitButton from "@/shared/component/SubmitButton";
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";
-import SubmitButton from "@/view/index/SubmitButton";
 import { formStyle, labelStyle, passwordWrapper, width } from "./index.css";
 import useAccountForm from "./useAccountForm";
 

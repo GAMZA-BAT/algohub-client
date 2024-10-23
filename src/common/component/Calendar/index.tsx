@@ -57,6 +57,20 @@ const Calendar = forwardRef<DatePicker, CalendarProps>(
             calendarStartDay={1}
             popperPlacement="bottom-start"
             shouldCloseOnSelect
+            popperProps={{ strategy: "fixed" }}
+            popperModifiers={[
+              {
+                name: "placement",
+                fn: (state) => {
+                  const { x, y } = state;
+                  return {
+                    ...state,
+                    x: x - 8,
+                    y: y + 2,
+                  };
+                },
+              },
+            ]}
             {...props}
           />
         </div>

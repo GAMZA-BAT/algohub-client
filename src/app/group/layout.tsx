@@ -1,4 +1,10 @@
-import { IcnCalculator, IcnPlus, IcnSetting, IcnSquare } from "@/asset/svg";
+import {
+  IcnCalculator,
+  IcnExit,
+  IcnPlus,
+  IcnSetting,
+  IcnSquare,
+} from "@/asset/svg";
 import NavBar from "@/shared/component/NavBar";
 import type { Metadata } from "next";
 
@@ -42,6 +48,13 @@ export default function GroupLayout({
           href="/group/setting"
         >
           스터디 관리
+        </NavBar.Item>
+        <NavBar.Item
+          icon={<IcnExit width={24} height={24} />}
+          mode="stroke"
+          href="/group/withdraw"
+        >
+          스터디 나가기
         </NavBar.Item>
       </NavBar>
       {children}
