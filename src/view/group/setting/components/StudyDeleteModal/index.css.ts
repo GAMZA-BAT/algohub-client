@@ -9,7 +9,7 @@ export const containerStyle = style({
   width: "28.8rem",
   height: "30rem",
 
-  padding: "5.4rem 2.4rem",
+  padding: "4.2rem 2.4rem",
 
   borderRadius: "16px",
   backgroundColor: theme.color.mg6,
@@ -21,6 +21,8 @@ export const headingStyle = style({
 });
 
 export const contentStyle = style({
+  flex: 1,
+
   ...theme.font.Caption3_M_12,
   color: theme.color.wg,
 
