@@ -13,7 +13,7 @@ import clsx from "clsx";
 import { type HTMLAttributes, useState } from "react";
 
 interface SelectBoxProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+  extends Omit<HTMLAttributes<HTMLButtonElement>, "onChange"> {
   label: string;
   options: readonly string[];
   className?: string;
@@ -34,13 +34,12 @@ const SelectBox = ({
 
   const handleClick = () => setClicked((prev) => !prev);
   const handleClose = () => setClicked(false);
-  const ref = useOutsideClick(handleClose);
+  const ref = useOutsideClick<HTMLButtonElement>(handleClose);
   return (
-    <div
+    <button
       className={clsx(selectStyle, className)}
       onClick={handleClick}
       onKeyDown={handleA11yClick(handleClick)}
-      aria-label={`${label} 선택하기`}
       ref={ref}
       {...props}
     >
@@ -51,6 +50,7 @@ const SelectBox = ({
         className={clicked ? icnStyle : "none"}
       />
       <ul
+        aria-label={`${label} 선택하기`}
         // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: <explanation>
         role="listbox"
         aria-expanded={clicked}
@@ -72,7 +72,7 @@ const SelectBox = ({
           </li>
         ))}
       </ul>
-    </div>
+    </button>
   );
 };
 
