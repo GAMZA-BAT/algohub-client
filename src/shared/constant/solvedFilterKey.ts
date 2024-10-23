@@ -1,4 +1,6 @@
-export const SOLVED_LANGUAGE = Object.freeze([
+import type { SolutionLanguage, SolutionResult } from "@/api/solution/type";
+
+export const SOLVED_LANGUAGE: Readonly<SolutionLanguage[]> = Object.freeze([
   "모든 언어",
   "C++17",
   "Python 3",
@@ -17,7 +19,7 @@ export const SOLVED_LANGUAGE = Object.freeze([
   "C++17 (clang)",
 ]);
 
-export const SOLVED_RESULT = Object.freeze([
+export const SOLVED_RESULT: Readonly<SolutionResult[]> = Object.freeze([
   "모든 결과",
   "맞았습니다!!",
   "틀렸습니다",

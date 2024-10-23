@@ -44,3 +44,9 @@ export const resetIconStyle = style({
   padding: "1rem",
   cursor: "pointer",
 });
+
+export const selectboxStyle = style({
+  width: "11%",
+  minWidth: "11.2rem",
+  height: "3.3rem",
+});
