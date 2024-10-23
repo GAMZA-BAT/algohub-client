@@ -4,7 +4,7 @@ import { style } from "@vanilla-extract/css";
 export const modalWrapper = style({
   display: "flex",
   flexDirection: "column",
-  gap: "3rem",
+  gap: "2rem",
 
   width: "109.2rem",
   height: "60.7rem",
@@ -25,5 +25,4 @@ export const modalContainer = style({
   gap: "1rem",
 
   width: "100%",
-  height: "45rem",
 });

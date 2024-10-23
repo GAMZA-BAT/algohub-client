@@ -8,7 +8,7 @@ export const commentInputStyle = style({
 
 export const sectionWrapper = style({
   flex: 1,
-  height: "38rem",
+  height: "40.5rem",
 });
 
 export const ulStyle = style({
