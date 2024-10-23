@@ -68,6 +68,8 @@ export const textStyle = recipe({
   },
 });
 export const optionStyle = style({
+  display: "flex",
+  justifyContent: "flex-start",
   padding: "0.85rem",
 
   borderRadius: "4px",
