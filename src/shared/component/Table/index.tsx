@@ -1,5 +1,6 @@
 "use client";
-import type { TableDataType, TableType } from "@/shared/type/table";
+import type { TableDataType } from "@/shared/type/table";
+import clsx from "clsx";
 import Body from "./TableElements/Body";
 import Header from "./TableElements/Header";
 import {
@@ -11,28 +12,52 @@ import {
 type DataTableProps<T> = {
   /** 좌상단 제목 */
   title?: string;
-  /** 테이블 타입: 테이블 내부 요소들에서 recipe()로 스타일 변경 */
-  type: TableType;
   /** 원본 데이터 배열 */
   rows: T[];
   /** 테이블 메타데이터(행, 열) 배열 */
   cols: TableDataType<T>[];
+
+  wrapperClassName?: string;
+  tableClassName?: string;
+  captionClassName?: string;
+  theadClassName?: string;
+  thClassName?: string;
+  /** tbody의 tr만 적용. thead의 tr은 적용되지 않음 */
+  trClassName?: string;
+  tdClassName?: string;
 };
 
 export const DataTable = <T,>({
   title,
-  type,
   rows,
   cols,
+  wrapperClassName,
+  tableClassName,
+  captionClassName,
+  theadClassName,
+  thClassName,
+  trClassName,
+  tdClassName,
 }: DataTableProps<T>) => {
   return (
-    <div className={wrapperStyle}>
-      <table className={tableStyle({ type })}>
+    <div className={clsx(wrapperStyle, wrapperClassName)}>
+      <table className={clsx(tableClassName, tableStyle)}>
         {title && (
-          <caption className={tableCaptionStyle({ type })}>{title}</caption>
+          <caption className={clsx(captionClassName, tableCaptionStyle)}>
+            {title}
+          </caption>
         )}
-        <Header columns={cols} type={type} />
-        <Body rows={rows} cols={cols} type={type} />
+        <Header
+          columns={cols}
+          theadClassName={theadClassName}
+          thClassName={thClassName}
+        />
+        <Body
+          rows={rows}
+          cols={cols}
+          trClassName={trClassName}
+          tdClassName={tdClassName}
+        />
       </table>
     </div>
   );

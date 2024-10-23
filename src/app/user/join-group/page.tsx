@@ -1,8 +1,9 @@
 "use client";
 import type { GroupJoinResponse } from "@/api/group/type";
-import UserDashboardPage from "@/app/user/page";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
+import Sidebar from "@/common/component/Sidebar";
+import { sidebarWrapper } from "@/styles/shared.css";
 import DecisionPrompt from "@/view/user/join-group/DecisionPrompt";
 import GroupInfoCard from "@/view/user/join-group/GroupInfoCard";
 import { btnWrapper, wrapper } from "@/view/user/join-group/index.css";
@@ -20,9 +21,9 @@ const JoinGroupPage = () => {
     owner: "진이",
   };
   return (
-    <>
-      <UserDashboardPage />
-      <Modal isOpen={true} onClose={() => router.push("/user")} hasCloseBtn>
+    <main className={sidebarWrapper}>
+      <Sidebar />
+      <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
         <div className={wrapper}>
           <GroupInfoCard groupInfo={tmpGroupInfo} />
           <DecisionPrompt owner={tmpGroupInfo.owner} />
@@ -36,7 +37,7 @@ const JoinGroupPage = () => {
           </div>
         </div>
       </Modal>
-    </>
+    </main>
   );
 };
 

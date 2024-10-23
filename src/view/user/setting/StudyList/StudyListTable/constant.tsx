@@ -79,17 +79,11 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
       const endDateStr = format(endDate, "yyyy-MM-dd");
       return (
         <>
-          <time
-            className={tableCellTextStyle.스터디리스트}
-            dateTime={startDateStr}
-          >
+          <time className={tableCellTextStyle} dateTime={startDateStr}>
             {startDateStr}
           </time>{" "}
           ~{" "}
-          <time
-            className={tableCellTextStyle.스터디리스트}
-            dateTime={endDateStr}
-          >
+          <time className={tableCellTextStyle} dateTime={endDateStr}>
             {endDateStr}
           </time>
         </>
