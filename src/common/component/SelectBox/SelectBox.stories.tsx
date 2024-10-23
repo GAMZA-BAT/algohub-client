@@ -1,5 +1,5 @@
 import SelectBox from "@/common/component/SelectBox";
-import { SOLVED_RESULT } from "@/shared/constant/solvedResult";
+import { SOLVED_LANGUAGE } from "@/shared/constant/solvedFilterKey";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
@@ -41,7 +41,7 @@ export const Default: Story = {
     return (
       <SelectBox
         label="모든 언어"
-        options={SOLVED_RESULT}
+        options={SOLVED_LANGUAGE}
         value={selectedOption}
         onChange={(option: string) => setSelectedOption(option)}
       />
@@ -64,7 +64,7 @@ export const LeftAligned: Story = {
     return (
       <SelectBox
         label="모든 언어"
-        options={SOLVED_RESULT}
+        options={SOLVED_LANGUAGE}
         align="left"
         value={selectedOption}
         onChange={(option: string) => setSelectedOption(option)}
@@ -83,12 +83,12 @@ export const Preselected: Story = {
     },
   },
   render: (_props) => {
-    const [selectedOption, setSelectedOption] = useState(SOLVED_RESULT[0]);
+    const [selectedOption, setSelectedOption] = useState(SOLVED_LANGUAGE[0]);
 
     return (
       <SelectBox
         label="모든 언어"
-        options={SOLVED_RESULT}
+        options={SOLVED_LANGUAGE}
         value={selectedOption}
         onChange={(option: string) => setSelectedOption(option)}
       />

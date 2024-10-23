@@ -50,7 +50,7 @@ export type SolutionResponse = {
   empty: boolean;
 };
 
-export type SolutionResult =
+export type SolutionLanguage =
   | "C++17"
   | "Python 3"
   | "PyPy3"
@@ -66,3 +66,14 @@ export type SolutionResult =
   | "D"
   | "Rust 2018"
   | "C++17 (clang)";
+
+export type SolutionResult =
+  | "모든 결과"
+  | "맞았습니다!!"
+  | "틀렸습니다"
+  | "시간 초과"
+  | "메모리 초과"
+  | "출력 초과"
+  | "런타임 에러"
+  | "컴파일 에러"
+  | "출력 에러";
