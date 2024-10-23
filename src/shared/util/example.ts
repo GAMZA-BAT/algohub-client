@@ -568,7 +568,7 @@ export const tmpSolvedListData: SolutionByIdResponse[] = [
   },
   {
     solutionId: 2,
-    nickname: "jnary",
+    nickname: "jnaryadsf",
     profileImage: "",
     solvedDateTime: "2024.09.21 21:21:59",
     content: "#include <iostream>",
@@ -581,7 +581,7 @@ export const tmpSolvedListData: SolutionByIdResponse[] = [
   },
   {
     solutionId: 3,
-    nickname: "jnary",
+    nickname: "jnaryqf",
     profileImage: "",
     solvedDateTime: "2024.09.21 21:21:59",
     content: "#include <iostream>",
@@ -594,7 +594,7 @@ export const tmpSolvedListData: SolutionByIdResponse[] = [
   },
   {
     solutionId: 4,
-    nickname: "jnary",
+    nickname: "jnaryewgb",
     profileImage: "",
     solvedDateTime: "2024.09.21 21:21:59",
     content: "#include <iostream>",
