@@ -66,7 +66,7 @@ const SelectBox = ({
             onKeyDown={handleA11yClick(() => onChange(option))}
             key={idx}
           >
-            <p className={textStyle({ isActive: option === label })}>
+            <p className={textStyle({ isActive: option !== label })}>
               {option}
             </p>
           </li>
