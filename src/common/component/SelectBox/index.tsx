@@ -16,7 +16,7 @@ interface SelectBoxProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   label: string;
   options: readonly string[];
-  selectCustomStyle?: string;
+  className?: string;
   align?: "left" | "right" | "center";
   value: string;
   onChange: (value: string) => void;
@@ -24,7 +24,7 @@ interface SelectBoxProps
 const SelectBox = ({
   label,
   options,
-  selectCustomStyle,
+  className,
   align = "center",
   value,
   onChange,
@@ -37,7 +37,7 @@ const SelectBox = ({
   const ref = useOutsideClick(handleClose);
   return (
     <div
-      className={clsx(selectStyle, selectCustomStyle)}
+      className={clsx(selectStyle, className)}
       onClick={handleClick}
       onKeyDown={handleA11yClick(handleClick)}
       aria-label={`${label} 선택하기`}
