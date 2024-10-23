@@ -7,7 +7,8 @@ import {
   selectStyle,
   textStyle,
 } from "@/common/component/SelectBox/index.css";
-import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import { useOutsideClick } from "@/common/hook/useOutsideClick";
+import { handleA11yClick } from "@/common/util/dom";
 import clsx from "clsx";
 import { type HTMLAttributes, useState } from "react";
 
@@ -31,12 +32,16 @@ const SelectBox = ({
 }: SelectBoxProps) => {
   const [clicked, setClicked] = useState(false);
 
+  const handleClick = () => setClicked((prev) => !prev);
+  const handleClose = () => setClicked(false);
+  const ref = useOutsideClick(handleClose);
   return (
     <div
       className={clsx(selectStyle, selectCustomStyle)}
-      onClick={() => setClicked((prev) => !prev)}
-      onKeyDown={useA11yHoverHandler}
+      onClick={handleClick}
+      onKeyDown={handleA11yClick(handleClick)}
       aria-label={`${label} 선택하기`}
+      ref={ref}
       {...props}
     >
       <p className={textStyle({ isActive: !!value })}>{value || label}</p>
@@ -45,17 +50,25 @@ const SelectBox = ({
         height={20}
         className={clicked ? icnStyle : "none"}
       />
-      <ul className={optionWrapper({ isActive: clicked, align })}>
-        <label className={textStyle({ isActive: false })}>{label}</label>
+      <ul
+        // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: <explanation>
+        role="listbox"
+        aria-expanded={clicked}
+        className={optionWrapper({ isActive: clicked, align })}
+      >
         {options.map((option, idx) => (
           <li
+            // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: <explanation>
+            role="option"
+            aria-selected={value === option}
             className={optionStyle}
             onClick={() => onChange(option)}
-            onKeyDown={useA11yHoverHandler}
-            value={option}
+            onKeyDown={handleA11yClick(() => onChange(option))}
             key={idx}
           >
-            <p className={textStyle({ isActive: true })}>{option}</p>
+            <p className={textStyle({ isActive: option === label })}>
+              {option}
+            </p>
           </li>
         ))}
       </ul>
