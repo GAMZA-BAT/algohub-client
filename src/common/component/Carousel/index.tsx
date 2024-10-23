@@ -11,6 +11,7 @@ import {
   type HTMLAttributes,
   type MutableRefObject,
   createContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -34,9 +35,13 @@ const Carousel = ({ length, children }: CarouselProps) => {
   /** 인덱스: 0 ~ length - 1 */
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemRef = useRef<HTMLDivElement | null>(null);
-  const [slideCount, setSlideCount] = useState(
-    window.innerWidth < 768 ? 2 : window.innerWidth < 1024 ? 3 : 4,
-  );
+  const [slideCount, setSlideCount] = useState(4);
+
+  useEffect(() => {
+    setSlideCount(
+      window.innerWidth < 768 ? 2 : window.innerWidth < 1024 ? 3 : 4,
+    );
+  }, []);
 
   const hasLeft = currentIndex > 0;
   const hasRight = currentIndex < length - slideCount;

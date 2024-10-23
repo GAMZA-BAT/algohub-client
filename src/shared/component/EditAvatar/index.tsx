@@ -1,6 +1,6 @@
 "use client";
-// TODO: 현재 임시 defaultImg임 (확정 아직 X)
-import defaultImg from "@/asset/img/alogohub_icon.png";
+import grayDefaultImg from "@/asset/img/gray_small_icon.png";
+import defaultImg from "@/asset/img/img_card_profile.png";
 import { IcnEditProfile } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import { iconStyle, inputStyle } from "@/shared/component/EditAvatar/index.css";
@@ -11,12 +11,14 @@ interface EditAvatarProps extends Omit<ImageProps, "src" | "alt" | "onChange"> {
   src?: string;
   alt?: string;
   onChange?: (img: string | ArrayBuffer | null) => void;
+  variant?: "default" | "secondary";
 }
 
 const EditAvatar = ({
   src = "",
   alt = "프로필 사진 수정",
   onChange,
+  variant = "default",
   ...props
 }: EditAvatarProps) => {
   const [pickedImage, setPickedImage] = useState<string | null>(src || null);
@@ -42,7 +44,12 @@ const EditAvatar = ({
   };
 
   return (
-    <Avatar src={pickedImage || defaultImg} alt={alt} size="large" {...props}>
+    <Avatar
+      src={pickedImage || variant === "default" ? defaultImg : grayDefaultImg}
+      alt={alt}
+      size="large"
+      {...props}
+    >
       <label id="edit-avatar-label" htmlFor="edit-avatar">
         <IcnEditProfile
           className={iconStyle}

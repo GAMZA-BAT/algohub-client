@@ -1,6 +1,6 @@
+import { groupSchema } from "@/api/group/schema";
 import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
-import { groupSchema } from "@/shared/api/schema";
 import GroupInfoForm from "@/shared/component/GroupInfoForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Dispatch, SetStateAction } from "react";

@@ -3,6 +3,7 @@
 import { arrow } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import Button from "@/common/component/Button";
+import { handleA11yClick } from "@/common/util/dom";
 import clsx from "clsx";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -83,7 +84,7 @@ const Section1 = () => {
           className={arrowStyle}
           role="button"
           onClick={handleClick}
-          // onKeyDown={}
+          onKeyDown={handleA11yClick(handleClick)}
           tabIndex={0}
           aria-label="다음 섹션으로 이동"
           size="10.8rem"

@@ -31,7 +31,7 @@ export const dialogStyle = style({
   right: 0,
   bottom: 0,
 
-  margin: "auto auto",
+  margin: "auto",
 
   backgroundColor: "transparent",
 
@@ -47,8 +47,15 @@ export const dialogContentStyle = style({
 export const exitStyle = style({
   zIndex: theme.zIndex.middle,
   position: "absolute",
-  top: "3.3rem",
-  right: "3.3rem",
+  top: "1.6rem",
+  right: "1.6rem",
 
+  padding: "0.9rem",
+
+  borderRadius: "4px",
   cursor: "pointer",
+
+  ":hover": {
+    background: theme.color.mg4,
+  },
 });

@@ -14,7 +14,11 @@ export const tabListStyle = recipe({
     variant: {
       primary: {},
       secondary: {
-        gap: "0.75rem",
+        gap: "1.6rem",
+        padding: 0,
+        width: "100%",
+        height: "fit-content",
+        borderBottom: `1px solid ${theme.color.mg5}`,
       },
     },
   },
@@ -31,6 +35,7 @@ export const tabStyle = recipe({
     color: theme.color.mg3,
 
     userSelect: "none",
+    cursor: "pointer",
   },
   variants: {
     variant: {
@@ -38,7 +43,7 @@ export const tabStyle = recipe({
         padding: "2.5rem 1.8rem",
       },
       secondary: {
-        padding: "1rem 0rem",
+        paddingBottom: "1.6rem",
       },
     },
     isSelected: {
@@ -65,7 +70,7 @@ export const textStyle = recipe({
 export const indicatorStyle = recipe({
   base: {
     position: "absolute",
-    bottom: 2,
+    bottom: "-1px",
     left: 0,
     right: 0,
 

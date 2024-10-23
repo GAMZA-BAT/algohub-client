@@ -1,20 +1,61 @@
-// TODO: API Response 타입으로 바꾸기
-export interface GroupJoinResponse {
+export type GroupCodeResponse = {
+  inviteCode: string;
+};
+export type GroupJoinResponse = {
   src: string;
   name: string;
   startDate: string;
   endDate: string;
   description: string;
   owner: string;
-}
+};
 
-export interface GroupInfoResponse {
+export type GroupRoleRequest = {
+  groupId: number;
+  memberId: number;
+  role: string;
+};
+
+export type GroupByCodeResponse = {
   id: number;
   name: string;
+  groupImage: string;
   startDate: string;
   endDate: string;
   introduction: string;
-  groupImage: string;
-  isOwner: boolean;
-  ownerNickname: string;
+};
+export interface GroupResponse extends GroupByCodeResponse {
+  isOwner?: boolean;
+  ownerNickname?: string;
 }
+
+export type RankingResponse = {
+  userNickname: string;
+  profileImage: string;
+  rank: number;
+  solvedCount: number;
+};
+export type RankingListRespons = RankingResponse[];
+
+export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
+
+export type GroupListItem = GroupResponse & { isBookmarked: boolean };
+export type GroupListResponse = {
+  [key in GroupStatus]: GroupListItem[];
+};
+
+export type DeleteGroupMemberRequest = {
+  userId: number;
+  groupId: number;
+};
+
+export type MemberResponse = {
+  nickname: string;
+  joinDate: string;
+  achivement: string;
+  role: string;
+  profileImage: string;
+  memberId: number;
+};
+
+export type MemberListResponse = MemberResponse[];

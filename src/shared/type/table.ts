@@ -1,4 +1,3 @@
-import type { Status } from "@/view/user/index/type";
 import type { ComponentProps, FC } from "react";
 import type TableHead from "../component/Table/TableElements/TableHead";
 
@@ -11,24 +10,4 @@ export type TableDataType<T> = {
   props?: ComponentProps<typeof TableHead>;
   align?: "left" | "right";
   width: number;
-};
-
-export type StudyListDataType = {
-  pin: boolean;
-  groupName: string;
-  startDate: Date;
-  endDate: Date;
-  role: string;
-  isPublic: boolean;
-  status: Status;
-};
-
-export type AlarmSettingsDataType = {
-  alarm: boolean;
-  groupName: string;
-  problemRegistration: boolean;
-  solutionRegistration: boolean;
-  commentRegistration: boolean;
-  newMemberAllowed: boolean;
-  endDateImminent: boolean;
 };

@@ -11,15 +11,15 @@ export const wrapper = style({
 
 export const itemStyle = style({
   position: "relative",
-
-  padding: "1.4rem 3.2rem",
-  cursor: "pointer",
 });
 
 export const btnStyle = style({
   display: "flex",
   alignItems: "center",
   gap: "1.6rem",
+
+  width: "100%",
+  padding: "1.4rem 3.2rem",
 });
 
 export const texStyle = recipe({
@@ -40,6 +40,7 @@ export const texStyle = recipe({
 
 export const barStyle = style({
   position: "absolute",
+  top: "1.2rem",
   left: 0,
   width: "0.4rem",
   height: "2.4rem",

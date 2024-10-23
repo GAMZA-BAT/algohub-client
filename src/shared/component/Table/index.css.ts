@@ -1,5 +1,4 @@
 import { theme } from "@/styles/themes.css";
-import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const headWrapper = recipe({
@@ -35,7 +34,7 @@ export const pinStyle = recipe({
     active: {
       true: {
         ["path" as string]: {
-          fill: "#6659FF",
+          fill: theme.color.purple,
         },
       },
       false: {
@@ -45,8 +44,4 @@ export const pinStyle = recipe({
       },
     },
   },
-});
-
-export const sortIconStyle = style({
-  cursor: "pointer",
 });

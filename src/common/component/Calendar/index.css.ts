@@ -19,18 +19,13 @@ export const calendarIcnStyle = recipe({
   base: {
     width: "2rem",
     height: "2rem",
-
-    ["[stroke='#9BA1B4']" as string]: {
-      stroke: theme.color.mg4,
-    },
+    color: theme.color.mg4,
   },
 
   variants: {
     selected: {
       true: {
-        ["[stroke='#9BA1B4']" as string]: {
-          stroke: theme.color.lg2,
-        },
+        color: theme.color.lg2,
       },
     },
   },
@@ -97,14 +92,14 @@ export const dateDetailStyle = style({
 globalStyle(".react-datepicker", {
   overflow: "hidden",
 
-  border: `1px solid ${theme.color.mg4}`,
+  border: "none",
   borderRadius: "0.8rem",
 });
 
 globalStyle(".react-datepicker__header", {
   display: "flex",
   flexDirection: "column",
-  gap: "2rem",
+  gap: "0.8rem",
 
   padding: "1.5rem",
 
@@ -114,12 +109,12 @@ globalStyle(".react-datepicker__header", {
 
 globalStyle(".react-datepicker__day-names", {
   display: "flex",
-  gap: "2.4rem",
+  gap: "0.4rem",
 });
 
 globalStyle(".react-datepicker__week", {
   display: "flex",
-  gap: "2.4rem",
+  gap: "0.4rem",
 });
 
 globalStyle(".react-datepicker__day-name", {
@@ -148,7 +143,7 @@ globalStyle(
 globalStyle(".react-datepicker__month", {
   display: "flex",
   flexDirection: "column",
-  gap: "2rem",
+  gap: "0.8em",
 
   margin: 0,
   padding: "0.8rem 1.5rem 2rem 1.5rem",

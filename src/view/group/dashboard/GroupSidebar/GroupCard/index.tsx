@@ -1,8 +1,9 @@
-import type { GroupInfoResponse } from "@/api/group/type";
+import type { GroupResponse } from "@/api/group/type";
 import { IcnCalenderCard } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import RoleChip from "@/view/group/dashboard/GroupSidebar/GroupCard/RoleChip";
 import {
+  calandarIconStyle,
   dateStyle,
   dateTextStyle,
   descStyle,
@@ -11,7 +12,7 @@ import {
 } from "@/view/group/dashboard/GroupSidebar/GroupCard/index.css";
 
 type GroupCardProps = {
-  info: GroupInfoResponse;
+  info: GroupResponse;
 };
 const GroupCard = ({ info }: GroupCardProps) => {
   const { groupImage, name, startDate, endDate, introduction, isOwner } = info;
@@ -21,7 +22,7 @@ const GroupCard = ({ info }: GroupCardProps) => {
       <Avatar src={groupImage} alt="Group Info Card" size="large" />
       <h1 className={nameStyle}>{name}</h1>
       <div className={dateStyle}>
-        <IcnCalenderCard width={20} height={20} />
+        <IcnCalenderCard width={20} height={20} className={calandarIconStyle} />
         <time className={dateTextStyle}>{startDate}</time>
         <p className={dateTextStyle}>~</p>
         <time className={dateTextStyle}>{endDate}</time>
