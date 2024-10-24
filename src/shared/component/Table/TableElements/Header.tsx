@@ -1,20 +1,30 @@
 import { headWrapper } from "@/shared/component/Table/index.css";
-import type { TableDataType, TableType } from "@/shared/type/table";
+import type { TableDataType } from "@/shared/type/table";
+import clsx from "clsx";
 import { memo } from "react";
 import TableHead from "./TableHead";
 import { tableHeaderStyle } from "./index.css";
 
 type HeaderProps<T> = {
   columns: TableDataType<T>[];
-  type: TableType;
+  theadClassName?: string;
+  thClassName?: string;
 };
 
-const Header = <T,>({ columns, type }: HeaderProps<T>) => {
+const Header = <T,>({
+  columns,
+  theadClassName,
+  thClassName,
+}: HeaderProps<T>) => {
   return (
-    <thead className={tableHeaderStyle({ type })}>
+    <thead className={clsx(theadClassName, tableHeaderStyle)}>
       <tr>
-        {columns.map(({ key, Header, width, align, props }) => (
-          <TableHead key={key?.toString()} {...props} width={width}>
+        {columns.map(({ key, Header, width, align }) => (
+          <TableHead
+            key={key?.toString()}
+            className={thClassName}
+            width={width}
+          >
             <div className={headWrapper({ align })}>
               <Header />
             </div>
