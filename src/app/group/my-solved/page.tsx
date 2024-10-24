@@ -1,17 +1,11 @@
-import {
-  listStyle,
-  sectionStyle,
-  titleStyle,
-} from "@/app/group/my-solved/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import type { Solution } from "@/shared/type";
 import { tmpGroupData } from "@/shared/util/example";
 import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
-import Header from "@/view/group/my-solved/Header";
-import SolvedItem from "@/view/group/my-solved/SolvedItem";
+import MySolvedSection from "@/view/group/my-solved/Section";
 
-const GroupDashboardPage = () => {
+const MySolvedPage = () => {
   const data: Solution[] = [
     {
       solutionId: 1,
@@ -37,6 +31,18 @@ const GroupDashboardPage = () => {
       codeLength: 8000,
       commentCount: 4,
     },
+    {
+      solutionId: 3,
+      solvedDateTime: "2024-11-01 18:31:00",
+      level: "ruby 1",
+      title: "이진의 뇌구조 백트래킹",
+      memoryUsage: 300,
+      executionTime: 400,
+      language: "Python",
+      result: "correct",
+      codeLength: 8000,
+      commentCount: 4,
+    },
   ];
 
   return (
@@ -44,17 +50,12 @@ const GroupDashboardPage = () => {
       <Sidebar>
         <GroupSidebar info={tmpGroupData} />
       </Sidebar>
-      <section className={sectionStyle}>
-        <h2 className={titleStyle}>진행중인 문제</h2>
-        <Header />
-        <ul className={listStyle}>
-          {data.map((item) => (
-            <SolvedItem key={item.solutionId} {...item} />
-          ))}
-        </ul>
+      <section style={{ width: "80%", marginTop: "4.8rem" }}>
+        <MySolvedSection data={data} title="진행중인 문제" />
+        <MySolvedSection data={data} title="만료된 문제" />
       </section>
     </main>
   );
 };
 
-export default GroupDashboardPage;
+export default MySolvedPage;

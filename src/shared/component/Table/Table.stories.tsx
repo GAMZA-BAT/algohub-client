@@ -2,7 +2,13 @@ import { AlarmSettingsData, StudyListData } from "@/shared/constant/example";
 import { theme } from "@/styles/themes.css";
 
 import { ALARM_SETTINGS_COLUMNS } from "@/view/user/setting/AlarmSetting/AlarmSettingTable/constant";
+import { tdStyle } from "@/view/user/setting/AlarmSetting/AlarmSettingTable/index.css";
 import { STUDY_LIST_COLUMNS } from "@/view/user/setting/StudyList/StudyListTable/constant";
+import {
+  tableCaptionStyle,
+  tableStyle,
+  theadStyle,
+} from "@/view/user/setting/StudyList/StudyListTable/index.css";
 import type { Meta } from "@storybook/react";
 import { DataTable } from ".";
 
@@ -29,9 +35,11 @@ export const StudyList = {
     return (
       <DataTable
         title="스터디 리스트"
-        type="스터디리스트"
         rows={StudyListData}
         cols={STUDY_LIST_COLUMNS}
+        tableClassName={tableStyle}
+        captionClassName={tableCaptionStyle}
+        theadClassName={theadStyle}
       />
     );
   },
@@ -41,9 +49,11 @@ export const AlarmSetting = {
   render: () => {
     return (
       <DataTable
-        type="알림설정"
         rows={AlarmSettingsData}
         cols={ALARM_SETTINGS_COLUMNS}
+        tableClassName={tableStyle}
+        theadClassName={theadStyle}
+        tdClassName={tdStyle}
       />
     );
   },

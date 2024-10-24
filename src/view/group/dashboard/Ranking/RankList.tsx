@@ -1,5 +1,5 @@
 import type { RankingResponse } from "@/api/group/type";
-import defaultImg from "@/asset/img/gray_small_icon.png";
+import defaultImg from "@/asset/img/small_logo.png";
 import {
   allNicknameStyle,
   changeStyle,

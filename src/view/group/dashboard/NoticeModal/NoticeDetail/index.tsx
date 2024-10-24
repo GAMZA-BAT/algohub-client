@@ -1,7 +1,9 @@
+import type { CommentContent } from "@/api/comment/type";
 import type { NoticeResponse } from "@/api/notice/type";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
+import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { getNoticeBannerCreateAt } from "@/shared/util/time";
@@ -15,6 +17,8 @@ import {
   iconContainerStyle,
   iconStyle,
   inputStyle,
+  itemStyle,
+  listStyle,
   noticeInfoStyle,
   textStyle,
   textareaStyle,
@@ -52,6 +56,17 @@ const NoticeDetail = ({
     // TODO: 삭제 안내 창 띄우기
     goBack();
   };
+
+  /** TODO: 실제 Comment API로 연결 */
+  const tmpData: CommentContent = {
+    commentId: 1,
+    writerNickname: "고독한 예린",
+    writerProfileImage: "",
+    createAt: "2024-10-24",
+    content:
+      "이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요?",
+  };
+
   return (
     <article
       className={articleStyle}
@@ -111,8 +126,19 @@ const NoticeDetail = ({
       </div>
 
       {/* 댓글란 */}
-      <ul>
-        <></>
+      <ul className={listStyle}>
+        {[tmpData, tmpData, tmpData, tmpData].map((item, idx) => (
+          <CommentBox
+            key={item.commentId}
+            className={idx !== 2 ? itemStyle : ""}
+            variant="notice"
+            commentId={item.commentId}
+            createdAt={item.createAt}
+            content={item.content}
+            writerNickname={item.writerNickname}
+            writerProfileImage={item.writerProfileImage}
+          />
+        ))}
       </ul>
 
       {/* 댓글 입력란 */}

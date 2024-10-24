@@ -4,9 +4,10 @@ import { IcnEdit } from "@/asset/svg";
 import CheckBox from "@/common/component/CheckBox";
 import {
   checkboxStyle,
+  commonStyle,
   editIconStyle,
+  iconStyle,
   itemStyle,
-  textStyle,
   titleStyle,
   wrongCheckBoxStyle,
 } from "@/shared/component/ProblemList/index.css";
@@ -71,18 +72,17 @@ const ProblemListItem = ({
       )}
     >
       <Icon width={25} height={32} />
-      <Link
-        className={`${titleStyle} ${textStyle}`}
-        href={`/problem/${problemId}`}
-      >
-        <span className={textStyle}>{title}</span>
+      <Link className={titleStyle} href={`/group/problem-list/${problemId}`}>
+        <span className={commonStyle}>{title}</span>
       </Link>
-      <time dateTime={endDate} className={textStyle}>
+      <time dateTime={endDate} className={commonStyle}>
         {format(endDate, "yyyy.MM.dd")}
       </time>
-      <span className={textStyle}>{`${submitMemberCount}/${memberCount}`}</span>
-      <span className={textStyle}>{accuracy}</span>
-      {JSX_BY_STATUS[status]}
+      <span
+        className={commonStyle}
+      >{`${submitMemberCount}/${memberCount}`}</span>
+      <span className={commonStyle}>{accuracy}</span>
+      <div className={iconStyle}>{JSX_BY_STATUS[status]}</div>
 
       {isOwner && (
         <IcnEdit

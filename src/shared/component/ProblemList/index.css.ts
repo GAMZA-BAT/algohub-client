@@ -1,7 +1,6 @@
 import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-
 export const itemStyle = recipe({
   base: {
     position: "relative",
@@ -27,6 +26,10 @@ export const itemStyle = recipe({
 });
 
 export const textStyle = style({
+  textAlign: "center",
+});
+
+export const commonTextStyle = style({
   ...theme.font.Caption3_M_12,
   color: theme.color.white,
 
@@ -35,10 +38,17 @@ export const textStyle = style({
   textAlign: "center",
 });
 
+export const commonStyle = style([textStyle, commonTextStyle]);
+
 export const titleStyle = style({
   textAlign: "start",
 
   whiteSpace: "nowrap",
+});
+
+export const iconStyle = style({
+  display: "flex",
+  justifyContent: "center",
 });
 
 export const wrongCheckBoxStyle = style({
@@ -59,7 +69,6 @@ export const wrongCheckBoxStyle = style({
     color: theme.color.white,
   },
 });
-
 export const checkboxStyle = style({
   width: "1.4rem",
   height: "1.4rem",
@@ -68,11 +77,9 @@ export const checkboxStyle = style({
 
   cursor: "pointer",
 });
-
 export const editIconStyle = recipe({
   base: {
     position: "absolute",
-
     top: 0,
     bottom: 0,
     right: 20,

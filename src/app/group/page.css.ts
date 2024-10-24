@@ -1,21 +1,16 @@
 import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 
-export const sectionStyle = style({
+export const listSectionStyle = style({
+  display: "flex",
+  flexDirection: "column",
   width: "80%",
-
-  padding: "4.8rem 2.4rem",
+  padding: "2.4rem 4.2rem",
 });
 
 export const titleStyle = style({
   ...theme.font.Title1_SB_16,
   color: theme.color.white,
 
-  padding: "2rem",
-});
-
-export const listStyle = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: "1rem",
+  padding: "3rem 0 2rem 0",
 });
