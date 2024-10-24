@@ -5,7 +5,7 @@ import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
 import MySolvedSection from "@/view/group/my-solved/Section";
 
-const GroupDashboardPage = () => {
+const MySolvedPage = () => {
   const data: Solution[] = [
     {
       solutionId: 1,
@@ -58,4 +58,4 @@ const GroupDashboardPage = () => {
   );
 };
 
-export default GroupDashboardPage;
+export default MySolvedPage;
