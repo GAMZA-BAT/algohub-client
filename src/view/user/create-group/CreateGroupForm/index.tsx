@@ -19,6 +19,8 @@ const CreateGroupForm = ({ setIsSuccess }: CreateGroupFormProps) => {
       image: "",
       name: "",
       desc: "",
+      startDate: new Date(),
+      endDate: new Date(),
     },
   });
 

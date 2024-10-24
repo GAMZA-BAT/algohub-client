@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 
 export const noticeModalWrapper = style({
   width: "100rem",
-  height: "60rem",
+  height: "70rem",
   padding: "3.6rem 2.4rem",
 
   backgroundColor: theme.color.bg,

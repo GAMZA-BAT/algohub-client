@@ -32,6 +32,9 @@ importers:
       jotai:
         specifier: ^2.9.3
         version: 2.9.3(@types/react@18.3.5)(react@18.3.1)
+      ky:
+        specifier: ^1.7.2
+        version: 1.7.2
       lottie-react:
         specifier: ^2.4.0
         version: 2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3316,6 +3319,10 @@ packages:
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
+
+  ky@1.7.2:
+    resolution: {integrity: sha512-OzIvbHKKDpi60TnF9t7UUVAF1B4mcqc02z5PIvrm08Wyb+yOcz63GRvEuVxNT18a9E1SrNouhB4W2NNLeD7Ykg==}
+    engines: {node: '>=18'}
 
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
@@ -8123,6 +8130,8 @@ snapshots:
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
+
+  ky@1.7.2: {}
 
   lines-and-columns@1.2.4: {}
 

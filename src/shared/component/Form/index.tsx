@@ -94,6 +94,10 @@ const FormController = <
               {...fieldProps}
               onChange={field.onChange}
               onBlur={field.onBlur}
+              {...revalidationHandlers?.(
+                form as UseFormReturn,
+                field as ControllerRenderProps,
+              )}
             />
           );
         } else {
