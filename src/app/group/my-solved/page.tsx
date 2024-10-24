@@ -50,7 +50,7 @@ const GroupDashboardPage = () => {
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <GroupSidebar info={tmpGroupData} />š
+        <GroupSidebar info={tmpGroupData} />
       </Sidebar>
       <section style={{ width: "80%", marginTop: "4.8rem" }}>
         <MySolvedSection data={data} title="진행중인 문제" />
