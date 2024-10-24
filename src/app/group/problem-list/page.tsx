@@ -1,3 +1,4 @@
+"use client";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
 import type { Problem } from "@/shared/type";
