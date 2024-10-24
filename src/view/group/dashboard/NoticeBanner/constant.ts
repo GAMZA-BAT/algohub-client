@@ -64,4 +64,13 @@ export const tmpData: NoticeListResponse = [
     noticeContent: "content",
     createAt: "2024-10-21 08:20:13",
   },
+  {
+    author: "Yerinewplant",
+    noticeId: 643,
+    noticeTitle:
+      "내일 오프라인 스터디 있습니다. 시간은 10:08입니다. 참고부탁드려요!",
+    noticeCategory: "오프라인 스터디 일정",
+    noticeContent: "content",
+    createAt: "2024-10-21 08:20:13",
+  },
 ];
