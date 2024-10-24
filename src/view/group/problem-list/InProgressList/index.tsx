@@ -1,3 +1,5 @@
+"use client";
+
 import Pagination from "@/shared/component/Pagination";
 import ProblemList from "@/shared/component/ProblemList";
 import type { Problem } from "@/shared/type";
