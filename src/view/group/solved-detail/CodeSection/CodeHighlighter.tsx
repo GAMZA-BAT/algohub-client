@@ -17,9 +17,8 @@ import "prismjs/plugins/line-numbers/prism-line-numbers";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 import { loadTheme } from "@/common/util/dom";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./code.css";
-import ContextMenu from "./ContextMenu";
 import { codeStyle } from "./index.css";
 
 type CodeHightlighterProps = {
@@ -40,11 +39,12 @@ export const languageMapper: { [key in LanguageOption]: string } = {
 };
 
 const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
-  const [theme, setTheme] = useState("twilight");
-  const [contextMenu, setContextMenu] = useState<{
-    x: number;
-    y: number;
-  } | null>(null);
+  // const [theme, setTheme] = useState("vsc-dark-plus");
+  const theme = "vsc-dark-plus";
+  // const [contextMenu, setContextMenu] = useState<{
+  //   x: number;
+  //   y: number;
+  // } | null>(null);
   const mappedLanguage = languageMapper[language];
 
   useEffect(() => {
@@ -60,23 +60,23 @@ const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
     highlight();
   }, [code]);
 
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    setContextMenu({ x: e.pageX, y: e.pageY });
-  }, []);
+  // const handleContextMenu = useCallback((e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   setContextMenu({ x: e.pageX, y: e.pageY });
+  // }, []);
 
-  const handleThemeChange = useCallback((selectedTheme: string) => {
-    setTheme(selectedTheme);
-    setContextMenu(null);
-  }, []);
+  // const handleThemeChange = useCallback((selectedTheme: string) => {
+  //   setTheme(selectedTheme);
+  //   setContextMenu(null);
+  // }, []);
 
-  const handleCloseContextMenu = useCallback(() => {
-    setContextMenu(null);
-  }, []);
+  // const handleCloseContextMenu = useCallback(() => {
+  //   setContextMenu(null);
+  // }, []);
 
   return (
     <>
-      {contextMenu && (
+      {/* {contextMenu && (
         <ContextMenu
           x={contextMenu.x}
           y={contextMenu.y}
@@ -84,10 +84,10 @@ const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
           onThemeChange={handleThemeChange}
           onClose={handleCloseContextMenu}
         />
-      )}
+      )} */}
       <pre
-        className={`line-numbers ${theme} ${codeStyle}`}
-        onContextMenu={handleContextMenu}
+        className={`line-numbers ${codeStyle}`}
+        // onContextMenu={handleContextMenu}
       >
         <code className={`language-${mappedLanguage}`}>{code}</code>
       </pre>
