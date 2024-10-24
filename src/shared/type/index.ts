@@ -1,3 +1,5 @@
+import type { SolutionLanguage } from "@/api/solution/type";
+
 export type Timeout = ReturnType<typeof setTimeout>;
 
 export interface Problem {
@@ -25,7 +27,7 @@ export interface Solution {
   result?: string;
   memoryUsage?: number;
   executionTime?: number;
-  language: LanguageOption;
+  language: SolutionLanguage;
   codeLength?: number;
   commentCount?: number;
 }
@@ -37,17 +39,6 @@ export type tier =
   | "platinum"
   | "diamond"
   | "ruby";
-
-export type LanguageOption =
-  | "C++"
-  | "C99"
-  | "C#"
-  | "C"
-  | "Python"
-  | "node.js"
-  | "Go"
-  | "Java"
-  | "Kotlin";
 
 export type Comment = {
   commentId: number;

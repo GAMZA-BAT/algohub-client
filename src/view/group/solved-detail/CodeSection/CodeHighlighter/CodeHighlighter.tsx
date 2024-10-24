@@ -1,46 +1,28 @@
 "use client";
-import type { LanguageOption } from "@/shared/type";
-// import "prism-themes/themes/prism-one-dark.css";
 import Prism from "prismjs";
 
 // 언어
 import "prismjs/components/prism-c";
-// import "prismjs/components/prism-cpp";
-// import "prismjs/components/prism-csharp";
-// import "prismjs/components/prism-go";
-// import "prismjs/components/prism-java";
-// import "prismjs/components/prism-javascript";
-// import "prismjs/components/prism-kotlin";
-// import "prismjs/components/prism-python";
+import "prismjs/components/prism-clike";
+
 // line numbers
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
-import { loadTheme } from "@/common/util/dom";
+import type { SolutionLanguage } from "@/api/solution/type";
 import { useEffect } from "react";
+import { codeStyle } from "../index.css";
 import "./code.css";
-import { codeStyle } from "./index.css";
+import "./prism-vsc-dark-plus.min.css";
+import { addCustomPatternsToAllLanguages, languageMapper } from "./rule";
 
 type CodeHightlighterProps = {
   code: string;
-  language: LanguageOption;
-};
-
-export const languageMapper: { [key in LanguageOption]: string } = {
-  "C++": "cpp",
-  C99: "c",
-  "C#": "csharp",
-  C: "c",
-  Python: "python",
-  "node.js": "javascript",
-  Go: "go",
-  Java: "java",
-  Kotlin: "kotlin",
+  language: Exclude<SolutionLanguage, "모든 언어" | "Text">;
 };
 
 const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
   // const [theme, setTheme] = useState("vsc-dark-plus");
-  const theme = "vsc-dark-plus";
   // const [contextMenu, setContextMenu] = useState<{
   //   x: number;
   //   y: number;
@@ -48,13 +30,9 @@ const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
   const mappedLanguage = languageMapper[language];
 
   useEffect(() => {
-    loadTheme(theme);
-    Prism.highlightAll();
-  }, [theme]);
-
-  useEffect(() => {
     const highlight = async () => {
-      await import(`prismjs/components/prism-${mappedLanguage}`);
+      await import(`prismjs/components/prism-${mappedLanguage}` as string);
+      addCustomPatternsToAllLanguages();
       Prism.highlightAll();
     };
     highlight();

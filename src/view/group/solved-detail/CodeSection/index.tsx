@@ -1,11 +1,11 @@
-import CodeHighlighter from "./CodeHighlighter";
-import { cpp } from "./example";
+import CodeHighlighter from "./CodeHighlighter/CodeHighlighter";
+import { java } from "./example";
 import { sectionWrapper } from "./index.css";
 
 const CodeSection = () => {
   return (
     <section className={sectionWrapper}>
-      <CodeHighlighter code={cpp} language="C++" />
+      <CodeHighlighter code={java} language="Java" />
     </section>
   );
 };

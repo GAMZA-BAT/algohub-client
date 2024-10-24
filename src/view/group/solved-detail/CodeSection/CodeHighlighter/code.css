@@ -13,6 +13,7 @@ span::before {
   word-spacing: normal !important;
   word-break: normal !important;
   word-wrap: normal !important;
+
 }
 
 .line-numbers-rows {

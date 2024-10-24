@@ -52,6 +52,11 @@ export type SolutionResponse = {
 
 export type SolutionLanguage =
   | "모든 언어"
+  | "C++"
+  | "Java"
+  | "Python"
+  | "C"
+  | "Rust"
   | "C++17"
   | "Python 3"
   | "PyPy3"
