@@ -1,5 +1,3 @@
-"use client";
-
 import Sidebar from "@/common/component/Sidebar";
 import type { Solution } from "@/shared/type";
 import { tmpGroupData } from "@/shared/util/example";

@@ -1,3 +1,5 @@
+"use client";
+
 import Pagination from "@/shared/component/Pagination";
 import type { Solution } from "@/shared/type";
 import Header from "@/view/group/my-solved/Header";
