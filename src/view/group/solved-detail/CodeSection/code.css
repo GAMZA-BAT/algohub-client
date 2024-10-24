@@ -2,11 +2,11 @@
 code,
 pre,
 span::before {
-  font-size: 13px;
+  font-size: 13px !important;
   font-family: 'D2Coding', monospace !important;
 }
 
 .line-numbers-rows {
   top: -3px !important;
-  letter-spacing: 0.5px!important;
+  letter-spacing: 0.5px !important;
 }
