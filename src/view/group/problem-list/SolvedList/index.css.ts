@@ -13,6 +13,7 @@ export const solvedListWrapper = style({
 export const headerContainer = style({
   display: "flex",
   alignItems: "center",
+  cursor: "pointer",
 });
 
 export const headerTextStyle = style({

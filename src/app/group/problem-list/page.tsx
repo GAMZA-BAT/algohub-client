@@ -1,3 +1,4 @@
+"use client";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
 import type { Problem } from "@/shared/type";
@@ -8,13 +9,8 @@ import InProgressList from "@/view/group/problem-list/InProgressList";
 import PendingList from "@/view/group/problem-list/PendingList";
 import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
 import { pageStyle, titleStyle } from "@/view/group/problem-list/index.css";
-import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
-import SolvedList from "@/view/group/problem-list/SolvedList";
-import { contentWrapper } from "@/view/group/problem-list/index.css";
-import { useState } from "react";
 
 const ProblemListPage = () => {
-  const [clicked, setClicked] = useState(false); // 임시임
   const data: Problem[] = [
     {
       problemId: 1,
@@ -56,12 +52,6 @@ const ProblemListPage = () => {
       <Sidebar>
         <ProblemSidebar />
       </Sidebar>
-      {
-        clicked ? 
-    <div className={contentWrapper}>
-      <SolvedList />
-    </div>
-    :
       <div className={pageStyle}>
         <TabGroup.Tabs variant="secondary">
           <TabGroup.TabList>
@@ -83,8 +73,6 @@ const ProblemListPage = () => {
           </TabGroup.TabPanels>
         </TabGroup.Tabs>
       </div>
-      }
-
     </main>
   );
 };
