@@ -1,3 +1,4 @@
+import type { SolutionLanguage } from "@/api/solution/type";
 import SelectBox from "@/common/component/SelectBox";
 import { SOLVED_LANGUAGE } from "@/shared/constant/solvedFilterKey";
 import type { Meta, StoryObj } from "@storybook/react";
@@ -90,7 +91,9 @@ export const Preselected: Story = {
         label="모든 언어"
         options={SOLVED_LANGUAGE}
         value={selectedOption}
-        onChange={(option: string) => setSelectedOption(option)}
+        onChange={(option: string) =>
+          setSelectedOption(option as SolutionLanguage)
+        }
       />
     );
   },
