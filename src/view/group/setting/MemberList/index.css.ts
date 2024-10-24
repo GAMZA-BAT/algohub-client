@@ -19,3 +19,25 @@ export const textStyle = style({
   color: theme.color.mg2,
   ...theme.font.Caption3_M_12,
 });
+
+export const removeBtnStyle = style([
+  textStyle,
+  {
+    padding: "0.4rem",
+    borderRadius: "4px",
+    ":hover": {
+      backgroundColor: theme.color.mg5,
+    },
+  },
+]);
+
+export const tableStyle = style({
+  width: "100%",
+});
+
+export const trStyle = style({
+  height: "4.8rem",
+  ":hover": {
+    backgroundColor: "unset",
+  },
+});

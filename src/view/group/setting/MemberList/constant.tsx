@@ -1,12 +1,11 @@
 import type { MemberResponse } from "@/api/group/type";
 import { IcnCalendarTable } from "@/asset/svg";
-import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import type { TableDataType } from "@/shared/type/table";
 import {
   useMemberListDispatch,
   useMemberListState,
 } from "@/view/group/setting/MemberList/hook";
-import { textStyle } from "@/view/group/setting/MemberList/index.css";
+import { removeBtnStyle, textStyle } from "@/view/group/setting/MemberList/index.css";
 import SortIcon from "@/view/user/setting/StudyList/SortIcon";
 
 export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
@@ -14,8 +13,7 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
     key: "nickname",
     Header: () => "ID",
     Cell: (data) => data.nickname,
-    width: 70,
-    align: "left",
+    width: 50,
   },
   {
     key: "joinDate",
@@ -35,7 +33,7 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
       );
     },
     Cell: (data) => data.joinDate,
-    width: 60,
+    width: 100,
   },
   {
     key: "achivement",
@@ -49,31 +47,31 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
           <span className={textStyle}>성취도</span>
           <SortIcon
             direction={direction}
-            onClick={() => dispatch({ type: "SET_SORT", key: "joinDate" })}
+            onClick={() => dispatch({ type: "SET_SORT", key: "achivement" })}
           />
         </>
       );
     },
     Cell: (data) => data.achivement,
-    width: 35,
+    width: 80,
   },
   {
     key: "role",
     Header: () => "역할",
     Cell: (data) => (data.role ? "스터디장" : "스터디 멤버"),
-    width: 45,
+    width: 80,
   },
   {
     key: "delete",
     Header: () => "멤버 삭제",
     Cell: (_data) => {
-      // delete(data.id);
+      // TODO: 멤버 삭제 API 넣기
       return (
-        <button role="button" onKeyDown={useA11yHoverHandler}>
+        <button className={removeBtnStyle}>
           멤버 삭제
         </button>
       );
     },
-    width: 55,
+    width: 60,
   },
 ];
