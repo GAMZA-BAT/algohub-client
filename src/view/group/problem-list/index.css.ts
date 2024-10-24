@@ -1,6 +1,11 @@
 import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 
+export const pageStyle = style({
+  padding: "4.8rem 4.1rem",
+  width: "100%",
+});
+
 export const sidebarBtnWrapperStyle = style({
   padding: "4.8rem 1.5rem",
 });

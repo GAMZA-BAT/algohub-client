@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import Link from "next/link";
 
-type PendingListItemProps = Pick<
+export type PendingListItemProps = Pick<
   Problem,
   "problemId" | "title" | "startDate" | "level"
 > & {

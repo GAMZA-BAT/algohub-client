@@ -1,13 +1,25 @@
-import PendingListItem from "@/view/group/problem-list/PendingList";
+import type { Problem } from "@/shared/type";
+import PendingListItem from "@/view/group/problem-list/PendingList/Item";
 import { listStyle } from "@/view/group/problem-list/PendingList/index.css";
-import type { PropsWithChildren } from "react";
 
-type PendingListProps = PropsWithChildren;
-
-const PendingList = ({ children }: PendingListProps) => {
-  return <ul className={listStyle}>{children}</ul>;
+type PendingListProps = {
+  data: Problem[];
 };
 
-PendingList.Item = PendingListItem;
+const PendingList = ({ data }: PendingListProps) => {
+  return (
+    <ul className={listStyle}>
+      {data.map((item) => (
+        <PendingListItem
+          key={item.problemId}
+          problemId={item.problemId}
+          title={item.title}
+          startDate={item.startDate}
+          level={item.level}
+        />
+      ))}
+    </ul>
+  );
+};
 
 export default PendingList;
