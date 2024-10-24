@@ -45,7 +45,7 @@ export const theme = createGlobalTheme(":root", {
     black: "#000000",
     transparent_mg4: "rgba(70, 79, 103, 0.2)",
     transparent_purple2_50: "rgba(163, 156, 255, 0.50)",
-    transparent_black_50: "rgba(14, 16, 20, 0.90)",
+    transparent_black_50: "rgba(0, 0, 0, 0.50)",
     gradi_card:
       "linear-gradient(271deg, rgba(14, 16, 20, 0.90) -12.2%, rgba(33, 37, 46, 0.00) 99.36%)",
     gradi_BG:

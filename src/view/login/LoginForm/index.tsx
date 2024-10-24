@@ -1,6 +1,7 @@
+"use client";
 import { Form, FormController } from "@/shared/component/Form";
-import SubmitButton from "@/view/index/SubmitButton";
-import { contentStyle, fieldStyle, formStyle } from "./index.css";
+import SubmitButton from "@/shared/component/SubmitButton";
+import { contentStyle, formStyle } from "./index.css";
 import useLoginForm from "./useLoginForm";
 
 const LoginForm = () => {
@@ -16,7 +17,6 @@ const LoginForm = () => {
             type="input"
             fieldProps={{
               placeholder: "아이디",
-              className: fieldStyle,
             }}
             showDescription
             descriptionPosition="top"
@@ -31,7 +31,7 @@ const LoginForm = () => {
             type="input"
             fieldProps={{
               placeholder: "비밀번호",
-              className: fieldStyle,
+              type: "password",
             }}
           />
         </div>

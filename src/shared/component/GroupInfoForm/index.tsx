@@ -1,3 +1,4 @@
+import type { groupSchema } from "@/api/group/schema";
 import SupportingText from "@/common/component/SupportingText";
 import { Form } from "@/shared/component/Form";
 import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";

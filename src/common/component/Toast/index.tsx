@@ -1,3 +1,5 @@
+"use client";
+
 import Portal from "@/common/component/Portal";
 import Toast from "@/common/component/Toast/Toast";
 import { containerStyle } from "@/common/component/Toast/index.css";

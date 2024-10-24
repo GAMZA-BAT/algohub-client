@@ -1,61 +1,119 @@
-import type { TierDetail } from "@/shared/type";
+import type { Problem, TierDetail } from "@/shared/type";
 import type { Meta } from "@storybook/react";
 import ProblemList from ".";
+
+const data: Problem[] = [
+  {
+    problemId: 1,
+    title: "트리에서의 동적 계획법",
+    startDate: "2024-10-10",
+    endDate: "2024-11-01",
+    level: "silver 1",
+    solved: false,
+    submitMemberCount: 50,
+    memberCount: 200,
+    accuracy: 25,
+  },
+  {
+    problemId: 2,
+    title: "트리에서의 동적 계획법",
+    startDate: "2024-10-10",
+    endDate: "2024-10-14",
+    level: "diamond 1",
+    solved: false,
+    submitMemberCount: 50,
+    memberCount: 200,
+    accuracy: 25,
+  },
+  {
+    problemId: 3,
+    title: "트리에서의 동적 계획법",
+    startDate: "2024-10-10",
+    endDate: "2024-11-01",
+    level: "gold 1",
+    solved: true,
+    submitMemberCount: 50,
+    memberCount: 200,
+    accuracy: 25,
+  },
+];
 
 const meta: Meta<typeof ProblemList> = {
   title: "Shared/ProblemList",
   component: ProblemList,
+  parameters: {
+    layout: "centered",
+  },
   tags: ["autodocs"],
-  args: {},
 } satisfies Meta<typeof ProblemList>;
 export default meta;
 
 export const Default = {
   render: () => {
-    const data = [
-      {
-        id: 1,
-        title: "트리에서의 동적 계획법",
-        date: "2024-01-01",
-        tier: "silver 1",
-        status: "solved",
-        solved: 50,
-        total: 200,
-      },
-      {
-        id: 2,
-        title: "백트래킹",
-        date: "2024-03-03",
-        tier: "bronze 5",
-        status: "unsolved",
-        solved: 50,
-        total: 200,
-      },
-      {
-        id: 3,
-        title: "깊이/너비 우선 탐색",
-        date: "2024-01-01",
-        tier: "diamond 3",
-        status: "wrong",
-        solved: 50,
-        total: 200,
-      },
-    ];
-
     return (
       <ProblemList>
-        {data.map(({ id, title, date, tier, status, solved, total }) => (
-          <ProblemList.Item
-            key={id}
-            id={id}
-            title={title}
-            date={date}
-            tier={tier as TierDetail}
-            status={status as "solved" | "wrong" | "unsolved"}
-            solved={solved}
-            total={total}
-          />
-        ))}
+        {data.map(
+          ({
+            problemId,
+            title,
+            startDate,
+            endDate,
+            level,
+            solved,
+            submitMemberCount,
+            memberCount,
+            accuracy,
+          }) => (
+            <ProblemList.Item
+              key={problemId}
+              problemId={problemId}
+              title={title}
+              startDate={startDate}
+              endDate={endDate}
+              level={level as TierDetail}
+              solved={solved}
+              memberCount={memberCount}
+              submitMemberCount={submitMemberCount}
+              accuracy={accuracy}
+            />
+          ),
+        )}
+      </ProblemList>
+    );
+  },
+};
+
+export const Owner = {
+  render: () => {
+    return (
+      <ProblemList>
+        {data.map(
+          ({
+            problemId,
+            title,
+            startDate,
+            endDate,
+            level,
+            solved,
+            submitMemberCount,
+            memberCount,
+            accuracy,
+          }) => (
+            <ProblemList.Item
+              key={problemId}
+              problemId={problemId}
+              title={title}
+              startDate={startDate}
+              endDate={endDate}
+              level={level as TierDetail}
+              solved={solved}
+              memberCount={memberCount}
+              submitMemberCount={submitMemberCount}
+              accuracy={accuracy}
+              isOwner={true}
+            />
+          ),
+        )}
       </ProblemList>
     );
   },

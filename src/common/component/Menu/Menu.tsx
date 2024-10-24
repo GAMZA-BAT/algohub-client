@@ -41,12 +41,18 @@ const Menu = ({ label, renderTriggerButton, renderList }: MenuProps) => {
         aria-controls={menuId}
         onClick={handleClick}
         onKeyDown={handleA11yClick(handleClick)}
+        tabIndex={0}
       >
         {renderTriggerButton}
       </Slot>
 
       {showMenu && (
-        <Slot id={menuId} aria-labelledby={triggerId} onClick={handleClose}>
+        <Slot
+          id={menuId}
+          aria-labelledby={triggerId}
+          onClick={handleClose}
+          onKeyDown={handleA11yClick(handleClose)}
+        >
           {renderList}
         </Slot>
       )}

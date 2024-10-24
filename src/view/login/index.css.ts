@@ -41,3 +41,8 @@ export const containerStyle = style({
     pointerEvents: "none",
   },
 });
+
+export const wrapper = style({
+  position: "fixed",
+  top: 0,
+});

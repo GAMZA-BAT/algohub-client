@@ -1,3 +1,10 @@
+import {
+  IcnCalculator,
+  IcnExit,
+  IcnPlus,
+  IcnSetting,
+  IcnSquare,
+} from "@/asset/svg";
 import NavBar from "@/shared/component/NavBar";
 import type { Metadata } from "next";
 
@@ -14,14 +21,40 @@ export default function GroupLayout({
   return (
     <main>
       <NavBar>
-        <NavBar.Item mode="fill" href="/group">
+        <NavBar.Item
+          icon={<IcnSquare width={24} height={24} />}
+          mode="fill"
+          href="/group"
+        >
           대시보드
         </NavBar.Item>
-        <NavBar.Item mode="stroke" href="/group/solved-list">
+        <NavBar.Item
+          icon={<IcnPlus width={16} height={16} />}
+          mode="stroke"
+          href="/group/solved-list"
+        >
           문제 리스트
         </NavBar.Item>
-        <NavBar.Item mode="stroke" href="/group/setting">
+        <NavBar.Item
+          icon={<IcnCalculator width={20} height={20} />}
+          mode="stroke"
+          href="/group/my-solved"
+        >
+          내가 푼 문제
+        </NavBar.Item>
+        <NavBar.Item
+          icon={<IcnSetting width={16} height={16} />}
+          mode="stroke"
+          href="/group/setting"
+        >
           스터디 관리
+        </NavBar.Item>
+        <NavBar.Item
+          icon={<IcnExit width={24} height={24} />}
+          mode="stroke"
+          href="/group/withdraw"
+        >
+          스터디 나가기
         </NavBar.Item>
       </NavBar>
       {children}
