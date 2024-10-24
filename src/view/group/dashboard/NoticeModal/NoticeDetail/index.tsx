@@ -127,7 +127,7 @@ const NoticeDetail = ({
 
       {/* 댓글란 */}
       <ul className={listStyle}>
-        {[tmpData, tmpData, tmpData].map((item, idx) => (
+        {[tmpData, tmpData, tmpData, tmpData].map((item, idx) => (
           <CommentBox
             key={item.commentId}
             className={idx !== 2 ? itemStyle : ""}
