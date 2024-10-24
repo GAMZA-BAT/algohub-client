@@ -10,6 +10,10 @@ export const registerProblemSchema = z
   })
   .refine((data) => data.endDate >= data.startDate, {
     message: "종료 일자는 시작 일자보다 나중이어야 합니다.",
+    path: ["startDate"],
+  })
+  .refine((data) => data.endDate >= data.startDate, {
+    message: "종료 일자는 시작 일자보다 나중이어야 합니다.",
     path: ["endDate"],
   })
   .refine((data) => data.link.includes("acmicpc.net/problem/"), {

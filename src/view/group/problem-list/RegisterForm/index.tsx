@@ -22,6 +22,11 @@ const RegisterForm = ({ variant = "default" }: RegisterFormProps) => {
   const form = useForm<z.infer<typeof registerProblemSchema>>({
     resolver: zodResolver(registerProblemSchema),
     mode: "onTouched",
+    defaultValues: {
+      link: "",
+      startDate: new Date(),
+      endDate: new Date(),
+    },
   });
 
   const handleSubmit = (_values: z.infer<typeof registerProblemSchema>) => {

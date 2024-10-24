@@ -1,4 +1,5 @@
 import { FormController } from "@/shared/component/Form";
+import { getMultipleRevalidationHandlers } from "@/shared/util/form";
 import {
   fieldsetStyle,
   itemStyle,
@@ -19,6 +20,7 @@ const DateFormController = ({ form }: DateFormControllerProps) => {
         form={form}
         type="date"
         name="startDate"
+        revalidationHandlers={getMultipleRevalidationHandlers("endDate")}
         showLabel
         showDescription
         labelProps={{
@@ -40,6 +42,7 @@ const DateFormController = ({ form }: DateFormControllerProps) => {
         form={form}
         type="date"
         name="endDate"
+        revalidationHandlers={getMultipleRevalidationHandlers("startDate")}
         showLabel
         labelProps={{
           children: "종료 일자",
