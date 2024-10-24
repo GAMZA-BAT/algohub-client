@@ -5,7 +5,10 @@ import {
   useMemberListDispatch,
   useMemberListState,
 } from "@/view/group/setting/MemberList/hook";
-import { removeBtnStyle, textStyle } from "@/view/group/setting/MemberList/index.css";
+import {
+  removeBtnStyle,
+  textStyle,
+} from "@/view/group/setting/MemberList/index.css";
 import SortIcon from "@/view/user/setting/StudyList/SortIcon";
 
 export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
@@ -66,11 +69,7 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
     Header: () => "멤버 삭제",
     Cell: (_data) => {
       // TODO: 멤버 삭제 API 넣기
-      return (
-        <button className={removeBtnStyle}>
-          멤버 삭제
-        </button>
-      );
+      return <button className={removeBtnStyle}>멤버 삭제</button>;
     },
     width: 60,
   },

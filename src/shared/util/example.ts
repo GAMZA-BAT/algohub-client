@@ -559,7 +559,7 @@ export const tmpMemberListData: MemberListResponse = [
   {
     nickname: "jnary",
     joinDate: "2024.09.21",
-    achivement: "100%",
+    achivement: "90%",
     role: "스터디장",
     profileImage: "",
     memberId: 0,
@@ -599,7 +599,7 @@ export const tmpMemberListData: MemberListResponse = [
   {
     nickname: "jnary",
     joinDate: "2024.09.21",
-    achivement: "100%",
+    achivement: "80%",
     role: "스터디원",
     profileImage: "",
     memberId: 5,
@@ -615,7 +615,7 @@ export const tmpMemberListData: MemberListResponse = [
   {
     nickname: "jnary",
     joinDate: "2024.09.21",
-    achivement: "100%",
+    achivement: "70%",
     role: "스터디원",
     profileImage: "",
     memberId: 7,

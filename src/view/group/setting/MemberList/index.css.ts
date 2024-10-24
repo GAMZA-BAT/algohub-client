@@ -35,6 +35,10 @@ export const tableStyle = style({
   width: "100%",
 });
 
+export const theadStyle = style({
+  height: "4rem",
+});
+
 export const trStyle = style({
   height: "4.8rem",
   ":hover": {

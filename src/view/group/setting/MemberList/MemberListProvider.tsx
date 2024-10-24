@@ -64,10 +64,10 @@ export const MemberListProvider = ({
     for (const { key, order } of state) {
       let compareResult = 0;
 
-      if (typeof a[key] === "boolean" && typeof b[key] === "boolean") {
-        compareResult = a[key] === b[key] ? 0 : a[key] ? -1 : 1;
-      } else if (typeof a[key] === "string" && typeof b[key] === "string") {
-        compareResult = a[key].localeCompare(b[key]);
+      if (key === "achivement" && key === "achivement") {
+        compareResult = +a[key].replace("%", "") - +b[key].replace("%", "");
+      } else if (key === "joinDate" && key === "joinDate") {
+        compareResult = new Date(a[key]).getTime() - new Date(b[key]).getTime();
       }
 
       if (compareResult !== 0) {
