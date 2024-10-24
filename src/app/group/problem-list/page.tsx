@@ -1,19 +1,15 @@
 "use client";
 
-import Button from "@/common/component/Button";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
 import type { Problem } from "@/shared/type";
 import { sidebarWrapper } from "@/styles/shared.css";
+import ProblemSidebar from "@/view/group/index/ProblemSidebar";
 import ExpiredList from "@/view/group/problem-list/ExpiredList";
 import InProgressList from "@/view/group/problem-list/InProgressList";
 import PendingList from "@/view/group/problem-list/PendingList";
 import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
-import {
-  pageStyle,
-  sidebarBtnWrapperStyle,
-  titleStyle,
-} from "@/view/group/problem-list/index.css";
+import { pageStyle, titleStyle } from "@/view/group/problem-list/index.css";
 
 const ProblemListPage = () => {
   const data: Problem[] = [
@@ -55,9 +51,7 @@ const ProblemListPage = () => {
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <div className={sidebarBtnWrapperStyle}>
-          <Button size="medium">문제 추가하기</Button>
-        </div>
+        <ProblemSidebar />
       </Sidebar>
       <div className={pageStyle}>
         <TabGroup.Tabs variant="secondary">

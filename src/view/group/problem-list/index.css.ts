@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 
 export const pageStyle = style({
   padding: "4.8rem 4.1rem",
-  width: "100%",
+  width: "80%",
 });
 
 export const sidebarBtnWrapperStyle = style({
