@@ -15,10 +15,3 @@ export const groupSchema = z
     message: "종료 일자는 시작 일자보다 나중이어야 합니다.",
     path: ["endDate"],
   });
-
-export const solvedFilterSchema = z.object({
-  problemId: z.string().min(1),
-  solvedId: z.string().min(1).nullable(),
-  language: z.string().min(1).nullable(),
-  result: z.string().min(1).nullable(),
-});
