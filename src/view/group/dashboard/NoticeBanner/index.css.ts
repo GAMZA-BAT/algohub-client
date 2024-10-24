@@ -31,6 +31,8 @@ export const notifyWrapper = style({
   display: "flex",
   alignItems: "center",
   gap: "0.2rem",
+
+  paddingRight: "0.8rem",
 });
 
 export const contentWrapper = style([

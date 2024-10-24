@@ -7,7 +7,6 @@ import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
 import { tmpData } from "./constant";
 import {
-  avatarStyle,
   bannerWrapper,
   contentWrapper,
   headerWrapper,
@@ -45,7 +44,7 @@ const NoticeBanner = () => {
             <IcnNotifications width={24} height={24} focusable="false" />
             <p className={textStyle.notification}>공지</p>
           </div>
-          <Avatar className={avatarStyle} alt="방장 프로필 사진" />
+          <Avatar size="mini" alt="방장 프로필 사진" />
           <h2 className={textStyle.category}>{noticeCategory}</h2>
         </header>
 
