@@ -43,3 +43,18 @@ export const dateFormWrapper = style({
 export const submitBtnStyle = style({
   marginTop: "4.1rem",
 });
+
+export const itemStyle = style({
+  paddingBottom: "1rem",
+
+  ...theme.font.Head2_SB_18,
+  color: theme.color.white,
+  textAlign: "left",
+});
+
+export const fieldsetStyle = style({
+  display: "flex",
+  gap: "2.6rem",
+
+  border: "none",
+});

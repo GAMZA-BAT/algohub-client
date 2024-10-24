@@ -1,13 +1,10 @@
 import Button from "@/common/component/Button";
-import SupportingText from "@/common/component/SupportingText";
 import { useToast } from "@/common/hook/useToast";
 import { Form } from "@/shared/component/Form";
 import DateFormController from "@/view/group/problem-list/RegisterForm/DateFormController";
 import LinkFormController from "@/view/group/problem-list/RegisterForm/LinkFormController";
 import {
-  dateFormWrapper,
   formStyle,
-  labelStyle,
   registerWrapper,
   submitBtnStyle,
   titleStyle,
@@ -39,20 +36,7 @@ const RegisterForm = ({ variant = "default" }: RegisterFormProps) => {
       <Form {...form}>
         <form className={formStyle} onSubmit={form.handleSubmit(handleSubmit)}>
           <LinkFormController form={form} />
-          <div>
-            <p className={labelStyle}>풀이 기간</p>
-            <div className={dateFormWrapper}>
-              <DateFormController form={form} dateType="startDate" />
-              <DateFormController form={form} dateType="endDate" />
-            </div>
-            {!!form.formState.errors.endDate && (
-              <SupportingText
-                isError
-                hasErrorIcon
-                message={form.formState.errors.endDate.message}
-              />
-            )}
-          </div>
+          <DateFormController form={form} />
           <Button
             type="submit"
             size="large"
