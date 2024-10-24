@@ -60,7 +60,7 @@ export const textareaWrapper = style({
 });
 
 export const textareaStyle = style({
-  height: "21.8rem",
+  height: "18rem",
 });
 
 export const inputStyle = style({
@@ -118,7 +118,7 @@ export const iconStyle = recipe({
 
 export const listStyle = style({
   width: "100%",
-  height: "13.2rem",
+  height: "15rem",
 
   overflowY: "scroll",
 
