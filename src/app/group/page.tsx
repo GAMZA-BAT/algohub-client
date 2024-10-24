@@ -5,6 +5,7 @@ import type { Problem } from "@/shared/type";
 import { tmpGroupData } from "@/shared/util/example";
 import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
+import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
 import Ranking from "@/view/group/dashboard/Ranking";
 
 const GroupDashboardPage = () => {
@@ -50,6 +51,7 @@ const GroupDashboardPage = () => {
         <GroupSidebar info={tmpGroupData} />
       </Sidebar>
       <div className={listSectionStyle}>
+        <NoticeBanner />
         <Ranking />
         <h2 className={titleStyle}>풀어야 할 문제</h2>
         <section>
