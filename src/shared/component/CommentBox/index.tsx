@@ -15,11 +15,13 @@ import {
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import type { Comment } from "@/shared/type/comment";
 import { getFormattedCreatedAt } from "@/shared/util/time";
+import clsx from "clsx";
 
 type CommentBox = Comment & {
   variant: "detail" | "notice";
   onDelete?: () => void;
   onEdit?: () => void;
+  className?: string;
 };
 
 const CommentBox = ({
@@ -31,6 +33,7 @@ const CommentBox = ({
   createdAt,
   onDelete,
   onEdit,
+  className,
 }: CommentBox) => {
   const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
     useA11yHoverHandler();
@@ -42,7 +45,7 @@ const CommentBox = ({
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseOut}
       aria-label={`코멘트 ${commentId}`}
-      className={containerStyle({ isActive })}
+      className={clsx(containerStyle({ isActive }), className)}
     >
       <Avatar
         src={writerProfileImage}
