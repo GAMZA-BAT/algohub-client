@@ -16,7 +16,12 @@ const EditForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className={formStyle}>
-        <FormController form={form} name="profile" type="image" />
+        <FormController
+          form={form}
+          name="profile"
+          type="image"
+          fieldProps={{ variant: "secondary" }}
+        />
         <Card className={editCardStyle}>
           <div className={contentStyle}>
             <FormController

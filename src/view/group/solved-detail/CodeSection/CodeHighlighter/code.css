@@ -1,0 +1,22 @@
+.token,
+code,
+pre,
+span::before {
+  margin: 0 !important;
+
+  border: 0 !important;
+
+  font-size: 13px !important;
+  font-family: 'D2Coding', monospace !important;
+  line-height: 1.5 !important;
+  white-space: pre !important;
+  word-spacing: normal !important;
+  word-break: normal !important;
+  word-wrap: normal !important;
+
+}
+
+.line-numbers-rows {
+  top: -3px !important;
+  letter-spacing: 0.5px !important;
+}

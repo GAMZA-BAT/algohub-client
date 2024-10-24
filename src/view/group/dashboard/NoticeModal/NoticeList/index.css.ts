@@ -6,8 +6,10 @@ export const ulStyle = style({
   flexDirection: "column",
   gap: "1.2rem",
 
-  height: "43.5rem",
-  padding: "6rem 2rem 0",
+  flex: 1,
+
+  padding: "0 2rem",
+  marginTop: "6rem",
 });
 
 export const liStyle = style({

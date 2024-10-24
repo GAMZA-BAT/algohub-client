@@ -50,6 +50,8 @@ export const exitStyle = style({
   top: "1.6rem",
   right: "1.6rem",
 
+  width: "2.8rem",
+  height: "2.8rem",
   padding: "0.9rem",
 
   borderRadius: "4px",

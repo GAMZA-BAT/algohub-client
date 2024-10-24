@@ -24,7 +24,7 @@ const GroupCard = ({ item, status }: GroupCardProps) => {
   const isDone = status === "done";
 
   return (
-    <Link href="">
+    <Link href="/group">
       <article className={groupCardWrapper}>
         <Image
           src={groupImage || defaultImg}

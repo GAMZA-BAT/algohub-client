@@ -38,3 +38,17 @@ export const handleA11yClick =
       onClick();
     }
   };
+
+export const loadTheme = (theme: string) => {
+  const existingLink = document.getElementById("dynamic-theme");
+
+  if (existingLink) {
+    existingLink.remove(); // 기존 테마 삭제
+  }
+
+  const link = document.createElement("link");
+  link.id = "dynamic-theme";
+  link.rel = "stylesheet";
+  link.href = `/themes/prism-${theme}.min.css`; // 테마 경로 설정
+  document.head.appendChild(link); // 새로운 테마 추가
+};

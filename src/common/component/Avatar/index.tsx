@@ -1,5 +1,4 @@
-// TODO: 현재 임시 defaultImg임 (확정 아직 X)
-import defaultImg from "@/asset/img/gray_small_icon.png";
+import defaultImg from "@/asset/img/small_logo.png";
 import { avatarStyle, wrapperStyle } from "@/common/component/Avatar/index.css";
 import clsx from "clsx";
 import Image, { type ImageProps } from "next/image";
