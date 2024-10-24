@@ -118,7 +118,7 @@ export const iconStyle = recipe({
 
 export const listStyle = style({
   width: "100%",
-  height: "21rem",
+  height: "17rem",
 
   overflowY: "scroll",
 

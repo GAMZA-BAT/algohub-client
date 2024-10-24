@@ -5,6 +5,7 @@ import { recipe } from "@vanilla-extract/recipes";
 export const selectStyle = style({
   display: "flex",
   justifyContent: "space-between",
+  alignItems: "center",
   position: "relative",
   gap: "1.6rem",
 
@@ -21,14 +22,14 @@ export const optionWrapper = recipe({
   base: {
     position: "absolute",
     zIndex: theme.zIndex.bottom,
-    top: "100%",
+    top: "calc(100% + 0.8rem)",
     left: "0",
+    right: "0",
 
     display: "flex",
     flexDirection: "column",
     gap: "0.4rem",
 
-    width: "100%",
     padding: "1.6rem 1rem",
 
     borderRadius: "8px",
@@ -54,6 +55,7 @@ export const optionWrapper = recipe({
 
 export const textStyle = recipe({
   base: {
+    whiteSpace: "nowrap",
     ...theme.font.Caption3_M_12,
   },
   variants: {

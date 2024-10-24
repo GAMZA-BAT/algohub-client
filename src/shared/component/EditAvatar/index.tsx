@@ -1,6 +1,6 @@
 "use client";
-import grayDefaultImg from "@/asset/img/gray_small_icon.png";
-import defaultImg from "@/asset/img/img_card_profile.png";
+import grayDefaultImg from "@/asset/img/img_card_profile.png";
+import defaultImg from "@/asset/img/small_logo.png";
 import { IcnEditProfile } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import { iconStyle, inputStyle } from "@/shared/component/EditAvatar/index.css";

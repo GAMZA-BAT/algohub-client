@@ -43,7 +43,9 @@ const SelectBox = ({
       ref={ref}
       {...props}
     >
-      <p className={textStyle({ isActive: !!value })}>{value || label}</p>
+      <p className={textStyle({ isActive: value !== label })}>
+        {value || label}
+      </p>
       <IcnBtnArrowDown
         width={20}
         height={20}

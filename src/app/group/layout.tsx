@@ -31,7 +31,7 @@ export default function GroupLayout({
         <NavBar.Item
           icon={<IcnPlus width={16} height={16} />}
           mode="stroke"
-          href="/group/solved-list"
+          href="/group/problem-list"
         >
           문제 리스트
         </NavBar.Item>

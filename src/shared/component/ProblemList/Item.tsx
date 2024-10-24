@@ -72,7 +72,7 @@ const ProblemListItem = ({
       )}
     >
       <Icon width={25} height={32} />
-      <Link className={titleStyle} href={`/problem/${problemId}`}>
+      <Link className={titleStyle} href={`/group/problem-list/${problemId}`}>
         <span className={commonStyle}>{title}</span>
       </Link>
       <time dateTime={endDate} className={commonStyle}>

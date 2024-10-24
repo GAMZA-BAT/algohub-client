@@ -3,17 +3,23 @@
 import type { NoticeResponse } from "@/api/notice/type";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import Modal from "@/common/component/Modal";
+import { tmpData } from "@/view/group/dashboard/NoticeBanner/constant";
+import NoticeDetail from "@/view/group/dashboard/NoticeModal/NoticeDetail";
+import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
+import {
+  noticeHeaderStyle,
+  noticeModalWrapper,
+} from "@/view/group/dashboard/NoticeModal/index.css";
 import { textStyle } from "@/view/group/dashboard/index.css";
-import { type ComponentProps, useCallback, useState } from "react";
-import { tmpData } from "../NoticeBanner/constant";
-import NoticeDetail from "./NoticeDetail";
-import NoticeList from "./NoticeList";
-import { noticeHeaderStyle, noticeModalWrapper } from "./index.css";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 
-const NoticeModal = ({ isOpen, onClose }: ComponentProps<typeof Modal>) => {
+const NoticeModal = () => {
   const [selectedNotice, setSelectedNotice] = useState<NoticeResponse | null>(
     null,
   );
+
+  const router = useRouter();
 
   const handleNoticeClick = useCallback((notice: NoticeResponse) => {
     setSelectedNotice(notice);
@@ -23,13 +29,14 @@ const NoticeModal = ({ isOpen, onClose }: ComponentProps<typeof Modal>) => {
     setSelectedNotice(null);
   }, []);
 
-  const handleClose = selectedNotice ? handleBackToList : onClose;
+  const handleClose = selectedNotice ? handleBackToList : () => router.back();
+
   const closeBtnLabel = selectedNotice
     ? "공지 리스트로 돌아가기"
     : "공지 모달 닫기";
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={true} onClose={handleClose}>
       <div className={noticeModalWrapper}>
         {/* 모달 헤더 */}
         <header className={noticeHeaderStyle}>
