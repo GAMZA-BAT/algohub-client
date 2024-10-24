@@ -1,4 +1,4 @@
-import { theme } from "@/styles/themes.css";
+import { scrollTheme, theme } from "@/styles/themes.css";
 import { style, styleVariants } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
@@ -60,7 +60,7 @@ export const textareaWrapper = style({
 });
 
 export const textareaStyle = style({
-  height: "21.8rem",
+  height: "20rem",
 });
 
 export const inputStyle = style({
@@ -114,6 +114,19 @@ export const iconStyle = recipe({
       },
     },
   },
+});
+
+export const listStyle = style({
+  width: "100%",
+  height: "21rem",
+
+  overflowY: "scroll",
+
+  ...scrollTheme.scrollbar,
+});
+
+export const itemStyle = style({
+  borderBottom: `1px solid ${theme.color.mg5}`,
 });
 
 export const textStyle = styleVariants({
