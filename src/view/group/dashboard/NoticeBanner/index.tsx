@@ -2,10 +2,9 @@
 
 import { IcnNew, IcnNotifications } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
-import { useBooleanState } from "@/common/hook/useBooleanState";
 import { getNoticeBannerCreateAt } from "@/shared/util/time";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
-import NoticeModal from "../NoticeModal";
+import { useRouter } from "next/navigation";
 import { tmpData } from "./constant";
 import {
   avatarStyle,
@@ -16,7 +15,7 @@ import {
 } from "./index.css";
 
 const NoticeBanner = () => {
-  const { isOpen, open, close } = useBooleanState();
+  const router = useRouter();
 
   // TODO: API 연결 데이터로 변경하기
   // 공지 리스트 중 가장 최근의 공지를 찾는 reduce
@@ -39,7 +38,7 @@ const NoticeBanner = () => {
         <button
           className={overlayStyle}
           aria-label="공지 모달 열기"
-          onClick={open}
+          onClick={() => router.push("/group/notice")}
         />
         <header className={headerWrapper}>
           <div className={notifyWrapper}>
@@ -58,7 +57,6 @@ const NoticeBanner = () => {
           {<IcnNew width={13} height={13} style={{ minWidth: 13 }} />}
         </div>
       </section>
-      <NoticeModal isOpen={isOpen} onClose={close} />
     </>
   );
 };
