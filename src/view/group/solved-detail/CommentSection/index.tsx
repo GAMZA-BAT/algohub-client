@@ -12,7 +12,7 @@ const CommentSection = () => {
       commentRef.current.scrollTop = commentRef.current.scrollHeight;
     }
   }, []);
-  
+
   return (
     <div className={sectionWrapper}>
       <ul className={ulStyle} ref={commentRef}>

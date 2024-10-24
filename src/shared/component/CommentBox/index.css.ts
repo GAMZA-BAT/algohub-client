@@ -7,7 +7,7 @@ export const containerStyle = recipe({
     position: "relative",
 
     display: "flex",
-    alignItems: "start",
+    alignItems: "flex-start",
     gap: "0.8rem",
 
     width: "100%",

@@ -4,6 +4,12 @@ pre,
 span::before {
   font-size: 13px !important;
   font-family: 'D2Coding', monospace !important;
+  border: 0 !important;
+  line-height: 1.5 !important;
+  white-space: pre !important;
+  word-spacing: normal !important;
+  word-break: normal !important;
+  word-wrap: normal !important;
 }
 
 .line-numbers-rows {
