@@ -1,5 +1,4 @@
 import ProblemList from "@/shared/component/ProblemList";
-import { solvedListStyle } from "@/view/group/solved-detail/index.css";
 
 const ProblemInfo = () => {
   return (
@@ -13,7 +12,6 @@ const ProblemInfo = () => {
         level="bronze 1"
         solved={true}
         memberCount={200}
-        className={solvedListStyle}
       />
     </ProblemList>
   );
