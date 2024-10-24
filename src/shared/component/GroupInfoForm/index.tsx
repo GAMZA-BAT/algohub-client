@@ -10,7 +10,6 @@ import {
   formLabelStyle,
   formStyle,
 } from "@/shared/component/GroupInfoForm/index.css";
-import type { groupSchema } from "@/shared/type/schema";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 

@@ -24,8 +24,8 @@ const RegisterForm = ({ variant = "default" }: RegisterFormProps) => {
     mode: "onTouched",
   });
 
-  const handleSubmit = (values: z.infer<typeof registerProblemSchema>) => {
-    console.log({ values });
+  const handleSubmit = (_values: z.infer<typeof registerProblemSchema>) => {
+    // console.log({ values });
     showToast("문제가 정상적으로 등록되었어요.", "success");
   };
 
