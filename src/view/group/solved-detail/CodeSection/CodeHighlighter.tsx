@@ -5,13 +5,13 @@ import Prism from "prismjs";
 
 // 언어
 import "prismjs/components/prism-c";
-import "prismjs/components/prism-cpp";
-import "prismjs/components/prism-csharp";
-import "prismjs/components/prism-go";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-kotlin";
-import "prismjs/components/prism-python";
+// import "prismjs/components/prism-cpp";
+// import "prismjs/components/prism-csharp";
+// import "prismjs/components/prism-go";
+// import "prismjs/components/prism-java";
+// import "prismjs/components/prism-javascript";
+// import "prismjs/components/prism-kotlin";
+// import "prismjs/components/prism-python";
 // line numbers
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
@@ -38,13 +38,18 @@ export const languageMapper: { [key in LanguageOption]: string } = {
 };
 
 const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
+  const mappedLanguage = languageMapper[language];
   useEffect(() => {
-    Prism.highlightAll(); // 구문 강조 적용
+    const highlight = async () => {
+      await import(`prismjs/components/prism-${mappedLanguage}` as string);
+      Prism.highlightAll();
+    };
+    highlight();
   }, [code]);
 
   return (
     <pre className={`line-numbers ${codeStyle}`}>
-      <code className={`language-${languageMapper[language]}`}>{code}</code>
+      <code className={`language-${mappedLanguage}`}>{code}</code>
     </pre>
   );
 };
