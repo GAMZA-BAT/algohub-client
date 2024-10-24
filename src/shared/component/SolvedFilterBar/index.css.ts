@@ -33,7 +33,6 @@ export const dropdownWrapper = style({
   borderRadius: "4px",
 });
 
-export const dropdownTextStyle = style({});
 export const dividerStyle = style({
   width: "1px",
   height: "27px",

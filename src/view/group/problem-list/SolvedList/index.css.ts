@@ -40,15 +40,31 @@ export const tableStyle = style({
   tableLayout: "fixed",
 });
 
+export const theadStyle = style({
+  height: "4rem",
+  verticalAlign: "top",
+});
+
+export const tbodyStyle = style({
+  gap: "0.8rem",
+});
+
 export const thTextStyle = recipe({
   base: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
     color: theme.color.mg2,
     ...theme.font.Caption3_M_12,
   },
   variants: {
     variants: {
+      "": {
+        width: "6%",
+      },
       아이디: {
-        width: "30%",
+        width: "14%",
+        textAlign: "start",
       },
       "제출 일시": {
         width: "25%",
@@ -57,16 +73,16 @@ export const thTextStyle = recipe({
         width: "10%",
       },
       시간: {
-        width: "7%",
+        width: "10%",
       },
       언어: {
-        width: "7%",
+        width: "10%",
       },
       "코드 길이": {
-        width: "8.5%",
+        width: "10%",
       },
       결과: {
-        width: "12.5%",
+        width: "15%",
       },
     },
   },
@@ -75,7 +91,6 @@ export const thTextStyle = recipe({
 export const nicknameStyle = style({
   display: "flex",
   alignItems: "center",
-  position: "relative",
 
   paddingLeft: "6.3rem",
   textAlign: "start",
@@ -83,14 +98,15 @@ export const nicknameStyle = style({
   whiteSpace: "nowrap",
 });
 
-export const avatarStyle = style({
-  position: "absolute",
-  left: 0,
-  top: 0,
-});
-
 export const tdTextStyle = style({
   ...theme.font.Caption3_M_12,
+  whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
+  overflow: "hidden",
+});
+
+export const alignLeftStyle = style({
+  textAlign: "left",
 });
 
 export const trStyle = style({

@@ -55,6 +55,7 @@ export const optionWrapper = recipe({
 
 export const textStyle = recipe({
   base: {
+    whiteSpace: "nowrap",
     ...theme.font.Caption3_M_12,
   },
   variants: {

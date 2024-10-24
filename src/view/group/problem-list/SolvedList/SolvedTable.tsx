@@ -7,12 +7,13 @@ import {
   type SolvedHeader,
 } from "@/view/group/problem-list/SolvedList/constant";
 import {
-  avatarStyle,
-  nicknameStyle,
+  alignLeftStyle,
   tableStyle,
   tableWrapper,
+  tbodyStyle,
   tdTextStyle,
   thTextStyle,
+  theadStyle,
   trStyle,
 } from "@/view/group/problem-list/SolvedList/index.css";
 
@@ -36,7 +37,7 @@ const SolvedTable = () => {
   return (
     <div className={tableWrapper}>
       <table className={tableStyle}>
-        <thead>
+        <thead className={theadStyle}>
           <tr>
             {SOLVED_TABLE_HEADER.map((header: SolvedHeader, idx) => (
               <th className={thTextStyle({ variants: header })} key={idx}>
@@ -45,25 +46,26 @@ const SolvedTable = () => {
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className={tbodyStyle}>
           {tmpSolvedListData.map((row) => (
             <tr key={row.solutionId} className={trStyle}>
               {SOLVED_TABLE_BODY.map((prop) => {
-                if (prop === "nickname") {
+                if (prop === "profileImage") {
                   return (
-                    <td key={prop} className={nicknameStyle}>
-                      <Avatar
-                        src={row.profileImage}
-                        alt="회원 프로필"
-                        size="small"
-                        className={avatarStyle}
-                      />
-                      <p className={tdTextStyle}>{row[prop]}</p>
+                    <td key={prop} className={tdTextStyle}>
+                      <Avatar src={row[prop]} alt="회원 프로필" size="small" />
                     </td>
                   );
                 }
                 return (
-                  <td key={prop} className={tdTextStyle}>
+                  <td
+                    key={prop}
+                    className={
+                      prop === "nickname"
+                        ? `${alignLeftStyle} ${tdTextStyle}`
+                        : tdTextStyle
+                    }
+                  >
                     {formatCellValue(prop, row[prop])}
                   </td>
                 );
