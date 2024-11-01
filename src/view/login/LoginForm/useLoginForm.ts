@@ -1,3 +1,4 @@
+import { loginAction } from "@/api/user/actions";
 import { useToast } from "@/common/hook/useToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -5,11 +6,12 @@ import type { z } from "zod";
 import { loginSchema, loginSchemaMessage } from "./schema";
 
 const useLoginForm = () => {
+  // const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     mode: "onTouched",
     defaultValues: {
-      id: "",
+      email: "",
       password: "",
     },
   });
@@ -19,8 +21,8 @@ const useLoginForm = () => {
   const message = isError ? loginSchemaMessage : undefined;
   const isActive = form.formState.isValid;
 
-  const handleSubmit = (_values: z.infer<typeof loginSchema>) => {
-    // console.log({ values });
+  const handleSubmit = (values: z.infer<typeof loginSchema>) => {
+    loginAction(values);
   };
   const handleClick = () => {
     if (!form.formState.isValid) showToast(loginSchemaMessage, "error");

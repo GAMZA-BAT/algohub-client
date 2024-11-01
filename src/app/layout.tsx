@@ -2,6 +2,7 @@ import Header from "@/shared/component/Header";
 import Providers from "@/shared/component/Provider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "AlgoHub",
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Header />
-        <Providers>{children}</Providers>
+        <SessionProvider>
+          <Providers>{children}</Providers>
+        </SessionProvider>
       </body>
     </html>
   );

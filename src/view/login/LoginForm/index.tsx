@@ -13,7 +13,7 @@ const LoginForm = () => {
         <div className={contentStyle}>
           <FormController
             form={form}
-            name="id"
+            name="email"
             type="input"
             fieldProps={{
               placeholder: "아이디",

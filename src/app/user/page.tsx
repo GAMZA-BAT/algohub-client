@@ -12,8 +12,21 @@ import {
   groupLabelStyle,
   userDashboardWrapper,
 } from "@/view/user/index/index.css";
+import { useSession } from "next-auth/react";
 
 const UserDashboardPage = () => {
+  const session = useSession();
+
+  // useEffect(() => {
+  //   if (session.status === "unauthenticated") {
+  //     getSession().then((s) => {
+  //       console.log("update");
+  //       session.update(s);
+  //     });
+  //   }
+  // }, [session.status]);
+
+  console.log({ session });
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
