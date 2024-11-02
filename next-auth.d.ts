@@ -1,25 +1,27 @@
-
+import type { User } from "next-auth";
 import "next-auth/jwt";
 
-type UserRole = "OWNER" | "USER";
-
+interface AdapterUser extends User {
+  id: string;
+  email: string;
+  emailVerified: Date | null;
+}
 /**
  * auth.ts에서 정의한 session과 token의 타입을 확장
  * https://authjs.dev/getting-started/typescript#module-augmentation
  */
 declare module "next-auth" {
   interface Session {
-    token: string
+    accessToken: string;
   }
   interface User {
-    token: string;
+    accessToken: string;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    role?: UserRole;
-    token: string;
+    user: User & AdapterUser;
+    accessToken: string;
   }
 }
-

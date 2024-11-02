@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import type { loginSchema } from "@/view/login/LoginForm/schema";
 import { AuthError } from "next-auth";
@@ -10,7 +10,7 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   try {
     await signIn("credentials", {
       ...values,
-      redirectTo: DEFAULT_LOGIN_REDIRECT
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
     return { success: "Successfully logged in!" };
   } catch (error) {

@@ -2,7 +2,7 @@
  * 로그인 없이 접근 가능한 경로
  * @type {string[]}
  */
-export const publicRoutes: string[] = ["/", "/login", "/signup"];
+export const publicRoutes: string[] = ["/", "/login", "/signup", "/user"];
 
 /**
  * 로그인 유저가 publicRoutes에 접근할 경우 리다이렉트 할 경로
@@ -15,4 +15,3 @@ export const DEFAULT_LOGIN_REDIRECT: string = "/user";
  * @type {string}
  */
 export const apiAuthPrefix: string = "/api";
-

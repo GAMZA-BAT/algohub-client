@@ -6,7 +6,6 @@ import type { z } from "zod";
 import { loginSchema, loginSchemaMessage } from "./schema";
 
 const useLoginForm = () => {
-  // const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     mode: "onTouched",

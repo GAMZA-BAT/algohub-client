@@ -1,4 +1,3 @@
-
 import ToastProvider from "@/common/component/Toast";
 import AuthHeader from "@/shared/component/AuthHeader";
 import Card from "@/shared/component/Card";

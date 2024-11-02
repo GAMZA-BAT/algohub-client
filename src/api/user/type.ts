@@ -3,6 +3,10 @@ export type SignInRequest = {
   password: string;
 };
 
+export type SignInResponse = {
+  token: string;
+};
+
 export type CheckEmailRequest = {
   email: string;
 };

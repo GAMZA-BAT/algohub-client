@@ -15,17 +15,7 @@ import {
 import { useSession } from "next-auth/react";
 
 const UserDashboardPage = () => {
-  const session = useSession();
-
-  // useEffect(() => {
-  //   if (session.status === "unauthenticated") {
-  //     getSession().then((s) => {
-  //       console.log("update");
-  //       session.update(s);
-  //     });
-  //   }
-  // }, [session.status]);
-
+  const session = useSession({ required: true });
   console.log({ session });
   return (
     <main className={sidebarWrapper}>
