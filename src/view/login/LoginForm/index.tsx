@@ -5,8 +5,15 @@ import { contentStyle, formStyle } from "./index.css";
 import useLoginForm from "./useLoginForm";
 
 const LoginForm = () => {
-  const { form, isError, message, isActive, handleSubmit, handleClick } =
-    useLoginForm();
+  const {
+    form,
+    isError,
+    message,
+    isActive,
+    isPending,
+    handleSubmit,
+    handleClick,
+  } = useLoginForm();
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className={formStyle}>
@@ -35,7 +42,11 @@ const LoginForm = () => {
             }}
           />
         </div>
-        <SubmitButton isActive={isActive} onClick={handleClick}>
+        <SubmitButton
+          isActive={isActive}
+          disabled={isPending}
+          onClick={handleClick}
+        >
           로그인하기
         </SubmitButton>
       </form>
