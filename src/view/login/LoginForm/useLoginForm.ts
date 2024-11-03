@@ -19,6 +19,7 @@ const useLoginForm = () => {
   const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
   const session = useSession();
+  console.log({ session });
 
   const isError = !!Object.keys(form.formState.errors).length;
   const message = isError ? loginSchemaMessage : undefined;

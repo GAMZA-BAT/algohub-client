@@ -4,7 +4,7 @@ import Dropdown, { type DropdownProps } from "@/common/component/Dropdown";
 import { handleA11yClick } from "@/common/util/dom";
 import { dropdownStyle } from "@/shared/component/Header/Profile.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Image from "next/image";
 
 const Profile = ({ ...props }: DropdownProps) => {
@@ -15,6 +15,8 @@ const Profile = ({ ...props }: DropdownProps) => {
     const error = await logoutAction(token);
     if (error) {
       console.warn({ error });
+    } else {
+      await session.update(await getSession());
     }
   };
   return (
