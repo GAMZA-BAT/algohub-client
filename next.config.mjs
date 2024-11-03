@@ -3,6 +3,7 @@ import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
 
 const nextConfig = {
+  reactStrictMode: false,
   webpack(config) {
     // SVG imports를 처리하는 기존 규칙 가져오기
     const fileLoaderRule = config.module.rules.find((rule) =>

@@ -6,12 +6,15 @@ import {
   logoStyle,
 } from "@/shared/component/Header/index.css";
 import LoginMenu from "@/view/login/LoginMenu/LoginMenu";
+import type { Session } from "next-auth";
 import Link from "next/link";
 
-const Header = () => {
-  /* TODO: 로그인 api 부착 후 Atom으로 교체 */
-  // const { isLoggedIn } = useAtomValue(authAtom);
-  const isLoggedIn = false;
+type HeaderProps = {
+  session: Session | null;
+};
+
+const Header = ({ session }: HeaderProps) => {
+  const isLoggedIn = !!session;
 
   return (
     <header className={headerStyle}>
