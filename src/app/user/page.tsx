@@ -15,7 +15,7 @@ import {
 import { useSession } from "next-auth/react";
 
 const UserDashboardPage = () => {
-  const session = useSession({ required: true });
+  const session = useSession();
   console.log({ session });
   return (
     <main className={sidebarWrapper}>
