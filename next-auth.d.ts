@@ -11,9 +11,6 @@ interface AdapterUser extends User {
  * https://authjs.dev/getting-started/typescript#module-augmentation
  */
 declare module "next-auth" {
-  interface Session {
-    accessToken: string;
-  }
   interface User {
     accessToken: string;
   }

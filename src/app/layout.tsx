@@ -23,12 +23,12 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Header session={session} />
-        <QueryProvider>
-          <SessionProvider session={session}>
+        <SessionProvider session={session}>
+          <Header session={session} />
+          <QueryProvider>
             <Providers>{children}</Providers>
-          </SessionProvider>
-        </QueryProvider>
+          </QueryProvider>
+        </SessionProvider>
       </body>
     </html>
   );

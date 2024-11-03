@@ -1,10 +1,12 @@
 "use server";
 
+import { signIn, signOut } from "@/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import type { loginSchema } from "@/view/login/LoginForm/schema";
 import { AuthError } from "next-auth";
+import { isRedirectError } from "next/dist/client/components/redirect";
 import type { z } from "zod";
-import { signIn } from "../../auth";
-import { DEFAULT_LOGIN_REDIRECT } from "../../routes";
+import { deleteSignOut } from "./signOut";
 
 export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   try {
@@ -26,5 +28,20 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
     }
 
     throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
+  }
+};
+
+export const logoutAction = async (accessToken: string) => {
+  try {
+    await deleteSignOut(accessToken);
+    await signOut({
+      redirectTo: "/login",
+    });
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
+    }
+    console.warn(error);
+    return { error: "Failed to log out. Please try again later." };
   }
 };
