@@ -5,7 +5,8 @@ import {
   useCommentMutataion,
   useDeleteCommentMutation,
 } from "@/view/group/solved-detail/CommentSection/hook";
-import { useEffect, useRef, useState } from "react";
+import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
 
 type CommentSectionProps = {
@@ -20,7 +21,9 @@ const CommentSection = ({ solutionId, comments }: CommentSectionProps) => {
   const { mutate: commentMutate } = useCommentMutataion(+solutionId);
   const { mutate: deleteMutate } = useDeleteCommentMutation(+solutionId);
 
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (!comment) return;
 
     commentMutate(comment);
@@ -32,31 +35,32 @@ const CommentSection = ({ solutionId, comments }: CommentSectionProps) => {
     if (commentRef.current) {
       commentRef.current.scrollTop = commentRef.current.scrollHeight;
     }
-  }, []);
+  }, [comments]);
 
   return (
     <div className={sectionWrapper}>
       <ul className={ulStyle} ref={commentRef}>
-        {comments
-          .sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
-          .map((item) => (
-            <CommentBox
-              key={item.commentId}
-              variant="detail"
-              onDelete={() => deleteMutate(item.commentId)}
-              onEdit={() => {}}
-              {...item}
-            />
-          ))}
+        <CommentsProvider>
+          {comments
+            .sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
+            .map((item) => (
+              <CommentBox
+                key={item.commentId}
+                variant="detail"
+                onDelete={() => deleteMutate(item.commentId)}
+                onEdit={() => {}}
+                {...item}
+              />
+            ))}
+        </CommentsProvider>
       </ul>
-      <div className={commentInputStyle}>
+      <form onSubmit={handleCommentSubmit} className={commentInputStyle}>
         <CommentInput
           name="comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          onSend={handleCommentSubmit}
         />
-      </div>
+      </form>
     </div>
   );
 };

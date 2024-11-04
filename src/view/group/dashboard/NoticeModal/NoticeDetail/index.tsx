@@ -7,6 +7,7 @@ import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { getNoticeBannerCreateAt } from "@/shared/util/time";
+import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
 import { useRef, useState } from "react";
 import {
   articleStyle,
@@ -127,18 +128,20 @@ const NoticeDetail = ({
 
       {/* 댓글란 */}
       <ul className={listStyle}>
-        {[tmpData, tmpData, tmpData, tmpData].map((item, idx) => (
-          <CommentBox
-            key={item.commentId}
-            className={idx !== 2 ? itemStyle : ""}
-            variant="notice"
-            commentId={item.commentId}
-            createdAt={item.createAt}
-            content={item.content}
-            writerNickname={item.writerNickname}
-            writerProfileImage={item.writerProfileImage}
-          />
-        ))}
+        <CommentsProvider>
+          {[tmpData, tmpData, tmpData, tmpData].map((item, idx) => (
+            <CommentBox
+              key={item.commentId}
+              className={idx !== 2 ? itemStyle : ""}
+              variant="notice"
+              commentId={item.commentId}
+              createdAt={item.createAt}
+              content={item.content}
+              writerNickname={item.writerNickname}
+              writerProfileImage={item.writerProfileImage}
+            />
+          ))}
+        </CommentsProvider>
       </ul>
 
       {/* 댓글 입력란 */}

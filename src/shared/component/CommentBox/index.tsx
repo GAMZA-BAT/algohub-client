@@ -2,11 +2,13 @@
 
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
+import Input from "@/common/component/Input";
 import {
   containerStyle,
   contentStyle,
   contentWrapperStyle,
   createdAtStyle,
+  editInputStyle,
   iconContainerStyle,
   iconStyle,
   topContentStyle,
@@ -15,7 +17,11 @@ import {
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import type { Comment } from "@/shared/type/comment";
 import { getFormattedCreatedAt } from "@/shared/util/time";
+import { CommentsContext } from "@/view/group/solved-detail/CommentSection/provider";
 import clsx from "clsx";
+import { type KeyboardEvent, useContext } from "react";
+import { flushSync } from "react-dom";
+import { Controller, useForm } from "react-hook-form";
 
 type CommentBox = Comment & {
   variant: "detail" | "notice";
@@ -38,6 +44,27 @@ const CommentBox = ({
   const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
     useA11yHoverHandler();
 
+  const { editingItem, handleEditItem, handleReset } =
+    useContext(CommentsContext);
+
+  const { setFocus, control } = useForm();
+
+  const handleEditClick = () => {
+    flushSync(() => {
+      handleEditItem(commentId);
+    });
+
+    setFocus("edit");
+  };
+
+  const handleEscClick = (e: KeyboardEvent) => {
+    e.stopPropagation();
+
+    if (e.key === "Escape") {
+      handleReset();
+    }
+  };
+
   return (
     <li
       onFocus={handleFocus}
@@ -57,29 +84,46 @@ const CommentBox = ({
           <p className={writerStyle}>{writerNickname}</p>
           <p className={createdAtStyle}>{getFormattedCreatedAt(createdAt)}</p>
         </div>
-        <p className={contentStyle}>{content}</p>
+        {editingItem === commentId ? (
+          <Controller
+            control={control}
+            name="edit"
+            render={({ field }) => (
+              <Input
+                className={editInputStyle}
+                onKeyDown={handleEscClick}
+                {...field}
+              />
+            )}
+            defaultValue={content}
+          />
+        ) : (
+          <p className={contentStyle}>{content}</p>
+        )}
       </div>
 
       <div className={iconContainerStyle}>
         <div
           role="button"
           tabIndex={0}
+          onClick={handleEditClick}
           onKeyDown={(e) => {
             if (e.key === "Enter") onEdit?.();
           }}
           className={iconStyle({ variant: "edit", isActive })}
         >
-          <IcnEdit onClick={onEdit} width={18} height={18} />
+          <IcnEdit width={18} height={18} />
         </div>
         <div
           role="button"
           tabIndex={0}
+          onClick={onDelete}
           onKeyDown={(e) => {
             if (e.key === "Enter") onDelete?.();
           }}
           className={iconStyle({ variant: "close", isActive })}
         >
-          <IcnClose onClick={onDelete} width={16} height={16} />
+          <IcnClose width={16} height={16} />
         </div>
       </div>
     </li>

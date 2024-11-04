@@ -45,6 +45,7 @@ export const contentWrapperStyle = recipe({
   base: {
     display: "flex",
     flexDirection: "column",
+    width: "100%",
   },
   variants: {
     variant: {
@@ -110,4 +111,8 @@ export const iconStyle = recipe({
       },
     },
   },
+});
+
+export const editInputStyle = style({
+  width: "80%",
 });
