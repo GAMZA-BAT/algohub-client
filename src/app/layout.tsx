@@ -1,5 +1,6 @@
+import Providers from "@/app/provider";
 import Header from "@/shared/component/Header";
-import Providers from "@/shared/component/Provider";
+import StoreProviders from "@/shared/component/Provider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
 
@@ -19,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Header />
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          <StoreProviders>{children}</StoreProviders>
+        </Providers>
       </body>
     </html>
   );
