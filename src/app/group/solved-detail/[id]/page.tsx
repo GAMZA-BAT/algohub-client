@@ -34,7 +34,7 @@ const page = ({ params }: { params: { id: string } }) => {
         </header>
         <div className={modalContainer}>
           <CodeSection />
-          <CommentSection comments={comments} />
+          <CommentSection solutionId={params.id} comments={comments} />
         </div>
       </div>
     </Modal>

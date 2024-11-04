@@ -1,5 +1,7 @@
 "use client";
 
+import ToastProvider from "@/common/component/Toast";
+import JotaiProvider from "@/shared/component/Provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 
@@ -17,7 +19,12 @@ const Providers = ({ children }: ProvidersProps) => {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <JotaiProvider>
+        {children}
+        <ToastProvider />
+      </JotaiProvider>
+    </QueryClientProvider>
   );
 };
 

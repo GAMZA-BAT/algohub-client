@@ -1,6 +1,5 @@
 import Providers from "@/app/provider";
 import Header from "@/shared/component/Header";
-import StoreProviders from "@/shared/component/Provider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
 
@@ -22,7 +21,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Header />
-          <StoreProviders>{children}</StoreProviders>
+          {children}
         </Providers>
       </body>
     </html>
