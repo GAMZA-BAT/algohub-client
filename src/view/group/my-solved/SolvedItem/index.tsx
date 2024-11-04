@@ -1,3 +1,5 @@
+"use client";
+
 import { IcnMessage, IcnMessageDot } from "@/asset/svg";
 import type { Solution } from "@/shared/type";
 import { getFormattedMemory } from "@/shared/util/byte";
@@ -8,6 +10,7 @@ import {
   textStyle,
 } from "@/view/group/my-solved/SolvedItem/index.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SolvedItem = ({
   solutionId,
@@ -23,8 +26,22 @@ const SolvedItem = ({
 }: Solution) => {
   const LevelIcon = getTierImage(level);
 
+  const router = useRouter();
+
+  const handleClickItem = () => {
+    router.push(`/group/problem-list/${solutionId}`);
+  };
+
   return (
-    <li aria-label={`${level}: ${solutionId}`} className={itemStyle}>
+    <li
+      // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole:
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && handleClickItem()}
+      onClick={handleClickItem}
+      aria-label={`${level}: ${solutionId}`}
+      className={itemStyle}
+    >
       <LevelIcon width={25} height={32} />
       <Link className={textStyle} href={`/problem/${solutionId}`}>
         {title}
