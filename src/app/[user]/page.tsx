@@ -13,12 +13,13 @@ import {
   userDashboardWrapper,
 } from "@/view/user/index/index.css";
 
-const UserDashboardPage = () => {
+const UserDashboardPage = ({ params }: { params: { user: string } }) => {
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
         <div className={userCardWrapper}>
           <UserCard />
+          {params.user}
         </div>
       </Sidebar>
       <div className={userDashboardWrapper}>

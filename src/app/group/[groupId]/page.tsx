@@ -1,4 +1,4 @@
-import { listSectionStyle, titleStyle } from "@/app/group/page.css";
+import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";
 import type { Problem } from "@/shared/type";
@@ -8,7 +8,7 @@ import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
 import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
 import Ranking from "@/view/group/dashboard/Ranking";
 
-const GroupDashboardPage = () => {
+const GroupDashboardPage = ({ params }: { params: { groupId: string } }) => {
   const data: Problem[] = [
     {
       problemId: 1,
@@ -49,6 +49,7 @@ const GroupDashboardPage = () => {
     <main className={sidebarWrapper}>
       <Sidebar>
         <GroupSidebar info={tmpGroupData} />
+        {params.groupId}
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
