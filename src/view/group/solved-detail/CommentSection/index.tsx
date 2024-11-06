@@ -40,15 +40,14 @@ const CommentSection = ({ solutionId, comments }: CommentSectionProps) => {
   return (
     <div className={sectionWrapper}>
       <ul className={ulStyle} ref={commentRef}>
-        <CommentsProvider>
+        <CommentsProvider solutionId={+solutionId}>
           {comments
             .sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
             .map((item) => (
               <CommentBox
                 key={item.commentId}
                 variant="detail"
-                onDelete={() => deleteMutate(item.commentId)}
-                onEdit={() => {}}
+                onDelete={deleteMutate}
                 {...item}
               />
             ))}

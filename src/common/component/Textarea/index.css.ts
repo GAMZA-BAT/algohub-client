@@ -1,4 +1,4 @@
-import { theme } from "@/styles/themes.css";
+import { scrollTheme, theme } from "@/styles/themes.css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const textareaStyle = recipe({
@@ -10,7 +10,7 @@ export const textareaStyle = recipe({
 
     width: "100%",
     height: "7.4rem",
-    padding: "1rem 1.6rem",
+    padding: "0.8rem",
     border: "1px solid transparent",
     borderRadius: "5px",
     outline: "none",
@@ -26,6 +26,8 @@ export const textareaStyle = recipe({
     "::placeholder": {
       color: theme.color.mg4,
     },
+
+    ...scrollTheme.scrollbar,
   },
 
   variants: {

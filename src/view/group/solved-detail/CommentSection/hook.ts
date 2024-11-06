@@ -1,4 +1,5 @@
-import { deleteComment, postCommentInput } from "@/api/comment";
+import { deleteComment, editComment, postCommentInput } from "@/api/comment";
+import type { EditCommentRequest } from "@/api/comment/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -30,6 +31,8 @@ export const useDeleteCommentMutation = (solutionId: number) => {
   return useMutation({
     mutationFn: (commentId: number) => deleteComment(commentId),
     onSuccess: () => {
+      queryClient.cancelQueries({ queryKey: ["comment", solutionId] });
+
       queryClient.invalidateQueries({
         queryKey: ["comment", solutionId],
       });
@@ -41,6 +44,30 @@ export const useDeleteCommentMutation = (solutionId: number) => {
 
       if (status === HTTP_ERROR_STATUS.FORBIDDEN) {
         showToast("댓글 삭제에 대한 권한이 없습니다.", "error");
+      }
+    },
+  });
+};
+
+export const useEditCommentMutation = (solutionId: number) => {
+  const queryClient = useQueryClient();
+
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (requestData: EditCommentRequest) => editComment(requestData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["comment", solutionId],
+      });
+    },
+    onError: (error: HTTPError) => {
+      if (!error.response) return;
+
+      const { status } = error.response;
+
+      if (status === HTTP_ERROR_STATUS.BAD_REQUEST) {
+        showToast("댓글 작성자가 아닙니다", "error");
       }
     },
   });
