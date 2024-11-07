@@ -1,7 +1,9 @@
+"use client";
+
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
-import type { Comment } from "@/shared/type";
 import {
+  useCommentListQuery,
   useCommentMutataion,
   useDeleteCommentMutation,
 } from "@/view/group/solved-detail/CommentSection/hook";
@@ -10,23 +12,23 @@ import { type FormEvent, useEffect, useRef, useState } from "react";
 import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
 
 type CommentSectionProps = {
-  comments: Comment[];
   solutionId: string;
 };
 
-const CommentSection = ({ solutionId, comments }: CommentSectionProps) => {
+const CommentSection = ({ solutionId }: CommentSectionProps) => {
   const commentRef = useRef<HTMLUListElement>(null);
   const [comment, setComment] = useState("");
 
-  const { mutate: commentMutate } = useCommentMutataion(+solutionId);
+  const { mutate: commentAction } = useCommentMutataion(+solutionId);
   const { mutate: deleteMutate } = useDeleteCommentMutation(+solutionId);
+  const { data: comments } = useCommentListQuery(+solutionId);
 
   const handleCommentSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!comment) return;
 
-    commentMutate(comment);
+    commentAction(comment);
 
     setComment("");
   };
@@ -42,7 +44,7 @@ const CommentSection = ({ solutionId, comments }: CommentSectionProps) => {
       <ul className={ulStyle} ref={commentRef}>
         <CommentsProvider solutionId={+solutionId}>
           {comments
-            .sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
+            ?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
             .map((item) => (
               <CommentBox
                 key={item.commentId}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useCommentListQuery } from "@/app/group/solved-detail/[id]/hook";
 import Modal from "@/common/component/Modal";
 import ProblemList from "@/shared/component/ProblemList";
 import CodeSection from "@/view/group/solved-detail/CodeSection";
@@ -13,8 +12,6 @@ import {
 import { useRouter } from "next/navigation";
 
 const page = ({ params }: { params: { id: string } }) => {
-  const { data: comments } = useCommentListQuery(+params.id);
-
   const router = useRouter();
 
   return (
@@ -34,7 +31,7 @@ const page = ({ params }: { params: { id: string } }) => {
         </header>
         <div className={modalContainer}>
           <CodeSection />
-          <CommentSection solutionId={params.id} comments={comments} />
+          <CommentSection solutionId={params.id} />
         </div>
       </div>
     </Modal>

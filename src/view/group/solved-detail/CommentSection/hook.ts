@@ -1,9 +1,17 @@
-import { deleteComment, editComment, postCommentInput } from "@/api/comment";
+import { deleteComment, editComment, getCommentList } from "@/api/comment";
 import type { EditCommentRequest } from "@/api/comment/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { commentAction } from "@/view/group/solved-detail/CommentSection/actions";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
+
+export const useCommentListQuery = (solutionId: number) => {
+  return useQuery({
+    queryKey: ["comment", solutionId],
+    queryFn: () => getCommentList(solutionId),
+  });
+};
 
 export const useCommentMutataion = (solutionId: number) => {
   const queryClient = useQueryClient();
@@ -11,7 +19,7 @@ export const useCommentMutataion = (solutionId: number) => {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (content: string) => postCommentInput({ solutionId, content }),
+    mutationFn: (content: string) => commentAction({ solutionId, content }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["comment", solutionId],
@@ -31,8 +39,6 @@ export const useDeleteCommentMutation = (solutionId: number) => {
   return useMutation({
     mutationFn: (commentId: number) => deleteComment(commentId),
     onSuccess: () => {
-      queryClient.cancelQueries({ queryKey: ["comment", solutionId] });
-
       queryClient.invalidateQueries({
         queryKey: ["comment", solutionId],
       });
