@@ -35,6 +35,7 @@ const getQueryClient = () => {
   if (!browserQueryClient) {
     /**
      * 클라이언트에서는 없다면 만들고, 있으면 그대로 반환
+     * 하위에 Suspense 경계가 없다면 데이터가 보류되는 동안, 리액트는 데이터가 없다고 판단하여 계속하여 인스턴스를 생성할 가능성이 있기 때문
      */
 
     browserQueryClient = createQueryClient();
