@@ -1,11 +1,21 @@
+"use client";
+
+import type { SolutionLanguage } from "@/api/solution/type";
 import CodeHighlighter from "./CodeHighlighter/CodeHighlighter";
-import { java } from "./example";
 import { sectionWrapper } from "./index.css";
 
-const CodeSection = () => {
+type CodeSectionProps = {
+  code: string;
+  language: string;
+};
+
+const CodeSection = ({ code, language }: CodeSectionProps) => {
   return (
     <section className={sectionWrapper}>
-      <CodeHighlighter code={java} language="Java" />
+      <CodeHighlighter
+        code={code}
+        language={language as Exclude<SolutionLanguage, "모든 언어" | "Text">}
+      />
     </section>
   );
 };
