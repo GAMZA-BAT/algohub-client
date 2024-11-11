@@ -1,7 +1,12 @@
+const BrowserProvider = dynamic(() => import("@/app/browserProvider"), {
+  ssr: false,
+});
+
 import Header from "@/shared/component/Header";
 import Providers from "@/shared/component/Provider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
   title: "AlgoHub",
@@ -19,8 +24,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Header />
-        <Providers>{children}</Providers>
+        <BrowserProvider>
+          <Header />
+          <Providers>{children}</Providers>
+        </BrowserProvider>
       </body>
     </html>
   );

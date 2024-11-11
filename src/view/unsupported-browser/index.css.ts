@@ -89,7 +89,7 @@ export const iconWrapperStyle = style({
 export const updateSectionBottomStyle = style({
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "end",
+  alignItems: "flex-end",
 });
 
 export const updateTextStyle = style({
