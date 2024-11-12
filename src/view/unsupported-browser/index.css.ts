@@ -34,7 +34,7 @@ export const subSectionStyle = style({
   justifyContent: "space-between",
 
   width: "100%",
-  height: "19.3rem",
+  minHeight: "19.3rem",
 
   padding: "3.2rem 4.8rem",
 
@@ -84,6 +84,8 @@ export const iconWrapperStyle = style({
 
   borderRadius: "7px",
   backgroundColor: theme.color.wg,
+
+  cursor: "pointer",
 });
 
 export const updateSectionBottomStyle = style({

@@ -54,7 +54,8 @@ const UnSupportedBrowser = () => {
             <ol>
               <li className={browserItemStyle}>1. 서비스가 종료된 브라우저</li>
               <li className={browserItemStyle}>
-                2. 업데이트 후 2.5년이 지난 브라우저
+                2. 크롬 105 미만 버전, 사파리 16.0 미만 버전, Edge 105 미만
+                버전, Firefox 110 미만 버전
               </li>
               <li className={browserItemStyle}>
                 3. 전 세계 0.3% 미만의 점유율에 속한 브라우저
@@ -70,18 +71,38 @@ const UnSupportedBrowser = () => {
                 <IcnBtnArrowRight width={24} height={24} />
               </p>
               <div style={{ display: "flex", gap: "1.4rem" }}>
-                <div className={iconWrapperStyle}>
+                <a
+                  href="https://www.google.com/chrome/update"
+                  target="_blank"
+                  className={iconWrapperStyle}
+                  rel="noreferrer"
+                >
                   <IcnChrome width={28} height={28} />
-                </div>
-                <div className={iconWrapperStyle}>
+                </a>
+                <a
+                  href="https://support.apple.com/en-us/102665"
+                  target="_blank"
+                  className={iconWrapperStyle}
+                  rel="noreferrer"
+                >
                   <IcnSafari width={28} height={28} />
-                </div>
-                <div className={iconWrapperStyle}>
+                </a>
+                <a
+                  href="https://support.microsoft.com/en-au/topic/microsoft-edge-update-settings-af8aaca2-1b69-4870-94fe-18822dbb7ef1"
+                  target="_blank"
+                  className={iconWrapperStyle}
+                  rel="noreferrer"
+                >
                   <IcnEdge width={28} height={28} />
-                </div>
-                <div className={iconWrapperStyle}>
+                </a>
+                <a
+                  href="https://support.mozilla.org/en-US/kb/update-firefox-latest-release"
+                  target="_blank"
+                  className={iconWrapperStyle}
+                  rel="noreferrer"
+                >
                   <IcnFirefox width={28} height={28} />
-                </div>
+                </a>
               </div>
             </div>
           </section>
