@@ -10,7 +10,7 @@ export const createGroup = async (formData: z.infer<typeof groupSchema>) => {
     name: formData.name,
     startDate: formData.startDate.toISOString().slice(0, 10),
     endDate: formData.endDate.toISOString().slice(0, 10),
-    desc: formData.desc,
+    introduction: formData.introduction,
   };
 
   const validateForm = groupSchema.safeParse(data);
