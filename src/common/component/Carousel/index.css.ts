@@ -73,7 +73,6 @@ export const sliderWrapperStyle = style({
   bottom: 0,
 
   display: "flex",
-  justifyContent: "space-between",
   gap: "2rem",
 
   width: "100%",

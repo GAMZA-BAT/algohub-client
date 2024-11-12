@@ -39,7 +39,7 @@ export type RankingListRespons = RankingResponse[];
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
-export type GroupListItem = GroupResponse & { isBookmarked: boolean };
+export type GroupListItem = GroupResponse & { isBookmarked?: boolean };
 export type GroupListResponse = {
   [key in GroupStatus]: GroupListItem[];
 };
