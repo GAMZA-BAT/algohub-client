@@ -20,6 +20,8 @@ export const createGroup = async (formData: z.infer<typeof groupSchema>) => {
   try {
     const response = await postCreateGroup(formData);
 
+    /** TODO: group list 조회 무효화 후 최신화 */
+
     return response;
   } catch {
     throw new Error("fail to create group error");
