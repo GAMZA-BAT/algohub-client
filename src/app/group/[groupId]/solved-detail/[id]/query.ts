@@ -1,10 +1,20 @@
+import { getSolution } from "@/api/solution";
+import { useSuspenseQuery } from "@tanstack/react-query";
+
 import { deleteComment, editComment, getCommentList } from "@/api/comment";
 import type { EditCommentRequest } from "@/api/comment/type";
+import { commentAction } from "@/app/group/[groupId]/solved-detail/[id]/action";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
-import { commentAction } from "@/view/group/solved-detail/CommentSection/actions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
+
+export const useSolutionQuery = (solutionId: number) => {
+  return useSuspenseQuery({
+    queryKey: ["solution", solutionId],
+    queryFn: () => getSolution(solutionId),
+  });
+};
 
 export const useCommentListQuery = (solutionId: number) => {
   return useQuery({

@@ -1,13 +1,13 @@
 "use client";
 
-import CommentBox from "@/shared/component/CommentBox";
-import CommentInput from "@/shared/component/CommentInput";
-import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
 import {
   useCommentListQuery,
   useCommentMutataion,
   useDeleteCommentMutation,
-} from "@/view/group/solved-detail/CommentSection/queries";
+} from "@/app/group/[groupId]/solved-detail/[id]/query";
+import CommentBox from "@/shared/component/CommentBox";
+import CommentInput from "@/shared/component/CommentInput";
+import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
 

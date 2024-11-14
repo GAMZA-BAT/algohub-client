@@ -1,6 +1,7 @@
 "use client";
 
 import type { EditCommentRequest } from "@/api/comment/type";
+import { useEditCommentMutation } from "@/app/group/[groupId]/solved-detail/[id]/query";
 import { IcnBtnSend, IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -19,7 +20,6 @@ import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import type { Comment } from "@/shared/type/comment";
 import { getFormattedCreatedAt } from "@/shared/util/time";
 import { CommentsContext } from "@/view/group/solved-detail/CommentSection/provider";
-import { useEditCommentMutation } from "@/view/group/solved-detail/CommentSection/queries";
 import clsx from "clsx";
 import { type KeyboardEvent, useContext } from "react";
 import { flushSync } from "react-dom";
