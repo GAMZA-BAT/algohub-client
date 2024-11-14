@@ -35,7 +35,6 @@ export type RankingResponse = {
   rank: number;
   solvedCount: number;
 };
-export type RankingListRespons = RankingResponse[];
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
