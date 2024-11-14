@@ -24,20 +24,13 @@ const createQueryClient = () => {
   });
 };
 
-/** 클라이언트에서 동작할 쿼리 클라이언트 */
 let browserQueryClient: QueryClient | undefined = undefined;
 
 const getQueryClient = () => {
   if (isServer) {
-    /** 서버에서는 항상 클라이언트를 새로 생성. 매 요청마다 새로운 인스턴스를 생성하여 각 사용자가 독립된 데이터를 볼 수 있도록 함 */
     return createQueryClient();
   }
   if (!browserQueryClient) {
-    /**
-     * 클라이언트에서는 없다면 만들고, 있으면 그대로 반환
-     * 하위에 Suspense 경계가 없다면 데이터가 보류되는 동안, 리액트는 데이터가 없다고 판단하여 계속하여 인스턴스를 생성할 가능성이 있기 때문
-     */
-
     browserQueryClient = createQueryClient();
   }
 
