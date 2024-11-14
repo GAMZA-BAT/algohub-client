@@ -5,7 +5,9 @@ import ProblemSidebar from "@/view/group/index/ProblemSidebar";
 import SolvedList from "@/view/group/problem-list/SolvedList";
 import { contentWrapper } from "@/view/group/problem-list/index.css";
 
-const SolvedListPage = async ({ params }: { params: { id: string } }) => {
+const SolvedListPage = async ({
+  params,
+}: { params: { groupId: string; id: string } }) => {
   const data = await getSolutionList({ problemId: +params.id });
 
   return (
@@ -14,7 +16,11 @@ const SolvedListPage = async ({ params }: { params: { id: string } }) => {
         <ProblemSidebar />
       </Sidebar>
       <div className={contentWrapper}>
-        <SolvedList content={data.content} problemId={params.id} />
+        <SolvedList
+          content={data.content}
+          problemId={params.id}
+          groupId={params.groupId}
+        />
       </div>
     </main>
   );

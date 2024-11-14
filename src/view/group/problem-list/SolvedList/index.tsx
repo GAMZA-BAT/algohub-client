@@ -14,10 +14,11 @@ import {
 import { useRouter } from "next/navigation";
 
 type SolvedListProps = {
+  groupId: string;
   problemId: string;
   content: SolutionResponse["content"];
 };
-const SolvedList = ({ problemId, content }: SolvedListProps) => {
+const SolvedList = ({ groupId, problemId, content }: SolvedListProps) => {
   const router = useRouter();
 
   const handleBack = () => {
@@ -38,7 +39,7 @@ const SolvedList = ({ problemId, content }: SolvedListProps) => {
       <ProblemInfo />
       <SolvedFilterBar />
       <div className={dividerStyle} />
-      <SolvedTable content={content} />
+      <SolvedTable groupId={groupId} content={content} />
     </div>
   );
 };

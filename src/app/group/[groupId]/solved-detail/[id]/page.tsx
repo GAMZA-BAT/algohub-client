@@ -1,6 +1,6 @@
 "use client";
 
-import { useSolutionQuery } from "@/app/group/solved-detail/[id]/quries";
+import { useSolutionQuery } from "@/app/group/[groupId]/solved-detail/[id]/quries";
 import Modal from "@/common/component/Modal";
 import ProblemList from "@/shared/component/ProblemList";
 import CodeSection from "@/view/group/solved-detail/CodeSection";

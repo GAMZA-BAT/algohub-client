@@ -23,10 +23,11 @@ import {
 import { useRouter } from "next/navigation";
 
 type SolvedTableProps = {
+  groupId: string;
   content: SolutionResponse["content"];
 };
 
-const SolvedTable = ({ content }: SolvedTableProps) => {
+const SolvedTable = ({ groupId, content }: SolvedTableProps) => {
   const router = useRouter();
 
   const formatCellValue = (
@@ -46,7 +47,7 @@ const SolvedTable = ({ content }: SolvedTableProps) => {
   };
 
   const handleGoDetail = (id: number) => {
-    router.push(`/group/solved-detail/${id}`);
+    router.push(`/group/${groupId}/solved-detail/${id}`);
   };
 
   return (

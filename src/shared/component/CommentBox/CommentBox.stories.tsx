@@ -12,7 +12,7 @@ const meta: Meta<typeof CommentBox> = {
   decorators: [
     (Story) => (
       <div style={{ width: "24rem" }}>
-        <CommentsProvider>
+        <CommentsProvider solutionId={1}>
           <Story />
         </CommentsProvider>
       </div>

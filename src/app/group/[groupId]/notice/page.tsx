@@ -1,8 +1,10 @@
 "use client";
 
 import type { NoticeResponse } from "@/api/notice/type";
+import GroupDashboardPage from "@/app/group/[groupId]/page";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import Modal from "@/common/component/Modal";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { tmpData } from "@/view/group/dashboard/NoticeBanner/constant";
 import NoticeDetail from "@/view/group/dashboard/NoticeModal/NoticeDetail";
 import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
@@ -15,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 const NoticeModal = () => {
+  const params = { groupId: useGetGroupId() };
   const [selectedNotice, setSelectedNotice] = useState<NoticeResponse | null>(
     null,
   );
@@ -36,23 +39,26 @@ const NoticeModal = () => {
     : "공지 모달 닫기";
 
   return (
-    <Modal isOpen={true} onClose={handleClose}>
-      <div className={noticeModalWrapper}>
-        {/* 모달 헤더 */}
-        <header className={noticeHeaderStyle}>
-          <h2 className={textStyle.head}>NOTICE</h2>
-          <button onClick={handleClose} aria-label={closeBtnLabel}>
-            <IcnBtnDeleteCircle width={16} height={16} />
-          </button>
-        </header>
+    <>
+      <GroupDashboardPage params={params} />
+      <Modal isOpen={true} onClose={handleClose}>
+        <div className={noticeModalWrapper}>
+          {/* 모달 헤더 */}
+          <header className={noticeHeaderStyle}>
+            <h2 className={textStyle.head}>NOTICE</h2>
+            <button onClick={handleClose} aria-label={closeBtnLabel}>
+              <IcnBtnDeleteCircle width={16} height={16} />
+            </button>
+          </header>
 
-        {selectedNotice ? (
-          <NoticeDetail data={selectedNotice} goBack={handleBackToList} />
-        ) : (
-          <NoticeList noticeList={tmpData} onClick={handleNoticeClick} />
-        )}
-      </div>
-    </Modal>
+          {selectedNotice ? (
+            <NoticeDetail data={selectedNotice} goBack={handleBackToList} />
+          ) : (
+            <NoticeList noticeList={tmpData} onClick={handleNoticeClick} />
+          )}
+        </div>
+      </Modal>
+    </>
   );
 };
 

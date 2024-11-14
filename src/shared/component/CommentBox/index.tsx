@@ -18,8 +18,8 @@ import {
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import type { Comment } from "@/shared/type/comment";
 import { getFormattedCreatedAt } from "@/shared/util/time";
-import { useEditCommentMutation } from "@/view/group/solved-detail/CommentSection/hook";
 import { CommentsContext } from "@/view/group/solved-detail/CommentSection/provider";
+import { useEditCommentMutation } from "@/view/group/solved-detail/CommentSection/queries";
 import clsx from "clsx";
 import { type KeyboardEvent, useContext } from "react";
 import { flushSync } from "react-dom";

@@ -1,6 +1,7 @@
 "use client";
 
 import { IcnMessage, IcnMessageDot } from "@/asset/svg";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { Solution } from "@/shared/type";
 import { getFormattedMemory } from "@/shared/util/byte";
 import { getTierImage } from "@/shared/util/img";
@@ -24,12 +25,13 @@ const SolvedItem = ({
   codeLength,
   commentCount = 0,
 }: Solution) => {
+  const groupId = useGetGroupId();
   const LevelIcon = getTierImage(level);
 
   const router = useRouter();
 
   const handleClickItem = () => {
-    router.push(`/group/problem-list/${solutionId}`);
+    router.push(`/group/${groupId}/problem-list/${solutionId}`);
   };
 
   return (
@@ -43,7 +45,10 @@ const SolvedItem = ({
       className={itemStyle}
     >
       <LevelIcon width={25} height={32} />
-      <Link className={textStyle} href={`/problem/${solutionId}`}>
+      <Link
+        className={textStyle}
+        href={`/group/${groupId}/problem-list/${solutionId}`}
+      >
         {title}
       </Link>
       <time dateTime={solvedDateTime} className={textStyle}>
