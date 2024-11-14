@@ -2,28 +2,29 @@
 
 import { postCreateGroup } from "@/api/group";
 import { groupSchema } from "@/api/group/schema";
+import type { GroupRequest } from "@/api/group/type";
 import type { z } from "zod";
 
 export const createGroup = async (formData: z.infer<typeof groupSchema>) => {
-  const data = {
-    image: formData.image,
-    name: formData.name,
-    startDate: formData.startDate.toISOString().slice(0, 10),
-    endDate: formData.endDate.toISOString().slice(0, 10),
-    introduction: formData.introduction,
-  };
-
-  const validateForm = groupSchema.safeParse(data);
+  const validateForm = groupSchema.safeParse(formData);
 
   if (!validateForm.success) return;
 
-  try {
-    const response = await postCreateGroup(formData);
+  const data: GroupRequest = {
+    request: {
+      name: formData.name,
+      introduction: formData.introduction,
+      startDate: formData.startDate.toISOString().slice(0, 10),
+      endDate: formData.endDate.toISOString().slice(0, 10),
+    },
+    profileImage: formData.profileImage,
+  };
 
-    /** TODO: group list 조회 무효화 후 최신화 */
+  try {
+    const response = await postCreateGroup(data);
 
     return response;
   } catch {
-    throw new Error("fail to create group error");
+    throw new Error("fail to create group");
   }
 };

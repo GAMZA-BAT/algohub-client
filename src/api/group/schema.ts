@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const groupSchema = z
   .object({
-    image: z.string().nullable(),
+    profileImage: z.string().nullable(),
     name: z
       .string()
       .min(1, { message: "필수 항목입니다." })

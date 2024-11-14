@@ -29,6 +29,16 @@ export interface GroupResponse extends GroupByCodeResponse {
   ownerNickname?: string;
 }
 
+export type GroupRequest = {
+  profileImage: string | null;
+  request: {
+    startDate: string;
+    endDate: string;
+    introduction: string;
+    name: string;
+  };
+};
+
 export type RankingResponse = {
   userNickname: string;
   profileImage: string;

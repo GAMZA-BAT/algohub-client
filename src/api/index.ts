@@ -5,7 +5,7 @@ export const kyInstance = ky.create({
   headers: {
     "Content-Type": "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE0ODAzMTN9.cruEsS4OAKAVbOuKe5dCvLlHQDwidU9dL4rMTZNh2uE",
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE2NjkxNzN9.N8HDNqSNd0opTGnMUmXgyQIZAgDl9K9AVo_wJicTEns",
   },
 });
 
@@ -14,6 +14,6 @@ export const kyFileInstance = ky.create({
   headers: {
     "Content-Type": "multipart/form-data",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE0ODAzMTN9.cruEsS4OAKAVbOuKe5dCvLlHQDwidU9dL4rMTZNh2uE",
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE2NjkxNzN9.N8HDNqSNd0opTGnMUmXgyQIZAgDl9K9AVo_wJicTEns",
   },
 });

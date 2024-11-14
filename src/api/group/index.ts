@@ -1,12 +1,10 @@
 import { kyFileInstance, kyInstance } from "@/api";
 import type { groupSchema } from "@/api/group/schema";
-import type { GroupListResponse } from "@/api/group/type";
+import type { GroupListResponse, GroupRequest } from "@/api/group/type";
 import type { z } from "zod";
 
-export const postCreateGroup = async (
-  formData: z.infer<typeof groupSchema>,
-) => {
-  const response = await kyFileInstance.post<typeof groupSchema>("api/group", {
+export const postCreateGroup = async (formData: GroupRequest) => {
+  const response = await kyFileInstance.post<GroupRequest>("api/group", {
     json: formData,
   });
 

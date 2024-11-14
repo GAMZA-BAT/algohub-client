@@ -33,7 +33,7 @@ const GroupInfoForm = ({
     <Form {...form}>
       <form
         className={formStyle({ variant })}
-        onSubmit={form.handleSubmit((v) => handleSubmit(v))}
+        onSubmit={form.handleSubmit(handleSubmit)}
       >
         <ImageFormController form={form} />
         <NameFormController form={form} variant={variant} />
