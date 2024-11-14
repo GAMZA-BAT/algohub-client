@@ -15,8 +15,10 @@ export const metadata: Metadata = {
 
 export default function GroupLayout({
   children,
+  params: { groupId },
 }: Readonly<{
   children: React.ReactNode;
+  params: { groupId: string };
 }>) {
   return (
     <main>
@@ -24,35 +26,35 @@ export default function GroupLayout({
         <NavBar.Item
           icon={<IcnSquare width={24} height={24} />}
           mode="fill"
-          href="/group"
+          href={`/group/${groupId}`}
         >
           대시보드
         </NavBar.Item>
         <NavBar.Item
           icon={<IcnPlus width={16} height={16} />}
           mode="stroke"
-          href="/group/problem-list"
+          href={`/group/${groupId}/problem-list`}
         >
           문제 리스트
         </NavBar.Item>
         <NavBar.Item
           icon={<IcnCalculator width={20} height={20} />}
           mode="stroke"
-          href="/group/my-solved"
+          href={`/group/${groupId}/my-solved`}
         >
           내가 푼 문제
         </NavBar.Item>
         <NavBar.Item
           icon={<IcnSetting width={16} height={16} />}
           mode="stroke"
-          href="/group/setting"
+          href={`/group/${groupId}/setting`}
         >
           스터디 관리
         </NavBar.Item>
         <NavBar.Item
           icon={<IcnExit width={24} height={24} />}
           mode="stroke"
-          href="/group/withdraw"
+          href={`/group/${groupId}/withdraw`}
         >
           스터디 나가기
         </NavBar.Item>

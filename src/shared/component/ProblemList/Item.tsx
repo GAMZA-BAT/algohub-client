@@ -12,6 +12,7 @@ import {
   wrongCheckBoxStyle,
 } from "@/shared/component/ProblemList/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { Problem } from "@/shared/type";
 import { getTierImage } from "@/shared/util/img";
 import clsx from "clsx";
@@ -50,6 +51,7 @@ const ProblemListItem = ({
   onEdit,
   isOwner = false,
 }: ProblemListItemProps) => {
+  const groupId = useGetGroupId();
   const Icon = getTierImage(level);
 
   const isExpired = new Date(endDate).getTime() - new Date().getTime() <= 0;
@@ -72,7 +74,10 @@ const ProblemListItem = ({
       )}
     >
       <Icon width={25} height={32} />
-      <Link className={titleStyle} href={`/group/problem-list/${problemId}`}>
+      <Link
+        className={titleStyle}
+        href={`/group/${groupId}/problem-list/${problemId}`}
+      >
         <span className={commonStyle}>{title}</span>
       </Link>
       <time dateTime={endDate} className={commonStyle}>
