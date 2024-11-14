@@ -2,12 +2,12 @@
 
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
+import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
 import {
   useCommentListQuery,
   useCommentMutataion,
   useDeleteCommentMutation,
-} from "@/view/group/solved-detail/CommentSection/hook";
-import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
+} from "@/view/group/solved-detail/CommentSection/queries";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
 
