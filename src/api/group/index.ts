@@ -1,6 +1,10 @@
 import { kyFileInstance, kyInstance } from "@/api";
 import type { groupSchema } from "@/api/group/schema";
-import type { GroupListResponse, GroupRequest } from "@/api/group/type";
+import type {
+  GroupListResponse,
+  GroupRequest,
+  GroupResponse,
+} from "@/api/group/type";
 import type { z } from "zod";
 
 export const postCreateGroup = async (formData: GroupRequest) => {
@@ -29,7 +33,7 @@ export const getGroupList = async () => {
 
 export const getGroupInfo = async (groupId: number) => {
   const response = await kyInstance
-    .get<GroupListResponse>(`api/group/group-info?groupId=${groupId}`)
+    .get<GroupResponse>(`api/group/group-info?groupId=${groupId}`)
     .json();
 
   return response;
