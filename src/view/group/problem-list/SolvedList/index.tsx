@@ -1,4 +1,5 @@
 "use client";
+import type { SolutionResponse } from "@/api/solution/type";
 import { IcnBtnArrowLeft } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
@@ -13,13 +14,17 @@ import {
 import { useRouter } from "next/navigation";
 
 type SolvedListProps = {
+  groupId: string;
   problemId: string;
+  content: SolutionResponse["content"];
 };
-const SolvedList = ({ problemId }: SolvedListProps) => {
+const SolvedList = ({ groupId, problemId, content }: SolvedListProps) => {
   const router = useRouter();
+
   const handleBack = () => {
     router.back();
   };
+
   return (
     <div className={solvedListWrapper}>
       <div
@@ -34,7 +39,7 @@ const SolvedList = ({ problemId }: SolvedListProps) => {
       <ProblemInfo />
       <SolvedFilterBar />
       <div className={dividerStyle} />
-      <SolvedTable />
+      <SolvedTable groupId={groupId} content={content} />
     </div>
   );
 };

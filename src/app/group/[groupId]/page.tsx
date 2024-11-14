@@ -1,14 +1,16 @@
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";
+import { tmpGroupData } from "@/shared/constant/example";
 import type { Problem } from "@/shared/type";
-import { tmpGroupData } from "@/shared/util/example";
 import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
 import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
 import Ranking from "@/view/group/dashboard/Ranking";
 
-const GroupDashboardPage = ({ params }: { params: { groupId: string } }) => {
+const GroupDashboardPage = async ({
+  params,
+}: { params: { groupId: string } }) => {
   const data: Problem[] = [
     {
       problemId: 1,

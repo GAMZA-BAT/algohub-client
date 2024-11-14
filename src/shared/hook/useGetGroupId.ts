@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 
 const useGetGroupId = () => {
   const path = usePathname();
+
   return path.split("/")[2];
 };
 

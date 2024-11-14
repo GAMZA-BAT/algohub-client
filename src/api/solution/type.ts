@@ -1,7 +1,7 @@
 export type SolutionRequest = {
   problemId: number;
-  language?: string;
-  result?: string;
+  language?: SolutionLanguage;
+  result?: SolutionResult;
   nickname?: string;
   page?: number;
   size?: number;
