@@ -24,10 +24,9 @@ export type ProblemListResponse = {
 };
 
 export type ProblemRequest = {
-  groupId: number;
   link: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 };
 
 export type EditProblemRequest = {
