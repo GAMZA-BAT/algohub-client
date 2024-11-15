@@ -1,3 +1,5 @@
+"use client";
+
 import type { NoticeListResponse } from "@/api/notice/type";
 import { IcnNew } from "@/asset/svg";
 import Button from "@/common/component/Button";
