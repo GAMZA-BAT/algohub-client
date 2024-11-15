@@ -6,6 +6,7 @@ import {
 } from "@/app/join-group/[code]/query";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
+import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { sidebarWrapper } from "@/styles/shared.css";
 import DecisionPrompt from "@/view/user/join-group/DecisionPrompt";
 import GroupInfoCard from "@/view/user/join-group/GroupInfoCard";
@@ -21,7 +22,10 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
 
   const handleAccept = () =>
     joinGroupMutate(code, {
-      onError: () => setIsJoinModalOpen(false),
+      onError: (error: Error) => {
+        if (error.message.includes(`${HTTP_ERROR_STATUS.BAD_REQUEST}`))
+          setIsJoinModalOpen(false);
+      },
     });
   const handleReject = () => router.push("/");
 
