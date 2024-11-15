@@ -11,7 +11,9 @@ export const createGroupAction = async (formData: FormData) => {
     throw new Error("fail to create group");
   }
 
+  /** TODO: 실제 user id로 교체 */
   revalidatePath("/wuzoo");
 
+  /** TODO: 실제 user id로 교체 */
   redirect("/wuzoo");
 };
