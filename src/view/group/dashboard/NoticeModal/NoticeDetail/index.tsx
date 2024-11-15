@@ -31,14 +31,7 @@ type NoticeDetailProps = {
 };
 
 const NoticeDetail = ({
-  data: {
-    author,
-    noticeTitle,
-    createAt,
-    noticeCategory,
-    noticeId,
-    noticeContent,
-  },
+  data: { author, title, createAt, category, noticeId, content },
   goBack,
 }: NoticeDetailProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
@@ -78,9 +71,9 @@ const NoticeDetail = ({
           <Avatar className={avatarStyle} alt="작성자 프로필 사진" />
           <div className={contentStyle}>
             <h3 id={`notice-title-${noticeId}`} className={textStyle.category}>
-              {noticeCategory}
+              {category}
             </h3>
-            <p className={textStyle.title}>{noticeTitle}</p>
+            <p className={textStyle.title}>{title}</p>
           </div>
         </div>
 
@@ -103,7 +96,7 @@ const NoticeDetail = ({
       >
         <Textarea
           ref={textareaRef}
-          defaultValue={noticeContent}
+          defaultValue={content}
           disabled={!isEdit}
           className={textareaStyle}
         />

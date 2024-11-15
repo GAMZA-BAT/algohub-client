@@ -1,10 +1,11 @@
 export interface NoticeResponse {
   author: string;
-  noticeCategory: string;
   noticeId: number;
-  noticeContent: string;
-  noticeTitle: string;
+  content: string;
+  title: string;
+  category: string;
   createAt: string;
+  isRead: boolean;
 }
 
 export interface NoticeRequest {
