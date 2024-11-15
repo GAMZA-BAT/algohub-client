@@ -16,7 +16,7 @@ const CreateGroupForm = ({ setIsSuccess }: CreateGroupFormProps) => {
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
     defaultValues: {
-      profileImage: "",
+      profileImage: null,
       name: "",
       introduction: "",
       startDate: new Date(),

@@ -1,31 +1,30 @@
 import { kyFileInstance, kyInstance } from "@/api";
 import type { groupSchema } from "@/api/group/schema";
-import type {
-  GroupListResponse,
-  GroupRequest,
-  GroupResponse,
-} from "@/api/group/type";
+import type { GroupListResponse, GroupResponse } from "@/api/group/type";
 import type { z } from "zod";
 
-export const postCreateGroup = async (formData: GroupRequest) => {
-  const response = await kyFileInstance.post<GroupRequest>("api/group", {
-    json: formData,
+export const postCreateGroup = async (formData: FormData) => {
+  const response = await kyFileInstance.post("api/groups", {
+    body: formData,
   });
 
   return response;
 };
 
 export const patchGroupInfo = async (formData: z.infer<typeof groupSchema>) => {
-  const response = await kyFileInstance.patch<typeof groupSchema>("api/group", {
-    json: formData,
-  });
+  const response = await kyFileInstance.patch<typeof groupSchema>(
+    "api/groups",
+    {
+      json: formData,
+    },
+  );
 
   return response;
 };
 
 export const getGroupList = async () => {
   const response = await kyInstance
-    .get<GroupListResponse>("api/group/list")
+    .get<GroupListResponse>("api/users/me/groups")
     .json();
 
   return response;
@@ -33,7 +32,7 @@ export const getGroupList = async () => {
 
 export const getGroupInfo = async (groupId: number) => {
   const response = await kyInstance
-    .get<GroupResponse>(`api/group/group-info?groupId=${groupId}`)
+    .get<GroupResponse>(`api/groups/${groupId}`)
     .json();
 
   return response;
@@ -41,7 +40,7 @@ export const getGroupInfo = async (groupId: number) => {
 
 export const getGroupInviteCode = async (groupId: number) => {
   const response = await kyInstance
-    .get(`api/group/group-code?groupId=${groupId}`)
+    .get(`api/groups/group-code?groupId=${groupId}`)
     .json();
 
   return response;
@@ -49,7 +48,7 @@ export const getGroupInviteCode = async (groupId: number) => {
 
 export const getGroupMemberList = async (groupId: number) => {
   const response = await kyInstance
-    .get(`api/group/member-list?groupId=${groupId}`)
+    .get(`api/groups/member-list?groupId=${groupId}`)
     .json();
 
   return response;
@@ -57,7 +56,7 @@ export const getGroupMemberList = async (groupId: number) => {
 
 export const deleteGroup = async (groupId: number) => {
   const response = await kyInstance.delete(
-    `api/group/leave?groupId=${groupId}`,
+    `api/groups/leave?groupId=${groupId}`,
   );
 
   return response;

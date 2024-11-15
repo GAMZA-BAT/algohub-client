@@ -1,3 +1,5 @@
+"use client";
+
 import type { groupSchema } from "@/api/group/schema";
 import SupportingText from "@/common/component/SupportingText";
 import { Form } from "@/shared/component/Form";
@@ -5,7 +7,7 @@ import DateFormController from "@/shared/component/GroupInfoForm/DateFormControl
 import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
 import ImageFormController from "@/shared/component/GroupInfoForm/ImageFormController";
 import NameFormController from "@/shared/component/GroupInfoForm/NameFormController";
-import { createGroup } from "@/shared/component/GroupInfoForm/actions";
+import { createGroupAction } from "@/shared/component/GroupInfoForm/actions";
 import {
   dateWrapper,
   formLabelStyle,
@@ -25,15 +27,32 @@ const GroupInfoForm = ({
   form,
   variant = "create-group",
 }: GroupFormProps) => {
-  const handleSubmit = (values: z.infer<typeof groupSchema>) => {
-    createGroup(values);
+  const handleSubmit = async (values: z.infer<typeof groupSchema>) => {
+    const data = new FormData();
+
+    if (values.profileImage) {
+      data.append("profileImage", values.profileImage);
+    } else {
+      data.append("profileImage", "");
+    }
+    data.append(
+      "request",
+      JSON.stringify({
+        name: values.name,
+        introduction: values.introduction,
+        startDate: values.startDate.toISOString().slice(0, 10),
+        endDate: values.endDate.toISOString().slice(0, 10),
+      }),
+    );
+
+    createGroupAction(data);
   };
   const error = form.formState.errors.endDate;
   return (
     <Form {...form}>
       <form
         className={formStyle({ variant })}
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit((v) => handleSubmit(v))}
       >
         <ImageFormController form={form} />
         <NameFormController form={form} variant={variant} />

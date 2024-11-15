@@ -30,13 +30,8 @@ export interface GroupResponse extends GroupByCodeResponse {
 }
 
 export type GroupRequest = {
-  profileImage: string | null;
-  request: {
-    startDate: string;
-    endDate: string;
-    introduction: string;
-    name: string;
-  };
+  profileImage: FormData;
+  request: FormData;
 };
 
 export type RankingResponse = {
