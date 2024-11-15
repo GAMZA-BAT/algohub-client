@@ -1,3 +1,4 @@
+import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
 import type { Meta } from "@storybook/react";
 import { default as CommentBox } from ".";
 
@@ -11,7 +12,9 @@ const meta: Meta<typeof CommentBox> = {
   decorators: [
     (Story) => (
       <div style={{ width: "24rem" }}>
-        <Story />
+        <CommentsProvider solutionId={1}>
+          <Story />
+        </CommentsProvider>
       </div>
     ),
   ],

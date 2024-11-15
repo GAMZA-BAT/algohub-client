@@ -3,13 +3,13 @@ import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
 
 const nextConfig = {
-  images:{
+  images: {
     remotePatterns: [
-			{
-				protocol: 'https',
-        hostname: 'algohubbucket.s3.ap-northeast-2.amazonaws.com',
-			}
-		]
+      {
+        protocol: 'https',
+        hostname: 'algohubbucket.s3.ap-northeast-2.amazonaws.com'
+      }
+    ]
   },
   webpack(config) {
     // SVG imports를 처리하는 기존 규칙 가져오기

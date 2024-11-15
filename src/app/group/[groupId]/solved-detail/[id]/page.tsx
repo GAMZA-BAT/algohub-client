@@ -1,5 +1,6 @@
 "use client";
 
+import { useSolutionQuery } from "@/app/group/[groupId]/solved-detail/[id]/query";
 import Modal from "@/common/component/Modal";
 import ProblemList from "@/shared/component/ProblemList";
 import CodeSection from "@/view/group/solved-detail/CodeSection";
@@ -11,8 +12,11 @@ import {
 } from "@/view/group/solved-detail/index.css";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
+
+  const { data } = useSolutionQuery(+params.id);
+
   return (
     <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
       <div className={modalWrapper}>
@@ -29,8 +33,8 @@ const page = () => {
           />
         </header>
         <div className={modalContainer}>
-          <CodeSection />
-          <CommentSection />
+          <CodeSection code={data.content} language={data.language} />
+          <CommentSection solutionId={params.id} />
         </div>
       </div>
     </Modal>

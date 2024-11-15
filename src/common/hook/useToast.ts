@@ -13,7 +13,7 @@ export const useToast = () => {
       id: self.crypto.randomUUID(),
       message,
       variant,
-      duration,
+      duration: duration ?? 2000,
     };
 
     setToastList({ toast: added });

@@ -1,6 +1,10 @@
-import type { SolutionByIdResponse } from "@/api/solution/type";
+"use client";
+
+import type {
+  SolutionByIdResponse,
+  SolutionResponse,
+} from "@/api/solution/type";
 import Avatar from "@/common/component/Avatar";
-import { tmpSolvedListData } from "@/shared/util/example";
 import {
   SOLVED_TABLE_BODY,
   SOLVED_TABLE_HEADER,
@@ -16,8 +20,16 @@ import {
   theadStyle,
   trStyle,
 } from "@/view/group/problem-list/SolvedList/index.css";
+import { useRouter } from "next/navigation";
 
-const SolvedTable = () => {
+type SolvedTableProps = {
+  groupId: string;
+  content: SolutionResponse["content"];
+};
+
+const SolvedTable = ({ groupId, content }: SolvedTableProps) => {
+  const router = useRouter();
+
   const formatCellValue = (
     prop: keyof SolutionByIdResponse,
     value: string | number,
@@ -34,6 +46,10 @@ const SolvedTable = () => {
     }
   };
 
+  const handleGoDetail = (id: number) => {
+    router.push(`/group/${groupId}/solved-detail/${id}`);
+  };
+
   return (
     <div className={tableWrapper}>
       <table className={tableStyle}>
@@ -47,8 +63,16 @@ const SolvedTable = () => {
           </tr>
         </thead>
         <tbody className={tbodyStyle}>
-          {tmpSolvedListData.map((row) => (
-            <tr key={row.solutionId} className={trStyle}>
+          {content.map((row) => (
+            <tr
+              tabIndex={0}
+              onKeyDown={(e) =>
+                e.key === "Enter" && handleGoDetail(row.solutionId)
+              }
+              key={row.solutionId}
+              className={trStyle}
+              onClick={() => handleGoDetail(row.solutionId)}
+            >
               {SOLVED_TABLE_BODY.map((prop) => {
                 if (prop === "profileImage") {
                   return (

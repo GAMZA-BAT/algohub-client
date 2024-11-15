@@ -114,6 +114,8 @@ export const trStyle = style({
   alignItems: "center",
   height: "4.7rem",
   textAlign: "center",
+
+  cursor: "pointer",
 });
 
 export const resultIncorrect = style({
