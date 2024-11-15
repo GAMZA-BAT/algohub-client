@@ -2,6 +2,7 @@
 
 import { IcnNew, IcnNotifications } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { getNoticeBannerCreateAt } from "@/shared/util/time";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,7 @@ import {
 
 const NoticeBanner = () => {
   const router = useRouter();
+  const groupId = useGetGroupId();
 
   // TODO: API 연결 데이터로 변경하기
   // 공지 리스트 중 가장 최근의 공지를 찾는 reduce
@@ -37,7 +39,7 @@ const NoticeBanner = () => {
         <button
           className={overlayStyle}
           aria-label="공지 모달 열기"
-          onClick={() => router.push("/group/notice")}
+          onClick={() => router.push(`/group/${groupId}/notice`)}
         />
         <header className={headerWrapper}>
           <div className={notifyWrapper}>

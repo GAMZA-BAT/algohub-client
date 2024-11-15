@@ -1,18 +1,26 @@
+import { getSolutionList } from "@/api/solution";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ProblemSidebar from "@/view/group/index/ProblemSidebar";
 import SolvedList from "@/view/group/problem-list/SolvedList";
-import {} from "@/view/group/problem-list/index.css";
 import { contentWrapper } from "@/view/group/problem-list/index.css";
 
-const SolvedListPage = ({ params }: { params: { id: string } }) => {
+const SolvedListPage = async ({
+  params,
+}: { params: { groupId: string; id: string } }) => {
+  const data = await getSolutionList({ problemId: +params.id });
+
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
         <ProblemSidebar />
       </Sidebar>
       <div className={contentWrapper}>
-        <SolvedList problemId={params.id as string} />
+        <SolvedList
+          content={data.content}
+          problemId={params.id}
+          groupId={params.groupId}
+        />
       </div>
     </main>
   );

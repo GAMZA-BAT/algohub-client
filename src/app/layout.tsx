@@ -1,9 +1,8 @@
 const BrowserProvider = dynamic(() => import("@/app/browserProvider"), {
   ssr: false,
 });
-
+import Providers from "@/app/provider";
 import Header from "@/shared/component/Header";
-import Providers from "@/shared/component/Provider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -25,8 +24,10 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <BrowserProvider>
-          <Header />
-          <Providers>{children}</Providers>
+          <Providers>
+            <Header />
+            {children}
+          </Providers>
         </BrowserProvider>
       </body>
     </html>

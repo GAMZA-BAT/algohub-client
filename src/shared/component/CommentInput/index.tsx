@@ -8,7 +8,7 @@ import {
   inputStyle,
   sendIconStyle,
 } from "@/shared/component/CommentInput/index.css";
-import { type ForwardedRef, type KeyboardEvent, forwardRef } from "react";
+import { type ForwardedRef, forwardRef } from "react";
 
 type CommentInputProps = InputProps & {
   profileUrl?: string;
@@ -19,12 +19,6 @@ const CommentInput = (
   { profileUrl, onSend, ...props }: CommentInputProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onSend?.();
-    }
-  };
-
   return (
     <div className={containerStyle}>
       <Avatar src={profileUrl} alt="프로필 이미지" size="small" />
@@ -32,20 +26,11 @@ const CommentInput = (
         placeholder="의견을 남겨주세요"
         ref={ref}
         className={inputStyle}
-        onKeyDown={handleKeyDown}
         {...props}
       />
-      <IcnBtnSend
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") onSend?.();
-        }}
-        onClick={onSend}
-        className={sendIconStyle}
-        width={24}
-        height={24}
-      />
+      <button type="submit" onClick={onSend} className={sendIconStyle}>
+        <IcnBtnSend width={24} height={24} />
+      </button>
     </div>
   );
 };

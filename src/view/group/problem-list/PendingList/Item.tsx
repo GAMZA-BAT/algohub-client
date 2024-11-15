@@ -1,5 +1,6 @@
 "use client";
 
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { Problem } from "@/shared/type";
 import { getTierImage } from "@/shared/util/img";
 import {
@@ -27,6 +28,7 @@ const PendingListItem = ({
   className,
 }: PendingListItemProps) => {
   const Icon = getTierImage(level);
+  const groupId = useGetGroupId();
 
   return (
     <li
@@ -34,7 +36,10 @@ const PendingListItem = ({
       className={clsx(itemStyle, className)}
     >
       <Icon width={25} height={32} />
-      <Link className={titleStyle} href={`/problem/${problemId}`}>
+      <Link
+        className={titleStyle}
+        href={`/group/${groupId}/problem-list/${problemId}`}
+      >
         <span className={textStyle}>{title}</span>
       </Link>
       <time dateTime={startDate} className={textStyle}>
