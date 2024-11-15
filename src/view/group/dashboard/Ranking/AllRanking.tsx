@@ -17,11 +17,13 @@ const AllRanking = ({
           <RankList key={idx} info={data} />
         ))}
       </ol>
-      <Pagination
-        totalPages={allRankingData.length / 4}
-        currentPage={page}
-        onPageChange={setPage}
-      />
+      {allRankingData.length > 0 && (
+        <Pagination
+          totalPages={allRankingData.length / 4}
+          currentPage={page}
+          onPageChange={setPage}
+        />
+      )}
     </>
   );
 };

@@ -90,3 +90,4 @@ export { default as IcnUser3 } from "./icn_user3.svg";
 export { default as IcnRankingCard } from "./icn_ranking_card.svg";
 export { default as IcnRankingCardHover } from "./icn_ranking_card_hover.svg";
 export { default as IcnMiniLogo } from "./icn_mini_logo.svg";
+export { default as IcnEmpty } from "./icn_empty.svg";
