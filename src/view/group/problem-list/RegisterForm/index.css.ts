@@ -58,3 +58,8 @@ export const fieldsetStyle = style({
 
   border: "none",
 });
+
+export const animationStyle = style({
+  position: "fixed",
+  inset: 0,
+});

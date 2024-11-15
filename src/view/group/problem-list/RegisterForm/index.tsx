@@ -1,9 +1,13 @@
+import { usePostProblemMutation } from "@/app/group/[groupId]/problem-list/query";
+import { problemRegister } from "@/asset/lottie";
+import Animation from "@/common/component/Animation";
 import Button from "@/common/component/Button";
-import { useToast } from "@/common/hook/useToast";
 import { Form } from "@/shared/component/Form";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import DateFormController from "@/view/group/problem-list/RegisterForm/DateFormController";
 import LinkFormController from "@/view/group/problem-list/RegisterForm/LinkFormController";
 import {
+  animationStyle,
   formStyle,
   registerWrapper,
   submitBtnStyle,
@@ -11,6 +15,7 @@ import {
 } from "@/view/group/problem-list/RegisterForm/index.css";
 import { registerProblemSchema } from "@/view/group/problem-list/RegisterForm/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
@@ -18,7 +23,9 @@ type RegisterFormProps = {
   variant?: "default" | "secondary";
 };
 const RegisterForm = ({ variant = "default" }: RegisterFormProps) => {
-  const { showToast } = useToast();
+  const [isSuccess, setIsSuccess] = useState(false);
+  const { mutate: postProblemMutate } = usePostProblemMutation();
+  const groupId = useGetGroupId();
   const form = useForm<z.infer<typeof registerProblemSchema>>({
     resolver: zodResolver(registerProblemSchema),
     mode: "onTouched",
@@ -29,31 +36,53 @@ const RegisterForm = ({ variant = "default" }: RegisterFormProps) => {
     },
   });
 
-  const handleSubmit = (_values: z.infer<typeof registerProblemSchema>) => {
-    // console.log({ values });
-    showToast("문제가 정상적으로 등록되었어요.", "success");
+  const handleSubmit = (values: z.infer<typeof registerProblemSchema>) => {
+    const { link, startDate, endDate } = values;
+    postProblemMutate(
+      { groupId: +groupId, link, startDate, endDate },
+      {
+        onSuccess: () => {
+          setIsSuccess(true);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        },
+      },
+    );
   };
 
   const title = variant === "default" ? "문제 등록하기" : "문제 수정하기";
   return (
-    <div className={registerWrapper}>
-      <h2 className={titleStyle}>{title}</h2>
-      <Form {...form}>
-        <form className={formStyle} onSubmit={form.handleSubmit(handleSubmit)}>
-          <LinkFormController form={form} />
-          <DateFormController form={form} />
-          <Button
-            type="submit"
-            size="large"
-            className={submitBtnStyle}
-            disabled={!form.formState.isValid}
-            isActive={form.formState.isValid}
+    <>
+      <div className={registerWrapper}>
+        <h2 className={titleStyle}>{title}</h2>
+        <Form {...form}>
+          <form
+            className={formStyle}
+            onSubmit={form.handleSubmit(handleSubmit)}
           >
-            {title}
-          </Button>
-        </form>
-      </Form>
-    </div>
+            <LinkFormController form={form} />
+            <DateFormController form={form} />
+            <Button
+              type="submit"
+              size="large"
+              className={submitBtnStyle}
+              disabled={!form.formState.isValid}
+              isActive={form.formState.isValid}
+            >
+              {title}
+            </Button>
+          </form>
+        </Form>
+      </div>
+      {isSuccess && (
+        <Animation
+          className={animationStyle}
+          animationJson={problemRegister}
+          size="100%"
+        />
+      )}
+    </>
   );
 };
 
