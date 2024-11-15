@@ -7,3 +7,8 @@ export const getGroupsByCode = async (code: string) => {
     .json();
   return response;
 };
+
+export const postJoinGroupByCode = async (code: string) => {
+  const response = await kyInstance.post(`api/groups/${code}/join`);
+  return response;
+};
