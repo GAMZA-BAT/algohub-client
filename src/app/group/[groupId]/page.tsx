@@ -1,3 +1,4 @@
+import { getAllRanking } from "@/api/groups/ranking";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";
@@ -9,8 +10,9 @@ import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
 import Ranking from "@/view/group/dashboard/Ranking";
 
 const GroupDashboardPage = async ({
-  params,
+  params: { groupId },
 }: { params: { groupId: string } }) => {
+  const rankingData = await getAllRanking(+groupId);
   const data: Problem[] = [
     {
       problemId: 1,
@@ -51,11 +53,11 @@ const GroupDashboardPage = async ({
     <main className={sidebarWrapper}>
       <Sidebar>
         <GroupSidebar info={tmpGroupData} />
-        {params.groupId}
+        {groupId}
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
-        <Ranking />
+        <Ranking rankingData={rankingData} />
         <h2 className={titleStyle}>풀어야 할 문제</h2>
         <section>
           <ProblemList.Header />
