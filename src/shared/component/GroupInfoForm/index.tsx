@@ -7,7 +7,7 @@ import DateFormController from "@/shared/component/GroupInfoForm/DateFormControl
 import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
 import ImageFormController from "@/shared/component/GroupInfoForm/ImageFormController";
 import NameFormController from "@/shared/component/GroupInfoForm/NameFormController";
-import { createGroupAction } from "@/shared/component/GroupInfoForm/actions";
+import { createGroupAction } from "@/shared/component/GroupInfoForm/action";
 import {
   dateWrapper,
   formLabelStyle,
@@ -27,7 +27,7 @@ const GroupInfoForm = ({
   form,
   variant = "create-group",
 }: GroupFormProps) => {
-  const handleSubmit = async (values: z.infer<typeof groupSchema>) => {
+  const handleSubmit = (values: z.infer<typeof groupSchema>) => {
     const data = new FormData();
 
     if (values.profileImage) {
