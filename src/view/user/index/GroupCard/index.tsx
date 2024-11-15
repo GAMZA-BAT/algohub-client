@@ -1,4 +1,4 @@
-import type { GroupListItem, GroupStatus } from "@/api/group/type";
+import type { GroupListItem, GroupStatus } from "@/api/groups/type";
 import defaultImg from "@/asset/img/img_card_profile.png";
 import { IcnCalenderCard, IcnUser, IcnUser2 } from "@/asset/svg";
 import StatusIcon from "@/view/user/index/GroupCard/StatusIcon";

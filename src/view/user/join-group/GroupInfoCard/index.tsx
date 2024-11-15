@@ -1,4 +1,4 @@
-import type { GroupJoinResponse } from "@/api/group/type";
+import type { GroupJoinResponse } from "@/api/groups/type";
 import tmpSrc from "@/asset/img/alogohub_icon.png";
 import { IcnGroupInfoCard } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";

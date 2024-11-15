@@ -1,5 +1,5 @@
 "use client";
-import type { SolutionResponse } from "@/api/solution/type";
+import type { SolutionResponse } from "@/api/solutions/type";
 import { IcnBtnArrowLeft } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";

@@ -1,5 +1,5 @@
 "use client";
-import type { RankingResponse } from "@/api/group/type";
+import type { RankingResponse } from "@/api/groups/type";
 import { IcnMiniLogo } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import {

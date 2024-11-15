@@ -1,4 +1,4 @@
-import type { NoticeListResponse, NoticeResponse } from "@/api/notice/type";
+import type { NoticeListResponse, NoticeResponse } from "@/api/notices/type";
 import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Button from "@/common/component/Button";

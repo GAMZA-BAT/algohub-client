@@ -3,7 +3,7 @@
 import type {
   SolutionByIdResponse,
   SolutionResponse,
-} from "@/api/solution/type";
+} from "@/api/solutions/type";
 import Avatar from "@/common/component/Avatar";
 import {
   SOLVED_TABLE_BODY,

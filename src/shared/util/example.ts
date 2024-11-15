@@ -2,8 +2,8 @@ import type {
   GroupListResponse,
   GroupResponse,
   MemberListResponse,
-} from "@/api/group/type";
-import type { SolutionByIdResponse } from "@/api/solution/type";
+} from "@/api/groups/type";
+import type { SolutionByIdResponse } from "@/api/solutions/type";
 
 export const tmpGroupData: GroupResponse = {
   id: 0,
