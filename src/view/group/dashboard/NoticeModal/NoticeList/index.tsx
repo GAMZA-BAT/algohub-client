@@ -81,7 +81,12 @@ const NoticeList = ({ noticeList }: NoticeListProps) => {
 
       {/* 모달 하단 */}
       <footer>
-        <Button size="small" color="gray" className={buttonStyle}>
+        <Button
+          size="small"
+          color="gray"
+          className={buttonStyle}
+          onClick={() => router.push(`/group/${groupId}/notice/create`)}
+        >
           글쓰기
         </Button>
         <Pagination
