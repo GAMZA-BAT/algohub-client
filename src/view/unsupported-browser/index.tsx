@@ -25,6 +25,10 @@ import {
 } from "@/view/unsupported-browser/index.css";
 
 const UnSupportedBrowser = () => {
+  const handleInquire = () => {
+    window.location.href = "mailto:algohub0808@gmail.com";
+  };
+
   return (
     <main>
       <div className={pageStyle}>
@@ -37,7 +41,12 @@ const UnSupportedBrowser = () => {
             </p>
 
             <div style={{ width: "24rem" }}>
-              <Button className={inquireBtnStyle} size="medium" color="lg">
+              <Button
+                onClick={handleInquire}
+                className={inquireBtnStyle}
+                size="medium"
+                color="lg"
+              >
                 문의하기
               </Button>
             </div>
