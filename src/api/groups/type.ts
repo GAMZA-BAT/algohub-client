@@ -1,14 +1,6 @@
 export type GroupCodeResponse = {
   inviteCode: string;
 };
-export type GroupJoinResponse = {
-  src: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  owner: string;
-};
 
 export type GroupRoleRequest = {
   groupId: number;
@@ -16,18 +8,16 @@ export type GroupRoleRequest = {
   role: string;
 };
 
-export type GroupByCodeResponse = {
+export type GroupResponse = {
   id: number;
   name: string;
   groupImage: string;
   startDate: string;
   endDate: string;
   introduction: string;
-};
-export interface GroupResponse extends GroupByCodeResponse {
   isOwner?: boolean;
-  ownerNickname?: string;
-}
+  ownerNickname: string;
+};
 
 export type RankingResponse = {
   userNickname: string;
@@ -35,7 +25,6 @@ export type RankingResponse = {
   rank: number;
   solvedCount: number;
 };
-export type RankingListRespons = RankingResponse[];
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 

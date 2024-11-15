@@ -1,32 +1,25 @@
 "use client";
-import type { GroupJoinResponse } from "@/api/groups/type";
+import { useGroupByCodeQuery } from "@/app/join-group/[code]/query";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
-import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import DecisionPrompt from "@/view/user/join-group/DecisionPrompt";
 import GroupInfoCard from "@/view/user/join-group/GroupInfoCard";
 import { btnWrapper, wrapper } from "@/view/user/join-group/index.css";
 import { useRouter } from "next/navigation";
 
-const JoinGroupPage = () => {
+const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
+  const { data: groupData } = useGroupByCodeQuery(code);
   const router = useRouter();
-  const tmpGroupInfo: GroupJoinResponse = {
-    src: "",
-    name: "숭실대학교 알고리즘 스터디",
-    startDate: "2024.08.13",
-    endDate: "2024.09.13",
-    description:
-      "BE Developer로 성장하고 싶은 숭실대학교 학생들이 푸는 알고리즘 스터디입니다.",
-    owner: "진이",
-  };
+  const handleReject = () => router.push("/");
+
+  if (!groupData) return;
   return (
     <main className={sidebarWrapper}>
-      <Sidebar />
-      <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
+      <Modal isOpen={true} onClose={handleReject} hasCloseBtn>
         <div className={wrapper}>
-          <GroupInfoCard groupInfo={tmpGroupInfo} />
-          <DecisionPrompt owner={tmpGroupInfo.owner} />
+          <GroupInfoCard groupInfo={groupData} />
+          <DecisionPrompt owner="jnary" />
           <div className={btnWrapper}>
             <Button size="medium" color="lg">
               거절하기
