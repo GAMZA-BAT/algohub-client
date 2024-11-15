@@ -2,7 +2,7 @@ import type {
   GroupListResponse,
   GroupResponse,
   MemberListResponse,
-} from "@/api/group/type";
+} from "@/api/groups/type";
 import type { SolutionByIdResponse } from "@/api/solution/type";
 
 export const tmpGroupData: GroupResponse = {

@@ -1,5 +1,5 @@
 "use client";
-import type { RankingResponse } from "@/api/group/type";
+import type { RankingResponse } from "@/api/groups/type";
 import Pagination from "@/shared/component/Pagination";
 import RankList from "@/view/group/dashboard/Ranking/RankList";
 import { allRankingWrapper } from "@/view/group/dashboard/Ranking/index.css";

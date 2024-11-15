@@ -1,5 +1,5 @@
 "use client";
-import type { GroupListItem, GroupStatus } from "@/api/group/type";
+import type { GroupListItem, GroupStatus } from "@/api/groups/type";
 import Carousel from "@/common/component/Carousel";
 import Sidebar from "@/common/component/Sidebar";
 import { tmpUserGroupListData } from "@/shared/util/example";

@@ -1,4 +1,4 @@
-import { groupSchema } from "@/api/group/schema";
+import { groupSchema } from "@/api/groups/schema";
 import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
 import GroupInfoForm from "@/shared/component/GroupInfoForm";

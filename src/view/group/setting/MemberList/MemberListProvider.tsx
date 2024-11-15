@@ -1,5 +1,5 @@
 "use client";
-import type { MemberResponse } from "@/api/group/type";
+import type { MemberResponse } from "@/api/groups/type";
 import { createContext, useReducer } from "react";
 
 type TableDataContextType =
