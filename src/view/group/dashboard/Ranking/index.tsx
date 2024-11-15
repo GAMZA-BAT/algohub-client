@@ -12,7 +12,7 @@ const Ranking = ({ rankingData }: { rankingData: RankingResponse[] }) => {
       </TabGroup.TabList>
       <TabGroup.TabPanels>
         <TopRanking topRankingData={rankingData.slice(0, 3)} />
-        <AllRanking />
+        <AllRanking allRankingData={rankingData} />
       </TabGroup.TabPanels>
     </TabGroup.Tabs>
   );
