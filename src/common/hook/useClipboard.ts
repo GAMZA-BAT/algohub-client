@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export const useClipboard = () => {
   const { showToast } = useToast();
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   const copy = async (code: string) => {
     //TODO: API 연결 후 변경
@@ -14,9 +14,9 @@ export const useClipboard = () => {
 
     await navigator.clipboard.writeText(inviteWriting).then(() => {
       showToast("성공적으로 복사되었습니다.", "success");
-      setIsSuccess(true);
+      setIsCopied(true);
     });
   };
 
-  return { isSuccess, copy };
+  return { isCopied, copy };
 };

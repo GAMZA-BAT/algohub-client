@@ -7,9 +7,11 @@ import type {
 } from "@/api/group/type";
 
 export const postCreateGroup = async (formData: FormData) => {
-  const response = await kyFileInstance.post("api/groups", {
-    body: formData,
-  });
+  const response = await kyFileInstance
+    .post<GroupCodeResponse>("api/groups", {
+      body: formData,
+    })
+    .json();
 
   return response;
 };

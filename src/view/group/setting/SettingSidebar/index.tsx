@@ -30,7 +30,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     },
   });
 
-  const { isSuccess, copy } = useClipboard();
+  const { isCopied, copy } = useClipboard();
 
   return (
     <div className={sidebarWrapper}>
@@ -45,7 +45,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
         </div>
       </GroupInfoForm>
       <CodeClipboard
-        isSuccess={isSuccess}
+        isSuccess={isCopied}
         onTrigger={() => copy(code)}
         label="스터디 링크"
         code={code}
