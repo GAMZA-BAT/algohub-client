@@ -6,17 +6,26 @@ import type { Problem } from "@/shared/type";
 import ProblemListHeader from "@/view/group/dashboard/ProblemListHeader";
 import { titleStyle } from "@/view/group/problem-list/index.css";
 
-type InProgressListProps = {
+type ProgressListProps = {
   data: Problem[];
+  variant?: "inProgress" | "expired";
 };
-const InProgressList = ({ data }: InProgressListProps) => {
+const ProgressList = ({ data, variant = "inProgress" }: ProgressListProps) => {
+  const isInProgress = variant === "inProgress";
+
   return (
     <div style={{ width: "100%", margin: "1.6rem 0" }}>
-      <h2 className={titleStyle}>진행중인 문제</h2>
+      <h2 className={titleStyle}>
+        {isInProgress ? "진행중인 문제" : "만료된 문제"}
+      </h2>
       <ProblemListHeader />
       <ProblemList>
         {data.map((item) => (
-          <ProblemList.Item key={item.problemId} {...item} />
+          <ProblemList.Item
+            key={item.problemId}
+            {...item}
+            isOwner={isInProgress}
+          />
         ))}
       </ProblemList>
 
@@ -30,4 +39,4 @@ const InProgressList = ({ data }: InProgressListProps) => {
   );
 };
 
-export default InProgressList;
+export default ProgressList;
