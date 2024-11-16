@@ -1,5 +1,5 @@
 import { kyInstance } from "@/api";
-import type { CommentRequest, EditCommentRequest } from "@/api/comment/type";
+import type { CommentRequest, EditCommentRequest } from "@/api/comments/type";
 import type { Comment } from "@/shared/type";
 
 export const getCommentList = async (solutionId: number) => {

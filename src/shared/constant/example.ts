@@ -1,4 +1,4 @@
-import type { GroupResponse } from "@/api/group/type";
+import type { GroupResponse } from "@/api/groups/type";
 import IcnNew from "@/asset/svg/icn_new.svg?url";
 import type { AlarmSettingsDataType } from "@/view/user/setting/AlarmSetting/AlarmSettingTable/type";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";

@@ -1,4 +1,4 @@
-import type { NoticeListResponse } from "@/api/notice/type";
+import type { NoticeListResponse } from "@/api/notices/type";
 
 export const tmpData: NoticeListResponse = [
   {
