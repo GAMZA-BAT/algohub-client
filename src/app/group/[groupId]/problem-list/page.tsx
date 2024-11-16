@@ -3,11 +3,11 @@ import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
 import type { Problem } from "@/shared/type";
 import { sidebarWrapper } from "@/styles/shared.css";
-import ProblemSidebar from "@/view/group/index/ProblemSidebar";
 import ExpiredList from "@/view/group/problem-list/ExpiredList";
 import InProgressList from "@/view/group/problem-list/InProgressList";
 import PendingList from "@/view/group/problem-list/PendingList";
 import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
+import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
 import { pageStyle, titleStyle } from "@/view/group/problem-list/index.css";
 
 const ProblemListPage = () => {

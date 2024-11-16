@@ -1,3 +1,5 @@
+"use client";
+
 import { usePostProblemMutation } from "@/app/group/[groupId]/problem-list/query";
 import { problemRegister } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
@@ -21,8 +23,12 @@ import type { z } from "zod";
 
 type RegisterFormProps = {
   variant?: "default" | "secondary";
+  onRegister?: () => void;
 };
-const RegisterForm = ({ variant = "default" }: RegisterFormProps) => {
+const RegisterForm = ({
+  variant = "default",
+  onRegister = () => {},
+}: RegisterFormProps) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const { mutate: postProblemMutate } = usePostProblemMutation();
   const groupId = useGetGroupId();
@@ -44,8 +50,8 @@ const RegisterForm = ({ variant = "default" }: RegisterFormProps) => {
         onSuccess: () => {
           setIsSuccess(true);
           setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+            onRegister();
+          }, 1700);
         },
       },
     );

@@ -7,6 +7,7 @@ import RegisterForm from "@/view/group/problem-list/RegisterForm";
 
 const ProblemSidebar = () => {
   const { open, isOpen, close } = useBooleanState();
+
   return (
     <>
       <div className={problemSidebarWrapper}>
@@ -15,7 +16,7 @@ const ProblemSidebar = () => {
         </Button>
       </div>
       <Modal isOpen={isOpen} onClose={close}>
-        <RegisterForm />
+        <RegisterForm onRegister={close} />
       </Modal>
     </>
   );
