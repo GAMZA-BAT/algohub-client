@@ -1,6 +1,6 @@
 "use client";
 
-import type { NoticeListResponse } from "@/api/notice/type";
+import type { NoticeListResponse } from "@/api/notices/type";
 import { IcnNew } from "@/asset/svg";
 import Button from "@/common/component/Button";
 import Pagination from "@/shared/component/Pagination";
