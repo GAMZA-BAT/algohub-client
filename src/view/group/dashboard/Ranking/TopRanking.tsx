@@ -8,7 +8,7 @@ const TopRanking = ({
   return (
     <div className={topRankingWrapper}>
       {topRankingData.map((data, idx) => (
-        <RankingCard key={idx} info={data} />
+        <RankingCard key={idx} idx={idx} info={data} />
       ))}
     </div>
   );
