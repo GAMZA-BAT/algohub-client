@@ -1,12 +1,9 @@
 "use client";
-
-import { usePostProblemMutation } from "@/app/group/[groupId]/problem-list/query";
 import { problemRegister } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import Button from "@/common/component/Button";
 import { handleA11yClick } from "@/common/util/dom";
 import { Form } from "@/shared/component/Form";
-import useGetGroupId from "@/shared/hook/useGetGroupId";
 import DateFormController from "@/view/group/problem-list/RegisterForm/DateFormController";
 import LinkFormController from "@/view/group/problem-list/RegisterForm/LinkFormController";
 import {
@@ -20,23 +17,26 @@ import {
 } from "@/view/group/problem-list/RegisterForm/index.css";
 import { registerProblemSchema } from "@/view/group/problem-list/RegisterForm/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
 type RegisterFormProps = {
   variant?: "default" | "secondary";
-  onRegister?: () => void;
   onDelete?: () => void;
+  onSubmit: (
+    link: string,
+    startDate: Date,
+    endDate: Date,
+    setIsSuccess: Dispatch<SetStateAction<boolean>>,
+  ) => void;
 };
 const RegisterForm = ({
   variant = "default",
-  onRegister = () => {},
   onDelete = () => {},
+  onSubmit,
 }: RegisterFormProps) => {
   const [isSuccess, setIsSuccess] = useState(false);
-  const { mutate: postProblemMutate } = usePostProblemMutation();
-  const groupId = useGetGroupId();
   const form = useForm<z.infer<typeof registerProblemSchema>>({
     resolver: zodResolver(registerProblemSchema),
     mode: "onTouched",
@@ -49,17 +49,7 @@ const RegisterForm = ({
 
   const handleSubmit = (values: z.infer<typeof registerProblemSchema>) => {
     const { link, startDate, endDate } = values;
-    postProblemMutate(
-      { groupId: +groupId, link, startDate, endDate },
-      {
-        onSuccess: () => {
-          setIsSuccess(true);
-          setTimeout(() => {
-            onRegister();
-          }, 1700);
-        },
-      },
-    );
+    onSubmit(link, startDate, endDate, setIsSuccess);
   };
 
   const title = variant === "default" ? "문제 등록하기" : "문제 수정하기";

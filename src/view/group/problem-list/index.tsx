@@ -9,7 +9,7 @@ import type { Problem } from "@/shared/type";
 import ProblemListHeader from "@/view/group/dashboard/ProblemListHeader";
 import RegisterForm from "@/view/group/problem-list/RegisterForm";
 import { titleStyle } from "@/view/group/problem-list/index.css";
-import { useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 
 type ProgressListProps = {
   data: Problem[];
@@ -32,6 +32,19 @@ const ProgressList = ({ data, variant = "inProgress" }: ProgressListProps) => {
         setTimeout(close, 1700);
       },
     });
+  };
+
+  const handleEditSubmit = (
+    _link: string,
+    _startDate: Date,
+    _endDate: Date,
+    setIsSuccess: Dispatch<SetStateAction<boolean>>,
+  ) => {
+    //TODO: 문제 수정 API 연결
+    setIsSuccess(true);
+    setTimeout(() => {
+      close();
+    }, 1700);
   };
 
   return (
@@ -62,8 +75,8 @@ const ProgressList = ({ data, variant = "inProgress" }: ProgressListProps) => {
       <Modal isOpen={isOpen} onClose={close}>
         <RegisterForm
           variant="secondary"
-          onRegister={close}
           onDelete={handleDelete}
+          onSubmit={handleEditSubmit}
         />
       </Modal>
     </>
