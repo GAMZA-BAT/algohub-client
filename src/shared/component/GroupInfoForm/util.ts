@@ -1,0 +1,25 @@
+"use client";
+
+import type { groupSchema } from "@/api/group/schema";
+import type { z } from "zod";
+
+export const getGroupFormData = (values: z.infer<typeof groupSchema>) => {
+  const data = new FormData();
+
+  if (values.profileImage) {
+    data.append("profileImage", values.profileImage);
+  } else {
+    data.append("profileImage", "");
+  }
+  data.append(
+    "request",
+    JSON.stringify({
+      name: values.name,
+      introduction: values.introduction,
+      startDate: values.startDate.toISOString().slice(0, 10),
+      endDate: values.endDate.toISOString().slice(0, 10),
+    }),
+  );
+
+  return data;
+};
