@@ -64,7 +64,7 @@ export const MemberListProvider = ({
     for (const { key, order } of state) {
       let compareResult = 0;
 
-      if (key === "achivement" && key === "achivement") {
+      if (key === "achievement" && key === "achievement") {
         compareResult = +a[key].replace("%", "") - +b[key].replace("%", "");
       } else if (key === "joinDate" && key === "joinDate") {
         compareResult = new Date(a[key]).getTime() - new Date(b[key]).getTime();
