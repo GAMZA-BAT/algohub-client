@@ -26,6 +26,7 @@ export const usePostProblemMutation = () => {
 
 export const useDeleteProblemMutation = () => {
   const queryClient = useQueryClient();
+  const { showToast } = useToast();
 
   return useMutation({
     mutationFn: (problemId: number) => deleteProblem(problemId),
@@ -33,6 +34,10 @@ export const useDeleteProblemMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["deleteProblem"],
       });
+      showToast("문제가 삭제되었습니다.", "success");
+    },
+    onError: () => {
+      showToast("문제가 정상적으로 삭제되지 않았어요.", "error");
     },
   });
 };

@@ -4,12 +4,15 @@ import { usePostProblemMutation } from "@/app/group/[groupId]/problem-list/query
 import { problemRegister } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import Button from "@/common/component/Button";
+import { handleA11yClick } from "@/common/util/dom";
 import { Form } from "@/shared/component/Form";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import DateFormController from "@/view/group/problem-list/RegisterForm/DateFormController";
 import LinkFormController from "@/view/group/problem-list/RegisterForm/LinkFormController";
 import {
   animationStyle,
+  deleteStyle,
+  deleteWrapper,
   formStyle,
   registerWrapper,
   submitBtnStyle,
@@ -24,10 +27,12 @@ import type { z } from "zod";
 type RegisterFormProps = {
   variant?: "default" | "secondary";
   onRegister?: () => void;
+  onDelete?: () => void;
 };
 const RegisterForm = ({
   variant = "default",
   onRegister = () => {},
+  onDelete = () => {},
 }: RegisterFormProps) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const { mutate: postProblemMutate } = usePostProblemMutation();
@@ -80,6 +85,18 @@ const RegisterForm = ({
             </Button>
           </form>
         </Form>
+        <div className={deleteWrapper}>
+          {variant === "secondary" && (
+            <p
+              className={deleteStyle}
+              onKeyDown={handleA11yClick(onDelete)}
+              onClick={onDelete}
+              aria-label="삭제하기"
+            >
+              문제 삭제하기
+            </p>
+          )}
+        </div>
       </div>
       {isSuccess && (
         <Animation
