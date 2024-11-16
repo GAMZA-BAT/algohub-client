@@ -5,5 +5,6 @@ export const getAllRanking = async (groupId: number) => {
   const response = await kyInstance
     .get<RankingResponse[]>(`api/groups/${groupId}/rankings`)
     .json();
+
   return response;
 };
