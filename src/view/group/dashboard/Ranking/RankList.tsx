@@ -13,7 +13,19 @@ import {
 import Image from "next/image";
 
 const RankList = ({ info }: { info: RankingResponse }) => {
-  const { profileImage, rank, solvedCount, userNickname } = info;
+  const { profileImage, rank, solvedCount, userNickname, rankDiff } = info;
+
+  const change = () => {
+    if (rankDiff === "-") return "unChanged";
+    switch (rankDiff[0]) {
+      case "+":
+        return "up";
+      case "-":
+        return "down";
+    }
+    return "unChanged";
+  };
+
   return (
     <li className={listWrapper}>
       <Image
@@ -30,7 +42,7 @@ const RankList = ({ info }: { info: RankingResponse }) => {
           </div>
           <p className={solvedTextStyle}>{`${solvedCount} solved`}</p>
         </div>
-        <p className={changeStyle({ change: "up" })}>+2</p>
+        <p className={changeStyle({ change: change() })}>{rankDiff}</p>
       </div>
     </li>
   );
