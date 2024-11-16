@@ -24,7 +24,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
     defaultValues: {
-      profileImage: info.groupImage,
+      groupImage: info.groupImage,
       name: info.name,
       introduction: info.introduction,
     },

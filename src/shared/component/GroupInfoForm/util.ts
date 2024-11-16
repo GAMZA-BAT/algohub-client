@@ -6,10 +6,10 @@ import type { z } from "zod";
 export const getGroupFormData = (values: z.infer<typeof groupSchema>) => {
   const data = new FormData();
 
-  if (values.profileImage) {
-    data.append("profileImage", values.profileImage);
+  if (values.groupImage) {
+    data.append("groupImage", values.groupImage);
   } else {
-    data.append("profileImage", "");
+    data.append("groupImage", "");
   }
   data.append(
     "request",
