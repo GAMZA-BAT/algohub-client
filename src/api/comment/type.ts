@@ -9,11 +9,9 @@ export type CommentContent = {
 export type CommentResponse = CommentContent[];
 
 export type EditCommentRequest = {
-  commentId: number;
   content: string;
 };
 
 export type CommentRequest = {
-  solutionId: number;
   content: string;
 };

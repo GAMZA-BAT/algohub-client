@@ -9,14 +9,16 @@ export type SolutionRequest = {
 
 export type SolutionByIdResponse = {
   solutionId: number;
+  problemTitle: string;
+  problemLevel: number;
   nickname: string;
-  profileImage: string;
+  profileImage: string | null;
   solvedDateTime: string;
   content: string;
   result: string;
   memoryUsage: number;
   executionTime: number;
-  language: string;
+  language: SolutionLanguage;
   codeLength: number;
   commentCount: number;
 };
