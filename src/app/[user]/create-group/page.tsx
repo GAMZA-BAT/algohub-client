@@ -3,10 +3,10 @@ import Modal from "@/common/component/Modal";
 import Sidebar from "@/common/component/Sidebar";
 import ToastProvider from "@/common/component/Toast";
 import { useToast } from "@/common/hook/useToast";
+import CodeClipboard from "@/shared/component/CodeClipboard";
 import { sidebarWrapper } from "@/styles/shared.css";
 import CreateGroupForm from "@/view/user/create-group/CreateGroupForm";
 
-import LinkWithCopy from "@/view/user/create-group/LinkWithCopy";
 import { wrapper } from "@/view/user/create-group/index.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -29,7 +29,7 @@ const CreateGroupPage = () => {
       <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
         <div className={wrapper}>
           <CreateGroupForm setIsSuccess={setIsSuccess} />
-          {isSuccess && <LinkWithCopy link="algohub.kr" />}
+          {isSuccess && <CodeClipboard code="algohub.kr" />}
         </div>
       </Modal>
     </main>
