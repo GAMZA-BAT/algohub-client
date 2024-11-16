@@ -1,7 +1,7 @@
+import { getGroupInfo } from "@/api/group";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";
-import { tmpGroupData } from "@/shared/constant/example";
 import type { Problem } from "@/shared/type";
 import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
@@ -11,6 +11,8 @@ import Ranking from "@/view/group/dashboard/Ranking";
 const GroupDashboardPage = async ({
   params,
 }: { params: { groupId: string } }) => {
+  const groupInfo = await getGroupInfo(+params.groupId);
+
   const data: Problem[] = [
     {
       problemId: 1,
@@ -50,7 +52,7 @@ const GroupDashboardPage = async ({
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <GroupSidebar info={tmpGroupData} />
+        <GroupSidebar info={groupInfo} />
         {params.groupId}
       </Sidebar>
       <div className={listSectionStyle}>

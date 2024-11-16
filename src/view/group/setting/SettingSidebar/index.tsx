@@ -1,5 +1,6 @@
 "use client";
 import { groupSchema } from "@/api/group/schema";
+import type { GroupResponse } from "@/api/group/type";
 import { useClipboard } from "@/common/hook/useClipboard";
 import CodeClipboard from "@/shared/component/CodeClipboard";
 import GroupInfoForm from "@/shared/component/GroupInfoForm";
@@ -14,17 +15,18 @@ import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
 type SettingSidebarProps = {
+  info: GroupResponse;
   code: string;
 };
 
-const SettingSidebar = ({ code }: SettingSidebarProps) => {
+const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
     defaultValues: {
-      image: "",
-      name: "",
-      desc: "",
+      profileImage: info.groupImage,
+      name: info.name,
+      introduction: info.introduction,
     },
   });
 
