@@ -116,8 +116,16 @@ export const iconStyle = recipe({
 });
 
 export const editInputWrapperStyle = style({
+  position: "relative",
+
   display: "flex",
   gap: "0.4rem",
 
-  width: "80%",
+  width: "100%",
+});
+
+export const editSumbitButtonStyle = style({
+  position: "absolute",
+  top: 5,
+  right: 5,
 });

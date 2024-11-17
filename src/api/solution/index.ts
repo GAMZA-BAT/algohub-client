@@ -15,7 +15,7 @@ export const getSolutionList = async ({
 }: SolutionRequest) => {
   const response = await kyInstance
     .get<SolutionResponse>(
-      `api/solutions?problemId=${problemId}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}${nickname ? `&nickname=${nickname}` : ""}&page=${page}&size=${size}`,
+      `api/problems/${problemId}/solutions${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}${nickname ? `&nickname=${nickname}` : ""}?page=${page}&size=${size}`,
     )
     .json();
 

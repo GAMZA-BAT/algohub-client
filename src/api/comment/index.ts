@@ -1,5 +1,4 @@
 import { kyInstance } from "@/api";
-import type { CommentRequest, EditCommentRequest } from "@/api/comment/type";
 import type { Comment } from "@/shared/type";
 
 export const getCommentList = async (solutionId: number) => {
@@ -10,16 +9,17 @@ export const getCommentList = async (solutionId: number) => {
   return response;
 };
 
-export const postCommentInput = async (
-  solutionId: number,
-  formData: CommentRequest,
-) => {
-  await kyInstance.post<CommentRequest>(
+export const postCommentInput = async (solutionId: number, content: string) => {
+  const response = await kyInstance.post(
     `api/solutions/${solutionId}/comments`,
     {
-      json: formData,
+      json: {
+        content,
+      },
     },
   );
+
+  return response;
 };
 
 export const deleteComment = async (commentId: number) => {
@@ -30,14 +30,13 @@ export const deleteComment = async (commentId: number) => {
   return response;
 };
 
-export const editComment = async (
-  commentId: number,
-  formData: EditCommentRequest,
-) => {
+export const editComment = async (commentId: number, content: string) => {
   const response = await kyInstance.patch(
     `api/solutions/comments/${commentId}`,
     {
-      json: formData,
+      json: {
+        content,
+      },
     },
   );
 
