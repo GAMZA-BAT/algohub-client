@@ -1,6 +1,5 @@
 "use client";
 
-import type { EditCommentRequest } from "@/api/comment/type";
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -24,7 +23,6 @@ import clsx from "clsx";
 type CommentBox = Comment & {
   variant: "detail" | "notice";
   onDelete?: (commentId: number) => void;
-  onEdit?: (data: EditCommentRequest) => void;
   className?: string;
 };
 
