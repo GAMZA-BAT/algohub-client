@@ -55,3 +55,17 @@ export const getGroupCode = async (groupId: number) => {
 
   return response;
 };
+
+export const withdrawGroup = async (groupId: number) => {
+  const response = await kyInstance
+    .delete(`api/groups/${groupId}/members/me`)
+    .json();
+
+  return response;
+};
+
+export const patchGroupVisibility = async (groupId: number) => {
+  const response = kyInstance.patch(`api/groups/${groupId}/visibility`).json();
+
+  return response;
+};
