@@ -5,6 +5,6 @@ export const kyInstance = ky.create({
   headers: {
     "Content-Type": "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE4MzI0OTR9.Lj2nNqctr-YEiB_1tcFDJkht9hH2ez8kTfeiBK6KZ1U",
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE5MTg0MjN9.95JYgw8rJuA7ouc4orWwwKNtppag04xNssT0JbhWul4",
   },
 });
