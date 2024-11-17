@@ -51,13 +51,13 @@ export const useEditForm = (commentId: number, defaultValue: string) => {
     }
   };
 
-  const onSubmit = handleSubmit(handleEditSubmit);
+  const handleHookFormSubmit = handleSubmit(handleEditSubmit);
 
   return {
     register,
     isEditing,
     handleEditBtnClick,
     handleTextAreaKeyDown,
-    onSubmit,
+    handleHookFormSubmit,
   };
 };
