@@ -10,7 +10,6 @@ import { type ChangeEvent, useState } from "react";
 interface EditAvatarProps extends Omit<ImageProps, "src" | "alt" | "onChange"> {
   src?: string;
   alt?: string;
-  name?: string;
   onChange?: (img: Blob) => void;
   variant?: "default" | "secondary";
 }
@@ -18,7 +17,6 @@ interface EditAvatarProps extends Omit<ImageProps, "src" | "alt" | "onChange"> {
 const EditAvatar = ({
   src = "",
   alt = "프로필 사진 수정",
-  name,
   onChange,
   variant = "default",
   ...props
@@ -62,7 +60,6 @@ const EditAvatar = ({
       <input
         className={inputStyle}
         type="file"
-        name={name}
         id="edit-avatar"
         accept="image/*"
         onChange={handleImageChange}

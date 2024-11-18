@@ -102,9 +102,7 @@ const FormController = <
             />
           );
         } else {
-          FormField = (
-            <EditAvatar name={name} {...fieldProps} onChange={field.onChange} />
-          );
+          FormField = <EditAvatar {...fieldProps} onChange={field.onChange} />;
         }
         return (
           <div className={clsx(itemDefaultStyle)}>

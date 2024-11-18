@@ -5,10 +5,10 @@ import MemberList from "@/view/group/setting/MemberList";
 import SettingSidebar from "@/view/group/setting/SettingSidebar";
 
 const GroupSettingPage = async ({
-  params,
+  params: { groupId },
 }: { params: { groupId: string } }) => {
-  const groupData = getGroupInfo(+params.groupId);
-  const memberData = getGroupMemberList(+params.groupId);
+  const groupData = getGroupInfo(+groupId);
+  const memberData = getGroupMemberList(+groupId);
 
   const [groupInfo, memberInfo] = await Promise.all([groupData, memberData]);
 
