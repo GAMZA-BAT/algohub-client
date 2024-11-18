@@ -37,10 +37,12 @@ export const getGroupMemberList = async (groupId: number) => {
   return response;
 };
 
-export const patchGroupVisibility = async (groupId: number) => {
-  const response = await kyInstance
-    .patch(`api/groups/${groupId}/visibility`)
-    .json();
+export const patchGroupVisibility = async (groupId: number, flag: boolean) => {
+  const response = await kyInstance.patch(`api/groups/${groupId}/visibility`, {
+    json: {
+      isVisible: flag,
+    },
+  });
 
   return response;
 };

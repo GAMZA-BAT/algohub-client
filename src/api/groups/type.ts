@@ -23,10 +23,10 @@ export type GroupByCodeResponse = {
   startDate: string;
   endDate: string;
   introduction: string;
+  ownerNickname?: string;
 };
 export interface GroupResponse extends GroupByCodeResponse {
   isOwner?: boolean;
-  ownerNickname?: string;
 }
 
 export type GroupRequest = {
@@ -44,7 +44,10 @@ export type RankingResponse = {
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
-export type GroupListItem = GroupResponse & { isBookmarked?: boolean };
+export type GroupListItem = GroupResponse & {
+  isBookmarked: boolean;
+  isVisible: boolean;
+};
 export type GroupListResponse = {
   [key in GroupStatus]: GroupListItem[];
 };
