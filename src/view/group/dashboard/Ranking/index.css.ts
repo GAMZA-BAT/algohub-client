@@ -137,3 +137,19 @@ export const changeStyle = recipe({
     },
   },
 });
+
+export const emptyRankingWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "3rem",
+
+  width: "100%",
+  padding: "5.3rem 0 5.2rem",
+});
+
+export const emptyGuideStyle = style({
+  color: theme.color.mg4,
+  ...theme.font.Head2_SB_18,
+});

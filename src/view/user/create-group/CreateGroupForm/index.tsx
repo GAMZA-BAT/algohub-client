@@ -1,4 +1,4 @@
-import { groupSchema } from "@/api/group/schema";
+import { groupSchema } from "@/api/groups/schema";
 import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
 import GroupInfoForm from "@/shared/component/GroupInfoForm";
@@ -16,9 +16,9 @@ const CreateGroupForm = ({ setIsSuccess }: CreateGroupFormProps) => {
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
     defaultValues: {
-      image: "",
+      profileImage: null,
       name: "",
-      desc: "",
+      introduction: "",
       startDate: new Date(),
       endDate: new Date(),
     },

@@ -1,4 +1,4 @@
-import type { SolutionLanguage } from "@/api/solution/type";
+import type { SolutionLanguage } from "@/api/solutions/type";
 
 export type Timeout = ReturnType<typeof setTimeout>;
 

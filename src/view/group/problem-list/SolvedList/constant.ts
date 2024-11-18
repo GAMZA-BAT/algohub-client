@@ -1,4 +1,4 @@
-import type { SolutionByIdResponse } from "@/api/solution/type";
+import type { SolutionByIdResponse } from "@/api/solutions/type";
 
 export type SolvedHeader =
   | ""

@@ -3,7 +3,7 @@ import type {
   SolutionByIdResponse,
   SolutionRequest,
   SolutionResponse,
-} from "@/api/solution/type";
+} from "@/api/solutions/type";
 
 export const getSolutionList = async ({
   problemId,

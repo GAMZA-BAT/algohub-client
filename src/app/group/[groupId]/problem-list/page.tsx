@@ -55,8 +55,12 @@ const ProblemListPage = () => {
       <div className={pageStyle}>
         <TabGroup.Tabs variant="secondary">
           <TabGroup.TabList>
-            <TabGroup.Tab tabId="1">진행중인 문제·만료된 문제</TabGroup.Tab>
-            <TabGroup.Tab tabId="2">대기중인 문제</TabGroup.Tab>
+            <TabGroup.Tab tabId="1" indicatorId="problemlist">
+              진행중인 문제·만료된 문제
+            </TabGroup.Tab>
+            <TabGroup.Tab tabId="2" indicatorId="problemlist">
+              대기중인 문제
+            </TabGroup.Tab>
           </TabGroup.TabList>
           <TabGroup.TabPanels>
             <section>
