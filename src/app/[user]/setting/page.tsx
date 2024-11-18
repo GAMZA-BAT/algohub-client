@@ -1,4 +1,5 @@
 "use client";
+
 import Sidebar from "@/common/component/Sidebar";
 import ToastProvider from "@/common/component/Toast";
 import { sidebarWrapper } from "@/styles/shared.css";

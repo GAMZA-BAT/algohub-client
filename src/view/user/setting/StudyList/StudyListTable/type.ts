@@ -6,10 +6,5 @@ export type StudyListType = {
   endDate: Date;
 } & Omit<
   GroupListItem,
-  | "introduction"
-  | "groupImage"
-  | "ownerNickname"
-  | "id"
-  | "startDate"
-  | "endDate"
+  "introduction" | "groupImage" | "ownerNickname" | "startDate" | "endDate"
 >;
