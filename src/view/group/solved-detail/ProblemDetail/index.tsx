@@ -1,6 +1,5 @@
 import type { SolutionByIdResponse } from "@/api/solution/type";
 import CheckBox from "@/common/component/CheckBox";
-import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { getTierImage } from "@/shared/util/img";
 import { getSolvedStatusByResult } from "@/shared/util/result";
 import {
@@ -43,18 +42,13 @@ const ProblemDetail = ({
   result,
   className,
 }: ProblemDetailProps) => {
-  const { handleBlur, handleFocus, handleMouseOut, handleMouseOver } =
-    useA11yHoverHandler();
-
   const Icon = getTierImage("bronze 1");
   const solved = getSolvedStatusByResult(result);
 
+  /** TODO: API 수정 되면 solvedMemberCount, accuracy 반영 */
+
   return (
     <li
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseOut}
       aria-label={`문제: ${problemTitle}`}
       className={clsx(itemStyle, className)}
     >
@@ -67,8 +61,8 @@ const ProblemDetail = ({
       <time dateTime={solvedDateTime} className={commonStyle}>
         {format(solvedDateTime, "yyyy.MM.dd")}
       </time>
-      <span className={commonStyle}>50/200</span>
-      <span className={commonStyle}>80%</span>
+      <span className={commonStyle}>50/200{/** TODO */}</span>
+      <span className={commonStyle}>80%{/** TODO */}</span>
       <div className={iconStyle}>
         {JSX_BY_STATUS[solved ? "solved" : "wrong"]}
       </div>
