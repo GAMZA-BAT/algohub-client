@@ -1,7 +1,8 @@
 import { IcnBtnDeleteCircle } from "@/asset/svg";
+import icnNew from "@/asset/svg/icn_new.svg?url";
 import { handleA11yClick } from "@/common/util/dom";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import {
   alarmContentStyle,
   containerStyle,
@@ -14,7 +15,7 @@ import {
 } from "./AlarmListItem.css";
 
 type AlarmListProps = {
-  profileImg: StaticImageData;
+  profileImg: string;
   name: string;
   message: string;
   date: string;
@@ -53,7 +54,9 @@ const AlarmListItem = ({
       >
         <div className={profileStyle}>
           <Image
-            src={profileImg}
+            src={profileImg || icnNew}
+            width={25}
+            height={25}
             className={profileImageStyle}
             alt={`${name}님의 프로필 이미지`}
           />

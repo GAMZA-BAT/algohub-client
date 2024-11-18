@@ -6,9 +6,6 @@ export const alarmContainer = style({
   top: "7.2rem",
   right: "8rem",
 
-  width: "29rem",
-  height: "28.5rem",
-  padding: "1.2rem 0.8rem 1.5rem 2rem",
   borderRadius: "2rem",
 
   opacity: "0.9",
@@ -21,11 +18,14 @@ export const ulStyle = style({
   flexDirection: "column",
   gap: "1rem",
 
-  paddingTop: "1rem",
+  padding: "3rem 2rem",
 
   // scroll bar
   overflowY: "scroll",
+  overscrollBehavior: "contain",
+
   height: "26.6rem",
+
   selectors: {
     "&::-webkit-scrollbar-button": {
       height: "1rem",
