@@ -1,4 +1,4 @@
-import { getGroupInfo, getGroupMemberList } from "@/api/group";
+import { getGroupInfo, getGroupMemberList } from "@/api/groups";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import MemberList from "@/view/group/setting/MemberList";

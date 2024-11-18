@@ -1,4 +1,4 @@
-import { getGroupInfo } from "@/api/group";
+import { getGroupInfo } from "@/api/groups";
 import { getAllRanking } from "@/api/groups/ranking";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";

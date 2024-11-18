@@ -1,6 +1,6 @@
 "use server";
 
-import { postCreateGroup } from "@/api/group";
+import { postCreateGroup } from "@/api/groups";
 import { revalidatePath } from "next/cache";
 
 export const createGroupAction = async (formData: FormData) => {
