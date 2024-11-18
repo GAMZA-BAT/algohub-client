@@ -59,7 +59,7 @@ export const nameInputStyle = recipe({
         ...theme.font.Title2_M_16,
       },
       "group-setting": {
-        padding: "1rem 8rem",
+        padding: "1.1rem 0.8rem",
         ...theme.font.Body1_M_14,
       },
     },
@@ -92,6 +92,7 @@ export const dateLabelStyle = recipe({
 
 export const dateInputStyle = style({
   ...theme.font.Caption1_R_12,
+
   "::placeholder": {
     color: theme.color.mg4,
   },

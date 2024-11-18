@@ -29,6 +29,11 @@ export interface GroupResponse extends GroupByCodeResponse {
   ownerNickname?: string;
 }
 
+export type GroupRequest = {
+  profileImage: FormData;
+  request: FormData;
+};
+
 export type RankingResponse = {
   userNickname: string;
   profileImage: string;
@@ -39,7 +44,7 @@ export type RankingResponse = {
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
-export type GroupListItem = GroupResponse & { isBookmarked: boolean };
+export type GroupListItem = GroupResponse & { isBookmarked?: boolean };
 export type GroupListResponse = {
   [key in GroupStatus]: GroupListItem[];
 };

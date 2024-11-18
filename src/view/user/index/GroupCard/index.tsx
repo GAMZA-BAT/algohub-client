@@ -29,6 +29,8 @@ const GroupCard = ({ item, status }: GroupCardProps) => {
         <Image
           src={groupImage || defaultImg}
           alt={""}
+          width={210}
+          height={156}
           className={imgStyle}
           unoptimized
         />
