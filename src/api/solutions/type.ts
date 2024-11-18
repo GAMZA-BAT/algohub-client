@@ -12,7 +12,7 @@ export type SolutionByIdResponse = {
   problemTitle: string;
   problemLevel: number;
   nickname: string;
-  profileImage: string | null;
+  profileImage: string;
   solvedDateTime: string;
   content: string;
   result: string;
