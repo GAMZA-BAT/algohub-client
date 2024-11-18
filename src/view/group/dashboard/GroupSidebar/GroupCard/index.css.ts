@@ -38,6 +38,7 @@ export const descStyle = style({
   textOverflow: "ellipsis",
   overflow: "hidden",
 
+  maxWidth: "17.4rem",
   paddingTop: "0.8rem",
 
   color: theme.color.mg3,

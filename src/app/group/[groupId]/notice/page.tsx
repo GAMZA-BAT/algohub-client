@@ -1,6 +1,6 @@
 "use client";
 
-import type { NoticeResponse } from "@/api/notice/type";
+import type { NoticeResponse } from "@/api/notices/type";
 import GroupDashboardPage from "@/app/group/[groupId]/page";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import Modal from "@/common/component/Modal";

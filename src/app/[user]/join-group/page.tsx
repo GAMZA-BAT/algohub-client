@@ -1,5 +1,5 @@
 "use client";
-import type { GroupJoinResponse } from "@/api/group/type";
+import type { GroupJoinResponse } from "@/api/groups/type";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import Sidebar from "@/common/component/Sidebar";

@@ -3,7 +3,7 @@ import type {
   GroupListResponse,
   GroupResponse,
   MemberResponse,
-} from "@/api/group/type";
+} from "@/api/groups/type";
 
 export const postCreateGroup = async (formData: FormData) => {
   const response = await kyFileInstance.post("api/groups", {

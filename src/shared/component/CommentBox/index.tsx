@@ -1,6 +1,6 @@
 "use client";
 
-import type { EditCommentRequest } from "@/api/comment/type";
+import type { EditCommentRequest } from "@/api/comments/type";
 import { useEditCommentMutation } from "@/app/group/[groupId]/solved-detail/[id]/query";
 import { IcnBtnSend, IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";

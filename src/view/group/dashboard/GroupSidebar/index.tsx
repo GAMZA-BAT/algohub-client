@@ -1,4 +1,4 @@
-import type { GroupResponse } from "@/api/group/type";
+import type { GroupResponse } from "@/api/groups/type";
 import CircleNumber from "@/view/group/dashboard/GroupSidebar/CircleNumber";
 import GroupCard from "@/view/group/dashboard/GroupSidebar/GroupCard";
 import {

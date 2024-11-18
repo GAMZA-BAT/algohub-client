@@ -1,6 +1,6 @@
 "use client";
-import { groupSchema } from "@/api/group/schema";
-import type { GroupResponse } from "@/api/group/type";
+import { groupSchema } from "@/api/groups/schema";
+import type { GroupResponse } from "@/api/groups/type";
 import GroupInfoForm from "@/shared/component/GroupInfoForm";
 import {
   deleteTextStyle,

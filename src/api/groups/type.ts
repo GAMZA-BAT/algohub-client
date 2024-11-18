@@ -39,8 +39,8 @@ export type RankingResponse = {
   profileImage: string;
   rank: number;
   solvedCount: number;
+  rankDiff: string;
 };
-export type RankingListRespons = RankingResponse[];
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
@@ -57,7 +57,7 @@ export type DeleteGroupMemberRequest = {
 export type MemberResponse = {
   nickname: string;
   joinDate: string;
-  achivement: string;
+  achievement: string;
   role: string;
   profileImage: string;
   memberId: number;

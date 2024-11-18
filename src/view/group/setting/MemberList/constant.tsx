@@ -1,4 +1,4 @@
-import type { MemberResponse } from "@/api/group/type";
+import type { MemberResponse } from "@/api/groups/type";
 import { IcnCalendarTable } from "@/asset/svg";
 import type { TableDataType } from "@/shared/type/table";
 import {
@@ -39,23 +39,23 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
     width: 100,
   },
   {
-    key: "achivement",
+    key: "achievement",
     Header: () => {
       const dispatch = useMemberListDispatch();
       const state = useMemberListState();
-      const direction = state?.find((c) => c.key === "achivement")?.order;
+      const direction = state?.find((c) => c.key === "achievement")?.order;
       return (
         <>
           <IcnCalendarTable width={20} height={20} />
           <span className={textStyle}>성취도</span>
           <SortIcon
             direction={direction}
-            onClick={() => dispatch({ type: "SET_SORT", key: "achivement" })}
+            onClick={() => dispatch({ type: "SET_SORT", key: "achievement" })}
           />
         </>
       );
     },
-    Cell: (data) => data.achivement,
+    Cell: (data) => data.achievement,
     width: 80,
   },
   {

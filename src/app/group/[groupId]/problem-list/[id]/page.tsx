@@ -1,4 +1,4 @@
-import { getSolutionList } from "@/api/solution";
+import { getSolutionList } from "@/api/solutions";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ProblemSidebar from "@/view/group/index/ProblemSidebar";
