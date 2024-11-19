@@ -13,5 +13,3 @@ export interface NoticeRequest {
   title: string;
   content: string;
 }
-
-export type NoticeListResponse = NoticeResponse[];
