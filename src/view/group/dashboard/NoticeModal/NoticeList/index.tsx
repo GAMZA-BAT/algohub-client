@@ -1,11 +1,10 @@
 "use client";
 
-import type { NoticeListResponse } from "@/api/notices/type";
+import type { NoticeResponse } from "@/api/notices/type";
 import { IcnNew } from "@/asset/svg";
 import Button from "@/common/component/Button";
 import Pagination from "@/shared/component/Pagination";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import { getNoticeBannerCreateAt } from "@/shared/util/time";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -22,7 +21,7 @@ import {
 } from "./index.css";
 
 type NoticeListProps = {
-  noticeList: NoticeListResponse;
+  noticeList: NoticeResponse[];
 };
 
 const NoticeList = ({ noticeList }: NoticeListProps) => {
@@ -33,52 +32,52 @@ const NoticeList = ({ noticeList }: NoticeListProps) => {
     <>
       {/* 공지사항 목록 */}
       <ul aria-label="공지사항 목록" className={ulStyle}>
-        {noticeList.map((notice) => {
-          const { noticeId, title, category, author, createAt, isRead } =
-            notice;
-          return (
-            <li
-              key={noticeId}
-              className={liStyle}
-              aria-labelledby={`notice-title-${noticeId}`}
-            >
-              <button
-                className={overlayStyle}
-                aria-label={`${title} 공지 상세 보기`}
-                onClick={() =>
-                  router.push(`/group/${groupId}/notice/${noticeId}`)
-                }
-              />
-              <article className={itemStyle}>
-                <div className={contentWrapper}>
-                  <div className={contentStyle}>
-                    <h3
-                      id={`notice-title-${noticeId}`}
-                      className={textStyle.category}
-                    >
-                      {category}
-                    </h3>
-                    <p className={textStyle.modalTitle}>{title}</p>
+        {noticeList.map(
+          ({ noticeId, title, category, author, createAt, isRead }) => {
+            return (
+              <li
+                key={noticeId}
+                className={liStyle}
+                aria-labelledby={`notice-title-${noticeId}`}
+              >
+                <button
+                  className={overlayStyle}
+                  aria-label={`${title} 공지 상세 보기`}
+                  onClick={() =>
+                    router.push(`/group/${groupId}/notice/${noticeId}`)
+                  }
+                />
+                <article className={itemStyle}>
+                  <div className={contentWrapper}>
+                    <div className={contentStyle}>
+                      <h3
+                        id={`notice-title-${noticeId}`}
+                        className={textStyle.category}
+                      >
+                        {category}
+                      </h3>
+                      <p className={textStyle.modalTitle}>{title}</p>
+                    </div>
                   </div>
-                </div>
-                <div className={noticeInfoStyle}>
-                  <div className={infoWrapper}>
-                    <span className={textStyle.author}>{author}</span>
-                    <time dateTime={createAt} className={textStyle.time}>
-                      {getNoticeBannerCreateAt(createAt)}
-                    </time>
+                  <div className={noticeInfoStyle}>
+                    <div className={infoWrapper}>
+                      <span className={textStyle.author}>{author}</span>
+                      <time dateTime={createAt} className={textStyle.time}>
+                        {createAt}
+                      </time>
+                    </div>
+                    <IcnNew
+                      width={13}
+                      height={13}
+                      aria-label="읽지 않은 공지"
+                      style={{ opacity: isRead ? "0" : "1" }}
+                    />
                   </div>
-                  <IcnNew
-                    width={13}
-                    height={13}
-                    aria-label="읽지 않은 공지"
-                    style={{ opacity: isRead ? "0" : "1" }}
-                  />
-                </div>
-              </article>
-            </li>
-          );
-        })}
+                </article>
+              </li>
+            );
+          },
+        )}
       </ul>
 
       {/* 모달 하단 */}

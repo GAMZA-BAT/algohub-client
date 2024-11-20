@@ -1,9 +1,9 @@
 "use client";
+import { useNoticesQuery } from "@/app/group/[groupId]/notice/query";
 import GroupDashboardPage from "@/app/group/[groupId]/page";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import Modal from "@/common/component/Modal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import { tmpData } from "@/view/group/dashboard/NoticeBanner/constant";
 import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
 import {
   noticeHeaderStyle,
@@ -13,10 +13,13 @@ import { textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
 
 const NoticeModal = () => {
-  const params = { groupId: useGetGroupId() };
-  const router = useRouter();
   const groupId = useGetGroupId();
+  const params = { groupId };
+  const router = useRouter();
   const handleClose = () => router.push(`/group/${groupId}`);
+  const { data: noticeList } = useNoticesQuery(+groupId);
+
+  if (!noticeList) return;
 
   return (
     <>
@@ -29,7 +32,11 @@ const NoticeModal = () => {
               <IcnBtnDeleteCircle width={16} height={16} />
             </button>
           </header>
-          <NoticeList noticeList={tmpData} />
+          {noticeList.length ? (
+            <NoticeList noticeList={noticeList} />
+          ) : (
+            <p>공지가 없습니다.</p>
+          )}
         </div>
       </Modal>
     </>

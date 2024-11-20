@@ -6,7 +6,6 @@ import Textarea from "@/common/component/Textarea";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { getNoticeBannerCreateAt } from "@/shared/util/time";
 import { useRef, useState } from "react";
 import {
   articleStyle,
@@ -80,7 +79,7 @@ const NoticeDetail = ({
         <div className={noticeInfoStyle}>
           <p className={textStyle.author}>{author}</p>
           <time dateTime={createAt} className={textStyle.time}>
-            {getNoticeBannerCreateAt(createAt)}
+            {createAt}
           </time>
           {<IcnNew width={13} height={13} style={{ minWidth: 13 }} />}
         </div>
