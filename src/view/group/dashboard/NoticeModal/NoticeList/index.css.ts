@@ -53,7 +53,7 @@ export const infoWrapper = style({
   display: "flex",
   gap: "3rem",
 
-  width: "76.5%",
+  width: "77%",
 });
 
 export const avatarStyle = style({
