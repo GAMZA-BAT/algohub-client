@@ -12,14 +12,13 @@ import { textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
 
 const NoticeCreatePage = () => {
-  const params = { groupId: useGetGroupId() };
   const router = useRouter();
   const groupId = useGetGroupId();
   const handleClose = () => router.push(`/group/${groupId}/notice`);
 
   return (
     <>
-      <GroupDashboardPage params={params} />
+      <GroupDashboardPage params={{ groupId }} />
       <Modal isOpen={true} onClose={handleClose}>
         <div className={noticeModalWrapper}>
           <header className={noticeHeaderStyle}>

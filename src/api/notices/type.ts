@@ -9,7 +9,7 @@ export interface NoticeResponse {
 }
 
 export interface NoticeRequest {
-  studyGroupId: number;
   title: string;
   content: string;
+  category: string;
 }

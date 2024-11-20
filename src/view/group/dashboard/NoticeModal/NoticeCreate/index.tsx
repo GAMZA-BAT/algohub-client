@@ -1,7 +1,9 @@
 "use client";
 
+import { useNoticeMutation } from "@/app/group/[groupId]/notice/query";
 import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import {
   btnStyle,
   btnWrapper,
@@ -21,6 +23,8 @@ import type { z } from "zod";
 
 const NoticeCreate = () => {
   const router = useRouter();
+  const groupId = useGetGroupId();
+  const { mutate: noticeMutate } = useNoticeMutation(+groupId);
   const form = useForm<z.infer<typeof registerNoticeSchema>>({
     resolver: zodResolver(registerNoticeSchema),
     mode: "onTouched",
@@ -31,9 +35,10 @@ const NoticeCreate = () => {
     },
   });
 
-  const handleSubmit = (_values: z.infer<typeof registerNoticeSchema>) => {
-    // console.log(values);
+  const handleSubmit = (values: z.infer<typeof registerNoticeSchema>) => {
+    noticeMutate(values);
   };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className={formStyle}>

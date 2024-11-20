@@ -1,5 +1,5 @@
 import { kyInstance } from "@/api";
-import type { NoticeResponse } from "@/api/notices/type";
+import type { NoticeRequest, NoticeResponse } from "@/api/notices/type";
 
 export const getNotices = async (groupId: number) => {
   const response = await kyInstance
@@ -15,4 +15,13 @@ export const getNoticeById = async (noticeId: number) => {
     .json();
 
   return response;
+};
+
+export const postNotice = async (
+  groupId: number,
+  requestData: NoticeRequest,
+) => {
+  await kyInstance.post<NoticeRequest>(`api/groups/${groupId}/notices`, {
+    json: requestData,
+  });
 };
