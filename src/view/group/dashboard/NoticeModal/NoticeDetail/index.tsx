@@ -9,7 +9,6 @@ import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { useRef, useState } from "react";
 import {
   articleStyle,
-  avatarStyle,
   contentStyle,
   contentWrapper,
   headerStyle,
@@ -30,7 +29,7 @@ type NoticeDetailProps = {
 };
 
 const NoticeDetail = ({
-  data: { author, title, createAt, category, noticeId, content },
+  data: { author, title, createAt, category, noticeId, content, isRead },
   goBack,
 }: NoticeDetailProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
@@ -67,7 +66,7 @@ const NoticeDetail = ({
       {/* 상세보기 헤더 */}
       <header className={headerStyle}>
         <div className={contentWrapper}>
-          <Avatar className={avatarStyle} alt="작성자 프로필 사진" />
+          <Avatar size="small" alt="작성자 프로필 사진" />
           <div className={contentStyle}>
             <h3 id={`notice-title-${noticeId}`} className={textStyle.category}>
               {category}
@@ -81,7 +80,7 @@ const NoticeDetail = ({
           <time dateTime={createAt} className={textStyle.time}>
             {createAt}
           </time>
-          {<IcnNew width={13} height={13} style={{ minWidth: 13 }} />}
+          {!isRead && <IcnNew width={13} height={13} style={{ minWidth: 13 }} />}
         </div>
       </header>
 

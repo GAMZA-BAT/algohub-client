@@ -1,9 +1,16 @@
-import { getNotices } from "@/api/notices";
+import { getNoticeById, getNotices } from "@/api/notices";
 import { useQuery } from "@tanstack/react-query";
 
 export const useNoticesQuery = (groupId: number) => {
   return useQuery({
     queryKey: ["notices", groupId],
     queryFn: () => getNotices(groupId),
+  });
+};
+
+export const useNoticeByIdQuery = (noticeId: number) => {
+  return useQuery({
+    queryKey: ["notice", noticeId],
+    queryFn: () => getNoticeById(noticeId),
   });
 };

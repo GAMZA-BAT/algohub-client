@@ -8,3 +8,11 @@ export const getNotices = async (groupId: number) => {
 
   return response;
 };
+
+export const getNoticeById = async (noticeId: number) => {
+  const response = await kyInstance
+    .get<NoticeResponse>(`api/notices/${noticeId}`)
+    .json();
+
+  return response;
+};

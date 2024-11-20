@@ -1,6 +1,7 @@
 "use client";
 
 import type { NoticeResponse } from "@/api/notices/type";
+import defaultImage from "@/asset/img/img_card_profile.png";
 import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Pagination from "@/shared/component/Pagination";
@@ -48,7 +49,11 @@ const NoticeList = ({ noticeList }: NoticeListProps) => {
                 />
                 <article className={itemStyle}>
                   <div className={contentWrapper}>
-                    <Avatar size="small" alt="작성자 프로필 사진" />
+                    <Avatar
+                      size="small"
+                      src={defaultImage}
+                      alt="작성자 프로필 사진"
+                    />
                     <div className={contentStyle}>
                       <h3
                         id={`notice-title-${noticeId}`}

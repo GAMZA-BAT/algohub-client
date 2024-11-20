@@ -1,5 +1,5 @@
 "use client";
-import type { NoticeResponse } from "@/api/notices/type";
+import { useNoticeByIdQuery } from "@/app/group/[groupId]/notice/query";
 import GroupDashboardPage from "@/app/group/[groupId]/page";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import Modal from "@/common/component/Modal";
@@ -19,15 +19,8 @@ const NoticeDetailPage = ({
   const router = useRouter();
   const handleClose = () => router.push(`/group/${groupId}/notice`);
 
-  const selectedNotice: NoticeResponse = {
-    author: "j-nary",
-    noticeId: +noticeId,
-    content: "알고헙 사랑해",
-    title: "백준 풀고 알고헙 애용",
-    category: "test",
-    createAt: "2024-10-24",
-    isRead: false,
-  };
+  const { data: selectedNotice } = useNoticeByIdQuery(+noticeId);
+  if (!selectedNotice) return;
   return (
     <>
       <GroupDashboardPage params={{ groupId }} />
