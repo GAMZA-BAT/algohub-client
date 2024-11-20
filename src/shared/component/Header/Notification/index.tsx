@@ -1,30 +1,30 @@
 import type { NotificationItem } from "@/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
 import {
-  alarmContainer,
   countStyle,
+  notificationContainer,
   ulStyle,
-} from "@/shared/component/Header/Alarm/Alarm.css";
+} from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
 import type { HTMLAttributes } from "react";
-import AlarmListItem from "./AlarmListItem";
+import NotificationListItem from "./NotificationItem";
 
-interface AlarmProps extends HTMLAttributes<HTMLUListElement> {
-  alarmList: NotificationItem[];
+interface NotificationProps extends HTMLAttributes<HTMLUListElement> {
+  notificationList: NotificationItem[];
 }
 
-const Alarm = ({ alarmList, ...props }: AlarmProps) => {
+const Notification = ({ notificationList, ...props }: NotificationProps) => {
   return (
-    <div className={alarmContainer}>
+    <div className={notificationContainer}>
       <ul className={ulStyle} {...props} aria-label="알림 목록">
-        {/* TODO: api 연결 후 alarms 데이터 변경 */}
-        {alarmList.map((alarm, index) => (
-          <AlarmListItem
+        {/* TODO: api 연결 후 notifications 데이터 변경 */}
+        {notificationList.map((notification, index) => (
+          <NotificationListItem
             key={index} // TODO: api 연결 후 key 변경
-            name={alarm.groupName}
-            message={alarm.message}
-            date={alarm.createAt}
-            profileImg={alarm.groupImage}
+            name={notification.groupName}
+            message={notification.message}
+            date={notification.createAt}
+            profileImg={notification.groupImage}
             onClick={() => {
               alert("click");
             }}
@@ -40,7 +40,7 @@ interface TriggerButtonProps
   count: number;
 }
 
-Alarm.TriggerButton = ({ count, ...props }: TriggerButtonProps) => {
+Notification.TriggerButton = ({ count, ...props }: TriggerButtonProps) => {
   return (
     <button {...props}>
       {count > 0 && (
@@ -53,4 +53,4 @@ Alarm.TriggerButton = ({ count, ...props }: TriggerButtonProps) => {
   );
 };
 
-export default Alarm;
+export default Notification;

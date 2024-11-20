@@ -1,5 +1,5 @@
-export type AlarmSettingsDataType = {
-  alarm: boolean;
+export type NotificationSettingsDataType = {
+  notification: boolean;
   groupName: string;
   problemRegistration: boolean;
   solutionRegistration: boolean;

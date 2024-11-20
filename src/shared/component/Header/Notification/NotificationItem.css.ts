@@ -16,7 +16,7 @@ export const containerStyle = style({
   },
 });
 
-export const alarmContentStyle = style({
+export const notificationContentStyle = style({
   display: "flex",
   flexDirection: "column",
   gap: "1rem",

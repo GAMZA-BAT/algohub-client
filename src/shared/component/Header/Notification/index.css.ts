@@ -1,7 +1,7 @@
 import { scrollTheme, theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 
-export const alarmContainer = style({
+export const notificationContainer = style({
   position: "absolute",
   top: "7.2rem",
   right: "8rem",

@@ -4,17 +4,17 @@ import { handleA11yClick } from "@/common/util/dom";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import Image from "next/image";
 import {
-  alarmContentStyle,
   containerStyle,
   dateStyle,
   deleteIconStyle,
   messageStyle,
   nameStyle,
+  notificationContentStyle,
   profileImageStyle,
   profileStyle,
-} from "./AlarmListItem.css";
+} from "./NotificationItem.css";
 
-type AlarmListProps = {
+type NotificationListProps = {
   profileImg: string;
   name: string;
   message: string;
@@ -22,13 +22,13 @@ type AlarmListProps = {
   onClick: () => void;
 };
 
-const AlarmListItem = ({
+const NotificationListItem = ({
   onClick,
   profileImg,
   name,
   message,
   date,
-}: AlarmListProps) => {
+}: NotificationListProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
     useA11yHoverHandler();
 
@@ -47,7 +47,7 @@ const AlarmListItem = ({
     >
       <div
         role="button"
-        className={alarmContentStyle}
+        className={notificationContentStyle}
         onClick={onClick}
         onKeyDown={handleA11yClick(onClick)}
         tabIndex={0}
@@ -84,4 +84,4 @@ const AlarmListItem = ({
   );
 };
 
-export default AlarmListItem;
+export default NotificationListItem;

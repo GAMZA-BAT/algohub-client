@@ -4,7 +4,7 @@ import Menu from "@/common/component/Menu/Menu";
 import Profile from "@/shared/component/Header/Profile";
 import { buttonContainer } from "@/shared/component/Header/index.css";
 import { useNotificationsQuery } from "@/shared/component/Header/query";
-import Alarm from "./Alarm/Alarm";
+import Notification from "./Notification";
 
 const UserMenu = () => {
   const { data } = useNotificationsQuery();
@@ -15,9 +15,9 @@ const UserMenu = () => {
   return (
     <div className={buttonContainer}>
       <Menu
-        label="alarm"
-        renderTriggerButton={<Alarm.TriggerButton count={notiCounts} />}
-        renderList={<Alarm alarmList={data} />}
+        label="notification"
+        renderTriggerButton={<Notification.TriggerButton count={notiCounts} />}
+        renderList={<Notification notificationList={data} />}
       />
 
       <Menu
