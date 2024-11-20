@@ -87,7 +87,7 @@ const NoticeList = ({ noticeList }: NoticeListProps) => {
 
       <footer>
         <Pagination
-          totalPages={10}
+          totalPages={Math.ceil(noticeList.length / 7)}
           currentPage={currentPage}
           onPageChange={setCurrentPage}
           className={paginationStyle}
