@@ -80,7 +80,9 @@ const NoticeDetail = ({
           <time dateTime={createAt} className={textStyle.time}>
             {createAt}
           </time>
-          {!isRead && <IcnNew width={13} height={13} style={{ minWidth: 13 }} />}
+          {!isRead && (
+            <IcnNew width={13} height={13} style={{ minWidth: 13 }} />
+          )}
         </div>
       </header>
 
