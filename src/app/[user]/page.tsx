@@ -1,5 +1,6 @@
-import { getGroupList } from "@/api/group";
-import type { GroupStatus } from "@/api/group/type";
+"use client";
+import { getGroupList } from "@/api/groups";
+import type { GroupStatus } from "@/api/groups/type";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ListSection from "@/view/user/index/ListSection/ListSection";

@@ -1,7 +1,6 @@
 "use client";
-import { groupSchema } from "@/api/group/schema";
-import type { GroupResponse } from "@/api/group/type";
-import { useClipboard } from "@/common/hook/useClipboard";
+import { groupSchema } from "@/api/groups/schema";
+import type { GroupResponse } from "@/api/groups/type";
 import CodeClipboard from "@/shared/component/CodeClipboard";
 import GroupInfoForm from "@/shared/component/GroupInfoForm";
 import {
@@ -30,8 +29,6 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     },
   });
 
-  const { isCopied, copy } = useClipboard();
-
   return (
     <div className={sidebarWrapper}>
       <GroupInfoForm form={form} variant="group-setting">
@@ -44,12 +41,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
           </button>
         </div>
       </GroupInfoForm>
-      <CodeClipboard
-        isSuccess={isCopied}
-        onTrigger={() => copy(code)}
-        label="스터디 링크"
-        code={code}
-      />
+      <CodeClipboard label="스터디 링크" code={code} />
     </div>
   );
 };

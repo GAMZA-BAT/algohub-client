@@ -19,6 +19,7 @@ const GroupSettingPage = async ({
         <SettingSidebar info={groupInfo} code={inviteCode} />
       </Sidebar>
       <MemberList memberListData={memberInfo} />
+      <MemberList memberListData={memberInfo} />
     </main>
   );
 };
