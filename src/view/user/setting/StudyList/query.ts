@@ -15,12 +15,9 @@ export const useGetMyGroupsQuery = () => {
     queryKey: ["groups", "setting"],
     queryFn: getGroupList,
     select: (data) =>
-      [
-        ...transformData(data.bookmarked, "bookmarked"),
-        ...transformData(data.queued, "queued"),
-        ...transformData(data.inProgress, "inProgress"),
-        ...transformData(data.done, "done"),
-      ].sort((a, b) => a.id - b.id),
+      (["bookmarked", "queued", "inProgress", "done"] as GroupStatus[])
+        .flatMap((status) => transformData(data[status], status))
+        .sort((a, b) => a.id - b.id),
   });
 };
 
@@ -57,11 +54,18 @@ export const useVisibilityMutation = (groupId: number) => {
 
       const { status } = error.response;
 
-      if (status === HTTP_ERROR_STATUS.FORBIDDEN) {
-        showToast("참여하지 않은 그룹입니다.", "error");
-      }
-      if (status === HTTP_ERROR_STATUS.NOT_FOUND) {
-        showToast("존재하지 않는 그룹입니다.", "error");
+      switch (status) {
+        case HTTP_ERROR_STATUS.FORBIDDEN: {
+          showToast("참여하지 않은 그룹입니다.", "error");
+          break;
+        }
+        case HTTP_ERROR_STATUS.NOT_FOUND: {
+          showToast("참여하지 않은 그룹입니다.", "error");
+          break;
+        }
+        default: {
+          showToast("알 수 없는 에러입니다.", "error");
+        }
       }
     },
   });
