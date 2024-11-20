@@ -2,10 +2,12 @@
 import { useNoticesQuery } from "@/app/group/[groupId]/notice/query";
 import GroupDashboardPage from "@/app/group/[groupId]/page";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
+import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
 import {
+  buttonStyle,
   noticeHeaderStyle,
   noticeModalWrapper,
 } from "@/view/group/dashboard/NoticeModal/index.css";
@@ -19,8 +21,6 @@ const NoticeModal = () => {
   const handleClose = () => router.push(`/group/${groupId}`);
   const { data: noticeList } = useNoticesQuery(+groupId);
 
-  if (!noticeList) return;
-
   return (
     <>
       <GroupDashboardPage params={params} />
@@ -32,11 +32,19 @@ const NoticeModal = () => {
               <IcnBtnDeleteCircle width={16} height={16} />
             </button>
           </header>
-          {noticeList.length ? (
+          {noticeList?.length ? (
             <NoticeList noticeList={noticeList} />
           ) : (
             <p>공지가 없습니다.</p>
           )}
+          <Button
+            size="small"
+            color="gray"
+            className={buttonStyle}
+            onClick={() => router.push(`/group/${groupId}/notice/create`)}
+          >
+            글쓰기
+          </Button>
         </div>
       </Modal>
     </>

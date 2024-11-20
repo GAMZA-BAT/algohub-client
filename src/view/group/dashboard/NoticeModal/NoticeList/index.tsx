@@ -2,14 +2,13 @@
 
 import type { NoticeResponse } from "@/api/notices/type";
 import { IcnNew } from "@/asset/svg";
-import Button from "@/common/component/Button";
+import Avatar from "@/common/component/Avatar";
 import Pagination from "@/shared/component/Pagination";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
-  buttonStyle,
   contentStyle,
   contentWrapper,
   infoWrapper,
@@ -49,6 +48,7 @@ const NoticeList = ({ noticeList }: NoticeListProps) => {
                 />
                 <article className={itemStyle}>
                   <div className={contentWrapper}>
+                    <Avatar size="small" alt="작성자 프로필 사진" />
                     <div className={contentStyle}>
                       <h3
                         id={`notice-title-${noticeId}`}
@@ -80,16 +80,7 @@ const NoticeList = ({ noticeList }: NoticeListProps) => {
         )}
       </ul>
 
-      {/* 모달 하단 */}
       <footer>
-        <Button
-          size="small"
-          color="gray"
-          className={buttonStyle}
-          onClick={() => router.push(`/group/${groupId}/notice/create`)}
-        >
-          글쓰기
-        </Button>
         <Pagination
           totalPages={10}
           currentPage={currentPage}
