@@ -55,7 +55,6 @@ const GroupDashboardPage = async ({
     <main className={sidebarWrapper}>
       <Sidebar>
         <GroupSidebar info={groupInfo} />
-        {groupId}
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />

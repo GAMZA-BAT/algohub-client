@@ -1,4 +1,4 @@
-import { withdrawGroup } from "@/api/group";
+import { withdrawGroup } from "@/api/groups";
 import { useMutation } from "@tanstack/react-query";
 
 export const useWithdrawMutation = (groupId: number) => {

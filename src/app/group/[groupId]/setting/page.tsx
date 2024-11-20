@@ -1,4 +1,4 @@
-import { getGroupCode, getGroupInfo, getGroupMemberList } from "@/api/group";
+import { getGroupCode, getGroupInfo, getGroupMemberList } from "@/api/groups";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import MemberList from "@/view/group/setting/MemberList";
@@ -18,7 +18,6 @@ const GroupSettingPage = async ({
       <Sidebar>
         <SettingSidebar info={groupInfo} code={inviteCode} />
       </Sidebar>
-      <MemberList memberListData={memberInfo} />
       <MemberList memberListData={memberInfo} />
     </main>
   );
