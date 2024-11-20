@@ -3,7 +3,6 @@
 import Modal from "@/common/component/Modal";
 import Sidebar from "@/common/component/Sidebar";
 import ToastProvider from "@/common/component/Toast";
-import { useClipboard } from "@/common/hook/useClipboard";
 import { useToast } from "@/common/hook/useToast";
 import CodeClipboard from "@/shared/component/CodeClipboard";
 import { sidebarWrapper } from "@/styles/shared.css";
@@ -19,7 +18,6 @@ const CreateGroupPage = () => {
   const [responseCode, setResponseCode] = useState("");
 
   const { showToast } = useToast();
-  const { isCopied, copy } = useClipboard();
 
   useEffect(() => {
     if (isSuccess) {
@@ -40,13 +38,7 @@ const CreateGroupPage = () => {
       <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
         <div className={wrapper}>
           <CreateGroupForm onSuccess={handleSuccess} />
-          {isSuccess && (
-            <CodeClipboard
-              onTrigger={() => copy(responseCode)}
-              isSuccess={isCopied}
-              code={responseCode}
-            />
-          )}
+          {isSuccess && <CodeClipboard code={responseCode} />}
         </div>
       </Modal>
     </main>

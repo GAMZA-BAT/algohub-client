@@ -6,31 +6,27 @@ import {
   labelStyle,
   wrapperStyle,
 } from "@/shared/component/CodeClipboard/index.css";
+import { useClipboard } from "@/shared/hook/useClipboard";
 import { theme } from "@/styles/themes.css";
 
 interface CodeClipboardProps {
-  onTrigger?: () => void;
-  isSuccess?: boolean;
   label?: string;
   code: string;
 }
 
-const CodeClipboard = ({
-  onTrigger,
-  isSuccess,
-  label,
-  code,
-}: CodeClipboardProps) => {
+const CodeClipboard = ({ label, code }: CodeClipboardProps) => {
+  const { isCopied, copy } = useClipboard();
+
   return (
     <div className={wrapperStyle}>
       {label && <p className={labelStyle}>{label}</p>}
 
       <div className={boxStyle}>
         <p className={codeStyle}>{code}</p>
-        {isSuccess ? (
+        {isCopied ? (
           <IcnCopyCheck color={theme.color.purple2} className={iconStyle} />
         ) : (
-          <IcnCopy onClick={onTrigger} className={iconStyle} />
+          <IcnCopy onClick={() => copy(code)} className={iconStyle} />
         )}
       </div>
     </div>
