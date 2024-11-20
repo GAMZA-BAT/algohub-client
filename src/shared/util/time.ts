@@ -44,22 +44,3 @@ export const getFormattedCreatedAt = (createdAt: string) => {
     ? `${currentMinute - createdMinute}분 전`
     : "방금 전";
 };
-
-export function getNoticeBannerCreateAt(createAt: string) {
-  const now = new Date();
-  const noticeDate = parseISO(createAt);
-
-  // 날짜 차이 계산
-  const diffInDays = differenceInDays(now, noticeDate);
-
-  // AM/PM 포맷
-  const formattedTime = format(noticeDate, "hh:mm a");
-
-  if (diffInDays === 0) {
-    return `오늘 ${formattedTime}`;
-  }
-  if (diffInDays === 1) {
-    return `어제 ${formattedTime}`;
-  }
-  return format(noticeDate, "M/d hh:mm a");
-}
