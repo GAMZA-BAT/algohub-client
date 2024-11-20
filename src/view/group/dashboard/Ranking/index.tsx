@@ -9,8 +9,12 @@ const Ranking = ({ rankingData }: { rankingData: RankingResponse[] }) => {
   return (
     <TabGroup.Tabs tag="section" variant="secondary">
       <TabGroup.TabList>
-        <TabGroup.Tab tabId="1">TOP 랭킹</TabGroup.Tab>
-        <TabGroup.Tab tabId="2">전체</TabGroup.Tab>
+        <TabGroup.Tab tabId="1" indicatorId="ranking">
+          TOP 랭킹
+        </TabGroup.Tab>
+        <TabGroup.Tab tabId="2" indicatorId="ranking">
+          전체
+        </TabGroup.Tab>
       </TabGroup.TabList>
       <TabGroup.TabPanels>
         {isEmpty ? (

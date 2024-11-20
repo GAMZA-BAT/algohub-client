@@ -1,3 +1,5 @@
+"use client";
+
 import type { groupSchema } from "@/api/groups/schema";
 import SupportingText from "@/common/component/SupportingText";
 import { Form } from "@/shared/component/Form";
@@ -5,6 +7,7 @@ import DateFormController from "@/shared/component/GroupInfoForm/DateFormControl
 import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
 import ImageFormController from "@/shared/component/GroupInfoForm/ImageFormController";
 import NameFormController from "@/shared/component/GroupInfoForm/NameFormController";
+import { createGroupAction } from "@/shared/component/GroupInfoForm/action";
 import {
   dateWrapper,
   formLabelStyle,
@@ -24,8 +27,25 @@ const GroupInfoForm = ({
   form,
   variant = "create-group",
 }: GroupFormProps) => {
-  const handleSubmit = (_values: z.infer<typeof groupSchema>) => {
-    // console.log({ values });
+  const handleSubmit = (values: z.infer<typeof groupSchema>) => {
+    const data = new FormData();
+
+    if (values.profileImage) {
+      data.append("profileImage", values.profileImage);
+    } else {
+      data.append("profileImage", "");
+    }
+    data.append(
+      "request",
+      JSON.stringify({
+        name: values.name,
+        introduction: values.introduction,
+        startDate: values.startDate.toISOString().slice(0, 10),
+        endDate: values.endDate.toISOString().slice(0, 10),
+      }),
+    );
+
+    createGroupAction(data);
   };
   const error = form.formState.errors.endDate;
   return (

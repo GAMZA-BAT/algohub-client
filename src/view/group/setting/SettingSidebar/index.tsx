@@ -1,5 +1,6 @@
 "use client";
 import { groupSchema } from "@/api/groups/schema";
+import type { GroupResponse } from "@/api/groups/type";
 import GroupInfoForm from "@/shared/component/GroupInfoForm";
 import {
   deleteTextStyle,
@@ -11,14 +12,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
-const SettingSidebar = () => {
+const SettingSidebar = ({ info }: { info: GroupResponse }) => {
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
     defaultValues: {
-      image: "",
-      name: "",
-      desc: "",
+      profileImage: info.groupImage,
+      name: info.name,
+      introduction: info.introduction,
     },
   });
 
