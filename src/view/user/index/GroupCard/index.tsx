@@ -20,15 +20,17 @@ interface GroupCardProps {
   status: GroupStatus;
 }
 const GroupCard = ({ item, status }: GroupCardProps) => {
-  const { name, groupImage, startDate, endDate, ownerNickname } = item;
+  const { id, name, groupImage, startDate, endDate, ownerNickname } = item;
   const isDone = status === "done";
 
   return (
-    <Link href={`/group/${name}`}>
+    <Link href={`/group/${id}`}>
       <article className={groupCardWrapper}>
         <Image
           src={groupImage || defaultImg}
           alt={""}
+          width={210}
+          height={156}
           className={imgStyle}
           unoptimized
         />

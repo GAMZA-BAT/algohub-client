@@ -1,5 +1,5 @@
 import { kyInstance } from "@/api";
-import type { SignInRequest } from "@/api/user/type";
+import type { SignInRequest } from "@/api/users/type";
 
 export const postSignin = async (formData: SignInRequest) => {
   const response = await kyInstance

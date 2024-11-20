@@ -10,7 +10,7 @@ import { type ChangeEvent, useState } from "react";
 interface EditAvatarProps extends Omit<ImageProps, "src" | "alt" | "onChange"> {
   src?: string;
   alt?: string;
-  onChange?: (img: string | ArrayBuffer | null) => void;
+  onChange?: (img: Blob) => void;
   variant?: "default" | "secondary";
 }
 
@@ -30,7 +30,7 @@ const EditAvatar = ({
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPickedImage(fileReader.result as string);
-      onChange?.(fileReader.result);
+      onChange?.(file);
     };
 
     fileReader.readAsDataURL(file);

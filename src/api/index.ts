@@ -5,6 +5,14 @@ export const kyInstance = ky.create({
   headers: {
     "Content-Type": "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE2ODI3NDd9.-h1n92kdWg-3urYRKCorMirKHc5wR_tbJ_BiqdIMYkY",
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE5OTUxNTJ9.k3pW8j3rHEqkrbaiFUJI7igCkYd9V6_NiQwvkR1bxuM",
+  },
+});
+
+export const kyFileInstance = ky.create({
+  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  headers: {
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MzE5OTUxNTJ9.k3pW8j3rHEqkrbaiFUJI7igCkYd9V6_NiQwvkR1bxuM",
   },
 });

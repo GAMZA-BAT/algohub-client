@@ -1,8 +1,8 @@
-import { getSolution } from "@/api/solution";
+import { getSolution } from "@/api/solutions";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { deleteComment, editComment, getCommentList } from "@/api/comment";
-import type { EditCommentRequest } from "@/api/comment/type";
+import { deleteComment, editComment, getCommentList } from "@/api/comments";
+import type { EditCommentRequest } from "@/api/comments/type";
 import { commentAction } from "@/app/group/[groupId]/solved-detail/[id]/action";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";

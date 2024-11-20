@@ -90,6 +90,7 @@ const FormController = <
         } else if (type === "date") {
           FormField = (
             <Calendar
+              name={name}
               id={fieldId}
               {...fieldProps}
               onChange={field.onChange}

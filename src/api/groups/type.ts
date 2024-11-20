@@ -19,16 +19,22 @@ export type GroupResponse = {
   ownerNickname: string;
 };
 
+export type GroupRequest = {
+  profileImage: FormData;
+  request: FormData;
+};
+
 export type RankingResponse = {
   userNickname: string;
   profileImage: string;
   rank: number;
   solvedCount: number;
+  rankDiff: string;
 };
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
-export type GroupListItem = GroupResponse & { isBookmarked: boolean };
+export type GroupListItem = GroupResponse & { isBookmarked?: boolean };
 export type GroupListResponse = {
   [key in GroupStatus]: GroupListItem[];
 };
@@ -41,7 +47,7 @@ export type DeleteGroupMemberRequest = {
 export type MemberResponse = {
   nickname: string;
   joinDate: string;
-  achivement: string;
+  achievement: string;
   role: string;
   profileImage: string;
   memberId: number;

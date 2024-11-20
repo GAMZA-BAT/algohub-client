@@ -5,6 +5,7 @@ export const sidebarStyle = style({
   position: "sticky",
   left: 0,
 
+  minWidth: "27rem",
   width: "20%",
 
   backgroundColor: theme.color.mg6,
