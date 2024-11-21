@@ -2,6 +2,7 @@ import Button from "@/common/component/Button";
 import PromptWithdraw from "@/view/group/index/WithdrawDialog/PromptWithdraw";
 import SuccessWithdraw from "@/view/group/index/WithdrawDialog/SuccessWithdraw";
 import { withdrawWrapper } from "@/view/group/index/WithdrawDialog/index.css";
+import { useWithdrawMutation } from "@/view/group/index/WithdrawDialog/query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -14,10 +15,13 @@ const WithdrawDialog = ({ groupId }: WithdrawDialogProps) => {
 
   const router = useRouter();
 
-  // const { mutateAsync: withdraw } = useWithdrawMutation(groupId);
+  const { mutateAsync: withdraw } = useWithdrawMutation(groupId);
 
   const handleBtnClick = async () => {
-    // const response = await withdraw();
+    const response = await withdraw();
+
+    console.log(response);
+
     if (isLeaving) router.push("/user");
 
     setIsLeaving(true);
