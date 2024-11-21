@@ -25,7 +25,7 @@ const page = ({ params }: { params: { id: string } }) => {
             solutionId={data.solutionId}
             problemTitle={data.problemTitle}
             solvedDateTime={data.solvedDateTime}
-            problemLevel={6}
+            problemLevel={data.problemLevel}
             result={data.result}
             className={solvedListStyle}
           />

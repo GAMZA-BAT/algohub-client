@@ -2,6 +2,7 @@ import type { SolutionByIdResponse } from "@/api/solutions/type";
 import CheckBox from "@/common/component/CheckBox";
 import { getTierImage } from "@/shared/util/img";
 import { getSolvedStatusByResult } from "@/shared/util/result";
+import { getTierByLevel } from "@/shared/util/tier";
 import {
   checkboxStyle,
   commonStyle,
@@ -42,7 +43,7 @@ const ProblemDetail = ({
   result,
   className,
 }: ProblemDetailProps) => {
-  const Icon = getTierImage("bronze 1");
+  const Icon = getTierImage(getTierByLevel(problemLevel));
   const solved = getSolvedStatusByResult(result);
 
   /** TODO: API 수정 되면 solvedMemberCount, accuracy 반영 */
