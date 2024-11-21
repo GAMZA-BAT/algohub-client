@@ -15,6 +15,7 @@ const GroupDashboardPage = async ({
   const groupInfo = await getGroupInfo(+groupId);
 
   const rankingData = await getAllRanking(+groupId);
+
   const data: Problem[] = [
     {
       problemId: 1,
@@ -59,7 +60,7 @@ const GroupDashboardPage = async ({
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
-        <Ranking rankingData={rankingData} />
+        <Ranking rankingData={rankingData.content} />
         <h2 className={titleStyle}>풀어야 할 문제</h2>
         <section>
           <ProblemList.Header />
