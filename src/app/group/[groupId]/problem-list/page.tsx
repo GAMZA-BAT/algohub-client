@@ -68,8 +68,8 @@ const ProblemListPage = async ({
             </TabGroup.TabList>
             <TabGroup.TabPanels>
               <section>
-                <ProgressList data={data} />
-                <ProgressList variant="expired" data={data} />
+                <ProgressList data={data} isOwner />
+                <ProgressList variant="expired" data={data} isOwner />
               </section>
               <section>
                 <div style={{ width: "100%", margin: "1.6rem 0" }}>
