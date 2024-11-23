@@ -1,7 +1,12 @@
 import { getNoticeById, getNotices } from "@/api/notices";
 import type { NoticeRequest } from "@/api/notices/type";
 import { noticeAction } from "@/app/group/[groupId]/notice/action";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useNoticesQuery = (groupId: number) => {
@@ -12,7 +17,7 @@ export const useNoticesQuery = (groupId: number) => {
 };
 
 export const useNoticeByIdQuery = (noticeId: number) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["notice", noticeId],
     queryFn: () => getNoticeById(noticeId),
   });

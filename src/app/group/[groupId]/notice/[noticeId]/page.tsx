@@ -20,7 +20,7 @@ const NoticeDetailPage = ({
   const handleClose = () => router.push(`/group/${groupId}/notice`);
 
   const { data: selectedNotice } = useNoticeByIdQuery(+noticeId);
-  if (!selectedNotice) return;
+
   return (
     <>
       <GroupDashboardPage params={{ groupId }} />
