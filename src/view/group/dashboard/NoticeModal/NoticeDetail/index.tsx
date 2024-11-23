@@ -1,5 +1,5 @@
 import type { CommentContent } from "@/api/comments/type";
-import type { NoticeResponse } from "@/api/notices/type";
+import type { NoticeContent } from "@/api/notices/type";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -24,7 +24,7 @@ import {
 } from "./index.css";
 
 type NoticeDetailProps = {
-  data: NoticeResponse;
+  data: NoticeContent;
   goBack: () => void;
 };
 

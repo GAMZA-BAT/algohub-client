@@ -38,7 +38,7 @@ const ProblemSidebar = () => {
           문제 추가하기
         </Button>
       </div>
-      <Modal isOpen={isOpen} onClose={close}>
+      <Modal isOpen={isOpen} onClose={close} hasCloseBtn>
         <RegisterForm onSubmit={handleSubmit} />
       </Modal>
     </>

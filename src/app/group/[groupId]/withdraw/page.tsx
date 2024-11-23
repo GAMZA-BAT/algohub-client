@@ -11,7 +11,7 @@ const WithdrawPage = ({ params }: { params: { groupId: string } }) => {
   return (
     <main className={sidebarWrapper}>
       <Sidebar />
-      <Modal isOpen={true} onClose={() => router.back()}>
+      <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
         <WithdrawDialog groupId={+params.groupId} />
       </Modal>
     </main>

@@ -71,23 +71,26 @@ const Modal = ({
               {...props}
             >
               <section className={dialogContentStyle}>
-                {hasCloseBtn && closeBtnType === "default" ? (
-                  <IcnBtnDelete
-                    role="button"
-                    aria-label="Close Modal"
-                    width={10}
-                    height={10}
-                    className={exitStyle}
-                    onClick={onClose}
-                  />
-                ) : (
-                  <IcnBtnDeleteCircle
-                    role="button"
-                    aria-label="Close Modal"
-                    width={16}
-                    height={16}
-                  />
-                )}
+                {hasCloseBtn &&
+                  (closeBtnType === "default" ? (
+                    <IcnBtnDelete
+                      role="button"
+                      aria-label="Close Modal"
+                      width={10}
+                      height={10}
+                      className={exitStyle({ variant: "default" })}
+                      onClick={onClose}
+                    />
+                  ) : (
+                    <IcnBtnDeleteCircle
+                      role="button"
+                      aria-label="Close Modal"
+                      width={16}
+                      height={16}
+                      className={exitStyle({ variant: "secondary" })}
+                      onClick={onClose}
+                    />
+                  ))}
                 {children}
               </section>
             </dialog>

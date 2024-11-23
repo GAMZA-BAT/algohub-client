@@ -72,7 +72,7 @@ const ProgressList = ({ data, variant = "inProgress" }: ProgressListProps) => {
           onPageChange={() => {}}
         />
       </div>
-      <Modal isOpen={isOpen} onClose={close}>
+      <Modal isOpen={isOpen} onClose={close} hasCloseBtn>
         <RegisterForm
           variant="secondary"
           onDelete={handleDelete}
