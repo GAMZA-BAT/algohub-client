@@ -81,3 +81,6 @@ export const postJoinGroupByCode = async (code: string) => {
   const response = await kyInstance.post(`api/groups/${code}/join`);
   return response;
 };
+
+export const deleteGroupMember = (userId: number, groupId: number) =>
+  kyInstance.delete(`api/groups/${groupId}/members/${userId}`);
