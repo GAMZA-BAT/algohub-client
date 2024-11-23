@@ -1,5 +1,5 @@
 "use client";
-import type { MemberResponse } from "@/api/group/type";
+import type { MemberResponse } from "@/api/groups/type";
 import { MemberListProvider } from "@/view/group/setting/MemberList/MemberListProvider";
 import MemberListTable from "@/view/group/setting/MemberList/MemberListTable";
 import {

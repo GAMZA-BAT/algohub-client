@@ -90,6 +90,7 @@ const FormController = <
         } else if (type === "date") {
           FormField = (
             <Calendar
+              name={name}
               id={fieldId}
               {...fieldProps}
               onChange={field.onChange}
@@ -101,7 +102,9 @@ const FormController = <
             />
           );
         } else {
-          FormField = <EditAvatar {...fieldProps} onChange={field.onChange} />;
+          FormField = (
+            <EditAvatar name={name} {...fieldProps} onChange={field.onChange} />
+          );
         }
         return (
           <div className={clsx(itemDefaultStyle)}>

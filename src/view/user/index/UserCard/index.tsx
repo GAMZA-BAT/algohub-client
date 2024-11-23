@@ -1,4 +1,4 @@
-import type { UserResponse } from "@/api/user/type";
+import type { UserResponse } from "@/api/users/type";
 import Avatar from "@/common/component/Avatar";
 import {
   avatarStyle,

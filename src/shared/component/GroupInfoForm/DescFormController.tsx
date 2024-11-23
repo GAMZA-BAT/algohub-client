@@ -9,7 +9,7 @@ const DescFormController = ({ form, variant }: GroupFormProps) => {
   return (
     <FormController
       form={form}
-      name="desc"
+      name="introduction"
       type="textarea"
       showLabel
       labelProps={{

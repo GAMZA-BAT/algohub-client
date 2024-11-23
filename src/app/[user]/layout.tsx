@@ -1,4 +1,4 @@
-import { IcnMy, IcnPlus, IcnSearch, IcnSquare } from "@/asset/svg";
+import { IcnMy, IcnPlus, IcnSquare } from "@/asset/svg";
 import NavBar from "@/shared/component/NavBar";
 import type { Metadata } from "next";
 
@@ -30,13 +30,6 @@ export default function UserLayout({
           href={`/${user}/create-group`}
         >
           그룹 만들기
-        </NavBar.Item>
-        <NavBar.Item
-          icon={<IcnSearch width={24} height={24} />}
-          mode="stroke"
-          href={`/${user}/join-group`}
-        >
-          그룹 가입하기
         </NavBar.Item>
         <NavBar.Item
           icon={<IcnMy width={24} height={24} />}

@@ -1,4 +1,4 @@
-import type { SolutionLanguage } from "@/api/solution/type";
+import type { SolutionLanguage } from "@/api/solutions/type";
 import SelectBox from "@/common/component/SelectBox";
 import { SOLVED_LANGUAGE } from "@/shared/constant/solvedFilterKey";
 import type { Meta, StoryObj } from "@storybook/react";

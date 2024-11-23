@@ -1,13 +1,15 @@
-import type { NoticeListResponse, NoticeResponse } from "@/api/notice/type";
+"use client";
+
+import type { NoticeListResponse } from "@/api/notices/type";
 import { IcnNew } from "@/asset/svg";
-import Avatar from "@/common/component/Avatar";
 import Button from "@/common/component/Button";
 import Pagination from "@/shared/component/Pagination";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { getNoticeBannerCreateAt } from "@/shared/util/time";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
-  avatarStyle,
   buttonStyle,
   contentStyle,
   contentWrapper,
@@ -21,18 +23,18 @@ import {
 
 type NoticeListProps = {
   noticeList: NoticeListResponse;
-  onClick: (id: NoticeResponse) => void;
 };
 
-const NoticeList = ({ noticeList, onClick }: NoticeListProps) => {
+const NoticeList = ({ noticeList }: NoticeListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-
+  const router = useRouter();
+  const groupId = useGetGroupId();
   return (
     <>
       {/* 공지사항 목록 */}
       <ul aria-label="공지사항 목록" className={ulStyle}>
         {noticeList.map((notice) => {
-          const { noticeTitle, noticeCategory, author, createAt, noticeId } =
+          const { noticeId, title, category, author, createAt, isRead } =
             notice;
           return (
             <li
@@ -42,20 +44,21 @@ const NoticeList = ({ noticeList, onClick }: NoticeListProps) => {
             >
               <button
                 className={overlayStyle}
-                aria-label={`${noticeTitle} 공지 상세 보기`}
-                onClick={() => onClick(notice)}
+                aria-label={`${title} 공지 상세 보기`}
+                onClick={() =>
+                  router.push(`/group/${groupId}/notice/${noticeId}`)
+                }
               />
               <article className={itemStyle}>
                 <div className={contentWrapper}>
-                  <Avatar className={avatarStyle} alt="작성자 프로필 사진" />
                   <div className={contentStyle}>
                     <h3
                       id={`notice-title-${noticeId}`}
                       className={textStyle.category}
                     >
-                      {noticeCategory}
+                      {category}
                     </h3>
-                    <p className={textStyle.modalTitle}>{noticeTitle}</p>
+                    <p className={textStyle.modalTitle}>{title}</p>
                   </div>
                 </div>
                 <div className={noticeInfoStyle}>
@@ -65,7 +68,12 @@ const NoticeList = ({ noticeList, onClick }: NoticeListProps) => {
                       {getNoticeBannerCreateAt(createAt)}
                     </time>
                   </div>
-                  <IcnNew width={13} height={13} aria-label="읽지 않은 공지" />
+                  <IcnNew
+                    width={13}
+                    height={13}
+                    aria-label="읽지 않은 공지"
+                    style={{ opacity: isRead ? "0" : "1" }}
+                  />
                 </div>
               </article>
             </li>
@@ -75,7 +83,12 @@ const NoticeList = ({ noticeList, onClick }: NoticeListProps) => {
 
       {/* 모달 하단 */}
       <footer>
-        <Button size="small" color="gray" className={buttonStyle}>
+        <Button
+          size="small"
+          color="gray"
+          className={buttonStyle}
+          onClick={() => router.push(`/group/${groupId}/notice/create`)}
+        >
           글쓰기
         </Button>
         <Pagination
