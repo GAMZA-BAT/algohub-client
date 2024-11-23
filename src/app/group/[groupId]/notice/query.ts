@@ -3,14 +3,13 @@ import type { NoticeRequest } from "@/api/notices/type";
 import { noticeAction } from "@/app/group/[groupId]/notice/action";
 import {
   useMutation,
-  useQuery,
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useNoticesQuery = (groupId: number) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["notices", groupId],
     queryFn: () => getNotices(groupId),
   });

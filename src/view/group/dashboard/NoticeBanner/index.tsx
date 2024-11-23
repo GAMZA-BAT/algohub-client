@@ -18,7 +18,7 @@ const NoticeBanner = () => {
   const { data: noticeList } = useNoticesQuery(+groupId);
 
   const recentNotice =
-    noticeList && noticeList?.length > 0
+    noticeList?.length > 0
       ? noticeList.reduce((latest, current) => {
           return new Date(current.createAt) > new Date(latest.createAt)
             ? current
