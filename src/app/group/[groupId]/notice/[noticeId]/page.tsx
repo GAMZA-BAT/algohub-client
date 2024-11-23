@@ -1,7 +1,6 @@
 "use client";
 import type { NoticeResponse } from "@/api/notices/type";
 import GroupDashboardPage from "@/app/group/[groupId]/page";
-import { IcnBtnDeleteCircle } from "@/asset/svg";
 import Modal from "@/common/component/Modal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import NoticeDetail from "@/view/group/dashboard/NoticeModal/NoticeDetail";
@@ -31,13 +30,10 @@ const NoticeDetailPage = ({
   return (
     <>
       <GroupDashboardPage params={{ groupId }} />
-      <Modal isOpen={true} onClose={handleClose}>
+      <Modal isOpen={true} onClose={handleClose} closeBtnType="secondary">
         <div className={noticeModalWrapper}>
           <header className={noticeHeaderStyle}>
             <h2 className={textStyle.head}>NOTICE</h2>
-            <button onClick={handleClose} aria-label="공지 리스트로 돌아가기">
-              <IcnBtnDeleteCircle width={16} height={16} />
-            </button>
           </header>
           <NoticeDetail data={selectedNotice} goBack={handleClose} />
         </div>
