@@ -17,7 +17,7 @@ import {
 } from "@/view/group/problem-list/RegisterForm/index.css";
 import { registerProblemSchema } from "@/view/group/problem-list/RegisterForm/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type Dispatch, type SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
@@ -28,7 +28,7 @@ type RegisterFormProps = {
     link: string,
     startDate: Date,
     endDate: Date,
-    setIsSuccess: Dispatch<SetStateAction<boolean>>,
+    onSuccess: () => void,
   ) => void;
 };
 const RegisterForm = ({
@@ -49,7 +49,8 @@ const RegisterForm = ({
 
   const handleSubmit = (values: z.infer<typeof registerProblemSchema>) => {
     const { link, startDate, endDate } = values;
-    onSubmit(link, startDate, endDate, setIsSuccess);
+    const onSuccess = () => setIsSuccess(true);
+    onSubmit(link, startDate, endDate, onSuccess);
   };
 
   const title = variant === "default" ? "문제 등록하기" : "문제 수정하기";

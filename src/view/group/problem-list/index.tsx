@@ -9,7 +9,7 @@ import type { Problem } from "@/shared/type";
 import ProblemListHeader from "@/view/group/dashboard/ProblemListHeader";
 import RegisterForm from "@/view/group/problem-list/RegisterForm";
 import { titleStyle } from "@/view/group/problem-list/index.css";
-import { type Dispatch, type SetStateAction, useState } from "react";
+import { useState } from "react";
 
 type ProgressListProps = {
   data: Problem[];
@@ -38,10 +38,10 @@ const ProgressList = ({ data, variant = "inProgress" }: ProgressListProps) => {
     _link: string,
     _startDate: Date,
     _endDate: Date,
-    setIsSuccess: Dispatch<SetStateAction<boolean>>,
+    onSuccess: () => void,
   ) => {
     //TODO: 문제 수정 API 연결
-    setIsSuccess(true);
+    onSuccess();
     setTimeout(() => {
       close();
     }, 1700);

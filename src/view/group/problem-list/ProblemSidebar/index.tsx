@@ -6,7 +6,7 @@ import { useBooleanState } from "@/common/hook/useBooleanState";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { problemSidebarWrapper } from "@/view/group/problem-list/ProblemSidebar/index.css";
 import RegisterForm from "@/view/group/problem-list/RegisterForm";
-import type { Dispatch, SetStateAction } from "react";
+import type {} from "react";
 
 const ProblemSidebar = () => {
   const { open, isOpen, close } = useBooleanState();
@@ -17,13 +17,13 @@ const ProblemSidebar = () => {
     link: string,
     startDate: Date,
     endDate: Date,
-    setIsSuccess: Dispatch<SetStateAction<boolean>>,
+    onSuccess: () => void,
   ) => {
     postProblemMutate(
       { groupId: +groupId, link, startDate, endDate },
       {
         onSuccess: () => {
-          setIsSuccess(true);
+          onSuccess();
           setTimeout(() => {
             close();
           }, 1700);

@@ -1,3 +1,5 @@
+"use server";
+
 import { postProblem } from "@/api/problems";
 import type { ProblemRequest } from "@/api/problems/type";
 
