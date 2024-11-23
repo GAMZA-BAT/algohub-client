@@ -21,7 +21,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 
 type ProblemListItemProps = Problem & {
-  onEdit?: () => void;
+  onEdit?: (id: number) => void;
   isOwner?: boolean;
   className?: string;
 };
@@ -48,7 +48,7 @@ const ProblemListItem = ({
   accuracy,
   memberCount,
   submitMemberCount,
-  onEdit,
+  onEdit = () => {},
   isOwner = false,
 }: ProblemListItemProps) => {
   const groupId = useGetGroupId();
@@ -91,7 +91,7 @@ const ProblemListItem = ({
 
       {isOwner && (
         <IcnEdit
-          onClick={onEdit}
+          onClick={() => onEdit(problemId)}
           className={editIconStyle({ isActive })}
           width={24}
           height={24}

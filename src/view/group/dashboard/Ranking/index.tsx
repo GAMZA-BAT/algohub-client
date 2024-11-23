@@ -5,7 +5,10 @@ import EmptyRanking from "@/view/group/dashboard/Ranking/EmptyRanking";
 import TopRanking from "@/view/group/dashboard/Ranking/TopRanking";
 
 const Ranking = ({ rankingData }: { rankingData: RankingResponse[] }) => {
-  const isEmpty = rankingData.length < 1;
+  if (!rankingData) return;
+
+  const isValid = rankingData && rankingData.length > 0;
+
   return (
     <TabGroup.Tabs tag="section" variant="secondary">
       <TabGroup.TabList>
@@ -17,15 +20,15 @@ const Ranking = ({ rankingData }: { rankingData: RankingResponse[] }) => {
         </TabGroup.Tab>
       </TabGroup.TabList>
       <TabGroup.TabPanels>
-        {isEmpty ? (
-          <EmptyRanking />
-        ) : (
+        {isValid ? (
           <TopRanking topRankingData={rankingData.slice(0, 3)} />
-        )}
-        {isEmpty ? (
-          <EmptyRanking />
         ) : (
+          <EmptyRanking />
+        )}
+        {isValid ? (
           <AllRanking allRankingData={rankingData} />
+        ) : (
+          <EmptyRanking />
         )}
       </TabGroup.TabPanels>
     </TabGroup.Tabs>

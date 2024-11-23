@@ -1,4 +1,5 @@
 "use client";
+
 import { getGroupList } from "@/api/groups";
 import type { GroupStatus } from "@/api/groups/type";
 import Sidebar from "@/common/component/Sidebar";
@@ -11,12 +12,12 @@ import { userDashboardWrapper } from "@/view/user/index/index.css";
 
 const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   const data = await getGroupList();
+
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
         <div className={userCardWrapper}>
           <UserCard />
-          {params.user}
         </div>
       </Sidebar>
       <div className={userDashboardWrapper}>

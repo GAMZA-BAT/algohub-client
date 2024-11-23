@@ -2,6 +2,10 @@ import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 
 export const sidebarWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2.4rem",
+
   width: "100%",
   padding: "4.2rem 2.4rem",
 });
