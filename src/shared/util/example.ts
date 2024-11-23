@@ -15,6 +15,8 @@ export const tmpGroupData: GroupResponse = {
   groupImage: "",
   isOwner: true,
   ownerNickname: "jnary",
+  isBookmarked: true,
+  isVisible: true,
 };
 
 export const tmpUserGroupListData: GroupListResponse = {
@@ -30,6 +32,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 1,
@@ -42,6 +45,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 2,
@@ -54,6 +58,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 3,
@@ -66,6 +71,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 4,
@@ -78,6 +84,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 5,
@@ -90,6 +97,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 6,
@@ -102,6 +110,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 7,
@@ -114,6 +123,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 8,
@@ -126,6 +136,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 9,
@@ -138,6 +149,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
     {
       id: 10,
@@ -150,6 +162,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: true,
+      isVisible: true,
     },
   ],
   inProgress: [
@@ -164,6 +177,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 1,
@@ -176,6 +190,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 2,
@@ -188,6 +203,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 3,
@@ -200,6 +216,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 4,
@@ -212,6 +229,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 5,
@@ -224,6 +242,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 6,
@@ -236,6 +255,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 7,
@@ -248,6 +268,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 8,
@@ -260,6 +281,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 9,
@@ -272,6 +294,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 10,
@@ -284,6 +307,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
   ],
   queued: [
@@ -298,6 +322,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 1,
@@ -310,6 +335,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 2,
@@ -322,6 +348,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 3,
@@ -334,6 +361,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 4,
@@ -346,6 +374,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 5,
@@ -358,6 +387,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 6,
@@ -370,6 +400,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 7,
@@ -382,6 +413,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 8,
@@ -394,6 +426,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 9,
@@ -406,6 +439,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 10,
@@ -418,6 +452,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
   ],
   done: [
@@ -432,6 +467,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 1,
@@ -444,6 +480,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 2,
@@ -456,6 +493,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 3,
@@ -468,6 +506,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 4,
@@ -480,6 +519,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 5,
@@ -492,6 +532,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 6,
@@ -504,6 +545,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 7,
@@ -516,6 +558,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 8,
@@ -528,6 +571,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 9,
@@ -540,6 +584,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
     {
       id: 10,
@@ -552,6 +597,7 @@ export const tmpUserGroupListData: GroupListResponse = {
       isOwner: true,
       ownerNickname: "jnary",
       isBookmarked: false,
+      isVisible: true,
     },
   ],
 };

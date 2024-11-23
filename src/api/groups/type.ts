@@ -15,8 +15,10 @@ export type GroupResponse = {
   startDate: string;
   endDate: string;
   introduction: string;
-  isOwner?: boolean;
   ownerNickname: string;
+  isOwner?: boolean;
+  isBookmarked?: boolean;
+  isVisible?: boolean;
 };
 
 export type GroupRequest = {
@@ -34,9 +36,8 @@ export type RankingResponse = {
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
-export type GroupListItem = GroupResponse & { isBookmarked?: boolean };
 export type GroupListResponse = {
-  [key in GroupStatus]: GroupListItem[];
+  [key in GroupStatus]: GroupResponse[];
 };
 
 export type DeleteGroupMemberRequest = {
@@ -54,3 +55,5 @@ export type MemberResponse = {
 };
 
 export type MemberListResponse = MemberResponse[];
+
+export type Role = "OWNER" | "ADMIN" | "PARTICIPANT";

@@ -13,7 +13,6 @@ const GroupDashboardPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
   const groupInfoData = getGroupInfo(+groupId);
-
   const rankingData = getAllRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
 

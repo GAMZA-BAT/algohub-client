@@ -1,5 +1,4 @@
 "use client";
-
 import type { GroupResponse, MemberResponse } from "@/api/groups/type";
 import CircleNumber from "@/view/group/dashboard/GroupSidebar/CircleNumber";
 import GroupCard from "@/view/group/dashboard/GroupSidebar/GroupCard";
@@ -16,12 +15,12 @@ type GroupCardProps = {
   memberList: MemberResponse[];
 };
 
-const GroupSidebar = ({ info, memberList }: GroupCardProps) => {
+const GroupSidebar = async ({ info, memberList }: GroupCardProps) => {
   const [ownerList, partList] = memberList.reduce(
-    ([match, nonMatch]: [MemberResponse[], MemberResponse[]], item) => {
-      if (item.role === "PARTICIPANT") match.push(item);
-      else nonMatch.push(item);
-      return [match, nonMatch];
+    ([owner, nonOwner]: [MemberResponse[], MemberResponse[]], item) => {
+      if (item.role !== "PARTICIPANT") owner.push(item);
+      else nonOwner.push(item);
+      return [owner, nonOwner];
     },
     [[], []],
   );

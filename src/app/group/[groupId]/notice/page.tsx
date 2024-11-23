@@ -1,4 +1,5 @@
 "use client";
+import { getRoleByGroupId } from "@/api/groups";
 import GroupDashboardPage from "@/app/group/[groupId]/page";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
@@ -12,11 +13,12 @@ import {
 import { textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
 
-const NoticeListPage = () => {
+const NoticeListPage = async () => {
   const groupId = useGetGroupId();
   const params = { groupId };
   const router = useRouter();
   const handleClose = () => router.push(`/group/${groupId}`);
+  const role = await getRoleByGroupId(+groupId);
 
   return (
     <>
@@ -32,14 +34,16 @@ const NoticeListPage = () => {
             <h2 className={textStyle.head}>NOTICE</h2>
           </header>
           <NoticeList />
-          <Button
-            size="small"
-            color="gray"
-            className={buttonStyle}
-            onClick={() => router.push(`/group/${groupId}/notice/create`)}
-          >
-            글쓰기
-          </Button>
+          {role !== "PARTICIPANT" && (
+            <Button
+              size="small"
+              color="gray"
+              className={buttonStyle}
+              onClick={() => router.push(`/group/${groupId}/notice/create`)}
+            >
+              글쓰기
+            </Button>
+          )}
         </div>
       </Modal>
     </>
