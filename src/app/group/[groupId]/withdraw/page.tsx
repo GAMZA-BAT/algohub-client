@@ -3,16 +3,16 @@
 import Modal from "@/common/component/Modal";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
-import Withdraw from "@/view/group/index/Withdraw";
+import WithdrawDialog from "@/view/group/index/WithdrawDialog";
 import { useRouter } from "next/navigation";
 
-const WithdrawPage = () => {
+const WithdrawPage = ({ params }: { params: { groupId: string } }) => {
   const router = useRouter();
   return (
     <main className={sidebarWrapper}>
       <Sidebar />
       <Modal isOpen={true} onClose={() => router.back()}>
-        <Withdraw />
+        <WithdrawDialog groupId={+params.groupId} />
       </Modal>
     </main>
   );

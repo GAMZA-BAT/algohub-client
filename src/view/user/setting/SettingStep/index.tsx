@@ -8,6 +8,7 @@ import {
   wrapper,
 } from "@/view/user/setting/SettingStep/index.css";
 import type { SettingSteps } from "@/view/user/setting/type";
+import { motion } from "framer-motion";
 import type { Dispatch, SetStateAction } from "react";
 import { match } from "ts-pattern";
 
@@ -33,7 +34,9 @@ const SettingStep = ({ step, setStep }: SettingStepProps) => {
           .run();
         return (
           <li key={type} className={itemStyle}>
-            {isActive && <div className={barStyle} />}
+            {isActive && (
+              <motion.div layoutId="step-indicator" className={barStyle} />
+            )}
             <button
               className={btnStyle}
               onClick={() => setStep(type as SettingSteps)}

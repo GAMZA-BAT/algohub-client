@@ -1,3 +1,5 @@
+"use client";
+
 import type { groupSchema } from "@/api/groups/schema";
 import SupportingText from "@/common/component/SupportingText";
 import { Form } from "@/shared/component/Form";
@@ -5,11 +7,15 @@ import DateFormController from "@/shared/component/GroupInfoForm/DateFormControl
 import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
 import ImageFormController from "@/shared/component/GroupInfoForm/ImageFormController";
 import NameFormController from "@/shared/component/GroupInfoForm/NameFormController";
+import { createGroupAction } from "@/shared/component/GroupInfoForm/action";
 import {
   dateWrapper,
   formLabelStyle,
   formStyle,
 } from "@/shared/component/GroupInfoForm/index.css";
+import { usePatchGroupInfoQuery } from "@/shared/component/GroupInfoForm/query";
+import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
@@ -24,15 +30,24 @@ const GroupInfoForm = ({
   form,
   variant = "create-group",
 }: GroupFormProps) => {
-  const handleSubmit = (_values: z.infer<typeof groupSchema>) => {
-    // console.log({ values });
+  const groupId = useGetGroupId();
+  const { mutate: editGroupMutate } = usePatchGroupInfoQuery(+groupId);
+
+  const handleSubmit = (values: z.infer<typeof groupSchema>) => {
+    const data = getGroupFormData(values);
+
+    if (variant === "create-group") {
+      createGroupAction(data);
+    } else if (variant === "group-setting") {
+      editGroupMutate(data);
+    }
   };
   const error = form.formState.errors.endDate;
   return (
     <Form {...form}>
       <form
         className={formStyle({ variant })}
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit((v) => handleSubmit(v))}
       >
         <ImageFormController form={form} />
         <NameFormController form={form} variant={variant} />
