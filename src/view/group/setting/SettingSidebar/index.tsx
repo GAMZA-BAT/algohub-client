@@ -41,7 +41,12 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
           </button>
         </div>
       </GroupInfoForm>
-      <CodeClipboard label="스터디 링크" code={code} />
+      <CodeClipboard
+        label="스터디 링크"
+        ownerNickname={info.ownerNickname}
+        groupName={info.name}
+        code={code}
+      />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { useGroupByCodeQuery } from "@/app/join-group/[code]/query";
 import { IcnCopy, IcnCopyCheck } from "@/asset/svg";
 import {
   boxStyle,
@@ -15,7 +16,11 @@ interface CodeClipboardProps {
 }
 
 const CodeClipboard = ({ label, code }: CodeClipboardProps) => {
-  const { isCopied, copy } = useClipboard();
+  const { data: groupInfo } = useGroupByCodeQuery(code);
+  const { isCopied, copy } = useClipboard(
+    groupInfo?.ownerNickname,
+    groupInfo?.name,
+  );
 
   return (
     <div className={wrapperStyle}>
