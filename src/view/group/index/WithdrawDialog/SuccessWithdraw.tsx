@@ -3,7 +3,7 @@ import Animation from "@/common/component/Animation";
 import {
   metaTextStyle,
   successStyle,
-} from "@/view/group/index/Withdraw/index.css";
+} from "@/view/group/index/WithdrawDialog/index.css";
 
 const SuccessWithdraw = () => {
   return (

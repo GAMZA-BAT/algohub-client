@@ -6,6 +6,7 @@ export const wrapper = style({
   flexDirection: "column",
   alignItems: "center",
   flexShrink: "0",
+  gap: "1.6rem",
 
   position: "relative",
 

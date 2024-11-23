@@ -5,7 +5,7 @@ import { imageWrapper } from "@/shared/component/GroupInfoForm/index.css";
 const ImageFormController = ({ form }: GroupFormProps) => {
   return (
     <div className={imageWrapper}>
-      <FormController form={form} name="profileImage" type="image" />
+      <FormController form={form} name="groupImage" type="image" />
     </div>
   );
 };

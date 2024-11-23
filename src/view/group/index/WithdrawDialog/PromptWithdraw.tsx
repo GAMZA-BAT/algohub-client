@@ -2,7 +2,7 @@ import {
   descTextStyle,
   descWrapper,
   metaTextStyle,
-} from "@/view/group/index/Withdraw/index.css";
+} from "@/view/group/index/WithdrawDialog/index.css";
 
 const PromptWithdraw = () => {
   return (
