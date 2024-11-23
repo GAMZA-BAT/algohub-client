@@ -1,9 +1,20 @@
 import { kyInstance } from "@/api";
-import type { NoticeRequest, NoticeResponse } from "@/api/notices/type";
+import type {
+  NoticeContent,
+  NoticeListRequest,
+  NoticeRequest,
+  NoticeResponse,
+} from "@/api/notices/type";
 
-export const getNotices = async (groupId: number) => {
+export const getNotices = async ({
+  groupId,
+  page = 0,
+  size = 7,
+}: NoticeListRequest) => {
   const response = await kyInstance
-    .get<NoticeResponse[]>(`api/groups/${groupId}/notices`)
+    .get<NoticeResponse>(
+      `api/groups/${groupId}/notices?page=${page}&size=${size}`,
+    )
     .json();
 
   return response;
@@ -11,7 +22,7 @@ export const getNotices = async (groupId: number) => {
 
 export const getNoticeById = async (noticeId: number) => {
   const response = await kyInstance
-    .get<NoticeResponse>(`api/notices/${noticeId}`)
+    .get<NoticeContent>(`api/notices/${noticeId}`)
     .json();
 
   return response;
