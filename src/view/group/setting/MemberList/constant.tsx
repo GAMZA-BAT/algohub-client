@@ -1,7 +1,9 @@
 import type { MemberResponse } from "@/api/groups/type";
+import { useDeleteMemberMutation } from "@/app/group/[groupId]/setting/query";
 import { IcnCalendarTable, IcnClose } from "@/asset/svg";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import PromptModal from "@/shared/component/PromptModal";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { TableDataType } from "@/shared/type/table";
 import {} from "@/view/group/index/WithdrawDialog/index.css";
 import {
@@ -70,9 +72,27 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
   {
     key: "delete",
     Header: () => "멤버 삭제",
-    Cell: (_data) => {
+    Cell: (data) => {
       const { isOpen, open, close } = useBooleanState();
-      const handleConfirm = () => {};
+      const groupId = useGetGroupId();
+      const { mutate: deleteMutate } = useDeleteMemberMutation(
+        +groupId,
+        data.memberId,
+      );
+
+      const handleConfirm = () => {
+        deleteMutate(
+          { userId: data.memberId, groupId: +groupId },
+          {
+            onSuccess: () => {
+              setTimeout(() => {
+                close();
+              }, 1700);
+            },
+          },
+        );
+      };
+
       return (
         <>
           <IcnClose
