@@ -28,6 +28,9 @@ const NoticeList = ({ noticeList }: NoticeListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const groupId = useGetGroupId();
+
+  const handleClick = (noticeId: number) =>
+    router.push(`/group/${groupId}/notice/${noticeId}`);
   return (
     <>
       {/* 공지사항 목록 */}
@@ -43,9 +46,7 @@ const NoticeList = ({ noticeList }: NoticeListProps) => {
                 <button
                   className={overlayStyle}
                   aria-label={`${title} 공지 상세 보기`}
-                  onClick={() =>
-                    router.push(`/group/${groupId}/notice/${noticeId}`)
-                  }
+                  onClick={() => handleClick(noticeId)}
                 />
                 <article className={itemStyle}>
                   <div className={contentWrapper}>

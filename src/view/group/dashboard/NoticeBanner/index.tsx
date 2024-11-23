@@ -1,6 +1,4 @@
 "use client";
-
-import type { NoticeResponse } from "@/api/notices/type";
 import { useNoticesQuery } from "@/app/group/[groupId]/notice/query";
 import { IcnNew, IcnNotifications } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
@@ -19,15 +17,14 @@ const NoticeBanner = () => {
   const groupId = useGetGroupId();
   const { data: noticeList } = useNoticesQuery(+groupId);
 
-  let recentNotice: NoticeResponse | undefined;
-  if (noticeList?.length) {
-    recentNotice = noticeList.reduce((mostRecent, currentNotice) => {
-      const mostRecentDate = new Date(mostRecent.createAt);
-      const currentNoticeDate = new Date(currentNotice.createAt);
-
-      return currentNoticeDate > mostRecentDate ? currentNotice : mostRecent;
-    });
-  }
+  const recentNotice =
+    noticeList && noticeList?.length > 0
+      ? noticeList.reduce((latest, current) => {
+          return new Date(current.createAt) > new Date(latest.createAt)
+            ? current
+            : latest;
+        })
+      : null;
 
   return (
     <>
