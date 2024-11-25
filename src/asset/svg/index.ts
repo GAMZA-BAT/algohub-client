@@ -1,5 +1,4 @@
 export { default as IcnActive } from "./icn_active.svg";
-export { default as IcnAlarm } from "./icn_alarm.svg";
 export { default as IcnBellHeader } from "./icn_bell_header.svg";
 export { default as IcnBellTab } from "./icn_bell_tab.svg";
 export { default as IcnBronze1 } from "./icn_bronze1.svg";
@@ -62,6 +61,7 @@ export { default as IcnMessageDot } from "./icn_message_dot.svg";
 export { default as IcnMiniLogo } from "./icn_mini_logo.svg";
 export { default as IcnMy } from "./icn_my.svg";
 export { default as IcnNew } from "./icn_new.svg";
+export { default as IcnNotification } from "./icn_alarm.svg";
 export { default as IcnNotifications } from "./icn_notifications.svg";
 export { default as IcnPencil } from "./icn_pencil.svg";
 export { default as IcnPlatinum1 } from "./icn_platinum1.svg";

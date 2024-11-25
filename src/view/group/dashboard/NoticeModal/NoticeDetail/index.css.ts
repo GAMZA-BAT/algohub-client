@@ -50,11 +50,6 @@ export const noticeInfoStyle = style({
   gap: "3rem",
 });
 
-export const avatarStyle = style({
-  width: "4rem",
-  height: "4rem",
-});
-
 export const textareaWrapper = style({
   position: "relative",
 });

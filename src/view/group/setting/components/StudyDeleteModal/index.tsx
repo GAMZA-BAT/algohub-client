@@ -18,7 +18,7 @@ const StudyDeleteModal = ({
   onDelete,
 }: StudyDeleteModalProps) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn={true}>
+    <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn>
       <div className={containerStyle}>
         <h1 className={headingStyle}>스터디를 삭제하시겠어요?</h1>
         <p className={contentStyle}>

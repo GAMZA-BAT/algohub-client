@@ -1,6 +1,6 @@
 import type { GroupResponse } from "@/api/groups/type";
 import IcnNew from "@/asset/svg/icn_new.svg?url";
-import type { AlarmSettingsDataType } from "@/view/user/setting/AlarmSetting/AlarmSettingTable/type";
+import type { NotificationSettingsDataType } from "@/view/user/setting/NotificationSetting/NotificationSettingTable/type";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
 
 export const tmpGroupData: GroupResponse = {
@@ -15,7 +15,7 @@ export const tmpGroupData: GroupResponse = {
   ownerNickname: "jnary",
 };
 
-export const alarms = [
+export const notifications = [
   {
     name: "Yesol Song",
     message: "님이 코멘트를 달았어요.",
@@ -133,9 +133,9 @@ export const StudyListData: StudyListType[] = [
   },
 ];
 
-export const AlarmSettingsData: AlarmSettingsDataType[] = [
+export const NotificationSettingsData: NotificationSettingsDataType[] = [
   {
-    alarm: true,
+    notification: true,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -144,7 +144,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: true,
+    notification: true,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -153,7 +153,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: false,
+    notification: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -162,7 +162,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: false,
+    notification: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -171,7 +171,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: false,
+    notification: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -180,7 +180,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: true,
+    notification: true,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -189,7 +189,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: false,
+    notification: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
