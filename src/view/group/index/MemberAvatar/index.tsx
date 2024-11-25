@@ -20,6 +20,7 @@ const MemberAvatar = ({
   nickname,
 }: MemberAvatarProps) => {
   const router = useRouter();
+
   const handleClick = () => router.push(`/${nickname}`);
 
   return (

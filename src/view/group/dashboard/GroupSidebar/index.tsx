@@ -15,7 +15,7 @@ type GroupCardProps = {
   memberList: MemberResponse[];
 };
 
-const GroupSidebar = async ({ info, memberList }: GroupCardProps) => {
+const GroupSidebar = ({ info, memberList }: GroupCardProps) => {
   const [ownerList, partList] = memberList.reduce(
     ([owner, nonOwner]: [MemberResponse[], MemberResponse[]], item) => {
       if (item.role !== "PARTICIPANT") owner.push(item);
