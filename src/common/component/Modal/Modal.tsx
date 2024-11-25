@@ -1,6 +1,6 @@
 "use client";
 
-import { IcnBtnDelete } from "@/asset/svg";
+import { IcnBtnDelete, IcnBtnDeleteCircle } from "@/asset/svg";
 import {
   backgroundStyle,
   dialogContentStyle,
@@ -15,12 +15,14 @@ interface ModalProps extends ComponentPropsWithoutRef<"dialog"> {
   isOpen: boolean;
   onClose: () => void;
   hasCloseBtn?: boolean;
+  closeBtnType?: "default" | "secondary";
 }
 
 const Modal = ({
   isOpen,
   onClose,
   hasCloseBtn = false,
+  closeBtnType = "default",
   children,
   ...props
 }: ModalProps) => {
@@ -69,16 +71,26 @@ const Modal = ({
               {...props}
             >
               <section className={dialogContentStyle}>
-                {hasCloseBtn && (
-                  <IcnBtnDelete
-                    role="button"
-                    aria-label="Close Modal"
-                    width={10}
-                    height={10}
-                    className={exitStyle}
-                    onClick={onClose}
-                  />
-                )}
+                {hasCloseBtn &&
+                  (closeBtnType === "default" ? (
+                    <IcnBtnDelete
+                      role="button"
+                      aria-label="Close Modal"
+                      width={10}
+                      height={10}
+                      className={exitStyle({ variant: "default" })}
+                      onClick={onClose}
+                    />
+                  ) : (
+                    <IcnBtnDeleteCircle
+                      role="button"
+                      aria-label="Close Modal"
+                      width={16}
+                      height={16}
+                      className={exitStyle({ variant: "secondary" })}
+                      onClick={onClose}
+                    />
+                  ))}
                 {children}
               </section>
             </dialog>

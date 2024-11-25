@@ -1,14 +1,6 @@
 export type GroupCodeResponse = {
   inviteCode: string;
 };
-export type GroupJoinResponse = {
-  src: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  owner: string;
-};
 
 export type GroupRoleRequest = {
   groupId: number;
@@ -25,6 +17,7 @@ export type GroupByCodeResponse = {
   introduction: string;
   ownerNickname?: string;
 };
+
 export interface GroupResponse extends GroupByCodeResponse {
   isOwner?: boolean;
 }

@@ -1,14 +1,17 @@
 import { kyFileInstance, kyInstance } from "@/api";
 import type {
+  GroupCodeResponse,
   GroupListResponse,
   GroupResponse,
   MemberResponse,
 } from "@/api/groups/type";
 
 export const postCreateGroup = async (formData: FormData) => {
-  const response = await kyFileInstance.post("api/groups", {
-    body: formData,
-  });
+  const response = await kyFileInstance
+    .post<GroupCodeResponse>("api/groups", {
+      body: formData,
+    })
+    .json();
 
   return response;
 };
@@ -37,12 +40,47 @@ export const getGroupMemberList = async (groupId: number) => {
   return response;
 };
 
+
 export const patchGroupVisibility = async (groupId: number, flag: boolean) => {
   const response = await kyInstance.patch(`api/groups/${groupId}/visibility`, {
     json: {
       isVisible: flag,
     },
+  };
+};
+
+export const patchGroupInfo = async (groupId: number, formData: FormData) => {
+  const response = await kyInstance.post(`api/groups/${groupId}`, {
+    body: formData,
   });
 
+  return response;
+};
+
+export const getGroupCode = async (groupId: number) => {
+  const response = await kyInstance
+    .get<GroupCodeResponse>(`api/groups/${groupId}/code`)
+    .json();
+
+  return response;
+};
+
+export const withdrawGroup = async (groupId: number) => {
+  const response = await kyInstance
+    .delete(`api/groups/${groupId}/members/me`)
+    .json();
+
+  return response;
+};
+
+export const getGroupsByCode = async (code: string) => {
+  const response = await kyInstance
+    .get<GroupResponse>(`api/groups?code=${code}`)
+    .json();
+  return response;
+};
+
+export const postJoinGroupByCode = async (code: string) => {
+  const response = await kyInstance.post(`api/groups/${code}/join`);
   return response;
 };

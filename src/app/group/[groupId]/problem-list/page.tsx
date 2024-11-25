@@ -3,11 +3,10 @@ import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
 import type { Problem } from "@/shared/type";
 import { sidebarWrapper } from "@/styles/shared.css";
-import ProblemSidebar from "@/view/group/index/ProblemSidebar";
-import ExpiredList from "@/view/group/problem-list/ExpiredList";
-import InProgressList from "@/view/group/problem-list/InProgressList";
+import ProgressList from "@/view/group/problem-list";
 import PendingList from "@/view/group/problem-list/PendingList";
 import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
+import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
 import { pageStyle, titleStyle } from "@/view/group/problem-list/index.css";
 
 const ProblemListPage = () => {
@@ -55,13 +54,17 @@ const ProblemListPage = () => {
       <div className={pageStyle}>
         <TabGroup.Tabs variant="secondary">
           <TabGroup.TabList>
-            <TabGroup.Tab tabId="1">진행중인 문제·만료된 문제</TabGroup.Tab>
-            <TabGroup.Tab tabId="2">대기중인 문제</TabGroup.Tab>
+            <TabGroup.Tab tabId="1" indicatorId="problemlist">
+              진행중인 문제·만료된 문제
+            </TabGroup.Tab>
+            <TabGroup.Tab tabId="2" indicatorId="problemlist">
+              대기중인 문제
+            </TabGroup.Tab>
           </TabGroup.TabList>
           <TabGroup.TabPanels>
             <section>
-              <InProgressList data={data} />
-              <ExpiredList data={data} />
+              <ProgressList data={data} />
+              <ProgressList variant="expired" data={data} />
             </section>
             <section>
               <div style={{ width: "100%", margin: "1.6rem 0" }}>

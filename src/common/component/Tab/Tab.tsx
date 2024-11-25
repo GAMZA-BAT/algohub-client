@@ -14,11 +14,19 @@ import type { ComponentPropsWithoutRef, ReactElement } from "react";
 
 interface TabProps extends ComponentPropsWithoutRef<"li"> {
   tabId: string | number;
+  indicatorId?: string;
   renderedIcon?: (className: string) => ReactElement;
   mode?: "fill" | "stroke";
 }
 
-const Tab = ({ tabId, renderedIcon, mode, children, ...props }: TabProps) => {
+const Tab = ({
+  tabId,
+  indicatorId,
+  renderedIcon,
+  mode,
+  children,
+  ...props
+}: TabProps) => {
   const { variant, selectedTabId } = useTabState();
   const dispatch = useTabDispatch();
 
@@ -51,7 +59,7 @@ const Tab = ({ tabId, renderedIcon, mode, children, ...props }: TabProps) => {
           )
         : null}
       <span className={textStyle({ variant })}>{children}</span>
-      {isSelected && <Indicator />}
+      {isSelected && <Indicator id={indicatorId} />}
     </li>
   );
 };

@@ -1,16 +1,28 @@
-export interface NoticeResponse {
-  author: string;
-  noticeCategory: string;
-  noticeId: number;
-  noticeContent: string;
-  noticeTitle: string;
-  createAt: string;
-}
+import type { PaginationResponse } from "@/api/type";
 
-export interface NoticeRequest {
-  studyGroupId: number;
+export type NoticeContent = {
+  author: string;
+  authorImage: string;
+  noticeId: number;
+  content: string;
+  title: string;
+  category: string;
+  createAt: string;
+  isRead: boolean;
+};
+
+export type NoticeResponse = PaginationResponse & {
+  content: NoticeContent[];
+};
+
+export type NoticeRequest = {
   title: string;
   content: string;
-}
+  category: string;
+};
 
-export type NoticeListResponse = NoticeResponse[];
+export type NoticeListRequest = {
+  groupId: number;
+  page?: number;
+  size?: number;
+};

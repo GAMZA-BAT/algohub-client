@@ -1,5 +1,6 @@
 import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
 export const backgroundStyle = style({
   display: "flex",
@@ -44,20 +45,32 @@ export const dialogContentStyle = style({
   position: "relative",
 });
 
-export const exitStyle = style({
-  zIndex: theme.zIndex.middle,
-  position: "absolute",
-  top: "1.6rem",
-  right: "1.6rem",
+export const exitStyle = recipe({
+  base: {
+    zIndex: theme.zIndex.middle,
+    position: "absolute",
 
-  width: "2.8rem",
-  height: "2.8rem",
-  padding: "0.9rem",
+    borderRadius: "4px",
+    cursor: "pointer",
 
-  borderRadius: "4px",
-  cursor: "pointer",
+    ":hover": {
+      background: theme.color.mg4,
+    },
+  },
+  variants: {
+    variant: {
+      default: {
+        top: "1.6rem",
+        right: "1.6rem",
 
-  ":hover": {
-    background: theme.color.mg4,
+        width: "2.8rem",
+        height: "2.8rem",
+        padding: "0.9rem",
+      },
+      secondary: {
+        top: "3.6rem",
+        right: "2.4rem",
+      },
+    },
   },
 });
