@@ -14,7 +14,7 @@ export type GroupResponse = {
   startDate: string;
   endDate: string;
   introduction: string;
-  groupImage: string;
+  groupImage: string | null;
   isOwner?: boolean;
   ownerNickname: string;
 };
