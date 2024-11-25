@@ -15,23 +15,29 @@ import { useRouter } from "next/navigation";
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
-  const { data } = useSolutionQuery(+params.id);
+  const { data: solutionInfo } = useSolutionQuery(+params.id);
 
   return (
     <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
       <div className={modalWrapper}>
         <header>
           <ProblemDetail
-            solutionId={data.solutionId}
-            problemTitle={data.problemTitle}
-            solvedDateTime={data.solvedDateTime}
-            problemLevel={data.problemLevel}
-            result={data.result}
+            solutionId={solutionInfo.solutionId}
+            problemTitle={solutionInfo.problemTitle}
+            solvedDateTime={solutionInfo.solvedDateTime}
+            problemLevel={solutionInfo.problemLevel}
+            result={solutionInfo.result}
+            submitMemberCount={solutionInfo.submitMemberCount}
+            totalMemberCount={solutionInfo.totalMemberCount}
+            accuracy={solutionInfo.accuracy}
             className={solvedListStyle}
           />
         </header>
         <div className={modalContainer}>
-          <CodeSection code={data.content} language={data.language} />
+          <CodeSection
+            code={solutionInfo.content}
+            language={solutionInfo.language}
+          />
           <CommentSection solutionId={params.id} />
         </div>
       </div>

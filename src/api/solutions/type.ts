@@ -21,6 +21,9 @@ export type SolutionByIdResponse = {
   language: SolutionLanguage;
   codeLength: number;
   commentCount: number;
+  submitMemberCount: number;
+  totalMemberCount: number;
+  accuracy: number;
 };
 
 export type SolutionSort = {

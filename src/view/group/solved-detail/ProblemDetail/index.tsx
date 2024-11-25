@@ -18,10 +18,16 @@ import Link from "next/link";
 
 type ProblemDetailProps = Pick<
   SolutionByIdResponse,
-  "solutionId" | "problemTitle" | "problemLevel" | "solvedDateTime" | "result"
+  | "solutionId"
+  | "problemTitle"
+  | "problemLevel"
+  | "solvedDateTime"
+  | "result"
+  | "accuracy"
+  | "submitMemberCount"
+  | "totalMemberCount"
 > & {
   className?: string;
-  accuracy?: number;
 };
 
 const JSX_BY_STATUS = {
@@ -35,18 +41,17 @@ const JSX_BY_STATUS = {
   solved: <CheckBox checked={true} className={checkboxStyle} />,
 };
 const ProblemDetail = ({
-  solutionId,
   problemLevel,
   problemTitle,
   solvedDateTime,
   accuracy,
+  submitMemberCount,
+  totalMemberCount,
   result,
   className,
 }: ProblemDetailProps) => {
   const Icon = getTierImage(getTierByLevel(problemLevel));
   const solved = getSolvedStatusByResult(result);
-
-  /** TODO: API 수정 되면 solvedMemberCount, accuracy 반영 */
 
   return (
     <li
@@ -62,8 +67,10 @@ const ProblemDetail = ({
       <time dateTime={solvedDateTime} className={commonStyle}>
         {format(solvedDateTime, "yyyy.MM.dd")}
       </time>
-      <span className={commonStyle}>50/200{/** TODO */}</span>
-      <span className={commonStyle}>80%{/** TODO */}</span>
+      <span
+        className={commonStyle}
+      >{`${submitMemberCount}/${totalMemberCount}`}</span>
+      <span className={commonStyle}>{`${accuracy}%`}</span>
       <div className={iconStyle}>
         {JSX_BY_STATUS[solved ? "solved" : "wrong"]}
       </div>
