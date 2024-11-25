@@ -11,10 +11,10 @@ export type GroupRoleRequest = {
 export type GroupResponse = {
   id: number;
   name: string;
-  groupImage: string;
   startDate: string;
   endDate: string;
   introduction: string;
+  groupImage: string;
   isOwner?: boolean;
   ownerNickname: string;
 };
