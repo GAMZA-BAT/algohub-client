@@ -1,5 +1,12 @@
 import ky from "ky";
 
+export const kyPublicInstance = ky.create({
+  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const kyInstance = ky.create({
   prefixUrl: process.env.NEXT_PUBLIC_HOST,
   headers: {

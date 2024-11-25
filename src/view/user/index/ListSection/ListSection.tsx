@@ -15,13 +15,15 @@ const ListSection = ({ status, groups }: ListSectionProps) => {
   return (
     <>
       <h2 className={groupLabelStyle}>{SECTION_TITLE[status]}</h2>
-      <Carousel length={groups.length}>
-        {groups.map((item: GroupResponse, idx: number) => (
-          <Carousel.Item key={item.id} index={idx}>
-            <GroupCard item={item} status={status} />
-          </Carousel.Item>
-        ))}
-      </Carousel>
+      {groups.length && (
+        <Carousel length={groups.length}>
+          {groups.map((item: GroupResponse, idx: number) => (
+            <Carousel.Item key={item.id} index={idx}>
+              <GroupCard item={item} status={status} />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      )}
     </>
   );
 };
