@@ -53,7 +53,7 @@ const NoticeDetail = ({
     commentId: 1,
     writerNickname: "고독한 예린",
     writerProfileImage: "",
-    createAt: "2024-10-24",
+    createdAt: "2024-10-24",
     content:
       "이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요?",
   };
@@ -126,7 +126,7 @@ const NoticeDetail = ({
             className={idx !== 2 ? itemStyle : ""}
             variant="notice"
             commentId={item.commentId}
-            createAt={item.createAt}
+            createdAt={item.createdAt}
             content={item.content}
             writerNickname={item.writerNickname}
             writerProfileImage={item.writerProfileImage}

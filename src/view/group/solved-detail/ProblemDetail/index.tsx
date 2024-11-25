@@ -1,8 +1,7 @@
-import type { SolutionByIdResponse } from "@/api/solutions/type";
+import type { SolutionContent } from "@/api/solutions/type";
 import CheckBox from "@/common/component/CheckBox";
 import { getTierImage } from "@/shared/util/img";
 import { getSolvedStatusByResult } from "@/shared/util/result";
-import { getTierByLevel } from "@/shared/util/tier";
 import {
   checkboxStyle,
   commonStyle,
@@ -17,7 +16,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 
 type ProblemDetailProps = Pick<
-  SolutionByIdResponse,
+  SolutionContent,
   | "solutionId"
   | "problemTitle"
   | "problemLevel"
@@ -50,7 +49,7 @@ const ProblemDetail = ({
   result,
   className,
 }: ProblemDetailProps) => {
-  const Icon = getTierImage(getTierByLevel(problemLevel));
+  const Icon = getTierImage(problemLevel);
   const solved = getSolvedStatusByResult(result);
 
   return (
