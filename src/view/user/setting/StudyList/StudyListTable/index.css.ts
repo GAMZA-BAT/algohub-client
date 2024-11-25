@@ -36,3 +36,10 @@ export const theadStyle = style({
     backgroundColor: "#2D3239",
   },
 });
+
+export const visibilityBtnStyle = style({
+  padding: "0.4rem 0.8rem",
+
+  ...theme.font.Caption3_M_12,
+  color: theme.color.white,
+});

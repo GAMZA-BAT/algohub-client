@@ -8,16 +8,19 @@ export type GroupRoleRequest = {
   role: string;
 };
 
-export type GroupResponse = {
+export type GroupByCodeResponse = {
   id: number;
   name: string;
   groupImage: string;
   startDate: string;
   endDate: string;
   introduction: string;
-  isOwner?: boolean;
   ownerNickname: string;
 };
+
+export interface GroupResponse extends GroupByCodeResponse {
+  isOwner?: boolean;
+}
 
 export type GroupRequest = {
   profileImage: FormData;
@@ -61,7 +64,10 @@ export type RankingResponse = {
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
-export type GroupListItem = GroupResponse & { isBookmarked?: boolean };
+export type GroupListItem = GroupResponse & {
+  isBookmarked: boolean;
+  isVisible: boolean;
+};
 export type GroupListResponse = {
   [key in GroupStatus]: GroupListItem[];
 };

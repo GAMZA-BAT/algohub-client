@@ -60,14 +60,18 @@ export const notifications = [
 
 export const StudyListData: StudyListType[] = [
   {
+    id: 1,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-01-10"),
     endDate: new Date("2024-09-10"),
     isOwner: true,
+    isVisible: true,
     status: "bookmarked",
   },
   {
+    id: 2,
+    isVisible: true,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-05-10"),
@@ -76,6 +80,8 @@ export const StudyListData: StudyListType[] = [
     status: "queued",
   },
   {
+    id: 3,
+    isVisible: true,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-03-10"),
@@ -84,6 +90,8 @@ export const StudyListData: StudyListType[] = [
     status: "bookmarked",
   },
   {
+    id: 4,
+    isVisible: true,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-08-10"),
@@ -92,6 +100,8 @@ export const StudyListData: StudyListType[] = [
     status: "inProgress",
   },
   {
+    id: 5,
+    isVisible: true,
     isBookmarked: false,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-04-10"),
@@ -100,6 +110,8 @@ export const StudyListData: StudyListType[] = [
     status: "queued",
   },
   {
+    id: 6,
+    isVisible: true,
     isBookmarked: false,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-04-05"),
@@ -108,6 +120,8 @@ export const StudyListData: StudyListType[] = [
     status: "inProgress",
   },
   {
+    id: 7,
+    isVisible: true,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-01-10"),
@@ -116,6 +130,8 @@ export const StudyListData: StudyListType[] = [
     status: "inProgress",
   },
   {
+    id: 8,
+    isVisible: false,
     isBookmarked: false,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-07-10"),
@@ -124,6 +140,8 @@ export const StudyListData: StudyListType[] = [
     status: "queued",
   },
   {
+    id: 9,
+    isVisible: false,
     isBookmarked: false,
     name: "soongsil univ algorithm",
     startDate: new Date("2023-11-10"),
