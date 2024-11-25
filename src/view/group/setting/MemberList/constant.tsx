@@ -75,14 +75,11 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
     Cell: (data) => {
       const { isOpen, open, close } = useBooleanState();
       const groupId = useGetGroupId();
-      const { mutate: deleteMutate } = useDeleteMemberMutation(
-        +groupId,
-        data.memberId,
-      );
+      const { mutate: deleteMutate } = useDeleteMemberMutation(+groupId);
 
       const handleConfirm = () => {
         deleteMutate(
-          { userId: data.memberId, groupId: +groupId },
+          { memberId: data.memberId },
           {
             onSuccess: () => {
               setTimeout(() => {

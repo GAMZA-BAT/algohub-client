@@ -1,18 +1,35 @@
-import { deleteGroup, deleteGroupMember } from "@/api/groups";
+import {
+  deleteGroup,
+  deleteGroupMember,
+  getGroupMemberList,
+} from "@/api/groups";
 import { useToast } from "@/common/hook/useToast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-export const useDeleteMemberMutation = (groupId: number, memberId: number) => {
+export const useMemberListQuery = (groupId: number) => {
+  return useSuspenseQuery({
+    queryKey: ["memberList", groupId],
+    queryFn: () => getGroupMemberList(groupId),
+  });
+};
+
+export const useDeleteMemberMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+
   return useMutation({
-    mutationFn: ({ userId, groupId }: { userId: number; groupId: number }) =>
-      deleteGroupMember(userId, groupId),
+    mutationFn: ({ memberId }: { memberId: number }) =>
+      deleteGroupMember(memberId, groupId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["deleteMember", groupId, memberId],
+        queryKey: ["memberList", groupId],
       });
+
       showToast("멤버가 정상적으로 삭제되었어요.", "success");
     },
     onError: () => {
