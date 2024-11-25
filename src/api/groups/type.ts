@@ -15,7 +15,7 @@ export type GroupByCodeResponse = {
   startDate: string;
   endDate: string;
   introduction: string;
-  ownerNickname?: string;
+  ownerNickname: string;
 };
 
 export interface GroupResponse extends GroupByCodeResponse {
