@@ -1,9 +1,9 @@
 import { kyInstance } from "@/api";
-import type { Comment } from "@/shared/type";
+import type { CommentContent } from "@/api/comments/type";
 
 export const getCommentList = async (solutionId: number) => {
   const response = await kyInstance
-    .get<Comment[]>(`api/solutions/${solutionId}/comments`)
+    .get<CommentContent[]>(`api/solutions/${solutionId}/comments`)
     .json();
 
   return response;

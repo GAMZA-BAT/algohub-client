@@ -1,5 +1,6 @@
 "use client";
 
+import type { CommentContent } from "@/api/comments/type";
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -16,6 +17,7 @@ import {
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import { getFormattedcreateAt } from "@/shared/util/time";
 import clsx from "clsx";
 
 type CommentBox = CommentContent & {
@@ -62,7 +64,7 @@ const CommentBox = ({
       <div className={contentWrapperStyle({ variant })}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createAtStyle}>{getFormattedcreateAt(createAt)}</p>
+          <p className={createAtStyle}>{getFormattedcreateAt(createdAt)}</p>
         </div>
         {isEditing ? (
           <form

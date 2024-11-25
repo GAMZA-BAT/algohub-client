@@ -3,7 +3,7 @@ export type CommentContent = {
   writerNickname: string;
   writerProfileImage: string;
   content: string;
-  createAt: string;
+  createdAt: string;
 };
 
 export type CommentResponse = CommentContent[];
