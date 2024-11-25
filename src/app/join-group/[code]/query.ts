@@ -1,10 +1,14 @@
 import { getGroupsByCode } from "@/api/groups";
 import { joinGroupAction } from "@/app/join-group/[code]/action";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useGroupByCodeQuery = (code: string) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["groupByCode", code],
     queryFn: () => getGroupsByCode(code),
   });

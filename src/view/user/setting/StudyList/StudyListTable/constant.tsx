@@ -5,6 +5,8 @@ import {
 } from "@/shared/component/Table/TableElements/index.css";
 import { pinStyle } from "@/shared/component/Table/index.css";
 import type { TableDataType } from "@/shared/type/table";
+import { visibilityBtnStyle } from "@/view/user/setting/StudyList/StudyListTable/index.css";
+import { useVisibilityMutation } from "@/view/user/setting/StudyList/query";
 import { format } from "date-fns";
 import SortIcon from "../SortIcon";
 import StatusDropdownMenu from "../StatusDropdownMenu";
@@ -100,7 +102,18 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
   {
     key: "isPublic",
     Header: () => "공개여부",
-    Cell: (data) => (new Date(data.endDate) > new Date() ? "ON" : "OFF"),
+    Cell: (data) => {
+      const { mutate: visibilityMutate } = useVisibilityMutation(data.id);
+
+      return (
+        <button
+          onClick={() => visibilityMutate(!data.isVisible)}
+          className={visibilityBtnStyle}
+        >
+          {data.isVisible ? "ON" : "OFF"}
+        </button>
+      );
+    },
     width: 100,
   },
   {

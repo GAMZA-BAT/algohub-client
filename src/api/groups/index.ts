@@ -40,6 +40,16 @@ export const getGroupMemberList = async (groupId: number) => {
   return response;
 };
 
+export const patchGroupVisibility = async (groupId: number, flag: boolean) => {
+  const response = await kyInstance.patch(`api/groups/${groupId}/visibility`, {
+    json: {
+      isVisible: flag,
+    },
+  });
+
+  return response;
+};
+
 export const patchGroupInfo = async (groupId: number, formData: FormData) => {
   const response = await kyInstance.post(`api/groups/${groupId}`, {
     body: formData,
@@ -60,12 +70,6 @@ export const withdrawGroup = async (groupId: number) => {
   const response = await kyInstance
     .delete(`api/groups/${groupId}/members/me`)
     .json();
-
-  return response;
-};
-
-export const patchGroupVisibility = async (groupId: number) => {
-  const response = kyInstance.patch(`api/groups/${groupId}/visibility`).json();
 
   return response;
 };

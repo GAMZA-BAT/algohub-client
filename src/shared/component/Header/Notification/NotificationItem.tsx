@@ -1,33 +1,34 @@
 import { IcnBtnDeleteCircle } from "@/asset/svg";
+import icnNew from "@/asset/svg/icn_new.svg?url";
 import { handleA11yClick } from "@/common/util/dom";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import {
-  alarmContentStyle,
   containerStyle,
   dateStyle,
   deleteIconStyle,
   messageStyle,
   nameStyle,
+  notificationContentStyle,
   profileImageStyle,
   profileStyle,
-} from "./AlarmListItem.css";
+} from "./NotificationItem.css";
 
-type AlarmListProps = {
-  profileImg: StaticImageData;
+type NotificationListProps = {
+  profileImg: string;
   name: string;
   message: string;
   date: string;
   onClick: () => void;
 };
 
-const AlarmListItem = ({
+const NotificationListItem = ({
   onClick,
   profileImg,
   name,
   message,
   date,
-}: AlarmListProps) => {
+}: NotificationListProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
     useA11yHoverHandler();
 
@@ -46,14 +47,16 @@ const AlarmListItem = ({
     >
       <div
         role="button"
-        className={alarmContentStyle}
+        className={notificationContentStyle}
         onClick={onClick}
         onKeyDown={handleA11yClick(onClick)}
         tabIndex={0}
       >
         <div className={profileStyle}>
           <Image
-            src={profileImg}
+            src={profileImg || icnNew}
+            width={25}
+            height={25}
             className={profileImageStyle}
             alt={`${name}님의 프로필 이미지`}
           />
@@ -81,4 +84,4 @@ const AlarmListItem = ({
   );
 };
 
-export default AlarmListItem;
+export default NotificationListItem;

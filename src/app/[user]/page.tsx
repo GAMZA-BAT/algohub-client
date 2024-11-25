@@ -1,5 +1,3 @@
-"use client";
-
 import { getGroupList } from "@/api/groups";
 import type { GroupStatus } from "@/api/groups/type";
 import Sidebar from "@/common/component/Sidebar";
