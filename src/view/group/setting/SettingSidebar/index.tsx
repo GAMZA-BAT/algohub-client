@@ -57,8 +57,9 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
         isOpen={isOpen}
         onClose={close}
         title="스터디를 삭제하시겠습니까?"
-        // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
-        prompt={`삭제 시 스터디와 관련된 모든 데이터가 영구적으로 삭제됩니다.\n복구할 수 없으니 신중히 결정해 주세요.`}
+        prompt={
+          "삭제 시 스터디와 관련된 모든 데이터가 영구적으로 삭제됩니다.\n복구할 수 없으니 신중히 결정해 주세요."
+        }
         confirmText="삭제하기"
         onConfirm={handleDeleteGroup}
       />
