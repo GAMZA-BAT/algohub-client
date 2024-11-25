@@ -1,6 +1,6 @@
 import { kyInstance } from "@/api";
 import type {
-  SolutionByIdResponse,
+  SolutionContent,
   SolutionRequest,
   SolutionResponse,
 } from "@/api/solutions/type";
@@ -24,7 +24,7 @@ export const getSolutionList = async ({
 
 export const getSolution = async (solutionId: number) => {
   const response = await kyInstance
-    .get<SolutionByIdResponse>(`api/solutions/${solutionId}`)
+    .get<SolutionContent>(`api/solutions/${solutionId}`)
     .json();
 
   return response;

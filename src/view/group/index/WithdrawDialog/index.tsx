@@ -9,7 +9,7 @@ type WithdrawDialogProps = {
   groupId: number;
 };
 
-const WithdrawDialog = ({ groupId }: WithdrawDialogProps) => {
+const WithdrawDialog = ({ groupId: _groupId }: WithdrawDialogProps) => {
   const [isLeaving, setIsLeaving] = useState(false);
 
   const router = useRouter();

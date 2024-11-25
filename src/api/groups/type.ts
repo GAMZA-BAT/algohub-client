@@ -8,19 +8,16 @@ export type GroupRoleRequest = {
   role: string;
 };
 
-export type GroupByCodeResponse = {
+export type GroupResponse = {
   id: number;
   name: string;
-  groupImage: string;
   startDate: string;
   endDate: string;
   introduction: string;
+  groupImage: string | null;
+  isOwner?: boolean;
   ownerNickname: string;
 };
-
-export interface GroupResponse extends GroupByCodeResponse {
-  isOwner?: boolean;
-}
 
 export type GroupRequest = {
   profileImage: FormData;

@@ -8,7 +8,6 @@ import ProblemDetail from "@/view/group/solved-detail/ProblemDetail";
 import {
   modalContainer,
   modalWrapper,
-  solvedListStyle,
 } from "@/view/group/solved-detail/index.css";
 import { useRouter } from "next/navigation";
 
@@ -30,7 +29,6 @@ const page = ({ params }: { params: { id: string } }) => {
             submitMemberCount={solutionInfo.submitMemberCount}
             totalMemberCount={solutionInfo.totalMemberCount}
             accuracy={solutionInfo.accuracy}
-            className={solvedListStyle}
           />
         </header>
         <div className={modalContainer}>

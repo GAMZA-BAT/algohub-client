@@ -13,7 +13,6 @@ const ProblemInfo = ({ info }: ProblemInfoProps) => {
       <ProblemList.Item
         problemId={info.problemId}
         title={info.title}
-        startDate={info.startDate}
         endDate={info.endDate}
         level={getTierByLevel(info.level)}
         solved={info.solved}

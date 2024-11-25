@@ -1,18 +1,18 @@
 "use client";
 
+import type { ProblemContent } from "@/api/problems/type";
 import { useDeleteProblemMutation } from "@/app/group/[groupId]/problem-list/query";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import Pagination from "@/shared/component/Pagination";
 import ProblemList from "@/shared/component/ProblemList";
-import type { Problem } from "@/shared/type";
 import ProblemListHeader from "@/view/group/dashboard/ProblemListHeader";
 import RegisterForm from "@/view/group/problem-list/RegisterForm";
 import { titleStyle } from "@/view/group/problem-list/index.css";
 import { useState } from "react";
 
 type ProgressListProps = {
-  data: Problem[];
+  data: ProblemContent[];
   variant?: "inProgress" | "expired";
 };
 const ProgressList = ({ data, variant = "inProgress" }: ProgressListProps) => {

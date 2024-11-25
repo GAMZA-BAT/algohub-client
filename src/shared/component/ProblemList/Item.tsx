@@ -1,5 +1,6 @@
 "use client";
 
+import type { ProblemContent } from "@/api/problems/type";
 import { IcnEdit } from "@/asset/svg";
 import CheckBox from "@/common/component/CheckBox";
 import {
@@ -13,14 +14,13 @@ import {
 } from "@/shared/component/ProblemList/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import type { Problem } from "@/shared/type";
 import { getTierImage } from "@/shared/util/img";
 import clsx from "clsx";
 
 import { format } from "date-fns";
 import Link from "next/link";
 
-type ProblemListItemProps = Problem & {
+type ProblemListItemProps = Omit<ProblemContent, "startDate"> & {
   onEdit?: (id: number) => void;
   isOwner?: boolean;
   className?: string;

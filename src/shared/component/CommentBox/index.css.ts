@@ -67,7 +67,7 @@ export const topContentStyle = style({
   gap: "2rem",
 });
 
-export const createdAtStyle = style({
+export const createAtStyle = style({
   ...theme.font.Caption1_R_12,
   color: theme.color.mg3,
 });

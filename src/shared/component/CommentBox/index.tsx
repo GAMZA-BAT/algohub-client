@@ -8,7 +8,7 @@ import {
   containerStyle,
   contentStyle,
   contentWrapperStyle,
-  createdAtStyle,
+  createAtStyle,
   editInputWrapperStyle,
   iconContainerStyle,
   iconStyle,
@@ -16,11 +16,9 @@ import {
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import type { Comment } from "@/shared/type/comment";
-import { getFormattedCreatedAt } from "@/shared/util/time";
 import clsx from "clsx";
 
-type CommentBox = Comment & {
+type CommentBox = CommentContent & {
   variant: "detail" | "notice";
   onDelete?: (commentId: number) => void;
   className?: string;
@@ -64,7 +62,7 @@ const CommentBox = ({
       <div className={contentWrapperStyle({ variant })}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createdAtStyle}>{getFormattedCreatedAt(createdAt)}</p>
+          <p className={createAtStyle}>{getFormattedcreateAt(createAt)}</p>
         </div>
         {isEditing ? (
           <form

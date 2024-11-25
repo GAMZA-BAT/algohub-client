@@ -1,5 +1,3 @@
-import type { TierDetail } from "@/shared/type";
-
 import {
   IcnBronze1,
   IcnBronze2,
@@ -32,71 +30,74 @@ import {
   IcnSilver3,
   IcnSilver4,
   IcnSilver5,
+  IcnUnrank,
 } from "@/asset/svg";
 
-export const getTierImage = (tier: TierDetail) => {
+export const getTierImage = (tier: number) => {
   switch (tier) {
-    case "bronze 1":
-      return IcnBronze1;
-    case "bronze 2":
-      return IcnBronze2;
-    case "bronze 3":
-      return IcnBronze3;
-    case "bronze 4":
-      return IcnBronze4;
-    case "bronze 5":
+    case 1:
       return IcnBronze5;
-    case "silver 1":
-      return IcnSilver1;
-    case "silver 2":
-      return IcnSilver2;
-    case "silver 3":
-      return IcnSilver3;
-    case "silver 4":
-      return IcnSilver4;
-    case "silver 5":
+    case 2:
+      return IcnBronze4;
+    case 3:
+      return IcnBronze3;
+    case 4:
+      return IcnBronze2;
+    case 5:
+      return IcnBronze1;
+    case 6:
       return IcnSilver5;
-    case "gold 1":
-      return IcnGold1;
-    case "gold 2":
-      return IcnGold2;
-    case "gold 3":
-      return IcnGold3;
-    case "gold 4":
-      return IcnGold4;
-    case "gold 5":
+    case 7:
+      return IcnSilver4;
+    case 8:
+      return IcnSilver3;
+    case 9:
+      return IcnSilver2;
+    case 10:
+      return IcnSilver1;
+    case 11:
       return IcnGold5;
-    case "platinum 1":
-      return IcnPlatinum1;
-    case "platinum 2":
-      return IcnPlatinum2;
-    case "platinum 3":
-      return IcnPlatinum3;
-    case "platinum 4":
-      return IcnPlatinum4;
-    case "platinum 5":
+    case 12:
+      return IcnGold4;
+    case 13:
+      return IcnGold3;
+    case 14:
+      return IcnGold2;
+    case 15:
+      return IcnGold1;
+    case 16:
       return IcnPlatinum5;
-    case "diamond 1":
-      return IcnDiamond1;
-    case "diamond 2":
-      return IcnDiamond2;
-    case "diamond 3":
-      return IcnDiamond3;
-    case "diamond 4":
-      return IcnDiamond4;
-    case "diamond 5":
+    case 17:
+      return IcnPlatinum4;
+    case 18:
+      return IcnPlatinum3;
+    case 19:
+      return IcnPlatinum2;
+    case 20:
+      return IcnPlatinum1;
+    case 21:
       return IcnDiamond5;
-    case "ruby 1":
-      return IcnRuby1;
-    case "ruby 2":
-      return IcnRuby2;
-    case "ruby 3":
-      return IcnRuby3;
-    case "ruby 4":
-      return IcnRuby4;
-    case "ruby 5":
+    case 22:
+      return IcnDiamond4;
+    case 23:
+      return IcnDiamond3;
+    case 24:
+      return IcnDiamond2;
+    case 25:
+      return IcnDiamond1;
+    case 26:
       return IcnRuby5;
-    case "master":
+    case 27:
+      return IcnRuby4;
+    case 28:
+      return IcnRuby3;
+    case 29:
+      return IcnRuby2;
+    case 30:
+      return IcnRuby1;
+    case 31:
       return IcnMaster;
+    default:
+      return IcnUnrank;
   }
 };
