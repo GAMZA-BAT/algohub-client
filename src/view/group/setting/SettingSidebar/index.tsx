@@ -1,6 +1,7 @@
 "use client";
 import { groupSchema } from "@/api/groups/schema";
 import type { GroupResponse } from "@/api/groups/type";
+import CodeClipboard from "@/shared/component/CodeClipboard";
 import GroupInfoForm from "@/shared/component/GroupInfoForm";
 import {
   deleteTextStyle,
@@ -12,12 +13,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
-const SettingSidebar = ({ info }: { info: GroupResponse }) => {
+type SettingSidebarProps = {
+  info: GroupResponse;
+  code: string;
+};
+
+const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
     defaultValues: {
-      profileImage: info.groupImage,
+      groupImage: info.groupImage,
       name: info.name,
       introduction: info.introduction,
     },
@@ -35,6 +41,7 @@ const SettingSidebar = ({ info }: { info: GroupResponse }) => {
           </button>
         </div>
       </GroupInfoForm>
+      <CodeClipboard label="스터디 링크" code={code} />
     </div>
   );
 };

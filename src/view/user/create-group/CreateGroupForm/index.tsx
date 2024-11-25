@@ -1,22 +1,33 @@
 import { groupSchema } from "@/api/groups/schema";
 import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
-import GroupInfoForm from "@/shared/component/GroupInfoForm";
+import SupportingText from "@/common/component/SupportingText";
+import { Form } from "@/shared/component/Form";
+import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";
+import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
+import ImageFormController from "@/shared/component/GroupInfoForm/ImageFormController";
+import NameFormController from "@/shared/component/GroupInfoForm/NameFormController";
+import { createGroupAction } from "@/shared/component/GroupInfoForm/action";
+import {
+  dateWrapper,
+  formLabelStyle,
+  formStyle,
+} from "@/shared/component/GroupInfoForm/index.css";
+import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { submitBtnStyle } from "./index.css";
 
 type CreateGroupFormProps = {
-  setIsSuccess: Dispatch<SetStateAction<boolean>>;
+  onSuccess: (code: string) => void;
 };
-const CreateGroupForm = ({ setIsSuccess }: CreateGroupFormProps) => {
+const CreateGroupForm = ({ onSuccess }: CreateGroupFormProps) => {
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
     defaultValues: {
-      profileImage: null,
+      groupImage: null,
       name: "",
       introduction: "",
       startDate: new Date(),
@@ -24,20 +35,56 @@ const CreateGroupForm = ({ setIsSuccess }: CreateGroupFormProps) => {
     },
   });
 
+  const handleSubmit = async (values: z.infer<typeof groupSchema>) => {
+    const data = getGroupFormData(values);
+
+    const code = await createGroupAction(data);
+
+    onSuccess(code);
+  };
+  const error = form.formState.errors.endDate;
+
   return (
-    <GroupInfoForm form={form}>
-      <Button
-        className={submitBtnStyle}
-        type="submit"
-        size="large"
-        disabled={!form.formState.isValid}
-        isActive={form.formState.isValid}
-        onClick={() => setIsSuccess(true)}
+    <Form {...form}>
+      <form
+        className={formStyle({ variant: "create-group" })}
+        onSubmit={form.handleSubmit((v) => handleSubmit(v))}
       >
-        <IcnPlus fill="white" width={24} height={24} />
-        스터디 만들기
-      </Button>
-    </GroupInfoForm>
+        <ImageFormController form={form} />
+        <NameFormController form={form} variant="create-group" />
+        <div>
+          <p className={formLabelStyle({ variant: "create-group" })}>
+            스터디 기간
+          </p>
+          <div className={dateWrapper}>
+            <DateFormController
+              form={form}
+              variant="create-group"
+              dateType="startDate"
+            />
+            <DateFormController
+              form={form}
+              variant="create-group"
+              dateType="endDate"
+            />
+          </div>
+          {error && (
+            <SupportingText isError hasErrorIcon message={error.message} />
+          )}
+        </div>
+        <DescFormController form={form} variant="create-group" />
+        <Button
+          className={submitBtnStyle}
+          type="submit"
+          size="large"
+          disabled={!form.formState.isValid || form.formState.isSubmitted}
+          isActive={form.formState.isValid && !form.formState.isSubmitted}
+        >
+          <IcnPlus fill="white" width={24} height={24} />
+          스터디 만들기
+        </Button>
+      </form>
+    </Form>
   );
 };
 

@@ -1,7 +1,7 @@
 import { getSolutionList } from "@/api/solutions";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
-import ProblemSidebar from "@/view/group/index/ProblemSidebar";
+import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
 import SolvedList from "@/view/group/problem-list/SolvedList";
 import { contentWrapper } from "@/view/group/problem-list/index.css";
 
