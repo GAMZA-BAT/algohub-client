@@ -1,17 +1,25 @@
+import type { ProblemContent } from "@/api/problems/type";
 import ProblemList from "@/shared/component/ProblemList";
+import { getTierByLevel } from "@/shared/util/tier";
 
-const ProblemInfo = () => {
+type ProblemInfoProps = {
+  info: ProblemContent;
+};
+
+const ProblemInfo = ({ info }: ProblemInfoProps) => {
   return (
     <ProblemList>
       <ProblemList.Header />
       <ProblemList.Item
-        problemId={1}
-        title="트리에서의 동적 계획법"
-        startDate="2024-01-01"
-        endDate="2024-01-02"
-        level="bronze 1"
-        solved={true}
-        memberCount={200}
+        problemId={info.problemId}
+        title={info.title}
+        startDate={info.startDate}
+        endDate={info.endDate}
+        level={getTierByLevel(info.level)}
+        solved={info.solved}
+        memberCount={info.memberCount}
+        submitMemberCount={info.submitMemberCount}
+        accuracy={info.accuracy}
       />
     </ProblemList>
   );
