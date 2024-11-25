@@ -1,9 +1,6 @@
 "use client";
 
-import type {
-  SolutionByIdResponse,
-  SolutionResponse,
-} from "@/api/solutions/type";
+import type { SolutionContent, SolutionResponse } from "@/api/solutions/type";
 import Avatar from "@/common/component/Avatar";
 import {
   SOLVED_TABLE_BODY,
@@ -31,7 +28,7 @@ const SolvedTable = ({ groupId, content }: SolvedTableProps) => {
   const router = useRouter();
 
   const formatCellValue = (
-    prop: keyof SolutionByIdResponse,
+    prop: keyof SolutionContent,
     value: string | number,
   ) => {
     switch (prop) {

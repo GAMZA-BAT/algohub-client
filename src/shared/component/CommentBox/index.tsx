@@ -1,6 +1,6 @@
 "use client";
 
-import type { EditCommentRequest } from "@/api/comments/type";
+import type { CommentContent, EditCommentRequest } from "@/api/comments/type";
 import { useEditCommentMutation } from "@/app/group/[groupId]/solved-detail/[id]/query";
 import { IcnBtnSend, IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
@@ -9,7 +9,7 @@ import {
   containerStyle,
   contentStyle,
   contentWrapperStyle,
-  createdAtStyle,
+  createAtStyle,
   editInputWrapperStyle,
   iconContainerStyle,
   iconStyle,
@@ -17,15 +17,14 @@ import {
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import type { Comment } from "@/shared/type/comment";
-import { getFormattedCreatedAt } from "@/shared/util/time";
+import { getFormattedcreateAt } from "@/shared/util/time";
 import { CommentsContext } from "@/view/group/solved-detail/CommentSection/provider";
 import clsx from "clsx";
 import { type KeyboardEvent, useContext } from "react";
 import { flushSync } from "react-dom";
 import { type SubmitHandler, useForm } from "react-hook-form";
 
-type CommentBox = Comment & {
+type CommentBox = CommentContent & {
   variant: "detail" | "notice";
   onDelete?: (commentId: number) => void;
   onEdit?: (data: EditCommentRequest) => void;
@@ -42,7 +41,7 @@ const CommentBox = ({
   writerNickname,
   writerProfileImage,
   content,
-  createdAt,
+  createAt,
 
   onDelete,
   className,
@@ -105,7 +104,7 @@ const CommentBox = ({
       <div className={contentWrapperStyle({ variant })}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createdAtStyle}>{getFormattedCreatedAt(createdAt)}</p>
+          <p className={createAtStyle}>{getFormattedcreateAt(createAt)}</p>
         </div>
         {editingItem === commentId ? (
           <form

@@ -1,3 +1,5 @@
+"use client";
+
 import { DataTable } from "@/shared/component/Table";
 import { MEMBER_LIST_COLUMNS } from "@/view/group/setting/MemberList/constant";
 import { useMemberListData } from "@/view/group/setting/MemberList/hook";

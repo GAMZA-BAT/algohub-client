@@ -1,8 +1,8 @@
 "use client";
 
+import type { SolutionContent } from "@/api/solutions/type";
 import { IcnMessage, IcnMessageDot } from "@/asset/svg";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import type { Solution } from "@/shared/type";
 import { getFormattedMemory } from "@/shared/util/byte";
 import { getTierImage } from "@/shared/util/img";
 import {
@@ -14,9 +14,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const SolvedItem = ({
+  problemLevel,
+  problemTitle,
   solutionId,
-  level,
-  title,
   solvedDateTime,
   result,
   memoryUsage = 0,
@@ -24,9 +24,9 @@ const SolvedItem = ({
   language,
   codeLength,
   commentCount = 0,
-}: Solution) => {
+}: SolutionContent) => {
   const groupId = useGetGroupId();
-  const LevelIcon = getTierImage(level);
+  const LevelIcon = getTierImage(problemLevel);
 
   const router = useRouter();
 
@@ -41,7 +41,7 @@ const SolvedItem = ({
       tabIndex={0}
       onKeyDown={(e) => e.key === "Enter" && handleClickItem()}
       onClick={handleClickItem}
-      aria-label={`${level}: ${solutionId}`}
+      aria-label={`${problemLevel}: ${solutionId}`}
       className={itemStyle}
     >
       <LevelIcon width={25} height={32} />
@@ -49,7 +49,7 @@ const SolvedItem = ({
         className={textStyle}
         href={`/group/${groupId}/problem-list/${solutionId}`}
       >
-        {title}
+        {problemTitle}
       </Link>
       <time dateTime={solvedDateTime} className={textStyle}>
         {solvedDateTime}

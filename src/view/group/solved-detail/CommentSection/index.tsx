@@ -44,7 +44,7 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
       <ul className={ulStyle} ref={commentRef}>
         <CommentsProvider solutionId={+solutionId}>
           {comments
-            ?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
+            ?.sort((a, b) => +new Date(a.createAt) - +new Date(b.createAt))
             .map((item) => (
               <CommentBox
                 key={item.commentId}

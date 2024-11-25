@@ -11,7 +11,7 @@ export type ProblemContent = {
   submitMemberCount: number;
   memberCount: number;
   accuracy: number;
-  inProgress: boolean;
+  inProgress?: boolean;
 };
 
 export type ProblemResponse = ProblemContent[];

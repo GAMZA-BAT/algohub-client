@@ -1,5 +1,3 @@
-"use client";
-
 import { getGroupList } from "@/api/groups";
 import type { GroupStatus } from "@/api/groups/type";
 import Sidebar from "@/common/component/Sidebar";
@@ -10,7 +8,9 @@ import { userCardWrapper } from "@/view/user/index/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
 import { userDashboardWrapper } from "@/view/user/index/index.css";
 
-const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
+const UserDashboardPage = async ({
+  params: { user: _user },
+}: { params: { user: string } }) => {
   const data = await getGroupList();
 
   return (

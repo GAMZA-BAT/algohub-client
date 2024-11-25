@@ -41,6 +41,16 @@ export const getGroupMemberList = async (groupId: number) => {
   return response;
 };
 
+export const patchGroupVisibility = async (groupId: number, flag: boolean) => {
+  const response = await kyInstance.patch(`api/groups/${groupId}/visibility`, {
+    json: {
+      isVisible: flag,
+    },
+  });
+
+  return response;
+};
+
 export const patchGroupInfo = async (groupId: number, formData: FormData) => {
   const response = await kyInstance.post(`api/groups/${groupId}`, {
     body: formData,
@@ -65,12 +75,6 @@ export const withdrawGroup = async (groupId: number) => {
   return response;
 };
 
-export const patchGroupVisibility = async (groupId: number) => {
-  const response = kyInstance.patch(`api/groups/${groupId}/visibility`).json();
-
-  return response;
-};
-
 export const getGroupsByCode = async (code: string) => {
   const response = await kyInstance
     .get<GroupResponse>(`api/groups?code=${code}`)
@@ -89,6 +93,20 @@ export const getRoleByGroupId = async (groupId: number) => {
   const response = await kyInstance
     .get<Role>(`api/groups/${groupId}/role`)
     .text();
+
+  return response;
+};
+
+export const deleteGroupMember = async (userId: number, groupId: number) => {
+  const response = await kyInstance.delete(
+    `api/groups/${groupId}/members/${userId}`,
+  );
+
+  return response;
+};
+
+export const deleteGroup = async (groupId: number) => {
+  const response = await kyInstance.delete(`api/groups/${groupId}`);
 
   return response;
 };

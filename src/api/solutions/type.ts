@@ -7,8 +7,13 @@ export type SolutionRequest = {
   size?: number;
 };
 
-export type SolutionByIdResponse = {
+export type SolutionContent = {
   solutionId: number;
+  problemTitle: string;
+  problemLevel: number;
+  accuracy: number;
+  submitMemberCount: number;
+  totalMemberCount: number;
   nickname: string;
   profileImage: string;
   solvedDateTime: string;
@@ -42,7 +47,7 @@ export type SolutionResponse = {
   first: boolean;
   last: boolean;
   size: number;
-  content: SolutionByIdResponse[];
+  content: SolutionContent[];
   number: number;
   sort: SolutionSort;
   numberOfElements: number;

@@ -1,10 +1,13 @@
 import { kyInstance } from "@/api";
-import type { CommentRequest, EditCommentRequest } from "@/api/comments/type";
-import type { Comment } from "@/shared/type";
+import type {
+  CommentContent,
+  CommentRequest,
+  EditCommentRequest,
+} from "@/api/comments/type";
 
 export const getCommentList = async (solutionId: number) => {
   const response = await kyInstance
-    .get<Comment[]>(`api/solution/comment?solutionId=${solutionId}`)
+    .get<CommentContent[]>(`api/solution/comment?solutionId=${solutionId}`)
     .json();
 
   return response;

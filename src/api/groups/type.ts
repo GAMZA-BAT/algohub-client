@@ -11,12 +11,12 @@ export type GroupRoleRequest = {
 export type GroupResponse = {
   id: number;
   name: string;
-  groupImage: string;
   startDate: string;
   endDate: string;
   introduction: string;
-  ownerNickname: string;
+  groupImage: string | null;
   isOwner?: boolean;
+  ownerNickname: string;
   isBookmarked?: boolean;
   isVisible?: boolean;
 };
@@ -36,6 +36,7 @@ export type RankingResponse = {
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
+export type GroupListItem = GroupResponse & { isBookmarked?: boolean };
 export type GroupListResponse = {
   [key in GroupStatus]: GroupResponse[];
 };
