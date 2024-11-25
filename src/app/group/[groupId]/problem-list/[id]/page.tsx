@@ -7,10 +7,10 @@ import SolvedList from "@/view/group/problem-list/SolvedList";
 import { contentWrapper } from "@/view/group/problem-list/index.css";
 
 const SolvedListPage = async ({
-  params,
+  params: { groupId, id },
 }: { params: { groupId: string; id: string } }) => {
-  const solutionListData = getSolutionList({ problemId: +params.id });
-  const problemData = getProblemInfo(+params.id);
+  const solutionListData = getSolutionList({ problemId: +id });
+  const problemData = getProblemInfo(+id);
 
   const [solutionList, problemInfo] = await Promise.all([
     solutionListData,
@@ -26,7 +26,7 @@ const SolvedListPage = async ({
         <SolvedList
           problemInfo={problemInfo}
           content={solutionList.content}
-          groupId={params.groupId}
+          groupId={groupId}
         />
       </div>
     </main>
