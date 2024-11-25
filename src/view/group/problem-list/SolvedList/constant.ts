@@ -1,4 +1,4 @@
-import type { SolutionByIdResponse } from "@/api/solutions/type";
+import type { SolutionContent } from "@/api/solutions/type";
 
 export type SolvedHeader =
   | ""
@@ -21,7 +21,7 @@ export const SOLVED_TABLE_HEADER: readonly SolvedHeader[] = Object.freeze([
   "결과",
 ]);
 
-export const SOLVED_TABLE_BODY: ReadonlyArray<keyof SolutionByIdResponse> =
+export const SOLVED_TABLE_BODY: ReadonlyArray<keyof SolutionContent> =
   Object.freeze([
     "profileImage",
     "nickname",

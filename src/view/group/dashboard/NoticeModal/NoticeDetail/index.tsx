@@ -126,7 +126,7 @@ const NoticeDetail = ({
             className={idx !== 2 ? itemStyle : ""}
             variant="notice"
             commentId={item.commentId}
-            createdAt={item.createAt}
+            createAt={item.createAt}
             content={item.content}
             writerNickname={item.writerNickname}
             writerProfileImage={item.writerProfileImage}

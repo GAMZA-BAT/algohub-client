@@ -1,9 +1,9 @@
-import type { Problem } from "@/shared/type";
+import type { ProblemContent } from "@/api/problems/type";
 import PendingListItem from "@/view/group/problem-list/PendingList/Item";
 import { listStyle } from "@/view/group/problem-list/PendingList/index.css";
 
 type PendingListProps = {
-  data: Problem[];
+  data: ProblemContent[];
 };
 
 const PendingList = ({ data }: PendingListProps) => {

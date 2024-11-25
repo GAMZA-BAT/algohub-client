@@ -1,7 +1,7 @@
 "use client";
 
+import type { SolutionContent } from "@/api/solutions/type";
 import Pagination from "@/shared/component/Pagination";
-import type { Solution } from "@/shared/type";
 import Header from "@/view/group/my-solved/Header";
 import {
   listStyle,
@@ -12,7 +12,7 @@ import SolvedItem from "@/view/group/my-solved/SolvedItem";
 
 type MySolvedSection = {
   title: string;
-  data: Solution[];
+  data: SolutionContent[];
 };
 
 const MySolvedSection = ({ title, data }: MySolvedSection) => {

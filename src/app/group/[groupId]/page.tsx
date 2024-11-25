@@ -1,9 +1,9 @@
 import { getGroupInfo } from "@/api/groups";
 import { getAllRanking } from "@/api/groups/ranking";
+import type { ProblemContent } from "@/api/problems/type";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";
-import type { Problem } from "@/shared/type";
 import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
 import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
@@ -15,13 +15,14 @@ const GroupDashboardPage = async ({
   const groupInfo = await getGroupInfo(+groupId);
 
   const rankingData = await getAllRanking(+groupId);
-  const data: Problem[] = [
+  const data: ProblemContent[] = [
     {
       problemId: 1,
+      link: "",
       title: "트리에서의 동적 계획법",
       startDate: "2024-10-10",
       endDate: "2024-11-01",
-      level: "silver 1",
+      level: 2,
       solved: false,
       submitMemberCount: 50,
       memberCount: 200,
@@ -29,10 +30,11 @@ const GroupDashboardPage = async ({
     },
     {
       problemId: 2,
+      link: "",
       title: "트리에서의 동적 계획법",
       startDate: "2024-10-10",
       endDate: "2024-10-14",
-      level: "diamond 1",
+      level: 2,
       solved: false,
       submitMemberCount: 50,
       memberCount: 200,
@@ -40,10 +42,11 @@ const GroupDashboardPage = async ({
     },
     {
       problemId: 3,
+      link: "",
       title: "트리에서의 동적 계획법",
       startDate: "2024-10-10",
       endDate: "2024-11-01",
-      level: "gold 1",
+      level: 2,
       solved: true,
       submitMemberCount: 50,
       memberCount: 200,
