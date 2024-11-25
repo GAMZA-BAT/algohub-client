@@ -10,6 +10,12 @@ export const sidebarWrapper = style({
   padding: "4.2rem 2.4rem",
 });
 
+export const avatarWrapperStyle = style({
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+});
+
 export const submitWrapper = style({
   display: "flex",
   alignItems: "center",
