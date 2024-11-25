@@ -1,5 +1,5 @@
 import { getGroupList, patchGroupVisibility } from "@/api/groups";
-import type { GroupListItem, GroupStatus } from "@/api/groups/type";
+import type { GroupResponse, GroupStatus } from "@/api/groups/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
@@ -22,7 +22,7 @@ export const useGetMyGroupsQuery = () => {
 };
 
 const transformData = (
-  data: GroupListItem[],
+  data: GroupResponse[],
   status: GroupStatus,
 ): StudyListType[] => {
   return data.map((item) => ({

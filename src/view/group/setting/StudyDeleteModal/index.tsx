@@ -4,7 +4,7 @@ import {
   containerStyle,
   contentStyle,
   headingStyle,
-} from "@/view/group/setting/components/StudyDeleteModal/index.css";
+} from "@/view/group/setting/StudyDeleteModal/index.css";
 
 type StudyDeleteModalProps = {
   isOpen?: boolean;
