@@ -1,7 +1,11 @@
 "use client";
 import { groupSchema } from "@/api/groups/schema";
 import type { GroupResponse } from "@/api/groups/type";
+import { useDeleteGroupMutation } from "@/app/group/[groupId]/setting/query";
+import { useBooleanState } from "@/common/hook/useBooleanState";
 import CodeClipboard from "@/shared/component/CodeClipboard";
+import PromptModal from "@/shared/component/PromptModal";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import {
   avatarWrapperStyle,
   deleteTextStyle,
@@ -32,7 +36,10 @@ type SettingSidebarProps = {
   groupId: number;
 };
 
-const SettingSidebar = ({ info, code, groupId }: SettingSidebarProps) => {
+const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
+  const groupId = useGetGroupId();
+  const { mutate: deleteMutate } = useDeleteGroupMutation(+groupId);
+  const { isOpen, open, close } = useBooleanState();
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
@@ -42,6 +49,8 @@ const SettingSidebar = ({ info, code, groupId }: SettingSidebarProps) => {
       introduction: info.introduction,
     },
   });
+
+  const handleDeleteGroup = () => deleteMutate(+groupId);
 
   const [url, setUrl] = useState(info.groupImage);
   const [file, setFile] = useState<Blob | null>(null);
@@ -74,54 +83,66 @@ const SettingSidebar = ({ info, code, groupId }: SettingSidebarProps) => {
   };
 
   return (
-    <div className={sidebarWrapper}>
-      <Form {...form}>
-        <form
-          className={formStyle({ variant: "group-setting" })}
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
-          <div className={avatarWrapperStyle}>
-            <EditAvatar src={url} onChange={handleUpload} />
-          </div>
-          <NameFormController form={form} variant="group-setting" />
-          <div>
-            <p className={formLabelStyle({ variant: "group-setting" })}>
-              스터디 기간
-            </p>
-            <div className={dateWrapper}>
-              <DateFormController
-                form={form}
-                variant="group-setting"
-                dateType="startDate"
-              />
-              <DateFormController
-                form={form}
-                variant="group-setting"
-                dateType="endDate"
-              />
+    <>
+      <div className={sidebarWrapper}>
+        <Form {...form}>
+          <form
+            className={formStyle({ variant: "group-setting" })}
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <div className={avatarWrapperStyle}>
+              <EditAvatar src={url} onChange={handleUpload} />
             </div>
-            {error && (
-              <SupportingText isError hasErrorIcon message={error.message} />
-            )}
-          </div>
-          <DescFormController form={form} variant="group-setting" />
-          <div className={submitWrapper}>
-            <button
-              type="submit"
-              onClick={() => console.log("clicked")}
-              className={editTextStyle}
-            >
-              수정하기
-            </button>
-            <button type="button">
-              <p className={deleteTextStyle}>스터디 삭제하기</p>
-            </button>
-          </div>
-        </form>
-      </Form>
+            <NameFormController form={form} variant="group-setting" />
+            <div>
+              <p className={formLabelStyle({ variant: "group-setting" })}>
+                스터디 기간
+              </p>
+              <div className={dateWrapper}>
+                <DateFormController
+                  form={form}
+                  variant="group-setting"
+                  dateType="startDate"
+                />
+                <DateFormController
+                  form={form}
+                  variant="group-setting"
+                  dateType="endDate"
+                />
+              </div>
+              {error && (
+                <SupportingText isError hasErrorIcon message={error.message} />
+              )}
+            </div>
+            <DescFormController form={form} variant="group-setting" />
+            <div className={submitWrapper}>
+              <button
+                type="submit"
+                onClick={() => console.log("clicked")}
+                className={editTextStyle}
+              >
+                수정하기
+              </button>
+              <button type="button" onClick={open}>
+                <p className={deleteTextStyle}>스터디 삭제하기</p>
+              </button>
+            </div>
+          </form>
+        </Form>
 
-      <CodeClipboard label="스터디 링크" code={code} />
-    </div>
+        <CodeClipboard label="스터디 링크" code={code} />
+        <PromptModal
+          isOpen={isOpen}
+          onClose={close}
+          title="스터디를 삭제하시겠습니까?"
+          prompt={
+            "삭제 시 스터디와 관련된 모든 데이터가 영구적으로 삭제됩니다.\n복구할 수 없으니 신중히 결정해 주세요."
+          }
+          confirmText="삭제하기"
+          onConfirm={handleDeleteGroup}
+        />
+      </div>
+    </>
   );
 };
 

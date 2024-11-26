@@ -1,5 +1,5 @@
-import { getGroupList } from "@/api/groups";
 import type { GroupStatus } from "@/api/groups/type";
+import { getGroupsByUsers } from "@/api/users";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ListSection from "@/view/user/index/ListSection/ListSection";
@@ -7,25 +7,18 @@ import UserCard from "@/view/user/index/UserCard";
 import { userCardWrapper } from "@/view/user/index/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
 import { userDashboardWrapper } from "@/view/user/index/index.css";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
-const UserDashboardPage = async () => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: ["group", "list", "user"], // TODO: user는 현재 user명으로 수정
-    queryFn: getGroupList,
-  });
+const UserDashboardPage = async ({
+  params: { user },
+}: { params: { user: string } }) => {
+  const data = await getGroupsByUsers(user);
 
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
         <div className={userCardWrapper}>
-          <UserCard />
+          <UserCard userNickname={user} />
         </div>
       </Sidebar>
       <HydrationBoundary state={dehydrate(queryClient)}>

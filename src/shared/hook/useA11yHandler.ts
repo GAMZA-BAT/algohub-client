@@ -10,7 +10,7 @@ import { type FocusEvent, useState } from "react";
  ** isActive: 외부 버튼 용 state
  ** handlers: mouseover, mouseout, focus, blur 핸들러
  * @example
- * const AlarmListItem = () => {
+ * const NotificationListItem = () => {
   * const {isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur} = useA11yHoverHandler();
 
     return (

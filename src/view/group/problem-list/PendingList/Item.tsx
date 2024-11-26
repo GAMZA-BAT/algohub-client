@@ -1,7 +1,7 @@
 "use client";
 
+import type { ProblemContent } from "@/api/problems/type";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import type { Problem } from "@/shared/type";
 import { getTierImage } from "@/shared/util/img";
 import {
   itemStyle,
@@ -14,7 +14,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 
 export type PendingListItemProps = Pick<
-  Problem,
+  ProblemContent,
   "problemId" | "title" | "startDate" | "level"
 > & {
   className?: string;

@@ -2,7 +2,6 @@ import { getSolution } from "@/api/solutions";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { deleteComment, editComment, getCommentList } from "@/api/comments";
-import type { EditCommentRequest } from "@/api/comments/type";
 import { commentAction } from "@/app/group/[groupId]/solved-detail/[id]/action";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
@@ -29,7 +28,7 @@ export const useCommentMutataion = (solutionId: number) => {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (content: string) => commentAction({ solutionId, content }),
+    mutationFn: (content: string) => commentAction(solutionId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["comment", solutionId],
@@ -65,13 +64,16 @@ export const useDeleteCommentMutation = (solutionId: number) => {
   });
 };
 
-export const useEditCommentMutation = (solutionId: number) => {
+export const useEditCommentMutation = (
+  solutionId: number,
+  commentId: number,
+) => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (requestData: EditCommentRequest) => editComment(requestData),
+    mutationFn: (content: string) => editComment(commentId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["comment", solutionId],

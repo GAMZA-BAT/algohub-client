@@ -16,7 +16,7 @@ export const CommentsProvider = ({
   const [editingItem, setEditingItem] = useState<number | null>(null);
 
   const handleEditItem = (id: number) => {
-    setEditingItem(id);
+    setEditingItem((prev) => (prev === id ? null : id));
   };
 
   const handleReset = () => {

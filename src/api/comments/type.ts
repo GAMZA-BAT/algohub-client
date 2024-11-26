@@ -3,17 +3,15 @@ export type CommentContent = {
   writerNickname: string;
   writerProfileImage: string;
   content: string;
-  createAt: string;
+  createdAt: string;
 };
 
 export type CommentResponse = CommentContent[];
 
 export type EditCommentRequest = {
-  commentId: number;
   content: string;
 };
 
 export type CommentRequest = {
-  solutionId: number;
   content: string;
 };

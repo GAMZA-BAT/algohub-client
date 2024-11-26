@@ -1,5 +1,5 @@
 "use client";
-import type { RankingItem } from "@/api/groups/type";
+import type { RankingContent } from "@/api/groups/type";
 import { IcnMiniLogo } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import {
@@ -13,7 +13,7 @@ import {
 
 type RankingCardProps = {
   idx: number;
-  info: RankingItem;
+  info: RankingContent;
 };
 const RankingCard = ({
   idx,

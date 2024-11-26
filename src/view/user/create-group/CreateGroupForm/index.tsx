@@ -2,6 +2,7 @@ import { groupSchema } from "@/api/groups/schema";
 import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
 import SupportingText from "@/common/component/SupportingText";
+import { useToast } from "@/common/hook/useToast";
 import { Form } from "@/shared/component/Form";
 import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";
 import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
@@ -23,6 +24,7 @@ type CreateGroupFormProps = {
   onSuccess: (code: string) => void;
 };
 const CreateGroupForm = ({ onSuccess }: CreateGroupFormProps) => {
+  const { showToast } = useToast();
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: zodResolver(groupSchema),
     mode: "onTouched",
@@ -37,10 +39,10 @@ const CreateGroupForm = ({ onSuccess }: CreateGroupFormProps) => {
 
   const handleSubmit = async (values: z.infer<typeof groupSchema>) => {
     const data = getGroupFormData(values);
-
     const code = await createGroupAction(data);
 
     onSuccess(code);
+    showToast("스터디가 정상적으로 만들어졌어요.", "success");
   };
   const error = form.formState.errors.endDate;
 

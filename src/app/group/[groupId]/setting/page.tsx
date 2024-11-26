@@ -1,17 +1,14 @@
-import { getGroupCode, getGroupInfo, getGroupMemberList } from "@/api/groups";
+import { getGroupCode, getGroupInfo } from "@/api/groups";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import MemberList from "@/view/group/setting/MemberList";
 import SettingSidebar from "@/view/group/setting/SettingSidebar";
 
 const GroupSettingPage = async ({
-  params,
+  params: { groupId },
 }: { params: { groupId: string } }) => {
-  const groupData = getGroupInfo(+params.groupId);
-  const memberData = getGroupMemberList(+params.groupId);
-
-  const [groupInfo, memberInfo] = await Promise.all([groupData, memberData]);
-  const { inviteCode } = await getGroupCode(+params.groupId);
+  const groupInfo = await getGroupInfo(+groupId);
+  const { inviteCode } = await getGroupCode(+groupId);
 
   return (
     <main className={sidebarWrapper}>
@@ -22,7 +19,7 @@ const GroupSettingPage = async ({
           groupId={+params.groupId}
         />
       </Sidebar>
-      <MemberList memberListData={memberInfo} />
+      <MemberList groupId={+groupId} />
     </main>
   );
 };

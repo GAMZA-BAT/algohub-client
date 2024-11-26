@@ -1,16 +1,14 @@
 import type { CommentContent } from "@/api/comments/type";
-import type { NoticeResponse } from "@/api/notices/type";
+import type { NoticeContent } from "@/api/notices/type";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { getNoticeBannerCreateAt } from "@/shared/util/time";
 import { useRef, useState } from "react";
 import {
   articleStyle,
-  avatarStyle,
   contentStyle,
   contentWrapper,
   headerStyle,
@@ -26,19 +24,12 @@ import {
 } from "./index.css";
 
 type NoticeDetailProps = {
-  data: NoticeResponse;
+  data: NoticeContent;
   goBack: () => void;
 };
 
 const NoticeDetail = ({
-  data: {
-    author,
-    noticeTitle,
-    createAt,
-    noticeCategory,
-    noticeId,
-    noticeContent,
-  },
+  data: { author, title, createAt, category, noticeId, content, isRead },
   goBack,
 }: NoticeDetailProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
@@ -62,7 +53,7 @@ const NoticeDetail = ({
     commentId: 1,
     writerNickname: "고독한 예린",
     writerProfileImage: "",
-    createAt: "2024-10-24",
+    createdAt: "2024-10-24",
     content:
       "이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요?",
   };
@@ -75,21 +66,23 @@ const NoticeDetail = ({
       {/* 상세보기 헤더 */}
       <header className={headerStyle}>
         <div className={contentWrapper}>
-          <Avatar className={avatarStyle} alt="작성자 프로필 사진" />
+          <Avatar size="small" alt="작성자 프로필 사진" />
           <div className={contentStyle}>
             <h3 id={`notice-title-${noticeId}`} className={textStyle.category}>
-              {noticeCategory}
+              {category}
             </h3>
-            <p className={textStyle.title}>{noticeTitle}</p>
+            <p className={textStyle.title}>{title}</p>
           </div>
         </div>
 
         <div className={noticeInfoStyle}>
           <p className={textStyle.author}>{author}</p>
           <time dateTime={createAt} className={textStyle.time}>
-            {getNoticeBannerCreateAt(createAt)}
+            {createAt}
           </time>
-          {<IcnNew width={13} height={13} style={{ minWidth: 13 }} />}
+          {!isRead && (
+            <IcnNew width={13} height={13} style={{ minWidth: 13 }} />
+          )}
         </div>
       </header>
 
@@ -103,7 +96,7 @@ const NoticeDetail = ({
       >
         <Textarea
           ref={textareaRef}
-          defaultValue={noticeContent}
+          defaultValue={content}
           disabled={!isEdit}
           className={textareaStyle}
         />
@@ -133,7 +126,7 @@ const NoticeDetail = ({
             className={idx !== 2 ? itemStyle : ""}
             variant="notice"
             commentId={item.commentId}
-            createdAt={item.createAt}
+            createdAt={item.createdAt}
             content={item.content}
             writerNickname={item.writerNickname}
             writerProfileImage={item.writerProfileImage}
