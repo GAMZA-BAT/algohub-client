@@ -2,23 +2,23 @@ import type { ProblemContent } from "@/api/problems/type";
 import ProblemList from "@/shared/component/ProblemList";
 
 type ProblemInfoProps = {
-  info: ProblemContent;
+  problemInfo: ProblemContent;
 };
 
-const ProblemInfo = ({ info }: ProblemInfoProps) => {
+const ProblemInfo = ({ problemInfo }: ProblemInfoProps) => {
   return (
     <ProblemList>
       <ProblemList.Header />
       <ProblemList.Item
-        problemId={info.problemId}
-        title={info.title}
-        endDate={info.endDate}
-        level={info.level}
-        solved={info.solved}
-        memberCount={info.memberCount}
-        submitMemberCount={info.submitMemberCount}
-        accuracy={info.accuracy}
-        link={info.link}
+        problemId={problemInfo.problemId}
+        title={problemInfo.title}
+        endDate={problemInfo.endDate}
+        level={problemInfo.level}
+        solved={problemInfo.solved}
+        memberCount={problemInfo.memberCount}
+        submitMemberCount={problemInfo.submitMemberCount}
+        accuracy={problemInfo.accuracy}
+        link={problemInfo.link}
       />
     </ProblemList>
   );

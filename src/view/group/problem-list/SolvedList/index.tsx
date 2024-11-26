@@ -39,7 +39,7 @@ const SolvedList = ({ groupId, problemInfo, content }: SolvedListProps) => {
           className={headerTextStyle}
         >{`${problemInfo.title} ${problemInfo.problemId}`}</h1>
       </div>
-      <ProblemInfo info={problemInfo} />
+      <ProblemInfo problemInfo={problemInfo} />
       <SolvedFilterBar />
       <div className={dividerStyle} />
       <SolvedTable groupId={groupId} content={content} />

@@ -38,27 +38,6 @@ export type Sort = {
   unsorted: boolean;
 };
 
-export type RankingResponse = {
-  totalPages: number;
-  totalElements: number;
-  first: boolean;
-  last: boolean;
-  size: number;
-  content: RankingItem[];
-  number: number;
-  sort: Sort;
-  numberOfElements: number;
-  pageable: {
-    pageNumber: number;
-    pageSize: number;
-    sort: Sort;
-    offset: number;
-    paged: boolean;
-    unpaged: boolean;
-  };
-  empty: boolean;
-};
-
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
 export type GroupListItem = GroupResponse & {
