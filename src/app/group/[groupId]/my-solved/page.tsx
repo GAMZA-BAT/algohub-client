@@ -1,93 +1,44 @@
-import type { SolutionContent } from "@/api/solutions/type";
+"use client";
+
+import {
+  useExpiredMySolutionsQuery,
+  useInProgressMySolutionsQuery,
+} from "@/app/[user]/my-solved/query";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
+import MySolvedSection from "@/view/group/my-solved/Section";
+import { useState } from "react";
 
 const MyGroupSolvedPage = () => {
-  const data: SolutionContent[] = [
-    {
-      solutionId: 1,
-      problemTitle: "막대기",
-      problemLevel: 6,
-      accuracy: 100,
-      submitMemberCount: 3,
-      totalMemberCount: 8,
-      nickname: "rladmstn",
-      profileImage:
-        "https://algohubbucket.s3.ap-northeast-2.amazonaws.com/4c49032c-9f91-40ef-83db-f7e7d5f95b16pexels-eberhardgross-1287142.jpg",
-      solvedDateTime: "2024.10.31 05:23:00",
-      content: "solution1",
-      result: "맞았습니다!!",
-      memoryUsage: 256,
-      executionTime: 120,
-      language: "Java",
-      codeLength: 345,
-      commentCount: 3,
-    },
-    {
-      solutionId: 1,
-      problemTitle: "막대기",
-      problemLevel: 6,
-      accuracy: 100,
-      submitMemberCount: 3,
-      totalMemberCount: 8,
-      nickname: "rladmstn",
-      profileImage:
-        "https://algohubbucket.s3.ap-northeast-2.amazonaws.com/4c49032c-9f91-40ef-83db-f7e7d5f95b16pexels-eberhardgross-1287142.jpg",
-      solvedDateTime: "2024.10.31 05:23:00",
-      content: "solution1",
-      result: "맞았습니다!!",
-      memoryUsage: 256,
-      executionTime: 120,
-      language: "Java",
-      codeLength: 345,
-      commentCount: 3,
-    },
-    {
-      solutionId: 1,
-      problemTitle: "막대기",
-      problemLevel: 6,
-      accuracy: 100,
-      submitMemberCount: 3,
-      totalMemberCount: 8,
-      nickname: "rladmstn",
-      profileImage:
-        "https://algohubbucket.s3.ap-northeast-2.amazonaws.com/4c49032c-9f91-40ef-83db-f7e7d5f95b16pexels-eberhardgross-1287142.jpg",
-      solvedDateTime: "2024.10.31 05:23:00",
-      content: "solution1",
-      result: "맞았습니다!!",
-      memoryUsage: 256,
-      executionTime: 120,
-      language: "Java",
-      codeLength: 345,
-      commentCount: 3,
-    },
-    {
-      solutionId: 1,
-      problemTitle: "막대기",
-      problemLevel: 6,
-      accuracy: 100,
-      submitMemberCount: 3,
-      totalMemberCount: 8,
-      nickname: "rladmstn",
-      profileImage:
-        "https://algohubbucket.s3.ap-northeast-2.amazonaws.com/4c49032c-9f91-40ef-83db-f7e7d5f95b16pexels-eberhardgross-1287142.jpg",
-      solvedDateTime: "2024.10.31 05:23:00",
-      content: "solution1",
-      result: "맞았습니다!!",
-      memoryUsage: 256,
-      executionTime: 120,
-      language: "Java",
-      codeLength: 345,
-      commentCount: 3,
-    },
-  ];
+  const [inProgressPage, setInProgressPage] = useState(1);
+  const [expiredPage, setExpiredPage] = useState(1);
+
+  const { content: inProgressData, totalPages: inProgressTotalPages } =
+    useInProgressMySolutionsQuery({ page: inProgressPage - 1 });
+  const { content: expiredData, totalPages: expiredTotalPages } =
+    useExpiredMySolutionsQuery({ page: inProgressPage - 1 });
+
+  const handleInProgressPageChange = (page: number) => setInProgressPage(page);
+  const handleExpiredPageChange = (page: number) => setExpiredPage(page);
 
   return (
     <main className={sidebarWrapper}>
       <Sidebar />
       <section style={{ width: "80%", marginTop: "4.8rem" }}>
-        {/* <MySolvedSection data={data} title="진행중인 문제" />
-        <MySolvedSection data={data} title="만료된 문제" /> */}
+        <MySolvedSection
+          data={inProgressData}
+          title="진행중인 문제"
+          totalPages={inProgressTotalPages}
+          currentPage={inProgressPage}
+          onPageChange={handleInProgressPageChange}
+        />
+        <MySolvedSection
+          data={expiredData}
+          title="만료된 문제"
+          totalPages={expiredTotalPages}
+          currentPage={expiredPage}
+          onPageChange={handleExpiredPageChange}
+        />
       </section>
     </main>
   );
