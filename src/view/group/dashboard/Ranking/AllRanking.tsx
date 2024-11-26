@@ -1,11 +1,13 @@
 "use client";
-import type { RankingItem } from "@/api/groups/type";
+import type { RankingContent } from "@/api/groups/type";
 import Pagination from "@/shared/component/Pagination";
 import RankList from "@/view/group/dashboard/Ranking/RankList";
 import { allRankingWrapper } from "@/view/group/dashboard/Ranking/index.css";
 import { useState } from "react";
 
-const AllRanking = ({ allRankingData }: { allRankingData: RankingItem[] }) => {
+const AllRanking = ({
+  allRankingData,
+}: { allRankingData: RankingContent[] }) => {
   const [page, setPage] = useState(1);
 
   return (

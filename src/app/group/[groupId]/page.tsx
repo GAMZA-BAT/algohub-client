@@ -13,8 +13,8 @@ const GroupDashboardPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
   const groupInfo = await getGroupInfo(+groupId);
-
   const rankingData = await getAllRanking(+groupId);
+
   const data: ProblemContent[] = [
     {
       problemId: 1,

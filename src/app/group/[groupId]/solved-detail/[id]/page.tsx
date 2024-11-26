@@ -4,7 +4,7 @@ import { useSolutionQuery } from "@/app/group/[groupId]/solved-detail/[id]/query
 import Modal from "@/common/component/Modal";
 import CodeSection from "@/view/group/solved-detail/CodeSection";
 import CommentSection from "@/view/group/solved-detail/CommentSection";
-import ProblemDetail from "@/view/group/solved-detail/ProblemDetail";
+import SolvedDetail from "@/view/group/solved-detail/SolvedDetail";
 import {
   modalContainer,
   modalWrapper,
@@ -20,16 +20,7 @@ const page = ({ params }: { params: { id: string } }) => {
     <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
       <div className={modalWrapper}>
         <header>
-          <ProblemDetail
-            solutionId={solutionInfo.solutionId}
-            problemTitle={solutionInfo.problemTitle}
-            solvedDateTime={solutionInfo.solvedDateTime}
-            problemLevel={solutionInfo.problemLevel}
-            result={solutionInfo.result}
-            submitMemberCount={solutionInfo.submitMemberCount}
-            totalMemberCount={solutionInfo.totalMemberCount}
-            accuracy={solutionInfo.accuracy}
-          />
+          <SolvedDetail info={solutionInfo} />
         </header>
         <div className={modalContainer}>
           <CodeSection

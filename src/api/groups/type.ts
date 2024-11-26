@@ -1,3 +1,5 @@
+import type { PaginationResponse } from "@/api/type";
+
 export type GroupCodeResponse = {
   inviteCode: string;
 };
@@ -24,7 +26,11 @@ export type GroupRequest = {
   request: FormData;
 };
 
-export type RankingItem = {
+export type RankingResponse = PaginationResponse & {
+  content: RankingContent[];
+};
+
+export type RankingContent = {
   userNickname: string;
   profileImage: string;
   rank: number;

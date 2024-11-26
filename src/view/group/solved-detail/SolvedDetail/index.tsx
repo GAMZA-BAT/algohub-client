@@ -10,22 +10,13 @@ import {
   titleStyle,
   titleWrapperStyle,
   wrongCheckBoxStyle,
-} from "@/view/group/solved-detail/ProblemDetail/index.css";
+} from "@/view/group/solved-detail/SolvedDetail/index.css";
 import clsx from "clsx";
 import { format } from "date-fns";
 import Link from "next/link";
 
-type ProblemDetailProps = Pick<
-  SolutionContent,
-  | "solutionId"
-  | "problemTitle"
-  | "problemLevel"
-  | "solvedDateTime"
-  | "result"
-  | "accuracy"
-  | "submitMemberCount"
-  | "totalMemberCount"
-> & {
+type SolvedDetailProps = {
+  info: SolutionContent;
   className?: string;
 };
 
@@ -40,15 +31,17 @@ const JSX_BY_STATUS = {
   solved: <CheckBox checked={true} className={checkboxStyle} />,
 };
 const ProblemDetail = ({
-  problemLevel,
-  problemTitle,
-  solvedDateTime,
-  accuracy,
-  submitMemberCount,
-  totalMemberCount,
-  result,
+  info: {
+    problemLevel,
+    problemTitle,
+    solvedDateTime,
+    accuracy,
+    submitMemberCount,
+    totalMemberCount,
+    result,
+  },
   className,
-}: ProblemDetailProps) => {
+}: SolvedDetailProps) => {
   const Icon = getTierImage(problemLevel);
   const solved = getSolvedStatusByResult(result);
 
