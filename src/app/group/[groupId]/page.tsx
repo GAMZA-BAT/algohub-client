@@ -1,4 +1,4 @@
-import { getGroupInfo } from "@/api/groups";
+import { getGroupInfo, getGroupMemberList } from "@/api/groups";
 import { getAllRanking } from "@/api/groups/ranking";
 import type { ProblemContent } from "@/api/problems/type";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
@@ -12,8 +12,15 @@ import Ranking from "@/view/group/dashboard/Ranking";
 const GroupDashboardPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
-  const groupInfo = await getGroupInfo(+groupId);
-  const rankingData = await getAllRanking(+groupId);
+  const groupInfoData = getGroupInfo(+groupId);
+  const rankingData = getAllRanking(+groupId);
+  const memberData = getGroupMemberList(+groupId);
+
+  const [groupInfo, rankingInfo, memberInfo] = await Promise.all([
+    groupInfoData,
+    rankingData,
+    memberData,
+  ]);
 
   const data: ProblemContent[] = [
     {
@@ -57,11 +64,11 @@ const GroupDashboardPage = async ({
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <GroupSidebar info={groupInfo} />
+        <GroupSidebar info={groupInfo} memberList={memberInfo} />
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
-        <Ranking rankingData={rankingData.content} />
+        <Ranking rankingData={rankingInfo.content} />
         <h2 className={titleStyle}>풀어야 할 문제</h2>
         <section>
           <ProblemList.Header />

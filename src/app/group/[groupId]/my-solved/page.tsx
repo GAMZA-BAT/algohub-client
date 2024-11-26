@@ -1,8 +1,6 @@
 import type { SolutionContent } from "@/api/solutions/type";
 import Sidebar from "@/common/component/Sidebar";
-import { tmpGroupData } from "@/shared/util/example";
 import { sidebarWrapper } from "@/styles/shared.css";
-import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
 import MySolvedSection from "@/view/group/my-solved/Section";
 
 const MySolvedPage = () => {
@@ -87,9 +85,7 @@ const MySolvedPage = () => {
 
   return (
     <main className={sidebarWrapper}>
-      <Sidebar>
-        <GroupSidebar info={tmpGroupData} />
-      </Sidebar>
+      <Sidebar />
       <section style={{ width: "80%", marginTop: "4.8rem" }}>
         <MySolvedSection data={data} title="진행중인 문제" />
         <MySolvedSection data={data} title="만료된 문제" />

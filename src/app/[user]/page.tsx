@@ -1,5 +1,5 @@
-import { getGroupList } from "@/api/groups";
 import type { GroupStatus } from "@/api/groups/type";
+import { getGroupsByUsers } from "@/api/users";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ListSection from "@/view/user/index/ListSection/ListSection";
@@ -9,15 +9,15 @@ import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
 import { userDashboardWrapper } from "@/view/user/index/index.css";
 
 const UserDashboardPage = async ({
-  params: { user: _user },
+  params: { user },
 }: { params: { user: string } }) => {
-  const data = await getGroupList();
+  const data = await getGroupsByUsers(user);
 
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
         <div className={userCardWrapper}>
-          <UserCard />
+          <UserCard userNickname={user} />
         </div>
       </Sidebar>
       <div className={userDashboardWrapper}>

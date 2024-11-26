@@ -4,6 +4,7 @@ import type {
   GroupListResponse,
   GroupResponse,
   MemberResponse,
+  Role,
 } from "@/api/groups/type";
 
 export const postCreateGroup = async (formData: FormData) => {
@@ -78,11 +79,20 @@ export const getGroupsByCode = async (code: string) => {
   const response = await kyInstance
     .get<GroupResponse>(`api/groups?code=${code}`)
     .json();
+
   return response;
 };
 
 export const postJoinGroupByCode = async (code: string) => {
   const response = await kyInstance.post(`api/groups/${code}/join`);
+
+  return response;
+};
+
+export const getRoleByGroupId = async (groupId: number) => {
+  const response = await kyInstance
+    .get<Role>(`api/groups/${groupId}/role`)
+    .text();
 
   return response;
 };

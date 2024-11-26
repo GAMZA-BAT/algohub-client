@@ -1,4 +1,4 @@
-import { useGetMyGroupsQuery } from "@/view/user/setting/StudyList/query";
+import { useGetMyGroupsQuery } from "@/app/[user]/setting/query";
 import {
   backPanelStyle,
   headingStyle,

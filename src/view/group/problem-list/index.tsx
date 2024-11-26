@@ -14,8 +14,13 @@ import { useState } from "react";
 type ProgressListProps = {
   data: ProblemContent[];
   variant?: "inProgress" | "expired";
+  isOwner?: boolean;
 };
-const ProgressList = ({ data, variant = "inProgress" }: ProgressListProps) => {
+const ProgressList = ({
+  data,
+  variant = "inProgress",
+  isOwner = false,
+}: ProgressListProps) => {
   const isInProgress = variant === "inProgress";
   const { open, isOpen, close } = useBooleanState();
   const [editId, setEditId] = useState(0);
@@ -60,7 +65,7 @@ const ProgressList = ({ data, variant = "inProgress" }: ProgressListProps) => {
               key={item.problemId}
               {...item}
               onEdit={handleItemEditClick}
-              isOwner={isInProgress}
+              isOwner={isOwner}
             />
           ))}
         </ProblemList>

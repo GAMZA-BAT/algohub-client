@@ -1,3 +1,4 @@
+import { useVisibilityMutation } from "@/app/[user]/setting/query";
 import { IcnBtnPin, IcnCalendarTable } from "@/asset/svg";
 import {
   tableCellTextStyle,
@@ -6,7 +7,6 @@ import {
 import { pinStyle } from "@/shared/component/Table/index.css";
 import type { TableDataType } from "@/shared/type/table";
 import { visibilityBtnStyle } from "@/view/user/setting/StudyList/StudyListTable/index.css";
-import { useVisibilityMutation } from "@/view/user/setting/StudyList/query";
 import { format } from "date-fns";
 import SortIcon from "../SortIcon";
 import StatusDropdownMenu from "../StatusDropdownMenu";

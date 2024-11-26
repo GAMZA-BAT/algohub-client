@@ -1,4 +1,5 @@
-import type { GroupResponse } from "@/api/groups/type";
+"use client";
+import type { GroupResponse, MemberResponse } from "@/api/groups/type";
 import CircleNumber from "@/view/group/dashboard/GroupSidebar/CircleNumber";
 import GroupCard from "@/view/group/dashboard/GroupSidebar/GroupCard";
 import {
@@ -11,31 +12,41 @@ import MemberAvatar from "@/view/group/index/MemberAvatar";
 
 type GroupCardProps = {
   info: GroupResponse;
+  memberList: MemberResponse[];
 };
 
-const GroupSidebar = ({ info }: GroupCardProps) => {
+const GroupSidebar = ({ info, memberList }: GroupCardProps) => {
+  const [ownerList, partList] = memberList.reduce(
+    ([owner, nonOwner]: [MemberResponse[], MemberResponse[]], item) => {
+      if (item.role !== "PARTICIPANT") owner.push(item);
+      else nonOwner.push(item);
+      return [owner, nonOwner];
+    },
+    [[], []],
+  );
+
   return (
     <div className={sidebarWrapper}>
       <GroupCard info={info} />
       <div className={labelWrapper}>
         <h2 className={labelStyle}>스터디장</h2>
-        <CircleNumber>3</CircleNumber>
+        <CircleNumber>{ownerList.length}</CircleNumber>
       </div>
       <ul className={memberWrapper}>
-        {[0, 1, 2, 3, 4].map((_elem, idx) => (
-          <li key={idx}>
-            <MemberAvatar src="" isLeader />
+        {ownerList.map(({ memberId, profileImage, nickname }) => (
+          <li key={memberId}>
+            <MemberAvatar src={profileImage} nickname={nickname} isLeader />
           </li>
         ))}
       </ul>
       <div className={labelWrapper}>
         <h2 className={labelStyle}>스터디 멤버</h2>
-        <CircleNumber>10</CircleNumber>
+        <CircleNumber>{partList.length}</CircleNumber>
       </div>
       <ul className={memberWrapper}>
-        {[0, 1, 2].map((_elem, idx) => (
-          <li key={idx}>
-            <MemberAvatar src="" />
+        {partList.map(({ memberId, profileImage, nickname }) => (
+          <li key={memberId}>
+            <MemberAvatar src={profileImage} nickname={nickname} />
           </li>
         ))}
       </ul>
