@@ -1,15 +1,18 @@
 "use client";
 
 import type { CommentContent } from "@/api/comments/type";
-import { deleteNotice } from "@/api/notices";
 import type { NoticeContent } from "@/api/notices/type";
-import { usePatchNoticeMutation } from "@/app/group/[groupId]/notice/query";
+import {
+  useDeleteNoticeMutation,
+  usePatchNoticeMutation,
+} from "@/app/group/[groupId]/notice/query";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { useRef, useState } from "react";
 import {
   articleStyle,
@@ -43,6 +46,10 @@ const NoticeDetail = ({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
+  const { mutate: deleteMutate } = useDeleteNoticeMutation(
+    +useGetGroupId(),
+    noticeId,
+  );
 
   const handleEditClick = () => {
     const currentValue = textareaRef.current?.value;
@@ -64,8 +71,8 @@ const NoticeDetail = ({
     }
   };
 
-  const handleDeleteClick = async () => {
-    await deleteNotice(noticeId);
+  const handleDeleteClick = () => {
+    deleteMutate();
     goBack();
   };
 

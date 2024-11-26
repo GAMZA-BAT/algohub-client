@@ -1,6 +1,7 @@
 import { getNoticeById, getNotices } from "@/api/notices";
 import type { NoticeListRequest, NoticeRequest } from "@/api/notices/type";
 import {
+  deleteNoticeAction,
   noticeAction,
   patchNoticeAction,
 } from "@/app/group/[groupId]/notice/action";
@@ -53,6 +54,19 @@ export const usePatchNoticeMutation = (noticeId: number) => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["notice", noticeId],
+      });
+    },
+  });
+};
+
+export const useDeleteNoticeMutation = (groupId: number, noticeId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => deleteNoticeAction(noticeId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notices", groupId],
       });
     },
   });
