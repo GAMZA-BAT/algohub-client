@@ -1,6 +1,9 @@
+"use client";
+
 import type { CommentContent } from "@/api/comments/type";
-import { deleteNotice, patchNotice } from "@/api/notices";
+import { deleteNotice } from "@/api/notices";
 import type { NoticeContent } from "@/api/notices/type";
+import { usePatchNoticeMutation } from "@/app/group/[groupId]/notice/query";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -36,16 +39,31 @@ const NoticeDetail = ({
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
     useA11yHoverHandler();
   const [isEdit, setIsEdit] = useState(false);
+  const [prevValue, setPrevValue] = useState(content);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleEditClick = async () => {
-    setIsEdit(!isEdit);
-    // disabled 일땐 자동으로 focus 적용 안함
-    setTimeout(() => textareaRef.current?.focus());
-    const value = textareaRef.current?.value;
-    if (value !== content)
-      await patchNotice(noticeId, { title, content: `${value}`, category });
+  const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
+
+  const handleEditClick = () => {
+    const currentValue = textareaRef.current?.value;
+
+    if (!isEdit) {
+      setIsEdit(true);
+      setTimeout(() => textareaRef.current?.focus());
+      setPrevValue(currentValue || content);
+      return;
+    }
+
+    setIsEdit(false);
+    if (currentValue !== prevValue) {
+      patchMutate({
+        title,
+        content: currentValue || "",
+        category,
+      });
+    }
   };
+
   const handleDeleteClick = async () => {
     await deleteNotice(noticeId);
     goBack();

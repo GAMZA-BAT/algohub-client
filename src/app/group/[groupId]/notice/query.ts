@@ -1,6 +1,9 @@
 import { getNoticeById, getNotices } from "@/api/notices";
 import type { NoticeListRequest, NoticeRequest } from "@/api/notices/type";
-import { noticeAction } from "@/app/group/[groupId]/notice/action";
+import {
+  noticeAction,
+  patchNoticeAction,
+} from "@/app/group/[groupId]/notice/action";
 import {
   useMutation,
   useQueryClient,
@@ -37,6 +40,20 @@ export const useNoticeMutation = (groupId: number) => {
         queryKey: ["notices", groupId],
       });
       router.push(`/group/${groupId}/notice`);
+    },
+  });
+};
+
+export const usePatchNoticeMutation = (noticeId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (requestData: NoticeRequest) =>
+      patchNoticeAction(noticeId, requestData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notice", noticeId],
+      });
     },
   });
 };
