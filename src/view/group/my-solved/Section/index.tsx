@@ -12,10 +12,19 @@ import SolvedItem from "@/view/group/my-solved/SolvedItem";
 
 type MySolvedSection = {
   title: string;
-  data: SolutionContent[];
+  data: SolutionContent[] & { groupId: number };
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 
-const MySolvedSection = ({ title, data }: MySolvedSection) => {
+const MySolvedSection = ({
+  title,
+  data,
+  totalPages,
+  currentPage,
+  onPageChange,
+}: MySolvedSection) => {
   return (
     <div className={sectionStyle}>
       <h2 className={titleStyle}>{title}</h2>
@@ -25,7 +34,11 @@ const MySolvedSection = ({ title, data }: MySolvedSection) => {
           <SolvedItem key={item.solutionId} {...item} />
         ))}
       </ul>
-      <Pagination totalPages={10} currentPage={10} onPageChange={() => {}} />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };

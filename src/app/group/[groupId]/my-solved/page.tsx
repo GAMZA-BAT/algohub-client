@@ -1,9 +1,8 @@
 import type { SolutionContent } from "@/api/solutions/type";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
-import MySolvedSection from "@/view/group/my-solved/Section";
 
-const MySolvedPage = () => {
+const MyGroupSolvedPage = () => {
   const data: SolutionContent[] = [
     {
       solutionId: 1,
@@ -87,11 +86,11 @@ const MySolvedPage = () => {
     <main className={sidebarWrapper}>
       <Sidebar />
       <section style={{ width: "80%", marginTop: "4.8rem" }}>
-        <MySolvedSection data={data} title="진행중인 문제" />
-        <MySolvedSection data={data} title="만료된 문제" />
+        {/* <MySolvedSection data={data} title="진행중인 문제" />
+        <MySolvedSection data={data} title="만료된 문제" /> */}
       </section>
     </main>
   );
 };
 
-export default MySolvedPage;
+export default MyGroupSolvedPage;

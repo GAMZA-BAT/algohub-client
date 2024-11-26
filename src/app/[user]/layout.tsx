@@ -1,5 +1,5 @@
 import { getMe } from "@/api/users";
-import { IcnMy, IcnPlus, IcnSquare } from "@/asset/svg";
+import { IcnCalculator, IcnMy, IcnPlus, IcnSquare } from "@/asset/svg";
 import NavBar from "@/shared/component/NavBar";
 import type { Metadata } from "next";
 
@@ -29,22 +29,29 @@ export default async function UserLayout({
           대시보드
         </NavBar.Item>
         {isMe && (
-          <NavBar.Item
-            icon={<IcnPlus width={24} height={24} />}
-            mode="stroke"
-            href={`/${user}/create-group`}
-          >
-            그룹 만들기
-          </NavBar.Item>
-        )}
-        {isMe && (
-          <NavBar.Item
-            icon={<IcnMy width={24} height={24} />}
-            mode="stroke"
-            href={`/${user}/setting`}
-          >
-            마이페이지
-          </NavBar.Item>
+          <>
+            <NavBar.Item
+              icon={<IcnPlus width={24} height={24} />}
+              mode="stroke"
+              href={`/${user}/create-group`}
+            >
+              그룹 만들기
+            </NavBar.Item>
+            <NavBar.Item
+              icon={<IcnCalculator width={20} height={20} />}
+              mode="stroke"
+              href={`/${user}/my-solved`}
+            >
+              내가 푼 문제
+            </NavBar.Item>
+            <NavBar.Item
+              icon={<IcnMy width={24} height={24} />}
+              mode="stroke"
+              href={`/${user}/setting`}
+            >
+              마이페이지
+            </NavBar.Item>
+          </>
         )}
       </NavBar>
       {children}
