@@ -1,4 +1,5 @@
 import type { CommentContent } from "@/api/comments/type";
+import { deleteNotice, patchNotice } from "@/api/notices";
 import type { NoticeContent } from "@/api/notices/type";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
@@ -37,14 +38,16 @@ const NoticeDetail = ({
   const [isEdit, setIsEdit] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleEditClick = () => {
+  const handleEditClick = async () => {
     setIsEdit(!isEdit);
     // disabled 일땐 자동으로 focus 적용 안함
     setTimeout(() => textareaRef.current?.focus());
+    const value = textareaRef.current?.value;
+    if (value !== content)
+      await patchNotice(noticeId, { title, content: `${value}`, category });
   };
-  const handleDeleteClick = () => {
-    // TODO: 삭제 api 추가
-    // TODO: 삭제 안내 창 띄우기
+  const handleDeleteClick = async () => {
+    await deleteNotice(noticeId);
     goBack();
   };
 
