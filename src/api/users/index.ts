@@ -18,7 +18,7 @@ export const getUsers = async (userNickname: string) => {
   return response;
 };
 
-export const getMe = async () => {
+export const getMyInfo = async () => {
   const response = await kyInstance.get<UserResponse>("api/users/me").json();
 
   return response;

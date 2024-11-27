@@ -1,4 +1,4 @@
-import { getMe } from "@/api/users";
+import { getMyInfo } from "@/api/users";
 import { IcnMy, IcnPlus, IcnSquare } from "@/asset/svg";
 import NavBar from "@/shared/component/NavBar";
 import type { Metadata } from "next";
@@ -15,7 +15,7 @@ export default async function UserLayout({
   children: React.ReactNode;
   params: { user: string };
 }>) {
-  const { nickname } = await getMe();
+  const { nickname } = await getMyInfo();
   const isMe = nickname === user;
 
   return (
