@@ -1,3 +1,5 @@
+"use client";
+
 import { useOutsideClick } from "@/common/hook/useOutsideClick";
 import { handleA11yClick } from "@/common/util/dom";
 import { camelToKebab } from "@/common/util/string";

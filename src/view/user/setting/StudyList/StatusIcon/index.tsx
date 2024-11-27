@@ -1,4 +1,4 @@
-import type { GroupStatus } from "@/api/group/type";
+import type { GroupStatus } from "@/api/groups/type";
 import {
   IcnStatusDone,
   IcnStatusFavorites,

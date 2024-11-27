@@ -3,11 +3,7 @@ import z from "zod";
 export const baseSignupSchema = z.object({
   profile: z.string(),
 
-  id: z
-    .string()
-    .min(6)
-    .max(12)
-    .regex(/^[a-zA-Z0-9]+$/),
+  id: z.string().email({ message: "이메일 형식이 아닙니다." }),
 
   password: z
     .string()
@@ -19,7 +15,8 @@ export const baseSignupSchema = z.object({
 
   nickname: z
     .string()
-    .max(16)
+    .max(16, { message: "닉네임은 16자 이하여야 합니다." })
+    .min(3, { message: "닉네임은 3자 이상이여야 합니다." })
     .regex(/^[a-zA-Z0-9]+$/, "닉네임을 입력해주세요."),
 
   baekjoonId: z

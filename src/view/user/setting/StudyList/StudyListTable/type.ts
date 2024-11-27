@@ -1,15 +1,10 @@
-import type { GroupListItem, GroupStatus } from "@/api/group/type";
+import type { GroupResponse, GroupStatus } from "@/api/groups/type";
 
 export type StudyListType = {
   status: GroupStatus;
   startDate: Date;
   endDate: Date;
 } & Omit<
-  GroupListItem,
-  | "introduction"
-  | "groupImage"
-  | "ownerNickname"
-  | "id"
-  | "startDate"
-  | "endDate"
+  GroupResponse,
+  "introduction" | "groupImage" | "ownerNickname" | "startDate" | "endDate"
 >;

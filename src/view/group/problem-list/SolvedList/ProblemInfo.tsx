@@ -1,17 +1,24 @@
+import type { ProblemContent } from "@/api/problems/type";
 import ProblemList from "@/shared/component/ProblemList";
 
-const ProblemInfo = () => {
+type ProblemInfoProps = {
+  problemInfo: ProblemContent;
+};
+
+const ProblemInfo = ({ problemInfo }: ProblemInfoProps) => {
   return (
     <ProblemList>
       <ProblemList.Header />
       <ProblemList.Item
-        problemId={1}
-        title="트리에서의 동적 계획법"
-        startDate="2024-01-01"
-        endDate="2024-01-02"
-        level="bronze 1"
-        solved={true}
-        memberCount={200}
+        problemId={problemInfo.problemId}
+        title={problemInfo.title}
+        endDate={problemInfo.endDate}
+        level={problemInfo.level}
+        solved={problemInfo.solved}
+        memberCount={problemInfo.memberCount}
+        submitMemberCount={problemInfo.submitMemberCount}
+        accuracy={problemInfo.accuracy}
+        link={problemInfo.link}
       />
     </ProblemList>
   );
