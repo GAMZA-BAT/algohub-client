@@ -21,3 +21,11 @@ export const deleteProblem = (problemId: number) => {
 
   return response;
 };
+
+export const getDeadlineReachedProblems = (groupId: number) => {
+  const response = kyInstance
+    .get<ProblemContent[]>(`api/groups/${groupId}/problems/deadline-reached`)
+    .json();
+
+  return response;
+};

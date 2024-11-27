@@ -14,7 +14,6 @@ export type ProblemContent = {
   inProgress?: boolean;
 };
 
-export type ProblemResponse = ProblemContent[];
 export type ProblemListResponse = {
   [key in ProblemStatus]: ProblemContent[];
 } & {
