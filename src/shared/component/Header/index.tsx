@@ -14,7 +14,7 @@ const Header = async () => {
   /* TODO: 로그인 api 부착 후 Atom으로 교체 */
   // const { isLoggedIn } = useAtomValue(authAtom);
   const isLoggedIn = true;
-  const userNickname = await getMyInfo();
+  const userInfo = await getMyInfo();
 
   const queryClient = new QueryClient();
 
@@ -25,7 +25,7 @@ const Header = async () => {
 
   return (
     <header className={headerStyle}>
-      <Logo user={userNickname} />
+      <Logo user={userInfo} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         {isLoggedIn ? <UserMenu /> : <LoginMenu />}
       </HydrationBoundary>
