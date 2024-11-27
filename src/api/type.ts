@@ -38,5 +38,5 @@ export type MySolutionRequest = {
 };
 
 export type MySolutionResponse = PaginationResponse & {
-  content: SolutionContent[] & { groupId: number };
+  content: SolutionContent[];
 };

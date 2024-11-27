@@ -16,7 +16,7 @@ const MySolvedPage = () => {
   const { content: inProgressData, totalPages: inProgressTotalPages } =
     useInProgressMySolutionsQuery({ page: inProgressPage - 1 });
   const { content: expiredData, totalPages: expiredTotalPages } =
-    useExpiredMySolutionsQuery({ page: inProgressPage - 1 });
+    useExpiredMySolutionsQuery({ page: expiredPage - 1 });
 
   const handleInProgressPageChange = (page: number) => setInProgressPage(page);
   const handleExpiredPageChange = (page: number) => setExpiredPage(page);

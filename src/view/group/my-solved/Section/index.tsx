@@ -12,7 +12,7 @@ import SolvedItem from "@/view/group/my-solved/SolvedItem";
 
 type MySolvedSection = {
   title: string;
-  data: SolutionContent[] & { groupId: number };
+  data: SolutionContent[];
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
@@ -31,7 +31,7 @@ const MySolvedSection = ({
       <Header />
       <ul className={listStyle}>
         {data.map((item) => (
-          <SolvedItem key={item.solutionId} {...item} />
+          <SolvedItem key={item.solutionId} solutionInfo={item} />
         ))}
       </ul>
       <Pagination

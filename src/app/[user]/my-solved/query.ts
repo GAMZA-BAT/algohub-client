@@ -1,5 +1,5 @@
 import type { MySolutionRequest } from "@/api/type";
-import { getInProgressMySolutions } from "@/api/users";
+import { getExpiredMySolutions, getInProgressMySolutions } from "@/api/users";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useInProgressMySolutionsQuery = ({
@@ -9,7 +9,7 @@ export const useInProgressMySolutionsQuery = ({
   page,
 }: MySolutionRequest) => {
   const { data } = useSuspenseQuery({
-    queryKey: ["inProgressMySolutions"],
+    queryKey: ["inProgressMySolutions", page],
     queryFn: () =>
       getInProgressMySolutions({
         problemNumber,
@@ -31,9 +31,9 @@ export const useExpiredMySolutionsQuery = ({
   page,
 }: MySolutionRequest) => {
   const { data } = useSuspenseQuery({
-    queryKey: ["expiredMySolutions"],
+    queryKey: ["expiredMySolutions", page],
     queryFn: () =>
-      getInProgressMySolutions({
+      getExpiredMySolutions({
         problemNumber,
         language,
         result,
