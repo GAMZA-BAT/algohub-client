@@ -25,7 +25,7 @@ const Header = async () => {
 
   return (
     <header className={headerStyle}>
-      <Logo user={userNickname.nickname!} />
+      <Logo user={userNickname} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         {isLoggedIn ? <UserMenu /> : <LoginMenu />}
       </HydrationBoundary>
