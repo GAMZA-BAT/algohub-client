@@ -1,9 +1,9 @@
 "use client";
-import { getRoleByGroupId } from "@/api/groups";
+
 import GroupDashboardPage from "@/app/group/[groupId]/page";
+import { useGroupRoleQuery } from "@/app/group/[groupId]/query";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
-import useGetGroupId from "@/shared/hook/useGetGroupId";
 import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
 import {
   buttonStyle,
@@ -13,12 +13,13 @@ import {
 import { textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
 
-const NoticeListPage = async () => {
-  const groupId = useGetGroupId();
+const NoticeListPage = ({
+  params: { groupId },
+}: { params: { groupId: string } }) => {
   const params = { groupId };
   const router = useRouter();
   const handleClose = () => router.push(`/group/${groupId}`);
-  const role = await getRoleByGroupId(+groupId);
+  const { data: role } = useGroupRoleQuery(+groupId);
 
   return (
     <>

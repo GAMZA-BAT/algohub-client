@@ -33,3 +33,23 @@ export const postNotice = (groupId: number, requestData: NoticeRequest) => {
     json: requestData,
   });
 };
+
+export const patchNotice = async (
+  noticeId: number,
+  requestData: NoticeRequest,
+) => {
+  const response = await kyInstance.patch<NoticeRequest>(
+    `api/notices/${noticeId}`,
+    {
+      json: requestData,
+    },
+  );
+
+  return response;
+};
+
+export const deleteNotice = async (noticeId: number) => {
+  const response = await kyInstance.delete(`api/notices/${noticeId}`);
+
+  return response;
+};

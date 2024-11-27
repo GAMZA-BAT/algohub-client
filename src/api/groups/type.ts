@@ -1,3 +1,5 @@
+import type { PaginationResponse } from "@/api/type";
+
 export type GroupCodeResponse = {
   inviteCode: string;
 };
@@ -26,12 +28,22 @@ export type GroupRequest = {
   request: FormData;
 };
 
-export type RankingResponse = {
+export type RankingResponse = PaginationResponse & {
+  content: RankingContent[];
+};
+
+export type RankingContent = {
   userNickname: string;
   profileImage: string;
   rank: number;
   solvedCount: number;
   rankDiff: string;
+};
+
+export type Sort = {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
 };
 
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";

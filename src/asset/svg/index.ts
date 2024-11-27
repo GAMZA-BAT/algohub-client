@@ -70,7 +70,6 @@ export { default as IcnPlatinum3 } from "./icn_platinum3.svg";
 export { default as IcnPlatinum4 } from "./icn_platinum4.svg";
 export { default as IcnPlatinum5 } from "./icn_platinum5.svg";
 export { default as IcnPlus } from "./icn_plus.svg";
-export { default as IcnPlusLarge } from "./icn_plus_large.svg";
 export { default as IcnRankingCard } from "./icn_ranking_card.svg";
 export { default as IcnRankingCardHover } from "./icn_ranking_card_hover.svg";
 export { default as IcnReset } from "./icn_reset.svg";

@@ -111,6 +111,7 @@ export const CommentList = {
             key={item.commentId}
             {...item}
             variant={item.variant as "notice"}
+            createdAt="2024-10-10"
           />
         ))}
       </ul>

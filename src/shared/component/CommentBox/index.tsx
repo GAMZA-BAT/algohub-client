@@ -1,10 +1,10 @@
 "use client";
 
-import type { CommentContent, EditCommentRequest } from "@/api/comments/type";
-import { useEditCommentMutation } from "@/app/group/[groupId]/solved-detail/[id]/query";
-import { IcnBtnSend, IcnClose, IcnEdit } from "@/asset/svg";
+import type { CommentContent } from "@/api/comments/type";
+import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
+import { useEditForm } from "@/shared/component/CommentBox/hook";
 import {
   containerStyle,
   contentStyle,
@@ -18,21 +18,12 @@ import {
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { getFormattedcreateAt } from "@/shared/util/time";
-import { CommentsContext } from "@/view/group/solved-detail/CommentSection/provider";
 import clsx from "clsx";
-import { type KeyboardEvent, useContext } from "react";
-import { flushSync } from "react-dom";
-import { type SubmitHandler, useForm } from "react-hook-form";
 
 type CommentBox = CommentContent & {
   variant: "detail" | "notice";
   onDelete?: (commentId: number) => void;
-  onEdit?: (data: EditCommentRequest) => void;
   className?: string;
-};
-
-type EditForm = {
-  input: string;
 };
 
 const CommentBox = ({
@@ -41,51 +32,20 @@ const CommentBox = ({
   writerNickname,
   writerProfileImage,
   content,
-  createAt,
-
+  createdAt,
   onDelete,
   className,
 }: CommentBox) => {
   const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
     useA11yHoverHandler();
 
-  const { editingItem, handleEditItem, handleReset, solutionId } =
-    useContext(CommentsContext);
-
-  const { register, setValue, setFocus, handleSubmit } = useForm<EditForm>({
-    defaultValues: {
-      input: content,
-    },
-  });
-
-  const { mutate: editMutate, isPending } = useEditCommentMutation(solutionId);
-
-  const handleEditClick = () => {
-    flushSync(() => {
-      handleEditItem(commentId);
-    });
-
-    setFocus("input");
-  };
-
-  const onEditSubmit: SubmitHandler<EditForm> = (data) => {
-    editMutate({
-      commentId,
-      content: data.input,
-    });
-
-    handleReset();
-  };
-
-  const handleEscClick = (e: KeyboardEvent) => {
-    e.stopPropagation();
-
-    if (e.key === "Escape") {
-      handleReset();
-
-      setValue("input", content);
-    }
-  };
+  const {
+    register,
+    isEditing,
+    handleEditBtnClick,
+    handleTextAreaKeyDown,
+    handleHookFormSubmit,
+  } = useEditForm(commentId, content);
 
   return (
     <li
@@ -104,30 +64,26 @@ const CommentBox = ({
       <div className={contentWrapperStyle({ variant })}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createAtStyle}>{getFormattedcreateAt(createAt)}</p>
+          <p className={createAtStyle}>{getFormattedcreateAt(createdAt)}</p>
         </div>
-        {editingItem === commentId ? (
+        {isEditing ? (
           <form
-            onSubmit={handleSubmit(onEditSubmit)}
+            onSubmit={handleHookFormSubmit}
             className={editInputWrapperStyle}
           >
-            <Textarea {...register("input")} onKeyDown={handleEscClick} />
-            <button type="submit">
-              <IcnBtnSend
-                onClick={() => editMutate({ commentId, content })}
-                width={24}
-                height={24}
-              />
-            </button>
+            <Textarea
+              {...register("input")}
+              onKeyDown={handleTextAreaKeyDown}
+            />
           </form>
         ) : (
-          <p className={contentStyle}>{isPending ? "" : content}</p>
+          <p className={contentStyle}>{content}</p>
         )}
       </div>
 
       <div className={iconContainerStyle}>
         <button
-          onClick={handleEditClick}
+          onClick={handleEditBtnClick}
           className={iconStyle({ variant: "edit", isActive })}
         >
           <IcnEdit width={18} height={18} />

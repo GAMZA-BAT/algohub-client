@@ -1,11 +1,18 @@
+"use client";
+
 import type { CommentContent } from "@/api/comments/type";
 import type { NoticeContent } from "@/api/notices/type";
+import {
+  useDeleteNoticeMutation,
+  usePatchNoticeMutation,
+} from "@/app/group/[groupId]/notice/query";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { useRef, useState } from "react";
 import {
   articleStyle,
@@ -37,14 +44,29 @@ const NoticeDetail = ({
   const [isEdit, setIsEdit] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
+  const { mutate: deleteMutate } = useDeleteNoticeMutation(
+    +useGetGroupId(),
+    noticeId,
+  );
+
   const handleEditClick = () => {
-    setIsEdit(!isEdit);
-    // disabled 일땐 자동으로 focus 적용 안함
-    setTimeout(() => textareaRef.current?.focus());
+    if (!isEdit) {
+      setIsEdit(true);
+      setTimeout(() => textareaRef.current?.focus());
+      return;
+    }
+
+    setIsEdit(false);
+    patchMutate({
+      title,
+      content: textareaRef.current?.value || "",
+      category,
+    });
   };
+
   const handleDeleteClick = () => {
-    // TODO: 삭제 api 추가
-    // TODO: 삭제 안내 창 띄우기
+    deleteMutate();
     goBack();
   };
 
@@ -53,7 +75,7 @@ const NoticeDetail = ({
     commentId: 1,
     writerNickname: "고독한 예린",
     writerProfileImage: "",
-    createAt: "2024-10-24",
+    createdAt: "2024-10-24",
     content:
       "이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요?",
   };
@@ -126,7 +148,7 @@ const NoticeDetail = ({
             className={idx !== 2 ? itemStyle : ""}
             variant="notice"
             commentId={item.commentId}
-            createAt={item.createAt}
+            createdAt={item.createdAt}
             content={item.content}
             writerNickname={item.writerNickname}
             writerProfileImage={item.writerProfileImage}

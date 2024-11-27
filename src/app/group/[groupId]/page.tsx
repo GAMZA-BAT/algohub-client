@@ -68,7 +68,7 @@ const GroupDashboardPage = async ({
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
-        <Ranking rankingData={rankingInfo} />
+        <Ranking rankingData={rankingInfo.content} />
         <h2 className={titleStyle}>풀어야 할 문제</h2>
         <section>
           <ProblemList.Header />

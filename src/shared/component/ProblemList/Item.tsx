@@ -86,7 +86,7 @@ const ProblemListItem = ({
       <span
         className={commonStyle}
       >{`${submitMemberCount}/${memberCount}`}</span>
-      <span className={commonStyle}>{accuracy}</span>
+      <span className={commonStyle}>{`${accuracy}%`}</span>
       <div className={iconStyle}>{JSX_BY_STATUS[status]}</div>
 
       {isOwner && (
