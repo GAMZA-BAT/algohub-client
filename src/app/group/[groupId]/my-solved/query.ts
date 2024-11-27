@@ -21,7 +21,6 @@ export const useInProgressMyGroupSolutionsQuery = ({
         page,
         size: 3,
       }),
-    staleTime: 0,
   });
 
   return { content: data.content, totalPages: data.totalPages };
@@ -43,7 +42,6 @@ export const useExpiredMyGroupSolutionsQuery = ({
         page,
         size: 3,
       }),
-    staleTime: 0,
   });
 
   return { content: data.content, totalPages: data.totalPages };
