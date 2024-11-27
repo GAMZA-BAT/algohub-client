@@ -26,7 +26,7 @@ export type SolutionContent = {
   language: string;
   codeLength: number;
   commentCount: number;
-  groupId: number;
+  groupId?: number;
 };
 
 export type SolutionResponse = PaginationResponse & {

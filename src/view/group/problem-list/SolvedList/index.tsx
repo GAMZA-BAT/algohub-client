@@ -1,5 +1,5 @@
 "use client";
-import type { SolutionResponse } from "@/api/solutions/type";
+import type { SolutionContent } from "@/api/solutions/type";
 import { IcnBtnArrowLeft } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 type SolvedListProps = {
   groupId: string;
   problemId: string;
-  content: SolutionResponse["content"];
+  content: SolutionContent[];
 };
 const SolvedList = ({ groupId, problemId, content }: SolvedListProps) => {
   const router = useRouter();
