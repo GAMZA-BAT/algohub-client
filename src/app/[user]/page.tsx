@@ -7,7 +7,6 @@ import UserCard from "@/view/user/index/UserCard";
 import { userCardWrapper } from "@/view/user/index/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
 import { userDashboardWrapper } from "@/view/user/index/index.css";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 const UserDashboardPage = async ({
   params: { user },
@@ -21,16 +20,15 @@ const UserDashboardPage = async ({
           <UserCard userNickname={user} />
         </div>
       </Sidebar>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <div className={userDashboardWrapper}>
-          {GROUP_STATUS_MAPPING.map((list) => (
-            <ListSection
-              key={list.status}
-              status={list.status as GroupStatus}
-            />
-          ))}
-        </div>
-      </HydrationBoundary>
+      <div className={userDashboardWrapper}>
+        {GROUP_STATUS_MAPPING.map((list) => (
+          <ListSection
+            key={list.status}
+            status={list.status as GroupStatus}
+            groups={data[list.status as GroupStatus]}
+          />
+        ))}
+      </div>
     </main>
   );
 };

@@ -13,11 +13,7 @@ const GroupSettingPage = async ({
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <SettingSidebar
-          info={groupInfo}
-          code={inviteCode}
-          groupId={+params.groupId}
-        />
+        <SettingSidebar info={groupInfo} code={inviteCode} groupId={+groupId} />
       </Sidebar>
       <MemberList groupId={+groupId} />
     </main>

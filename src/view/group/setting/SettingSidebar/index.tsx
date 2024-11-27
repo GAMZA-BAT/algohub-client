@@ -1,4 +1,5 @@
 "use client";
+
 import { groupSchema } from "@/api/groups/schema";
 import type { GroupResponse } from "@/api/groups/type";
 import { useDeleteGroupMutation } from "@/app/group/[groupId]/setting/query";
@@ -53,10 +54,15 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
   const handleDeleteGroup = () => deleteMutate(+groupId);
 
   const [url, setUrl] = useState(info.groupImage);
-  const [file, setFile] = useState<Blob | null>(null);
+  const [file, setFile] = useState<Blob | null>();
 
-  const onSubmit = async (values: z.infer<typeof groupSchema>) => {
+  const onSubmit = () => {
     const data = new FormData();
+
+    const name = form.getValues("name");
+    const startDate = form.getValues("startDate") ?? info.startDate;
+    const endDate = form.getValues("endDate") ?? info.endDate;
+    const introduction = form.getValues("introduction");
 
     if (file) {
       data.append("image", file);
@@ -64,10 +70,10 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     data.append(
       "request",
       JSON.stringify({
-        name: values.name,
-        startDate: values.startDate,
-        endDate: values.endDate,
-        introduction: values.introduction,
+        name,
+        startDate,
+        endDate,
+        introduction,
       }),
     );
 
@@ -86,12 +92,9 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     <>
       <div className={sidebarWrapper}>
         <Form {...form}>
-          <form
-            className={formStyle({ variant: "group-setting" })}
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form className={formStyle({ variant: "group-setting" })}>
             <div className={avatarWrapperStyle}>
-              <EditAvatar src={url} onChange={handleUpload} />
+              <EditAvatar src={url ?? ""} onChange={handleUpload} />
             </div>
             <NameFormController form={form} variant="group-setting" />
             <div>
@@ -117,8 +120,8 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
             <DescFormController form={form} variant="group-setting" />
             <div className={submitWrapper}>
               <button
-                type="submit"
-                onClick={() => console.log("clicked")}
+                type="button"
+                onClick={onSubmit}
                 className={editTextStyle}
               >
                 수정하기
