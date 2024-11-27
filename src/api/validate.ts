@@ -2,7 +2,6 @@ import { checkBojNickname, checkNickname } from "@/api/users";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
 
-// 중복 검사 api mock, TODO: 실제 중복 검사 api로 교체하기
 export const validateNickname = async (nickname: string) => {
   try {
     const response = await checkNickname(nickname);
