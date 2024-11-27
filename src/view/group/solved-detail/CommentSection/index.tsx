@@ -25,12 +25,11 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
 
   const handleCommentSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (!comment) return;
 
-    commentAction(comment);
-
-    setComment("");
+    commentAction(comment, {
+      onSuccess: () => setComment(""),
+    });
   };
 
   useEffect(() => {

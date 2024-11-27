@@ -17,7 +17,7 @@ export const useSolutionQuery = (solutionId: number) => {
 
 export const useCommentListQuery = (solutionId: number) => {
   return useQuery({
-    queryKey: ["comment", solutionId],
+    queryKey: ["solution", "comment", solutionId],
     queryFn: () => getCommentList(solutionId),
   });
 };
@@ -31,7 +31,7 @@ export const useCommentMutataion = (solutionId: number) => {
     mutationFn: (content: string) => commentAction(solutionId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["comment", solutionId],
+        queryKey: ["solution", "comment", solutionId],
       });
     },
     onError: () => {
@@ -49,7 +49,7 @@ export const useDeleteCommentMutation = (solutionId: number) => {
     mutationFn: (commentId: number) => deleteComment(commentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["comment", solutionId],
+        queryKey: ["solution", "comment", solutionId],
       });
     },
     onError: (error: HTTPError) => {
@@ -76,7 +76,7 @@ export const useEditCommentMutation = (
     mutationFn: (content: string) => editComment(commentId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["comment", solutionId],
+        queryKey: ["solution", "comment", solutionId],
       });
     },
     onError: (error: HTTPError) => {

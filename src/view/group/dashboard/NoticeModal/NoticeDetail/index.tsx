@@ -1,4 +1,5 @@
-import type { CommentContent } from "@/api/comments/type";
+"use client";
+
 import type { NoticeContent } from "@/api/notices/type";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
@@ -6,7 +7,13 @@ import Textarea from "@/common/component/Textarea";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { useRef, useState } from "react";
+import {
+  useDeleteNoticeCommentMutation,
+  useNoticeCommentListQuery,
+  useNoticeCommentMutation,
+} from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
+import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
+import { type FormEvent, useRef, useState } from "react";
 import {
   articleStyle,
   contentStyle,
@@ -34,8 +41,23 @@ const NoticeDetail = ({
 }: NoticeDetailProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
     useA11yHoverHandler();
+
   const [isEdit, setIsEdit] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [comment, setComment] = useState("");
+
+  const { data: commentList } = useNoticeCommentListQuery(noticeId);
+  const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
+  const { mutate: deleteCommentMutate } = useDeleteNoticeCommentMutation();
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (comment === "") return;
+
+    commentMutate(comment, {
+      onSuccess: () => setComment(""),
+    });
+  };
 
   const handleEditClick = () => {
     setIsEdit(!isEdit);
@@ -46,16 +68,6 @@ const NoticeDetail = ({
     // TODO: 삭제 api 추가
     // TODO: 삭제 안내 창 띄우기
     goBack();
-  };
-
-  /** TODO: 실제 Comment API로 연결 */
-  const tmpData: CommentContent = {
-    commentId: 1,
-    writerNickname: "고독한 예린",
-    writerProfileImage: "",
-    createdAt: "2024-10-24",
-    content:
-      "이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요?",
   };
 
   return (
@@ -120,24 +132,31 @@ const NoticeDetail = ({
 
       {/* 댓글란 */}
       <ul className={listStyle}>
-        {[tmpData, tmpData, tmpData, tmpData].map((item, idx) => (
-          <CommentBox
-            key={item.commentId}
-            className={idx !== 2 ? itemStyle : ""}
-            variant="notice"
-            commentId={item.commentId}
-            createdAt={item.createdAt}
-            content={item.content}
-            writerNickname={item.writerNickname}
-            writerProfileImage={item.writerProfileImage}
-          />
-        ))}
+        <CommentsProvider>
+          {commentList?.map((item, idx) => (
+            <CommentBox
+              key={item.commentId}
+              className={idx !== 2 ? itemStyle : ""}
+              variant="notice"
+              commentId={item.commentId}
+              createdAt={item.createdAt}
+              content={item.content}
+              writerNickname={item.writerNickname}
+              writerProfileImage={item.writerProfileImage}
+              onDelete={deleteCommentMutate}
+            />
+          ))}
+        </CommentsProvider>
       </ul>
 
       {/* 댓글 입력란 */}
-      <div className={inputStyle}>
-        <CommentInput />
-      </div>
+      <form onSubmit={handleSubmit} className={inputStyle}>
+        <CommentInput
+          name="comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+      </form>
     </article>
   );
 };
