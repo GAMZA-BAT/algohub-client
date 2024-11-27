@@ -42,6 +42,10 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
 
+      - name: Set environment variables for build
+        run: |
+          echo "NEXT_PUBLIC_HOST=${{ secrets.SSH_ADDR }}" >> .env.local
+
       - name: Install Dependencies
         if: steps.cache-node.outputs.cache-hit != 'true'
         run: pnpm install
@@ -87,7 +91,7 @@ jobs:
 
       - name: Add Github Actions IP to Security group
         run: |
-          aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port ${{ secrets.AWS_SSH_PORT }} --cidr ${{ steps.ip.outputs.ipv4 }}/32
+          aws ec2 authorize-security-group-ingress --group-name ${{ secrets.AWS_SG_NAME }} --protocol tcp --port ${{ secrets.AWS_SSH_PORT }} --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
       - name: File transfer with SCP
         uses: appleboy/scp-action@master
