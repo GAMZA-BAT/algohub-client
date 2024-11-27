@@ -32,6 +32,9 @@ export const checkNickname = async (nickname: string) => {
     `api/users/check-nickname?nickname=${nickname}`,
   );
 
+  return response;
+};
+
 export const getInProgressMySolutions = async ({
   problemNumber,
   language,
@@ -121,4 +124,3 @@ export const getExpiredMySolutions = async ({
 
   return response;
 };
-
