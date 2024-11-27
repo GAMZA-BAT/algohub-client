@@ -1,5 +1,6 @@
 "use client";
 
+import type { ProblemContent } from "@/api/problems/type";
 import { IcnEdit } from "@/asset/svg";
 import CheckBox from "@/common/component/CheckBox";
 import {
@@ -13,15 +14,14 @@ import {
 } from "@/shared/component/ProblemList/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import type { Problem } from "@/shared/type";
 import { getTierImage } from "@/shared/util/img";
 import clsx from "clsx";
 
 import { format } from "date-fns";
 import Link from "next/link";
 
-type ProblemListItemProps = Problem & {
-  onEdit?: () => void;
+type ProblemListItemProps = Omit<ProblemContent, "startDate"> & {
+  onEdit?: (id: number) => void;
   isOwner?: boolean;
   className?: string;
 };
@@ -48,7 +48,7 @@ const ProblemListItem = ({
   accuracy,
   memberCount,
   submitMemberCount,
-  onEdit,
+  onEdit = () => {},
   isOwner = false,
 }: ProblemListItemProps) => {
   const groupId = useGetGroupId();
@@ -86,12 +86,12 @@ const ProblemListItem = ({
       <span
         className={commonStyle}
       >{`${submitMemberCount}/${memberCount}`}</span>
-      <span className={commonStyle}>{accuracy}</span>
+      <span className={commonStyle}>{`${accuracy}%`}</span>
       <div className={iconStyle}>{JSX_BY_STATUS[status]}</div>
 
       {isOwner && (
         <IcnEdit
-          onClick={onEdit}
+          onClick={() => onEdit(problemId)}
           className={editIconStyle({ isActive })}
           width={24}
           height={24}

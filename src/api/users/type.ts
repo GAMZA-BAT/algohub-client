@@ -21,5 +21,5 @@ export type UserResponse = {
   nickname?: string;
   profileImage?: string;
   bjNickname?: string;
-  desc?: string;
+  description?: string;
 };

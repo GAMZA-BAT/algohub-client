@@ -1,4 +1,4 @@
-import type { Solution } from "@/shared/type";
+import type { SolutionContent } from "@/api/solutions/type";
 import type { Meta } from "@storybook/react";
 import { default as ProblemList, default as SolvedItem } from ".";
 
@@ -15,30 +15,82 @@ export default meta;
 
 export const Default = {
   render: () => {
-    const data: Solution[] = [
+    const data: SolutionContent[] = [
       {
         solutionId: 1,
-        solvedDateTime: "2024-11-01 16:00:00",
-        level: "diamond 1",
-        title: "트리 동적 계획법",
-        memoryUsage: 300,
-        executionTime: 400,
-        language: "C++",
-        result: "incorrect",
-        codeLength: 8000,
-        commentCount: 0,
+        problemTitle: "막대기",
+        problemLevel: 6,
+        accuracy: 100,
+        submitMemberCount: 3,
+        totalMemberCount: 8,
+        nickname: "rladmstn",
+        profileImage:
+          "https://algohubbucket.s3.ap-northeast-2.amazonaws.com/4c49032c-9f91-40ef-83db-f7e7d5f95b16pexels-eberhardgross-1287142.jpg",
+        solvedDateTime: "2024.10.31 05:23:00",
+        content: "solution1",
+        result: "맞았습니다!!",
+        memoryUsage: 256,
+        executionTime: 120,
+        language: "Java",
+        codeLength: 345,
+        commentCount: 3,
       },
       {
         solutionId: 1,
-        solvedDateTime: "2024-11-01 18:31:00",
-        level: "diamond 1",
-        title: "트리 동적 계획법",
-        memoryUsage: 300,
-        executionTime: 400,
-        language: "Python",
-        result: "correct",
-        codeLength: 8000,
-        commentCount: 4,
+        problemTitle: "막대기",
+        problemLevel: 6,
+        accuracy: 100,
+        submitMemberCount: 3,
+        totalMemberCount: 8,
+        nickname: "rladmstn",
+        profileImage:
+          "https://algohubbucket.s3.ap-northeast-2.amazonaws.com/4c49032c-9f91-40ef-83db-f7e7d5f95b16pexels-eberhardgross-1287142.jpg",
+        solvedDateTime: "2024.10.31 05:23:00",
+        content: "solution1",
+        result: "맞았습니다!!",
+        memoryUsage: 256,
+        executionTime: 120,
+        language: "Java",
+        codeLength: 345,
+        commentCount: 3,
+      },
+      {
+        solutionId: 1,
+        problemTitle: "막대기",
+        problemLevel: 6,
+        accuracy: 100,
+        submitMemberCount: 3,
+        totalMemberCount: 8,
+        nickname: "rladmstn",
+        profileImage:
+          "https://algohubbucket.s3.ap-northeast-2.amazonaws.com/4c49032c-9f91-40ef-83db-f7e7d5f95b16pexels-eberhardgross-1287142.jpg",
+        solvedDateTime: "2024.10.31 05:23:00",
+        content: "solution1",
+        result: "맞았습니다!!",
+        memoryUsage: 256,
+        executionTime: 120,
+        language: "Java",
+        codeLength: 345,
+        commentCount: 3,
+      },
+      {
+        solutionId: 1,
+        problemTitle: "막대기",
+        problemLevel: 6,
+        accuracy: 100,
+        submitMemberCount: 3,
+        totalMemberCount: 8,
+        nickname: "rladmstn",
+        profileImage:
+          "https://algohubbucket.s3.ap-northeast-2.amazonaws.com/4c49032c-9f91-40ef-83db-f7e7d5f95b16pexels-eberhardgross-1287142.jpg",
+        solvedDateTime: "2024.10.31 05:23:00",
+        content: "solution1",
+        result: "맞았습니다!!",
+        memoryUsage: 256,
+        executionTime: 120,
+        language: "Java",
+        codeLength: 345,
+        commentCount: 3,
       },
     ];
 

@@ -1,13 +1,7 @@
+import type { PaginationResponse } from "@/api/type";
+
 export type GroupCodeResponse = {
   inviteCode: string;
-};
-export type GroupJoinResponse = {
-  src: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  owner: string;
 };
 
 export type GroupRoleRequest = {
@@ -16,25 +10,29 @@ export type GroupRoleRequest = {
   role: string;
 };
 
-export type GroupByCodeResponse = {
+export type GroupResponse = {
   id: number;
   name: string;
-  groupImage: string;
   startDate: string;
   endDate: string;
   introduction: string;
-};
-export interface GroupResponse extends GroupByCodeResponse {
+  groupImage: string | null;
   isOwner?: boolean;
-  ownerNickname?: string;
-}
+  ownerNickname: string;
+  isBookmarked?: boolean;
+  isVisible?: boolean;
+};
 
 export type GroupRequest = {
   profileImage: FormData;
   request: FormData;
 };
 
-export type RankingResponse = {
+export type RankingResponse = PaginationResponse & {
+  content: RankingContent[];
+};
+
+export type RankingContent = {
   userNickname: string;
   profileImage: string;
   rank: number;
@@ -42,11 +40,16 @@ export type RankingResponse = {
   rankDiff: string;
 };
 
+export type Sort = {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+};
+
 export type GroupStatus = "bookmarked" | "done" | "inProgress" | "queued";
 
-export type GroupListItem = GroupResponse & { isBookmarked?: boolean };
 export type GroupListResponse = {
-  [key in GroupStatus]: GroupListItem[];
+  [key in GroupStatus]: GroupResponse[];
 };
 
 export type DeleteGroupMemberRequest = {
@@ -64,3 +67,5 @@ export type MemberResponse = {
 };
 
 export type MemberListResponse = MemberResponse[];
+
+export type Role = "OWNER" | "ADMIN" | "PARTICIPANT";

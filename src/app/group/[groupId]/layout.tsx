@@ -1,3 +1,4 @@
+import { getRoleByGroupId } from "@/api/groups";
 import {
   IcnCalculator,
   IcnExit,
@@ -13,13 +14,16 @@ export const metadata: Metadata = {
   description: "알고리즘 스터디 플랫폼 그룹 페이지",
 };
 
-export default function GroupLayout({
+export default async function GroupLayout({
   children,
   params: { groupId },
 }: Readonly<{
   children: React.ReactNode;
   params: { groupId: string };
 }>) {
+  const role = await getRoleByGroupId(+groupId);
+  const isOwner = role !== "PARTICIPANT";
+
   return (
     <main>
       <NavBar>
@@ -44,20 +48,24 @@ export default function GroupLayout({
         >
           내가 푼 문제
         </NavBar.Item>
-        <NavBar.Item
-          icon={<IcnSetting width={16} height={16} />}
-          mode="stroke"
-          href={`/group/${groupId}/setting`}
-        >
-          스터디 관리
-        </NavBar.Item>
-        <NavBar.Item
-          icon={<IcnExit width={24} height={24} />}
-          mode="stroke"
-          href={`/group/${groupId}/withdraw`}
-        >
-          스터디 나가기
-        </NavBar.Item>
+        {isOwner && (
+          <NavBar.Item
+            icon={<IcnSetting width={16} height={16} />}
+            mode="stroke"
+            href={`/group/${groupId}/setting`}
+          >
+            스터디 관리
+          </NavBar.Item>
+        )}
+        {!isOwner && (
+          <NavBar.Item
+            icon={<IcnExit width={24} height={24} />}
+            mode="stroke"
+            href={`/group/${groupId}/withdraw`}
+          >
+            스터디 나가기
+          </NavBar.Item>
+        )}
       </NavBar>
       {children}
     </main>

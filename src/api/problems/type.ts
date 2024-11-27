@@ -11,7 +11,7 @@ export type ProblemContent = {
   submitMemberCount: number;
   memberCount: number;
   accuracy: number;
-  inProgress: boolean;
+  inProgress?: boolean;
 };
 
 export type ProblemResponse = ProblemContent[];
@@ -24,10 +24,9 @@ export type ProblemListResponse = {
 };
 
 export type ProblemRequest = {
-  groupId: number;
   link: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 };
 
 export type EditProblemRequest = {

@@ -1,4 +1,4 @@
-import type { RankingResponse } from "@/api/groups/type";
+import type { RankingContent } from "@/api/groups/type";
 import defaultImg from "@/asset/img/small_logo.png";
 import {
   allNicknameStyle,
@@ -12,7 +12,7 @@ import {
 } from "@/view/group/dashboard/Ranking/index.css";
 import Image from "next/image";
 
-const RankList = ({ info }: { info: RankingResponse }) => {
+const RankList = ({ info }: { info: RankingContent }) => {
   const { profileImage, rank, solvedCount, userNickname, rankDiff } = info;
 
   const change = () => {

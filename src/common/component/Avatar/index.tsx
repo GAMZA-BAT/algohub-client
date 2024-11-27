@@ -6,7 +6,7 @@ import Image, { type ImageProps } from "next/image";
 interface AvatarProps extends Omit<ImageProps, "src"> {
   size?: "mini" | "small" | "medium" | "large";
   hasShadow?: boolean;
-  src?: string;
+  src?: string | null;
 }
 
 const Avatar = ({

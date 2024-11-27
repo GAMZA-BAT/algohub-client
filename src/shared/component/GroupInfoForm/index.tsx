@@ -13,6 +13,9 @@ import {
   formLabelStyle,
   formStyle,
 } from "@/shared/component/GroupInfoForm/index.css";
+import { usePatchGroupInfoQuery } from "@/shared/component/GroupInfoForm/query";
+import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
@@ -27,32 +30,24 @@ const GroupInfoForm = ({
   form,
   variant = "create-group",
 }: GroupFormProps) => {
+  const groupId = useGetGroupId();
+  const { mutate: editGroupMutate } = usePatchGroupInfoQuery(+groupId);
+
   const handleSubmit = (values: z.infer<typeof groupSchema>) => {
-    const data = new FormData();
+    const data = getGroupFormData(values);
 
-    if (values.profileImage) {
-      data.append("profileImage", values.profileImage);
-    } else {
-      data.append("profileImage", "");
+    if (variant === "create-group") {
+      createGroupAction(data);
+    } else if (variant === "group-setting") {
+      editGroupMutate(data);
     }
-    data.append(
-      "request",
-      JSON.stringify({
-        name: values.name,
-        introduction: values.introduction,
-        startDate: values.startDate.toISOString().slice(0, 10),
-        endDate: values.endDate.toISOString().slice(0, 10),
-      }),
-    );
-
-    createGroupAction(data);
   };
   const error = form.formState.errors.endDate;
   return (
     <Form {...form}>
       <form
         className={formStyle({ variant })}
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit((v) => handleSubmit(v))}
       >
         <ImageFormController form={form} />
         <NameFormController form={form} variant={variant} />

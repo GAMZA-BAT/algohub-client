@@ -4,24 +4,18 @@ import { postCommentInput } from "@/api/comments";
 import { z } from "zod";
 
 const commentSchema = z.object({
-  solutionId: z.number(),
   content: z.string(),
 });
 
-export const commentAction = async (
-  formData: z.infer<typeof commentSchema>,
-) => {
+export const commentAction = async (solutionId: number, content: string) => {
   const validateData = commentSchema.safeParse({
-    solutionId: formData.solutionId,
-    content: formData.content,
+    content,
   });
 
   if (!validateData.success) return;
 
   try {
-    const response = await postCommentInput(formData);
-
-    return response;
+    await postCommentInput(solutionId, content);
   } catch {
     throw new Error("post comment actions failed");
   }

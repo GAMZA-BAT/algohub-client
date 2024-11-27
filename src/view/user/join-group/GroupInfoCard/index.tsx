@@ -1,5 +1,4 @@
-import type { GroupJoinResponse } from "@/api/groups/type";
-import tmpSrc from "@/asset/img/alogohub_icon.png";
+import type { GroupResponse } from "@/api/groups/type";
 import { IcnGroupInfoCard } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import GroupDateInfo from "@/view/user/join-group/GroupInfoCard/GroupDateInfo";
@@ -10,16 +9,17 @@ import {
   infoWrapper,
 } from "@/view/user/join-group/GroupInfoCard/index.css";
 
-const GroupInfoCard = ({ groupInfo }: { groupInfo: GroupJoinResponse }) => {
-  const { name, startDate, endDate, description } = groupInfo;
+const GroupInfoCard = ({ groupInfo }: { groupInfo: GroupResponse }) => {
+  const { name, groupImage, startDate, endDate, introduction } = groupInfo;
+
   return (
     <article className={infoCardWrapper}>
       <IcnGroupInfoCard width={246} height={341} />
       <div className={infoWrapper}>
-        <Avatar src={tmpSrc} alt={`${name} 그룹 사진`} size="large" />
+        <Avatar src={groupImage} alt={`${name} 그룹 사진`} size="large" />
         <h1 className={groupNameStyle}>{name}</h1>
         <GroupDateInfo startDate={startDate} endDate={endDate} />
-        <p className={descStyle}>{description}</p>
+        <p className={descStyle}>{introduction}</p>
       </div>
     </article>
   );

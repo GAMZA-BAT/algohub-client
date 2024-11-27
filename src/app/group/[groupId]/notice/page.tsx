@@ -1,60 +1,48 @@
 "use client";
-
-import type { NoticeResponse } from "@/api/notices/type";
+import { getRoleByGroupId } from "@/api/groups";
 import GroupDashboardPage from "@/app/group/[groupId]/page";
-import { IcnBtnDeleteCircle } from "@/asset/svg";
+import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import { tmpData } from "@/view/group/dashboard/NoticeBanner/constant";
-import NoticeDetail from "@/view/group/dashboard/NoticeModal/NoticeDetail";
 import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
 import {
+  buttonStyle,
   noticeHeaderStyle,
   noticeModalWrapper,
 } from "@/view/group/dashboard/NoticeModal/index.css";
 import { textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
 
-const NoticeModal = () => {
-  const params = { groupId: useGetGroupId() };
-  const [selectedNotice, setSelectedNotice] = useState<NoticeResponse | null>(
-    null,
-  );
-
+const NoticeListPage = async () => {
+  const groupId = useGetGroupId();
+  const params = { groupId };
   const router = useRouter();
-
-  const handleNoticeClick = useCallback((notice: NoticeResponse) => {
-    setSelectedNotice(notice);
-  }, []);
-
-  const handleBackToList = useCallback(() => {
-    setSelectedNotice(null);
-  }, []);
-
-  const handleClose = selectedNotice ? handleBackToList : () => router.back();
-
-  const closeBtnLabel = selectedNotice
-    ? "공지 리스트로 돌아가기"
-    : "공지 모달 닫기";
+  const handleClose = () => router.push(`/group/${groupId}`);
+  const role = await getRoleByGroupId(+groupId);
 
   return (
     <>
       <GroupDashboardPage params={params} />
-      <Modal isOpen={true} onClose={handleClose}>
+      <Modal
+        isOpen={true}
+        onClose={handleClose}
+        hasCloseBtn
+        closeBtnType="secondary"
+      >
         <div className={noticeModalWrapper}>
-          {/* 모달 헤더 */}
           <header className={noticeHeaderStyle}>
             <h2 className={textStyle.head}>NOTICE</h2>
-            <button onClick={handleClose} aria-label={closeBtnLabel}>
-              <IcnBtnDeleteCircle width={16} height={16} />
-            </button>
           </header>
-
-          {selectedNotice ? (
-            <NoticeDetail data={selectedNotice} goBack={handleBackToList} />
-          ) : (
-            <NoticeList noticeList={tmpData} onClick={handleNoticeClick} />
+          <NoticeList />
+          {role !== "PARTICIPANT" && (
+            <Button
+              size="small"
+              color="gray"
+              className={buttonStyle}
+              onClick={() => router.push(`/group/${groupId}/notice/create`)}
+            >
+              글쓰기
+            </Button>
           )}
         </div>
       </Modal>
@@ -62,4 +50,4 @@ const NoticeModal = () => {
   );
 };
 
-export default NoticeModal;
+export default NoticeListPage;

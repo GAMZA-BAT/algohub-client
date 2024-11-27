@@ -53,22 +53,12 @@ export const infoWrapper = style({
   display: "flex",
   gap: "3rem",
 
-  width: "76.5%",
+  width: "77%",
 });
 
 export const avatarStyle = style({
   width: "4rem",
   height: "4rem",
-});
-
-export const buttonStyle = style({
-  float: "right",
-  transform: "translate(-2rem, 0)",
-  width: "8.4rem",
-  height: "4rem",
-
-  ...theme.font.Body3_SB_14,
-  color: theme.color.lg2,
 });
 
 export const paginationStyle = style({
