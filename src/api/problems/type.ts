@@ -27,9 +27,9 @@ export type ProblemRequest = {
 };
 
 export type EditProblemRequest = {
-  problemId: number;
-  startDate: string;
-  endDate: string;
+  problemId?: number;
+  startDate: Date;
+  endDate: Date;
 };
 
 export type GetProblemRequest = {

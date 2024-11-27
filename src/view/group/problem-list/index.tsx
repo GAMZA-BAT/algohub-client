@@ -1,13 +1,17 @@
 "use client";
 
 import type { ProblemContent } from "@/api/problems/type";
-import { useDeleteProblemMutation } from "@/app/group/[groupId]/problem-list/query";
+import {
+  useDeleteProblemMutation,
+  usePatchProblemMutation,
+  useProblemInfoQuery,
+} from "@/app/group/[groupId]/problem-list/query";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import Pagination from "@/shared/component/Pagination";
 import ProblemList from "@/shared/component/ProblemList";
 import ProblemListHeader from "@/view/group/dashboard/ProblemListHeader";
-import RegisterForm from "@/view/group/problem-list/RegisterForm";
+import PatchForm from "@/view/group/problem-list/RegisterForm/PatchForm";
 import { titleStyle } from "@/view/group/problem-list/index.css";
 import { useState } from "react";
 
@@ -30,8 +34,11 @@ const ProgressList = ({
 }: ProgressListProps) => {
   const isInProgress = variant === "inProgress";
   const { open, isOpen, close } = useBooleanState();
-  const [editId, setEditId] = useState(0);
+  const [editId, setEditId] = useState(data[0].problemId);
+
   const { mutate: deleteMutate } = useDeleteProblemMutation();
+  const { data: problemInfo } = useProblemInfoQuery(editId);
+  const { mutate: patchMutate } = usePatchProblemMutation(editId);
 
   const handleItemEditClick = (problemId: number) => {
     open();
@@ -47,12 +54,18 @@ const ProgressList = ({
   };
 
   const handleEditSubmit = (
-    _link: string,
-    _startDate: Date,
-    _endDate: Date,
+    startDate: Date,
+    endDate: Date,
     onSuccess: () => void,
   ) => {
-    //TODO: 문제 수정 API 연결
+    patchMutate(
+      { startDate, endDate },
+      {
+        onSuccess: () => {
+          setTimeout(close, 1700);
+        },
+      },
+    );
     onSuccess();
     setTimeout(() => {
       close();
@@ -71,7 +84,7 @@ const ProgressList = ({
             <ProblemList.Item
               key={item.problemId}
               {...item}
-              onEdit={handleItemEditClick}
+              onEdit={() => handleItemEditClick(item.problemId)}
               isOwner={isOwner}
             />
           ))}
@@ -87,10 +100,10 @@ const ProgressList = ({
         )}
       </div>
       <Modal isOpen={isOpen} onClose={close} hasCloseBtn>
-        <RegisterForm
-          variant="secondary"
+        <PatchForm
           onDelete={handleDelete}
           onSubmit={handleEditSubmit}
+          problemInfo={problemInfo}
         />
       </Modal>
     </>

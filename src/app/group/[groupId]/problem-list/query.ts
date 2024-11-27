@@ -2,9 +2,12 @@ import {
   deleteProblem,
   getExpiredProblems,
   getInProgressProblems,
+  getProblemInfo,
   getQueuedProblems,
 } from "@/api/problems";
+import type { EditProblemRequest } from "@/api/problems/type";
 import {
+  patchProblemAction,
   postProblemAction,
   type problemActionRequest,
 } from "@/app/group/[groupId]/problem-list/action";
@@ -15,7 +18,7 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
-export const usePostProblemMutation = () => {
+export const usePostProblemMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   return useMutation({
@@ -23,7 +26,7 @@ export const usePostProblemMutation = () => {
       postProblemAction({ groupId, link, startDate, endDate }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["postProblem"],
+        queryKey: ["inProgressProblem", "queuedProblem", groupId],
       });
       showToast("문제가 정상적으로 등록되었어요.", "success");
     },
@@ -79,4 +82,30 @@ export const useQueuedProblemQuery = (groupId: number, page: number) => {
   });
 
   return { content: data.content, totalPages: data.totalPages };
+};
+
+export const useProblemInfoQuery = (problemId: number) => {
+  return useSuspenseQuery({
+    queryKey: ["problem", problemId],
+    queryFn: () => getProblemInfo(problemId),
+  });
+};
+
+export const usePatchProblemMutation = (problemId: number) => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: ({ startDate, endDate }: EditProblemRequest) =>
+      patchProblemAction({ problemId, startDate, endDate }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["problem", problemId],
+      });
+      showToast("문제가 정상적으로 수정되었어요.", "success");
+    },
+    onError: () => {
+      showToast("문제가 정상적으로 수정되지 않았어요.", "error");
+    },
+  });
 };
