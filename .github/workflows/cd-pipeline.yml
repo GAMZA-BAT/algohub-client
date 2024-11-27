@@ -44,7 +44,7 @@ jobs:
 
       - name: Set environment variables for build
         run: |
-          echo "NEXT_PUBLIC_HOST=${{ secrets.SSH_ADDR }}" >> .env.local
+          echo "NEXT_PUBLIC_HOST=${{ secrets.NEXT_PUBLIC_HOST }}" >> .env.local
 
       - name: Install Dependencies
         if: steps.cache-node.outputs.cache-hit != 'true'
