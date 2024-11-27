@@ -1,5 +1,10 @@
 import { kyInstance } from "@/api";
-import type { ProblemContent, ProblemRequest } from "@/api/problems/type";
+import type {
+  GetProblemRequest,
+  ProblemContent,
+  ProblemListResponse,
+  ProblemRequest,
+} from "@/api/problems/type";
 
 export const getProblemInfo = async (problemId: number) => {
   const response = await kyInstance
@@ -25,6 +30,34 @@ export const deleteProblem = (problemId: number) => {
 export const getDeadlineReachedProblems = (groupId: number) => {
   const response = kyInstance
     .get<ProblemContent[]>(`api/groups/${groupId}/problems/deadline-reached`)
+    .json();
+
+  return response;
+};
+
+export const getInProgressProblems = ({
+  groupId,
+  page,
+  size,
+}: GetProblemRequest) => {
+  const response = kyInstance
+    .get<ProblemListResponse>(
+      `api/groups/${groupId}/problems/in-progress?page=${page}&size=${size}`,
+    )
+    .json();
+
+  return response;
+};
+
+export const getExpiredProblems = ({
+  groupId,
+  page,
+  size,
+}: GetProblemRequest) => {
+  const response = kyInstance
+    .get<ProblemListResponse>(
+      `api/groups/${groupId}/problems/expired?page=${page}&size=${size}`,
+    )
     .json();
 
   return response;

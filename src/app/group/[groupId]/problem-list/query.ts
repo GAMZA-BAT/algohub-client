@@ -1,10 +1,18 @@
-import { deleteProblem } from "@/api/problems";
+import {
+  deleteProblem,
+  getExpiredProblems,
+  getInProgressProblems,
+} from "@/api/problems";
 import {
   postProblemAction,
   type problemActionRequest,
 } from "@/app/group/[groupId]/problem-list/action";
 import { useToast } from "@/common/hook/useToast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 
 export const usePostProblemMutation = () => {
   const queryClient = useQueryClient();
@@ -40,4 +48,24 @@ export const useDeleteProblemMutation = () => {
       showToast("문제가 정상적으로 삭제되지 않았어요.", "error");
     },
   });
+};
+
+export const useInProgressProblemQuery = (groupId: number, page: number) => {
+  const { data } = useSuspenseQuery({
+    queryKey: ["inProgressProblem", groupId, page],
+    queryFn: () => getInProgressProblems({ groupId, page, size: 3 }),
+    staleTime: 0,
+  });
+
+  return { content: data.content, totalPages: data.totalPages };
+};
+
+export const useExpiredProblemQuery = (groupId: number, page: number) => {
+  const { data } = useSuspenseQuery({
+    queryKey: ["expiredProblem", groupId, page],
+    queryFn: () => getExpiredProblems({ groupId, page, size: 3 }),
+    staleTime: 0,
+  });
+
+  return { content: data.content, totalPages: data.totalPages };
 };

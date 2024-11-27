@@ -14,12 +14,19 @@ import { useState } from "react";
 type ProgressListProps = {
   data: ProblemContent[];
   variant?: "inProgress" | "expired";
-  isOwner?: boolean;
+  isOwner: boolean;
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
+
 const ProgressList = ({
   data,
   variant = "inProgress",
-  isOwner = false,
+  isOwner,
+  totalPages,
+  currentPage,
+  onPageChange,
 }: ProgressListProps) => {
   const isInProgress = variant === "inProgress";
   const { open, isOpen, close } = useBooleanState();
@@ -72,9 +79,9 @@ const ProgressList = ({
 
         <Pagination
           style={{ marginTop: "1.6rem" }}
-          totalPages={10}
-          currentPage={1}
-          onPageChange={() => {}}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
         />
       </div>
       <Modal isOpen={isOpen} onClose={close} hasCloseBtn>
