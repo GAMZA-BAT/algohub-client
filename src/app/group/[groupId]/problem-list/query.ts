@@ -2,6 +2,7 @@ import {
   deleteProblem,
   getExpiredProblems,
   getInProgressProblems,
+  getQueuedProblems,
 } from "@/api/problems";
 import {
   postProblemAction,
@@ -64,6 +65,16 @@ export const useExpiredProblemQuery = (groupId: number, page: number) => {
   const { data } = useSuspenseQuery({
     queryKey: ["expiredProblem", groupId, page],
     queryFn: () => getExpiredProblems({ groupId, page, size: 3 }),
+    staleTime: 0,
+  });
+
+  return { content: data.content, totalPages: data.totalPages };
+};
+
+export const useQueuedProblemQuery = (groupId: number, page: number) => {
+  const { data } = useSuspenseQuery({
+    queryKey: ["queuedProblem", groupId, page],
+    queryFn: () => getQueuedProblems({ groupId, page, size: 7 }),
     staleTime: 0,
   });
 

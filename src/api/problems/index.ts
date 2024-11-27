@@ -62,3 +62,17 @@ export const getExpiredProblems = ({
 
   return response;
 };
+
+export const getQueuedProblems = ({
+  groupId,
+  page,
+  size,
+}: GetProblemRequest) => {
+  const response = kyInstance
+    .get<ProblemListResponse>(
+      `api/groups/${groupId}/problems/queued?page=${page}&size=${size}`,
+    )
+    .json();
+
+  return response;
+};

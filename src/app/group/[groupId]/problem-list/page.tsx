@@ -1,4 +1,5 @@
 "use client";
+
 import {
   useExpiredProblemQuery,
   useInProgressProblemQuery,
@@ -67,7 +68,7 @@ const ProblemListPage = ({
                 <div style={{ width: "100%", margin: "1.6rem 0" }}>
                   <h2 className={titleStyle}>대기중인 문제</h2>
                   <PendingListHeader />
-                  <PendingList data={inProgressData} />
+                  <PendingList groupId={+groupId} />
                 </div>
               </section>
             </TabGroup.TabPanels>
