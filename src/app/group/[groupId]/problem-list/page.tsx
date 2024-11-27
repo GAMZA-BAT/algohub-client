@@ -48,21 +48,30 @@ const ProblemListPage = ({
             </TabGroup.TabList>
             <TabGroup.TabPanels>
               <section>
-                <ProgressList
-                  data={inProgressData}
-                  totalPages={inProgressTotalPages}
-                  currentPage={inProgressPage}
-                  onPageChange={handleInProgressPageChange}
-                  isOwner={isOwner}
-                />
-                <ProgressList
-                  variant="expired"
-                  data={expiredData}
-                  totalPages={expiredTotalPages}
-                  currentPage={expiredPage}
-                  onPageChange={handleExpiredPageChange}
-                  isOwner={isOwner}
-                />
+                <div style={{ width: "100%", margin: "1.6rem 0" }}>
+                  <h2 className={titleStyle}>진행중인 문제</h2>
+                  {inProgressData.length && (
+                    <ProgressList
+                      data={inProgressData}
+                      totalPages={inProgressTotalPages}
+                      currentPage={inProgressPage}
+                      onPageChange={handleInProgressPageChange}
+                      isOwner={isOwner}
+                    />
+                  )}
+                </div>
+                <div style={{ width: "100%", margin: "1.6rem 0" }}>
+                  <h2 className={titleStyle}>만료된 문제</h2>
+                  {expiredData.length && (
+                    <ProgressList
+                      data={expiredData}
+                      totalPages={expiredTotalPages}
+                      currentPage={expiredPage}
+                      onPageChange={handleExpiredPageChange}
+                      isOwner={false}
+                    />
+                  )}
+                </div>
               </section>
               <section>
                 <div style={{ width: "100%", margin: "1.6rem 0" }}>
@@ -75,21 +84,30 @@ const ProblemListPage = ({
           </TabGroup.Tabs>
         ) : (
           <section>
-            <ProgressList
-              data={inProgressData}
-              totalPages={inProgressTotalPages}
-              currentPage={inProgressPage}
-              onPageChange={handleInProgressPageChange}
-              isOwner={isOwner}
-            />
-            <ProgressList
-              variant="expired"
-              data={expiredData}
-              totalPages={expiredTotalPages}
-              currentPage={expiredPage}
-              onPageChange={handleExpiredPageChange}
-              isOwner={isOwner}
-            />
+            <div style={{ width: "100%", margin: "1.6rem 0" }}>
+              <h2 className={titleStyle}>진행중인 문제</h2>
+              {inProgressData.length && (
+                <ProgressList
+                  data={inProgressData}
+                  totalPages={inProgressTotalPages}
+                  currentPage={inProgressPage}
+                  onPageChange={handleInProgressPageChange}
+                  isOwner={isOwner}
+                />
+              )}
+            </div>
+            <div style={{ width: "100%", margin: "1.6rem 0" }}>
+              <h2 className={titleStyle}>만료된 문제</h2>
+              {expiredData.length && (
+                <ProgressList
+                  data={expiredData}
+                  totalPages={expiredTotalPages}
+                  currentPage={expiredPage}
+                  onPageChange={handleExpiredPageChange}
+                  isOwner={false}
+                />
+              )}
+            </div>
           </section>
         )}
       </div>

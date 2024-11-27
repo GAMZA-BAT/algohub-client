@@ -12,12 +12,10 @@ import Pagination from "@/shared/component/Pagination";
 import ProblemList from "@/shared/component/ProblemList";
 import ProblemListHeader from "@/view/group/dashboard/ProblemListHeader";
 import PatchForm from "@/view/group/problem-list/RegisterForm/PatchForm";
-import { titleStyle } from "@/view/group/problem-list/index.css";
 import { useState } from "react";
 
 type ProgressListProps = {
   data: ProblemContent[];
-  variant?: "inProgress" | "expired";
   isOwner: boolean;
   totalPages: number;
   currentPage: number;
@@ -26,13 +24,11 @@ type ProgressListProps = {
 
 const ProgressList = ({
   data,
-  variant = "inProgress",
   isOwner,
   totalPages,
   currentPage,
   onPageChange,
 }: ProgressListProps) => {
-  const isInProgress = variant === "inProgress";
   const { open, isOpen, close } = useBooleanState();
   const [editId, setEditId] = useState(data[0].problemId);
 
@@ -74,31 +70,23 @@ const ProgressList = ({
 
   return (
     <>
-      <div style={{ width: "100%", margin: "1.6rem 0" }}>
-        <h2 className={titleStyle}>
-          {isInProgress ? "진행중인 문제" : "만료된 문제"}
-        </h2>
-        <ProblemListHeader />
-        <ProblemList>
-          {data.map((item) => (
-            <ProblemList.Item
-              key={item.problemId}
-              {...item}
-              onEdit={() => handleItemEditClick(item.problemId)}
-              isOwner={isOwner}
-            />
-          ))}
-        </ProblemList>
-
-        {data.length && (
-          <Pagination
-            style={{ marginTop: "1.6rem" }}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={onPageChange}
+      <ProblemListHeader />
+      <ProblemList>
+        {data.map((item) => (
+          <ProblemList.Item
+            key={item.problemId}
+            {...item}
+            onEdit={() => handleItemEditClick(item.problemId)}
+            isOwner={isOwner}
           />
-        )}
-      </div>
+        ))}
+      </ProblemList>
+      <Pagination
+        style={{ marginTop: "1.6rem" }}
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={onPageChange}
+      />
       <Modal isOpen={isOpen} onClose={close} hasCloseBtn>
         <PatchForm
           onDelete={handleDelete}
