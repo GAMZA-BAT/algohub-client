@@ -1,3 +1,5 @@
+import type { PaginationResponse } from "@/api/type";
+
 export type ProblemStatus = "inProgressProblems" | "expiredProblems";
 
 export type ProblemContent = {
@@ -14,14 +16,9 @@ export type ProblemContent = {
   inProgress?: boolean;
 };
 
-export type ProblemResponse = ProblemContent[];
 export type ProblemListResponse = {
-  [key in ProblemStatus]: ProblemContent[];
-} & {
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-};
+  content: ProblemContent[];
+} & PaginationResponse;
 
 export type ProblemRequest = {
   link: string;
@@ -30,7 +27,13 @@ export type ProblemRequest = {
 };
 
 export type EditProblemRequest = {
-  problemId: number;
-  startDate: string;
-  endDate: string;
+  problemId?: number;
+  startDate: Date;
+  endDate: Date;
+};
+
+export type GetProblemRequest = {
+  groupId: number;
+  page: number;
+  size: number;
 };

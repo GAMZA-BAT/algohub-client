@@ -1,5 +1,6 @@
 import { kyFileInstance, kyInstance, kyPublicInstance } from "@/api";
 import type { GroupListResponse } from "@/api/groups/type";
+import type { MySolutionRequest, MySolutionResponse } from "@/api/type";
 import type { UserResponse } from "@/api/users/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
@@ -20,7 +21,7 @@ export const getUsers = async (userNickname: string) => {
   return response;
 };
 
-export const getMe = async () => {
+export const getMyInfo = async () => {
   const response = await kyInstance.get<UserResponse>("api/users/me").json();
 
   return response;
@@ -30,6 +31,19 @@ export const checkNickname = async (nickname: string) => {
   const response = await kyInstance.get(
     `api/users/check-nickname?nickname=${nickname}`,
   );
+
+export const getInProgressMySolutions = async ({
+  problemNumber,
+  language,
+  result,
+  page,
+  size,
+}: MySolutionRequest) => {
+  const response = await kyInstance
+    .get<MySolutionResponse>(
+      `api/users/my-solutions/in-progress?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
+    )
+    .json();
 
   return response;
 };
@@ -91,3 +105,20 @@ export const validateBojNickname = async (nickname: string) => {
     }
   }
 };
+
+export const getExpiredMySolutions = async ({
+  problemNumber,
+  language,
+  result,
+  page,
+  size,
+}: MySolutionRequest) => {
+  const response = await kyInstance
+    .get<MySolutionResponse>(
+      `api/users/my-solutions/expired?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
+    )
+    .json();
+
+  return response;
+};
+
