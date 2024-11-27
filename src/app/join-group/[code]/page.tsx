@@ -1,5 +1,6 @@
 "use client";
 
+import { useMyNicknameQuery } from "@/app/[user]/query";
 import {
   useGroupByCodeQuery,
   useJoinGroupMutation,
@@ -23,6 +24,7 @@ import { useState } from "react";
 const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
   const { data: groupData } = useGroupByCodeQuery(code);
+  const userNickname = useMyNicknameQuery();
   const { mutate: joinGroupMutate } = useJoinGroupMutation(groupData?.id || 0);
   const router = useRouter();
 
@@ -36,10 +38,10 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   };
 
   const handleReject = () => {
-    if (isJoinModalOpen) router.push("/user");
+    if (isJoinModalOpen) router.push(`/${userNickname}`);
   };
   const handleReject2 = () => {
-    if (!isJoinModalOpen) router.push("/user");
+    if (!isJoinModalOpen) router.push(`/${userNickname}`);
   };
   const handleMoveGroup = () => router.push(`/group/${groupData?.id}`);
 
