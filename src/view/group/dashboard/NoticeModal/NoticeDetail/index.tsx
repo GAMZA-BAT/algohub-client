@@ -42,7 +42,6 @@ const NoticeDetail = ({
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
     useA11yHoverHandler();
   const [isEdit, setIsEdit] = useState(false);
-  const [prevValue, setPrevValue] = useState(content);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
@@ -52,23 +51,18 @@ const NoticeDetail = ({
   );
 
   const handleEditClick = () => {
-    const currentValue = textareaRef.current?.value;
-
     if (!isEdit) {
       setIsEdit(true);
       setTimeout(() => textareaRef.current?.focus());
-      setPrevValue(currentValue || content);
       return;
     }
 
     setIsEdit(false);
-    if (currentValue !== prevValue) {
-      patchMutate({
-        title,
-        content: currentValue || "",
-        category,
-      });
-    }
+    patchMutate({
+      title,
+      content: textareaRef.current?.value || "",
+      category,
+    });
   };
 
   const handleDeleteClick = () => {
