@@ -18,6 +18,7 @@ const ProblemListPage = ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
   const { data: role } = useGroupRoleQuery(+groupId);
+  const isOwner = role !== "PARTICIPANT";
 
   const [inProgressPage, setInProgressPage] = useState(1);
   const [expiredPage, setExpiredPage] = useState(1);
@@ -32,46 +33,64 @@ const ProblemListPage = ({
 
   return (
     <main className={sidebarWrapper}>
-      <Sidebar>
-        <ProblemSidebar />
-      </Sidebar>
+      <Sidebar>{isOwner && <ProblemSidebar />}</Sidebar>
       <div className={pageStyle}>
-        <TabGroup.Tabs variant="secondary">
-          <TabGroup.TabList>
-            <TabGroup.Tab tabId="1" indicatorId="problemlist">
-              진행중인 문제·만료된 문제
-            </TabGroup.Tab>
-            <TabGroup.Tab tabId="2" indicatorId="problemlist">
-              대기중인 문제
-            </TabGroup.Tab>
-          </TabGroup.TabList>
-          <TabGroup.TabPanels>
-            <section>
-              <ProgressList
-                data={inProgressData}
-                totalPages={inProgressTotalPages}
-                currentPage={inProgressPage}
-                onPageChange={handleInProgressPageChange}
-                isOwner={role !== "PARTICIPANT"}
-              />
-              <ProgressList
-                variant="expired"
-                data={expiredData}
-                totalPages={expiredTotalPages}
-                currentPage={expiredPage}
-                onPageChange={handleExpiredPageChange}
-                isOwner={role !== "PARTICIPANT"}
-              />
-            </section>
-            <section>
-              <div style={{ width: "100%", margin: "1.6rem 0" }}>
-                <h2 className={titleStyle}>대기중인 문제</h2>
-                <PendingListHeader />
-                <PendingList data={inProgressData} />
-              </div>
-            </section>
-          </TabGroup.TabPanels>
-        </TabGroup.Tabs>
+        {isOwner ? (
+          <TabGroup.Tabs variant="secondary">
+            <TabGroup.TabList>
+              <TabGroup.Tab tabId="1" indicatorId="problemlist">
+                진행중인 문제·만료된 문제
+              </TabGroup.Tab>
+              <TabGroup.Tab tabId="2" indicatorId="problemlist">
+                대기중인 문제
+              </TabGroup.Tab>
+            </TabGroup.TabList>
+            <TabGroup.TabPanels>
+              <section>
+                <ProgressList
+                  data={inProgressData}
+                  totalPages={inProgressTotalPages}
+                  currentPage={inProgressPage}
+                  onPageChange={handleInProgressPageChange}
+                  isOwner={isOwner}
+                />
+                <ProgressList
+                  variant="expired"
+                  data={expiredData}
+                  totalPages={expiredTotalPages}
+                  currentPage={expiredPage}
+                  onPageChange={handleExpiredPageChange}
+                  isOwner={isOwner}
+                />
+              </section>
+              <section>
+                <div style={{ width: "100%", margin: "1.6rem 0" }}>
+                  <h2 className={titleStyle}>대기중인 문제</h2>
+                  <PendingListHeader />
+                  <PendingList data={inProgressData} />
+                </div>
+              </section>
+            </TabGroup.TabPanels>
+          </TabGroup.Tabs>
+        ) : (
+          <section>
+            <ProgressList
+              data={inProgressData}
+              totalPages={inProgressTotalPages}
+              currentPage={inProgressPage}
+              onPageChange={handleInProgressPageChange}
+              isOwner={isOwner}
+            />
+            <ProgressList
+              variant="expired"
+              data={expiredData}
+              totalPages={expiredTotalPages}
+              currentPage={expiredPage}
+              onPageChange={handleExpiredPageChange}
+              isOwner={isOwner}
+            />
+          </section>
+        )}
       </div>
     </main>
   );

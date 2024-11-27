@@ -77,12 +77,14 @@ const ProgressList = ({
           ))}
         </ProblemList>
 
-        <Pagination
-          style={{ marginTop: "1.6rem" }}
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-        />
+        {data.length && (
+          <Pagination
+            style={{ marginTop: "1.6rem" }}
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+          />
+        )}
       </div>
       <Modal isOpen={isOpen} onClose={close} hasCloseBtn>
         <RegisterForm
