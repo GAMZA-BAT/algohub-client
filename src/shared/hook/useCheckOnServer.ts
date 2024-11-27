@@ -1,10 +1,9 @@
-import { validateBojNickname, validateNickname } from "@/api/validate";
+import { validateBojNickname, validateNickname } from "@/api/users";
 import { baseSignupSchema } from "@/view/signup/SignupForm/schema";
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
-// TODO: API연결 후 useQuery로 교체하며 동일하게 기능 적용하기
 export const useCheckOnServer = (
   form: UseFormReturn<z.infer<typeof baseSignupSchema>>,
   nickname: string,
