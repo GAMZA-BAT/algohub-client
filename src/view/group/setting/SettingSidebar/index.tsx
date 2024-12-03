@@ -1,6 +1,6 @@
 "use client";
-import { groupSchema } from "@/api/groups/schema";
-import type { GroupResponse } from "@/api/groups/type";
+import { groupSchema } from "@/app/api/groups/schema";
+import type { GroupResponse } from "@/app/api/groups/type";
 import { useDeleteGroupMutation } from "@/app/group/[groupId]/setting/query";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import CodeClipboard from "@/shared/component/CodeClipboard";

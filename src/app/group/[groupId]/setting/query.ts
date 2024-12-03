@@ -4,14 +4,14 @@ import {
   deleteGroup,
   deleteGroupMember,
   getGroupMemberList,
-} from "@/api/groups";
-import { useMyNicknameQuery } from "@/app/[user]/query";
+} from "@/app/api/groups";
 import { useToast } from "@/common/hook/useToast";
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export const useMemberListQuery = (groupId: number) => {
@@ -45,7 +45,7 @@ export const useDeleteGroupMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
-  const userNickname = useMyNicknameQuery();
+  const userNickname = useSession().data?.user?.name;
 
   return useMutation({
     mutationFn: (groupId: number) => deleteGroup(groupId),

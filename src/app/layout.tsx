@@ -1,4 +1,14 @@
+import Providers from "@/app/provider";
 import { auth } from "@/auth";
+import Header from "@/shared/component/Header";
+import QueryProvider from "@/shared/component/QueryProvider";
+import "@/styles/globalStyles.css";
+import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
+
+export const metadata: Metadata = {
+  title: "AlgoHub",
+  description: "알고리즘 스터디 플랫폼",
   icons: {
     icon: "/favicon.png",
   },
@@ -14,12 +24,10 @@ export default async function RootLayout({
     <html lang="ko">
       <body>
         <Providers>
-          <Header session={session} />
-        <QueryProvider>
           <SessionProvider session={session}>
-              {children}
+            <Header session={session} />
+            <QueryProvider>{children}</QueryProvider>
           </SessionProvider>
-        </QueryProvider>
         </Providers>
       </body>
     </html>

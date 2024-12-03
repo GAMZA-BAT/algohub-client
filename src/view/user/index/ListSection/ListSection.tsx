@@ -1,6 +1,6 @@
 "use client";
 
-import type { GroupResponse } from "@/api/groups/type";
+import type { GroupResponse } from "@/app/api/groups/type";
 import Carousel from "@/common/component/Carousel";
 import GroupCard from "@/view/user/index/GroupCard";
 import { SECTION_TITLE } from "@/view/user/index/constant";

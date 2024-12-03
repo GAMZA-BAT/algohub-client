@@ -9,7 +9,7 @@ import "prismjs/components/prism-clike";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
-import type { SolutionLanguage } from "@/api/solutions/type";
+import type { SolutionLanguage } from "@/app/api/solutions/type";
 import { useEffect } from "react";
 import { codeStyle } from "../index.css";
 import "./code.css";

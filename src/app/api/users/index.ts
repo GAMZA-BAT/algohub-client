@@ -1,7 +1,7 @@
-import { kyFileInstance, kyInstance, kyPublicInstance } from "@/api";
-import type { GroupListResponse } from "@/api/groups/type";
-import type { MySolutionRequest, MySolutionResponse } from "@/api/type";
-import type { UserResponse } from "@/api/users/type";
+import { kyFileInstance, kyInstance, kyPublicInstance } from "@/app/api";
+import type { GroupListResponse } from "@/app/api/groups/type";
+import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
+import type { UserResponse } from "@/app/api/users/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
 
@@ -21,8 +21,14 @@ export const getUsers = async (userNickname: string) => {
   return response;
 };
 
-export const getMyInfo = async () => {
-  const response = await kyInstance.get<UserResponse>("api/users/me").json();
+export const getMyInfo = async (accessToken: string) => {
+  const response = await kyPublicInstance
+    .get<UserResponse>("api/users/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .json();
 
   return response;
 };

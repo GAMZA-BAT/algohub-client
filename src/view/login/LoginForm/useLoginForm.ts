@@ -1,4 +1,4 @@
-import { loginAction } from "@/api/user/actions";
+import { loginAction } from "@/app/api/users/actions";
 import { useToast } from "@/common/hook/useToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, useSession } from "next-auth/react";

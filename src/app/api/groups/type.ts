@@ -1,4 +1,4 @@
-import type { PaginationResponse } from "@/api/type";
+import type { PaginationResponse } from "@/app/api/type";
 
 export type GroupCodeResponse = {
   inviteCode: string;

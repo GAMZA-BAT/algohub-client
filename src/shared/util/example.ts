@@ -1,4 +1,4 @@
-import type { GroupResponse } from "@/api/groups/type";
+import type { GroupResponse } from "@/app/api/groups/type";
 
 export const tmpGroupData: GroupResponse = {
   id: 0,

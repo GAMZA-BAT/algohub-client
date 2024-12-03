@@ -1,4 +1,4 @@
-import type { ProblemContent } from "@/api/problems/type";
+import type { ProblemContent } from "@/app/api/problems/type";
 import type { Meta } from "@storybook/react";
 import ProblemList from ".";
 

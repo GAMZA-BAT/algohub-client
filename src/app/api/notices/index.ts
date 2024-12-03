@@ -1,10 +1,10 @@
-import { kyInstance } from "@/api";
+import { kyInstance } from "@/app/api";
 import type {
   NoticeContent,
   NoticeListRequest,
   NoticeRequest,
   NoticeResponse,
-} from "@/api/notices/type";
+} from "@/app/api/notices/type";
 
 export const getNotices = async ({
   groupId,

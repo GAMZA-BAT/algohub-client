@@ -1,4 +1,4 @@
-import type { RankingContent } from "@/api/groups/type";
+import type { RankingContent } from "@/app/api/groups/type";
 import RankingCard from "@/view/group/dashboard/Ranking/RankingCard";
 import { topRankingWrapper } from "@/view/group/dashboard/Ranking/index.css";
 

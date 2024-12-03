@@ -1,5 +1,5 @@
-import { kyInstance } from "@/api";
-import type { RankingResponse } from "@/api/groups/type";
+import { kyInstance } from "@/app/api";
+import type { RankingResponse } from "@/app/api/groups/type";
 
 export const getAllRanking = async (groupId: number) => {
   const response = await kyInstance

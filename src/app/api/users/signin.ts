@@ -7,6 +7,5 @@ export const postSignin = async (formData: SignInRequest) => {
       json: formData,
     })
     .json();
-
   return response;
 };

@@ -1,17 +1,21 @@
 "use server";
 
+import { signIn } from "@/auth";
 import type { loginSchema } from "@/view/login/LoginForm/schema";
 import { AuthError } from "next-auth";
+import { getSession } from "next-auth/react";
 import type { z } from "zod";
-import { signIn } from "../../auth";
-import { DEFAULT_LOGIN_REDIRECT } from "../../routes";
 
 export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   try {
     await signIn("credentials", {
       ...values,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
+
+    const session = await getSession();
+    const redirectTo = `/${session?.user?.name}`;
+    window.location.href = redirectTo;
+
     return { success: "Successfully logged in!" };
   } catch (error) {
     if (error instanceof AuthError) {

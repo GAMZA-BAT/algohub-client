@@ -1,4 +1,4 @@
-import { patchGroupInfo } from "@/api/groups";
+import { patchGroupInfo } from "@/app/api/groups";
 import { useMutation } from "@tanstack/react-query";
 
 export const usePatchGroupInfoQuery = (groupId: number) => {

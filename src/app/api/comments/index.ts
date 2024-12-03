@@ -1,5 +1,5 @@
-import { kyInstance } from "@/api";
-import type { CommentContent } from "@/api/comments/type";
+import { kyInstance } from "@/app/api";
+import type { CommentContent } from "@/app/api/comments/type";
 
 export const getCommentList = async (solutionId: number) => {
   const response = await kyInstance

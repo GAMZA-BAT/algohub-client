@@ -1,5 +1,5 @@
-import { kyInstance } from "@/api";
-import type { NotificationItem } from "@/api/notifications/type";
+import { kyInstance } from "@/app/api";
+import type { NotificationItem } from "@/app/api/notifications/type";
 
 export const getNotificationList = async () => {
   const response = await kyInstance

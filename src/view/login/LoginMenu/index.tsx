@@ -1,7 +1,8 @@
 "use client";
+
 import Button from "@/common/component/Button";
 import { buttonContainer } from "@/shared/component/Header/index.css";
-import { LoginButtonStyle } from "@/view/login/LoginMenu/LoginMenu.css";
+import { LoginButtonStyle } from "@/view/login/LoginMenu/index.css";
 import { useRouter } from "next/navigation";
 
 const LoginMenu = () => {

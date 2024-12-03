@@ -1,10 +1,10 @@
-import { kyInstance } from "@/api";
+import { kyInstance } from "@/app/api";
 import type {
   SolutionContent,
   SolutionRequest,
   SolutionResponse,
-} from "@/api/solutions/type";
-import type { MySolutionRequest, MySolutionResponse } from "@/api/type";
+} from "@/app/api/solutions/type";
+import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
 
 export const getSolutionList = async ({
   problemId,

@@ -1,7 +1,10 @@
 "use server";
 
-import { patchProblem, postProblem } from "@/api/problems";
-import type { EditProblemRequest, ProblemRequest } from "@/api/problems/type";
+import { patchProblem, postProblem } from "@/app/api/problems";
+import type {
+  EditProblemRequest,
+  ProblemRequest,
+} from "@/app/api/problems/type";
 
 export type problemActionRequest = {
   groupId: number;

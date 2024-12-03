@@ -1,11 +1,11 @@
-import { kyFileInstance, kyInstance } from "@/api";
+import { kyFileInstance, kyInstance } from "@/app/api";
 import type {
   GroupCodeResponse,
   GroupListResponse,
   GroupResponse,
   MemberResponse,
   Role,
-} from "@/api/groups/type";
+} from "@/app/api/groups/type";
 
 export const postCreateGroup = async (formData: FormData) => {
   const response = await kyFileInstance

@@ -1,8 +1,7 @@
-import IcnNew from "@/asset/svg/icn_new.svg?url";
+import Avatar from "@/common/component/Avatar";
 import Dropdown, { type DropdownProps } from "@/common/component/Dropdown";
 import { dropdownStyle } from "@/shared/component/Header/Profile.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
-import Image from "next/image";
 
 const Profile = ({ ...props }: DropdownProps) => (
   <Dropdown {...props} className={dropdownStyle}>
@@ -11,11 +10,19 @@ const Profile = ({ ...props }: DropdownProps) => (
   </Dropdown>
 );
 
-type TriggerButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type TriggerButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  src?: string;
+};
 
-Profile.TriggerButton = ({ ...props }: TriggerButtonProps) => (
+Profile.TriggerButton = ({ src = "", ...props }: TriggerButtonProps) => (
   <button {...props}>
-    <Image className={iconStyle} src={IcnNew} alt="user profile" priority />
+    <Avatar
+      size="mini"
+      className={iconStyle}
+      src={src}
+      alt="user profile"
+      priority
+    />
   </button>
 );
 

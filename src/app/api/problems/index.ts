@@ -1,11 +1,11 @@
-import { kyInstance } from "@/api";
+import { kyInstance } from "@/app/api";
 import type {
   EditProblemRequest,
   GetProblemRequest,
   ProblemContent,
   ProblemListResponse,
   ProblemRequest,
-} from "@/api/problems/type";
+} from "@/app/api/problems/type";
 
 export const getProblemInfo = async (problemId: number) => {
   const response = await kyInstance
