@@ -1,4 +1,4 @@
-import type { GroupListItem, GroupStatus } from "@/api/group/type";
+import type { GroupResponse, GroupStatus } from "@/api/groups/type";
 import defaultImg from "@/asset/img/img_card_profile.png";
 import { IcnCalenderCard, IcnUser, IcnUser2 } from "@/asset/svg";
 import StatusIcon from "@/view/user/index/GroupCard/StatusIcon";
@@ -16,19 +16,21 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface GroupCardProps {
-  item: GroupListItem;
+  item: GroupResponse;
   status: GroupStatus;
 }
 const GroupCard = ({ item, status }: GroupCardProps) => {
-  const { name, groupImage, startDate, endDate, ownerNickname } = item;
+  const { id, name, groupImage, startDate, endDate, ownerNickname } = item;
   const isDone = status === "done";
 
   return (
-    <Link href="/group">
+    <Link href={`/group/${id}`}>
       <article className={groupCardWrapper}>
         <Image
           src={groupImage || defaultImg}
           alt={""}
+          width={210}
+          height={156}
           className={imgStyle}
           unoptimized
         />

@@ -1,11 +1,11 @@
 "use client";
 
+import { useNoticesQuery } from "@/app/group/[groupId]/notice/query";
 import { IcnNew, IcnNotifications } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
-import { getNoticeBannerCreateAt } from "@/shared/util/time";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
-import { tmpData } from "./constant";
 import {
   bannerWrapper,
   contentWrapper,
@@ -15,17 +15,11 @@ import {
 
 const NoticeBanner = () => {
   const router = useRouter();
+  const groupId = useGetGroupId();
+  const { content: noticeList } = useNoticesQuery({ groupId: +groupId });
 
-  // TODO: API 연결 데이터로 변경하기
-  // 공지 리스트 중 가장 최근의 공지를 찾는 reduce
-  const { createAt, noticeCategory, noticeTitle } = tmpData.reduce(
-    (mostRecent, currentNotice) => {
-      const mostRecentDate = new Date(mostRecent.createAt);
-      const currentNoticeDate = new Date(currentNotice.createAt);
+  const recentNotice = noticeList?.length > 0 ? noticeList[0] : null;
 
-      return currentNoticeDate > mostRecentDate ? currentNotice : mostRecent;
-    },
-  );
   return (
     <>
       <section
@@ -37,24 +31,37 @@ const NoticeBanner = () => {
         <button
           className={overlayStyle}
           aria-label="공지 모달 열기"
-          onClick={() => router.push("/group/notice")}
+          onClick={() => router.push(`/group/${groupId}/notice`)}
         />
         <header className={headerWrapper}>
           <div className={notifyWrapper}>
             <IcnNotifications width={24} height={24} focusable="false" />
             <p className={textStyle.notification}>공지</p>
           </div>
-          <Avatar size="mini" alt="방장 프로필 사진" />
-          <h2 className={textStyle.category}>{noticeCategory}</h2>
+          {recentNotice ? (
+            <>
+              <Avatar size="mini" alt="방장 프로필 사진" />
+              <h2 className={textStyle.category}>{recentNotice.category}</h2>
+            </>
+          ) : (
+            <p className={textStyle.time}>공지가 없습니다.</p>
+          )}
         </header>
-
-        <div className={contentWrapper}>
-          <p className={textStyle.bannerTitle}>{noticeTitle}</p>
-          <time className={textStyle.time} dateTime={createAt}>
-            {getNoticeBannerCreateAt(createAt)}
-          </time>
-          {<IcnNew width={13} height={13} style={{ minWidth: 13 }} />}
-        </div>
+        {recentNotice && (
+          <div className={contentWrapper}>
+            <p className={textStyle.bannerTitle}>{recentNotice.title}</p>
+            <time className={textStyle.time} dateTime={recentNotice.createAt}>
+              {recentNotice.createAt}
+            </time>
+            {
+              <IcnNew
+                width={13}
+                height={13}
+                style={{ minWidth: 13, opacity: recentNotice.isRead ? 0 : 1 }}
+              />
+            }
+          </div>
+        )}
       </section>
     </>
   );
