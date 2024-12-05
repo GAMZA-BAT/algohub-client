@@ -1,7 +1,7 @@
 "use client";
 
-import type { CommentContent } from "@/api/comments/type";
-import type { NoticeContent } from "@/api/notices/type";
+import type { CommentContent } from "@/app/api/comments/type";
+import type { NoticeContent } from "@/app/api/notices/type";
 import {
   useDeleteNoticeMutation,
   usePatchNoticeMutation,

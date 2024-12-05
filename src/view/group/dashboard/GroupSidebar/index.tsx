@@ -1,5 +1,5 @@
 "use client";
-import type { GroupResponse, MemberResponse } from "@/api/groups/type";
+import type { GroupResponse, MemberResponse } from "@/app/api/groups/type";
 import CircleNumber from "@/view/group/dashboard/GroupSidebar/CircleNumber";
 import GroupCard from "@/view/group/dashboard/GroupSidebar/GroupCard";
 import {

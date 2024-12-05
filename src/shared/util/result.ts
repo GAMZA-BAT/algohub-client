@@ -1,4 +1,4 @@
-import type { SolutionResult } from "@/api/solutions/type";
+import type { SolutionResult } from "@/app/api/solutions/type";
 import { SOLVED_RESULT } from "@/shared/constant/solvedFilterKey";
 
 export const getSolvedStatusByResult = (result: string) => {

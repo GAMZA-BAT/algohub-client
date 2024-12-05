@@ -1,4 +1,4 @@
-import type { UserResponse } from "@/api/users/type";
+import { getUsers } from "@/app/api/users";
 import Avatar from "@/common/component/Avatar";
 import {
   avatarStyle,
@@ -8,28 +8,17 @@ import {
   userCardContainer,
 } from "@/view/user/index/UserCard/index.css";
 
-const UserCard = ({ userNickname: _user }: { userNickname: string }) => {
-  const dummyData: UserResponse = {
-    profileImage: "",
-    nickname: "Yerin Baek",
-    bjNickname: "@yerinewplant",
-    description:
-      "FE Developer로 성장하고 있으면 현재는 Team AlgoHub에서 열심히 일하고 있습니다.",
-  };
+const UserCard = async ({ userNickname }: { userNickname: string }) => {
+  const userInfo = await getUsers(userNickname);
 
-  // const userInfo = await getUsers(user);
   return (
     <article className={userCardContainer}>
       <div className={avatarStyle}>
-        <Avatar
-          src={dummyData.profileImage}
-          alt="User Info Card"
-          size="large"
-        />
+        <Avatar src={userInfo.profileImage} alt="User Info Card" size="large" />
       </div>
-      <h1 className={nicknameStyle}>{dummyData.nickname}</h1>
-      <h2 className={bojNickStyle}>{dummyData.bjNickname}</h2>
-      <p className={descStyle}>{dummyData.description} </p>
+      <h1 className={nicknameStyle}>{userInfo.nickname}</h1>
+      <h2 className={bojNickStyle}>{userInfo.bjNickname}</h2>
+      <p className={descStyle}>{userInfo.description} </p>
     </article>
   );
 };

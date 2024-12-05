@@ -1,6 +1,6 @@
 "use server";
 
-import { postSignUp } from "@/api/users";
+import { postSignUp } from "@/app/api/users";
 import { redirect } from "next/navigation";
 
 export const signUp = async (formData: FormData) => {

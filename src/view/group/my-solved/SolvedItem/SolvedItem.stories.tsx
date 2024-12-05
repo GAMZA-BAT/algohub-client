@@ -1,4 +1,4 @@
-import type { SolutionContent } from "@/api/solutions/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import type { Meta } from "@storybook/react";
 import { default as ProblemList, default as SolvedItem } from ".";
 

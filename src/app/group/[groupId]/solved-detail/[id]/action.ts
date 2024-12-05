@@ -1,6 +1,6 @@
 "use server";
 
-import { postCommentInput } from "@/api/comments";
+import { postCommentInput } from "@/app/api/comments";
 import { z } from "zod";
 
 const commentSchema = z.object({

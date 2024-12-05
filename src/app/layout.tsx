@@ -1,7 +1,10 @@
 import Providers from "@/app/provider";
+import { auth } from "@/auth";
 import Header from "@/shared/component/Header";
+import QueryProvider from "@/shared/component/QueryProvider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "AlgoHub",
@@ -11,17 +14,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html lang="ko">
       <body>
         <Providers>
-          <Header />
-          {children}
+          <SessionProvider session={session}>
+            <Header session={session} />
+            <QueryProvider>{children}</QueryProvider>
+          </SessionProvider>
         </Providers>
       </body>
     </html>

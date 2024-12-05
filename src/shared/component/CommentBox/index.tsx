@@ -1,6 +1,6 @@
 "use client";
 
-import type { CommentContent } from "@/api/comments/type";
+import type { CommentContent } from "@/app/api/comments/type";
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";

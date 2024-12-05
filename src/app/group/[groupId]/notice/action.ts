@@ -1,5 +1,5 @@
-import { deleteNotice, patchNotice, postNotice } from "@/api/notices";
-import type { NoticeRequest } from "@/api/notices/type";
+import { deleteNotice, patchNotice, postNotice } from "@/app/api/notices";
+import type { NoticeRequest } from "@/app/api/notices/type";
 
 export const noticeAction = async (
   groupId: number,

@@ -1,4 +1,4 @@
-import { getRoleByGroupId } from "@/api/groups";
+import { getRoleByGroupId } from "@/app/api/groups";
 
 export const groupRoleAction = async (groupId: number) => {
   try {

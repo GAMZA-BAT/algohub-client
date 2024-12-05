@@ -1,4 +1,4 @@
-import type { SolutionLanguage } from "@/api/solutions/type";
+import type { SolutionLanguage } from "@/app/api/solutions/type";
 import Prism from "prismjs";
 
 export const languageMapper: {

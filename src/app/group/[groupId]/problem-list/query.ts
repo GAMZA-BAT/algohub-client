@@ -4,8 +4,8 @@ import {
   getInProgressProblems,
   getProblemInfo,
   getQueuedProblems,
-} from "@/api/problems";
-import type { EditProblemRequest } from "@/api/problems/type";
+} from "@/app/api/problems";
+import type { EditProblemRequest } from "@/app/api/problems/type";
 import {
   patchProblemAction,
   postProblemAction,

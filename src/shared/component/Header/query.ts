@@ -1,4 +1,4 @@
-import { getNotificationList } from "@/api/notifications";
+import { getNotificationList } from "@/app/api/notifications";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useNotificationsQuery = () => {

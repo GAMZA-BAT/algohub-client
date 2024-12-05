@@ -1,4 +1,4 @@
-import type { RankingContent } from "@/api/groups/type";
+import type { RankingContent } from "@/app/api/groups/type";
 import TabGroup from "@/common/component/Tab";
 import AllRanking from "@/view/group/dashboard/Ranking/AllRanking";
 import EmptyRanking from "@/view/group/dashboard/Ranking/EmptyRanking";

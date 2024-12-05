@@ -1,4 +1,4 @@
-import type { GroupResponse } from "@/api/groups/type";
+import type { GroupResponse } from "@/app/api/groups/type";
 import IcnNew from "@/asset/svg/icn_new.svg?url";
 import type { NotificationSettingsDataType } from "@/view/user/setting/NotificationSetting/NotificationSettingTable/type";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";

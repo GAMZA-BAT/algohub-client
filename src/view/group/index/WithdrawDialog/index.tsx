@@ -1,8 +1,8 @@
-import { useMyNicknameQuery } from "@/app/[user]/query";
 import Button from "@/common/component/Button";
 import PromptWithdraw from "@/view/group/index/WithdrawDialog/PromptWithdraw";
 import SuccessWithdraw from "@/view/group/index/WithdrawDialog/SuccessWithdraw";
 import { withdrawWrapper } from "@/view/group/index/WithdrawDialog/index.css";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -12,7 +12,7 @@ type WithdrawDialogProps = {
 
 const WithdrawDialog = ({ groupId: _groupId }: WithdrawDialogProps) => {
   const [isLeaving, setIsLeaving] = useState(false);
-  const userNickname = useMyNicknameQuery();
+  const userNickname = useSession().data?.user?.name;
 
   const router = useRouter();
 

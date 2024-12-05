@@ -1,4 +1,4 @@
-import type { GroupResponse, GroupStatus } from "@/api/groups/type";
+import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
 
 export type StudyListType = {
   status: GroupStatus;

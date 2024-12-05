@@ -3,6 +3,7 @@ import { style } from "@vanilla-extract/css";
 
 export const notificationContainer = style({
   position: "absolute",
+  zIndex: theme.zIndex.top,
   top: "7.2rem",
   right: "8rem",
 
