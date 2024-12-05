@@ -2,7 +2,10 @@
 
 import { groupSchema } from "@/api/groups/schema";
 import type { GroupResponse } from "@/api/groups/type";
-import { useDeleteGroupMutation } from "@/app/group/[groupId]/setting/query";
+import {
+  useDeleteGroupMutation,
+  usePatchGroupMutation,
+} from "@/app/group/[groupId]/setting/query";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import CodeClipboard from "@/shared/component/CodeClipboard";
 import PromptModal from "@/shared/component/PromptModal";
@@ -39,7 +42,6 @@ type SettingSidebarProps = {
 
 const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
   const groupId = useGetGroupId();
-  const { mutate: deleteMutate } = useDeleteGroupMutation(+groupId);
   const { isOpen, open, close } = useBooleanState();
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: zodResolver(groupSchema),
@@ -51,7 +53,8 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     },
   });
 
-  const handleDeleteGroup = () => deleteMutate(+groupId);
+  const { mutate: deleteMutate } = useDeleteGroupMutation(+groupId);
+  const { mutate: patchMutate } = usePatchGroupMutation(+groupId);
 
   const [url, setUrl] = useState(info.groupImage);
   const [file, setFile] = useState<Blob | null>();
@@ -65,7 +68,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     const introduction = form.getValues("introduction");
 
     if (file) {
-      data.append("image", file);
+      data.append("groupImage", file);
     }
     data.append(
       "request",
@@ -77,7 +80,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
       }),
     );
 
-    // const response = await patchGroupInfo(groupId, data);
+    patchMutate(data);
   };
   const error = form.formState.errors.endDate;
 
@@ -142,7 +145,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
             "삭제 시 스터디와 관련된 모든 데이터가 영구적으로 삭제됩니다.\n복구할 수 없으니 신중히 결정해 주세요."
           }
           confirmText="삭제하기"
-          onConfirm={handleDeleteGroup}
+          onConfirm={() => deleteMutate(+groupId)}
         />
       </div>
     </>

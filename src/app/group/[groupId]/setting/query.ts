@@ -5,6 +5,7 @@ import {
   deleteGroupMember,
   getGroupMemberList,
 } from "@/api/groups";
+import { editGroup } from "@/app/group/[groupId]/setting/action";
 import { useToast } from "@/common/hook/useToast";
 import {
   useMutation,
@@ -57,6 +58,26 @@ export const useDeleteGroupMutation = (groupId: number) => {
     },
     onError: () => {
       showToast("그룹이 정상적으로 삭제되지 않았어요.", "error");
+    },
+  });
+};
+
+export const usePatchGroupMutation = (groupId: number) => {
+  const queryClient = useQueryClient();
+
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (formData: FormData) => editGroup(groupId, formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["deleteGroup", groupId],
+      });
+
+      showToast("정상적으로 수정되었어요.", "success");
+    },
+    onError: () => {
+      showToast("그룹정보가 정상적으로 수정되지 않았어요.", "error");
     },
   });
 };
