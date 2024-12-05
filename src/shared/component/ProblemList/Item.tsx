@@ -1,12 +1,11 @@
 "use client";
 
 import type { ProblemContent } from "@/api/problems/type";
-import { IcnEdit } from "@/asset/svg";
 import CheckBox from "@/common/component/CheckBox";
+import ProblemEdit from "@/shared/component/ProblemList/ProblemEdit";
 import {
   checkboxStyle,
   commonStyle,
-  editIconStyle,
   iconStyle,
   itemStyle,
   titleStyle,
@@ -21,7 +20,6 @@ import { format } from "date-fns";
 import Link from "next/link";
 
 type ProblemListItemProps = Omit<ProblemContent, "startDate"> & {
-  onEdit?: (id: number) => void;
   isOwner?: boolean;
   className?: string;
 };
@@ -48,7 +46,6 @@ const ProblemListItem = ({
   accuracy,
   memberCount,
   submitMemberCount,
-  onEdit = () => {},
   isOwner = false,
 }: ProblemListItemProps) => {
   const groupId = useGetGroupId();
@@ -88,15 +85,7 @@ const ProblemListItem = ({
       >{`${submitMemberCount}/${memberCount}`}</span>
       <span className={commonStyle}>{`${accuracy}%`}</span>
       <div className={iconStyle}>{JSX_BY_STATUS[status]}</div>
-
-      {isOwner && (
-        <IcnEdit
-          onClick={() => onEdit(problemId)}
-          className={editIconStyle({ isActive })}
-          width={24}
-          height={24}
-        />
-      )}
+      {isOwner && <ProblemEdit problemId={problemId} isActive={isActive} />}
     </li>
   );
 };

@@ -1,55 +1,44 @@
-import { getSolution } from "@/api/solutions";
-import { useSuspenseQuery } from "@tanstack/react-query";
-
-import { deleteComment, editComment, getCommentList } from "@/api/comments";
-import { commentAction } from "@/app/group/[groupId]/solved-detail/[id]/action";
+import {
+  deleteNoticeComment,
+  getNoticeCommentList,
+  patchNoticeComment,
+  postNoticeComment,
+} from "@/api/notices";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 
-export const useSolutionQuery = (solutionId: number) => {
-  return useSuspenseQuery({
-    queryKey: ["solution", solutionId],
-    queryFn: () => getSolution(solutionId),
-  });
-};
-
-export const useCommentListQuery = (solutionId: number) => {
+export const useNoticeCommentListQuery = (noticeId: number) => {
   return useQuery({
-    queryKey: ["solution", "comment", solutionId],
-    queryFn: () => getCommentList(solutionId),
+    queryKey: ["notice", "comment", noticeId],
+    queryFn: () => getNoticeCommentList(noticeId),
   });
 };
 
-export const useCommentMutataion = (solutionId: number) => {
+export const useNoticeCommentMutation = (noticeId: number) => {
   const queryClient = useQueryClient();
 
-  const { showToast } = useToast();
-
   return useMutation({
-    mutationFn: (content: string) => commentAction(solutionId, content),
+    mutationFn: (content: string) => postNoticeComment(noticeId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["solution", "comment", solutionId],
+        queryKey: ["notice", "comment", noticeId],
       });
     },
-    onError: () => {
-      showToast("댓글을 작성하는데 실패하였어요", "error");
-    },
   });
 };
 
-export const useDeleteCommentMutation = (solutionId: number) => {
+export const useDeleteNoticeCommentMutation = (noticeId: number) => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (commentId: number) => deleteComment(commentId),
+    mutationFn: (commentId: number) => deleteNoticeComment(commentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["solution", "comment", solutionId],
+        queryKey: ["notice", "comment", noticeId],
       });
     },
     onError: (error: HTTPError) => {
@@ -64,8 +53,8 @@ export const useDeleteCommentMutation = (solutionId: number) => {
   });
 };
 
-export const useEditCommentMutation = (
-  solutionId: number,
+export const useEditNoticeCommentMutation = (
+  noticeId: number,
   commentId: number,
 ) => {
   const queryClient = useQueryClient();
@@ -73,10 +62,10 @@ export const useEditCommentMutation = (
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (content: string) => editComment(commentId, content),
+    mutationFn: (content: string) => patchNoticeComment(commentId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["solution", "comment", solutionId],
+        queryKey: ["notice", "comment", noticeId],
       });
     },
     onError: (error: HTTPError) => {

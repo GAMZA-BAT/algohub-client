@@ -10,13 +10,17 @@ export const itemStyle = style({
   position: "relative",
 
   display: "grid",
-  gridTemplateColumns: "0.5fr 4fr 6fr",
+  gridTemplateColumns: "0.5fr 2fr 2fr 6fr",
   alignItems: "center",
   gap: "1.6rem",
 
   width: "100%",
 
   padding: "0.8rem 1.6rem",
+});
+
+export const activeStyle = style({
+  backgroundColor: "rgba(34, 39, 52, 1)",
 });
 
 export const textStyle = style({

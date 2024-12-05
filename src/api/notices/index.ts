@@ -1,10 +1,54 @@
 import { kyInstance } from "@/api";
+import type { CommentContent } from "@/api/comments/type";
 import type {
   NoticeContent,
   NoticeListRequest,
   NoticeRequest,
   NoticeResponse,
 } from "@/api/notices/type";
+
+export const getNoticeCommentList = async (noticeId: number) => {
+  const response = await kyInstance
+    .get<CommentContent[]>(`api/notices/${noticeId}/comments`)
+    .json();
+
+  return response;
+};
+
+export const postNoticeComment = async (noticeId: number, content: string) => {
+  const response = await kyInstance
+    .post(`api/notices/${noticeId}/comments`, {
+      json: {
+        content,
+      },
+    })
+    .json();
+
+  return response;
+};
+
+export const deleteNoticeComment = async (commentId: number) => {
+  const response = await kyInstance
+    .delete(`api/notices/comments/${commentId}`)
+    .json();
+
+  return response;
+};
+
+export const patchNoticeComment = async (
+  commentId: number,
+  content: string,
+) => {
+  const response = await kyInstance
+    .patch(`api/notices/comments/${commentId}`, {
+      json: {
+        content,
+      },
+    })
+    .json();
+
+  return response;
+};
 
 export const getNotices = async ({
   groupId,
