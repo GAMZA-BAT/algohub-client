@@ -4,21 +4,25 @@ import PromptWithdraw from "@/view/group/index/WithdrawDialog/PromptWithdraw";
 import SuccessWithdraw from "@/view/group/index/WithdrawDialog/SuccessWithdraw";
 import { withdrawWrapper } from "@/view/group/index/WithdrawDialog/index.css";
 import { useWithdrawMutation } from "@/view/group/index/WithdrawDialog/query";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type WithdrawDialogProps = {
   groupId: number;
 };
 
-const WithdrawDialog = ({ groupId: _groupId }: WithdrawDialogProps) => {
+const WithdrawDialog = ({ groupId }: WithdrawDialogProps) => {
   const [isWithdrawn, setIsWithdrawn] = useState(false);
   const userNickname = useMyNicknameQuery();
+  const router = useRouter();
 
-  const { mutateAsync: withdraw } = useWithdrawMutation(groupId);
+  const { mutate: withdraw } = useWithdrawMutation();
 
   const handleBtnClick = () => {
     if (!isWithdrawn) {
-      withdraw();
+      withdraw(groupId, {
+        onSuccess: () => router.push(`/${userNickname}`),
+      });
     }
 
     setIsWithdrawn(true);

@@ -1,6 +1,7 @@
 "use client";
 
 import type { groupSchema } from "@/api/groups/schema";
+import { usePatchGroupMutation } from "@/app/group/[groupId]/setting/query";
 import SupportingText from "@/common/component/SupportingText";
 import { Form } from "@/shared/component/Form";
 import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";
@@ -13,7 +14,6 @@ import {
   formLabelStyle,
   formStyle,
 } from "@/shared/component/GroupInfoForm/index.css";
-import { usePatchGroupInfoQuery } from "@/shared/component/GroupInfoForm/query";
 import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { UseFormReturn } from "react-hook-form";
@@ -31,7 +31,7 @@ const GroupInfoForm = ({
   variant = "create-group",
 }: GroupFormProps) => {
   const groupId = useGetGroupId();
-  const { mutate: editGroupMutate } = usePatchGroupInfoQuery(+groupId);
+  const { mutate: editGroupMutate } = usePatchGroupMutation(+groupId);
 
   const handleSubmit = (values: z.infer<typeof groupSchema>) => {
     const data = getGroupFormData(values);
