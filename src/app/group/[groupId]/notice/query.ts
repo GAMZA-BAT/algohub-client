@@ -1,6 +1,11 @@
 import { getNoticeById, getNotices } from "@/api/notices";
 import type { NoticeListRequest, NoticeRequest } from "@/api/notices/type";
-import { noticeAction } from "@/app/group/[groupId]/notice/action";
+import {
+  deleteNoticeAction,
+  noticeAction,
+  patchNoticeAction,
+} from "@/app/group/[groupId]/notice/action";
+import { useToast } from "@/common/hook/useToast";
 import {
   useMutation,
   useQueryClient,
@@ -37,6 +42,43 @@ export const useNoticeMutation = (groupId: number) => {
         queryKey: ["notices", groupId],
       });
       router.push(`/group/${groupId}/notice`);
+    },
+  });
+};
+
+export const usePatchNoticeMutation = (noticeId: number) => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (requestData: NoticeRequest) =>
+      patchNoticeAction(noticeId, requestData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notice", noticeId],
+      });
+      showToast("정상적으로 수정되었어요.", "success");
+    },
+    onError: () => {
+      showToast("정상적으로 수정되지 않았어요.", "error");
+    },
+  });
+};
+
+export const useDeleteNoticeMutation = (groupId: number, noticeId: number) => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: () => deleteNoticeAction(noticeId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notices", groupId],
+      });
+      showToast("정상적으로 삭제되었어요.", "success");
+    },
+    onError: () => {
+      showToast("정상적으로 삭제되지 않았어요.", "error");
     },
   });
 };

@@ -19,6 +19,7 @@ const SignupForm = () => {
   const {
     form,
     handleSubmit,
+    handleBlurEmail,
     idMsg,
     passwordError,
     passwordMsg,
@@ -39,7 +40,8 @@ const SignupForm = () => {
               type="input"
               showDescription
               fieldProps={{
-                placeholder: "아이디",
+                placeholder: "이메일",
+                onBlurCapture: handleBlurEmail,
               }}
               descriptionProps={{
                 showErrorIcon: false,

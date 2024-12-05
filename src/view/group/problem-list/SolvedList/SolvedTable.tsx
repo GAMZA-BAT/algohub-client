@@ -1,6 +1,6 @@
 "use client";
 
-import type { SolutionContent, SolutionResponse } from "@/api/solutions/type";
+import type { SolutionContent } from "@/api/solutions/type";
 import Avatar from "@/common/component/Avatar";
 import {
   SOLVED_TABLE_BODY,
@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 
 type SolvedTableProps = {
   groupId: string;
-  content: SolutionResponse["content"];
+  content: SolutionContent[];
 };
 
 const SolvedTable = ({ groupId, content }: SolvedTableProps) => {
@@ -29,7 +29,7 @@ const SolvedTable = ({ groupId, content }: SolvedTableProps) => {
 
   const formatCellValue = (
     prop: keyof SolutionContent,
-    value: string | number,
+    value: string | number | undefined,
   ) => {
     switch (prop) {
       case "memoryUsage":

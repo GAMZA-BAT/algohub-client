@@ -97,7 +97,7 @@ export const Default = {
     return (
       <ul>
         {data.map((solution) => (
-          <SolvedItem key={solution.solutionId} {...solution} />
+          <SolvedItem key={solution.solutionId} solutionInfo={solution} />
         ))}
       </ul>
     );

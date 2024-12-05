@@ -6,6 +6,7 @@ import {
   getGroupMemberList,
 } from "@/api/groups";
 import { editGroup } from "@/app/group/[groupId]/setting/action";
+import { useMyNicknameQuery } from "@/app/[user]/query";
 import { useToast } from "@/common/hook/useToast";
 import {
   useMutation,
@@ -45,6 +46,8 @@ export const useDeleteGroupMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
+  const userNickname = useMyNicknameQuery();
+
   return useMutation({
     mutationFn: (groupId: number) => deleteGroup(groupId),
     onSuccess: () => {
@@ -53,7 +56,7 @@ export const useDeleteGroupMutation = (groupId: number) => {
       });
       showToast("그룹이 정상적으로 삭제되었어요.", "success");
       setTimeout(() => {
-        router.push("/user");
+        router.push(`/${userNickname}`);
       }, 1000);
     },
     onError: () => {

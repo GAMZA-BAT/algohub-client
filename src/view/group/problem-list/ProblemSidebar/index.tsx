@@ -10,8 +10,8 @@ import type {} from "react";
 
 const ProblemSidebar = () => {
   const { open, isOpen, close } = useBooleanState();
-  const { mutate: postProblemMutate } = usePostProblemMutation();
   const groupId = useGetGroupId();
+  const { mutate: postProblemMutate } = usePostProblemMutation(+groupId);
 
   const handleSubmit = (
     link: string,

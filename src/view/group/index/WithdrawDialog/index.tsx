@@ -1,3 +1,4 @@
+import { useMyNicknameQuery } from "@/app/[user]/query";
 import Button from "@/common/component/Button";
 import PromptWithdraw from "@/view/group/index/WithdrawDialog/PromptWithdraw";
 import SuccessWithdraw from "@/view/group/index/WithdrawDialog/SuccessWithdraw";
@@ -9,8 +10,9 @@ type WithdrawDialogProps = {
   groupId: number;
 };
 
-const WithdrawDialog = ({ groupId }: WithdrawDialogProps) => {
-  const [isWithdrawn, setIsLeaving] = useState(false);
+const WithdrawDialog = ({ groupId: _groupId }: WithdrawDialogProps) => {
+  const [isWithdrawn, setIsWithdrawn] = useState(false);
+  const userNickname = useMyNicknameQuery();
 
   const { mutateAsync: withdraw } = useWithdrawMutation(groupId);
 
@@ -19,7 +21,7 @@ const WithdrawDialog = ({ groupId }: WithdrawDialogProps) => {
       withdraw();
     }
 
-    setIsLeaving(true);
+    setIsWithdrawn(true);
   };
 
   return (

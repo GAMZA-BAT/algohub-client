@@ -1,3 +1,5 @@
+import type { PaginationResponse } from "@/api/type";
+
 export type SolutionRequest = {
   problemId: number;
   language?: SolutionLanguage;
@@ -24,35 +26,11 @@ export type SolutionContent = {
   language: SolutionLanguage;
   codeLength: number;
   commentCount: number;
+  groupId?: number;
 };
 
-export type SolutionSort = {
-  empty: boolean;
-  sorted: boolean;
-  unsorted: boolean;
-};
-
-export type SolutionPageable = {
-  offset: number;
-  sort: SolutionSort;
-  paged: boolean;
-  pageNumber: number;
-  pageSize: number;
-  unpaged: boolean;
-};
-
-export type SolutionResponse = {
-  totalPages: number;
-  totalElements: number;
-  first: boolean;
-  last: boolean;
-  size: number;
+export type SolutionResponse = PaginationResponse & {
   content: SolutionContent[];
-  number: number;
-  sort: SolutionSort;
-  numberOfElements: number;
-  pageable: SolutionPageable;
-  empty: boolean;
 };
 
 export type SolutionLanguage =

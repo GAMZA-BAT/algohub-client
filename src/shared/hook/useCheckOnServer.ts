@@ -1,10 +1,9 @@
-import { validateNickname } from "@/api/validate";
+import { validateBojNickname, validateNickname } from "@/api/users";
 import { baseSignupSchema } from "@/view/signup/SignupForm/schema";
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
-// TODO: API연결 후 useQuery로 교체하며 동일하게 기능 적용하기
 export const useCheckOnServer = (
   form: UseFormReturn<z.infer<typeof baseSignupSchema>>,
   nickname: string,
@@ -16,7 +15,7 @@ export const useCheckOnServer = (
   const handleValidation = async (
     fieldName: "nickname" | "baekjoonId",
     value: string,
-    validateFn: typeof validateNickname,
+    validateFn: typeof validateNickname | typeof validateBojNickname,
     loadingSetter: (value: boolean) => void,
   ) => {
     if (!value.length) {
@@ -48,7 +47,7 @@ export const useCheckOnServer = (
         form.clearErrors(fieldName);
       } else {
         form.setError(fieldName, {
-          message: `${fieldName === "nickname" ? "중복된 닉네임이에요." : "이미 등록된 아이디에요."}`,
+          message: `${fieldName === "nickname" ? "중복된 닉네임이에요." : "유효하지 않은 닉네임이에요."}`,
           type: "custom",
         });
       }
@@ -72,7 +71,7 @@ export const useCheckOnServer = (
     handleValidation(
       "baekjoonId",
       baekjoonId,
-      validateNickname,
+      validateBojNickname,
       setBaekjoonIdLoading,
     );
   }, [baekjoonId]);
