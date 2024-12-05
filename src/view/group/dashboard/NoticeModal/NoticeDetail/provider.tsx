@@ -4,13 +4,15 @@ type Context = {
   noticeEditingItem: number | null;
   handleNoticeEditItem: (id: number) => void;
   handleNoticeReset: () => void;
+  noticeId: number;
 };
 
 export const NoticeCommentsContext = createContext<Context>({} as Context);
 
 export const NoticeCommentsProvider = ({
   children,
-}: { children: ReactNode }) => {
+  noticeId,
+}: { children: ReactNode; noticeId: number }) => {
   const [noticeEditingItem, setNoticeEditingItem] = useState<number | null>(
     null,
   );
@@ -25,7 +27,12 @@ export const NoticeCommentsProvider = ({
 
   return (
     <NoticeCommentsContext.Provider
-      value={{ noticeEditingItem, handleNoticeEditItem, handleNoticeReset }}
+      value={{
+        noticeEditingItem,
+        handleNoticeEditItem,
+        handleNoticeReset,
+        noticeId,
+      }}
     >
       {children}
     </NoticeCommentsContext.Provider>

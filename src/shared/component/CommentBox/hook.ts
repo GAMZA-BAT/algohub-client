@@ -16,8 +16,12 @@ export const useEditForm = (commentId: number, defaultValue: string) => {
   const { editingItem, handleEditItem, handleReset, solutionId } =
     useContext(CommentsContext);
 
-  const { noticeEditingItem, handleNoticeEditItem, handleNoticeReset } =
-    useContext(NoticeCommentsContext);
+  const {
+    noticeEditingItem,
+    handleNoticeEditItem,
+    handleNoticeReset,
+    noticeId,
+  } = useContext(NoticeCommentsContext);
 
   const { register, setValue, setFocus, handleSubmit } = useForm<EditForm>({
     defaultValues: {
@@ -26,7 +30,10 @@ export const useEditForm = (commentId: number, defaultValue: string) => {
   });
 
   const { mutate: editMutate } = useEditCommentMutation(solutionId, commentId);
-  const { mutate: noticeEditMutate } = useEditNoticeCommentMutation(commentId);
+  const { mutate: noticeEditMutate } = useEditNoticeCommentMutation(
+    noticeId,
+    commentId,
+  );
 
   const isEditing = editingItem === commentId;
   const isNoticeEditing = noticeEditingItem === commentId;
@@ -63,11 +70,11 @@ export const useEditForm = (commentId: number, defaultValue: string) => {
     e.stopPropagation();
 
     if (e.key === "Enter" && !e.shiftKey) {
-      handleSubmit(handleDetailEditSubmit)();
+      handleSubmit(handleNoticeEditSubmit)();
     }
 
     if (e.key === "Escape") {
-      handleReset();
+      handleNoticeReset();
 
       setValue("input", defaultValue);
     }

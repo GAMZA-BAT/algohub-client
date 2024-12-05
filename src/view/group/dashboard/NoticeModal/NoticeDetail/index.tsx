@@ -48,7 +48,8 @@ const NoticeDetail = ({
 
   const { data: commentList } = useNoticeCommentListQuery(noticeId);
   const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
-  const { mutate: deleteCommentMutate } = useDeleteNoticeCommentMutation();
+  const { mutate: deleteCommentMutate } =
+    useDeleteNoticeCommentMutation(noticeId);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -132,7 +133,7 @@ const NoticeDetail = ({
 
       {/* 댓글란 */}
       <ul className={listStyle}>
-        <NoticeCommentsProvider>
+        <NoticeCommentsProvider noticeId={noticeId}>
           {commentList?.map((item, idx) => (
             <CommentBox
               key={item.commentId}

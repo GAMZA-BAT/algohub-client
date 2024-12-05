@@ -29,7 +29,7 @@ export const useNoticeCommentMutation = (noticeId: number) => {
   });
 };
 
-export const useDeleteNoticeCommentMutation = () => {
+export const useDeleteNoticeCommentMutation = (noticeId: number) => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
@@ -38,7 +38,7 @@ export const useDeleteNoticeCommentMutation = () => {
     mutationFn: (commentId: number) => deleteNoticeComment(commentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["comment"],
+        queryKey: ["notice", "comment", "list", noticeId],
       });
     },
     onError: (error: HTTPError) => {
@@ -53,7 +53,10 @@ export const useDeleteNoticeCommentMutation = () => {
   });
 };
 
-export const useEditNoticeCommentMutation = (commentId: number) => {
+export const useEditNoticeCommentMutation = (
+  noticeId: number,
+  commentId: number,
+) => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
@@ -62,7 +65,7 @@ export const useEditNoticeCommentMutation = (commentId: number) => {
     mutationFn: (content: string) => patchNoticeComment(commentId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["comment"],
+        queryKey: ["notice", "comment", "list", noticeId],
       });
     },
     onError: (error: HTTPError) => {
