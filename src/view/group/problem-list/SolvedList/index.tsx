@@ -24,7 +24,7 @@ const SolvedList = ({ groupId, problemInfo, content }: SolvedListProps) => {
   const router = useRouter();
 
   const handleBack = () => {
-    router.push(`group/${groupId}/problem-list`);
+    router.push(`/group/${groupId}/problem-list`);
   };
 
   return (
