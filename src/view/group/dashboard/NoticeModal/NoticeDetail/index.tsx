@@ -134,19 +134,22 @@ const NoticeDetail = ({
       {/* 댓글란 */}
       <ul className={listStyle}>
         <NoticeCommentsProvider noticeId={noticeId}>
-          {commentList?.map((item, idx) => (
-            <CommentBox
-              key={item.commentId}
-              className={idx !== 2 ? itemStyle : ""}
-              variant="notice"
-              commentId={item.commentId}
-              createdAt={item.createdAt}
-              content={item.content}
-              writerNickname={item.writerNickname}
-              writerProfileImage={item.writerProfileImage}
-              onDelete={deleteCommentMutate}
-            />
-          ))}
+          {commentList
+            ?.slice()
+            .reverse()
+            .map((item, idx) => (
+              <CommentBox
+                key={item.commentId}
+                className={idx !== 2 ? itemStyle : ""}
+                variant="notice"
+                commentId={item.commentId}
+                createdAt={item.createdAt}
+                content={item.content}
+                writerNickname={item.writerNickname}
+                writerProfileImage={item.writerProfileImage}
+                onDelete={deleteCommentMutate}
+              />
+            ))}
         </NoticeCommentsProvider>
       </ul>
 
