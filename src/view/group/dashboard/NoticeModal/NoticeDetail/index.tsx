@@ -7,12 +7,12 @@ import Textarea from "@/common/component/Textarea";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import { NoticeCommentsProvider } from "@/view/group/dashboard/NoticeModal/NoticeDetail/provider";
 import {
   useDeleteNoticeCommentMutation,
   useNoticeCommentListQuery,
   useNoticeCommentMutation,
 } from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
-import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
 import { type FormEvent, useRef, useState } from "react";
 import {
   articleStyle,
@@ -132,7 +132,7 @@ const NoticeDetail = ({
 
       {/* 댓글란 */}
       <ul className={listStyle}>
-        <CommentsProvider>
+        <NoticeCommentsProvider>
           {commentList?.map((item, idx) => (
             <CommentBox
               key={item.commentId}
@@ -146,7 +146,7 @@ const NoticeDetail = ({
               onDelete={deleteCommentMutate}
             />
           ))}
-        </CommentsProvider>
+        </NoticeCommentsProvider>
       </ul>
 
       {/* 댓글 입력란 */}

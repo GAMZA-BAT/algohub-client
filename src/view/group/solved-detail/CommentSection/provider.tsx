@@ -4,7 +4,7 @@ type Context = {
   editingItem: number | null;
   handleEditItem: (id: number) => void;
   handleReset: () => void;
-  solutionId?: number;
+  solutionId: number;
 };
 
 export const CommentsContext = createContext<Context>({} as Context);
@@ -12,7 +12,7 @@ export const CommentsContext = createContext<Context>({} as Context);
 export const CommentsProvider = ({
   children,
   solutionId,
-}: { children: ReactNode; solutionId?: number }) => {
+}: { children: ReactNode; solutionId: number }) => {
   const [editingItem, setEditingItem] = useState<number | null>(null);
 
   const handleEditItem = (id: number) => {
