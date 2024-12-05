@@ -1,4 +1,3 @@
-import type { CommentContent } from "@/api/comments/type";
 import {
   deleteNoticeComment,
   getNoticeCommentList,
@@ -14,7 +13,6 @@ export const useNoticeCommentListQuery = (noticeId: number) => {
   return useQuery({
     queryKey: ["notice", "comment", noticeId],
     queryFn: () => getNoticeCommentList(noticeId),
-    select: (data: CommentContent[]) => data.reverse(),
   });
 };
 
