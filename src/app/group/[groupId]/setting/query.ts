@@ -5,8 +5,8 @@ import {
   deleteGroupMember,
   getGroupMemberList,
 } from "@/api/groups";
-import { editGroup } from "@/app/group/[groupId]/setting/action";
 import { useMyNicknameQuery } from "@/app/[user]/query";
+import { editGroup } from "@/app/group/[groupId]/setting/action";
 import { useToast } from "@/common/hook/useToast";
 import {
   useMutation,
