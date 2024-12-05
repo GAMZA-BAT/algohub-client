@@ -1,6 +1,5 @@
 "use client";
 
-import type { CommentContent } from "@/api/comments/type";
 import type { NoticeContent } from "@/api/notices/type";
 import {
   useDeleteNoticeMutation,
@@ -12,6 +11,7 @@ import Textarea from "@/common/component/Textarea";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { NoticeCommentsProvider } from "@/view/group/dashboard/NoticeModal/NoticeDetail/provider";
 import {
   useDeleteNoticeCommentMutation,
@@ -19,7 +19,6 @@ import {
   useNoticeCommentMutation,
 } from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
 import { type FormEvent, useRef, useState } from "react";
-import useGetGroupId from "@/shared/hook/useGetGroupId";
 import {
   articleStyle,
   contentStyle,
