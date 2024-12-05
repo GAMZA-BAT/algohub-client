@@ -16,11 +16,11 @@ const WithdrawDialog = ({ groupId }: WithdrawDialogProps) => {
   const userNickname = useMyNicknameQuery();
   const router = useRouter();
 
-  const { mutate: withdraw } = useWithdrawMutation();
+  const { mutate: withdrawMutate } = useWithdrawMutation();
 
   const handleBtnClick = () => {
     if (!isWithdrawn) {
-      withdraw(groupId, {
+      withdrawMutate(groupId, {
         onSuccess: () => router.push(`/${userNickname}`),
       });
     }

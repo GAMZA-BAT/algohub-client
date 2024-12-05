@@ -8,7 +8,7 @@ export const useWithdrawMutation = () => {
     mutationFn: (groupId: number) => withdrawGroup(groupId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["group", "list", "user"],
+        queryKey: ["group", "user"],
       });
     },
   });
