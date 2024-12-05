@@ -55,6 +55,11 @@ const NoticeDetail = ({
   const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
   const { mutate: deleteCommentMutate } =
     useDeleteNoticeCommentMutation(noticeId);
+  const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
+  const { mutate: deleteMutate } = useDeleteNoticeMutation(
+    +useGetGroupId(),
+    noticeId,
+  );
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,12 +69,6 @@ const NoticeDetail = ({
       onSuccess: () => setComment(""),
     });
   };
-
-  const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
-  const { mutate: deleteMutate } = useDeleteNoticeMutation(
-    +useGetGroupId(),
-    noticeId,
-  );
 
   const handleEditClick = () => {
     if (!isEdit) {
@@ -154,22 +153,19 @@ const NoticeDetail = ({
       {/* 댓글란 */}
       <ul className={listStyle}>
         <NoticeCommentsProvider noticeId={noticeId}>
-          {commentList
-            ?.slice()
-            .reverse()
-            .map((item, idx) => (
-              <CommentBox
-                key={item.commentId}
-                className={idx !== 2 ? itemStyle : ""}
-                variant="notice"
-                commentId={item.commentId}
-                createdAt={item.createdAt}
-                content={item.content}
-                writerNickname={item.writerNickname}
-                writerProfileImage={item.writerProfileImage}
-                onDelete={deleteCommentMutate}
-              />
-            ))}
+          {commentList?.map((item) => (
+            <CommentBox
+              key={item.commentId}
+              className={itemStyle}
+              variant="notice"
+              commentId={item.commentId}
+              createdAt={item.createdAt}
+              content={item.content}
+              writerNickname={item.writerNickname}
+              writerProfileImage={item.writerProfileImage}
+              onDelete={deleteCommentMutate}
+            />
+          ))}
         </NoticeCommentsProvider>
       </ul>
 

@@ -1,3 +1,4 @@
+import type { CommentContent } from "@/api/comments/type";
 import {
   deleteNoticeComment,
   getNoticeCommentList,
@@ -11,8 +12,9 @@ import type { HTTPError } from "ky";
 
 export const useNoticeCommentListQuery = (noticeId: number) => {
   return useQuery({
-    queryKey: ["notice", "comment", "list", noticeId],
+    queryKey: ["notice", "comment", noticeId],
     queryFn: () => getNoticeCommentList(noticeId),
+    select: (data: CommentContent[]) => data.reverse(),
   });
 };
 
@@ -23,7 +25,7 @@ export const useNoticeCommentMutation = (noticeId: number) => {
     mutationFn: (content: string) => postNoticeComment(noticeId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["notice", "comment", "list", noticeId],
+        queryKey: ["notice", "comment", noticeId],
       });
     },
   });
@@ -38,7 +40,7 @@ export const useDeleteNoticeCommentMutation = (noticeId: number) => {
     mutationFn: (commentId: number) => deleteNoticeComment(commentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["notice", "comment", "list", noticeId],
+        queryKey: ["notice", "comment", noticeId],
       });
     },
     onError: (error: HTTPError) => {
@@ -65,7 +67,7 @@ export const useEditNoticeCommentMutation = (
     mutationFn: (content: string) => patchNoticeComment(commentId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["notice", "comment", "list", noticeId],
+        queryKey: ["notice", "comment", noticeId],
       });
     },
     onError: (error: HTTPError) => {
