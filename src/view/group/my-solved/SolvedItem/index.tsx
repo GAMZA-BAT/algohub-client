@@ -13,25 +13,27 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const SolvedItem = ({
-  problemLevel,
-  problemTitle,
-  solutionId,
-  solvedDateTime,
-  result,
-  memoryUsage = 0,
-  executionTime,
-  language,
-  codeLength,
-  commentCount = 0,
-}: SolutionContent) => {
-  const groupId = useGetGroupId();
+const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
+  const {
+    problemLevel,
+    problemTitle,
+    solutionId,
+    solvedDateTime,
+    result,
+    memoryUsage,
+    executionTime,
+    language,
+    codeLength,
+    commentCount,
+    groupId,
+  } = solutionInfo;
+  const pathGroupId = useGetGroupId();
   const LevelIcon = getTierImage(problemLevel);
 
   const router = useRouter();
 
   const handleClickItem = () => {
-    router.push(`/group/${groupId}/problem-list/${solutionId}`);
+    router.push(`/group/${groupId || pathGroupId}/solved-detail/${solutionId}`);
   };
 
   return (

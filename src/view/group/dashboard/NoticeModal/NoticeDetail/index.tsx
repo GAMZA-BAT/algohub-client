@@ -1,6 +1,11 @@
 "use client";
 
+import type { CommentContent } from "@/api/comments/type";
 import type { NoticeContent } from "@/api/notices/type";
+import {
+  useDeleteNoticeMutation,
+  usePatchNoticeMutation,
+} from "@/app/group/[groupId]/notice/query";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -14,6 +19,7 @@ import {
   useNoticeCommentMutation,
 } from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
 import { type FormEvent, useRef, useState } from "react";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import {
   articleStyle,
   contentStyle,
@@ -60,14 +66,29 @@ const NoticeDetail = ({
     });
   };
 
+  const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
+  const { mutate: deleteMutate } = useDeleteNoticeMutation(
+    +useGetGroupId(),
+    noticeId,
+  );
+
   const handleEditClick = () => {
-    setIsEdit(!isEdit);
-    // disabled 일땐 자동으로 focus 적용 안함
-    setTimeout(() => textareaRef.current?.focus());
+    if (!isEdit) {
+      setIsEdit(true);
+      setTimeout(() => textareaRef.current?.focus());
+      return;
+    }
+
+    setIsEdit(false);
+    patchMutate({
+      title,
+      content: textareaRef.current?.value || "",
+      category,
+    });
   };
+
   const handleDeleteClick = () => {
-    // TODO: 삭제 api 추가
-    // TODO: 삭제 안내 창 띄우기
+    deleteMutate();
     goBack();
   };
 

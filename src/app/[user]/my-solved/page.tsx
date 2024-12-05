@@ -9,7 +9,7 @@ import { sidebarWrapper } from "@/styles/shared.css";
 import MySolvedSection from "@/view/group/my-solved/Section";
 import { useState } from "react";
 
-const MyGroupSolvedPage = () => {
+const MySolvedPage = () => {
   const [inProgressPage, setInProgressPage] = useState(1);
   const [expiredPage, setExpiredPage] = useState(1);
 
@@ -44,4 +44,4 @@ const MyGroupSolvedPage = () => {
   );
 };
 
-export default MyGroupSolvedPage;
+export default MySolvedPage;

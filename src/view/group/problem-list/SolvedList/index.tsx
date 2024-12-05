@@ -1,6 +1,6 @@
 "use client";
 import type { ProblemContent } from "@/api/problems/type";
-import type { SolutionResponse } from "@/api/solutions/type";
+import type { SolutionContent } from "@/api/solutions/type";
 import { IcnBtnArrowLeft } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
@@ -17,13 +17,14 @@ import { useRouter } from "next/navigation";
 type SolvedListProps = {
   groupId: string;
   problemInfo: ProblemContent;
-  content: SolutionResponse["content"];
+  content: SolutionContent[];
 };
+
 const SolvedList = ({ groupId, problemInfo, content }: SolvedListProps) => {
   const router = useRouter();
 
   const handleBack = () => {
-    router.back();
+    router.push(`group/${groupId}/problem-list`);
   };
 
   return (

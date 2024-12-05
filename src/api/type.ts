@@ -1,3 +1,5 @@
+import type { SolutionContent } from "@/api/solutions/type";
+
 export type PaginationResponse = {
   totalPages: number;
   totalElements: number;
@@ -24,4 +26,17 @@ export type PaginationResponse = {
     unpaged: boolean;
   };
   empty: boolean;
+};
+
+export type MySolutionRequest = {
+  groupId?: number;
+  problemNumber?: number;
+  language?: number;
+  result?: string;
+  page?: number;
+  size?: number;
+};
+
+export type MySolutionResponse = PaginationResponse & {
+  content: SolutionContent[];
 };

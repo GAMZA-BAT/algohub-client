@@ -1,6 +1,6 @@
 import { getGroupInfo, getGroupMemberList } from "@/api/groups";
 import { getAllRanking } from "@/api/groups/ranking";
-import type { ProblemContent } from "@/api/problems/type";
+import { getDeadlineReachedProblems } from "@/api/problems";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";
@@ -15,51 +15,15 @@ const GroupDashboardPage = async ({
   const groupInfoData = getGroupInfo(+groupId);
   const rankingData = getAllRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
+  const deadlineReachedData = getDeadlineReachedProblems(+groupId);
 
-  const [groupInfo, rankingInfo, memberInfo] = await Promise.all([
-    groupInfoData,
-    rankingData,
-    memberData,
-  ]);
-
-  const data: ProblemContent[] = [
-    {
-      problemId: 1,
-      link: "",
-      title: "트리에서의 동적 계획법",
-      startDate: "2024-10-10",
-      endDate: "2024-11-01",
-      level: 2,
-      solved: false,
-      submitMemberCount: 50,
-      memberCount: 200,
-      accuracy: 25,
-    },
-    {
-      problemId: 2,
-      link: "",
-      title: "트리에서의 동적 계획법",
-      startDate: "2024-10-10",
-      endDate: "2024-10-14",
-      level: 2,
-      solved: false,
-      submitMemberCount: 50,
-      memberCount: 200,
-      accuracy: 25,
-    },
-    {
-      problemId: 3,
-      link: "",
-      title: "트리에서의 동적 계획법",
-      startDate: "2024-10-10",
-      endDate: "2024-11-01",
-      level: 2,
-      solved: true,
-      submitMemberCount: 50,
-      memberCount: 200,
-      accuracy: 25,
-    },
-  ];
+  const [groupInfo, rankingInfo, memberInfo, deadlineReachedInfo] =
+    await Promise.all([
+      groupInfoData,
+      rankingData,
+      memberData,
+      deadlineReachedData,
+    ]);
 
   return (
     <main className={sidebarWrapper}>
@@ -73,7 +37,7 @@ const GroupDashboardPage = async ({
         <section>
           <ProblemList.Header />
           <ProblemList>
-            {data.map((item) => (
+            {deadlineReachedInfo.map((item) => (
               <ProblemList.Item key={item.problemId} {...item} />
             ))}
           </ProblemList>
