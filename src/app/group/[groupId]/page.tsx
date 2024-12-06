@@ -1,4 +1,8 @@
-import { getGroupInfo, getGroupMemberList } from "@/api/groups";
+import {
+  getGroupInfo,
+  getGroupMemberList,
+  getRoleByGroupId,
+} from "@/api/groups";
 import { getAllRanking } from "@/api/groups/ranking";
 import { getDeadlineReachedProblems } from "@/api/problems";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
@@ -16,19 +20,25 @@ const GroupDashboardPage = async ({
   const rankingData = getAllRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
   const deadlineReachedData = getDeadlineReachedProblems(+groupId);
+  const userRoleData = getRoleByGroupId(+groupId);
 
-  const [groupInfo, rankingInfo, memberInfo, deadlineReachedInfo] =
+  const [groupInfo, rankingInfo, memberInfo, deadlineReachedInfo, userRole] =
     await Promise.all([
       groupInfoData,
       rankingData,
       memberData,
       deadlineReachedData,
+      userRoleData,
     ]);
 
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <GroupSidebar info={groupInfo} memberList={memberInfo} />
+        <GroupSidebar
+          info={groupInfo}
+          memberList={memberInfo}
+          role={userRole}
+        />
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
