@@ -15,11 +15,11 @@ import {
 
 const RoleDropdownMenu = () => {
   const dispatch = useMemberListDispatch();
-  const handleFilterChange = (status: string) => {
+  const handleFilterChange = (role: Role) => {
     dispatch({
       type: "SET_FILTER",
       key: "role",
-      value: status,
+      value: role,
     });
   };
 
@@ -35,7 +35,7 @@ const RoleDropdownMenu = () => {
       renderList={
         <Dropdown className={dropdownStyle}>
           {Object.keys(ROLE).map((role) => {
-            const handleClick = () => handleFilterChange(role);
+            const handleClick = () => handleFilterChange(role as Role);
             return (
               <li
                 key={role}
