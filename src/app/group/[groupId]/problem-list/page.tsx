@@ -1,19 +1,16 @@
 "use client";
 
-import {
-  useExpiredProblemQuery,
-  useInProgressProblemQuery,
-} from "@/app/group/[groupId]/problem-list/query";
+import { getExpiredProblems, getInProgressProblems } from "@/api/problems";
 import { useGroupRoleQuery } from "@/app/group/[groupId]/query";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
+import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ProgressList from "@/view/group/problem-list";
 import PendingList from "@/view/group/problem-list/PendingList";
 import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
 import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
 import { pageStyle, titleStyle } from "@/view/group/problem-list/index.css";
-import { useState } from "react";
 
 const ProblemListPage = ({
   params: { groupId },
@@ -21,16 +18,28 @@ const ProblemListPage = ({
   const { data: role } = useGroupRoleQuery(+groupId);
   const isOwner = role !== "PARTICIPANT";
 
-  const [inProgressPage, setInProgressPage] = useState(1);
-  const [expiredPage, setExpiredPage] = useState(1);
+  const {
+    data: inProgressData,
+    currentPage: inProgressPage,
+    totalPages: inProgressTotalPages,
+    setCurrentPage: setInProgressPage,
+  } = usePaginationQuery({
+    queryKey: ["inProgressProblem", groupId],
+    queryFn: (page) =>
+      getInProgressProblems({ groupId: +groupId, page, size: 3 }),
+  });
+  const inProgressList = inProgressData?.content;
 
-  const { content: inProgressData, totalPages: inProgressTotalPages } =
-    useInProgressProblemQuery(+groupId, inProgressPage - 1);
-  const { content: expiredData, totalPages: expiredTotalPages } =
-    useExpiredProblemQuery(+groupId, expiredPage - 1);
-
-  const handleInProgressPageChange = (page: number) => setInProgressPage(page);
-  const handleExpiredPageChange = (page: number) => setExpiredPage(page);
+  const {
+    data: expiredData,
+    currentPage: expiredPage,
+    totalPages: expiredTotalPages,
+    setCurrentPage: setExpiredPage,
+  } = usePaginationQuery({
+    queryKey: ["expiredProblem", groupId],
+    queryFn: (page) => getExpiredProblems({ groupId: +groupId, page, size: 3 }),
+  });
+  const expiredList = expiredData?.content;
 
   return (
     <main className={sidebarWrapper}>
@@ -50,25 +59,25 @@ const ProblemListPage = ({
               <section>
                 <div style={{ width: "100%", margin: "1.6rem 0" }}>
                   <h2 className={titleStyle}>진행중인 문제</h2>
-                  {inProgressData.length && (
+                  {inProgressList?.length && (
                     <ProgressList
-                      data={inProgressData}
+                      data={inProgressList}
                       totalPages={inProgressTotalPages}
                       currentPage={inProgressPage}
-                      onPageChange={handleInProgressPageChange}
                       isOwner={isOwner}
+                      onPageChange={setInProgressPage}
                     />
                   )}
                 </div>
                 <div style={{ width: "100%", margin: "1.6rem 0" }}>
                   <h2 className={titleStyle}>만료된 문제</h2>
-                  {expiredData.length && (
+                  {expiredList?.length && (
                     <ProgressList
-                      data={expiredData}
+                      data={expiredList}
                       totalPages={expiredTotalPages}
                       currentPage={expiredPage}
-                      onPageChange={handleExpiredPageChange}
                       isOwner={false}
+                      onPageChange={setExpiredPage}
                     />
                   )}
                 </div>
@@ -86,25 +95,25 @@ const ProblemListPage = ({
           <section>
             <div style={{ width: "100%", margin: "1.6rem 0" }}>
               <h2 className={titleStyle}>진행중인 문제</h2>
-              {inProgressData.length && (
+              {inProgressList?.length && (
                 <ProgressList
-                  data={inProgressData}
+                  data={inProgressList}
                   totalPages={inProgressTotalPages}
                   currentPage={inProgressPage}
-                  onPageChange={handleInProgressPageChange}
                   isOwner={isOwner}
+                  onPageChange={setInProgressPage}
                 />
               )}
             </div>
             <div style={{ width: "100%", margin: "1.6rem 0" }}>
               <h2 className={titleStyle}>만료된 문제</h2>
-              {expiredData.length && (
+              {expiredList?.length && (
                 <ProgressList
-                  data={expiredData}
+                  data={expiredList}
                   totalPages={expiredTotalPages}
                   currentPage={expiredPage}
-                  onPageChange={handleExpiredPageChange}
                   isOwner={false}
+                  onPageChange={setExpiredPage}
                 />
               )}
             </div>

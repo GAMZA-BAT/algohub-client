@@ -1,9 +1,5 @@
-import {
-  getGroupInfo,
-  getGroupMemberList,
-  getRoleByGroupId,
-} from "@/api/groups";
-import { getAllRanking } from "@/api/groups/ranking";
+import { getGroupInfo, getGroupMemberList } from "@/api/groups";
+import { getTopRanking } from "@/api/groups/ranking";
 import { getDeadlineReachedProblems } from "@/api/problems";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
@@ -17,32 +13,26 @@ const GroupDashboardPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
   const groupInfoData = getGroupInfo(+groupId);
-  const rankingData = getAllRanking(+groupId);
+  const rankingData = getTopRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
   const deadlineReachedData = getDeadlineReachedProblems(+groupId);
-  const userRoleData = getRoleByGroupId(+groupId);
 
-  const [groupInfo, rankingInfo, memberInfo, deadlineReachedInfo, userRole] =
+  const [groupInfo, rankingInfo, memberInfo, deadlineReachedInfo] =
     await Promise.all([
       groupInfoData,
       rankingData,
       memberData,
       deadlineReachedData,
-      userRoleData,
     ]);
 
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <GroupSidebar
-          info={groupInfo}
-          memberList={memberInfo}
-          role={userRole}
-        />
+        <GroupSidebar info={groupInfo} memberList={memberInfo} />
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
-        <Ranking rankingData={rankingInfo.content} />
+        <Ranking rankingData={rankingInfo} />
         <h2 className={titleStyle}>풀어야 할 문제</h2>
         <section>
           <ProblemList.Header />

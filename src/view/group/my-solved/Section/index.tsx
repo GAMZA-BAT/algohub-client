@@ -10,7 +10,7 @@ import {
 } from "@/view/group/my-solved/Section/index.css";
 import SolvedItem from "@/view/group/my-solved/SolvedItem";
 
-type MySolvedSection = {
+type MySolvedSectionProps = {
   title: string;
   data: SolutionContent[];
   totalPages: number;
@@ -24,7 +24,7 @@ const MySolvedSection = ({
   totalPages,
   currentPage,
   onPageChange,
-}: MySolvedSection) => {
+}: MySolvedSectionProps) => {
   return (
     <div className={sectionStyle}>
       <h2 className={titleStyle}>{title}</h2>
