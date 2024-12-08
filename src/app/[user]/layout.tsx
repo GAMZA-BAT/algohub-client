@@ -16,7 +16,7 @@ export default async function UserLayout({
   params: { user: string };
 }>) {
   const session = await auth();
-  const isMe = session?.user?.id === user;
+  const isMe = session?.user?.nickname === user;
 
   return (
     <div>

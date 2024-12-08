@@ -39,6 +39,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       session.user = token.user;
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
+
       return session;
     },
   },

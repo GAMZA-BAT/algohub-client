@@ -11,7 +11,7 @@ type HeaderProps = {
 
 const Header = async ({ session }: HeaderProps) => {
   const isLoggedIn = !!session;
-  console.log({ session });
+
   return (
     <header className={headerStyle}>
       <Logo userNickname={isLoggedIn ? `${session.user?.nickname}` : ""} />
