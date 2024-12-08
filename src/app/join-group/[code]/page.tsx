@@ -23,7 +23,7 @@ import { useState } from "react";
 const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
   const { data: groupData } = useGroupByCodeQuery(code);
-  const userNickname = useSession().data?.user?.name;
+  const userNickname = useSession().data?.user?.nickname;
   const { mutate: joinGroupMutate } = useJoinGroupMutation(groupData?.id || 0);
   const router = useRouter();
 

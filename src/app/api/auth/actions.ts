@@ -13,7 +13,7 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
     });
 
     const session = await getSession();
-    const redirectTo = `/${session?.user?.name}`;
+    const redirectTo = `/${session?.user?.nickname}`;
     window.location.href = redirectTo;
 
     return { success: "Successfully logged in!" };

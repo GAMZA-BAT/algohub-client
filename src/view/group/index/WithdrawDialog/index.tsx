@@ -12,7 +12,7 @@ type WithdrawDialogProps = {
 
 const WithdrawDialog = ({ groupId: _groupId }: WithdrawDialogProps) => {
   const [isLeaving, setIsLeaving] = useState(false);
-  const userNickname = useSession().data?.user?.name;
+  const userNickname = useSession().data?.user?.nickname;
 
   const router = useRouter();
 

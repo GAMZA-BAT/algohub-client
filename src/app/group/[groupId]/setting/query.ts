@@ -45,7 +45,7 @@ export const useDeleteGroupMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
-  const userNickname = useSession().data?.user?.name;
+  const userNickname = useSession().data?.user?.nickname;
 
   return useMutation({
     mutationFn: (groupId: number) => deleteGroup(groupId),
