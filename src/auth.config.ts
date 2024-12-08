@@ -1,5 +1,5 @@
 import { getMyInfo } from "@/app/api/users";
-import { postSignin } from "@/app/api/users/signin";
+import { postSignin } from "@/app/api/auth";
 import { loginSchema } from "@/view/login/LoginForm/schema";
 import type { NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
