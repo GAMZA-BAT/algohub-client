@@ -8,26 +8,17 @@ type RoleChipProps = {
 };
 
 const RoleChip = ({ role }: RoleChipProps) => {
-  switch (role) {
-    case "OWNER":
-      return (
-        <div aria-label="스터디장 칩" className={chipStyle({ role })}>
-          {ROLE[role]}
-        </div>
-      );
-    case "ADMIN":
-      return (
-        <div aria-label="부 스터디장 칩" className={chipStyle({ role })}>
-          {ROLE[role]}
-        </div>
-      );
-    case "PARTICIPANT":
-      return (
-        <div aria-label="스터디원 칩" className={chipStyle({ role })}>
-          {ROLE[role]}
-        </div>
-      );
-  }
+  const labelByRole = {
+    OWNER: "스터디장 칩",
+    ADMIN: "부 스터디장 칩",
+    PARTICIPANT: "스터디원 칩",
+  };
+
+  return (
+    <div aria-label={labelByRole[role]} className={chipStyle({ role })}>
+      {ROLE[role]}
+    </div>
+  );
 };
 
 export default RoleChip;

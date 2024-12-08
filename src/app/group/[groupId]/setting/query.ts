@@ -84,14 +84,19 @@ export const usePatchGroupMutation = (groupId: number) => {
     onError: (error: HTTPError) => {
       const { response } = error;
 
-      if (response.status === HTTP_ERROR_STATUS.BAD_REQUEST) {
-        showToast("참여하지 않은 그룹입니다.", "error");
-      } else if (response.status === HTTP_ERROR_STATUS.FORBIDDEN) {
-        showToast("그룹 정보 수정에 대한 권한이 없습니다.", "error");
-      } else if (response.status === HTTP_ERROR_STATUS.NOT_FOUND) {
-        showToast("존재하지 않는 그룹입니다.", "error");
-      } else {
-        showToast("그룹 수정에 실패하였습니다.", "error");
+      switch (response.status) {
+        case HTTP_ERROR_STATUS.BAD_REQUEST:
+          showToast("참여하지 않은 그룹입니다.", "error");
+          break;
+        case HTTP_ERROR_STATUS.FORBIDDEN:
+          showToast("그룹 정보 수정에 대한 권한이 없습니다.", "error");
+          break;
+        case HTTP_ERROR_STATUS.NOT_FOUND:
+          showToast("존재하지 않는 그룹입니다.", "error");
+          break;
+        default:
+          showToast("그룹 수정에 실패하였습니다.", "error");
+          break;
       }
     },
   });
@@ -113,14 +118,19 @@ export const usePatchMemberRoleMutation = (groupId: number) => {
     onError: (error: HTTPError) => {
       const { response } = error;
 
-      if (response.status === HTTP_ERROR_STATUS.BAD_REQUEST) {
-        showToast("존재하지 않는 회원입니다.", "error");
-      } else if (response.status === HTTP_ERROR_STATUS.FORBIDDEN) {
-        showToast("그룹 정보 수정에 대한 권한이 없습니다.", "error");
-      } else if (response.status === HTTP_ERROR_STATUS.NOT_FOUND) {
-        showToast("존재하지 않는 그룹입니다.", "error");
-      } else {
-        showToast("그룹 수정에 실패하였습니다.", "error");
+      switch (response.status) {
+        case HTTP_ERROR_STATUS.BAD_REQUEST:
+          showToast("존재하지 않는 회원입니다.", "error");
+          break;
+        case HTTP_ERROR_STATUS.FORBIDDEN:
+          showToast("그룹 정보 수정에 대한 권한이 없습니다.", "error");
+          break;
+        case HTTP_ERROR_STATUS.NOT_FOUND:
+          showToast("존재하지 않는 그룹입니다.", "error");
+          break;
+        default:
+          showToast("그룹 수정에 실패하였습니다.", "error");
+          break;
       }
     },
   });
