@@ -4,13 +4,16 @@ import { sidebarWrapper } from "@/styles/shared.css";
 import MemberList from "@/view/group/setting/MemberList";
 import SettingSidebar from "@/view/group/setting/SettingSidebar";
 
-export const revalidate = 1;
-
 const GroupSettingPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
-  const groupInfo = await getGroupInfo(+groupId);
-  const { inviteCode } = await getGroupCode(+groupId);
+  const groupInfoData = getGroupInfo(+groupId);
+  const inviteCodeData = getGroupCode(+groupId);
+
+  const [groupInfo, { inviteCode }] = await Promise.all([
+    groupInfoData,
+    inviteCodeData,
+  ]);
 
   return (
     <main className={sidebarWrapper}>

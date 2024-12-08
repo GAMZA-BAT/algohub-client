@@ -69,3 +69,8 @@ export type MemberResponse = {
 export type MemberListResponse = MemberResponse[];
 
 export type Role = "OWNER" | "ADMIN" | "PARTICIPANT";
+
+export type MemberRoleRequest = {
+  memberId: number;
+  role: Role;
+};

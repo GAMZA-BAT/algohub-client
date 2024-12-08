@@ -1,6 +1,7 @@
 "use server";
 
-import { patchGroupInfo } from "@/api/groups";
+import { patchGroupInfo, patchMemberRole } from "@/api/groups";
+import type { MemberRoleRequest } from "@/api/groups/type";
 import { revalidateTag } from "next/cache";
 
 export const editGroup = async (groupId: number, formData: FormData) => {
@@ -10,5 +11,16 @@ export const editGroup = async (groupId: number, formData: FormData) => {
     revalidateTag("groupInfo");
   } catch {
     throw new Error("fail to patch info");
+  }
+};
+
+export const editRole = async (groupId: number, request: MemberRoleRequest) => {
+  try {
+    await patchMemberRole(groupId, request);
+
+    revalidateTag("groupMember");
+    revalidateTag("role");
+  } catch {
+    throw new Error("fail to patch member role");
   }
 };

@@ -1,4 +1,4 @@
-import type { GroupResponse } from "@/api/groups/type";
+import type { GroupResponse, Role } from "@/api/groups/type";
 import { IcnCalenderCard } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import RoleChip from "@/view/group/dashboard/GroupSidebar/GroupCard/RoleChip";
@@ -13,9 +13,10 @@ import {
 
 type GroupCardProps = {
   info: GroupResponse;
+  role: Role;
 };
-const GroupCard = ({ info }: GroupCardProps) => {
-  const { groupImage, name, startDate, endDate, introduction, isOwner } = info;
+const GroupCard = ({ info, role }: GroupCardProps) => {
+  const { groupImage, name, startDate, endDate, introduction } = info;
 
   return (
     <article className={wrapper}>
@@ -28,7 +29,7 @@ const GroupCard = ({ info }: GroupCardProps) => {
         <time className={dateTextStyle}>{endDate}</time>
       </div>
       <p className={descStyle}>{introduction}</p>
-      <RoleChip isOwner={isOwner} />
+      <RoleChip role={role} />
     </article>
   );
 };

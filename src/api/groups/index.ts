@@ -4,6 +4,7 @@ import type {
   GroupListResponse,
   GroupResponse,
   MemberResponse,
+  MemberRoleRequest,
   Role,
 } from "@/api/groups/type";
 
@@ -39,7 +40,11 @@ export const getGroupInfo = async (groupId: number) => {
 
 export const getGroupMemberList = async (groupId: number) => {
   const response = await kyInstance
-    .get<MemberResponse[]>(`api/groups/${groupId}/members`)
+    .get<MemberResponse[]>(`api/groups/${groupId}/members`, {
+      next: {
+        tags: ["groupMember"],
+      },
+    })
     .json();
 
   return response;
@@ -95,10 +100,14 @@ export const postJoinGroupByCode = async (code: string) => {
 
 export const getRoleByGroupId = async (groupId: number) => {
   const response = await kyInstance
-    .get<Role>(`api/groups/${groupId}/role`)
+    .get<Role>(`api/groups/${groupId}/role`, {
+      next: {
+        tags: ["role"],
+      },
+    })
     .text();
 
-  return response;
+  return response as Role;
 };
 
 export const deleteGroupMember = async (userId: number, groupId: number) => {
@@ -111,6 +120,17 @@ export const deleteGroupMember = async (userId: number, groupId: number) => {
 
 export const deleteGroup = async (groupId: number) => {
   const response = await kyInstance.delete(`api/groups/${groupId}`);
+
+  return response;
+};
+
+export const patchMemberRole = async (
+  groupId: number,
+  request: MemberRoleRequest,
+) => {
+  const response = await kyInstance.patch(`api/groups/${groupId}/role`, {
+    json: request,
+  });
 
   return response;
 };
