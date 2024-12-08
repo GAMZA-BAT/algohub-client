@@ -15,7 +15,9 @@ export default {
 
           const { accessToken, refreshToken } = await postSignin(data);
           const user = await getMyInfo(accessToken);
+
           if (!user) return null;
+
           return {
             ...user,
             accessToken: accessToken,

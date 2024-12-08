@@ -23,6 +23,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         await getMyInfo(token.accessToken);
       } catch (error) {
         if (error instanceof HTTPError && error.response.status === 401) {
+          console.log("reissue-token 실행");
           const { accessToken, refreshToken } = await postReissueToken({
             expiredAccessToken: token.accessToken,
             refreshToken: token.refreshToken,

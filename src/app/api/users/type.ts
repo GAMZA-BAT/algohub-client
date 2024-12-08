@@ -12,9 +12,9 @@ export type EditPasswordRequest = {
 };
 
 export type UserResponse = {
-  email?: string;
-  nickname?: string;
+  email: string;
+  nickname: string;
   profileImage?: string;
-  bjNickname?: string;
+  bjNickname: string;
   description?: string;
 };

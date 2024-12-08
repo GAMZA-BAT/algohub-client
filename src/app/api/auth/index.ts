@@ -4,6 +4,8 @@ import type {
   reissueTokenRequest,
   tokenResponse,
 } from "@/app/api/auth/type";
+import { HTTPError } from "ky";
+import { signOut } from "next-auth/react";
 
 export const postSignup = async (formData: FormData) => {
   const response = await kyBaseInstance
@@ -26,12 +28,19 @@ export const postSignin = async (formData: SignInRequest) => {
 };
 
 export const postReissueToken = async (requestData: reissueTokenRequest) => {
-  const response = await kyPublicInstance
-    .post<tokenResponse>("api/auth/reissue-token", {
-      json: requestData,
-    })
-    .json();
-
+  let response = null;
+  try {
+    response = await kyPublicInstance
+      .post<tokenResponse>("api/auth/reissue-token", {
+        json: requestData,
+      })
+      .json();
+  } catch (error) {
+    if (error instanceof HTTPError && error.response.status === 401) {
+      await signOut({ redirectTo: "/login" });
+    }
+    throw error;
+  }
   return response;
 };
 

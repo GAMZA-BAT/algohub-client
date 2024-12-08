@@ -2,8 +2,8 @@ import type { User } from "next-auth";
 import "next-auth/jwt";
 
 interface AdapterUser extends User {
-  id: string;
   email: string;
+  id: string;
   emailVerified: Date | null;
 }
 /**
@@ -16,6 +16,10 @@ declare module "next-auth" {
     refreshToken: string;
   }
   interface User {
+    nickname: string;
+    profileImage?: string;
+    bjNickname: string;
+    description?: string;
     accessToken: string;
     refreshToken: string;
   }
