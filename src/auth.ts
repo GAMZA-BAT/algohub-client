@@ -1,4 +1,7 @@
+import { postReissueToken } from "@/app/api/auth";
+import { getMyInfo } from "@/app/api/users";
 import authConfig from "@/auth.config";
+import { HTTPError } from "ky";
 import NextAuth from "next-auth";
 import type { AdapterUser } from "../next-auth";
 
@@ -12,11 +15,29 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.user = user as AdapterUser;
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
       }
+
+      try {
+        await getMyInfo(token.accessToken);
+      } catch (error) {
+        if (error instanceof HTTPError && error.response.status === 401) {
+          const { accessToken, refreshToken } = await postReissueToken({
+            expiredAccessToken: token.accessToken,
+            refreshToken: token.refreshToken,
+          });
+          token.accessToken = accessToken;
+          token.refreshToken = refreshToken;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
       session.user = token.user;
+      session.accessToken = token.accessToken;
+      session.refreshToken = token.refreshToken;
       return session;
     },
   },
