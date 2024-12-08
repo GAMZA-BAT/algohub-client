@@ -1,5 +1,5 @@
-import { getMyInfo } from "@/app/api/users";
 import { postSignin } from "@/app/api/auth";
+import { getMyInfo } from "@/app/api/users";
 import { loginSchema } from "@/view/login/LoginForm/schema";
 import type { NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
@@ -13,12 +13,13 @@ export default {
         if (validatedFields.success) {
           const { data } = validatedFields;
 
-          const { token } = await postSignin(data);
-          const user = await getMyInfo(token);
+          const { accessToken, refreshToken } = await postSignin(data);
+          const user = await getMyInfo(accessToken);
           if (!user) return null;
           return {
             ...user,
-            accessToken: token,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
           };
         }
 

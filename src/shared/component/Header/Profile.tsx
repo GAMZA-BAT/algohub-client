@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Profile = ({ ...props }: DropdownProps) => {
-  const { nickname } = useSession().data!.user;
+  const nickname = useSession().data!.user?.id;
 
   return (
     <Dropdown {...props} className={dropdownStyle}>
