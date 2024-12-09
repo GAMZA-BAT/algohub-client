@@ -17,13 +17,10 @@ export const kyInstance = ky.create({
   hooks: {
     beforeRequest: [
       async (request) => {
-        const user =
+        const session =
           typeof window === "undefined" ? await auth() : await getSession();
-        if (user?.user?.accessToken) {
-          request.headers.set(
-            "Authorization",
-            `Bearer ${user.user.accessToken}`,
-          );
+        if (session?.accessToken) {
+          request.headers.set("Authorization", `Bearer ${session.accessToken}`);
         }
       },
     ],
@@ -39,13 +36,10 @@ export const kyFileInstance = ky.create({
   hooks: {
     beforeRequest: [
       async (request) => {
-        const user =
+        const session =
           typeof window === "undefined" ? await auth() : await getSession();
-        if (user?.user?.accessToken) {
-          request.headers.set(
-            "Authorization",
-            `Bearer ${user.user.accessToken}`,
-          );
+        if (session?.accessToken) {
+          request.headers.set("Authorization", `Bearer ${session.accessToken}`);
         }
       },
     ],
