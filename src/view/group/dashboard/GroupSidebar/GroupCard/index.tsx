@@ -15,7 +15,7 @@ type GroupCardProps = {
   info: GroupResponse;
 };
 const GroupCard = ({ info }: GroupCardProps) => {
-  const { groupImage, name, startDate, endDate, introduction, isOwner } = info;
+  const { groupImage, name, startDate, endDate, introduction, role } = info;
 
   return (
     <article className={wrapper}>
@@ -28,7 +28,7 @@ const GroupCard = ({ info }: GroupCardProps) => {
         <time className={dateTextStyle}>{endDate}</time>
       </div>
       <p className={descStyle}>{introduction}</p>
-      <RoleChip isOwner={isOwner} />
+      <RoleChip role={role} />
     </article>
   );
 };
