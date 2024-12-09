@@ -17,6 +17,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.user = user as AdapterUser;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
+        token.accessTokenExpires = Math.floor(Date.now() / 1000) + 25 * 60; // 25분마다 갱신
       }
 
       try {
