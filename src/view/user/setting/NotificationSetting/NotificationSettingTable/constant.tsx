@@ -1,19 +1,19 @@
 "use client";
 
+import type { NotificationSettingContent } from "@/api/notifications/type";
 import ToggleButton from "@/common/component/ToggleButton";
 import type { TableDataType } from "@/shared/type/table";
 import clsx from "clsx";
 import { useState } from "react";
 import { textStyle } from "./index.css";
-import type { NotificationSettingsDataType } from "./type";
 
-export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingsDataType>[] =
+export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingContent>[] =
   [
     {
-      key: "alertSetting",
+      key: "allNotifications",
       Header: () => "알림 설정",
-      Cell: ({ notification }) => {
-        const [isSelected, setIsSelected] = useState(notification);
+      Cell: ({ allNotifications }) => {
+        const [isSelected, setIsSelected] = useState(allNotifications);
         const handleOnChange = () => setIsSelected(!isSelected);
         return (
           <ToggleButton isSelected={isSelected} onChange={handleOnChange} />
@@ -24,39 +24,39 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingsDa
     {
       key: "groupName",
       Header: () => "그룹명",
-      Cell: ({ notification, groupName }) => (
-        <p className={clsx(textStyle({ isSelected: notification }))}>
+      Cell: ({ allNotifications, groupName }) => (
+        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
           {groupName}
         </p>
       ),
       width: 120,
     },
     {
-      key: "issueRegistration",
+      key: "newProblem",
       Header: () => "문제 등록",
-      Cell: ({ notification, problemRegistration }) => (
-        <p className={clsx(textStyle({ isSelected: notification }))}>
-          {problemRegistration ? "ON" : "OFF"}
+      Cell: ({ allNotifications, newProblem }) => (
+        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
+          {newProblem ? "ON" : "OFF"}
         </p>
       ),
       width: 60,
     },
     {
-      key: "solutionRegistration",
+      key: "newSolution",
       Header: () => "풀이 등록",
-      Cell: ({ notification, solutionRegistration }) => (
-        <p className={clsx(textStyle({ isSelected: notification }))}>
-          {solutionRegistration ? "ON" : "OFF"}
+      Cell: ({ allNotifications, newSolution }) => (
+        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
+          {newSolution ? "ON" : "OFF"}
         </p>
       ),
       width: 100,
     },
     {
-      key: "commentRegistration",
+      key: "newComment",
       Header: () => "코멘트 등록",
-      Cell: ({ notification, commentRegistration }) => (
-        <p className={clsx(textStyle({ isSelected: notification }))}>
-          {commentRegistration ? "ON" : "OFF"}
+      Cell: ({ allNotifications, newComment }) => (
+        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
+          {newComment ? "ON" : "OFF"}
         </p>
       ),
       width: 80,
@@ -64,19 +64,19 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingsDa
     {
       key: "newMember",
       Header: () => "신규 회원 가입",
-      Cell: ({ notification, newMemberAllowed }) => (
-        <p className={clsx(textStyle({ isSelected: notification }))}>
-          {newMemberAllowed ? "ON" : "OFF"}
+      Cell: ({ allNotifications, newMember }) => (
+        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
+          {newMember ? "ON" : "OFF"}
         </p>
       ),
       width: 100,
     },
     {
-      key: "leave",
+      key: "deadlineReached",
       Header: () => "마감 임박",
-      Cell: ({ notification, endDateImminent }) => (
-        <p className={clsx(textStyle({ isSelected: notification }))}>
-          {endDateImminent ? "ON" : "OFF"}
+      Cell: ({ allNotifications, deadlineReached }) => (
+        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
+          {deadlineReached ? "ON" : "OFF"}
         </p>
       ),
       width: 80,

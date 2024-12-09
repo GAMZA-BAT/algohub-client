@@ -1,5 +1,6 @@
 import { getGroupList, patchGroupVisibility } from "@/api/groups";
 import type { GroupResponse, GroupStatus } from "@/api/groups/type";
+import { getNotificationSettingList } from "@/api/notifications";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
@@ -69,4 +70,13 @@ export const useVisibilityMutation = (groupId: number) => {
       }
     },
   });
+};
+
+export const useNotificationSettingListQuery = () => {
+  const { data } = useSuspenseQuery({
+    queryKey: ["notifications", "setting"],
+    queryFn: getNotificationSettingList,
+  });
+
+  return data;
 };
