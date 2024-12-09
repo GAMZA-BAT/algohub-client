@@ -1,4 +1,7 @@
-import type { SolutionLanguage, SolutionResult } from "@/api/solutions/type";
+import type {
+  SolutionLanguage,
+  SolutionResult,
+} from "@/app/api/solutions/type";
 
 export const SOLVED_LANGUAGE: Readonly<SolutionLanguage[]> = Object.freeze([
   "모든 언어",

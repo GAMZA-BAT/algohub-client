@@ -1,4 +1,4 @@
-import { getRoleByGroupId } from "@/api/groups";
+import { getRoleByGroupId } from "@/app/api/groups";
 import {
   IcnCalculator,
   IcnExit,

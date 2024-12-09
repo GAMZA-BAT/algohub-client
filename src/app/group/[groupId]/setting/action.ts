@@ -1,6 +1,6 @@
 "use server";
 
-import { patchGroupInfo } from "@/api/groups";
+import { patchGroupInfo } from "@/app/api/groups";
 import { revalidateTag } from "next/cache";
 
 export const editGroup = async (groupId: number, formData: FormData) => {

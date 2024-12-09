@@ -1,6 +1,5 @@
 "use client";
-
-import type { NoticeContent } from "@/api/notices/type";
+import type { NoticeContent } from "@/app/api/notices/type";
 import {
   useDeleteNoticeMutation,
   usePatchNoticeMutation,

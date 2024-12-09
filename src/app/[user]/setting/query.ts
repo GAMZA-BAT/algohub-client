@@ -1,5 +1,5 @@
-import { getGroupList, patchGroupVisibility } from "@/api/groups";
-import type { GroupResponse, GroupStatus } from "@/api/groups/type";
+import { getGroupList, patchGroupVisibility } from "@/app/api/groups";
+import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
@@ -29,7 +29,7 @@ const transformData = (
     status,
     startDate: new Date(item.startDate),
     endDate: new Date(item.endDate),
-    isOwner: item.isOwner,
+    role: item.role,
     name: item.name,
     isBookmarked: item.isBookmarked,
     id: item.id,

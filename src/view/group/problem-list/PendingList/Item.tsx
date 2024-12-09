@@ -1,6 +1,6 @@
 "use client";
 
-import type { ProblemContent } from "@/api/problems/type";
+import type { ProblemContent } from "@/app/api/problems/type";
 import ProblemEdit from "@/shared/component/ProblemList/ProblemEdit";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import useGetGroupId from "@/shared/hook/useGetGroupId";

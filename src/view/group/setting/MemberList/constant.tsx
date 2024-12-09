@@ -1,4 +1,4 @@
-import type { MemberResponse } from "@/api/groups/type";
+import type { MemberResponse } from "@/app/api/groups/type";
 import { useDeleteMemberMutation } from "@/app/group/[groupId]/setting/query";
 import { IcnCalendarTable, IcnClose } from "@/asset/svg";
 import { useBooleanState } from "@/common/hook/useBooleanState";

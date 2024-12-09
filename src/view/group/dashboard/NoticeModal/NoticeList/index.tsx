@@ -1,5 +1,5 @@
 "use client";
-import { getNotices } from "@/api/notices";
+import { getNotices } from "@/app/api/notices";
 import defaultImage from "@/asset/img/img_card_profile.png";
 import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";

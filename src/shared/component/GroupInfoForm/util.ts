@@ -1,6 +1,6 @@
 "use client";
 
-import type { groupSchema } from "@/api/groups/schema";
+import type { groupSchema } from "@/app/api/groups/schema";
 import type { z } from "zod";
 
 export const getGroupFormData = (values: z.infer<typeof groupSchema>) => {

@@ -1,4 +1,4 @@
-import type { PaginationResponse } from "@/api/type";
+import type { PaginationResponse } from "@/app/api/type";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 

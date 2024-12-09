@@ -1,6 +1,6 @@
 "use client";
 
-import type { SolutionLanguage } from "@/api/solutions/type";
+import type { SolutionLanguage } from "@/app/api/solutions/type";
 import CodeHighlighter from "./CodeHighlighter/CodeHighlighter";
 import { sectionWrapper } from "./index.css";
 

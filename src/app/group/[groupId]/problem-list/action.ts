@@ -1,7 +1,7 @@
 "use server";
 
-import { postProblem } from "@/api/problems";
-import type { ProblemRequest } from "@/api/problems/type";
+import { postProblem } from "@/app/api/problems";
+import type { ProblemRequest } from "@/app/api/problems/type";
 
 export type problemActionRequest = {
   groupId: number;

@@ -1,4 +1,4 @@
-import type { GroupResponse } from "@/api/groups/type";
+import type { GroupResponse } from "@/app/api/groups/type";
 
 export const tmpGroupData: GroupResponse = {
   id: 0,
@@ -8,6 +8,6 @@ export const tmpGroupData: GroupResponse = {
   introduction:
     "BE Developer로 성장하고 싶은 숭실대학교 학생들이 푸는 알고리즘 스터디입니다",
   groupImage: "",
-  isOwner: true,
+  role: "OWNER",
   ownerNickname: "jnary",
 };

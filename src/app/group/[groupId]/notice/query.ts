@@ -1,5 +1,5 @@
-import { getNoticeById, getNotices } from "@/api/notices";
-import type { NoticeListRequest, NoticeRequest } from "@/api/notices/type";
+import { getNoticeById, getNotices } from "@/app/api/notices";
+import type { NoticeListRequest, NoticeRequest } from "@/app/api/notices/type";
 import {
   deleteNoticeAction,
   noticeAction,

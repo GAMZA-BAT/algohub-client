@@ -1,6 +1,6 @@
-import { getGroupInfo, getGroupMemberList } from "@/api/groups";
-import { getTopRanking } from "@/api/groups/ranking";
-import { getDeadlineReachedProblems } from "@/api/problems";
+import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
+import { getTopRanking } from "@/app/api/groups/ranking";
+import { getDeadlineReachedProblems } from "@/app/api/problems";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";

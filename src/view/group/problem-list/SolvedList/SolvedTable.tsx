@@ -1,6 +1,6 @@
 "use client";
 
-import type { SolutionContent } from "@/api/solutions/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import Avatar from "@/common/component/Avatar";
 import {
   SOLVED_TABLE_BODY,

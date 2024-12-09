@@ -1,5 +1,5 @@
-import { getProblemInfo } from "@/api/problems";
-import { getSolutionList } from "@/api/solutions";
+import { getProblemInfo } from "@/app/api/problems";
+import { getSolutionList } from "@/app/api/solutions";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";

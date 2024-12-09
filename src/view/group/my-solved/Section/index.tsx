@@ -1,6 +1,6 @@
 "use client";
 
-import type { SolutionContent } from "@/api/solutions/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import Pagination from "@/shared/component/Pagination";
 import Header from "@/view/group/my-solved/Header";
 import {

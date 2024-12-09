@@ -1,4 +1,4 @@
-import type { SolutionContent } from "@/api/solutions/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import CheckBox from "@/common/component/CheckBox";
 import { getTierImage } from "@/shared/util/img";
 import { getSolvedStatusByResult } from "@/shared/util/result";

@@ -1,15 +1,16 @@
 "use client";
-
+import type { UserResponse } from "@/app/api/users/type";
 import Menu from "@/common/component/Menu/Menu";
 import Profile from "@/shared/component/Header/Profile";
 import { buttonContainer } from "@/shared/component/Header/index.css";
 import { useNotificationsQuery } from "@/shared/component/Header/query";
+import { useSession } from "next-auth/react";
 import Notification from "./Notification";
 
 const UserMenu = () => {
   const { data } = useNotificationsQuery();
+  const user = useSession().data?.user;
 
-  /** TODO: 알림 읽음 기능 적용 시 수정 */
   const notiCounts = data.length;
 
   return (
@@ -22,7 +23,9 @@ const UserMenu = () => {
 
       <Menu
         label="profileMenu"
-        renderTriggerButton={<Profile.TriggerButton />}
+        renderTriggerButton={
+          <Profile.TriggerButton src={(user as UserResponse).profileImage} />
+        }
         renderList={<Profile />}
       />
     </div>
