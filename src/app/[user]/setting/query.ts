@@ -29,7 +29,7 @@ const transformData = (
     status,
     startDate: new Date(item.startDate),
     endDate: new Date(item.endDate),
-    isOwner: item.isOwner,
+    role: item.role,
     name: item.name,
     isBookmarked: item.isBookmarked,
     id: item.id,

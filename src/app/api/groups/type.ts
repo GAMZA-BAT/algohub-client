@@ -17,7 +17,7 @@ export type GroupResponse = {
   endDate: string;
   introduction: string;
   groupImage: string | null;
-  role?: Role;
+  role: Role;
   ownerNickname: string;
   isBookmarked?: boolean;
   isVisible?: boolean;

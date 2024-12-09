@@ -96,7 +96,7 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
   {
     key: "role",
     Header: () => "역할",
-    Cell: (data) => (data.isOwner ? "스터디장" : "스터디 멤버"),
+    Cell: (data) => (data.role === "OWNER" ? "스터디장" : "스터디 멤버"),
     width: 100,
   },
   {
