@@ -1,43 +1,59 @@
 "use client";
 
-import {
-  useExpiredMySolutionsQuery,
-  useInProgressMySolutionsQuery,
-} from "@/app/[user]/my-solved/query";
+import { getExpiredMySolutions, getInProgressMySolutions } from "@/api/users";
 import Sidebar from "@/common/component/Sidebar";
+import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { sidebarWrapper } from "@/styles/shared.css";
 import MySolvedSection from "@/view/group/my-solved/Section";
-import { useState } from "react";
 
 const MySolvedPage = () => {
-  const [inProgressPage, setInProgressPage] = useState(1);
-  const [expiredPage, setExpiredPage] = useState(1);
+  const {
+    data: inProgressData,
+    currentPage: inProgressPage,
+    totalPages: inProgressTotalPages,
+    setCurrentPage: setInProgressPage,
+  } = usePaginationQuery({
+    queryKey: ["inProgressMySolutions"],
+    queryFn: (page: number) =>
+      getInProgressMySolutions({
+        page,
+        size: 3,
+      }),
+  });
+  const inProgressList = inProgressData?.content || [];
 
-  const { content: inProgressData, totalPages: inProgressTotalPages } =
-    useInProgressMySolutionsQuery({ page: inProgressPage - 1 });
-  const { content: expiredData, totalPages: expiredTotalPages } =
-    useExpiredMySolutionsQuery({ page: expiredPage - 1 });
-
-  const handleInProgressPageChange = (page: number) => setInProgressPage(page);
-  const handleExpiredPageChange = (page: number) => setExpiredPage(page);
+  const {
+    data: expiredData,
+    currentPage: expiredPage,
+    totalPages: expiredTotalPages,
+    setCurrentPage: setExpiredPage,
+  } = usePaginationQuery({
+    queryKey: ["expiredMySolutions"],
+    queryFn: (page: number) =>
+      getExpiredMySolutions({
+        page,
+        size: 3,
+      }),
+  });
+  const expiredList = expiredData?.content || [];
 
   return (
     <main className={sidebarWrapper}>
       <Sidebar />
       <section style={{ width: "80%", marginTop: "4.8rem" }}>
         <MySolvedSection
-          data={inProgressData}
+          data={inProgressList}
           title="진행중인 문제"
           totalPages={inProgressTotalPages}
           currentPage={inProgressPage}
-          onPageChange={handleInProgressPageChange}
+          onPageChange={setInProgressPage}
         />
         <MySolvedSection
-          data={expiredData}
+          data={expiredList}
           title="만료된 문제"
           totalPages={expiredTotalPages}
           currentPage={expiredPage}
-          onPageChange={handleExpiredPageChange}
+          onPageChange={setExpiredPage}
         />
       </section>
     </main>

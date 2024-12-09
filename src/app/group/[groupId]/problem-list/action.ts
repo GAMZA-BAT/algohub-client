@@ -1,10 +1,7 @@
 "use server";
 
-import { patchProblem, postProblem } from "@/app/api/problems";
-import type {
-  EditProblemRequest,
-  ProblemRequest,
-} from "@/app/api/problems/type";
+import { postProblem } from "@/app/api/problems";
+import type { ProblemRequest } from "@/app/api/problems/type";
 
 export type problemActionRequest = {
   groupId: number;
@@ -24,16 +21,6 @@ export const postProblemAction = async ({
     endDate,
   };
   const response = await postProblem(groupId, body);
-
-  return response;
-};
-
-export const patchProblemAction = async ({
-  problemId,
-  startDate,
-  endDate,
-}: EditProblemRequest) => {
-  const response = await patchProblem({ problemId, startDate, endDate });
 
   return response;
 };

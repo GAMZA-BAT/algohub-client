@@ -12,7 +12,11 @@ const PendingListHeader = () => {
       <p className={textStyle}>문제</p>
       <p className={`${textStyle} ${dateStyle}`}>
         <IcnCalendarTable width={20} height={20} />
-        기간
+        시작 날짜
+      </p>
+      <p className={`${textStyle} ${dateStyle}`}>
+        <IcnCalendarTable width={20} height={20} />
+        마감 날짜
       </p>
     </header>
   );

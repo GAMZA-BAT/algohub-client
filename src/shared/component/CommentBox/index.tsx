@@ -39,13 +39,14 @@ const CommentBox = ({
   const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
     useA11yHoverHandler();
 
+  const { register, control } = useEditForm(commentId, content);
+
   const {
-    register,
     isEditing,
     handleEditBtnClick,
-    handleTextAreaKeyDown,
     handleHookFormSubmit,
-  } = useEditForm(commentId, content);
+    handleTextAreaKeyDown,
+  } = control[variant];
 
   return (
     <li

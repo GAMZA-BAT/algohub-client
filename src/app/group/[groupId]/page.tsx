@@ -1,5 +1,5 @@
 import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
-import { getAllRanking } from "@/app/api/groups/ranking";
+import { getTopRanking } from "@/app/api/groups/ranking";
 import { getDeadlineReachedProblems } from "@/app/api/problems";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
@@ -13,7 +13,7 @@ const GroupDashboardPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
   const groupInfoData = getGroupInfo(+groupId);
-  const rankingData = getAllRanking(+groupId);
+  const rankingData = getTopRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
   const deadlineReachedData = getDeadlineReachedProblems(+groupId);
 
@@ -32,7 +32,7 @@ const GroupDashboardPage = async ({
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
-        <Ranking rankingData={rankingInfo.content} />
+        <Ranking rankingData={rankingInfo} />
         <h2 className={titleStyle}>풀어야 할 문제</h2>
         <section>
           <ProblemList.Header />

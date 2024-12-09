@@ -27,7 +27,11 @@ export const getGroupList = async () => {
 
 export const getGroupInfo = async (groupId: number) => {
   const response = await kyInstance
-    .get<GroupResponse>(`api/groups/${groupId}`)
+    .get<GroupResponse>(`api/groups/${groupId}`, {
+      next: {
+        tags: ["groupInfo"],
+      },
+    })
     .json();
 
   return response;
@@ -52,7 +56,7 @@ export const patchGroupVisibility = async (groupId: number, flag: boolean) => {
 };
 
 export const patchGroupInfo = async (groupId: number, formData: FormData) => {
-  const response = await kyInstance.post(`api/groups/${groupId}`, {
+  const response = await kyFileInstance.patch(`api/groups/${groupId}`, {
     body: formData,
   });
 

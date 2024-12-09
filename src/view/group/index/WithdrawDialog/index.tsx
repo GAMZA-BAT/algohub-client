@@ -2,6 +2,7 @@ import Button from "@/common/component/Button";
 import PromptWithdraw from "@/view/group/index/WithdrawDialog/PromptWithdraw";
 import SuccessWithdraw from "@/view/group/index/WithdrawDialog/SuccessWithdraw";
 import { withdrawWrapper } from "@/view/group/index/WithdrawDialog/index.css";
+import { useWithdrawMutation } from "@/view/group/index/WithdrawDialog/query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,25 +11,29 @@ type WithdrawDialogProps = {
   groupId: number;
 };
 
-const WithdrawDialog = ({ groupId: _groupId }: WithdrawDialogProps) => {
-  const [isLeaving, setIsLeaving] = useState(false);
+const WithdrawDialog = ({ groupId }: WithdrawDialogProps) => {
+  const [isWithdrawn, setIsWithdrawn] = useState(false);
   const userNickname = useSession().data?.user?.nickname;
-
   const router = useRouter();
 
-  // const { mutateAsync: withdraw } = useWithdrawMutation(groupId);
+  const { mutate: withdrawMutate } = useWithdrawMutation();
 
-  const handleBtnClick = async () => {
-    // const response = await withdraw();
-    if (isLeaving) router.push(`${userNickname}`);
+  const handleBtnClick = () => {
+    if (!isWithdrawn) {
+      withdrawMutate(groupId, {
+        onSuccess: () => router.push(`/${userNickname}`),
+      });
+    }
 
-    setIsLeaving(true);
+    setIsWithdrawn(true);
   };
 
   return (
     <div className={withdrawWrapper}>
-      {isLeaving ? <SuccessWithdraw /> : <PromptWithdraw />}
-      <Button onClick={handleBtnClick}>{isLeaving ? "확인" : "나가기"}</Button>
+      {isWithdrawn ? <SuccessWithdraw /> : <PromptWithdraw />}
+      <Button onClick={handleBtnClick}>
+        {isWithdrawn ? "확인" : "나가기"}
+      </Button>
     </div>
   );
 };
