@@ -3,7 +3,7 @@ import {
   getNoticeCommentList,
   patchNoticeComment,
   postNoticeComment,
-} from "@/api/notices";
+} from "@/app/api/notices";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
