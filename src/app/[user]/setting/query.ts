@@ -1,6 +1,9 @@
 import { getGroupList, patchGroupVisibility } from "@/api/groups";
 import type { GroupResponse, GroupStatus } from "@/api/groups/type";
-import { getNotificationSettingList } from "@/api/notifications";
+import {
+  getNotificationSettingList,
+  patchNotificationSetting,
+} from "@/api/notifications";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
@@ -65,7 +68,7 @@ export const useVisibilityMutation = (groupId: number) => {
           break;
         }
         default: {
-          showToast("알 수 없는 에러입니다.", "error");
+          showToast("정상적으로 수정되지 않았습니다.", "error");
         }
       }
     },
@@ -79,4 +82,38 @@ export const useNotificationSettingListQuery = () => {
   });
 
   return data;
+};
+
+export const useNotificationSettingMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: patchNotificationSetting,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notifications", "setting"],
+      });
+    },
+    onError: (error: HTTPError) => {
+      if (!error.response) return;
+
+      const { status } = error.response;
+
+      switch (status) {
+        case HTTP_ERROR_STATUS.FORBIDDEN: {
+          showToast("참여하지 않은 그룹입니다.", "error");
+          break;
+        }
+        case HTTP_ERROR_STATUS.NOT_FOUND: {
+          showToast("존재하지 않는 그룹입니다.", "error");
+          break;
+        }
+        default: {
+          showToast("정상적으로 수정되지 않았습니다.", "error");
+        }
+      }
+    },
+  });
 };

@@ -1,7 +1,9 @@
 "use client";
 
 import type { NotificationSettingContent } from "@/api/notifications/type";
+import { useNotificationSettingMutation } from "@/app/[user]/setting/query";
 import ToggleButton from "@/common/component/ToggleButton";
+import { handleA11yClick } from "@/common/util/dom";
 import type { TableDataType } from "@/shared/type/table";
 import clsx from "clsx";
 import { useState } from "react";
@@ -12,9 +14,19 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingCon
     {
       key: "allNotifications",
       Header: () => "알림 설정",
-      Cell: ({ allNotifications }) => {
+      Cell: ({ groupId, allNotifications, ...rest }) => {
+        const { mutate } = useNotificationSettingMutation();
         const [isSelected, setIsSelected] = useState(allNotifications);
-        const handleOnChange = () => setIsSelected(!isSelected);
+
+        const handleOnChange = () => {
+          mutate(
+            { groupId, allNotifications: !isSelected, ...rest },
+            {
+              onSuccess: () => setIsSelected(!isSelected),
+            },
+          );
+        };
+
         return (
           <ToggleButton isSelected={isSelected} onChange={handleOnChange} />
         );
@@ -34,51 +46,131 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingCon
     {
       key: "newProblem",
       Header: () => "문제 등록",
-      Cell: ({ allNotifications, newProblem }) => (
-        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
-          {newProblem ? "ON" : "OFF"}
-        </p>
-      ),
+      Cell: ({ groupId, allNotifications, newProblem, ...rest }) => {
+        const { mutate } = useNotificationSettingMutation();
+
+        const handleClick = () =>
+          mutate({
+            groupId,
+            newProblem: !newProblem,
+            allNotifications,
+            ...rest,
+          });
+
+        return (
+          <p
+            className={clsx(textStyle({ isSelected: allNotifications }))}
+            onClick={handleClick}
+            onKeyDown={handleA11yClick(handleClick)}
+            aria-label={`문제 등록 알림 ${newProblem ? "끄기" : "켜기"}`}
+          >
+            {newProblem ? "ON" : "OFF"}
+          </p>
+        );
+      },
       width: 60,
     },
     {
       key: "newSolution",
       Header: () => "풀이 등록",
-      Cell: ({ allNotifications, newSolution }) => (
-        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
-          {newSolution ? "ON" : "OFF"}
-        </p>
-      ),
+      Cell: ({ groupId, allNotifications, newSolution, ...rest }) => {
+        const { mutate } = useNotificationSettingMutation();
+
+        const handleClick = () =>
+          mutate({
+            groupId,
+            newSolution: !newSolution,
+            allNotifications,
+            ...rest,
+          });
+
+        return (
+          <p
+            className={clsx(textStyle({ isSelected: allNotifications }))}
+            onClick={handleClick}
+            onKeyDown={handleA11yClick(handleClick)}
+            aria-label={`풀이 등록 알림 ${newSolution ? "끄기" : "켜기"}`}
+          >
+            {newSolution ? "ON" : "OFF"}
+          </p>
+        );
+      },
       width: 100,
     },
     {
       key: "newComment",
-      Header: () => "코멘트 등록",
-      Cell: ({ allNotifications, newComment }) => (
-        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
-          {newComment ? "ON" : "OFF"}
-        </p>
-      ),
+      Header: () => "댓글 등록",
+      Cell: ({ groupId, allNotifications, newComment, ...rest }) => {
+        const { mutate } = useNotificationSettingMutation();
+
+        const handleClick = () =>
+          mutate({
+            groupId,
+            newComment: !newComment,
+            allNotifications,
+            ...rest,
+          });
+
+        return (
+          <p
+            className={clsx(textStyle({ isSelected: allNotifications }))}
+            onClick={handleClick}
+            onKeyDown={handleA11yClick(handleClick)}
+            aria-label={`댓글 등록 알림 ${newComment ? "끄기" : "켜기"}`}
+          >
+            {newComment ? "ON" : "OFF"}
+          </p>
+        );
+      },
       width: 80,
     },
     {
       key: "newMember",
       Header: () => "신규 회원 가입",
-      Cell: ({ allNotifications, newMember }) => (
-        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
-          {newMember ? "ON" : "OFF"}
-        </p>
-      ),
+      Cell: ({ groupId, allNotifications, newMember, ...rest }) => {
+        const { mutate } = useNotificationSettingMutation();
+
+        const handleClick = () =>
+          mutate({ groupId, newMember: !newMember, allNotifications, ...rest });
+
+        return (
+          <p
+            className={clsx(textStyle({ isSelected: allNotifications }))}
+            onClick={handleClick}
+            onKeyDown={handleA11yClick(handleClick)}
+            aria-label={`신규 회원 가입 알림 ${newMember ? "끄기" : "켜기"}`}
+          >
+            {newMember ? "ON" : "OFF"}
+          </p>
+        );
+      },
       width: 100,
     },
     {
       key: "deadlineReached",
       Header: () => "마감 임박",
-      Cell: ({ allNotifications, deadlineReached }) => (
-        <p className={clsx(textStyle({ isSelected: allNotifications }))}>
-          {deadlineReached ? "ON" : "OFF"}
-        </p>
-      ),
+      Cell: ({ groupId, allNotifications, deadlineReached, ...rest }) => {
+        const { mutate } = useNotificationSettingMutation();
+
+        const handleClick = () =>
+          mutate({
+            groupId,
+            deadlineReached: !deadlineReached,
+            allNotifications,
+            ...rest,
+          });
+
+        return (
+          <p
+            className={clsx(textStyle({ isSelected: allNotifications }))}
+            onClick={handleClick}
+            onKeyDown={handleA11yClick(handleClick)}
+            aria-label={`마감 임박 알림 ${deadlineReached ? "끄기" : "켜기"}`}
+          >
+            {deadlineReached ? "ON" : "OFF"}
+          </p>
+        );
+      },
       width: 80,
     },
   ];

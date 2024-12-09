@@ -23,3 +23,16 @@ export const getNotificationSettingList = async () => {
 
   return response;
 };
+
+export const patchNotificationSetting = async (
+  requestData: NotificationSettingContent,
+) => {
+  const response = await kyInstance.patch<NotificationSettingContent>(
+    "api/notifications/settings",
+    {
+      json: requestData,
+    },
+  );
+
+  return response;
+};
