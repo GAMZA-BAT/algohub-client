@@ -5,7 +5,7 @@ import QueryProvider from "@/shared/component/QueryProvider";
 import RefreshTokenExpireTime from "@/shared/component/RefreshTokenExpireTime";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "AlgoHub",
@@ -26,10 +26,7 @@ export default async function RootLayout({
       <body>
         <Providers>
           <SessionProvider session={session}>
-            <RefreshTokenExpireTime
-              session={session}
-              update={useSession().update}
-            />
+            <RefreshTokenExpireTime session={session} />
             <Header session={session} />
             <QueryProvider>{children}</QueryProvider>
           </SessionProvider>

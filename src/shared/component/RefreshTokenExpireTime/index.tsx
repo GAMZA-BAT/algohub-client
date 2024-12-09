@@ -1,17 +1,16 @@
 "use client";
 
 import type { Session } from "next-auth";
-import type { UpdateSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
 
 const RefreshTokenExpireTime = ({
   session,
-  update,
 }: {
   session: Session | null;
-  update: UpdateSession;
 }) => {
   const interval = useRef<NodeJS.Timer | undefined>(undefined);
+  const update = useSession().update;
 
   useEffect(() => {
     if (interval.current) {
