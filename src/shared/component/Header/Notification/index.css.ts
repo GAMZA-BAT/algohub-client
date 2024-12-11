@@ -1,5 +1,6 @@
 import { scrollTheme, theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
 export const notificationContainer = style({
   position: "absolute",
@@ -52,4 +53,29 @@ export const countStyle = style({
   letterSpacing: "-0.025em",
   textAlign: "center",
   alignContent: "center",
+});
+
+export const dateContainerStyle = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.5rem",
+});
+
+export const dotStyle = recipe({
+  base: {
+    width: "0.6rem",
+    height: "0.6rem",
+
+    borderRadius: "50%",
+  },
+  variants: {
+    isRead: {
+      true: {
+        backgroundColor: theme.color.mg4,
+      },
+      false: {
+        backgroundColor: theme.color.red,
+      },
+    },
+  },
 });

@@ -4,7 +4,7 @@ export interface NotificationItem {
   groupImage: string;
   message: string;
   subContent: string;
-  createAt: string;
+  createdAt: string;
   isRead: boolean;
 }
 

@@ -9,6 +9,10 @@ export const getNotificationList = async () => {
   return response;
 };
 
-export const patchNotificationRead = () => {
-  kyInstance.patch("api/notifications");
+export const patchNotificationRead = (notificationId: number) => {
+  const response = kyInstance
+    .patch(`api/notifications/${notificationId}`)
+    .json();
+
+  return response;
 };

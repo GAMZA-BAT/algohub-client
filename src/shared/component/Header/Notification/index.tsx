@@ -5,6 +5,7 @@ import {
   notificationContainer,
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
+import { usePatchNotificationMutation } from "@/shared/component/Header/Notification/query";
 import { iconStyle } from "@/shared/component/Header/index.css";
 import type { HTMLAttributes } from "react";
 import NotificationListItem from "./NotificationItem";
@@ -14,20 +15,20 @@ interface NotificationProps extends HTMLAttributes<HTMLUListElement> {
 }
 
 const Notification = ({ notificationList, ...props }: NotificationProps) => {
+  const { mutate: readNotification } = usePatchNotificationMutation();
+
   return (
     <div className={notificationContainer}>
       <ul className={ulStyle} {...props} aria-label="알림 목록">
-        {/* TODO: api 연결 후 notifications 데이터 변경 */}
         {notificationList.map((notification, index) => (
           <NotificationListItem
-            key={index} // TODO: api 연결 후 key 변경
+            key={index}
+            isRead={notification.isRead}
             name={notification.groupName}
             message={notification.message}
-            date={notification.createAt}
+            date={notification.createdAt}
             profileImg={notification.groupImage}
-            onClick={() => {
-              alert("click");
-            }}
+            onClick={() => readNotification(notification.id)}
           />
         ))}
       </ul>
