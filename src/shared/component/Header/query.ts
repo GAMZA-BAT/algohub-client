@@ -13,10 +13,11 @@ export const useNotificationsQuery = () => {
   return useSuspenseQuery({
     queryKey: ["notifications"],
     queryFn: getNotificationList,
+    staleTime: 0,
   });
 };
 
-export const usePatchNotificationItemMutation = () => {
+export const useReadNotiItemMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -29,7 +30,7 @@ export const usePatchNotificationItemMutation = () => {
   });
 };
 
-export const usePatchAllNotificationMutation = () => {
+export const useReadAllNotiMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

@@ -8,7 +8,11 @@ import {
 } from "@/shared/component/Header/Notification/index.css";
 
 import { iconStyle } from "@/shared/component/Header/index.css";
-import { usePatchNotificationItemMutation } from "@/shared/component/Header/query";
+
+import {
+  useReadAllNotiMutation,
+  useReadNotiItemMutation,
+} from "@/shared/component/Header/query";
 import type { HTMLAttributes } from "react";
 import NotificationListItem from "./NotificationItem";
 
@@ -17,11 +21,14 @@ interface NotificationProps extends HTMLAttributes<HTMLUListElement> {
 }
 
 const Notification = ({ notificationList, ...props }: NotificationProps) => {
-  const { mutate: readNotification } = usePatchNotificationItemMutation();
+  const { mutate: readNotification } = useReadNotiItemMutation();
+  const { mutate: readAll } = useReadAllNotiMutation();
 
   return (
     <div className={notificationContainer}>
-      <button className={allReadButtonStyle}>모두 읽음 표시</button>
+      <button onClick={() => readAll()} className={allReadButtonStyle}>
+        모두 읽음 표시
+      </button>
       <ul className={ulStyle} {...props} aria-label="알림 목록">
         {notificationList.map((notification, index) => (
           <NotificationListItem
