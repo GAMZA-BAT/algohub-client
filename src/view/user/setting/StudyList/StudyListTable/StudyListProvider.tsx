@@ -1,9 +1,10 @@
+import type { GroupListType } from "@/api/groups/type";
 import type React from "react";
 import { createContext, useReducer } from "react";
 import type { StudyListType } from "./type";
 
 type TableDataContextType =
-  | { processedData: StudyListType[]; state: State }
+  | { processedData: GroupListType[]; state: State }
   | undefined;
 type TableDispatchContextType = React.Dispatch<Actions> | undefined;
 

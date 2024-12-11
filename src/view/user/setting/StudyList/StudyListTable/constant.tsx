@@ -1,3 +1,4 @@
+import type { GroupListType } from "@/api/groups/type";
 import { useVisibilityMutation } from "@/app/[user]/setting/query";
 import { IcnBtnPin, IcnCalendarTable } from "@/asset/svg";
 import {
@@ -13,9 +14,8 @@ import StatusDropdownMenu from "../StatusDropdownMenu";
 import { textStyle } from "../StatusDropdownMenu/index.css";
 import StatusIcon from "../StatusIcon";
 import { useStudyListDispatch, useStudyListState } from "./hook";
-import type { StudyListType } from "./type";
 
-export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
+export const STUDY_LIST_COLUMNS: TableDataType<GroupListType>[] = [
   {
     key: "isBookmarked",
     Header: () => {
