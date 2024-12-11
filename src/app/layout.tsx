@@ -1,8 +1,6 @@
 import Providers from "@/app/provider";
 import { auth } from "@/auth";
 import Header from "@/shared/component/Header";
-import QueryProvider from "@/shared/component/QueryProvider";
-import RefreshTokenExpireTime from "@/shared/component/RefreshTokenExpireTime";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
@@ -21,16 +19,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+
   return (
     <html lang="ko">
       <body>
-        <Providers>
-          <SessionProvider session={session}>
-            <RefreshTokenExpireTime session={session} />
+        <SessionProvider session={session}>
+          <Providers>
             <Header session={session} />
-            <QueryProvider>{children}</QueryProvider>
-          </SessionProvider>
-        </Providers>
+            {children}
+          </Providers>
+        </SessionProvider>
       </body>
     </html>
   );
