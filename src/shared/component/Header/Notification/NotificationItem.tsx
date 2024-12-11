@@ -55,8 +55,14 @@ const NotificationListItem = ({
       <div
         role="button"
         className={notificationContentStyle}
-        onClick={onClick}
-        onKeyDown={handleA11yClick(onClick)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
+        onKeyDown={(e) => {
+          e.stopPropagation();
+          handleA11yClick(onClick);
+        }}
         tabIndex={0}
       >
         <div className={profileStyle}>

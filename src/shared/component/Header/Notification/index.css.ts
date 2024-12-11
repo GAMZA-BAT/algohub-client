@@ -4,13 +4,16 @@ import { recipe } from "@vanilla-extract/recipes";
 
 export const notificationContainer = style({
   position: "absolute",
-  zIndex: theme.zIndex.top,
   top: "7.2rem",
   right: "8rem",
 
+  display: "flex",
+  flexDirection: "column",
+
+  zIndex: theme.zIndex.top,
+
   borderRadius: "2rem",
 
-  opacity: "0.9",
   backdropFilter: "blur(2px)",
   backgroundColor: theme.color.mg6,
 });
@@ -20,7 +23,7 @@ export const ulStyle = style({
   flexDirection: "column",
   gap: "1rem",
 
-  padding: "3rem 2rem",
+  padding: "0 2rem 3rem 2rem",
 
   // scroll bar
   overflowY: "scroll",
@@ -78,4 +81,15 @@ export const dotStyle = recipe({
       },
     },
   },
+});
+
+export const allReadButtonStyle = style({
+  placeSelf: "flex-end",
+
+  padding: "1.4rem 2.3rem",
+
+  fontSize: "1rem",
+  lineHeight: "11.px",
+
+  color: theme.color.mg4,
 });
