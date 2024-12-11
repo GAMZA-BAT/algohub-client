@@ -9,12 +9,12 @@ const RefreshTokenExpireTime = ({
 }: {
   session: Session | null;
 }) => {
-  const interval = useRef<NodeJS.Timer | undefined>(undefined);
+  const interval = useRef<ReturnType<typeof setInterval>>();
   const update = useSession().update;
 
   useEffect(() => {
     if (interval.current) {
-      clearInterval(interval.current as NodeJS.Timeout);
+      clearInterval(interval.current);
     }
 
     const watchAndUpdateIfExpire = () => {
@@ -30,7 +30,7 @@ const RefreshTokenExpireTime = ({
 
     return () => {
       if (interval.current) {
-        clearInterval(interval.current as NodeJS.Timeout);
+        clearInterval(interval.current);
       }
     };
   }, [session, update]);
