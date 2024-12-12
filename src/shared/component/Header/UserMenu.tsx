@@ -11,7 +11,7 @@ const UserMenu = () => {
   const { data } = useNotificationsQuery();
   const user = useSession().data?.user;
 
-  const notiCounts = data.length;
+  const notiCounts = data.filter((item) => !item.isRead).length;
 
   return (
     <div className={buttonContainer}>

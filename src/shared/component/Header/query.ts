@@ -3,6 +3,7 @@ import {
   patchAllNotificationRead,
   patchNotificationRead,
 } from "@/app/api/notifications";
+import type { NotificationItem } from "@/app/api/notifications/type";
 import {
   useMutation,
   useQueryClient,
@@ -22,10 +23,25 @@ export const useReadNotiItemMutation = () => {
 
   return useMutation({
     mutationFn: (id: number) => patchNotificationRead(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["notifications"],
-      });
+    onMutate: async (id: number) => {
+      await queryClient.cancelQueries({ queryKey: ["notifications"] });
+
+      const prev = queryClient.getQueryData<NotificationItem[]>([
+        "notifications",
+      ]);
+      const newData = prev?.map((item) =>
+        item.id === id ? { ...item, isRead: true } : item,
+      );
+
+      queryClient.setQueryData(["notifications"], newData);
+
+      return { prev };
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
+    onError: (_err, _new, context) => {
+      queryClient.setQueryData(["notifications"], context?.prev);
     },
   });
 };
@@ -35,10 +51,23 @@ export const useReadAllNotiMutation = () => {
 
   return useMutation({
     mutationFn: patchAllNotificationRead,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["notifications"],
-      });
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["notifications"] });
+
+      const prev = queryClient.getQueryData<NotificationItem[]>([
+        "notifications",
+      ]);
+      const newData = prev?.map((item) => ({ ...item, isRead: true }));
+
+      queryClient.setQueryData(["notifications"], newData);
+
+      return { prev };
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
+    onError: (_err, _new, context) => {
+      queryClient.setQueryData(["notifications"], context?.prev);
     },
   });
 };
