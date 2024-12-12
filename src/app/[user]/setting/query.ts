@@ -1,5 +1,9 @@
 import { getGroupList, patchGroupVisibility } from "@/app/api/groups";
-import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
+import type {
+  GroupListResponse,
+  GroupResponse,
+  GroupStatus,
+} from "@/app/api/groups/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
@@ -12,7 +16,7 @@ import type { HTTPError } from "ky";
 
 export const useGetMyGroupsQuery = () => {
   return useSuspenseQuery({
-    queryKey: ["groups", "setting"],
+    queryKey: ["users", "setting"],
     queryFn: getGroupList,
     select: (data) =>
       (["bookmarked", "queued", "inProgress", "done"] as GroupStatus[])
@@ -44,12 +48,35 @@ export const useVisibilityMutation = (groupId: number) => {
 
   return useMutation({
     mutationFn: (flag: boolean) => patchGroupVisibility(groupId, flag),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["groups", "setting"],
-      });
+    onMutate: async (flag: boolean) => {
+      await queryClient.cancelQueries({ queryKey: ["users", "setting"] });
+
+      const prevData = queryClient.getQueryData<GroupListResponse>([
+        "users",
+        "setting",
+      ]);
+
+      const newData = [
+        ...prevData!.bookmarked,
+        ...prevData!.done,
+        ...prevData!.inProgress,
+        ...prevData!.queued,
+      ]
+        .sort((a, b) => a.id - b.id)
+        .map((item) =>
+          item.id === groupId ? { ...item, isVisible: flag } : item,
+        );
+
+      queryClient.setQueryData(["users", "setting"], newData);
+
+      return { prevData };
     },
-    onError: (error: HTTPError) => {
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["users", "setting"] });
+    },
+    onError: (error: HTTPError, _newData, context) => {
+      queryClient.setQueryData(["users", "setting"], context?.prevData);
+
       if (!error.response) return;
 
       const { status } = error.response;
