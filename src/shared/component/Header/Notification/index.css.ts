@@ -43,11 +43,11 @@ export const countStyle = style({
   position: "absolute",
   right: 0,
 
-  width: "1.2rem",
-  height: "1.2rem",
-  borderRadius: "1rem",
+  width: "0.6rem",
+  height: "0.6rem",
+  borderRadius: "50%",
 
-  backgroundColor: theme.color.purple2,
+  backgroundColor: theme.color.red,
 
   color: theme.color.white,
   fontSize: "0.8rem",

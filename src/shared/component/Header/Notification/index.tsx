@@ -54,11 +54,7 @@ interface TriggerButtonProps
 Notification.TriggerButton = ({ count, ...props }: TriggerButtonProps) => {
   return (
     <button {...props}>
-      {count > 0 && (
-        <div aria-live="polite" className={countStyle}>
-          {count}
-        </div>
-      )}
+      {count > 0 && <div aria-live="polite" className={countStyle} />}
       <IcnBellHeader className={iconStyle} />
     </button>
   );
