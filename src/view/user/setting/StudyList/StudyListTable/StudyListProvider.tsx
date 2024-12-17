@@ -1,3 +1,6 @@
+import { useVisibilityMutation } from "@/app/[user]/setting/query";
+import type { UseMutateFunction } from "@tanstack/react-query";
+import type { HTTPError, KyResponse } from "ky";
 import type React from "react";
 import { createContext, useReducer } from "react";
 import type { StudyListType } from "./type";
@@ -5,7 +8,20 @@ import type { StudyListType } from "./type";
 type TableDataContextType =
   | { processedData: StudyListType[]; state: State }
   | undefined;
-type TableDispatchContextType = React.Dispatch<Actions> | undefined;
+type TableDispatchContextType =
+  | {
+      dispatch: React.Dispatch<Actions>;
+      mutation: UseMutateFunction<
+        KyResponse<unknown>,
+        HTTPError<unknown>,
+        {
+          groupId: number;
+          flag: boolean;
+        },
+        unknown
+      >;
+    }
+  | undefined;
 
 export const TableDataContext = createContext<TableDataContextType>(undefined);
 export const TableDispatchContext =
@@ -106,6 +122,7 @@ export const StudyListTableProvider = ({
     filterKey: undefined,
     filterValue: "",
   } as State);
+  const { mutate: visibilityMutate } = useVisibilityMutation();
 
   // 데이터 전처리 (정렬, 필터링)
   const processedData = data
@@ -137,7 +154,9 @@ export const StudyListTableProvider = ({
     });
 
   return (
-    <TableDispatchContext.Provider value={dispatch}>
+    <TableDispatchContext.Provider
+      value={{ dispatch, mutation: visibilityMutate }}
+    >
       <TableDataContext.Provider value={{ state, processedData }}>
         {children}
       </TableDataContext.Provider>

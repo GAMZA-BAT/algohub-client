@@ -37,13 +37,14 @@ const transformData = (
   }));
 };
 
-export const useVisibilityMutation = (groupId: number) => {
+export const useVisibilityMutation = () => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (flag: boolean) => patchGroupVisibility(groupId, flag),
+    mutationFn: ({ groupId, flag }: { groupId: number; flag: boolean }) =>
+      patchGroupVisibility(groupId, flag),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["groups", "setting"],
