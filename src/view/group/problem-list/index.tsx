@@ -1,6 +1,6 @@
 "use client";
 
-import type { ProblemContent } from "@/api/problems/type";
+import type { ProblemContent } from "@/app/api/problems/type";
 import {} from "@/app/group/[groupId]/problem-list/query";
 import Pagination from "@/shared/component/Pagination";
 import ProblemList from "@/shared/component/ProblemList";

@@ -1,4 +1,5 @@
-import type { GroupResponse, MemberResponse, Role } from "@/api/groups/type";
+"use client";
+import type { GroupResponse, MemberResponse } from "@/app/api/groups/type";
 import CircleNumber from "@/view/group/dashboard/GroupSidebar/CircleNumber";
 import GroupCard from "@/view/group/dashboard/GroupSidebar/GroupCard";
 import {
@@ -12,10 +13,9 @@ import MemberAvatar from "@/view/group/index/MemberAvatar";
 type GroupCardProps = {
   info: GroupResponse;
   memberList: MemberResponse[];
-  role: Role;
 };
 
-const GroupSidebar = ({ info, memberList, role }: GroupCardProps) => {
+const GroupSidebar = ({ info, memberList }: GroupCardProps) => {
   const [ownerList, partList] = memberList.reduce(
     ([owner, nonOwner]: [MemberResponse[], MemberResponse[]], item) => {
       if (item.role !== "PARTICIPANT") owner.push(item);
@@ -27,7 +27,7 @@ const GroupSidebar = ({ info, memberList, role }: GroupCardProps) => {
 
   return (
     <div className={sidebarWrapper}>
-      <GroupCard info={info} role={role} />
+      <GroupCard info={info} />
       <div className={labelWrapper}>
         <h2 className={labelStyle}>스터디장</h2>
         <CircleNumber>{ownerList.length}</CircleNumber>

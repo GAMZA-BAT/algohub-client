@@ -1,4 +1,4 @@
-import { checkEmail } from "@/api/users";
+import { checkEmail } from "@/app/api/users";
 import { useCheckOnServer } from "@/shared/hook/useCheckOnServer";
 import { signUp } from "@/view/signup/SignupForm/action";
 import { zodResolver } from "@hookform/resolvers/zod";

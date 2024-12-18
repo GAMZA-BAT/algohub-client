@@ -1,4 +1,4 @@
-import { getGroupsByCode } from "@/api/groups";
+import { getGroupsByCode } from "@/app/api/groups";
 import { joinGroupAction } from "@/app/join-group/[code]/action";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

@@ -1,4 +1,4 @@
-import { getQueuedProblems } from "@/api/problems";
+import { getQueuedProblems } from "@/app/api/problems";
 import Pagination from "@/shared/component/Pagination";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import PendingListItem from "@/view/group/problem-list/PendingList/Item";

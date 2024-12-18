@@ -1,6 +1,6 @@
 "use client";
 
-import type { groupSchema } from "@/api/groups/schema";
+import type { groupSchema } from "@/app/api/groups/schema";
 import { usePatchGroupMutation } from "@/app/group/[groupId]/setting/query";
 import SupportingText from "@/common/component/SupportingText";
 import { Form } from "@/shared/component/Form";

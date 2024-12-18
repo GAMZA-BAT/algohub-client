@@ -1,4 +1,3 @@
-import { useVisibilityMutation } from "@/app/[user]/setting/query";
 import { IcnBtnPin, IcnCalendarTable } from "@/asset/svg";
 import {
   tableCellTextStyle,
@@ -12,7 +11,11 @@ import SortIcon from "../SortIcon";
 import StatusDropdownMenu from "../StatusDropdownMenu";
 import { textStyle } from "../StatusDropdownMenu/index.css";
 import StatusIcon from "../StatusIcon";
-import { useStudyListDispatch, useStudyListState } from "./hook";
+import {
+  useStudyListDispatch,
+  useStudyListMutation,
+  useStudyListState,
+} from "./hook";
 import type { StudyListType } from "./type";
 
 export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
@@ -96,18 +99,19 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
   {
     key: "role",
     Header: () => "역할",
-    Cell: (data) => (data.isOwner ? "스터디장" : "스터디 멤버"),
+    Cell: (data) => (data.role === "OWNER" ? "스터디장" : "스터디 멤버"),
     width: 100,
   },
   {
     key: "isPublic",
     Header: () => "공개여부",
     Cell: (data) => {
-      const { mutate: visibilityMutate } = useVisibilityMutation(data.id);
-
+      const visibilityMutate = useStudyListMutation();
       return (
         <button
-          onClick={() => visibilityMutate(!data.isVisible)}
+          onClick={() =>
+            visibilityMutate({ groupId: data.id, flag: !data.isVisible })
+          }
           className={visibilityBtnStyle}
         >
           {data.isVisible ? "ON" : "OFF"}

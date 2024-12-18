@@ -1,4 +1,4 @@
-import type { RankingContent } from "@/api/groups/type";
+import type { RankingContent } from "@/app/api/groups/type";
 import defaultImg from "@/asset/img/small_logo.png";
 import {
   allNicknameStyle,

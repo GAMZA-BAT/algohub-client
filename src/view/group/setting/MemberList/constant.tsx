@@ -1,4 +1,4 @@
-import type { MemberResponse, Role } from "@/api/groups/type";
+import type { MemberResponse, Role } from "@/app/api/groups/type";
 import {
   useDeleteMemberMutation,
   usePatchMemberRoleMutation,

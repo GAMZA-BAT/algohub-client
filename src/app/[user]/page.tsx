@@ -1,5 +1,5 @@
-import type { GroupStatus } from "@/api/groups/type";
-import { getGroupsByUsers } from "@/api/users";
+import type { GroupStatus } from "@/app/api/groups/type";
+import { getGroupsByUsers } from "@/app/api/users";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ListSection from "@/view/user/index/ListSection/ListSection";

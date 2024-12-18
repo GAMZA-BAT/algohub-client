@@ -1,6 +1,6 @@
 "use client";
 
-import type { ProblemContent } from "@/api/problems/type";
+import type { ProblemContent } from "@/app/api/problems/type";
 import { problemRegister } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import Button from "@/common/component/Button";

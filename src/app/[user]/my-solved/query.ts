@@ -1,5 +1,8 @@
-import type { MySolutionRequest } from "@/api/type";
-import { getExpiredMySolutions, getInProgressMySolutions } from "@/api/users";
+import type { MySolutionRequest } from "@/app/api/type";
+import {
+  getExpiredMySolutions,
+  getInProgressMySolutions,
+} from "@/app/api/users";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useInProgressMySolutionsQuery = ({

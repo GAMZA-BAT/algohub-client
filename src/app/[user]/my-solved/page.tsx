@@ -1,6 +1,9 @@
 "use client";
 
-import { getExpiredMySolutions, getInProgressMySolutions } from "@/api/users";
+import {
+  getExpiredMySolutions,
+  getInProgressMySolutions,
+} from "@/app/api/users";
 import Sidebar from "@/common/component/Sidebar";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { sidebarWrapper } from "@/styles/shared.css";

@@ -1,4 +1,4 @@
-import type { NotificationItem } from "@/api/notifications/type";
+import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
 import {
   countStyle,

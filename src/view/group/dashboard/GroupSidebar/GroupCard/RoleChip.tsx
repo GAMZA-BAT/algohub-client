@@ -1,4 +1,4 @@
-import type { Role } from "@/api/groups/type";
+import type { Role } from "@/app/api/groups/type";
 import { IcnUser3 } from "@/asset/svg";
 import { ROLE } from "@/shared/constant/role";
 import { chipWrapper } from "@/view/group/dashboard/GroupSidebar/GroupCard/index.css";

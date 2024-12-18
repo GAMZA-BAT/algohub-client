@@ -1,7 +1,7 @@
 "use client";
 
-import { groupSchema } from "@/api/groups/schema";
-import type { GroupResponse } from "@/api/groups/type";
+import { groupSchema } from "@/app/api/groups/schema";
+import type { GroupResponse } from "@/app/api/groups/type";
 import {
   useDeleteGroupMutation,
   usePatchGroupMutation,

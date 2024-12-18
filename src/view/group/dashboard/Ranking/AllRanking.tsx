@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllRanking } from "@/api/groups/ranking";
+import { getAllRanking } from "@/app/api/groups/ranking";
 import Pagination from "@/shared/component/Pagination";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";

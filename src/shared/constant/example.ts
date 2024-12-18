@@ -1,4 +1,4 @@
-import type { GroupResponse } from "@/api/groups/type";
+import type { GroupResponse } from "@/app/api/groups/type";
 import IcnNew from "@/asset/svg/icn_new.svg?url";
 import type { NotificationSettingsDataType } from "@/view/user/setting/NotificationSetting/NotificationSettingTable/type";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
@@ -11,7 +11,7 @@ export const tmpGroupData: GroupResponse = {
   introduction:
     "BE Developer로 성장하고 싶은 숭실대학교 학생들이 푸는 알고리즘 스터디입니다",
   groupImage: "",
-  isOwner: true,
+  role: "OWNER",
   ownerNickname: "jnary",
 };
 
@@ -65,7 +65,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2024-01-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     isVisible: true,
     status: "bookmarked",
   },
@@ -76,7 +76,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2024-05-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "queued",
   },
   {
@@ -86,7 +86,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2024-03-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "bookmarked",
   },
   {
@@ -96,7 +96,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2024-08-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "inProgress",
   },
   {
@@ -106,7 +106,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2024-04-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "queued",
   },
   {
@@ -116,7 +116,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2024-04-05"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "inProgress",
   },
   {
@@ -126,7 +126,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2024-01-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "inProgress",
   },
   {
@@ -136,7 +136,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2024-07-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "queued",
   },
   {
@@ -146,7 +146,7 @@ export const StudyListData: StudyListType[] = [
     name: "soongsil univ algorithm",
     startDate: new Date("2023-11-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "queued",
   },
 ];

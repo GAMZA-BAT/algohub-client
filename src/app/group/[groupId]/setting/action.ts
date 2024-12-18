@@ -1,7 +1,7 @@
 "use server";
 
-import { patchGroupInfo, patchMemberRole } from "@/api/groups";
-import type { MemberRoleRequest } from "@/api/groups/type";
+import { patchGroupInfo, patchMemberRole } from "@/app/api/groups";
+import type { MemberRoleRequest } from "@/app/api/groups/type";
 import { revalidateTag } from "next/cache";
 
 export const editGroup = async (groupId: number, formData: FormData) => {

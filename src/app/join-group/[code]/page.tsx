@@ -1,6 +1,4 @@
 "use client";
-
-import { useMyNicknameQuery } from "@/app/[user]/query";
 import {
   useGroupByCodeQuery,
   useJoinGroupMutation,
@@ -18,13 +16,14 @@ import {
   errorWrapper,
   wrapper,
 } from "@/view/user/join-group/index.css";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
   const { data: groupData } = useGroupByCodeQuery(code);
-  const userNickname = useMyNicknameQuery();
+  const userNickname = useSession().data?.user?.nickname;
   const { mutate: joinGroupMutate } = useJoinGroupMutation(groupData?.id || 0);
   const router = useRouter();
 

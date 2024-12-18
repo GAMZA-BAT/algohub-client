@@ -5,8 +5,8 @@ import {
   getProblemInfo,
   getQueuedProblems,
   patchProblem,
-} from "@/api/problems";
-import type { EditProblemRequest } from "@/api/problems/type";
+} from "@/app/api/problems";
+import type { EditProblemRequest } from "@/app/api/problems/type";
 import {
   postProblemAction,
   type problemActionRequest,

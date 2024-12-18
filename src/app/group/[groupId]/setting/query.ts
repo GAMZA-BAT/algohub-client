@@ -5,8 +5,7 @@ import {
   deleteGroupMember,
   getGroupMemberList,
 } from "@/api/groups";
-import type { MemberRoleRequest } from "@/api/groups/type";
-import { useMyNicknameQuery } from "@/app/[user]/query";
+import type { MemberRoleRequest } from "@/app/api/groups/type";
 import { editGroup, editRole } from "@/app/group/[groupId]/setting/action";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
@@ -16,6 +15,7 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export const useMemberListQuery = (groupId: number) => {
@@ -49,7 +49,7 @@ export const useDeleteGroupMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
-  const userNickname = useMyNicknameQuery();
+  const userNickname = useSession().data?.user?.nickname;
 
   return useMutation({
     mutationFn: (groupId: number) => deleteGroup(groupId),

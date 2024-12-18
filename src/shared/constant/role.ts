@@ -1,4 +1,4 @@
-import type { Role } from "@/api/groups/type";
+import type { Role } from "@/app/api/groups/type";
 
 export const ROLE: Record<Role, string> = {
   OWNER: "스터디장",

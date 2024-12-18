@@ -1,6 +1,6 @@
 "use client";
 
-import { getExpiredProblems, getInProgressProblems } from "@/api/problems";
+import { getExpiredProblems, getInProgressProblems } from "@/app/api/problems";
 import { useGroupRoleQuery } from "@/app/group/[groupId]/query";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
