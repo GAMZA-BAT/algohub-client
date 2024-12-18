@@ -1,5 +1,7 @@
+"use client";
+
+import { useUserGroupsQuery } from "@/app/[user]/query";
 import type { GroupStatus } from "@/app/api/groups/type";
-import { getGroupsByUsers } from "@/app/api/users";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import ListSection from "@/view/user/index/ListSection/ListSection";
@@ -11,7 +13,7 @@ import { userDashboardWrapper } from "@/view/user/index/index.css";
 const UserDashboardPage = async ({
   params: { user },
 }: { params: { user: string } }) => {
-  const data = await getGroupsByUsers(user);
+  const { data: groupList } = useUserGroupsQuery(user);
 
   return (
     <main className={sidebarWrapper}>
@@ -25,7 +27,7 @@ const UserDashboardPage = async ({
           <ListSection
             key={list.status}
             status={list.status as GroupStatus}
-            groups={data[list.status as GroupStatus]}
+            groups={groupList[list.status as GroupStatus]}
           />
         ))}
       </div>
