@@ -3,6 +3,7 @@ import {
   patchGroupVisibility,
   postGroupBookmark,
 } from "@/app/api/groups";
+import type { GroupSettingsContent } from "@/app/api/groups/type";
 import {
   getNotificationsSettings,
   patchNotificationsSettings,
@@ -31,12 +32,32 @@ export const useBookmarkGroupMutation = () => {
 
   return useMutation({
     mutationFn: (groupId: number) => postGroupBookmark(groupId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["groupsSetting"],
-      });
+    onMutate: async (groupId: number) => {
+      await queryClient.cancelQueries({ queryKey: ["groupsSetting"] });
+      const prevData = queryClient.getQueryData<GroupSettingsContent[]>([
+        "groupsSetting",
+      ]);
+
+      queryClient.setQueryData(
+        ["groupsSetting"],
+        (oldData: GroupSettingsContent[] | undefined) => {
+          if (!oldData) return [];
+
+          return oldData.map((group) =>
+            group.id === groupId
+              ? { ...group, isBookmarked: !group.isBookmarked }
+              : group,
+          );
+        },
+      );
+
+      return { prevData };
     },
-    onError: (error: HTTPError) => {
+    onError: (error: HTTPError, _newData, context) => {
+      if (context?.prevData) {
+        queryClient.setQueryData(["groupsSetting"], context.prevData);
+      }
+
       if (!error.response) return;
 
       const { status } = error.response;
@@ -55,6 +76,11 @@ export const useBookmarkGroupMutation = () => {
         }
       }
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
+      queryClient.invalidateQueries({ queryKey: ["userGroups"] });
+      showToast("정상적으로 수정되었습니다.", "success");
+    },
   });
 };
 
@@ -70,6 +96,8 @@ export const useVisibilityMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["groupsSetting"],
       });
+      queryClient.invalidateQueries({ queryKey: ["userGroups"] });
+      showToast("정상적으로 수정되었습니다.", "success");
     },
     onError: (error: HTTPError) => {
       if (!error.response) return;
@@ -109,9 +137,9 @@ export const useNotificationSettingMutation = () => {
     mutationFn: patchNotificationsSettings,
     onMutate: async (updatedSetting) => {
       await queryClient.cancelQueries({ queryKey: ["notificationsSetting"] });
-      const previousData = queryClient.getQueryData<
-        NotificationSettingContent[]
-      >(["notificationsSetting"]);
+      const prevData = queryClient.getQueryData<NotificationSettingContent[]>([
+        "notificationsSetting",
+      ]);
       queryClient.setQueryData(
         ["notificationsSetting"],
         (oldData: NotificationSettingContent[] | undefined) => {
@@ -124,7 +152,7 @@ export const useNotificationSettingMutation = () => {
         },
       );
 
-      return { previousData };
+      return { prevData };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -132,7 +160,11 @@ export const useNotificationSettingMutation = () => {
       });
       showToast("정상적으로 수정되었습니다.", "success");
     },
-    onError: (error: HTTPError) => {
+    onError: (error: HTTPError, _newData, context) => {
+      if (context?.prevData) {
+        queryClient.setQueryData(["groupsSetting"], context.prevData);
+      }
+
       if (!error.response) return;
 
       const { status } = error.response;
