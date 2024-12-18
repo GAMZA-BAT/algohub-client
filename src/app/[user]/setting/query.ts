@@ -1,12 +1,10 @@
-import { getGroupList, patchGroupVisibility } from "@/app/api/groups";
-import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
+import { getMyGroupSettings, patchGroupVisibility } from "@/app/api/groups";
 import {
   getNotificationsSettings,
   patchNotificationsSettings,
 } from "@/app/api/notifications";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
-import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
 import {
   useMutation,
   useQueryClient,
@@ -14,31 +12,11 @@ import {
 } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 
-export const useGetMyGroupsQuery = () => {
+export const useMyGroupSettingsQuery = () => {
   return useSuspenseQuery({
     queryKey: ["groups", "setting"],
-    queryFn: getGroupList,
-    select: (data) =>
-      (["bookmarked", "queued", "inProgress", "done"] as GroupStatus[])
-        .flatMap((status) => transformData(data[status], status))
-        .sort((a, b) => a.id - b.id),
+    queryFn: getMyGroupSettings,
   });
-};
-
-const transformData = (
-  data: GroupResponse[],
-  status: GroupStatus,
-): StudyListType[] => {
-  return data.map((item) => ({
-    status,
-    startDate: new Date(item.startDate),
-    endDate: new Date(item.endDate),
-    role: item.role,
-    name: item.name,
-    isBookmarked: item.isBookmarked,
-    id: item.id,
-    isVisible: item.isVisible,
-  }));
 };
 
 export const useVisibilityMutation = () => {

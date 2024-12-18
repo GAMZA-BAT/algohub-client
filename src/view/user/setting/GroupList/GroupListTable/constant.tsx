@@ -5,25 +5,26 @@ import {
 } from "@/shared/component/Table/TableElements/index.css";
 import { pinStyle } from "@/shared/component/Table/index.css";
 import type { TableDataType } from "@/shared/type/table";
-import { visibilityBtnStyle } from "@/view/user/setting/StudyList/StudyListTable/index.css";
+import { visibilityBtnStyle } from "@/view/user/setting/GroupList/GroupListTable/index.css";
 import { format } from "date-fns";
-import SortIcon from "../SortIcon";
-import StatusDropdownMenu from "../StatusDropdownMenu";
-import { textStyle } from "../StatusDropdownMenu/index.css";
-import StatusIcon from "../StatusIcon";
-import {
-  useStudyListDispatch,
-  useStudyListMutation,
-  useStudyListState,
-} from "./hook";
-import type { StudyListType } from "./type";
 
-export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
+import type { GroupSettingsContent } from "@/app/api/groups/type";
+import {
+  useGroupListDispatch,
+  useGroupListMutation,
+  useGroupListState,
+} from "@/view/user/setting/GroupList/GroupListTable/hook";
+import SortIcon from "@/view/user/setting/GroupList/SortIcon";
+import StatusDropdownMenu from "@/view/user/setting/GroupList/StatusDropdownMenu";
+import { textStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
+import StatusIcon from "@/view/user/setting/GroupList/StatusIcon";
+
+export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
   {
     key: "isBookmarked",
     Header: () => {
-      const dispatch = useStudyListDispatch();
-      const state = useStudyListState();
+      const dispatch = useGroupListDispatch();
+      const state = useGroupListState();
       const direction = state.sortCriteria.find(
         (c) => c.key === "isBookmarked",
       )?.order;
@@ -63,8 +64,8 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
   {
     key: "startDate",
     Header: () => {
-      const dispatch = useStudyListDispatch();
-      const state = useStudyListState();
+      const dispatch = useGroupListDispatch();
+      const state = useGroupListState();
       const direction = state.sortCriteria.find(
         (c) => c.key === "startDate",
       )?.order;
@@ -106,7 +107,7 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
     key: "isPublic",
     Header: () => "공개여부",
     Cell: (data) => {
-      const visibilityMutate = useStudyListMutation();
+      const visibilityMutate = useGroupListMutation();
       return (
         <button
           onClick={() =>

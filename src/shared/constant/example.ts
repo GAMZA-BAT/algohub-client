@@ -1,7 +1,6 @@
 import type { GroupResponse } from "@/app/api/groups/type";
 import type { NotificationSettingContent } from "@/app/api/notifications/type";
 import IcnNew from "@/asset/svg/icn_new.svg?url";
-import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
 
 export const tmpGroupData: GroupResponse = {
   id: 0,
@@ -55,99 +54,6 @@ export const notifications = [
       "님의 SOPT 알고리즘 스터디에 가입이 승인되었어요. 코멘트를 달며 인사를 나눠보세요.",
     date: "20일 전",
     profileImg: IcnNew,
-  },
-];
-
-export const StudyListData: StudyListType[] = [
-  {
-    id: 1,
-    isBookmarked: true,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2024-01-10"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    isVisible: true,
-    status: "bookmarked",
-  },
-  {
-    id: 2,
-    isVisible: true,
-    isBookmarked: true,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2024-05-10"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    status: "queued",
-  },
-  {
-    id: 3,
-    isVisible: true,
-    isBookmarked: true,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2024-03-10"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    status: "bookmarked",
-  },
-  {
-    id: 4,
-    isVisible: true,
-    isBookmarked: true,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2024-08-10"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    status: "inProgress",
-  },
-  {
-    id: 5,
-    isVisible: true,
-    isBookmarked: false,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2024-04-10"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    status: "queued",
-  },
-  {
-    id: 6,
-    isVisible: true,
-    isBookmarked: false,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2024-04-05"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    status: "inProgress",
-  },
-  {
-    id: 7,
-    isVisible: true,
-    isBookmarked: true,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2024-01-10"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    status: "inProgress",
-  },
-  {
-    id: 8,
-    isVisible: false,
-    isBookmarked: false,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2024-07-10"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    status: "queued",
-  },
-  {
-    id: 9,
-    isVisible: false,
-    isBookmarked: false,
-    name: "soongsil univ algorithm",
-    startDate: new Date("2023-11-10"),
-    endDate: new Date("2024-09-10"),
-    role: "OWNER",
-    status: "queued",
   },
 ];
 

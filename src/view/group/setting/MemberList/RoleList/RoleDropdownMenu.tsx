@@ -11,7 +11,7 @@ import {
   dropdownStyle,
   textStyle,
   triggerButtonStyle,
-} from "@/view/user/setting/StudyList/StatusDropdownMenu/index.css";
+} from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
 
 const RoleDropdownMenu = () => {
   const dispatch = useMemberListDispatch();
