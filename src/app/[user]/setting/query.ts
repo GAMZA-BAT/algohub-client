@@ -78,7 +78,7 @@ export const useBookmarkGroupMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
-      queryClient.invalidateQueries({ queryKey: ["userGroups"] });
+      queryClient.invalidateQueries({ queryKey: ["myGroups"] });
       showToast("정상적으로 수정되었습니다.", "success");
     },
   });
@@ -96,7 +96,7 @@ export const useVisibilityMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["groupsSetting"],
       });
-      queryClient.invalidateQueries({ queryKey: ["userGroups"] });
+      queryClient.invalidateQueries({ queryKey: ["myGroups"] });
       showToast("정상적으로 수정되었습니다.", "success");
     },
     onError: (error: HTTPError) => {
