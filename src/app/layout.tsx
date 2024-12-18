@@ -1,6 +1,6 @@
+import Providers from "@/app/provider";
 import { auth } from "@/auth";
 import Header from "@/shared/component/Header";
-import Providers from "@/shared/component/Provider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";

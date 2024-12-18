@@ -25,16 +25,19 @@ const Profile = ({ ...props }: DropdownProps) => {
   };
 
   return (
-      <Dropdown {...props} className={dropdownStyle}>
+    <Dropdown {...props} className={dropdownStyle}>
       <Link href={`/${nickname}`}>
-          <li className={dropdownTextStyle}>내 프로필</li>
+        <li className={dropdownTextStyle}>내 프로필</li>
       </Link>
-        <li className={dropdownTextStyle} onClick={handleLogout} onKeyDown={handleA11yClick(handleLogout)}>
+      <li
+        className={dropdownTextStyle}
+        onClick={handleLogout}
+        onKeyDown={handleA11yClick(handleLogout)}
+      >
         로그아웃
       </li>
-      </Dropdown>
-    );
-};
+    </Dropdown>
+  );
 };
 
 type TriggerButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {

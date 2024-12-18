@@ -1,18 +1,16 @@
 "use server";
 
+import { deleteSignOut } from "@/app/api/users";
 import { signIn, signOut } from "@/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import type { loginSchema } from "@/view/login/LoginForm/schema";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import type { z } from "zod";
-import { deleteSignOut } from "./signOut";
 
 export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   try {
     await signIn("credentials", {
       ...values,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
     return { success: "Successfully logged in!" };
   } catch (error) {
