@@ -32,3 +32,11 @@ export const useGroupListMutation = () => {
   }
   return context.mutation;
 };
+
+export const useBookmarkGroupMutation = () => {
+  const context = useContext(TableDispatchContext);
+  if (!context) {
+    throw new Error("useStudyListMutation must be used within a TableProvider");
+  }
+  return context.bookmarkMutation;
+};

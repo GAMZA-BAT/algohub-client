@@ -12,7 +12,6 @@ import {
 import StatusIcon from "@/view/user/setting/GroupList/StatusIcon";
 
 const statusOptions = [
-  { label: "bookmarked", icon: <StatusIcon status="bookmarked" /> },
   { label: "inProgress", icon: <StatusIcon status="inProgress" /> },
   { label: "queued", icon: <StatusIcon status="queued" /> },
   { label: "done", icon: <StatusIcon status="done" /> },

@@ -8,10 +8,10 @@ import type { TableDataType } from "@/shared/type/table";
 import { visibilityBtnStyle } from "@/view/user/setting/GroupList/GroupListTable/index.css";
 import { format } from "date-fns";
 
-import { useBookmarkGroupMutation } from "@/app/[user]/setting/query";
 import type { GroupSettingsContent } from "@/app/api/groups/type";
 import { handleA11yClick } from "@/common/util/dom";
 import {
+  useBookmarkGroupMutation,
   useGroupListDispatch,
   useGroupListMutation,
   useGroupListState,
@@ -46,7 +46,7 @@ export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
       );
     },
     Cell: ({ id, isBookmarked }) => {
-      const { mutate: bookmarkGroupMutate } = useBookmarkGroupMutation();
+      const bookmarkGroupMutate = useBookmarkGroupMutation();
 
       const handleClick = () => bookmarkGroupMutate(id);
 
@@ -135,7 +135,11 @@ export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
   {
     key: "status",
     Header: () => <StatusDropdownMenu />,
-    Cell: (data) => <StatusIcon status={data.status} />,
+    Cell: (data) => (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <StatusIcon status={data.status} />
+      </div>
+    ),
     width: 100,
   },
   {
