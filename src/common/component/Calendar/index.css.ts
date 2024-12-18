@@ -33,7 +33,7 @@ export const calendarIcnStyle = recipe({
 
 export const dateStyle = recipe({
   base: {
-    width: "6.2rem",
+    width: "5.8rem",
 
     border: "none",
 

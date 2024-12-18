@@ -1,26 +1,25 @@
 "use client";
 
-import { IcnEdit } from "@/asset/svg";
+import type { ProblemContent } from "@/app/api/problems/type";
 import CheckBox from "@/common/component/CheckBox";
+import ProblemEdit from "@/shared/component/ProblemList/ProblemEdit";
 import {
   checkboxStyle,
   commonStyle,
-  editIconStyle,
   iconStyle,
   itemStyle,
   titleStyle,
   wrongCheckBoxStyle,
 } from "@/shared/component/ProblemList/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import type { Problem } from "@/shared/type";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { getTierImage } from "@/shared/util/img";
 import clsx from "clsx";
 
 import { format } from "date-fns";
 import Link from "next/link";
 
-type ProblemListItemProps = Problem & {
-  onEdit?: () => void;
+type ProblemListItemProps = Omit<ProblemContent, "startDate"> & {
   isOwner?: boolean;
   className?: string;
 };
@@ -47,9 +46,9 @@ const ProblemListItem = ({
   accuracy,
   memberCount,
   submitMemberCount,
-  onEdit,
   isOwner = false,
 }: ProblemListItemProps) => {
+  const groupId = useGetGroupId();
   const Icon = getTierImage(level);
 
   const isExpired = new Date(endDate).getTime() - new Date().getTime() <= 0;
@@ -72,7 +71,10 @@ const ProblemListItem = ({
       )}
     >
       <Icon width={25} height={32} />
-      <Link className={titleStyle} href={`/group/problem-list/${problemId}`}>
+      <Link
+        className={titleStyle}
+        href={`/group/${groupId}/problem-list/${problemId}`}
+      >
         <span className={commonStyle}>{title}</span>
       </Link>
       <time dateTime={endDate} className={commonStyle}>
@@ -81,17 +83,9 @@ const ProblemListItem = ({
       <span
         className={commonStyle}
       >{`${submitMemberCount}/${memberCount}`}</span>
-      <span className={commonStyle}>{accuracy}</span>
+      <span className={commonStyle}>{`${accuracy}%`}</span>
       <div className={iconStyle}>{JSX_BY_STATUS[status]}</div>
-
-      {isOwner && (
-        <IcnEdit
-          onClick={onEdit}
-          className={editIconStyle({ isActive })}
-          width={24}
-          height={24}
-        />
-      )}
+      {isOwner && <ProblemEdit problemId={problemId} isActive={isActive} />}
     </li>
   );
 };

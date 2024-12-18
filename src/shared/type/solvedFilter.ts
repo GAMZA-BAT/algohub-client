@@ -1,4 +1,7 @@
-import type { SolutionLanguage, SolutionResult } from "@/api/solution/type";
+import type {
+  SolutionLanguage,
+  SolutionResult,
+} from "@/app/api/solutions/type";
 
 export type SolvedFilterType = {
   problemId: number | null;

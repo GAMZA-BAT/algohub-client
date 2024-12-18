@@ -1,6 +1,6 @@
-import type { GroupResponse } from "@/api/group/type";
+import type { GroupResponse } from "@/app/api/groups/type";
 import IcnNew from "@/asset/svg/icn_new.svg?url";
-import type { AlarmSettingsDataType } from "@/view/user/setting/AlarmSetting/AlarmSettingTable/type";
+import type { NotificationSettingsDataType } from "@/view/user/setting/NotificationSetting/NotificationSettingTable/type";
 import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
 
 export const tmpGroupData: GroupResponse = {
@@ -11,11 +11,11 @@ export const tmpGroupData: GroupResponse = {
   introduction:
     "BE Developer로 성장하고 싶은 숭실대학교 학생들이 푸는 알고리즘 스터디입니다",
   groupImage: "",
-  isOwner: true,
+  role: "OWNER",
   ownerNickname: "jnary",
 };
 
-export const alarms = [
+export const notifications = [
   {
     name: "Yesol Song",
     message: "님이 코멘트를 달았어요.",
@@ -60,82 +60,100 @@ export const alarms = [
 
 export const StudyListData: StudyListType[] = [
   {
+    id: 1,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-01-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
+    isVisible: true,
     status: "bookmarked",
   },
   {
+    id: 2,
+    isVisible: true,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-05-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "queued",
   },
   {
+    id: 3,
+    isVisible: true,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-03-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "bookmarked",
   },
   {
+    id: 4,
+    isVisible: true,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-08-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "inProgress",
   },
   {
+    id: 5,
+    isVisible: true,
     isBookmarked: false,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-04-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "queued",
   },
   {
+    id: 6,
+    isVisible: true,
     isBookmarked: false,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-04-05"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "inProgress",
   },
   {
+    id: 7,
+    isVisible: true,
     isBookmarked: true,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-01-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "inProgress",
   },
   {
+    id: 8,
+    isVisible: false,
     isBookmarked: false,
     name: "soongsil univ algorithm",
     startDate: new Date("2024-07-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "queued",
   },
   {
+    id: 9,
+    isVisible: false,
     isBookmarked: false,
     name: "soongsil univ algorithm",
     startDate: new Date("2023-11-10"),
     endDate: new Date("2024-09-10"),
-    isOwner: true,
+    role: "OWNER",
     status: "queued",
   },
 ];
 
-export const AlarmSettingsData: AlarmSettingsDataType[] = [
+export const NotificationSettingsData: NotificationSettingsDataType[] = [
   {
-    alarm: true,
+    notification: true,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -144,7 +162,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: true,
+    notification: true,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -153,7 +171,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: false,
+    notification: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -162,7 +180,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: false,
+    notification: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -171,7 +189,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: false,
+    notification: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -180,7 +198,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: true,
+    notification: true,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,
@@ -189,7 +207,7 @@ export const AlarmSettingsData: AlarmSettingsDataType[] = [
     endDateImminent: false,
   },
   {
-    alarm: false,
+    notification: false,
     groupName: "숭실대학교 알고리즘 스터디",
     problemRegistration: false,
     solutionRegistration: false,

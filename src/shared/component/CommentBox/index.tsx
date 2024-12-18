@@ -1,26 +1,28 @@
 "use client";
 
+import type { CommentContent } from "@/app/api/comments/type";
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
+import Textarea from "@/common/component/Textarea";
+import { useEditForm } from "@/shared/component/CommentBox/hook";
 import {
   containerStyle,
   contentStyle,
   contentWrapperStyle,
-  createdAtStyle,
+  createAtStyle,
+  editInputWrapperStyle,
   iconContainerStyle,
   iconStyle,
   topContentStyle,
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import type { Comment } from "@/shared/type/comment";
-import { getFormattedCreatedAt } from "@/shared/util/time";
+import { getFormattedcreateAt } from "@/shared/util/time";
 import clsx from "clsx";
 
-type CommentBox = Comment & {
+type CommentBox = CommentContent & {
   variant: "detail" | "notice";
-  onDelete?: () => void;
-  onEdit?: () => void;
+  onDelete?: (commentId: number) => void;
   className?: string;
 };
 
@@ -32,11 +34,19 @@ const CommentBox = ({
   content,
   createdAt,
   onDelete,
-  onEdit,
   className,
 }: CommentBox) => {
   const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
     useA11yHoverHandler();
+
+  const { register, control } = useEditForm(commentId, content);
+
+  const {
+    isEditing,
+    handleEditBtnClick,
+    handleHookFormSubmit,
+    handleTextAreaKeyDown,
+  } = control[variant];
 
   return (
     <li
@@ -55,31 +65,40 @@ const CommentBox = ({
       <div className={contentWrapperStyle({ variant })}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createdAtStyle}>{getFormattedCreatedAt(createdAt)}</p>
+          <p className={createAtStyle}>{getFormattedcreateAt(createdAt)}</p>
         </div>
-        <p className={contentStyle}>{content}</p>
+        {isEditing ? (
+          <form
+            onSubmit={handleHookFormSubmit}
+            className={editInputWrapperStyle}
+          >
+            <Textarea
+              {...register("input")}
+              onKeyDown={handleTextAreaKeyDown}
+            />
+          </form>
+        ) : (
+          <p className={contentStyle}>{content}</p>
+        )}
       </div>
 
       <div className={iconContainerStyle}>
-        <div
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") onEdit?.();
-          }}
+        <button
+          onClick={handleEditBtnClick}
           className={iconStyle({ variant: "edit", isActive })}
         >
-          <IcnEdit onClick={onEdit} width={18} height={18} />
-        </div>
+          <IcnEdit width={18} height={18} />
+        </button>
         <div
           role="button"
           tabIndex={0}
+          onClick={() => onDelete?.(commentId)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") onDelete?.();
+            if (e.key === "Enter") onDelete?.(commentId);
           }}
           className={iconStyle({ variant: "close", isActive })}
         >
-          <IcnClose onClick={onDelete} width={16} height={16} />
+          <IcnClose width={16} height={16} />
         </div>
       </div>
     </li>

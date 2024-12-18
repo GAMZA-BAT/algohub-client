@@ -39,12 +39,15 @@ export const writerStyle = style({
 export const contentStyle = style({
   ...theme.font.Caption1_R_12,
   color: theme.color.white,
+
+  whiteSpace: "pre-line",
 });
 
 export const contentWrapperStyle = recipe({
   base: {
     display: "flex",
     flexDirection: "column",
+    width: "100%",
   },
   variants: {
     variant: {
@@ -64,7 +67,7 @@ export const topContentStyle = style({
   gap: "2rem",
 });
 
-export const createdAtStyle = style({
+export const createAtStyle = style({
   ...theme.font.Caption1_R_12,
   color: theme.color.mg3,
 });
@@ -110,4 +113,19 @@ export const iconStyle = recipe({
       },
     },
   },
+});
+
+export const editInputWrapperStyle = style({
+  position: "relative",
+
+  display: "flex",
+  gap: "0.4rem",
+
+  width: "100%",
+});
+
+export const editSumbitButtonStyle = style({
+  position: "absolute",
+  top: 5,
+  right: 5,
 });

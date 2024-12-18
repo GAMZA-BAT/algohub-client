@@ -11,6 +11,8 @@ export const itemStyle = style({
   width: "100%",
 
   padding: "0.5rem 2rem",
+
+  cursor: "pointer",
 });
 
 export const textStyle = style({

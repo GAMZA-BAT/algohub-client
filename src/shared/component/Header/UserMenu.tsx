@@ -1,25 +1,31 @@
 "use client";
-
+import type { UserResponse } from "@/app/api/users/type";
 import Menu from "@/common/component/Menu/Menu";
 import Profile from "@/shared/component/Header/Profile";
 import { buttonContainer } from "@/shared/component/Header/index.css";
-import Alarm from "./Alarm/Alarm";
+import { useNotificationsQuery } from "@/shared/component/Header/query";
+import { useSession } from "next-auth/react";
+import Notification from "./Notification";
 
 const UserMenu = () => {
-  // TODO: 알림 기능 구현 시 수정
-  const count = 10;
+  const { data } = useNotificationsQuery();
+  const user = useSession().data?.user;
+
+  const notiCounts = data.length;
 
   return (
     <div className={buttonContainer}>
       <Menu
-        label="alarm"
-        renderTriggerButton={<Alarm.TriggerButton count={count} />}
-        renderList={<Alarm />}
+        label="notification"
+        renderTriggerButton={<Notification.TriggerButton count={notiCounts} />}
+        renderList={<Notification notificationList={data} />}
       />
 
       <Menu
         label="profileMenu"
-        renderTriggerButton={<Profile.TriggerButton />}
+        renderTriggerButton={
+          <Profile.TriggerButton src={(user as UserResponse).profileImage} />
+        }
         renderList={<Profile />}
       />
     </div>

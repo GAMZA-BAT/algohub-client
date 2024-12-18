@@ -1,4 +1,6 @@
 "use client";
+import type { ProblemContent } from "@/app/api/problems/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import { IcnBtnArrowLeft } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
@@ -13,13 +15,18 @@ import {
 import { useRouter } from "next/navigation";
 
 type SolvedListProps = {
-  problemId: string;
+  groupId: string;
+  problemInfo: ProblemContent;
+  content: SolutionContent[];
 };
-const SolvedList = ({ problemId }: SolvedListProps) => {
+
+const SolvedList = ({ groupId, problemInfo, content }: SolvedListProps) => {
   const router = useRouter();
+
   const handleBack = () => {
-    router.back();
+    router.push(`/group/${groupId}/problem-list`);
   };
+
   return (
     <div className={solvedListWrapper}>
       <div
@@ -29,12 +36,14 @@ const SolvedList = ({ problemId }: SolvedListProps) => {
         aria-label="뒤로 가기"
       >
         <IcnBtnArrowLeft width={32} height={32} />
-        <h1 className={headerTextStyle}>트리에서의 동적 계획법 {problemId}</h1>
+        <h1
+          className={headerTextStyle}
+        >{`${problemInfo.title} ${problemInfo.problemId}`}</h1>
       </div>
-      <ProblemInfo />
+      <ProblemInfo problemInfo={problemInfo} />
       <SolvedFilterBar />
       <div className={dividerStyle} />
-      <SolvedTable />
+      <SolvedTable groupId={groupId} content={content} />
     </div>
   );
 };

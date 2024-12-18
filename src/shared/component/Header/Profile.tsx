@@ -1,14 +1,18 @@
-import { logoutAction } from "@/api/user/actions";
-import IcnNew from "@/asset/svg/icn_new.svg?url";
+import { logoutAction } from "@/app/api/users/actions";
+import Avatar from "@/common/component/Avatar";
 import Dropdown, { type DropdownProps } from "@/common/component/Dropdown";
 import { handleA11yClick } from "@/common/util/dom";
-import { dropdownStyle } from "@/shared/component/Header/Profile.css";
+import {
+  dropdownStyle,
+  dropdownTextStyle,
+} from "@/shared/component/Header/Profile.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
 import { getSession, useSession } from "next-auth/react";
-import Image from "next/image";
+import Link from "next/link";
 
 const Profile = ({ ...props }: DropdownProps) => {
   const session = useSession();
+  const nickname = session.data?.user?.nickname;
   const token = session.data?.user?.accessToken;
   const handleLogout = async () => {
     if (!token) return;
@@ -19,21 +23,33 @@ const Profile = ({ ...props }: DropdownProps) => {
       await session.update(await getSession());
     }
   };
+
   return (
-    <Dropdown {...props} className={dropdownStyle}>
-      <li>내 프로필</li>
-      <li onClick={handleLogout} onKeyDown={handleA11yClick(handleLogout)}>
+      <Dropdown {...props} className={dropdownStyle}>
+      <Link href={`/${nickname}`}>
+          <li className={dropdownTextStyle}>내 프로필</li>
+      </Link>
+        <li className={dropdownTextStyle} onClick={handleLogout} onKeyDown={handleA11yClick(handleLogout)}>
         로그아웃
       </li>
-    </Dropdown>
-  );
+      </Dropdown>
+    );
+};
 };
 
-type TriggerButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type TriggerButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  src?: string;
+};
 
-Profile.TriggerButton = ({ ...props }: TriggerButtonProps) => (
+Profile.TriggerButton = ({ src = "", ...props }: TriggerButtonProps) => (
   <button {...props}>
-    <Image className={iconStyle} src={IcnNew} alt="user profile" priority />
+    <Avatar
+      size="mini"
+      className={iconStyle}
+      src={src}
+      alt="user profile"
+      priority
+    />
   </button>
 );
 

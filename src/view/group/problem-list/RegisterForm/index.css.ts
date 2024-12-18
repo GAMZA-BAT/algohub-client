@@ -58,3 +58,24 @@ export const fieldsetStyle = style({
 
   border: "none",
 });
+
+export const animationStyle = style({
+  position: "fixed",
+  inset: 0,
+});
+
+export const deleteWrapper = style({
+  display: "flex",
+  justifyContent: "center",
+
+  paddingTop: "1rem",
+});
+
+export const deleteStyle = style({
+  borderBottom: `1px solid ${theme.color.mg3}`,
+
+  color: theme.color.mg3,
+  ...theme.font.Caption3_M_12,
+
+  cursor: "pointer",
+});

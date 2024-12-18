@@ -1,8 +1,8 @@
-import { postSignin } from "@/api/user/signin";
+import { postSignin } from "@/app/api/auth";
+import { getMyInfo } from "@/app/api/users";
 import { loginSchema } from "@/view/login/LoginForm/schema";
 import type { NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
-import { getUser } from "./api/user/user";
 
 export default {
   providers: [
@@ -13,12 +13,15 @@ export default {
         if (validatedFields.success) {
           const { data } = validatedFields;
 
-          const { token } = await postSignin(data);
-          const user = await getUser(token);
+          const { accessToken, refreshToken } = await postSignin(data);
+          const user = await getMyInfo(accessToken);
+
           if (!user) return null;
+
           return {
             ...user,
-            accessToken: token,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
           };
         }
 
@@ -26,4 +29,5 @@ export default {
       },
     }),
   ],
+  secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;

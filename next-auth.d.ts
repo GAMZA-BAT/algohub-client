@@ -2,8 +2,8 @@ import type { User } from "next-auth";
 import "next-auth/jwt";
 
 interface AdapterUser extends User {
-  id: string;
   email: string;
+  id: string;
   emailVerified: Date | null;
 }
 /**
@@ -11,8 +11,18 @@ interface AdapterUser extends User {
  * https://authjs.dev/getting-started/typescript#module-augmentation
  */
 declare module "next-auth" {
-  interface User {
+  interface Session {
     accessToken: string;
+    refreshToken: string;
+    accessTokenExpires: number;
+  }
+  interface User {
+    nickname: string;
+    profileImage?: string;
+    bjNickname: string;
+    description?: string;
+    accessToken: string;
+    refreshToken: string;
   }
 }
 
@@ -20,5 +30,7 @@ declare module "next-auth/jwt" {
   interface JWT {
     user: User & AdapterUser;
     accessToken: string;
+    refreshToken: string;
+    accessTokenExpires: number;
   }
 }

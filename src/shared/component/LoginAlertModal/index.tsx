@@ -24,7 +24,7 @@ const LoginAlertModal = ({
   const handleRedirectToLogin = () => router.push("/login");
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn={true}>
+    <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn>
       <div className={containerStyle}>
         <p className={alertTextStyle}>로그인이 필요한 서비스입니다.</p>
         <Lottie

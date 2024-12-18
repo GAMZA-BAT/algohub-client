@@ -1,5 +1,8 @@
+"use client";
+
+import type { SolutionContent } from "@/app/api/solutions/type";
 import { IcnMessage, IcnMessageDot } from "@/asset/svg";
-import type { Solution } from "@/shared/type";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { getFormattedMemory } from "@/shared/util/byte";
 import { getTierImage } from "@/shared/util/img";
 import {
@@ -8,26 +11,47 @@ import {
   textStyle,
 } from "@/view/group/my-solved/SolvedItem/index.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const SolvedItem = ({
-  solutionId,
-  level,
-  title,
-  solvedDateTime,
-  result,
-  memoryUsage = 0,
-  executionTime,
-  language,
-  codeLength,
-  commentCount = 0,
-}: Solution) => {
-  const LevelIcon = getTierImage(level);
+const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
+  const {
+    problemLevel,
+    problemTitle,
+    solutionId,
+    solvedDateTime,
+    result,
+    memoryUsage,
+    executionTime,
+    language,
+    codeLength,
+    commentCount,
+    groupId,
+  } = solutionInfo;
+  const pathGroupId = useGetGroupId();
+  const LevelIcon = getTierImage(problemLevel);
+
+  const router = useRouter();
+
+  const handleClickItem = () => {
+    router.push(`/group/${groupId || pathGroupId}/solved-detail/${solutionId}`);
+  };
 
   return (
-    <li aria-label={`${level}: ${solutionId}`} className={itemStyle}>
+    <li
+      // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole:
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && handleClickItem()}
+      onClick={handleClickItem}
+      aria-label={`${problemLevel}: ${solutionId}`}
+      className={itemStyle}
+    >
       <LevelIcon width={25} height={32} />
-      <Link className={textStyle} href={`/problem/${solutionId}`}>
-        {title}
+      <Link
+        className={textStyle}
+        href={`/group/${groupId}/problem-list/${solutionId}`}
+      >
+        {problemTitle}
       </Link>
       <time dateTime={solvedDateTime} className={textStyle}>
         {solvedDateTime}

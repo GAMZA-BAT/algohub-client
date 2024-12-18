@@ -1,7 +1,7 @@
 "use client";
 
+import type { SolutionContent } from "@/app/api/solutions/type";
 import Pagination from "@/shared/component/Pagination";
-import type { Solution } from "@/shared/type";
 import Header from "@/view/group/my-solved/Header";
 import {
   listStyle,
@@ -10,22 +10,35 @@ import {
 } from "@/view/group/my-solved/Section/index.css";
 import SolvedItem from "@/view/group/my-solved/SolvedItem";
 
-type MySolvedSection = {
+type MySolvedSectionProps = {
   title: string;
-  data: Solution[];
+  data: SolutionContent[];
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 
-const MySolvedSection = ({ title, data }: MySolvedSection) => {
+const MySolvedSection = ({
+  title,
+  data,
+  totalPages,
+  currentPage,
+  onPageChange,
+}: MySolvedSectionProps) => {
   return (
     <div className={sectionStyle}>
       <h2 className={titleStyle}>{title}</h2>
       <Header />
       <ul className={listStyle}>
         {data.map((item) => (
-          <SolvedItem key={item.solutionId} {...item} />
+          <SolvedItem key={item.solutionId} solutionInfo={item} />
         ))}
       </ul>
-      <Pagination totalPages={10} currentPage={10} onPageChange={() => {}} />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };

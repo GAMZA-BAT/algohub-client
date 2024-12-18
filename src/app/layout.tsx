@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import Header from "@/shared/component/Header";
 import Providers from "@/shared/component/Provider";
-import QueryProvider from "@/shared/component/QueryProvider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
@@ -24,10 +23,10 @@ export default async function RootLayout({
     <html lang="ko">
       <body>
         <SessionProvider session={session}>
-          <Header session={session} />
-          <QueryProvider>
-            <Providers>{children}</Providers>
-          </QueryProvider>
+          <Providers>
+            <Header session={session} />
+            {children}
+          </Providers>
         </SessionProvider>
       </body>
     </html>

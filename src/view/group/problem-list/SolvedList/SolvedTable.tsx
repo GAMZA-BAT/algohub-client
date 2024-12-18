@@ -1,6 +1,7 @@
-import type { SolutionByIdResponse } from "@/api/solution/type";
+"use client";
+
+import type { SolutionContent } from "@/app/api/solutions/type";
 import Avatar from "@/common/component/Avatar";
-import { tmpSolvedListData } from "@/shared/util/example";
 import {
   SOLVED_TABLE_BODY,
   SOLVED_TABLE_HEADER,
@@ -16,11 +17,19 @@ import {
   theadStyle,
   trStyle,
 } from "@/view/group/problem-list/SolvedList/index.css";
+import { useRouter } from "next/navigation";
 
-const SolvedTable = () => {
+type SolvedTableProps = {
+  groupId: string;
+  content: SolutionContent[];
+};
+
+const SolvedTable = ({ groupId, content }: SolvedTableProps) => {
+  const router = useRouter();
+
   const formatCellValue = (
-    prop: keyof SolutionByIdResponse,
-    value: string | number,
+    prop: keyof SolutionContent,
+    value: string | number | undefined,
   ) => {
     switch (prop) {
       case "memoryUsage":
@@ -32,6 +41,10 @@ const SolvedTable = () => {
       default:
         return value;
     }
+  };
+
+  const handleGoDetail = (id: number) => {
+    router.push(`/group/${groupId}/solved-detail/${id}`);
   };
 
   return (
@@ -47,8 +60,16 @@ const SolvedTable = () => {
           </tr>
         </thead>
         <tbody className={tbodyStyle}>
-          {tmpSolvedListData.map((row) => (
-            <tr key={row.solutionId} className={trStyle}>
+          {content.map((row) => (
+            <tr
+              tabIndex={0}
+              onKeyDown={(e) =>
+                e.key === "Enter" && handleGoDetail(row.solutionId)
+              }
+              key={row.solutionId}
+              className={trStyle}
+              onClick={() => handleGoDetail(row.solutionId)}
+            >
               {SOLVED_TABLE_BODY.map((prop) => {
                 if (prop === "profileImage") {
                   return (

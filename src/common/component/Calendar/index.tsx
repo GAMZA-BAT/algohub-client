@@ -45,35 +45,33 @@ const Calendar = forwardRef<DatePicker, CalendarProps>(
 
     return (
       <div className={wrapperStyle}>
-        <div>
-          <DatePicker
-            ref={ref}
-            dateFormat="yyyy.MM.dd"
-            selected={selectedDate}
-            className={clsx(dateStyle({ selected }), className)}
-            renderCustomHeader={renderCustomHeader}
-            onChange={handleDateChange}
-            locale="ko"
-            calendarStartDay={1}
-            popperPlacement="bottom-start"
-            shouldCloseOnSelect
-            popperProps={{ strategy: "fixed" }}
-            popperModifiers={[
-              {
-                name: "placement",
-                fn: (state) => {
-                  const { x, y } = state;
-                  return {
-                    ...state,
-                    x: x - 8,
-                    y: y + 2,
-                  };
-                },
+        <DatePicker
+          ref={ref}
+          dateFormat="yyyy.MM.dd"
+          selected={selectedDate}
+          className={clsx(dateStyle({ selected }), className)}
+          renderCustomHeader={renderCustomHeader}
+          onChange={handleDateChange}
+          locale="ko"
+          calendarStartDay={1}
+          popperPlacement="bottom-start"
+          shouldCloseOnSelect
+          popperProps={{ strategy: "fixed" }}
+          popperModifiers={[
+            {
+              name: "placement",
+              fn: (state) => {
+                const { x, y } = state;
+                return {
+                  ...state,
+                  x: x - 8,
+                  y: y + 2,
+                };
               },
-            ]}
-            {...props}
-          />
-        </div>
+            },
+          ]}
+          {...props}
+        />
 
         <IcnCalenderCard className={calendarIcnStyle({ selected })} />
       </div>

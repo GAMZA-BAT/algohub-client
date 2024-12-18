@@ -1,27 +1,38 @@
 "use client";
-import type { RankingResponse } from "@/api/group/type";
+
+import { getAllRanking } from "@/app/api/groups/ranking";
 import Pagination from "@/shared/component/Pagination";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
+import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import RankList from "@/view/group/dashboard/Ranking/RankList";
 import { allRankingWrapper } from "@/view/group/dashboard/Ranking/index.css";
-import { useState } from "react";
 
 const AllRanking = () => {
-  const tmpData: RankingResponse = {
-    userNickname: "달리는 지니",
-    profileImage: "",
-    rank: 1,
-    solvedCount: 38,
-  };
-  const [page, setPage] = useState(1);
+  const groupId = useGetGroupId();
+
+  const {
+    data: allRankingData,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+  } = usePaginationQuery({
+    queryKey: ["ranking", +groupId],
+    queryFn: (page) => getAllRanking(+groupId, page),
+  });
+  const allRankingList = allRankingData?.content;
 
   return (
     <>
       <ol className={allRankingWrapper}>
-        {[tmpData, tmpData, tmpData].map((data, idx) => (
+        {allRankingList?.map((data, idx) => (
           <RankList key={idx} info={data} />
         ))}
       </ol>
-      <Pagination totalPages={4} currentPage={page} onPageChange={setPage} />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
     </>
   );
 };

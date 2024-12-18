@@ -1,5 +1,8 @@
 "use client";
-import type { SolutionLanguage, SolutionResult } from "@/api/solution/type";
+import type {
+  SolutionLanguage,
+  SolutionResult,
+} from "@/app/api/solutions/type";
 import { IcnReset } from "@/asset/svg";
 import Input from "@/common/component/Input";
 import SelectBox from "@/common/component/SelectBox";

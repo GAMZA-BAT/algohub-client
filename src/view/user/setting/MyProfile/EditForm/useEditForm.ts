@@ -1,20 +1,22 @@
 import { useToast } from "@/common/hook/useToast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { baseEditSchema } from "./schema";
 
 const useEditForm = () => {
-  // TODO: API연결 후 defaultValues 적용하기
+  const user = useSession().data?.user;
+
   const form = useForm<z.infer<typeof baseEditSchema>>({
     resolver: zodResolver(baseEditSchema),
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      profile: "",
-      nickname: "백예린",
-      baekjoonId: "yerin",
-      introduction: "프로필에 나타나요",
+      profile: user?.profileImage,
+      nickname: user?.nickname,
+      baekjoonId: user?.bjNickname,
+      introduction: user?.description,
     },
   });
   const { showToast } = useToast();

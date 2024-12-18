@@ -22,5 +22,13 @@ export const useStudyListDispatch = () => {
   if (!context) {
     throw new Error("useStudyListDispatch must be used within a TableProvider");
   }
-  return context;
+  return context.dispatch;
+};
+
+export const useStudyListMutation = () => {
+  const context = useContext(TableDispatchContext);
+  if (!context) {
+    throw new Error("useStudyListMutation must be used within a TableProvider");
+  }
+  return context.mutation;
 };
