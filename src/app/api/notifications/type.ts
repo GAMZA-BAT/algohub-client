@@ -1,5 +1,8 @@
 export interface NotificationItem {
   id: number;
+  groupId: number;
+  problemId: number | null;
+  solutionId: number | null;
   groupName: string;
   groupImage: string;
   message: string;
