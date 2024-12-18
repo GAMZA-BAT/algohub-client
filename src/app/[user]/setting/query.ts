@@ -1,4 +1,8 @@
-import { getMyGroupSettings, patchGroupVisibility } from "@/app/api/groups";
+import {
+  getMyGroupSettings,
+  patchGroupVisibility,
+  postGroupBookmark,
+} from "@/app/api/groups";
 import {
   getNotificationsSettings,
   patchNotificationsSettings,
@@ -17,6 +21,40 @@ export const useMyGroupSettingsQuery = () => {
   return useSuspenseQuery({
     queryKey: ["groupsSetting"],
     queryFn: getMyGroupSettings,
+  });
+};
+
+export const useBookmarkGroupMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (groupId: number) => postGroupBookmark(groupId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupsSetting"],
+      });
+    },
+    onError: (error: HTTPError) => {
+      if (!error.response) return;
+
+      const { status } = error.response;
+
+      switch (status) {
+        case HTTP_ERROR_STATUS.NOT_FOUND: {
+          showToast("존재하지 않은 그룹입니다.", "error");
+          break;
+        }
+        case HTTP_ERROR_STATUS.BAD_REQUEST: {
+          showToast("참여하지 않은 그룹입니다.", "error");
+          break;
+        }
+        default: {
+          showToast("정상적으로 수정되지 않았습니다.", "error");
+        }
+      }
+    },
   });
 };
 

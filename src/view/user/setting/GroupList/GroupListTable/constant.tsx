@@ -8,7 +8,9 @@ import type { TableDataType } from "@/shared/type/table";
 import { visibilityBtnStyle } from "@/view/user/setting/GroupList/GroupListTable/index.css";
 import { format } from "date-fns";
 
+import { useBookmarkGroupMutation } from "@/app/[user]/setting/query";
 import type { GroupSettingsContent } from "@/app/api/groups/type";
+import { handleA11yClick } from "@/common/util/dom";
 import {
   useGroupListDispatch,
   useGroupListMutation,
@@ -43,14 +45,23 @@ export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
         </>
       );
     },
-    Cell: ({ isBookmarked }) => (
-      <IcnBtnPin
-        aria-label="이 스터디를 즐겨찾기 설정"
-        width={20}
-        height={20}
-        className={pinStyle({ active: isBookmarked })}
-      />
-    ),
+    Cell: ({ id, isBookmarked }) => {
+      const { mutate: bookmarkGroupMutate } = useBookmarkGroupMutation();
+
+      const handleClick = () => bookmarkGroupMutate(id);
+
+      return (
+        <IcnBtnPin
+          aria-label="이 스터디를 즐겨찾기 설정"
+          width={20}
+          height={20}
+          className={pinStyle({ active: isBookmarked })}
+          onClick={handleClick}
+          tabIndex={0}
+          onKeyDown={handleA11yClick(handleClick)}
+        />
+      );
+    },
     width: 30,
     align: "left",
   },

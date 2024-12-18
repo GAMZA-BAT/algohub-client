@@ -138,8 +138,14 @@ export const patchMemberRole = async (
 
 export const getMyGroupSettings = async () => {
   const response = await kyInstance
-    .patch<GroupSettingsContent[]>("api/groups/settings")
+    .get<GroupSettingsContent[]>("api/groups/settings")
     .json();
+
+  return response;
+};
+
+export const postGroupBookmark = async (groupId: number) => {
+  const response = await kyInstance.post(`api/groups/${groupId}/bookmark`);
 
   return response;
 };
