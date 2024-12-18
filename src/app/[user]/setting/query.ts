@@ -3,6 +3,7 @@ import {
   getNotificationsSettings,
   patchNotificationsSettings,
 } from "@/app/api/notifications";
+import type { NotificationSettingContent } from "@/app/api/notifications/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import {
@@ -14,7 +15,7 @@ import type { HTTPError } from "ky";
 
 export const useMyGroupSettingsQuery = () => {
   return useSuspenseQuery({
-    queryKey: ["groups", "setting"],
+    queryKey: ["groupsSetting"],
     queryFn: getMyGroupSettings,
   });
 };
@@ -29,7 +30,7 @@ export const useVisibilityMutation = () => {
       patchGroupVisibility(groupId, flag),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["groups", "setting"],
+        queryKey: ["groupsSetting"],
       });
     },
     onError: (error: HTTPError) => {
@@ -56,7 +57,7 @@ export const useVisibilityMutation = () => {
 
 export const useNotificationSettingListQuery = () => {
   return useSuspenseQuery({
-    queryKey: ["notifications", "setting"],
+    queryKey: ["notificationsSetting"],
     queryFn: getNotificationsSettings,
   });
 };
@@ -68,10 +69,30 @@ export const useNotificationSettingMutation = () => {
 
   return useMutation({
     mutationFn: patchNotificationsSettings,
+    onMutate: async (updatedSetting) => {
+      await queryClient.cancelQueries({ queryKey: ["notificationsSetting"] });
+      const previousData = queryClient.getQueryData<
+        NotificationSettingContent[]
+      >(["notificationsSetting"]);
+      queryClient.setQueryData(
+        ["notificationsSetting"],
+        (oldData: NotificationSettingContent[] | undefined) => {
+          if (!oldData) return [];
+          return oldData.map((item) =>
+            item.groupId === updatedSetting.groupId
+              ? { ...item, ...updatedSetting }
+              : item,
+          );
+        },
+      );
+
+      return { previousData };
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["notifications", "setting"],
+        queryKey: ["notificationsSetting"],
       });
+      showToast("정상적으로 수정되었습니다.", "success");
     },
     onError: (error: HTTPError) => {
       if (!error.response) return;

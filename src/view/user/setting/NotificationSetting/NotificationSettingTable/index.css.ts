@@ -5,12 +5,12 @@ import { recipe } from "@vanilla-extract/recipes";
 export const textStyle = recipe({
   base: {
     ...theme.font.Caption3_M_12,
-    cursor: "pointer",
   },
   variants: {
     isSelected: {
       true: {
         color: theme.color.white,
+        cursor: "pointer",
       },
       false: {
         color: theme.color.mg2,

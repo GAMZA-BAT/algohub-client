@@ -50,6 +50,7 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingCon
         const { mutate } = useNotificationSettingMutation();
 
         const handleClick = () =>
+          allNotifications &&
           mutate({
             groupId,
             newProblem: !newProblem,
@@ -77,6 +78,7 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingCon
         const { mutate } = useNotificationSettingMutation();
 
         const handleClick = () =>
+          allNotifications &&
           mutate({
             groupId,
             newSolution: !newSolution,
@@ -104,6 +106,7 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingCon
         const { mutate } = useNotificationSettingMutation();
 
         const handleClick = () =>
+          allNotifications &&
           mutate({
             groupId,
             newComment: !newComment,
@@ -131,6 +134,7 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingCon
         const { mutate } = useNotificationSettingMutation();
 
         const handleClick = () =>
+          allNotifications &&
           mutate({ groupId, newMember: !newMember, allNotifications, ...rest });
 
         return (
@@ -153,6 +157,7 @@ export const NOTIFICATION_SETTINGS_COLUMNS: TableDataType<NotificationSettingCon
         const { mutate } = useNotificationSettingMutation();
 
         const handleClick = () =>
+          allNotifications &&
           mutate({
             groupId,
             deadlineReached: !deadlineReached,
