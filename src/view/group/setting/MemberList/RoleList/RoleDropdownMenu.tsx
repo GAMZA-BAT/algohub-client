@@ -1,4 +1,4 @@
-import type { Role } from "@/api/groups/type";
+import type { Role } from "@/app/api/groups/type";
 import { IcnBtnArrowDown } from "@/asset/svg";
 import Dropdown from "@/common/component/Dropdown";
 import Menu from "@/common/component/Menu/Menu";

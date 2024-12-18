@@ -4,7 +4,7 @@ import {
   deleteGroup,
   deleteGroupMember,
   getGroupMemberList,
-} from "@/api/groups";
+} from "@/app/api/groups";
 import type { MemberRoleRequest } from "@/app/api/groups/type";
 import { editGroup, editRole } from "@/app/group/[groupId]/setting/action";
 import { useToast } from "@/common/hook/useToast";
@@ -45,7 +45,7 @@ export const useDeleteMemberMutation = (groupId: number) => {
   });
 };
 
-export const useDeleteGroupMutation = (groupId: number) => {
+export const useDeleteGroupMutation = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
