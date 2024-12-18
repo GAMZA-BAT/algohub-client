@@ -1,6 +1,6 @@
+import { apiAuthPrefix, publicRoutes } from "@/routes";
 import { NextResponse } from "next/server";
 import { auth } from "./auth";
-import { apiAuthPrefix, publicRoutes } from "./routes";
 
 export default auth(async (req) => {
   const {
@@ -12,6 +12,10 @@ export default auth(async (req) => {
   if (isApiAuthRoute) return;
 
   const isPublicRoute = publicRoutes.includes(pathname);
+
+  if (!(isLoggedIn || isPublicRoute)) {
+    return NextResponse.redirect(new URL("/login", req.nextUrl));
+  }
 
   if (!(isLoggedIn || isPublicRoute)) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
