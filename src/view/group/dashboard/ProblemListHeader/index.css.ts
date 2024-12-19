@@ -18,6 +18,7 @@ export const leftAlignStyle = style({
   color: theme.color.mg2,
 
   textAlign: "left",
+  whiteSpace: "nowrap",
 });
 
 export const dateTextStyle = style({
@@ -32,4 +33,5 @@ export const textStyle = style({
   color: theme.color.mg2,
 
   textAlign: "center",
+  whiteSpace: "nowrap",
 });

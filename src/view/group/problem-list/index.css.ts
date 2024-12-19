@@ -10,8 +10,11 @@ export const contentWrapper = style({
 });
 
 export const pageStyle = style({
-  padding: "4.8rem 4.1rem",
+  position: "relative",
+
   width: "80%",
+
+  padding: "4.8rem 4.1rem",
 });
 
 export const sidebarBtnWrapperStyle = style({
@@ -27,4 +30,18 @@ export const titleStyle = style({
 
 export const firstPanelStyle = style({
   padding: "4.8rem 4.1rem",
+});
+
+export const unSolvedFilterTextStyle = style({
+  ...theme.font.Caption3_M_12,
+  color: theme.color.mg2,
+});
+
+export const checkBoxStyle = style({
+  position: "absolute",
+  right: 70,
+
+  display: "flex",
+  alignItems: "center",
+  gap: "4px",
 });

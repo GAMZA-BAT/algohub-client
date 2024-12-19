@@ -2,15 +2,22 @@
 
 import { getExpiredProblems, getInProgressProblems } from "@/app/api/problems";
 import { useGroupRoleQuery } from "@/app/group/[groupId]/query";
+import CheckBox from "@/common/component/CheckBox";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { sidebarWrapper } from "@/styles/shared.css";
-import ProgressList from "@/view/group/problem-list";
 import PendingList from "@/view/group/problem-list/PendingList";
 import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
 import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
-import { pageStyle, titleStyle } from "@/view/group/problem-list/index.css";
+import SolvedSection from "@/view/group/problem-list/SolvedSection";
+import {
+  checkBoxStyle,
+  pageStyle,
+  titleStyle,
+  unSolvedFilterTextStyle,
+} from "@/view/group/problem-list/index.css";
+import { useState } from "react";
 
 const ProblemListPage = ({
   params: { groupId },
@@ -18,15 +25,30 @@ const ProblemListPage = ({
   const { data: role } = useGroupRoleQuery(+groupId);
   const isOwner = role !== "PARTICIPANT";
 
+  const [isUnsolvedOnlyChecked, setIsUnsolvedOnlyChecked] = useState({
+    ownerProgressPage: false,
+    ownerPendingPage: false,
+    participantPage: false,
+  });
+
   const {
     data: inProgressData,
     currentPage: inProgressPage,
     totalPages: inProgressTotalPages,
     setCurrentPage: setInProgressPage,
   } = usePaginationQuery({
-    queryKey: ["inProgressProblem", groupId],
+    queryKey: [
+      "inProgressProblem",
+      groupId,
+      { unsolved: isUnsolvedOnlyChecked.ownerProgressPage },
+    ],
     queryFn: (page) =>
-      getInProgressProblems({ groupId: +groupId, page, size: 3 }),
+      getInProgressProblems({
+        groupId: +groupId,
+        page,
+        size: 3,
+        unsolvedOnly: isUnsolvedOnlyChecked.ownerProgressPage,
+      }),
   });
   const inProgressList = inProgressData?.content;
 
@@ -36,8 +58,18 @@ const ProblemListPage = ({
     totalPages: expiredTotalPages,
     setCurrentPage: setExpiredPage,
   } = usePaginationQuery({
-    queryKey: ["expiredProblem", groupId],
-    queryFn: (page) => getExpiredProblems({ groupId: +groupId, page, size: 3 }),
+    queryKey: [
+      "expiredProblem",
+      groupId,
+      { unsolved: isUnsolvedOnlyChecked.ownerProgressPage },
+    ],
+    queryFn: (page) =>
+      getExpiredProblems({
+        groupId: +groupId,
+        page,
+        size: 3,
+        unsolvedOnly: isUnsolvedOnlyChecked.ownerProgressPage,
+      }),
   });
   const expiredList = expiredData?.content;
 
@@ -56,35 +88,58 @@ const ProblemListPage = ({
               </TabGroup.Tab>
             </TabGroup.TabList>
             <TabGroup.TabPanels>
+              <div>
+                <div className={checkBoxStyle}>
+                  <p className={unSolvedFilterTextStyle}>Unsolved-Only</p>
+                  <CheckBox
+                    checked={isUnsolvedOnlyChecked.ownerProgressPage}
+                    onChange={() =>
+                      setIsUnsolvedOnlyChecked((prev) => ({
+                        ...prev,
+                        ownerProgressPage: !prev.ownerProgressPage,
+                      }))
+                    }
+                  />
+                </div>
+                <>
+                  <SolvedSection
+                    title="진행중인 문제"
+                    list={
+                      isUnsolvedOnlyChecked.ownerProgressPage
+                        ? inProgressList?.filter((item) => !item.solved) ?? []
+                        : inProgressList!
+                    }
+                    totalPages={inProgressTotalPages}
+                    currentPage={inProgressPage}
+                    isOwner={isOwner}
+                    onPageChange={setInProgressPage}
+                  />
+                  <SolvedSection
+                    title="만료된 문제"
+                    list={expiredList ?? []}
+                    totalPages={expiredTotalPages}
+                    currentPage={expiredPage}
+                    onPageChange={setExpiredPage}
+                  />
+                </>
+              </div>
               <section>
                 <div style={{ width: "100%", margin: "1.6rem 0" }}>
-                  <h2 className={titleStyle}>진행중인 문제</h2>
-                  {inProgressList?.length && (
-                    <ProgressList
-                      data={inProgressList}
-                      totalPages={inProgressTotalPages}
-                      currentPage={inProgressPage}
-                      isOwner={isOwner}
-                      onPageChange={setInProgressPage}
-                    />
-                  )}
-                </div>
-                <div style={{ width: "100%", margin: "1.6rem 0" }}>
-                  <h2 className={titleStyle}>만료된 문제</h2>
-                  {expiredList?.length && (
-                    <ProgressList
-                      data={expiredList}
-                      totalPages={expiredTotalPages}
-                      currentPage={expiredPage}
-                      isOwner={false}
-                      onPageChange={setExpiredPage}
-                    />
-                  )}
-                </div>
-              </section>
-              <section>
-                <div style={{ width: "100%", margin: "1.6rem 0" }}>
-                  <h2 className={titleStyle}>대기중인 문제</h2>
+                  <div style={{ display: "flex" }}>
+                    <h2 className={titleStyle}>대기중인 문제</h2>
+                    <div className={checkBoxStyle}>
+                      <p className={unSolvedFilterTextStyle}>Unsolved-Only</p>
+                      <CheckBox
+                        checked={isUnsolvedOnlyChecked.ownerPendingPage}
+                        onChange={() =>
+                          setIsUnsolvedOnlyChecked((prev) => ({
+                            ...prev,
+                            ownerPendingPage: !prev.ownerPendingPage,
+                          }))
+                        }
+                      />
+                    </div>
+                  </div>
                   <PendingListHeader />
                   <PendingList groupId={+groupId} />
                 </div>
@@ -92,32 +147,45 @@ const ProblemListPage = ({
             </TabGroup.TabPanels>
           </TabGroup.Tabs>
         ) : (
-          <section>
-            <div style={{ width: "100%", margin: "1.6rem 0" }}>
-              <h2 className={titleStyle}>진행중인 문제</h2>
-              {inProgressList?.length && (
-                <ProgressList
-                  data={inProgressList}
-                  totalPages={inProgressTotalPages}
-                  currentPage={inProgressPage}
-                  isOwner={isOwner}
-                  onPageChange={setInProgressPage}
-                />
-              )}
+          <>
+            <div className={checkBoxStyle}>
+              <p className={unSolvedFilterTextStyle}>Unsolved-Only</p>
+              <CheckBox
+                checked={isUnsolvedOnlyChecked.participantPage}
+                onChange={() =>
+                  setIsUnsolvedOnlyChecked((prev) => ({
+                    ...prev,
+                    participantPage: !prev.participantPage,
+                  }))
+                }
+              />
             </div>
-            <div style={{ width: "100%", margin: "1.6rem 0" }}>
-              <h2 className={titleStyle}>만료된 문제</h2>
-              {expiredList?.length && (
-                <ProgressList
-                  data={expiredList}
-                  totalPages={expiredTotalPages}
-                  currentPage={expiredPage}
-                  isOwner={false}
-                  onPageChange={setExpiredPage}
-                />
-              )}
+            <div>
+              <SolvedSection
+                title="진행중인 문제"
+                list={
+                  isUnsolvedOnlyChecked.participantPage
+                    ? inProgressList?.filter((item) => !item.solved) ?? []
+                    : inProgressList!
+                }
+                totalPages={inProgressTotalPages}
+                currentPage={inProgressPage}
+                isOwner={isOwner}
+                onPageChange={setInProgressPage}
+              />
+              <SolvedSection
+                title="만료된 문제"
+                list={
+                  isUnsolvedOnlyChecked.participantPage
+                    ? expiredList?.filter((item) => !item.solved) ?? []
+                    : expiredList!
+                }
+                totalPages={expiredTotalPages}
+                currentPage={expiredPage}
+                onPageChange={setExpiredPage}
+              />
             </div>
-          </section>
+          </>
         )}
       </div>
     </main>

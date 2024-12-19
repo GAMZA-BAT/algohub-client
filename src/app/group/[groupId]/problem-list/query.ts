@@ -1,9 +1,6 @@
 import {
   deleteProblem,
-  getExpiredProblems,
-  getInProgressProblems,
   getProblemInfo,
-  getQueuedProblems,
   patchProblem,
 } from "@/app/api/problems";
 import type { EditProblemRequest } from "@/app/api/problems/type";
@@ -59,36 +56,6 @@ export const useDeleteProblemMutation = (groupId: number) => {
       showToast("문제가 정상적으로 삭제되지 않았어요.", "error");
     },
   });
-};
-
-export const useInProgressProblemQuery = (groupId: number, page: number) => {
-  const { data } = useSuspenseQuery({
-    queryKey: ["inProgressProblem", groupId, page],
-    queryFn: () => getInProgressProblems({ groupId, page, size: 3 }),
-    staleTime: 0,
-  });
-
-  return { content: data.content, totalPages: data.totalPages };
-};
-
-export const useExpiredProblemQuery = (groupId: number, page: number) => {
-  const { data } = useSuspenseQuery({
-    queryKey: ["expiredProblem", groupId, page],
-    queryFn: () => getExpiredProblems({ groupId, page, size: 3 }),
-    staleTime: 0,
-  });
-
-  return { content: data.content, totalPages: data.totalPages };
-};
-
-export const useQueuedProblemQuery = (groupId: number, page: number) => {
-  const { data } = useSuspenseQuery({
-    queryKey: ["queuedProblem", groupId, page],
-    queryFn: () => getQueuedProblems({ groupId, page, size: 7 }),
-    staleTime: 0,
-  });
-
-  return { content: data.content, totalPages: data.totalPages };
 };
 
 export const useProblemInfoQuery = (problemId: number) => {
