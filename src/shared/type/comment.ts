@@ -3,5 +3,5 @@ export interface Comment {
   writerNickname: string;
   writerProfileImage?: string;
   content: string;
-  createAt: string;
+  createdAt: string;
 }

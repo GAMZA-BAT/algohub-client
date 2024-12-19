@@ -50,8 +50,8 @@ const NoticeBanner = () => {
         {recentNotice && (
           <div className={contentWrapper}>
             <p className={textStyle.bannerTitle}>{recentNotice.title}</p>
-            <time className={textStyle.time} dateTime={recentNotice.createAt}>
-              {recentNotice.createAt}
+            <time className={textStyle.time} dateTime={recentNotice.createdAt}>
+              {recentNotice.createdAt}
             </time>
             {
               <IcnNew

@@ -44,7 +44,7 @@ const NoticeList = () => {
         <>
           <ul aria-label="공지사항 목록" className={ulStyle}>
             {noticeList.map(
-              ({ noticeId, title, category, author, createAt, isRead }) => {
+              ({ noticeId, title, category, author, createdAt, isRead }) => {
                 return (
                   <li
                     key={noticeId}
@@ -76,8 +76,8 @@ const NoticeList = () => {
                       <div className={noticeInfoStyle}>
                         <div className={infoWrapper}>
                           <span className={textStyle.author}>{author}</span>
-                          <time dateTime={createAt} className={textStyle.time}>
-                            {createAt}
+                          <time dateTime={createdAt} className={textStyle.time}>
+                            {createdAt}
                           </time>
                         </div>
                         <IcnNew
