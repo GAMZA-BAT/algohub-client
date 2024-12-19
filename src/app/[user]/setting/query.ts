@@ -1,8 +1,19 @@
-import { getGroupList, patchGroupVisibility } from "@/app/api/groups";
-import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
+import {
+  getMyGroupSettings,
+  patchGroupVisibility,
+  postGroupBookmark,
+} from "@/app/api/groups";
+import type {
+  GroupListResponse,
+  GroupSettingsContent,
+} from "@/app/api/groups/type";
+import {
+  getNotificationsSettings,
+  patchNotificationsSettings,
+} from "@/app/api/notifications";
+import type { NotificationSettingContent } from "@/app/api/notifications/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
-import type { StudyListType } from "@/view/user/setting/StudyList/StudyListTable/type";
 import {
   useMutation,
   useQueryClient,
@@ -10,46 +21,106 @@ import {
 } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 
-export const useGetMyGroupsQuery = () => {
+export const useMyGroupSettingsQuery = () => {
   return useSuspenseQuery({
-    queryKey: ["groups", "setting"],
-    queryFn: getGroupList,
-    select: (data) =>
-      (["bookmarked", "queued", "inProgress", "done"] as GroupStatus[])
-        .flatMap((status) => transformData(data[status], status))
-        .sort((a, b) => a.id - b.id),
+    queryKey: ["groupsSetting"],
+    queryFn: getMyGroupSettings,
   });
 };
 
-const transformData = (
-  data: GroupResponse[],
-  status: GroupStatus,
-): StudyListType[] => {
-  return data.map((item) => ({
-    status,
-    startDate: new Date(item.startDate),
-    endDate: new Date(item.endDate),
-    role: item.role,
-    name: item.name,
-    isBookmarked: item.isBookmarked,
-    id: item.id,
-    isVisible: item.isVisible,
-  }));
-};
-
-export const useVisibilityMutation = (groupId: number) => {
+export const useBookmarkGroupMutation = () => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (flag: boolean) => patchGroupVisibility(groupId, flag),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["groups", "setting"],
-      });
+    mutationFn: (groupId: number) => postGroupBookmark(groupId),
+    onMutate: async (groupId: number) => {
+      await queryClient.cancelQueries({ queryKey: ["groupsSetting"] });
+      const prevData = queryClient.getQueryData<GroupSettingsContent[]>([
+        "groupsSetting",
+      ]);
+
+      queryClient.setQueryData(
+        ["groupsSetting"],
+        (oldData: GroupSettingsContent[] | undefined) => {
+          if (!oldData) return [];
+
+          return oldData.map((group) =>
+            group.id === groupId
+              ? { ...group, isBookmarked: !group.isBookmarked }
+              : group,
+          );
+        },
+      );
+
+      return { prevData };
     },
-    onError: (error: HTTPError) => {
+    onError: (error: HTTPError, _newData, context) => {
+      if (context?.prevData) {
+        queryClient.setQueryData(["groupsSetting"], context.prevData);
+      }
+
+      if (!error.response) return;
+
+      const { status } = error.response;
+
+      switch (status) {
+        case HTTP_ERROR_STATUS.NOT_FOUND: {
+          showToast("존재하지 않은 그룹입니다.", "error");
+          break;
+        }
+        case HTTP_ERROR_STATUS.BAD_REQUEST: {
+          showToast("참여하지 않은 그룹입니다.", "error");
+          break;
+        }
+        default: {
+          showToast("정상적으로 수정되지 않았습니다.", "error");
+        }
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
+      queryClient.invalidateQueries({ queryKey: ["myGroups"] });
+      showToast("정상적으로 수정되었습니다.", "success");
+    },
+  });
+};
+
+export const useVisibilityMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: ({ groupId, flag }: { groupId: number; flag: boolean }) =>
+      patchGroupVisibility(groupId, flag),
+    onMutate: async ({ groupId, flag }: { groupId: number; flag: boolean }) => {
+      await queryClient.cancelQueries({ queryKey: ["groupsSetting"] });
+
+      const prevData = queryClient.getQueryData<GroupListResponse>([
+        "groupsSetting",
+      ]);
+
+      queryClient.setQueryData(
+        ["groupsSetting"],
+        (oldData: GroupSettingsContent[] | undefined) => {
+          if (!oldData) return [];
+
+          return oldData.map((group) =>
+            group.id === groupId ? { ...group, isVisible: flag } : group,
+          );
+        },
+      );
+
+      return { prevData };
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
+    },
+    onError: (error: HTTPError, _newData, context) => {
+      queryClient.setQueryData(["groupsSetting"], context?.prevData);
+
       if (!error.response) return;
 
       const { status } = error.response;
@@ -64,7 +135,72 @@ export const useVisibilityMutation = (groupId: number) => {
           break;
         }
         default: {
-          showToast("알 수 없는 에러입니다.", "error");
+          showToast("정상적으로 수정되지 않았습니다.", "error");
+        }
+      }
+    },
+  });
+};
+
+export const useNotificationSettingListQuery = () => {
+  return useSuspenseQuery({
+    queryKey: ["notificationsSetting"],
+    queryFn: getNotificationsSettings,
+  });
+};
+
+export const useNotificationSettingMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: patchNotificationsSettings,
+    onMutate: async (updatedSetting) => {
+      await queryClient.cancelQueries({ queryKey: ["notificationsSetting"] });
+      const prevData = queryClient.getQueryData<NotificationSettingContent[]>([
+        "notificationsSetting",
+      ]);
+      queryClient.setQueryData(
+        ["notificationsSetting"],
+        (oldData: NotificationSettingContent[] | undefined) => {
+          if (!oldData) return [];
+          return oldData.map((item) =>
+            item.groupId === updatedSetting.groupId
+              ? { ...item, ...updatedSetting }
+              : item,
+          );
+        },
+      );
+
+      return { prevData };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notificationsSetting"],
+      });
+      showToast("정상적으로 수정되었습니다.", "success");
+    },
+    onError: (error: HTTPError, _newData, context) => {
+      if (context?.prevData) {
+        queryClient.setQueryData(["groupsSetting"], context.prevData);
+      }
+
+      if (!error.response) return;
+
+      const { status } = error.response;
+
+      switch (status) {
+        case HTTP_ERROR_STATUS.FORBIDDEN: {
+          showToast("참여하지 않은 그룹입니다.", "error");
+          break;
+        }
+        case HTTP_ERROR_STATUS.NOT_FOUND: {
+          showToast("존재하지 않는 그룹입니다.", "error");
+          break;
+        }
+        default: {
+          showToast("정상적으로 수정되지 않았습니다.", "error");
         }
       }
     },

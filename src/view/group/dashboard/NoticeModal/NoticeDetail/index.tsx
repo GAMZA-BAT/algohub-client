@@ -40,7 +40,7 @@ type NoticeDetailProps = {
 };
 
 const NoticeDetail = ({
-  data: { author, title, createAt, category, noticeId, content, isRead },
+  data: { author, title, createdAt, category, noticeId, content, isRead },
   goBack,
 }: NoticeDetailProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
@@ -108,8 +108,8 @@ const NoticeDetail = ({
 
         <div className={noticeInfoStyle}>
           <p className={textStyle.author}>{author}</p>
-          <time dateTime={createAt} className={textStyle.time}>
-            {createAt}
+          <time dateTime={createdAt} className={textStyle.time}>
+            {createdAt}
           </time>
           {!isRead && (
             <IcnNew width={13} height={13} style={{ minWidth: 13 }} />

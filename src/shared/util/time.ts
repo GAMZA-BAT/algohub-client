@@ -8,7 +8,7 @@ export const getDateInfo = (date: Date) => {
   };
 };
 
-export const getFormattedcreateAt = (createAt: string) => {
+export const getFormattedcreatedAt = (createdAt: string) => {
   const {
     year: currentYear,
     month: currentMonth,
@@ -23,7 +23,7 @@ export const getFormattedcreateAt = (createAt: string) => {
     date: createdDate,
     hour: createdHour,
     minute: createdMinute,
-  } = getDateInfo(new Date(createAt));
+  } = getDateInfo(new Date(createdAt));
 
   if (currentYear > createdYear) {
     return `${currentYear - createdYear}년 전`;

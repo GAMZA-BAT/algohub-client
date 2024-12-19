@@ -33,8 +33,8 @@ export type SolutionResponse = PaginationResponse & {
   content: SolutionContent[];
 };
 
+export type SolutionLanguageFilter = SolutionLanguage | "모든 언어";
 export type SolutionLanguage =
-  | "모든 언어"
   | "C++"
   | "Java"
   | "Python"
@@ -56,8 +56,8 @@ export type SolutionLanguage =
   | "Rust 2018"
   | "C++17 (clang)";
 
+export type SolutionResultFilter = SolutionResult | "모든 결과";
 export type SolutionResult =
-  | "모든 결과"
   | "맞았습니다!!"
   | "틀렸습니다"
   | "시간 초과"

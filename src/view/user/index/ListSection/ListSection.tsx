@@ -13,9 +13,9 @@ interface ListSectionProps {
 
 const ListSection = ({ status, groups }: ListSectionProps) => {
   return (
-    <>
+    <div>
       <h2 className={groupLabelStyle}>{SECTION_TITLE[status]}</h2>
-      {groups.length && (
+      {groups.length > 0 && (
         <Carousel length={groups.length}>
           {groups.map((item: GroupResponse, idx: number) => (
             <Carousel.Item key={item.id} index={idx}>
@@ -24,7 +24,7 @@ const ListSection = ({ status, groups }: ListSectionProps) => {
           ))}
         </Carousel>
       )}
-    </>
+    </div>
   );
 };
 

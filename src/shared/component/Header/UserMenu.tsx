@@ -1,9 +1,9 @@
 "use client";
 import type { UserResponse } from "@/app/api/users/type";
+import { useNotificationsQuery } from "@/app/query";
 import Menu from "@/common/component/Menu/Menu";
 import Profile from "@/shared/component/Header/Profile";
 import { buttonContainer } from "@/shared/component/Header/index.css";
-import { useNotificationsQuery } from "@/shared/component/Header/query";
 import { useSession } from "next-auth/react";
 import Notification from "./Notification";
 
@@ -11,7 +11,7 @@ const UserMenu = () => {
   const { data } = useNotificationsQuery();
   const user = useSession().data?.user;
 
-  const notiCounts = data.length;
+  const notiCounts = data.filter((item) => !item.isRead).length;
 
   return (
     <div className={buttonContainer}>

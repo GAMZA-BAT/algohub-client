@@ -56,6 +56,8 @@ export const profileImageStyle = style({
   height: "2.5rem",
   border: `1px solid ${theme.color.mg1}`,
   borderRadius: "5rem",
+
+  flexShrink: 0,
 });
 
 export const profileStyle = style({

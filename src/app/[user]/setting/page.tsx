@@ -4,10 +4,10 @@ import Sidebar from "@/common/component/Sidebar";
 import ToastProvider from "@/common/component/Toast";
 import { sidebarWrapper } from "@/styles/shared.css";
 import AccountManagement from "@/view/user/setting/AccountManagement";
+import GroupList from "@/view/user/setting/GroupList";
 import MyProfile from "@/view/user/setting/MyProfile";
 import NotificationSetting from "@/view/user/setting/NotificationSetting";
 import SettingStep from "@/view/user/setting/SettingStep";
-import StudyList from "@/view/user/setting/StudyList";
 import type { SettingSteps } from "@/view/user/setting/type";
 import { useState } from "react";
 import { match } from "ts-pattern";
@@ -23,7 +23,7 @@ const UserSettingPage = () => {
       </Sidebar>
       {match(step)
         .with("my-profile", () => <MyProfile />)
-        .with("study-setting", () => <StudyList />)
+        .with("study-setting", () => <GroupList />)
         .with("account-setting", () => <AccountManagement />)
         .with("notification-setting", () => <NotificationSetting />)
         .exhaustive()}

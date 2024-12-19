@@ -1,7 +1,12 @@
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import icnNew from "@/asset/svg/icn_new.svg?url";
 import { handleA11yClick } from "@/common/util/dom";
+import {
+  dateContainerStyle,
+  dotStyle,
+} from "@/shared/component/Header/Notification/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import { getFormattedcreatedAt } from "@/shared/util/time";
 import Image from "next/image";
 import {
   containerStyle,
@@ -19,6 +24,7 @@ type NotificationListProps = {
   name: string;
   message: string;
   date: string;
+  isRead: boolean;
   onClick: () => void;
 };
 
@@ -28,6 +34,7 @@ const NotificationListItem = ({
   name,
   message,
   date,
+  isRead,
 }: NotificationListProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
     useA11yHoverHandler();
@@ -48,8 +55,14 @@ const NotificationListItem = ({
       <div
         role="button"
         className={notificationContentStyle}
-        onClick={onClick}
-        onKeyDown={handleA11yClick(onClick)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
+        onKeyDown={(e) => {
+          e.stopPropagation();
+          handleA11yClick(onClick);
+        }}
         tabIndex={0}
       >
         <div className={profileStyle}>
@@ -65,9 +78,12 @@ const NotificationListItem = ({
             <span className={messageStyle}>{message}</span>
           </div>
         </div>
-        <time className={dateStyle} aria-label={date}>
-          {date}
-        </time>
+        <div className={dateContainerStyle}>
+          <div className={dotStyle({ isRead })} />
+          <time className={dateStyle} aria-label={date}>
+            {getFormattedcreatedAt(date)}
+          </time>
+        </div>
       </div>
       <IcnBtnDeleteCircle
         role="button"
