@@ -26,7 +26,12 @@ const ProblemListPage = ({
   } = usePaginationQuery({
     queryKey: ["inProgressProblem", groupId],
     queryFn: (page) =>
-      getInProgressProblems({ groupId: +groupId, page, size: 3 }),
+      getInProgressProblems({
+        groupId: +groupId,
+        page,
+        size: 3,
+        isUnsolved: false,
+      }),
   });
   const inProgressList = inProgressData?.content;
 
