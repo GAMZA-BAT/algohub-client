@@ -22,7 +22,7 @@ export const sectionStyle = style({
 export const textWrapperStyle = style({
   display: "flex",
   flexDirection: "column",
-  alignItems: "start",
+  alignItems: "flex-start",
   gap: "1.6rem",
 });
 

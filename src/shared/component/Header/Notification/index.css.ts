@@ -1,14 +1,19 @@
 import { scrollTheme, theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
 export const notificationContainer = style({
   position: "absolute",
   top: "7.2rem",
   right: "8rem",
 
+  display: "flex",
+  flexDirection: "column",
+
+  zIndex: theme.zIndex.top,
+
   borderRadius: "2rem",
 
-  opacity: "0.9",
   backdropFilter: "blur(2px)",
   backgroundColor: theme.color.mg6,
 });
@@ -18,7 +23,7 @@ export const ulStyle = style({
   flexDirection: "column",
   gap: "1rem",
 
-  padding: "3rem 2rem",
+  padding: "0 2rem 3rem 2rem",
 
   // scroll bar
   overflowY: "scroll",
@@ -38,11 +43,11 @@ export const countStyle = style({
   position: "absolute",
   right: 0,
 
-  width: "1.2rem",
-  height: "1.2rem",
-  borderRadius: "1rem",
+  width: "0.6rem",
+  height: "0.6rem",
+  borderRadius: "50%",
 
-  backgroundColor: theme.color.purple2,
+  backgroundColor: theme.color.red,
 
   color: theme.color.white,
   fontSize: "0.8rem",
@@ -51,4 +56,40 @@ export const countStyle = style({
   letterSpacing: "-0.025em",
   textAlign: "center",
   alignContent: "center",
+});
+
+export const dateContainerStyle = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.5rem",
+});
+
+export const dotStyle = recipe({
+  base: {
+    width: "0.6rem",
+    height: "0.6rem",
+
+    borderRadius: "50%",
+  },
+  variants: {
+    isRead: {
+      true: {
+        backgroundColor: theme.color.mg4,
+      },
+      false: {
+        backgroundColor: theme.color.red,
+      },
+    },
+  },
+});
+
+export const allReadButtonStyle = style({
+  placeSelf: "flex-end",
+
+  padding: "1.4rem 2.3rem",
+
+  fontSize: "1rem",
+  lineHeight: "11.px",
+
+  color: theme.color.mg4,
 });

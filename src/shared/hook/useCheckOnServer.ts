@@ -1,4 +1,4 @@
-import { validateBojNickname, validateNickname } from "@/api/users";
+import { validateBojNickname, validateNickname } from "@/app/api/users";
 import { baseSignupSchema } from "@/view/signup/SignupForm/schema";
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";

@@ -1,5 +1,8 @@
 "use client";
-import type { SolutionLanguage, SolutionResult } from "@/api/solutions/type";
+import type {
+  SolutionLanguage,
+  SolutionResultFilter,
+} from "@/app/api/solutions/type";
 import { IcnReset } from "@/asset/svg";
 import Input from "@/common/component/Input";
 import SelectBox from "@/common/component/SelectBox";
@@ -37,7 +40,7 @@ const SolvedFilterBar = () => {
   const handleResultChange = (newResult: string) => {
     setOption((prevOption) => ({
       ...prevOption,
-      result: newResult as SolutionResult,
+      result: newResult as SolutionResultFilter,
     }));
   };
 

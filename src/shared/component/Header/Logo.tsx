@@ -1,18 +1,16 @@
 "use client";
-
-import type { UserResponse } from "@/api/users/type";
 import { IcnLogo } from "@/asset/svg";
 import { logoContainer, logoStyle } from "@/shared/component/Header/index.css";
 import Link from "next/link";
 
 type LogoProps = {
-  user: UserResponse;
+  userNickname: string;
 };
 
-const Logo = ({ user }: LogoProps) => {
+const Logo = ({ userNickname }: LogoProps) => {
   return (
     <Link
-      href={`/${user.nickname}`}
+      href={`/${userNickname}`}
       className={logoContainer}
       aria-label="User page"
     >

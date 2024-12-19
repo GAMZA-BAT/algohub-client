@@ -1,6 +1,6 @@
 "use client";
 
-import type { CommentContent } from "@/api/comments/type";
+import type { CommentContent } from "@/app/api/comments/type";
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -9,7 +9,7 @@ import {
   containerStyle,
   contentStyle,
   contentWrapperStyle,
-  createAtStyle,
+  createdAtStyle,
   editInputWrapperStyle,
   iconContainerStyle,
   iconStyle,
@@ -17,7 +17,7 @@ import {
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { getFormattedcreateAt } from "@/shared/util/time";
+import { getFormattedcreatedAt } from "@/shared/util/time";
 import clsx from "clsx";
 
 type CommentBox = CommentContent & {
@@ -39,13 +39,14 @@ const CommentBox = ({
   const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
     useA11yHoverHandler();
 
+  const { register, control } = useEditForm(commentId, content);
+
   const {
-    register,
     isEditing,
     handleEditBtnClick,
-    handleTextAreaKeyDown,
     handleHookFormSubmit,
-  } = useEditForm(commentId, content);
+    handleTextAreaKeyDown,
+  } = control[variant];
 
   return (
     <li
@@ -64,7 +65,7 @@ const CommentBox = ({
       <div className={contentWrapperStyle({ variant })}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createAtStyle}>{getFormattedcreateAt(createdAt)}</p>
+          <p className={createdAtStyle}>{getFormattedcreatedAt(createdAt)}</p>
         </div>
         {isEditing ? (
           <form

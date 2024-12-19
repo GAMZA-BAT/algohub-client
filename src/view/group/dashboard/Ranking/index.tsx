@@ -1,4 +1,4 @@
-import type { RankingContent } from "@/api/groups/type";
+import type { RankingContent } from "@/app/api/groups/type";
 import TabGroup from "@/common/component/Tab";
 import AllRanking from "@/view/group/dashboard/Ranking/AllRanking";
 import EmptyRanking from "@/view/group/dashboard/Ranking/EmptyRanking";
@@ -19,15 +19,11 @@ const Ranking = ({ rankingData }: { rankingData: RankingContent[] }) => {
       </TabGroup.TabList>
       <TabGroup.TabPanels>
         {isValid ? (
-          <TopRanking topRankingData={rankingData.slice(0, 3)} />
+          <TopRanking topRankingData={rankingData} />
         ) : (
           <EmptyRanking />
         )}
-        {isValid ? (
-          <AllRanking allRankingData={rankingData} />
-        ) : (
-          <EmptyRanking />
-        )}
+        {isValid ? <AllRanking /> : <EmptyRanking />}
       </TabGroup.TabPanels>
     </TabGroup.Tabs>
   );

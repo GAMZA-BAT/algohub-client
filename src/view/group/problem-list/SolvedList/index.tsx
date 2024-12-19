@@ -1,6 +1,6 @@
 "use client";
-import type { ProblemContent } from "@/api/problems/type";
-import type { SolutionContent } from "@/api/solutions/type";
+import type { ProblemContent } from "@/app/api/problems/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import { IcnBtnArrowLeft } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
@@ -24,7 +24,7 @@ const SolvedList = ({ groupId, problemInfo, content }: SolvedListProps) => {
   const router = useRouter();
 
   const handleBack = () => {
-    router.push(`group/${groupId}/problem-list`);
+    router.push(`/group/${groupId}/problem-list`);
   };
 
   return (

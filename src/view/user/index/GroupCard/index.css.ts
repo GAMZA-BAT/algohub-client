@@ -106,7 +106,7 @@ export const ownerStyle = style([
   },
 ]);
 
-export const statusIconStyle = recipe({
+export const statusDotStyle = recipe({
   base: {
     width: "0.6rem",
     height: "0.6rem",
@@ -116,10 +116,10 @@ export const statusIconStyle = recipe({
   variants: {
     status: {
       bookmarked: {
-        background: theme.color.purple,
+        background: theme.color.yellow,
       },
       inProgress: {
-        background: theme.color.yellow,
+        background: theme.color.purple,
       },
       queued: {
         background: theme.color.mint,

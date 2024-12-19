@@ -1,6 +1,6 @@
 "use client";
 
-import type { SolutionContent } from "@/api/solutions/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import { IcnMessage, IcnMessageDot } from "@/asset/svg";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { getFormattedMemory } from "@/shared/util/byte";

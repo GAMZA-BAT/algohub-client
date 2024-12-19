@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 
 export const headerStyle = style({
   display: "grid",
-  gridTemplateColumns: "0.5fr 4fr 6fr",
+  gridTemplateColumns: "0.5fr 2fr 2fr 6fr",
   alignItems: "center",
   gap: "1.6rem",
 

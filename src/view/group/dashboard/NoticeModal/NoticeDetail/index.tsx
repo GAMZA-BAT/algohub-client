@@ -1,7 +1,5 @@
 "use client";
-
-import type { CommentContent } from "@/api/comments/type";
-import type { NoticeContent } from "@/api/notices/type";
+import type { NoticeContent } from "@/app/api/notices/type";
 import {
   useDeleteNoticeMutation,
   usePatchNoticeMutation,
@@ -13,7 +11,13 @@ import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import { useRef, useState } from "react";
+import { NoticeCommentsProvider } from "@/view/group/dashboard/NoticeModal/NoticeDetail/provider";
+import {
+  useDeleteNoticeCommentMutation,
+  useNoticeCommentListQuery,
+  useNoticeCommentMutation,
+} from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
+import { type FormEvent, useRef, useState } from "react";
 import {
   articleStyle,
   contentStyle,
@@ -36,19 +40,34 @@ type NoticeDetailProps = {
 };
 
 const NoticeDetail = ({
-  data: { author, title, createAt, category, noticeId, content, isRead },
+  data: { author, title, createdAt, category, noticeId, content, isRead },
   goBack,
 }: NoticeDetailProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
     useA11yHoverHandler();
+
   const [isEdit, setIsEdit] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [comment, setComment] = useState("");
 
+  const { data: commentList } = useNoticeCommentListQuery(noticeId);
+  const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
+  const { mutate: deleteCommentMutate } =
+    useDeleteNoticeCommentMutation(noticeId);
   const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
   const { mutate: deleteMutate } = useDeleteNoticeMutation(
     +useGetGroupId(),
     noticeId,
   );
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (comment === "") return;
+
+    commentMutate(comment, {
+      onSuccess: () => setComment(""),
+    });
+  };
 
   const handleEditClick = () => {
     if (!isEdit) {
@@ -70,16 +89,6 @@ const NoticeDetail = ({
     goBack();
   };
 
-  /** TODO: 실제 Comment API로 연결 */
-  const tmpData: CommentContent = {
-    commentId: 1,
-    writerNickname: "고독한 예린",
-    writerProfileImage: "",
-    createdAt: "2024-10-24",
-    content:
-      "이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요?",
-  };
-
   return (
     <article
       className={articleStyle}
@@ -99,8 +108,8 @@ const NoticeDetail = ({
 
         <div className={noticeInfoStyle}>
           <p className={textStyle.author}>{author}</p>
-          <time dateTime={createAt} className={textStyle.time}>
-            {createAt}
+          <time dateTime={createdAt} className={textStyle.time}>
+            {createdAt}
           </time>
           {!isRead && (
             <IcnNew width={13} height={13} style={{ minWidth: 13 }} />
@@ -142,24 +151,31 @@ const NoticeDetail = ({
 
       {/* 댓글란 */}
       <ul className={listStyle}>
-        {[tmpData, tmpData, tmpData, tmpData].map((item, idx) => (
-          <CommentBox
-            key={item.commentId}
-            className={idx !== 2 ? itemStyle : ""}
-            variant="notice"
-            commentId={item.commentId}
-            createdAt={item.createdAt}
-            content={item.content}
-            writerNickname={item.writerNickname}
-            writerProfileImage={item.writerProfileImage}
-          />
-        ))}
+        <NoticeCommentsProvider noticeId={noticeId}>
+          {commentList?.map((item) => (
+            <CommentBox
+              key={item.commentId}
+              className={itemStyle}
+              variant="notice"
+              commentId={item.commentId}
+              createdAt={item.createdAt}
+              content={item.content}
+              writerNickname={item.writerNickname}
+              writerProfileImage={item.writerProfileImage}
+              onDelete={deleteCommentMutate}
+            />
+          ))}
+        </NoticeCommentsProvider>
       </ul>
 
       {/* 댓글 입력란 */}
-      <div className={inputStyle}>
-        <CommentInput />
-      </div>
+      <form onSubmit={handleSubmit} className={inputStyle}>
+        <CommentInput
+          name="comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+      </form>
     </article>
   );
 };

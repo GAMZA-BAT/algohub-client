@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 const WithdrawPage = ({ params }: { params: { groupId: string } }) => {
   const router = useRouter();
+
   return (
     <main className={sidebarWrapper}>
       <Sidebar />

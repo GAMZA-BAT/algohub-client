@@ -9,19 +9,19 @@ import "prismjs/components/prism-clike";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
-import type { SolutionLanguage } from "@/api/solutions/type";
+import type { SolutionLanguage } from "@/app/api/solutions/type";
 import { useEffect } from "react";
 import { codeStyle } from "../index.css";
 import "./code.css";
 import "./prism-vsc-dark-plus.min.css";
 import { addCustomPatternsToAllLanguages, languageMapper } from "./rule";
 
-type CodeHightlighterProps = {
+type CodeHighlighterProps = {
   code: string;
-  language: Exclude<SolutionLanguage, "모든 언어" | "Text">;
+  language: SolutionLanguage;
 };
 
-const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
+const CodeHighlighter = ({ code, language }: CodeHighlighterProps) => {
   // const [theme, setTheme] = useState("vsc-dark-plus");
   // const [contextMenu, setContextMenu] = useState<{
   //   x: number;

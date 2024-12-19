@@ -1,4 +1,4 @@
-import type { GroupResponse } from "@/api/groups/type";
+import type { GroupResponse } from "@/app/api/groups/type";
 import { IcnGroupInfoCard } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import GroupDateInfo from "@/view/user/join-group/GroupInfoCard/GroupDateInfo";

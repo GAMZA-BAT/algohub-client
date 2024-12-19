@@ -1,4 +1,4 @@
-import type { SolutionContent } from "@/api/solutions/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 
 export type SolvedHeader =
   | ""
