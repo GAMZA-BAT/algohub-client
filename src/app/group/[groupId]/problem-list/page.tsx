@@ -37,9 +37,18 @@ const ProblemListPage = ({
     totalPages: inProgressTotalPages,
     setCurrentPage: setInProgressPage,
   } = usePaginationQuery({
-    queryKey: ["inProgressProblem", groupId],
+    queryKey: [
+      "inProgressProblem",
+      groupId,
+      { unsolved: isUnsolvedOnlyChecked.ownerProgressPage },
+    ],
     queryFn: (page) =>
-      getInProgressProblems({ groupId: +groupId, page, size: 3 }),
+      getInProgressProblems({
+        groupId: +groupId,
+        page,
+        size: 3,
+        unsolvedOnly: isUnsolvedOnlyChecked.ownerProgressPage,
+      }),
   });
   const inProgressList = inProgressData?.content;
 
@@ -49,8 +58,18 @@ const ProblemListPage = ({
     totalPages: expiredTotalPages,
     setCurrentPage: setExpiredPage,
   } = usePaginationQuery({
-    queryKey: ["expiredProblem", groupId],
-    queryFn: (page) => getExpiredProblems({ groupId: +groupId, page, size: 3 }),
+    queryKey: [
+      "expiredProblem",
+      groupId,
+      { unsolved: isUnsolvedOnlyChecked.ownerProgressPage },
+    ],
+    queryFn: (page) =>
+      getExpiredProblems({
+        groupId: +groupId,
+        page,
+        size: 3,
+        unsolvedOnly: isUnsolvedOnlyChecked.ownerProgressPage,
+      }),
   });
   const expiredList = expiredData?.content;
 

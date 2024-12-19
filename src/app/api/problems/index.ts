@@ -40,10 +40,11 @@ export const getInProgressProblems = async ({
   groupId,
   page,
   size,
+  unsolvedOnly,
 }: GetProblemRequest) => {
   const response = await kyInstance
     .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/in-progress?page=${page}&size=${size}`,
+      `api/groups/${groupId}/problems/in-progress?unsolved-only=${unsolvedOnly}&page=${page}&size=${size}`,
     )
     .json();
 
@@ -54,10 +55,11 @@ export const getExpiredProblems = async ({
   groupId,
   page,
   size,
+  unsolvedOnly,
 }: GetProblemRequest) => {
   const response = await kyInstance
     .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/expired?page=${page}&size=${size}`,
+      `api/groups/${groupId}/problems/expired?unsolved-only=${unsolvedOnly}&page=${page}&size=${size}`,
     )
     .json();
 
@@ -68,10 +70,11 @@ export const getQueuedProblems = async ({
   groupId,
   page,
   size,
+  unsolvedOnly,
 }: GetProblemRequest) => {
   const response = await kyInstance
     .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/queued?page=${page}&size=${size}`,
+      `api/groups/${groupId}/problems/queued?unsolved-only=${unsolvedOnly}&page=${page}&size=${size}`,
     )
     .json();
 
