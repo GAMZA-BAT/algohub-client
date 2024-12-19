@@ -25,11 +25,11 @@ interface NotificationProps extends HTMLAttributes<HTMLUListElement> {
 const Notification = ({ notificationList, ...props }: NotificationProps) => {
   const router = useRouter();
 
-  const { mutate: readNotification } = useReadNotiItemMutation();
-  const { mutate: readAll } = useReadAllNotiMutation();
+  const { mutate: readNotiMutate } = useReadNotiItemMutation();
+  const { mutate: readAllMutate } = useReadAllNotiMutation();
 
   const handleItemClick = (data: NotificationItem) => {
-    if (!data.isRead) readNotification(data.id);
+    if (!data.isRead) readNotiMutate(data.id);
     router.push(
       `/group/${data.groupId}${data.problemId ? `/problem-list/${data.problemId}` : ""}${data.solutionId ? `/solved-detail/${data.solutionId}` : ""}`,
     );
@@ -37,7 +37,7 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
 
   return (
     <div className={notificationContainer}>
-      <button onClick={() => readAll()} className={allReadButtonStyle}>
+      <button onClick={() => readAllMutate()} className={allReadButtonStyle}>
         모두 읽음 표시
       </button>
       <ul className={ulStyle} {...props} aria-label="알림 목록">
