@@ -18,7 +18,7 @@ import { addCustomPatternsToAllLanguages, languageMapper } from "./rule";
 
 type CodeHightlighterProps = {
   code: string;
-  language: Exclude<SolutionLanguage, "모든 언어" | "Text">;
+  language: Exclude<SolutionLanguage, "모든 언어">;
 };
 
 const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
