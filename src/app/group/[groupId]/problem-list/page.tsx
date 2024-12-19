@@ -116,11 +116,7 @@ const ProblemListPage = ({
                   />
                   <SolvedSection
                     title="만료된 문제"
-                    list={
-                      isUnsolvedOnlyChecked.ownerProgressPage
-                        ? expiredList?.filter((item) => !item.solved) ?? []
-                        : expiredList!
-                    }
+                    list={expiredList ?? []}
                     totalPages={expiredTotalPages}
                     currentPage={expiredPage}
                     onPageChange={setExpiredPage}
