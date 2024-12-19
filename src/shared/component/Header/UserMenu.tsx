@@ -1,9 +1,9 @@
 "use client";
 import type { UserResponse } from "@/app/api/users/type";
+import { useNotificationsQuery } from "@/app/query";
 import Menu from "@/common/component/Menu/Menu";
 import Profile from "@/shared/component/Header/Profile";
 import { buttonContainer } from "@/shared/component/Header/index.css";
-import { useNotificationsQuery } from "@/shared/component/Header/query";
 import { useSession } from "next-auth/react";
 import Notification from "./Notification";
 

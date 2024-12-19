@@ -87,41 +87,39 @@ export const useBookmarkGroupMutation = () => {
   });
 };
 
-export const useVisibilityMutation = (groupId: number) => {
+export const useVisibilityMutation = () => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (flag: boolean) => patchGroupVisibility(groupId, flag),
-    onMutate: async (flag: boolean) => {
-      await queryClient.cancelQueries({ queryKey: ["users", "setting"] });
+    mutationFn: ({ groupId, flag }: { groupId: number; flag: boolean }) =>
+      patchGroupVisibility(groupId, flag),
+    onMutate: async ({ groupId, flag }: { groupId: number; flag: boolean }) => {
+      await queryClient.cancelQueries({ queryKey: ["groupsSetting"] });
 
       const prevData = queryClient.getQueryData<GroupListResponse>([
-        "users",
-        "setting",
+        "groupsSetting",
       ]);
 
-      const newData = [
-        ...prevData!.bookmarked,
-        ...prevData!.done,
-        ...prevData!.inProgress,
-        ...prevData!.queued,
-      ]
-        .sort((a, b) => a.id - b.id)
-        .map((item) =>
-          item.id === groupId ? { ...item, isVisible: flag } : item,
-        );
+      queryClient.setQueryData(
+        ["groupsSetting"],
+        (oldData: GroupSettingsContent[] | undefined) => {
+          if (!oldData) return [];
 
-      queryClient.setQueryData(["users", "setting"], newData);
+          return oldData.map((group) =>
+            group.id === groupId ? { ...group, isVisible: flag } : group,
+          );
+        },
+      );
 
       return { prevData };
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["users", "setting"] });
+      queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
     },
     onError: (error: HTTPError, _newData, context) => {
-      queryClient.setQueryData(["users", "setting"], context?.prevData);
+      queryClient.setQueryData(["groupsSetting"], context?.prevData);
 
       if (!error.response) return;
 

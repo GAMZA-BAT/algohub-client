@@ -121,7 +121,9 @@ export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
       const visibilityMutate = useGroupListMutation();
       return (
         <button
-          onClick={() => visibilityMutate(!data.isVisible)}
+          onClick={() =>
+            visibilityMutate({ groupId: data.id, flag: !data.isVisible })
+          }
           className={visibilityBtnStyle}
         >
           {data.isVisible ? "ON" : "OFF"}
