@@ -53,7 +53,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     },
   });
 
-  const { mutate: deleteMutate } = useDeleteGroupMutation(+groupId);
+  const { mutate: deleteMutate } = useDeleteGroupMutation();
   const { mutate: patchMutate } = usePatchGroupMutation(+groupId);
 
   const [url, setUrl] = useState(info.groupImage);

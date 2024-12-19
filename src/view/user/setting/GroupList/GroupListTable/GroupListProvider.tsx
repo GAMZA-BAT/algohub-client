@@ -1,11 +1,36 @@
+import {
+  useBookmarkGroupMutation,
+  useVisibilityMutation,
+} from "@/app/[user]/setting/query";
+import type { GroupSettingsContent } from "@/app/api/groups/type";
+import type { UseMutateFunction } from "@tanstack/react-query";
+import type { HTTPError, KyResponse } from "ky";
 import type React from "react";
 import { createContext, useReducer } from "react";
-import type { StudyListType } from "./type";
 
 type TableDataContextType =
-  | { processedData: StudyListType[]; state: State }
+  | { processedData: GroupSettingsContent[]; state: State }
   | undefined;
-type TableDispatchContextType = React.Dispatch<Actions> | undefined;
+type TableDispatchContextType =
+  | {
+      dispatch: React.Dispatch<Actions>;
+      mutation: UseMutateFunction<
+        KyResponse<unknown>,
+        HTTPError<unknown>,
+        {
+          groupId: number;
+          flag: boolean;
+        },
+        unknown
+      >;
+      bookmarkMutation: UseMutateFunction<
+        KyResponse<unknown>,
+        HTTPError<unknown>,
+        number,
+        unknown
+      >;
+    }
+  | undefined;
 
 export const TableDataContext = createContext<TableDataContextType>(undefined);
 export const TableDispatchContext =
@@ -13,29 +38,29 @@ export const TableDispatchContext =
 
 type SetSortAction = {
   type: "SET_SORT";
-  key: keyof StudyListType;
+  key: keyof GroupSettingsContent;
 };
 
 type SetFilterAction = {
   type: "SET_FILTER";
-  key: keyof StudyListType;
+  key: keyof GroupSettingsContent;
   value: string;
 };
 
 type Actions = SetSortAction | SetFilterAction;
 
 type SortCriteria = {
-  key: keyof StudyListType;
+  key: keyof GroupSettingsContent;
   order: "asc" | "desc";
 };
 
 type State = {
   sortCriteria: SortCriteria[];
-  filterKey?: keyof StudyListType;
+  filterKey?: keyof GroupSettingsContent;
   filterValue: string;
 };
 
-const studyListTableReducer = (state: State, action: Actions): State => {
+const groupListTableReducer = (state: State, action: Actions): State => {
   switch (action.type) {
     case "SET_SORT": {
       const { key } = action;
@@ -92,20 +117,22 @@ const studyListTableReducer = (state: State, action: Actions): State => {
 };
 
 // Provider 컴포넌트
-type StudyListTableProviderProps = {
+type GroupListTableProviderProps = {
   children: React.ReactNode;
-  data: StudyListType[];
+  data: GroupSettingsContent[];
 };
 
-export const StudyListTableProvider = ({
+export const GroupListTableProvider = ({
   children,
   data,
-}: StudyListTableProviderProps) => {
-  const [state, dispatch] = useReducer(studyListTableReducer, {
+}: GroupListTableProviderProps) => {
+  const [state, dispatch] = useReducer(groupListTableReducer, {
     sortCriteria: [],
     filterKey: undefined,
     filterValue: "",
   } as State);
+  const { mutate: visibilityMutate } = useVisibilityMutation();
+  const { mutate: bookmarkMutate } = useBookmarkGroupMutation();
 
   // 데이터 전처리 (정렬, 필터링)
   const processedData = data
@@ -122,8 +149,9 @@ export const StudyListTableProvider = ({
 
         if (typeof a[key] === "boolean" && typeof b[key] === "boolean") {
           compareResult = a[key] === b[key] ? 0 : a[key] ? -1 : 1;
-        } else if (a[key] instanceof Date && b[key] instanceof Date) {
-          compareResult = a[key].getTime() - b[key].getTime();
+        } else if (key === "startDate") {
+          compareResult =
+            new Date(a[key]).getTime() - new Date(b[key]).getTime();
         }
 
         // 오름차순/내림차순 적용
@@ -137,7 +165,13 @@ export const StudyListTableProvider = ({
     });
 
   return (
-    <TableDispatchContext.Provider value={dispatch}>
+    <TableDispatchContext.Provider
+      value={{
+        dispatch,
+        mutation: visibilityMutate,
+        bookmarkMutation: bookmarkMutate,
+      }}
+    >
       <TableDataContext.Provider value={{ state, processedData }}>
         {children}
       </TableDataContext.Provider>

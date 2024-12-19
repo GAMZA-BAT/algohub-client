@@ -1,10 +1,10 @@
 import { DataTable } from "@/shared/component/Table";
+import { useGroupListData } from "@/view/user/setting/GroupList/GroupListTable/hook";
 import { STUDY_LIST_COLUMNS } from "./constant";
-import { useStudyListData } from "./hook";
 import { tableCaptionStyle, tableStyle, theadStyle } from "./index.css";
 
-const StudyListTable = () => {
-  const data = useStudyListData();
+const GroupListTable = () => {
+  const data = useGroupListData();
 
   return (
     <DataTable
@@ -18,4 +18,4 @@ const StudyListTable = () => {
   );
 };
 
-export default StudyListTable;
+export default GroupListTable;
