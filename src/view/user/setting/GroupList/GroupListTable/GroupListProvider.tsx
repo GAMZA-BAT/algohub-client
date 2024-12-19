@@ -2,7 +2,11 @@ import {
   useBookmarkGroupMutation,
   useVisibilityMutation,
 } from "@/app/[user]/setting/query";
-import type { GroupSettingsContent } from "@/app/api/groups/type";
+import type {
+  GroupListResponse,
+  GroupSettingsContent,
+} from "@/app/api/groups/type";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { UseMutateFunction } from "@tanstack/react-query";
 import type { HTTPError, KyResponse } from "ky";
 import type React from "react";
@@ -17,11 +21,10 @@ type TableDispatchContextType =
       mutation: UseMutateFunction<
         KyResponse<unknown>,
         HTTPError<unknown>,
+        boolean,
         {
-          groupId: number;
-          flag: boolean;
-        },
-        unknown
+          prevData: GroupListResponse | undefined;
+        }
       >;
       bookmarkMutation: UseMutateFunction<
         KyResponse<unknown>,
@@ -131,7 +134,8 @@ export const GroupListTableProvider = ({
     filterKey: undefined,
     filterValue: "",
   } as State);
-  const { mutate: visibilityMutate } = useVisibilityMutation();
+  const groupId = useGetGroupId();
+  const { mutate: visibilityMutate } = useVisibilityMutation(+groupId);
   const { mutate: bookmarkMutate } = useBookmarkGroupMutation();
 
   // 데이터 전처리 (정렬, 필터링)
