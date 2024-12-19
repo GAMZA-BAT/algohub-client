@@ -2,7 +2,7 @@ import type { SolutionLanguage } from "@/app/api/solutions/type";
 import Prism from "prismjs";
 
 export const languageMapper: {
-  [x in Exclude<SolutionLanguage, "모든 언어">]: string;
+  [x in SolutionLanguage]: string;
 } = {
   "C++": "cpp",
   "C++17": "cpp",

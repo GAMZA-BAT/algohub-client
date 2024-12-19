@@ -6,7 +6,7 @@ import { sectionWrapper } from "./index.css";
 
 type CodeSectionProps = {
   code: string;
-  language: Exclude<SolutionLanguage, "모든 언어">;
+  language: SolutionLanguage;
 };
 
 const CodeSection = ({ code, language }: CodeSectionProps) => {

@@ -1,7 +1,7 @@
 "use client";
 import type {
   SolutionLanguage,
-  SolutionResult,
+  SolutionResultFilter,
 } from "@/app/api/solutions/type";
 import { IcnReset } from "@/asset/svg";
 import Input from "@/common/component/Input";
@@ -40,7 +40,7 @@ const SolvedFilterBar = () => {
   const handleResultChange = (newResult: string) => {
     setOption((prevOption) => ({
       ...prevOption,
-      result: newResult as SolutionResult,
+      result: newResult as SolutionResultFilter,
     }));
   };
 
