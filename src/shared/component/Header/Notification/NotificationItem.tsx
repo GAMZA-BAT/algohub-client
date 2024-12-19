@@ -6,7 +6,7 @@ import {
   dotStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { getFormattedcreateAt } from "@/shared/util/time";
+import { getFormattedcreatedAt } from "@/shared/util/time";
 import Image from "next/image";
 import {
   containerStyle,
@@ -81,7 +81,7 @@ const NotificationListItem = ({
         <div className={dateContainerStyle}>
           <div className={dotStyle({ isRead })} />
           <time className={dateStyle} aria-label={date}>
-            {getFormattedcreateAt(date)}
+            {getFormattedcreatedAt(date)}
           </time>
         </div>
       </div>

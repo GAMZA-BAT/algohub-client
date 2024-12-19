@@ -7,7 +7,7 @@ export type NoticeContent = {
   content: string;
   title: string;
   category: string;
-  createAt: string;
+  createdAt: string;
   isRead: boolean;
 };
 

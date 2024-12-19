@@ -1,3 +1,4 @@
+"use client";
 import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
 import {
@@ -13,6 +14,7 @@ import {
   useReadAllNotiMutation,
   useReadNotiItemMutation,
 } from "@/shared/component/Header/query";
+import { useRouter } from "next/navigation";
 import type { HTMLAttributes } from "react";
 import NotificationListItem from "./NotificationItem";
 
@@ -21,12 +23,21 @@ interface NotificationProps extends HTMLAttributes<HTMLUListElement> {
 }
 
 const Notification = ({ notificationList, ...props }: NotificationProps) => {
-  const { mutate: readNotification } = useReadNotiItemMutation();
-  const { mutate: readAll } = useReadAllNotiMutation();
+  const router = useRouter();
+
+  const { mutate: readNotiMutate } = useReadNotiItemMutation();
+  const { mutate: readAllMutate } = useReadAllNotiMutation();
+
+  const handleItemClick = (data: NotificationItem) => {
+    if (!data.isRead) readNotiMutate(data.id);
+    router.push(
+      `/group/${data.groupId}${data.problemId ? `/problem-list/${data.problemId}` : ""}${data.solutionId ? `/solved-detail/${data.solutionId}` : ""}`,
+    );
+  };
 
   return (
     <div className={notificationContainer}>
-      <button onClick={() => readAll()} className={allReadButtonStyle}>
+      <button onClick={() => readAllMutate()} className={allReadButtonStyle}>
         모두 읽음 표시
       </button>
       <ul className={ulStyle} {...props} aria-label="알림 목록">
@@ -38,7 +49,7 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
             message={notification.message}
             date={notification.createdAt}
             profileImg={notification.groupImage}
-            onClick={() => readNotification(notification.id)}
+            onClick={() => handleItemClick(notification)}
           />
         ))}
       </ul>

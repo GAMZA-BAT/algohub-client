@@ -6,16 +6,13 @@ import { sectionWrapper } from "./index.css";
 
 type CodeSectionProps = {
   code: string;
-  language: string;
+  language: SolutionLanguage;
 };
 
 const CodeSection = ({ code, language }: CodeSectionProps) => {
   return (
     <section className={sectionWrapper}>
-      <CodeHighlighter
-        code={code}
-        language={language as Exclude<SolutionLanguage, "모든 언어" | "Text">}
-      />
+      <CodeHighlighter code={code} language={language} />
     </section>
   );
 };

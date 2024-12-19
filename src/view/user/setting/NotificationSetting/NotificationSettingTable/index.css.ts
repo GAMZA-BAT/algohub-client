@@ -10,6 +10,7 @@ export const textStyle = recipe({
     isSelected: {
       true: {
         color: theme.color.white,
+        cursor: "pointer",
       },
       false: {
         color: theme.color.mg2,

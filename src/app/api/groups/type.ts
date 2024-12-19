@@ -69,3 +69,19 @@ export type MemberResponse = {
 export type MemberListResponse = MemberResponse[];
 
 export type Role = "OWNER" | "ADMIN" | "PARTICIPANT";
+
+export type MemberRoleRequest = {
+  memberId: number;
+  role: Role;
+};
+
+export type GroupSettingsContent = {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  role: Role;
+  isBookmarked: boolean;
+  isVisible: boolean;
+  status: GroupStatus;
+};

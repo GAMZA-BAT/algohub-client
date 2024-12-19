@@ -1,8 +1,7 @@
 import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
 import defaultImg from "@/asset/img/img_card_profile.png";
 import { IcnCalenderCard, IcnUser, IcnUser2 } from "@/asset/svg";
-import StatusIcon from "@/view/user/index/GroupCard/StatusIcon";
-// import StatusIcon from "@/view/user/index/GroupCard/StatusIcon";
+import StatusDot from "@/view/user/index/GroupCard/StatusDot";
 import {
   dateStyle,
   descStyle,
@@ -35,7 +34,7 @@ const GroupCard = ({ item, status }: GroupCardProps) => {
           unoptimized
         />
         <div className={nameWrapper}>
-          <StatusIcon status={status} />
+          <StatusDot status={status} />
           <h2 className={nameStyle({ isDone })}>{name}</h2>
         </div>
         <div className={dateStyle({ isDone })}>

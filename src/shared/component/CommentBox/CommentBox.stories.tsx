@@ -28,7 +28,7 @@ export const NoticeOverflow = {
     writerNickname: "최주용",
     writerProfileImage:
       "https://velog.velcdn.com/images/wuzoo/post/0ccaf96f-ea68-46bb-8603-2dece6320b57/image.jpeg",
-    createAt: "2024-10-14T14:45:52.731Z",
+    createdAt: "2024-10-14T14:45:52.731Z",
     content:
       "이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요? 이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요?",
   },
@@ -41,7 +41,7 @@ export const NoticeDefault = {
     writerNickname: "최주용",
     writerProfileImage:
       "https://velog.velcdn.com/images/wuzoo/post/0ccaf96f-ea68-46bb-8603-2dece6320b57/image.jpeg",
-    createAt: "2024-10-14T14:45:52.731Z",
+    createdAt: "2024-10-14T14:45:52.731Z",
     content: "알고헙 코멘트 박스를 만들고 있습니다.",
   },
 };
@@ -53,7 +53,7 @@ export const DetailDefault = {
     writerNickname: "최주용",
     writerProfileImage:
       "https://velog.velcdn.com/images/wuzoo/post/0ccaf96f-ea68-46bb-8603-2dece6320b57/image.jpeg",
-    createAt: "2024-10-14T14:45:52.731Z",
+    createdAt: "2024-10-14T14:45:52.731Z",
     content: "알고헙 코멘트 박스를 만들고 있습니다.",
   },
 };
@@ -65,7 +65,7 @@ export const DetailOverflow = {
     writerNickname: "최주용",
     writerProfileImage:
       "https://velog.velcdn.com/images/wuzoo/post/0ccaf96f-ea68-46bb-8603-2dece6320b57/image.jpeg",
-    createAt: "2024-10-14T14:45:52.731Z",
+    createdAt: "2024-10-14T14:45:52.731Z",
     content:
       "알고헙 코멘트 박스를 만들고 있습니다. 알고헙 코멘트 박스를 만들고 있습니다. 알고헙 코멘트 박스를 만들고 있습니다. 알고헙 코멘트 박스를 만들고 있습니다.",
   },
@@ -80,7 +80,7 @@ export const CommentList = {
         writerNickname: "최주용",
         writerProfileImage:
           "https://velog.velcdn.com/images/wuzoo/post/0ccaf96f-ea68-46bb-8603-2dece6320b57/image.jpeg",
-        createAt: "2024-10-14T14:45:52.731Z",
+        createdAt: "2024-10-14T14:45:52.731Z",
         content: "알고헙 코멘트 박스를 만들고 있습니다.",
       },
       {
@@ -89,7 +89,7 @@ export const CommentList = {
         writerNickname: "이진",
         writerProfileImage:
           "https://velog.velcdn.com/images/wuzoo/post/0ccaf96f-ea68-46bb-8603-2dece6320b57/image.jpeg",
-        createAt: "2024-08-14T14:45:52.731Z",
+        createdAt: "2024-08-14T14:45:52.731Z",
         content:
           "이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요? 이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인 최적화 방법이 있을까요?",
       },
@@ -99,7 +99,7 @@ export const CommentList = {
         writerNickname: "곽규한",
         writerProfileImage:
           "https://velog.velcdn.com/images/wuzoo/post/0ccaf96f-ea68-46bb-8603-2dece6320b57/image.jpeg",
-        createAt: "2022-10-14T14:45:52.731Z",
+        createdAt: "2022-10-14T14:45:52.731Z",
         content: "알고헙 코멘트 박스를 만들고 있습니다.",
       },
     ];
