@@ -4,10 +4,10 @@ import { recipe } from "@vanilla-extract/recipes";
 
 export const wrapperStyle = style({
   display: "flex",
+  justifyContent: "space-between",
   alignItems: "center",
-  gap: "0.4rem",
 
-  width: "fit-content",
+  width: "100%",
   padding: "0.8rem",
   borderRadius: "0.5rem",
 
@@ -33,8 +33,6 @@ export const calendarIcnStyle = recipe({
 
 export const dateStyle = recipe({
   base: {
-    width: "5.8rem",
-
     border: "none",
 
     backgroundColor: "transparent",
