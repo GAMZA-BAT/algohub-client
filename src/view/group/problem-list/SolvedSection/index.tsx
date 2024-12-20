@@ -1,5 +1,6 @@
 import type { ProblemContent } from "@/app/api/problems/type";
 import ProgressList from "@/view/group/problem-list";
+import { containerStyle } from "@/view/group/problem-list/SolvedSection/index.css";
 import { titleStyle } from "@/view/group/problem-list/index.css";
 
 interface SolvedSectionProps {
@@ -21,7 +22,7 @@ const SolvedSection = ({
 }: SolvedSectionProps) => {
   return (
     <section>
-      <div style={{ width: "100%", margin: "1.6rem 0" }}>
+      <div className={containerStyle}>
         <div>
           <h2 className={titleStyle}>{title}</h2>
         </div>

@@ -105,9 +105,11 @@ const ProblemListPage = ({
                   <SolvedSection
                     title="진행중인 문제"
                     list={
-                      isUnsolvedOnlyChecked.ownerProgressPage
-                        ? inProgressList?.filter((item) => !item.solved) ?? []
-                        : inProgressList!
+                      inProgressList?.filter(
+                        (item) =>
+                          isUnsolvedOnlyChecked.ownerProgressPage === false ||
+                          !item.solved,
+                      ) ?? []
                     }
                     totalPages={inProgressTotalPages}
                     currentPage={inProgressPage}
@@ -164,9 +166,11 @@ const ProblemListPage = ({
               <SolvedSection
                 title="진행중인 문제"
                 list={
-                  isUnsolvedOnlyChecked.participantPage
-                    ? inProgressList?.filter((item) => !item.solved) ?? []
-                    : inProgressList!
+                  inProgressList?.filter(
+                    (item) =>
+                      isUnsolvedOnlyChecked.participantPage === false ||
+                      !item.solved,
+                  ) ?? []
                 }
                 totalPages={inProgressTotalPages}
                 currentPage={inProgressPage}
@@ -175,11 +179,7 @@ const ProblemListPage = ({
               />
               <SolvedSection
                 title="만료된 문제"
-                list={
-                  isUnsolvedOnlyChecked.participantPage
-                    ? expiredList?.filter((item) => !item.solved) ?? []
-                    : expiredList!
-                }
+                list={expiredList ?? []}
                 totalPages={expiredTotalPages}
                 currentPage={expiredPage}
                 onPageChange={setExpiredPage}
