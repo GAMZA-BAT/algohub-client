@@ -22,6 +22,7 @@ import clsx from "clsx";
 
 type CommentBox = CommentContent & {
   variant: "detail" | "notice";
+  isMine?: boolean;
   onDelete?: (commentId: number) => void;
   className?: string;
 };
@@ -33,6 +34,7 @@ const CommentBox = ({
   writerProfileImage,
   content,
   createdAt,
+  isMine,
   onDelete,
   className,
 }: CommentBox) => {
@@ -85,7 +87,10 @@ const CommentBox = ({
       <div className={iconContainerStyle}>
         <button
           onClick={handleEditBtnClick}
-          className={iconStyle({ variant: "edit", isActive })}
+          className={iconStyle({
+            variant: "edit",
+            isActive: isActive && isMine,
+          })}
         >
           <IcnEdit width={18} height={18} />
         </button>
@@ -96,7 +101,10 @@ const CommentBox = ({
           onKeyDown={(e) => {
             if (e.key === "Enter") onDelete?.(commentId);
           }}
-          className={iconStyle({ variant: "close", isActive })}
+          className={iconStyle({
+            variant: "close",
+            isActive: isActive && isMine,
+          })}
         >
           <IcnClose width={16} height={16} />
         </div>
