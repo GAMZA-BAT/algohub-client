@@ -103,7 +103,12 @@ const FormController = <
           );
         } else {
           FormField = (
-            <EditAvatar name={name} {...fieldProps} onChange={field.onChange} />
+            <EditAvatar
+              name={name}
+              src={field.value}
+              {...fieldProps}
+              onChange={field.onChange}
+            />
           );
         }
         return (
