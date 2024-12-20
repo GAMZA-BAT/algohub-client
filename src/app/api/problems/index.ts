@@ -58,7 +58,7 @@ export const getExpiredProblems = async ({
 }: GetProblemRequest) => {
   const response = await kyInstance
     .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/expired?page=${page}&size=${size}`,
+      `api/groups/${groupId}/problems/expired&page=${page}&size=${size}`,
     )
     .json();
 
@@ -72,7 +72,7 @@ export const getQueuedProblems = async ({
 }: GetProblemRequest) => {
   const response = await kyInstance
     .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/queued?page=${page}&size=${size}`,
+      `api/groups/${groupId}/problems/queued&page=${page}&size=${size}`,
     )
     .json();
 
