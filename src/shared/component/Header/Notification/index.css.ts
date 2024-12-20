@@ -23,7 +23,7 @@ export const ulStyle = style({
   flexDirection: "column",
   gap: "1rem",
 
-  padding: "0 2rem 3rem 2rem",
+  padding: "0.8rem 2rem 3rem 2rem",
 
   // scroll bar
   overflowY: "scroll",
