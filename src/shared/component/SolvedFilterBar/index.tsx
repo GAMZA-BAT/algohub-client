@@ -1,8 +1,4 @@
 "use client";
-import type {
-  SolutionLanguage,
-  SolutionResultFilter,
-} from "@/app/api/solutions/type";
 import { IcnReset } from "@/asset/svg";
 import Input from "@/common/component/Input";
 import SelectBox from "@/common/component/SelectBox";
@@ -19,29 +15,30 @@ import {
   SOLVED_RESULT,
 } from "@/shared/constant/solvedFilterKey";
 import type { SolvedFilterType } from "@/shared/type/solvedFilter";
-import { useState } from "react";
 
-const SolvedFilterBar = () => {
-  const initOption = {
-    problemId: 0,
-    solvedId: null,
-    language: SOLVED_LANGUAGE[0],
-    result: SOLVED_RESULT[0],
-  };
-  const [option, setOption] = useState<SolvedFilterType>(initOption);
+type SolvedFilterBarProps = {
+  option: SolvedFilterType;
+  onChange: (option: SolvedFilterType) => void;
+  defaultValue: SolvedFilterType;
+};
 
+const SolvedFilterBar = ({
+  option,
+  onChange,
+  defaultValue,
+}: SolvedFilterBarProps) => {
   const handleLanguageChange = (newLanguage: string) => {
-    setOption((prevOption) => ({
-      ...prevOption,
-      language: newLanguage as SolutionLanguage,
-    }));
+    onChange({
+      ...option,
+      language: newLanguage as SolvedFilterType["language"],
+    });
   };
 
   const handleResultChange = (newResult: string) => {
-    setOption((prevOption) => ({
-      ...prevOption,
-      result: newResult as SolutionResultFilter,
-    }));
+    onChange({
+      ...option,
+      result: newResult as SolvedFilterType["result"],
+    });
   };
 
   return (
@@ -71,8 +68,8 @@ const SolvedFilterBar = () => {
         width={44}
         height={44}
         aria-label="풀이 리스트 필터링 초기화"
-        onClick={() => setOption(initOption)}
-        onKeyDown={handleA11yClick(() => setOption(initOption))}
+        onClick={() => onChange(defaultValue)}
+        onKeyDown={handleA11yClick(() => onChange(defaultValue))}
         tabIndex={0}
       />
     </div>
