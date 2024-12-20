@@ -20,6 +20,8 @@ export const calendarIcnStyle = recipe({
     width: "2rem",
     height: "2rem",
     color: theme.color.mg4,
+
+    flexShrink: 0,
   },
 
   variants: {
@@ -92,6 +94,10 @@ globalStyle(".react-datepicker", {
 
   border: "none",
   borderRadius: "0.8rem",
+});
+
+globalStyle(".react-datepicker-wrapper input", {
+  width: "100%",
 });
 
 globalStyle(".react-datepicker__header", {

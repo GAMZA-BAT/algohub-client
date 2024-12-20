@@ -68,8 +68,7 @@ export const nameInputStyle = recipe({
 
 export const dateWrapper = style({
   display: "flex",
-  flexDirection: "column",
-  gap: "0.6rem",
+  gap: "2.6rem",
   paddingBottom: "0.4rem",
 });
 
