@@ -26,6 +26,14 @@ export const patchNotificationRead = (notificationId: number) => {
   return response;
 };
 
+export const deleteNotification = async (notificationId: number) => {
+  const response = await kyInstance
+    .delete(`api/notifications/${notificationId}`)
+    .json();
+
+  return response;
+};
+
 export const getNotificationsSettings = async () => {
   const response = await kyInstance
     .get<NotificationSettingContent[]>("api/notifications/settings")

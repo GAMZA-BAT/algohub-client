@@ -10,7 +10,11 @@ import {
 
 import { iconStyle } from "@/shared/component/Header/index.css";
 
-import { useReadAllNotiMutation, useReadNotiItemMutation } from "@/app/query";
+import {
+  useDeleteNotiMutation,
+  useReadAllNotiMutation,
+  useReadNotiItemMutation,
+} from "@/app/query";
 import { useRouter } from "next/navigation";
 import type { HTMLAttributes } from "react";
 import NotificationListItem from "./NotificationItem";
@@ -24,6 +28,7 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
 
   const { mutate: readNotiMutate } = useReadNotiItemMutation();
   const { mutate: readAllMutate } = useReadAllNotiMutation();
+  const { mutate: deleteMutate } = useDeleteNotiMutation();
 
   const handleItemClick = (data: NotificationItem) => {
     if (!data.isRead) readNotiMutate(data.id);
@@ -47,6 +52,7 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
             date={notification.createdAt}
             profileImg={notification.groupImage}
             onClick={() => handleItemClick(notification)}
+            onDelete={() => deleteMutate(notification.id)}
           />
         ))}
       </ul>
