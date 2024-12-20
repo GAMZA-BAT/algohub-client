@@ -80,6 +80,6 @@ export const messageStyle = style({
 
 export const dateStyle = style({
   fontSize: "1rem",
-  lineHeight: "11.",
+  lineHeight: "1.2rem",
   color: theme.color.mg4,
 });
