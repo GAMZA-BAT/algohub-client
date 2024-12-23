@@ -1,6 +1,7 @@
 "use client";
 import { useNotificationSettingListQuery } from "@/app/[user]/setting/query";
 import { DataTable } from "@/shared/component/Table";
+
 import { NOTIFICATION_SETTINGS_COLUMNS } from "./constant";
 import { tableStyle, tdStyle, theadStyle } from "./index.css";
 
