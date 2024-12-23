@@ -98,12 +98,7 @@ const ProblemListPage = ({
                 <>
                   <SolvedSection
                     title="진행중인 문제"
-                    list={
-                      inProgressList?.filter(
-                        (item) =>
-                          isUnsolvedOnlyChecked.owner === false || !item.solved,
-                      ) ?? []
-                    }
+                    list={inProgressList ?? []}
                     totalPages={inProgressTotalPages}
                     currentPage={inProgressPage}
                     isOwner={isOwner}
@@ -144,13 +139,7 @@ const ProblemListPage = ({
             <div>
               <SolvedSection
                 title="진행중인 문제"
-                list={
-                  inProgressList?.filter(
-                    (item) =>
-                      isUnsolvedOnlyChecked.participant === false ||
-                      !item.solved,
-                  ) ?? []
-                }
+                list={inProgressList ?? []}
                 totalPages={inProgressTotalPages}
                 currentPage={inProgressPage}
                 isOwner={isOwner}
