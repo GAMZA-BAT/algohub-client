@@ -47,7 +47,7 @@ const ProblemListPage = ({
         groupId: +groupId,
         page,
         size: 3,
-        unsolvedOnly: isUnsolvedOnlyChecked.ownerProgressPage,
+        isUnsolvedOnly: isUnsolvedOnlyChecked.ownerProgressPage,
       }),
   });
   const inProgressList = inProgressData?.content;
@@ -58,17 +58,12 @@ const ProblemListPage = ({
     totalPages: expiredTotalPages,
     setCurrentPage: setExpiredPage,
   } = usePaginationQuery({
-    queryKey: [
-      "expiredProblem",
-      groupId,
-      { unsolved: isUnsolvedOnlyChecked.ownerProgressPage },
-    ],
+    queryKey: ["expiredProblem", groupId],
     queryFn: (page) =>
       getExpiredProblems({
         groupId: +groupId,
         page,
         size: 3,
-        unsolvedOnly: isUnsolvedOnlyChecked.ownerProgressPage,
       }),
   });
   const expiredList = expiredData?.content;
@@ -105,9 +100,11 @@ const ProblemListPage = ({
                   <SolvedSection
                     title="진행중인 문제"
                     list={
-                      isUnsolvedOnlyChecked.ownerProgressPage
-                        ? inProgressList?.filter((item) => !item.solved) ?? []
-                        : inProgressList!
+                      inProgressList?.filter(
+                        (item) =>
+                          isUnsolvedOnlyChecked.ownerProgressPage === false ||
+                          !item.solved,
+                      ) ?? []
                     }
                     totalPages={inProgressTotalPages}
                     currentPage={inProgressPage}
@@ -164,9 +161,11 @@ const ProblemListPage = ({
               <SolvedSection
                 title="진행중인 문제"
                 list={
-                  isUnsolvedOnlyChecked.participantPage
-                    ? inProgressList?.filter((item) => !item.solved) ?? []
-                    : inProgressList!
+                  inProgressList?.filter(
+                    (item) =>
+                      isUnsolvedOnlyChecked.participantPage === false ||
+                      !item.solved,
+                  ) ?? []
                 }
                 totalPages={inProgressTotalPages}
                 currentPage={inProgressPage}
@@ -175,11 +174,7 @@ const ProblemListPage = ({
               />
               <SolvedSection
                 title="만료된 문제"
-                list={
-                  isUnsolvedOnlyChecked.participantPage
-                    ? expiredList?.filter((item) => !item.solved) ?? []
-                    : expiredList!
-                }
+                list={expiredList ?? []}
                 totalPages={expiredTotalPages}
                 currentPage={expiredPage}
                 onPageChange={setExpiredPage}
