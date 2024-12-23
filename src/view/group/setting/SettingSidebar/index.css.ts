@@ -1,5 +1,6 @@
 import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
 export const sidebarWrapper = style({
   display: "flex",
@@ -24,9 +25,20 @@ export const submitWrapper = style({
   paddingTop: "2.4rem",
 });
 
-export const editTextStyle = style({
-  color: theme.color.mg2,
-  ...theme.font.Caption3_M_12,
+export const editTextStyle = recipe({
+  base: {
+    ...theme.font.Caption3_M_12,
+  },
+  variants: {
+    isActive: {
+      true: {
+        color: theme.color.purple,
+      },
+      false: {
+        color: theme.color.mg2,
+      },
+    },
+  },
 });
 
 export const deleteTextStyle = style({
