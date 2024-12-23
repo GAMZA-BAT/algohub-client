@@ -7,6 +7,7 @@ import type { AdapterUser } from "../next-auth";
 
 // 컴포넌트에서 auth()를 통해 불러와 사용할 session 데이터를 수정할 수 있음
 export const { auth, handlers, signIn, signOut } = NextAuth({
+  trustHost: true,
   pages: {
     signIn: "/login",
     error: "/error",
