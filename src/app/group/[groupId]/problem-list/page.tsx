@@ -26,9 +26,8 @@ const ProblemListPage = ({
   const isOwner = role !== "PARTICIPANT";
 
   const [isUnsolvedOnlyChecked, setIsUnsolvedOnlyChecked] = useState({
-    ownerProgressPage: false,
-    ownerPendingPage: false,
-    participantPage: false,
+    owner: false,
+    participant: false,
   });
 
   const {
@@ -40,14 +39,14 @@ const ProblemListPage = ({
     queryKey: [
       "inProgressProblem",
       groupId,
-      { unsolved: isUnsolvedOnlyChecked.ownerProgressPage },
+      { unsolved: isUnsolvedOnlyChecked.owner },
     ],
     queryFn: (page) =>
       getInProgressProblems({
         groupId: +groupId,
         page,
         size: 3,
-        isUnsolvedOnly: isUnsolvedOnlyChecked.ownerProgressPage,
+        isUnsolvedOnly: isUnsolvedOnlyChecked.owner,
       }),
   });
   const inProgressList = inProgressData?.content;
@@ -87,11 +86,11 @@ const ProblemListPage = ({
                 <div className={checkBoxStyle}>
                   <p className={unSolvedFilterTextStyle}>Unsolved-Only</p>
                   <CheckBox
-                    checked={isUnsolvedOnlyChecked.ownerProgressPage}
+                    checked={isUnsolvedOnlyChecked.owner}
                     onChange={() =>
                       setIsUnsolvedOnlyChecked((prev) => ({
                         ...prev,
-                        ownerProgressPage: !prev.ownerProgressPage,
+                        owner: !prev.owner,
                       }))
                     }
                   />
@@ -102,8 +101,7 @@ const ProblemListPage = ({
                     list={
                       inProgressList?.filter(
                         (item) =>
-                          isUnsolvedOnlyChecked.ownerProgressPage === false ||
-                          !item.solved,
+                          isUnsolvedOnlyChecked.owner === false || !item.solved,
                       ) ?? []
                     }
                     totalPages={inProgressTotalPages}
@@ -122,21 +120,7 @@ const ProblemListPage = ({
               </div>
               <section>
                 <div style={{ width: "100%", margin: "1.6rem 0" }}>
-                  <div style={{ display: "flex" }}>
-                    <h2 className={titleStyle}>대기중인 문제</h2>
-                    <div className={checkBoxStyle}>
-                      <p className={unSolvedFilterTextStyle}>Unsolved-Only</p>
-                      <CheckBox
-                        checked={isUnsolvedOnlyChecked.ownerPendingPage}
-                        onChange={() =>
-                          setIsUnsolvedOnlyChecked((prev) => ({
-                            ...prev,
-                            ownerPendingPage: !prev.ownerPendingPage,
-                          }))
-                        }
-                      />
-                    </div>
-                  </div>
+                  <h2 className={titleStyle}>대기중인 문제</h2>
                   <PendingListHeader />
                   <PendingList groupId={+groupId} />
                 </div>
@@ -148,11 +132,11 @@ const ProblemListPage = ({
             <div className={checkBoxStyle}>
               <p className={unSolvedFilterTextStyle}>Unsolved-Only</p>
               <CheckBox
-                checked={isUnsolvedOnlyChecked.participantPage}
+                checked={isUnsolvedOnlyChecked.participant}
                 onChange={() =>
                   setIsUnsolvedOnlyChecked((prev) => ({
                     ...prev,
-                    participantPage: !prev.participantPage,
+                    participant: !prev.participant,
                   }))
                 }
               />
@@ -163,7 +147,7 @@ const ProblemListPage = ({
                 list={
                   inProgressList?.filter(
                     (item) =>
-                      isUnsolvedOnlyChecked.participantPage === false ||
+                      isUnsolvedOnlyChecked.participant === false ||
                       !item.solved,
                   ) ?? []
                 }
