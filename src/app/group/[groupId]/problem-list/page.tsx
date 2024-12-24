@@ -9,8 +9,8 @@ import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { sidebarWrapper } from "@/styles/shared.css";
 import PendingList from "@/view/group/problem-list/PendingList";
 import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
+import ProblemSection from "@/view/group/problem-list/ProblemSection";
 import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
-import SolvedSection from "@/view/group/problem-list/SolvedSection";
 import {
   checkBoxStyle,
   pageStyle,
@@ -25,10 +25,7 @@ const ProblemListPage = ({
   const { data: role } = useGroupRoleQuery(+groupId);
   const isOwner = role !== "PARTICIPANT";
 
-  const [isUnsolvedOnlyChecked, setIsUnsolvedOnlyChecked] = useState({
-    owner: false,
-    participant: false,
-  });
+  const [isUnsolvedOnlyChecked, setIsUnsolvedOnlyChecked] = useState(false);
 
   const {
     data: inProgressData,
@@ -39,14 +36,14 @@ const ProblemListPage = ({
     queryKey: [
       "inProgressProblem",
       groupId,
-      { unsolved: isUnsolvedOnlyChecked.owner },
+      { unsolved: isUnsolvedOnlyChecked },
     ],
     queryFn: (page) =>
       getInProgressProblems({
         groupId: +groupId,
         page,
         size: 3,
-        isUnsolvedOnly: isUnsolvedOnlyChecked.owner,
+        isUnsolvedOnly: isUnsolvedOnlyChecked,
       }),
   });
   const inProgressList = inProgressData?.content;
@@ -86,17 +83,12 @@ const ProblemListPage = ({
                 <div className={checkBoxStyle}>
                   <p className={unSolvedFilterTextStyle}>Unsolved-Only</p>
                   <CheckBox
-                    checked={isUnsolvedOnlyChecked.owner}
-                    onChange={() =>
-                      setIsUnsolvedOnlyChecked((prev) => ({
-                        ...prev,
-                        owner: !prev.owner,
-                      }))
-                    }
+                    checked={isUnsolvedOnlyChecked}
+                    onChange={() => setIsUnsolvedOnlyChecked((prev) => !prev)}
                   />
                 </div>
                 <>
-                  <SolvedSection
+                  <ProblemSection
                     title="진행중인 문제"
                     list={inProgressList ?? []}
                     totalPages={inProgressTotalPages}
@@ -104,7 +96,7 @@ const ProblemListPage = ({
                     isOwner={isOwner}
                     onPageChange={setInProgressPage}
                   />
-                  <SolvedSection
+                  <ProblemSection
                     title="만료된 문제"
                     list={expiredList ?? []}
                     totalPages={expiredTotalPages}
@@ -127,17 +119,12 @@ const ProblemListPage = ({
             <div className={checkBoxStyle}>
               <p className={unSolvedFilterTextStyle}>Unsolved-Only</p>
               <CheckBox
-                checked={isUnsolvedOnlyChecked.participant}
-                onChange={() =>
-                  setIsUnsolvedOnlyChecked((prev) => ({
-                    ...prev,
-                    participant: !prev.participant,
-                  }))
-                }
+                checked={isUnsolvedOnlyChecked}
+                onChange={() => setIsUnsolvedOnlyChecked((prev) => !prev)}
               />
             </div>
             <div>
-              <SolvedSection
+              <ProblemSection
                 title="진행중인 문제"
                 list={inProgressList ?? []}
                 totalPages={inProgressTotalPages}
@@ -145,7 +132,7 @@ const ProblemListPage = ({
                 isOwner={isOwner}
                 onPageChange={setInProgressPage}
               />
-              <SolvedSection
+              <ProblemSection
                 title="만료된 문제"
                 list={expiredList ?? []}
                 totalPages={expiredTotalPages}

@@ -2,7 +2,7 @@ import type { ProblemContent } from "@/app/api/problems/type";
 import ProgressList from "@/view/group/problem-list";
 import { titleStyle } from "@/view/group/problem-list/index.css";
 
-interface SolvedSectionProps {
+interface ProblemSectionProps {
   title: string;
   list: ProblemContent[];
   totalPages: number;
@@ -11,14 +11,14 @@ interface SolvedSectionProps {
   onPageChange: (page: number) => void;
 }
 
-const SolvedSection = ({
+const ProblemSection = ({
   title,
   list,
   totalPages,
   currentPage,
   isOwner = false,
   onPageChange,
-}: SolvedSectionProps) => {
+}: ProblemSectionProps) => {
   return (
     <section>
       <div style={{ width: "100%", margin: "1.6rem 0" }}>
@@ -39,4 +39,4 @@ const SolvedSection = ({
   );
 };
 
-export default SolvedSection;
+export default ProblemSection;
