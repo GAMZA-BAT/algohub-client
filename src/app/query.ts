@@ -74,14 +74,7 @@ export const useReadAllNotiMutation = () => {
 };
 
 export const useDeleteNotiMutation = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (id: number) => deleteNotification(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["notifications"],
-      });
-    },
   });
 };
