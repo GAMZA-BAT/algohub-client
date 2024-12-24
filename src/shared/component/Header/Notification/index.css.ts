@@ -11,6 +11,8 @@ export const notificationContainer = style({
   flexDirection: "column",
 
   zIndex: theme.zIndex.top,
+  width: "26.9rem",
+  height: "27.4rem",
 
   borderRadius: "2rem",
 

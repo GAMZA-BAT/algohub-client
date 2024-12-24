@@ -15,6 +15,7 @@ import {
   useReadAllNotiMutation,
   useReadNotiItemMutation,
 } from "@/app/query";
+import Empty from "@/shared/component/Empty";
 import { useRouter } from "next/navigation";
 import type { HTMLAttributes } from "react";
 import NotificationListItem from "./NotificationItem";
@@ -39,23 +40,32 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
 
   return (
     <div className={notificationContainer}>
-      <button onClick={() => readAllMutate()} className={allReadButtonStyle}>
-        모두 읽음 표시
-      </button>
-      <ul className={ulStyle} {...props} aria-label="알림 목록">
-        {notificationList.map((notification, index) => (
-          <NotificationListItem
-            key={index}
-            isRead={notification.isRead}
-            name={notification.groupName}
-            message={notification.message}
-            date={notification.createdAt}
-            profileImg={notification.groupImage}
-            onClick={() => handleItemClick(notification)}
-            onDelete={() => deleteMutate(notification.id)}
-          />
-        ))}
-      </ul>
+      {notificationList.length > 0 ? (
+        <>
+          <button
+            onClick={() => readAllMutate()}
+            className={allReadButtonStyle}
+          >
+            모두 읽음 표시
+          </button>
+          <ul className={ulStyle} {...props} aria-label="알림 목록">
+            {notificationList.map((notification, index) => (
+              <NotificationListItem
+                key={index}
+                isRead={notification.isRead}
+                name={notification.groupName}
+                message={notification.message}
+                date={notification.createdAt}
+                profileImg={notification.groupImage}
+                onClick={() => handleItemClick(notification)}
+                onDelete={() => deleteMutate(notification.id)}
+              />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <Empty guideText="지금은 알림이 없어요." />
+      )}
     </div>
   );
 };
