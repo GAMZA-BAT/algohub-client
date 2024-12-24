@@ -36,5 +36,5 @@ export type GetProblemRequest = {
   groupId: number;
   page: number;
   size: number;
-  unsolvedOnly?: boolean;
+  isUnsolvedOnly?: boolean;
 };

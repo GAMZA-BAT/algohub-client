@@ -11,7 +11,6 @@ import CodeClipboard from "@/shared/component/CodeClipboard";
 import PromptModal from "@/shared/component/PromptModal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import {
-  avatarWrapperStyle,
   deleteTextStyle,
   editTextStyle,
   sidebarWrapper,
@@ -22,17 +21,17 @@ import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
 import SupportingText from "@/common/component/SupportingText";
-import EditAvatar from "@/shared/component/EditAvatar";
 import { Form } from "@/shared/component/Form";
 import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";
 import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
+import ImageFormController from "@/shared/component/GroupInfoForm/ImageFormController";
 import NameFormController from "@/shared/component/GroupInfoForm/NameFormController";
 import {
   dateWrapper,
   formLabelStyle,
   formStyle,
 } from "@/shared/component/GroupInfoForm/index.css";
-import { useState } from "react";
+import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
 
 type SettingSidebarProps = {
   info: GroupResponse;
@@ -49,6 +48,8 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
     defaultValues: {
       groupImage: info.groupImage,
       name: info.name,
+      startDate: new Date(info.startDate),
+      endDate: new Date(info.endDate),
       introduction: info.introduction,
     },
   });
@@ -56,49 +57,21 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
   const { mutate: deleteMutate } = useDeleteGroupMutation();
   const { mutate: patchMutate } = usePatchGroupMutation(+groupId);
 
-  const [url, setUrl] = useState(info.groupImage);
-  const [file, setFile] = useState<Blob | null>();
-
-  const onSubmit = () => {
-    const data = new FormData();
-
-    const name = form.getValues("name");
-    const startDate = form.getValues("startDate") ?? info.startDate;
-    const endDate = form.getValues("endDate") ?? info.endDate;
-    const introduction = form.getValues("introduction");
-
-    if (file) {
-      data.append("groupImage", file);
-    }
-    data.append(
-      "request",
-      JSON.stringify({
-        name,
-        startDate,
-        endDate,
-        introduction,
-      }),
-    );
-
+  const handleSubmit = (values: z.infer<typeof groupSchema>) => {
+    const data = getGroupFormData(values);
     patchMutate(data);
   };
   const error = form.formState.errors.endDate;
-
-  const handleUpload = (img: Blob) => {
-    setFile(img);
-
-    const uploaded = URL.createObjectURL(img);
-    setUrl(uploaded);
-  };
 
   return (
     <>
       <div className={sidebarWrapper}>
         <Form {...form}>
-          <form className={formStyle({ variant: "group-setting" })}>
-            <div className={avatarWrapperStyle}>
-              <EditAvatar src={url ?? ""} onChange={handleUpload} />
-            </div>
+          <form
+            className={formStyle({ variant: "group-setting" })}
+            onSubmit={form.handleSubmit((v) => handleSubmit(v))}
+          >
+            <ImageFormController form={form} />
             <NameFormController form={form} variant="group-setting" />
             <div>
               <p className={formLabelStyle({ variant: "group-setting" })}>
@@ -123,9 +96,12 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
             <DescFormController form={form} variant="group-setting" />
             <div className={submitWrapper}>
               <button
-                type="button"
-                onClick={onSubmit}
-                className={editTextStyle}
+                type="submit"
+                className={editTextStyle({
+                  isActive:
+                    form.formState.isValid && !form.formState.isSubmitted,
+                })}
+                disabled={!form.formState.isValid || form.formState.isSubmitted}
               >
                 수정하기
               </button>
