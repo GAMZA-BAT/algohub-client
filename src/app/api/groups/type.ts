@@ -74,3 +74,14 @@ export type MemberRoleRequest = {
   memberId: number;
   role: Role;
 };
+
+export type GroupSettingsContent = {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  role: Role;
+  isBookmarked: boolean;
+  isVisible: boolean;
+  status: GroupStatus;
+};

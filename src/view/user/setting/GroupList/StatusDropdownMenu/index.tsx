@@ -2,23 +2,22 @@ import { IcnBtnArrowDown } from "@/asset/svg";
 import Dropdown from "@/common/component/Dropdown";
 import Menu from "@/common/component/Menu/Menu";
 import { handleA11yClick } from "@/common/util/dom";
-import StatusIcon from "../StatusIcon";
-import { useStudyListDispatch } from "../StudyListTable/hook";
+import { useGroupListDispatch } from "@/view/user/setting/GroupList/GroupListTable/hook";
 import {
   arrowDownStyle,
   dropdownStyle,
   textStyle,
   triggerButtonStyle,
-} from "./index.css";
+} from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
+import StatusIcon from "@/view/user/setting/GroupList/StatusIcon";
 
 const statusOptions = [
-  { label: "bookmarked", icon: <StatusIcon status="bookmarked" /> },
   { label: "inProgress", icon: <StatusIcon status="inProgress" /> },
   { label: "queued", icon: <StatusIcon status="queued" /> },
   { label: "done", icon: <StatusIcon status="done" /> },
 ];
 const StatusDropdownMenu = () => {
-  const dispatch = useStudyListDispatch();
+  const dispatch = useGroupListDispatch();
   const handleFilterChange = (status: string) => {
     dispatch({
       type: "SET_FILTER",

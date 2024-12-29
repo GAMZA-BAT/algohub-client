@@ -5,25 +5,28 @@ import {
 } from "@/shared/component/Table/TableElements/index.css";
 import { pinStyle } from "@/shared/component/Table/index.css";
 import type { TableDataType } from "@/shared/type/table";
-import { visibilityBtnStyle } from "@/view/user/setting/StudyList/StudyListTable/index.css";
+import { visibilityBtnStyle } from "@/view/user/setting/GroupList/GroupListTable/index.css";
 import { format } from "date-fns";
-import SortIcon from "../SortIcon";
-import StatusDropdownMenu from "../StatusDropdownMenu";
-import { textStyle } from "../StatusDropdownMenu/index.css";
-import StatusIcon from "../StatusIcon";
-import {
-  useStudyListDispatch,
-  useStudyListMutation,
-  useStudyListState,
-} from "./hook";
-import type { StudyListType } from "./type";
 
-export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
+import type { GroupSettingsContent } from "@/app/api/groups/type";
+import { handleA11yClick } from "@/common/util/dom";
+import {
+  useBookmarkGroupMutation,
+  useGroupListDispatch,
+  useGroupListMutation,
+  useGroupListState,
+} from "@/view/user/setting/GroupList/GroupListTable/hook";
+import SortIcon from "@/view/user/setting/GroupList/SortIcon";
+import StatusDropdownMenu from "@/view/user/setting/GroupList/StatusDropdownMenu";
+import { textStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
+import StatusIcon from "@/view/user/setting/GroupList/StatusIcon";
+
+export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
   {
     key: "isBookmarked",
     Header: () => {
-      const dispatch = useStudyListDispatch();
-      const state = useStudyListState();
+      const dispatch = useGroupListDispatch();
+      const state = useGroupListState();
       const direction = state.sortCriteria.find(
         (c) => c.key === "isBookmarked",
       )?.order;
@@ -42,14 +45,23 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
         </>
       );
     },
-    Cell: ({ isBookmarked }) => (
-      <IcnBtnPin
-        aria-label="이 스터디를 즐겨찾기 설정"
-        width={20}
-        height={20}
-        className={pinStyle({ active: isBookmarked })}
-      />
-    ),
+    Cell: ({ id, isBookmarked }) => {
+      const bookmarkGroupMutate = useBookmarkGroupMutation();
+
+      const handleClick = () => bookmarkGroupMutate(id);
+
+      return (
+        <IcnBtnPin
+          aria-label="이 스터디를 즐겨찾기 설정"
+          width={20}
+          height={20}
+          className={pinStyle({ active: isBookmarked })}
+          onClick={handleClick}
+          tabIndex={0}
+          onKeyDown={handleA11yClick(handleClick)}
+        />
+      );
+    },
     width: 30,
     align: "left",
   },
@@ -63,8 +75,8 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
   {
     key: "startDate",
     Header: () => {
-      const dispatch = useStudyListDispatch();
-      const state = useStudyListState();
+      const dispatch = useGroupListDispatch();
+      const state = useGroupListState();
       const direction = state.sortCriteria.find(
         (c) => c.key === "startDate",
       )?.order;
@@ -106,7 +118,7 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
     key: "isPublic",
     Header: () => "공개여부",
     Cell: (data) => {
-      const visibilityMutate = useStudyListMutation();
+      const visibilityMutate = useGroupListMutation();
       return (
         <button
           onClick={() =>
@@ -123,7 +135,11 @@ export const STUDY_LIST_COLUMNS: TableDataType<StudyListType>[] = [
   {
     key: "status",
     Header: () => <StatusDropdownMenu />,
-    Cell: (data) => <StatusIcon status={data.status} />,
+    Cell: (data) => (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <StatusIcon status={data.status} />
+      </div>
+    ),
     width: 100,
   },
   {

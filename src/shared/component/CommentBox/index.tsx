@@ -9,7 +9,7 @@ import {
   containerStyle,
   contentStyle,
   contentWrapperStyle,
-  createAtStyle,
+  createdAtStyle,
   editInputWrapperStyle,
   iconContainerStyle,
   iconStyle,
@@ -17,13 +17,14 @@ import {
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { getFormattedcreateAt } from "@/shared/util/time";
+import { getFormattedcreatedAt } from "@/shared/util/time";
 import clsx from "clsx";
 
-type CommentBox = CommentContent & {
+type CommentBoxProps = CommentContent & {
   variant: "detail" | "notice";
   onDelete?: (commentId: number) => void;
   className?: string;
+  isMine?: boolean;
 };
 
 const CommentBox = ({
@@ -35,7 +36,8 @@ const CommentBox = ({
   createdAt,
   onDelete,
   className,
-}: CommentBox) => {
+  isMine,
+}: CommentBoxProps) => {
   const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
     useA11yHoverHandler();
 
@@ -65,7 +67,7 @@ const CommentBox = ({
       <div className={contentWrapperStyle({ variant })}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createAtStyle}>{getFormattedcreateAt(createdAt)}</p>
+          <p className={createdAtStyle}>{getFormattedcreatedAt(createdAt)}</p>
         </div>
         {isEditing ? (
           <form
@@ -82,25 +84,33 @@ const CommentBox = ({
         )}
       </div>
 
-      <div className={iconContainerStyle}>
-        <button
-          onClick={handleEditBtnClick}
-          className={iconStyle({ variant: "edit", isActive })}
-        >
-          <IcnEdit width={18} height={18} />
-        </button>
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={() => onDelete?.(commentId)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") onDelete?.(commentId);
-          }}
-          className={iconStyle({ variant: "close", isActive })}
-        >
-          <IcnClose width={16} height={16} />
+      {isMine && (
+        <div className={iconContainerStyle}>
+          <button
+            onClick={handleEditBtnClick}
+            className={iconStyle({
+              variant: "edit",
+              isActive: isActive,
+            })}
+          >
+            <IcnEdit width={18} height={18} />
+          </button>
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={() => onDelete?.(commentId)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") onDelete?.(commentId);
+            }}
+            className={iconStyle({
+              variant: "close",
+              isActive: isActive,
+            })}
+          >
+            <IcnClose width={16} height={16} />
+          </div>
         </div>
-      </div>
+      )}
     </li>
   );
 };

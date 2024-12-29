@@ -16,12 +16,12 @@ import "./code.css";
 import "./prism-vsc-dark-plus.min.css";
 import { addCustomPatternsToAllLanguages, languageMapper } from "./rule";
 
-type CodeHightlighterProps = {
+type CodeHighlighterProps = {
   code: string;
-  language: Exclude<SolutionLanguage, "모든 언어" | "Text">;
+  language: SolutionLanguage;
 };
 
-const CodeHighlighter = ({ code, language }: CodeHightlighterProps) => {
+const CodeHighlighter = ({ code, language }: CodeHighlighterProps) => {
   // const [theme, setTheme] = useState("vsc-dark-plus");
   // const [contextMenu, setContextMenu] = useState<{
   //   x: number;

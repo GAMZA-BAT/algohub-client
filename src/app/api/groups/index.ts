@@ -3,6 +3,7 @@ import type {
   GroupCodeResponse,
   GroupListResponse,
   GroupResponse,
+  GroupSettingsContent,
   MemberResponse,
   MemberRoleRequest,
   Role,
@@ -131,6 +132,20 @@ export const patchMemberRole = async (
   const response = await kyInstance.patch(`api/groups/${groupId}/role`, {
     json: request,
   });
+
+  return response;
+};
+
+export const getMyGroupSettings = async () => {
+  const response = await kyInstance
+    .get<GroupSettingsContent[]>("api/groups/settings")
+    .json();
+
+  return response;
+};
+
+export const postGroupBookmark = async (groupId: number) => {
+  const response = await kyInstance.post(`api/groups/${groupId}/bookmark`);
 
   return response;
 };

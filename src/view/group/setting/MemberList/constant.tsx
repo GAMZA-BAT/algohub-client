@@ -22,8 +22,8 @@ import {
   removeBtnStyle,
   textStyle,
 } from "@/view/group/setting/MemberList/index.css";
-import SortIcon from "@/view/user/setting/StudyList/SortIcon";
-import { dropdownStyle } from "@/view/user/setting/StudyList/StatusDropdownMenu/index.css";
+import SortIcon from "@/view/user/setting/GroupList/SortIcon";
+import { dropdownStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

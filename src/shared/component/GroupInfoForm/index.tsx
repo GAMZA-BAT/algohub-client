@@ -51,7 +51,7 @@ const GroupInfoForm = ({
       >
         <ImageFormController form={form} />
         <NameFormController form={form} variant={variant} />
-        <div>
+        <div style={{ width: "100%" }}>
           <p className={formLabelStyle({ variant })}>스터디 기간</p>
           <div className={dateWrapper}>
             <DateFormController

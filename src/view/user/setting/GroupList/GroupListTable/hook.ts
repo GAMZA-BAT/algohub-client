@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { TableDataContext, TableDispatchContext } from "./StudyListProvider";
+import { TableDataContext, TableDispatchContext } from "./GroupListProvider";
 
-export const useStudyListData = () => {
+export const useGroupListData = () => {
   const context = useContext(TableDataContext);
   if (!context) {
     throw new Error("useStudyListData must be used within a TableProvider");
@@ -9,7 +9,7 @@ export const useStudyListData = () => {
   return context.processedData;
 };
 
-export const useStudyListState = () => {
+export const useGroupListState = () => {
   const context = useContext(TableDataContext);
   if (!context) {
     throw new Error("useStudyListState must be used within a TableProvider");
@@ -17,7 +17,7 @@ export const useStudyListState = () => {
   return context.state;
 };
 
-export const useStudyListDispatch = () => {
+export const useGroupListDispatch = () => {
   const context = useContext(TableDispatchContext);
   if (!context) {
     throw new Error("useStudyListDispatch must be used within a TableProvider");
@@ -25,10 +25,18 @@ export const useStudyListDispatch = () => {
   return context.dispatch;
 };
 
-export const useStudyListMutation = () => {
+export const useGroupListMutation = () => {
   const context = useContext(TableDispatchContext);
   if (!context) {
     throw new Error("useStudyListMutation must be used within a TableProvider");
   }
   return context.mutation;
+};
+
+export const useBookmarkGroupMutation = () => {
+  const context = useContext(TableDispatchContext);
+  if (!context) {
+    throw new Error("useStudyListMutation must be used within a TableProvider");
+  }
+  return context.bookmarkMutation;
 };
