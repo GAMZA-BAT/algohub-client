@@ -131,14 +131,8 @@ export const getExpiredMySolutions = async ({
   return response;
 };
 
-export const deleteSignOut = async (accessToken: string) => {
-  const response = await kyInstance
-    .delete("api/auth/sign-out", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    .json();
+export const deleteSignOut = async () => {
+  const response = await kyInstance.delete("api/auth/sign-out").json();
 
   return response;
 };

@@ -29,9 +29,9 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   }
 };
 
-export const logoutAction = async (accessToken: string) => {
+export const logoutAction = async () => {
   try {
-    await deleteSignOut(accessToken);
+    await deleteSignOut();
     await signOut({
       redirectTo: "/login",
     });
@@ -40,6 +40,5 @@ export const logoutAction = async (accessToken: string) => {
       throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
     }
     console.warn(error);
-    return { error: "Failed to log out. Please try again later." };
   }
 };

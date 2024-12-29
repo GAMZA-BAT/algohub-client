@@ -13,15 +13,9 @@ import Link from "next/link";
 const Profile = ({ ...props }: DropdownProps) => {
   const session = useSession();
   const nickname = session.data?.user?.nickname;
-  const token = session.data?.user?.accessToken;
   const handleLogout = async () => {
-    if (!token) return;
-    const error = await logoutAction(token);
-    if (error) {
-      console.warn({ error });
-    } else {
-      await session.update(await getSession());
-    }
+    await logoutAction();
+    await session.update(await getSession());
   };
 
   return (
