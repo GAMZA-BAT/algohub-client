@@ -12,15 +12,12 @@ export default auth(async (req) => {
   if (isApiAuthRoute) return;
 
   const isPublicRoute = publicRoutes.includes(pathname);
+  const isUserInfo = pathname.split("/").length === 2;
 
-  if (!(isLoggedIn || isPublicRoute)) {
+  if (!(isUserInfo || (isLoggedIn || isPublicRoute))) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
-
-  if (!(isLoggedIn || isPublicRoute)) {
-    return NextResponse.redirect(new URL("/login", req.nextUrl));
-  }
-
+  
   return;
 });
 
