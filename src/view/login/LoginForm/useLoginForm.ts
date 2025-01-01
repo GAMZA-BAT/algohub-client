@@ -28,11 +28,22 @@ const useLoginForm = () => {
 
   const handleSubmit = (values: z.infer<typeof loginSchema>) => {
     startTransition(async () => {
-      await loginAction(values);
-      await session.update(await getSession());
+      const data = await loginAction(values);
+
+      if (data?.error) {
+        form.setError("email", { message: data.error });
+        showToast(data.error, "error");
+        return;
+      }
+
+      const newSession = await getSession();
+      if (newSession) {
+        session.update(newSession);
+        router.push(`/${newSession?.user?.nickname}`);
+      }
     });
-    router.push(`/${session.data?.user?.nickname}`);
   };
+
   const handleClick = () => {
     if (!form.formState.isValid) showToast(loginSchemaMessage, "error");
   };

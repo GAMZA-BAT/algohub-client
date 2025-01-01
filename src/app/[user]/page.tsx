@@ -1,5 +1,5 @@
 import { getGroupList } from "@/app/api/groups";
-import type { GroupStatus } from "@/app/api/groups/type";
+import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
 import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
@@ -9,6 +9,8 @@ import UserCard from "@/view/user/index/UserCard";
 import { userCardWrapper } from "@/view/user/index/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
 import { userDashboardWrapper } from "@/view/user/index/index.css";
+import { HTTPError } from "ky";
+import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
@@ -19,8 +21,16 @@ const UserDashboardPage = async ({
 
   const nickname = userInfo?.user?.nickname;
 
-  const data =
-    nickname !== user ? await getGroupsByUsers(user) : await getGroupList();
+  let data: GroupListResponse;
+  try {
+    data =
+      nickname !== user ? await getGroupsByUsers(user) : await getGroupList();
+  } catch (error) {
+    if (error instanceof HTTPError) {
+      return notFound();
+    }
+    throw error;
+  }
 
   return (
     <main className={sidebarWrapper}>

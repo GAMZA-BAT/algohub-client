@@ -1,4 +1,4 @@
-import { logoutAction } from "@/app/api/users/actions";
+import { logoutAction } from "@/app/api/auth/actions";
 import Avatar from "@/common/component/Avatar";
 import Dropdown, { type DropdownProps } from "@/common/component/Dropdown";
 import { handleA11yClick } from "@/common/util/dom";

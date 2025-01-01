@@ -14,10 +14,10 @@ export default auth(async (req) => {
   const isPublicRoute = publicRoutes.includes(pathname);
   const isUserInfo = pathname.split("/").length === 2;
 
-  if (!(isUserInfo || (isLoggedIn || isPublicRoute))) {
+  if (!(isUserInfo || isLoggedIn || isPublicRoute)) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
-  
+
   return;
 });
 
