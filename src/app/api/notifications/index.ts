@@ -3,13 +3,27 @@ import type {
   NotificationItem,
   NotificationSettingContent,
 } from "@/app/api/notifications/type";
+import { signOut } from "@/auth";
+import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
+import { HTTPError } from "ky";
 
 export const getNotificationList = async () => {
-  const response = await kyInstance
-    .get<NotificationItem[]>("api/notifications")
-    .json();
+  try {
+    const response = await kyInstance
+      .get<NotificationItem[]>("api/notifications")
+      .json();
 
-  return response;
+    return response;
+  } catch (error) {
+    if (
+      error instanceof HTTPError &&
+      error.response.status === HTTP_ERROR_STATUS.BAD_REQUEST
+    ) {
+      await signOut(); // 400 에러 시 로그아웃 처리
+    } else {
+      throw error;
+    }
+  }
 };
 
 export const patchAllNotificationRead = () => {

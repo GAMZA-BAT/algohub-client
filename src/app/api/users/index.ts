@@ -130,3 +130,13 @@ export const getExpiredMySolutions = async ({
 
   return response;
 };
+
+export const deleteMe = async (password: string) => {
+  const response = await kyInstance.delete("api/users/me", {
+    json: {
+      password,
+    },
+  });
+
+  return response;
+};

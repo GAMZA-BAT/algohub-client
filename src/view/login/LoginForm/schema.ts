@@ -6,3 +6,5 @@ export const loginSchema = z.object({
 
   password: z.string().min(4).max(15),
 });
+
+export const passwordSchema = loginSchema.pick({ password: true });
