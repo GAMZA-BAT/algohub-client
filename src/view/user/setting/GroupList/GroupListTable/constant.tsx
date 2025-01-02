@@ -15,6 +15,7 @@ import {
   useGroupListDispatch,
   useGroupListMutation,
   useGroupListState,
+  useWithdrawMutation,
 } from "@/view/user/setting/GroupList/GroupListTable/hook";
 import SortIcon from "@/view/user/setting/GroupList/SortIcon";
 import StatusDropdownMenu from "@/view/user/setting/GroupList/StatusDropdownMenu";
@@ -145,7 +146,15 @@ export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
   {
     key: "withdraw",
     Header: () => "회원탈퇴",
-    Cell: () => <button className={withdrawTextStyle}>회원 탈퇴</button>,
+    Cell: (data) => {
+      const mutate = useWithdrawMutation();
+
+      return (
+        <button onClick={() => mutate(data.id)} className={withdrawTextStyle}>
+          회원 탈퇴
+        </button>
+      );
+    },
     width: 70,
     align: "right",
   },

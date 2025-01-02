@@ -14,7 +14,6 @@ export const promptModalWrapper = style({
   background: theme.color.mg6,
 
   borderRadius: "16px",
-  opacity: "0.9",
 });
 
 export const metaTextStyle = style({

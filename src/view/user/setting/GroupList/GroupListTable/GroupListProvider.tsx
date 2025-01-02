@@ -4,6 +4,7 @@ import {
   useVisibilityMutation,
 } from "@/app/[user]/setting/query";
 import type { GroupSettingsContent } from "@/app/api/groups/type";
+import { useWithdrawMutation } from "@/view/group/index/WithdrawDialog/query";
 import type { UseMutateFunction } from "@tanstack/react-query";
 import type { HTTPError, KyResponse } from "ky";
 import type React from "react";
@@ -30,6 +31,7 @@ type TableDispatchContextType =
         number,
         unknown
       >;
+      withdrawMutate: UseMutateFunction<unknown, Error, number, unknown>;
     }
   | undefined;
 
@@ -133,6 +135,7 @@ export const GroupListTableProvider = ({
   const { data } = useMyGroupSettingsQuery();
   const { mutate: visibilityMutate } = useVisibilityMutation();
   const { mutate: bookmarkMutate } = useBookmarkGroupMutation();
+  const { mutate: withdrawMutate } = useWithdrawMutation();
 
   // 데이터 전처리 (정렬, 필터링)
   const processedData = data
@@ -170,6 +173,7 @@ export const GroupListTableProvider = ({
         dispatch,
         mutation: visibilityMutate,
         bookmarkMutation: bookmarkMutate,
+        withdrawMutate,
       }}
     >
       <TableDataContext.Provider value={{ state, processedData }}>
