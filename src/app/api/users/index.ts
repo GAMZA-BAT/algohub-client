@@ -1,4 +1,9 @@
-import { kyFileBaseInstance, kyInstance, kyPublicInstance } from "@/app/api";
+import {
+  kyFileBaseInstance,
+  kyFileInstance,
+  kyInstance,
+  kyPublicInstance,
+} from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
 import type { UserResponse } from "@/app/api/users/type";
@@ -136,6 +141,14 @@ export const deleteMe = async (password: string) => {
     json: {
       password,
     },
+  });
+
+  return response;
+};
+
+export const patchMyInfo = async (formData: FormData) => {
+  const response = await kyFileInstance.post("api/users/me", {
+    body: formData,
   });
 
   return response;

@@ -24,7 +24,7 @@ const EditForm = () => {
         <form onSubmit={form.handleSubmit(handleSubmit)} className={formStyle}>
           <FormController
             form={form}
-            name="profile"
+            name="profileImage"
             type="image"
             fieldProps={{ variant: "secondary" }}
           />
@@ -46,7 +46,7 @@ const EditForm = () => {
 
               <FormController
                 form={form}
-                name="baekjoonId"
+                name="bjNickname"
                 type="input"
                 showLabel
                 labelProps={{
@@ -60,7 +60,7 @@ const EditForm = () => {
 
               <FormController
                 form={form}
-                name="introduction"
+                name="description"
                 type="input"
                 revalidationHandlers={handleOnChangeMode}
                 showLabel
