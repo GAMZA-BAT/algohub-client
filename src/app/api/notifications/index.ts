@@ -3,9 +3,9 @@ import type {
   NotificationItem,
   NotificationSettingContent,
 } from "@/app/api/notifications/type";
-import { signOut } from "@/auth";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
+import { signOut } from "next-auth/react";
 
 export const getNotificationList = async () => {
   try {
@@ -19,7 +19,7 @@ export const getNotificationList = async () => {
       error instanceof HTTPError &&
       error.response.status === HTTP_ERROR_STATUS.BAD_REQUEST
     ) {
-      await signOut(); // 400 에러 시 로그아웃 처리
+      await signOut();
     } else {
       throw error;
     }

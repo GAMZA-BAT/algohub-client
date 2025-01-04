@@ -1,4 +1,4 @@
-import { kyFileInstance, kyInstance, kyPublicInstance } from "@/app/api";
+import { kyFileBaseInstance, kyInstance, kyPublicInstance } from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
 import type { UserResponse } from "@/app/api/users/type";
@@ -76,7 +76,7 @@ export const checkEmail = async (email: string) => {
 };
 
 export const postSignUp = async (formData: FormData) => {
-  const response = await kyFileInstance.post("api/users/sign-up", {
+  const response = await kyFileBaseInstance.post("api/users/sign-up", {
     body: formData,
   });
 

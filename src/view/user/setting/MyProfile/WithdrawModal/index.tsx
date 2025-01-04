@@ -19,7 +19,7 @@ type WithdrawModalProps = {
 const WithdrawModal = ({ isOpen, onClose }: WithdrawModalProps) => {
   const form = useForm<z.infer<typeof passwordSchema>>({
     resolver: zodResolver(passwordSchema),
-    mode: "onBlur",
+    mode: "onTouched",
     defaultValues: {
       password: "",
     },

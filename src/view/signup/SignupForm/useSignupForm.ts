@@ -1,6 +1,6 @@
 import { checkEmail } from "@/app/api/users";
+import { signUp } from "@/app/signup/action";
 import { useCheckOnServer } from "@/shared/hook/useCheckOnServer";
-import { signUp } from "@/view/signup/SignupForm/action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
