@@ -81,7 +81,7 @@ export const checkEmail = async (email: string) => {
 };
 
 export const postSignUp = async (formData: FormData) => {
-  const response = await kyFileBaseInstance.post("api/users/sign-up", {
+  const response = await kyFileBaseInstance.post("api/auth/sign-up", {
     body: formData,
   });
 
