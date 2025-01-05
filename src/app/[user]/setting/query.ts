@@ -13,7 +13,6 @@ import {
 } from "@/app/api/notifications";
 import type { NotificationSettingContent } from "@/app/api/notifications/type";
 import { deleteMe } from "@/app/api/users";
-import { signOut } from "@/auth";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import {
@@ -22,7 +21,7 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
-import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 export const useMyGroupSettingsQuery = () => {
   return useSuspenseQuery({
@@ -212,14 +211,14 @@ export const useNotificationSettingMutation = () => {
 
 export const useDeleteMeMutation = () => {
   const { showToast } = useToast();
-  const router = useRouter();
 
   return useMutation({
     mutationFn: (password: string) => deleteMe(password),
     onSuccess: async () => {
-      await signOut();
       showToast("정상적으로 계정이 삭제되었습니다.", "success");
-      router.push("/");
+      await signOut({
+        redirectTo: "/",
+      });
     },
   });
 };
