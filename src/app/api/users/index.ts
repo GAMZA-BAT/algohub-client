@@ -6,7 +6,7 @@ import {
 } from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
-import type { UserResponse } from "@/app/api/users/type";
+import type { PasswordRequest, UserResponse } from "@/app/api/users/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
 
@@ -149,6 +149,20 @@ export const deleteMe = async (password: string) => {
 export const patchMyInfo = async (formData: FormData) => {
   const response = await kyFileInstance.post("api/users/me", {
     body: formData,
+  });
+
+  return response;
+};
+
+export const patchPassword = async ({
+  currentPassword,
+  newPassword,
+}: PasswordRequest) => {
+  const response = await kyInstance.patch("api/users/me/password", {
+    json: {
+      currentPassword,
+      newPassword,
+    },
   });
 
   return response;

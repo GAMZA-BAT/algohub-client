@@ -19,6 +19,7 @@ const AccountManagementForm = () => {
           fieldProps={{
             placeholder: "기존 비밀번호",
             className: width,
+            type: "password",
           }}
         />
         <div className={passwordWrapper}>

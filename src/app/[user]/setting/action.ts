@@ -1,6 +1,6 @@
 "use server";
-import { patchMyInfo } from "@/app/api/users";
-import type { UserResponse } from "@/app/api/users/type";
+import { patchMyInfo, patchPassword } from "@/app/api/users";
+import type { PasswordRequest, UserResponse } from "@/app/api/users/type";
 
 export const patchMyInfoAction = async (
   requestData: Omit<UserResponse, "email">,
@@ -21,5 +21,16 @@ export const patchMyInfoAction = async (
     await patchMyInfo(data);
   } catch {
     throw new Error("fail to patch my info");
+  }
+};
+
+export const patchPasswordAction = async ({
+  currentPassword,
+  newPassword,
+}: PasswordRequest) => {
+  try {
+    await patchPassword({ currentPassword, newPassword });
+  } catch {
+    throw new Error("fail to patch password");
   }
 };

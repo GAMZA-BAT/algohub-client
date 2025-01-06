@@ -18,3 +18,8 @@ export type UserResponse = {
   bjNickname: string;
   description?: string;
 };
+
+export type PasswordRequest = {
+  currentPassword: string;
+  newPassword: string;
+};
