@@ -9,9 +9,9 @@ const useAccountForm = () => {
     resolver: zodResolver(AccountManagementSchema),
     mode: "onChange",
     defaultValues: {
-      id: "yerinbaek",
-      password: "1234^aaa",
-      confirmPassword: "1234^aaa",
+      currentPassword: "",
+      changePassword: "",
+      confirmPassword: "",
     },
   });
   const { showToast } = useToast();
