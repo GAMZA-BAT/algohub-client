@@ -147,7 +147,7 @@ export const deleteMe = async (password: string) => {
 };
 
 export const patchMyInfo = async (formData: FormData) => {
-  const response = await kyFileInstance.post("api/users/me", {
+  const response = await kyFileInstance.patch("api/users/me", {
     body: formData,
   });
 

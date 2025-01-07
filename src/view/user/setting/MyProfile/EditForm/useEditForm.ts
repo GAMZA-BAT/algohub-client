@@ -15,14 +15,13 @@ const useEditForm = () => {
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      profileImage: user?.profileImage,
+      profileImage: user?.profileImage || "",
       nickname: user?.nickname,
       bjNickname: user?.bjNickname,
       description: user?.description,
     },
   });
   const { showToast } = useToast();
-  // TODO: api 연결 후 default values와 달라지면 true가 되게 하기
   const isActive = form.formState.isDirty && form.formState.isValid;
 
   const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
