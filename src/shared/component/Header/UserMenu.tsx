@@ -11,6 +11,8 @@ const UserMenu = () => {
   const { data } = useNotificationsQuery();
   const user = useSession().data?.user;
 
+  if (!data) return;
+
   const notiCounts = data.filter((item) => !item.isRead).length;
 
   return (

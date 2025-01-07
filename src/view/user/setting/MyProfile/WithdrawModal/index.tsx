@@ -51,6 +51,7 @@ const WithdrawModal = ({ isOpen, onClose }: WithdrawModalProps) => {
             form={form}
             name="password"
             type="input"
+            showDescription
             fieldProps={{
               placeholder: "비밀번호",
               type: "password",

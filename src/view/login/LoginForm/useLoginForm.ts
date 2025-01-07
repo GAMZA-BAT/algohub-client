@@ -1,5 +1,4 @@
 import { loginAction } from "@/app/api/auth/actions";
-import { useToast } from "@/common/hook/useToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -18,7 +17,6 @@ const useLoginForm = () => {
     },
   });
   const [isPending, startTransition] = useTransition();
-  const { showToast } = useToast();
   const session = useSession();
   const router = useRouter();
 
@@ -32,7 +30,6 @@ const useLoginForm = () => {
 
       if (data?.error) {
         form.setError("email", { message: data.error });
-        showToast(data.error, "error");
         return;
       }
 
@@ -45,7 +42,10 @@ const useLoginForm = () => {
   };
 
   const handleClick = () => {
-    if (!form.formState.isValid) showToast(loginSchemaMessage, "error");
+    if (!form.formState.isValid)
+      form.setError("email", {
+        message: "아이디 혹은 비밀번호를 확인해주세요",
+      });
   };
 
   return {
