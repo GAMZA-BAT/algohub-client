@@ -1,9 +1,9 @@
-import { IcnCalendarTable } from "@/asset/svg";
 import {
   dateStyle,
   headerStyle,
   textStyle,
 } from "@/view/group/problem-list/PendingListHeader/index.css";
+import { IcnCalendarTable } from "../../../../../public/asset/svg";
 
 const PendingListHeader = () => {
   return (

@@ -1,5 +1,3 @@
-import { IcnBtnDeleteCircle } from "@/asset/svg";
-import icnNew from "@/asset/svg/icn_new.svg?url";
 import { handleA11yClick } from "@/common/util/dom";
 import {
   dateContainerStyle,
@@ -7,7 +5,9 @@ import {
 } from "@/shared/component/Header/Notification/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { getFormattedcreatedAt } from "@/shared/util/time";
+import icnNew from "@assets/svg/icn_new.svg?url";
 import Image from "next/image";
+import { IcnBtnDeleteCircle } from "../../../../../public/asset/svg";
 import {
   containerStyle,
   dateStyle,

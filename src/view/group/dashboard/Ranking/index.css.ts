@@ -1,6 +1,6 @@
-import IcnRankingCard from "@/asset/svg/icn_ranking_card.svg?url";
-import IcnRankingCardHover from "@/asset/svg/icn_ranking_card_hover.svg?url";
 import { theme } from "@/styles/themes.css";
+import IcnRankingCard from "@assets/svg/icn_ranking_card.svg?url";
+import IcnRankingCardHover from "@assets/svg/icn_ranking_card_hover.svg?url";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 

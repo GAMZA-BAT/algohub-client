@@ -1,9 +1,9 @@
-import { exitGroup } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import {
   metaTextStyle,
   successStyle,
 } from "@/view/group/index/WithdrawDialog/index.css";
+import { exitGroup } from "../../../../../public/asset/lottie";
 
 const SuccessWithdraw = () => {
   return (

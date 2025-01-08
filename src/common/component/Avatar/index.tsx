@@ -1,5 +1,5 @@
-import defaultImg from "@/asset/img/small_logo.png";
 import { avatarStyle, wrapperStyle } from "@/common/component/Avatar/index.css";
+import defaultImg from "@assets/img/small_logo.png";
 import clsx from "clsx";
 import Image, { type ImageProps } from "next/image";
 

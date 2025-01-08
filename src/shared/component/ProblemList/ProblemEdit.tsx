@@ -5,12 +5,12 @@ import {
   usePatchProblemMutation,
   useProblemInfoQuery,
 } from "@/app/group/[groupId]/problem-list/query";
-import { IcnEdit } from "@/asset/svg";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import { editIconStyle } from "@/shared/component/ProblemList/index.css";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import PatchForm from "@/view/group/problem-list/RegisterForm/PatchForm";
+import { IcnEdit } from "../../../../public/asset/svg";
 
 type ProblemEditProps = {
   problemId: number;

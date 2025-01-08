@@ -1,5 +1,4 @@
 import { useGroupByCodeQuery } from "@/app/join-group/[code]/query";
-import { IcnCopy, IcnCopyCheck } from "@/asset/svg";
 import {
   boxStyle,
   codeStyle,
@@ -9,6 +8,7 @@ import {
 } from "@/shared/component/CodeClipboard/index.css";
 import { useClipboard } from "@/shared/hook/useClipboard";
 import { theme } from "@/styles/themes.css";
+import { IcnCopy, IcnCopyCheck } from "../../../../public/asset/svg";
 
 interface CodeClipboardProps {
   label?: string;

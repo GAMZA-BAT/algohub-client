@@ -1,6 +1,5 @@
 "use client";
 
-import { IcnBtnArrowLeft, IcnCalenderCard } from "@/asset/svg";
 import clsx from "clsx";
 import { ko } from "date-fns/locale";
 import { forwardRef, useState } from "react";
@@ -8,6 +7,7 @@ import DatePicker, {
   type DatePickerProps,
   registerLocale,
 } from "react-datepicker";
+import { IcnBtnArrowLeft, IcnCalenderCard } from "../../../../public/asset/svg";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   arrowWrapperStyle,

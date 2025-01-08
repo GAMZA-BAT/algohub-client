@@ -1,5 +1,8 @@
-import { IcnBtnArrowDown, IcnBtnSort } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
+import {
+  IcnBtnArrowDown,
+  IcnBtnSort,
+} from "../../../../../../public/asset/svg";
 import { ascIconStyle, sortIconStyle } from "./index.css";
 
 type SortIconProps = {

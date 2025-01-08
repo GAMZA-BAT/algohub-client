@@ -1,9 +1,12 @@
 "use client";
 
-import { IcnBtnArrowLeft, IcnBtnArrowRight } from "@/asset/svg";
 import { getPageNumbers } from "@/shared/util/pagination";
 import clsx from "clsx";
 import type { ComponentProps, PropsWithChildren } from "react";
+import {
+  IcnBtnArrowLeft,
+  IcnBtnArrowRight,
+} from "../../../../public/asset/svg";
 import {
   PaginationContent,
   PaginationEllipsis,

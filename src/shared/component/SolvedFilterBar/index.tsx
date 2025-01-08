@@ -1,5 +1,4 @@
 "use client";
-import { IcnReset } from "@/asset/svg";
 import Input from "@/common/component/Input";
 import SelectBox from "@/common/component/SelectBox";
 import { handleA11yClick } from "@/common/util/dom";
@@ -15,6 +14,7 @@ import {
   SOLVED_RESULT,
 } from "@/shared/constant/solvedFilterKey";
 import type { SolvedFilterType } from "@/shared/type/solvedFilter";
+import { IcnReset } from "../../../../public/asset/svg";
 
 type SolvedFilterBarProps = {
   option: SolvedFilterType;

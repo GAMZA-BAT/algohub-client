@@ -1,10 +1,10 @@
-import { IcnCalendarTable } from "@/asset/svg";
 import {
   dateTextStyle,
   headerStyle,
   leftAlignStyle,
   textStyle,
 } from "@/view/group/dashboard/ProblemListHeader/index.css";
+import { IcnCalendarTable } from "../../../../../public/asset/svg";
 
 const ProblemListHeader = () => {
   return (

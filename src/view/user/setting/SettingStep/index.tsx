@@ -1,4 +1,3 @@
-import { IcnNotification, IcnPencil, IcnSetting, IcnSquare } from "@/asset/svg";
 import { theme } from "@/styles/themes.css";
 import {
   barStyle,
@@ -11,6 +10,12 @@ import type { SettingSteps } from "@/view/user/setting/type";
 import { motion } from "framer-motion";
 import type { Dispatch, SetStateAction } from "react";
 import { match } from "ts-pattern";
+import {
+  IcnNotification,
+  IcnPencil,
+  IcnSetting,
+  IcnSquare,
+} from "../../../../../public/asset/svg";
 
 type SettingStepProps = {
   step: SettingSteps;

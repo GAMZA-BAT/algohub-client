@@ -1,7 +1,6 @@
 "use client";
 
 import type { CommentContent } from "@/app/api/comments/type";
-import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
 import { useEditForm } from "@/shared/component/CommentBox/hook";
@@ -19,6 +18,7 @@ import {
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { getFormattedcreatedAt } from "@/shared/util/time";
 import clsx from "clsx";
+import { IcnClose, IcnEdit } from "../../../../public/asset/svg";
 
 type CommentBoxProps = CommentContent & {
   variant: "detail" | "notice";

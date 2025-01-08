@@ -1,6 +1,5 @@
 "use client";
 import type { RankingContent } from "@/app/api/groups/type";
-import { IcnMiniLogo } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import {
   avatarStyle,
@@ -10,6 +9,7 @@ import {
   rankingCardStyle,
   rankingCardWrapper,
 } from "@/view/group/dashboard/Ranking/index.css";
+import { IcnMiniLogo } from "../../../../../public/asset/svg";
 
 type RankingCardProps = {
   idx: number;

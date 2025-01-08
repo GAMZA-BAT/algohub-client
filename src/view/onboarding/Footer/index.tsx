@@ -1,5 +1,5 @@
-import { IcnInstagram, IcnLogo, IcnMail } from "@/asset/svg";
 import Link from "next/link";
+import { IcnInstagram, IcnLogo, IcnMail } from "../../../../public/asset/svg";
 import {
   buttonContainer,
   footerStyle,

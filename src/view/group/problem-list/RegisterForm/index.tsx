@@ -1,5 +1,4 @@
 "use client";
-import { problemRegister } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import Button from "@/common/component/Button";
 import { Form } from "@/shared/component/Form";
@@ -17,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
+import { problemRegister } from "../../../../../public/asset/lottie";
 
 type RegisterFormProps = {
   onDelete?: () => void;

@@ -1,14 +1,14 @@
 "use client";
 import { getNotices } from "@/app/api/notices";
-import defaultImage from "@/asset/img/img_card_profile.png";
-import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Pagination from "@/shared/component/Pagination";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
+import defaultImage from "@assets/img/img_card_profile.png";
 import { useRouter } from "next/navigation";
 import {} from "react";
+import { IcnNew } from "../../../../../../public/asset/svg";
 import {
   contentStyle,
   contentWrapper,

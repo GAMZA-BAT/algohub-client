@@ -1,6 +1,5 @@
 "use client";
 
-import { IcnBtnDelete, IcnBtnDeleteCircle } from "@/asset/svg";
 import {
   backgroundStyle,
   dialogContentStyle,
@@ -10,6 +9,7 @@ import {
 import { useOutsideClick } from "@/common/hook/useOutsideClick";
 import { type ComponentPropsWithoutRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { IcnBtnDelete, IcnBtnDeleteCircle } from "../../../../public/asset/svg";
 
 interface ModalProps extends ComponentPropsWithoutRef<"dialog"> {
   isOpen: boolean;

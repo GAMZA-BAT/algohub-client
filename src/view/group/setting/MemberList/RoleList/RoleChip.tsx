@@ -1,7 +1,7 @@
 import type { Role } from "@/app/api/groups/type";
-import {} from "@/asset/svg";
 import { ROLE } from "@/shared/constant/role";
 import { chipStyle } from "@/view/group/setting/MemberList/RoleList/index.css";
+import {} from "../../../../../../public/asset/svg";
 
 type RoleChipProps = {
   role: Role;

@@ -1,6 +1,6 @@
-import { IcnError } from "@/asset/svg";
 import clsx from "clsx";
 import type { ComponentProps } from "react";
+import { IcnError } from "../../../../public/asset/svg";
 import { errorIconStyle, errorWrapper, msgStyle } from "./Index.css";
 
 export interface SupportingTextProps extends ComponentProps<"p"> {

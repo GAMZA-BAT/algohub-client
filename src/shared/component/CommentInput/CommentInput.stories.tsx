@@ -1,5 +1,5 @@
-import LeeJin from "@/asset/img/img_card_profile.png";
 import CommentInput from "@/shared/component/CommentInput";
+import LeeJin from "@assets/img/img_card_profile.png";
 import type { Meta } from "@storybook/react";
 import { useState } from "react";
 

@@ -1,5 +1,5 @@
-import defaultImg from "@/asset/img/alogohub_icon.png";
 import EditAvatar from "@/shared/component/EditAvatar";
+import defaultImg from "@assets/img/alogohub_icon.png";
 import type { Meta, StoryObj } from "@storybook/react";
 
 // Meta 객체 설정

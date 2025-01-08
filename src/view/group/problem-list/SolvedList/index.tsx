@@ -2,7 +2,6 @@
 import type { ProblemContent } from "@/app/api/problems/type";
 import { getSolutionList } from "@/app/api/solutions";
 import type { SolutionLanguage } from "@/app/api/solutions/type";
-import { IcnBtnArrowLeft } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
 import {
@@ -21,6 +20,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { IcnBtnArrowLeft } from "../../../../../public/asset/svg";
 
 type SolvedListProps = {
   problemId: number;

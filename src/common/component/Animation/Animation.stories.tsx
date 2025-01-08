@@ -1,6 +1,10 @@
-import { arrow, exitGroup, requireLogin } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import type { Meta, StoryObj } from "@storybook/react";
+import {
+  arrow,
+  exitGroup,
+  requireLogin,
+} from "../../../../public/asset/lottie";
 
 const meta: Meta<typeof Animation> = {
   title: "Common/Animation",

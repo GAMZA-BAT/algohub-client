@@ -1,5 +1,4 @@
 "use client";
-import { IcnBtnArrowDown } from "@/asset/svg";
 import {
   icnStyle,
   optionStyle,
@@ -11,6 +10,7 @@ import { useOutsideClick } from "@/common/hook/useOutsideClick";
 import { handleA11yClick } from "@/common/util/dom";
 import clsx from "clsx";
 import { type HTMLAttributes, useState } from "react";
+import { IcnBtnArrowDown } from "../../../../public/asset/svg";
 
 interface SelectBoxProps
   extends Omit<HTMLAttributes<HTMLButtonElement>, "onChange"> {

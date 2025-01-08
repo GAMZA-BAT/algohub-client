@@ -3,7 +3,6 @@ import {
   useDeleteMemberMutation,
   usePatchMemberRoleMutation,
 } from "@/app/group/[groupId]/setting/query";
-import { IcnCalendarTable, IcnClose } from "@/asset/svg";
 import Dropdown from "@/common/component/Dropdown";
 import Menu from "@/common/component/Menu/Menu";
 import { useBooleanState } from "@/common/hook/useBooleanState";
@@ -26,6 +25,7 @@ import SortIcon from "@/view/user/setting/GroupList/SortIcon";
 import { dropdownStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { IcnCalendarTable, IcnClose } from "../../../../../public/asset/svg";
 
 export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
   {

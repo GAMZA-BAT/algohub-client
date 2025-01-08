@@ -1,6 +1,5 @@
 "use client";
 
-import { IcnImgLogoError } from "@/asset/svg";
 import {
   backBtnStyle,
   headingStyle,
@@ -9,6 +8,7 @@ import {
   textWrapperStyle,
 } from "@/view/not-found/index.css";
 import { useRouter } from "next/navigation";
+import { IcnImgLogoError } from "../../../public/asset/svg";
 
 const GuideSection = () => {
   const router = useRouter();

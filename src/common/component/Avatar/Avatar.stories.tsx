@@ -1,5 +1,5 @@
-import img from "@/asset/img/alogohub_icon.png";
 import Avatar from "@/common/component/Avatar";
+import img from "@assets/img/alogohub_icon.png";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Avatar> = {

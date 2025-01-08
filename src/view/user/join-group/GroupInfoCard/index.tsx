@@ -1,5 +1,4 @@
 import type { GroupResponse } from "@/app/api/groups/type";
-import { IcnGroupInfoCard } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import GroupDateInfo from "@/view/user/join-group/GroupInfoCard/GroupDateInfo";
 import {
@@ -8,6 +7,7 @@ import {
   infoCardWrapper,
   infoWrapper,
 } from "@/view/user/join-group/GroupInfoCard/index.css";
+import { IcnGroupInfoCard } from "../../../../../public/asset/svg";
 
 const GroupInfoCard = ({ groupInfo }: { groupInfo: GroupResponse }) => {
   const { name, groupImage, startDate, endDate, introduction } = groupInfo;
