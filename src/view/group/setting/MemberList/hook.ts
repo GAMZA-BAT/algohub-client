@@ -25,5 +25,25 @@ export const useMemberListDispatch = () => {
   if (!context) {
     throw new Error("TableProvider가 필요합니다");
   }
-  return context;
+  return context.dispatch;
+};
+
+export const useDeleteMemberMutation = () => {
+  const context = useContext(TableDispatchContext);
+  if (!context) {
+    throw new Error(
+      "useDeleteMemberMutation must be used within a TableProvider",
+    );
+  }
+  return context.deleteMemberMutation;
+};
+
+export const usePatchMemberRoleMutation = () => {
+  const context = useContext(TableDispatchContext);
+  if (!context) {
+    throw new Error(
+      "useDeleteMemberMutation must be used within a TableProvider",
+    );
+  }
+  return context.patchMemberRoleMutation;
 };

@@ -1,8 +1,4 @@
 import type { MemberResponse, Role } from "@/app/api/groups/type";
-import {
-  useDeleteMemberMutation,
-  usePatchMemberRoleMutation,
-} from "@/app/group/[groupId]/setting/query";
 import { IcnCalendarTable, IcnClose } from "@/asset/svg";
 import Dropdown from "@/common/component/Dropdown";
 import Menu from "@/common/component/Menu/Menu";
@@ -10,13 +6,14 @@ import { useBooleanState } from "@/common/hook/useBooleanState";
 import { handleA11yClick } from "@/common/util/dom";
 import PromptModal from "@/shared/component/PromptModal";
 import { ROLE } from "@/shared/constant/role";
-import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { TableDataType } from "@/shared/type/table";
 import {} from "@/view/group/index/WithdrawDialog/index.css";
 import RoleChip from "@/view/group/setting/MemberList/RoleList/RoleChip";
 import {
+  useDeleteMemberMutation,
   useMemberListDispatch,
   useMemberListState,
+  usePatchMemberRoleMutation,
 } from "@/view/group/setting/MemberList/hook";
 import {
   removeBtnStyle,
@@ -24,7 +21,6 @@ import {
 } from "@/view/group/setting/MemberList/index.css";
 import SortIcon from "@/view/user/setting/GroupList/SortIcon";
 import { dropdownStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
@@ -83,11 +79,9 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
     // Header: () => <RoleDropdownMenu />,
     Header: () => "역할",
     Cell: (data) => {
-      const groupId = useGetGroupId();
       const { open, isOpen, close } = useBooleanState();
       const [confirmId, setConfirmId] = useState(0);
-      const { mutate: patchMutate } = usePatchMemberRoleMutation(+groupId);
-      const router = useRouter();
+      const patchMutate = usePatchMemberRoleMutation();
 
       const handleClick = (role: Role, memberId: number) => {
         if (role === "OWNER") {
@@ -100,7 +94,6 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
 
       const handleConfirm = () => {
         patchMutate({ memberId: confirmId, role: "OWNER" });
-        router.push(`/group/${groupId}`);
       };
 
       return (
@@ -155,8 +148,7 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
     Header: () => "멤버 삭제",
     Cell: (data) => {
       const { isOpen, open, close } = useBooleanState();
-      const groupId = useGetGroupId();
-      const { mutate: deleteMutate } = useDeleteMemberMutation(+groupId);
+      const deleteMutate = useDeleteMemberMutation();
 
       const handleConfirm = () => {
         deleteMutate(

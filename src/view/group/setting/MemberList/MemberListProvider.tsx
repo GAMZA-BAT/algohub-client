@@ -1,5 +1,12 @@
 "use client";
-import type { MemberResponse } from "@/app/api/groups/type";
+import type { MemberResponse, MemberRoleRequest } from "@/app/api/groups/type";
+import {
+  useDeleteMemberMutation,
+  usePatchMemberRoleMutation,
+} from "@/app/group/[groupId]/setting/query";
+import useGetGroupId from "@/shared/hook/useGetGroupId";
+import type { UseMutateFunction } from "@tanstack/react-query";
+import type { HTTPError, KyResponse } from "ky";
 import { createContext, useReducer } from "react";
 
 type TableDataContextType =
@@ -8,7 +15,25 @@ type TableDataContextType =
       state: State;
     }
   | undefined;
-type TableDispatchContextType = React.Dispatch<Actions> | undefined;
+type TableDispatchContextType =
+  | {
+      dispatch: React.Dispatch<Actions>;
+      deleteMemberMutation: UseMutateFunction<
+        KyResponse<unknown>,
+        Error,
+        {
+          memberId: number;
+        },
+        unknown
+      >;
+      patchMemberRoleMutation: UseMutateFunction<
+        void,
+        HTTPError<unknown>,
+        MemberRoleRequest,
+        unknown
+      >;
+    }
+  | undefined;
 
 export const TableDataContext = createContext<TableDataContextType>(undefined);
 export const TableDispatchContext =
@@ -95,6 +120,11 @@ export const MemberListProvider = ({
     filterKey: undefined,
     filterValue: "",
   } as State);
+  const groupId = useGetGroupId();
+  const { mutate: deleteMemberMutate } = useDeleteMemberMutation(+groupId);
+  const { mutate: patchMemberRoleMutate } = usePatchMemberRoleMutation(
+    +groupId,
+  );
 
   const processedData = data
     .filter((item) => {
@@ -123,7 +153,13 @@ export const MemberListProvider = ({
     });
 
   return (
-    <TableDispatchContext.Provider value={dispatch}>
+    <TableDispatchContext.Provider
+      value={{
+        dispatch,
+        deleteMemberMutation: deleteMemberMutate,
+        patchMemberRoleMutation: patchMemberRoleMutate,
+      }}
+    >
       <TableDataContext.Provider value={{ state, processedData }}>
         {children}
       </TableDataContext.Provider>
