@@ -1,6 +1,5 @@
 "use client";
 
-import { IcnUser2 } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import { handleA11yClick } from "@/common/util/dom";
 import {
@@ -8,6 +7,7 @@ import {
   memberAvatarStyle,
 } from "@/view/group/index/MemberAvatar/index.css";
 import { useRouter } from "next/navigation";
+import { IcnUser2 } from "../../../../../public/asset/svg";
 
 interface MemberAvatarProps {
   isLeader?: boolean;

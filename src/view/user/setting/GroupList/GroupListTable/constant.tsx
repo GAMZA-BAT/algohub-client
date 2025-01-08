@@ -1,4 +1,3 @@
-import { IcnBtnPin, IcnCalendarTable } from "@/asset/svg";
 import {
   tableCellTextStyle,
   withdrawTextStyle,
@@ -7,6 +6,10 @@ import { pinStyle } from "@/shared/component/Table/index.css";
 import type { TableDataType } from "@/shared/type/table";
 import { visibilityBtnStyle } from "@/view/user/setting/GroupList/GroupListTable/index.css";
 import { format } from "date-fns";
+import {
+  IcnBtnPin,
+  IcnCalendarTable,
+} from "../../../../../../public/asset/svg";
 
 import type { GroupSettingsContent } from "@/app/api/groups/type";
 import { handleA11yClick } from "@/common/util/dom";

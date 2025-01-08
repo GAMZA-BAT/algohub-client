@@ -1,9 +1,9 @@
 "use client";
-import { IcnClose, IcnLogo } from "@/asset/svg";
 import { handleA11yClick } from "@/common/util/dom";
 import { logoContainer, logoStyle } from "@/shared/component/Header/index.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { IcnClose, IcnLogo } from "../../../../public/asset/svg";
 import { headerStyle, iconStyle } from "./index.css";
 
 type AuthHeaderProps = {

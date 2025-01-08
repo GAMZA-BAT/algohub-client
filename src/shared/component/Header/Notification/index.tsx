@@ -1,12 +1,12 @@
 "use client";
 import type { NotificationItem } from "@/app/api/notifications/type";
-import { IcnBellHeader } from "@/asset/svg";
 import {
   allReadButtonStyle,
   countStyle,
   notificationContainer,
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
+import { IcnBellHeader } from "../../../../../public/asset/svg";
 
 import { iconStyle } from "@/shared/component/Header/index.css";
 

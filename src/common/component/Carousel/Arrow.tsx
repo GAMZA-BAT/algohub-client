@@ -1,5 +1,5 @@
-import { IcnBtnNext, IcnBtnPrev } from "@/asset/svg";
 import { arrowStyle } from "@/common/component/Carousel/index.css";
+import { IcnBtnNext, IcnBtnPrev } from "../../../../public/asset/svg";
 
 type ArrowProps = {
   position: "left" | "right";

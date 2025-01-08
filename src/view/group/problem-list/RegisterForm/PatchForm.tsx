@@ -1,7 +1,6 @@
 "use client";
 
 import type { ProblemContent } from "@/app/api/problems/type";
-import { problemRegister } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import Button from "@/common/component/Button";
 import Input from "@/common/component/Input";
@@ -22,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
+import { problemRegister } from "../../../../../public/asset/lottie";
 
 type PatchFormProps = {
   onDelete?: () => void;

@@ -1,6 +1,5 @@
 "use client";
 
-import loginAni from "@/asset/lottie/require_login.json";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import {
@@ -9,6 +8,7 @@ import {
 } from "@/shared/component/LoginAlertModal/index.css";
 import Lottie from "lottie-react";
 import { useRouter } from "next/navigation";
+import loginAni from "../../../../public/asset/lottie/require_login.json";
 
 interface LoginAlertModalProps {
   isOpen?: boolean;

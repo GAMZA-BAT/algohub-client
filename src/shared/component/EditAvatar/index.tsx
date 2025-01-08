@@ -1,11 +1,11 @@
 "use client";
-import grayDefaultImg from "@/asset/img/img_card_profile.png";
-import defaultImg from "@/asset/img/small_logo.png";
-import { IcnEditProfile } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import { iconStyle, inputStyle } from "@/shared/component/EditAvatar/index.css";
+import grayDefaultImg from "@assets/img/img_card_profile.png";
+import defaultImg from "@assets/img/small_logo.png";
 import type { ImageProps } from "next/image";
 import { type ChangeEvent, useState } from "react";
+import { IcnEditProfile } from "../../../../public/asset/svg";
 
 interface EditAvatarProps extends Omit<ImageProps, "src" | "alt" | "onChange"> {
   src?: string;

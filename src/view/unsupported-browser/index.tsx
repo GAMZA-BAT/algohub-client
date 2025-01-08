@@ -1,11 +1,3 @@
-import {
-  IcnBtnArrowRight,
-  IcnChrome,
-  IcnEdge,
-  IcnFirefox,
-  IcnImgLogoError,
-  IcnSafari,
-} from "@/asset/svg";
 import Button from "@/common/component/Button";
 import Footer from "@/view/onboarding/Footer";
 import {
@@ -23,6 +15,14 @@ import {
   updateSectionBottomStyle,
   updateTextStyle,
 } from "@/view/unsupported-browser/index.css";
+import {
+  IcnBtnArrowRight,
+  IcnChrome,
+  IcnEdge,
+  IcnFirefox,
+  IcnImgLogoError,
+  IcnSafari,
+} from "../../../public/asset/svg";
 
 const UnSupportedBrowser = () => {
   const handleInquire = () => {

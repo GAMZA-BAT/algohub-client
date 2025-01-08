@@ -31,7 +31,7 @@ import {
   IcnSilver4,
   IcnSilver5,
   IcnUnrank,
-} from "@/asset/svg";
+} from "../../../public/asset/svg";
 
 export const getTierImage = (tier: number) => {
   switch (tier) {

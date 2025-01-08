@@ -1,7 +1,7 @@
 "use client";
-import { IcnLogo } from "@/asset/svg";
 import { logoContainer, logoStyle } from "@/shared/component/Header/index.css";
 import Link from "next/link";
+import { IcnLogo } from "../../../../public/asset/svg";
 
 type LogoProps = {
   userNickname: string;

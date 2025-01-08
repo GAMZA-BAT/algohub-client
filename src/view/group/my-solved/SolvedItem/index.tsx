@@ -1,7 +1,6 @@
 "use client";
 
 import type { SolutionContent } from "@/app/api/solutions/type";
-import { IcnMessage, IcnMessageDot } from "@/asset/svg";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { getFormattedMemory } from "@/shared/util/byte";
 import { getTierImage } from "@/shared/util/img";
@@ -12,6 +11,7 @@ import {
 } from "@/view/group/my-solved/SolvedItem/index.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { IcnMessage, IcnMessageDot } from "../../../../../public/asset/svg";
 
 const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
   const {

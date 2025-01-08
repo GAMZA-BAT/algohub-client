@@ -1,11 +1,11 @@
 "use client";
 
 import { useNoticesQuery } from "@/app/group/[groupId]/notice/query";
-import { IcnNew, IcnNotifications } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
+import { IcnNew, IcnNotifications } from "../../../../../public/asset/svg";
 import {
   bannerWrapper,
   contentWrapper,

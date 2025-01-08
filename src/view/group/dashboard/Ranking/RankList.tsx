@@ -1,5 +1,4 @@
 import type { RankingContent } from "@/app/api/groups/type";
-import defaultImg from "@/asset/img/small_logo.png";
 import {
   allNicknameStyle,
   changeStyle,
@@ -10,6 +9,7 @@ import {
   rankWrapper,
   solvedTextStyle,
 } from "@/view/group/dashboard/Ranking/index.css";
+import defaultImg from "@assets/img/small_logo.png";
 import Image from "next/image";
 
 const RankList = ({ info }: { info: RankingContent }) => {

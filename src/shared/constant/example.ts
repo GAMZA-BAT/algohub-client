@@ -1,6 +1,6 @@
 import type { GroupResponse } from "@/app/api/groups/type";
 import type { NotificationSettingContent } from "@/app/api/notifications/type";
-import IcnNew from "@/asset/svg/icn_new.svg?url";
+import IcnNew from "@assets/svg/icn_new.svg?url";
 
 export const tmpGroupData: GroupResponse = {
   id: 0,

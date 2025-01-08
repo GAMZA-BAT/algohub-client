@@ -1,13 +1,13 @@
 import { getRoleByGroupId } from "@/app/api/groups";
+import NavBar from "@/shared/component/NavBar";
+import type { Metadata } from "next";
 import {
   IcnCalculator,
   IcnExit,
   IcnPlus,
   IcnSetting,
   IcnSquare,
-} from "@/asset/svg";
-import NavBar from "@/shared/component/NavBar";
-import type { Metadata } from "next";
+} from "../../../../public/asset/svg";
 
 export const metadata: Metadata = {
   title: "그룹 페이지",

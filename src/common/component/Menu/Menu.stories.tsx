@@ -1,7 +1,7 @@
-import { IcnBtnArrowDown, IcnNotification } from "@/asset/svg";
 import type { Meta, StoryObj } from "@storybook/react";
 import clsx from "clsx";
 import type { ComponentProps } from "react";
+import { IcnBtnArrowDown, IcnNotification } from "../../../../public/asset/svg";
 import Dropdown from "../Dropdown";
 import Menu from "./Menu";
 import { storyButtonStyle, storyDivStyle } from "./Menu.css";

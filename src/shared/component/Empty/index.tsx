@@ -1,8 +1,8 @@
-import { IcnEmpty } from "@/asset/svg";
 import {
   emptyGuideStyle,
   emptyWrapper,
 } from "@/shared/component/Empty/index.css";
+import { IcnEmpty } from "../../../../public/asset/svg";
 
 type EmptyProps = {
   guideText: string;

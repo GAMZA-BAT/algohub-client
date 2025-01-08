@@ -1,6 +1,5 @@
 "use client";
 
-import { IcnBtnSend } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Input, { type InputProps } from "@/common/component/Input";
 import {
@@ -9,6 +8,7 @@ import {
   sendIconStyle,
 } from "@/shared/component/CommentInput/index.css";
 import { type ForwardedRef, forwardRef } from "react";
+import { IcnBtnSend } from "../../../../public/asset/svg";
 
 type CommentInputProps = InputProps & {
   profileUrl?: string;

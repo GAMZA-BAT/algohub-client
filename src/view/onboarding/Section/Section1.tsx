@@ -1,12 +1,12 @@
 "use client";
 
-import { arrow } from "@/asset/lottie";
 import Animation from "@/common/component/Animation";
 import Button from "@/common/component/Button";
 import { handleA11yClick } from "@/common/util/dom";
 import clsx from "clsx";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { arrow } from "../../../../public/asset/lottie";
 import Text from "./Text";
 import {
   arrowContainer,

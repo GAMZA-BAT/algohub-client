@@ -1,12 +1,16 @@
-import { getGroupCode, getGroupInfo } from "@/app/api/groups";
+import { getGroupCode, getGroupInfo, getRoleByGroupId } from "@/app/api/groups";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import MemberList from "@/view/group/setting/MemberList";
 import SettingSidebar from "@/view/group/setting/SettingSidebar";
+import { notFound } from "next/navigation";
 
 const GroupSettingPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
+  const role = await getRoleByGroupId(+groupId);
+  if (role === "PARTICIPANT") notFound();
+
   const groupInfoData = getGroupInfo(+groupId);
   const inviteCodeData = getGroupCode(+groupId);
 

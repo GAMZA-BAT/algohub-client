@@ -1,6 +1,4 @@
 import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
-import defaultImg from "@/asset/img/img_card_profile.png";
-import { IcnCalenderCard, IcnUser, IcnUser2 } from "@/asset/svg";
 import StatusDot from "@/view/user/index/GroupCard/StatusDot";
 import {
   dateStyle,
@@ -11,8 +9,14 @@ import {
   nameWrapper,
   ownerStyle,
 } from "@/view/user/index/GroupCard/index.css";
+import defaultImg from "@assets/img/img_card_profile.png";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  IcnCalenderCard,
+  IcnUser,
+  IcnUser2,
+} from "../../../../../public/asset/svg";
 
 interface GroupCardProps {
   item: GroupResponse;

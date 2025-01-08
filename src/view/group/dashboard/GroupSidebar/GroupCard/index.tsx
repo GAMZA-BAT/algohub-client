@@ -1,5 +1,4 @@
 import type { GroupResponse } from "@/app/api/groups/type";
-import { IcnCalenderCard } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import RoleChip from "@/view/group/dashboard/GroupSidebar/GroupCard/RoleChip";
 import {
@@ -10,6 +9,7 @@ import {
   nameStyle,
   wrapper,
 } from "@/view/group/dashboard/GroupSidebar/GroupCard/index.css";
+import { IcnCalenderCard } from "../../../../../../public/asset/svg";
 
 type GroupCardProps = {
   info: GroupResponse;

@@ -1,4 +1,3 @@
-import { IcnBtnArrowDown } from "@/asset/svg";
 import Dropdown from "@/common/component/Dropdown";
 import Menu from "@/common/component/Menu/Menu";
 import { handleA11yClick } from "@/common/util/dom";
@@ -10,6 +9,7 @@ import {
   triggerButtonStyle,
 } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
 import StatusIcon from "@/view/user/setting/GroupList/StatusIcon";
+import { IcnBtnArrowDown } from "../../../../../../public/asset/svg";
 
 const statusOptions = [
   { label: "inProgress", icon: <StatusIcon status="inProgress" /> },

@@ -1,5 +1,5 @@
-import spinner from "@/asset/lottie/spinner.json";
 import { spinnerStyle } from "@/common/component/Spinner/index.css";
+import spinner from "@assets/lottie/spinner.json";
 import Lottie from "lottie-react";
 
 interface SpinnerProps {

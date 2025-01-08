@@ -1,7 +1,12 @@
-import { IcnCalculator, IcnMy, IcnPlus, IcnSquare } from "@/asset/svg";
 import { auth } from "@/auth";
 import NavBar from "@/shared/component/NavBar";
 import type { Metadata } from "next";
+import {
+  IcnCalculator,
+  IcnMy,
+  IcnPlus,
+  IcnSquare,
+} from "../../../public/asset/svg";
 
 export const metadata: Metadata = {
   title: "AlgoHub 마이페이지",

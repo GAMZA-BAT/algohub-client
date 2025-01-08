@@ -4,7 +4,6 @@ import {
   useDeleteNoticeMutation,
   usePatchNoticeMutation,
 } from "@/app/group/[groupId]/notice/query";
-import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
 import CommentBox from "@/shared/component/CommentBox";
@@ -18,6 +17,7 @@ import {
   useNoticeCommentMutation,
 } from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
 import { type FormEvent, useRef, useState } from "react";
+import { IcnClose, IcnEdit, IcnNew } from "../../../../../../public/asset/svg";
 import {
   articleStyle,
   contentStyle,

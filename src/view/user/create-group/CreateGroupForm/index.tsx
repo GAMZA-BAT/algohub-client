@@ -1,5 +1,4 @@
 import { groupSchema } from "@/app/api/groups/schema";
-import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
 import SupportingText from "@/common/component/SupportingText";
 import { useToast } from "@/common/hook/useToast";
@@ -18,6 +17,7 @@ import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
+import { IcnPlus } from "../../../../../public/asset/svg";
 import { submitBtnStyle } from "./index.css";
 
 type CreateGroupFormProps = {

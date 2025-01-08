@@ -1,5 +1,5 @@
-import { IcnList } from "@/asset/svg";
 import type { ComponentProps } from "react";
+import { IcnList } from "../../../../public/asset/svg";
 import {
   ellipsisStyle,
   iconSizeStyle,

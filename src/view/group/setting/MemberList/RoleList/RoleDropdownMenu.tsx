@@ -1,5 +1,4 @@
 import type { Role } from "@/app/api/groups/type";
-import { IcnBtnArrowDown } from "@/asset/svg";
 import Dropdown from "@/common/component/Dropdown";
 import Menu from "@/common/component/Menu/Menu";
 import { handleA11yClick } from "@/common/util/dom";
@@ -12,6 +11,7 @@ import {
   textStyle,
   triggerButtonStyle,
 } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
+import { IcnBtnArrowDown } from "../../../../../../public/asset/svg";
 
 const RoleDropdownMenu = () => {
   const dispatch = useMemberListDispatch();
