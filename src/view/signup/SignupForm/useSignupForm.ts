@@ -43,11 +43,14 @@ const useSignupForm = () => {
   const showNicknameMsg =
     !(errors.nickname || isNicknameLoading) && dirtyFields.nickname;
 
+  const defaultNicknameMsg =
+    "15자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가";
+
   const nicknameMsg = isNicknameLoading
     ? "로딩중"
     : showNicknameMsg
       ? "사용가능한 닉네임이에요."
-      : errors.nickname?.message;
+      : errors.nickname?.message || defaultNicknameMsg;
 
   const showBjMsg =
     !(errors.baekjoonId || isBaekjoonIdLoading) && dirtyFields.baekjoonId;
