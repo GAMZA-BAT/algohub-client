@@ -28,16 +28,6 @@ export const useMemberListDispatch = () => {
   return context.dispatch;
 };
 
-export const useDeleteMemberMutation = () => {
-  const context = useContext(TableDispatchContext);
-  if (!context) {
-    throw new Error(
-      "useDeleteMemberMutation must be used within a TableProvider",
-    );
-  }
-  return context.deleteMemberMutation;
-};
-
 export const usePatchMemberRoleMutation = () => {
   const context = useContext(TableDispatchContext);
   if (!context) {
@@ -46,4 +36,20 @@ export const usePatchMemberRoleMutation = () => {
     );
   }
   return context.patchMemberRoleMutation;
+};
+
+export const useChangeOwner = () => {
+  const context = useContext(TableDispatchContext);
+  if (!context) {
+    throw new Error("useChangeOwner must be used within a TableProvider");
+  }
+  return context.handleChangeClick;
+};
+
+export const useDeleteClick = () => {
+  const context = useContext(TableDispatchContext);
+  if (!context) {
+    throw new Error("useOpenDeleteModal must be used within a TableProvider");
+  }
+  return context.handleDeleteClick;
 };
