@@ -15,6 +15,10 @@ export const groupCardWrapper = style({
   background: theme.color.mg5,
 
   cursor: "pointer",
+
+  ":hover": {
+    background: theme.color.mg4,
+  },
 });
 
 export const flexCenterStyle = style({
