@@ -22,7 +22,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
 
       try {
-        await getMyInfo(token.accessToken);
+        const user = await getMyInfo(token.accessToken);
+        token.user = user as AdapterUser;
       } catch (error) {
         if (error instanceof HTTPError && error.response.status === 401) {
           const { accessToken, refreshToken } = await postReissueToken({
