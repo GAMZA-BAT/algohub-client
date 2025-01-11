@@ -15,7 +15,7 @@ const useEditForm = () => {
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      profileImage: user?.profileImage || "",
+      profileImage: user?.profileImage || null,
       nickname: user?.nickname,
       bjNickname: user?.bjNickname,
       description: user?.description,
@@ -24,13 +24,26 @@ const useEditForm = () => {
   const { showToast } = useToast();
   const isActive = form.formState.isDirty && form.formState.isValid;
 
-  const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
-    await patchMyInfoAction({
-      nickname: values.nickname,
-      profileImage: values.profileImage,
-      bjNickname: values.bjNickname,
-      description: values.description,
-    });
+  const handleSubmit = async ({
+    nickname,
+    bjNickname,
+    description,
+    profileImage,
+  }: z.infer<typeof baseEditSchema>) => {
+    const data = new FormData();
+    if (profileImage) {
+      data.append("profileImage", profileImage);
+    }
+
+    data.append(
+      "request",
+      JSON.stringify({
+        nickname,
+        bjNickname,
+        description,
+      }),
+    );
+    await patchMyInfoAction(data);
     await session.update(await getSession());
     showToast("정상적으로 수정이 되었어요", "success");
   };

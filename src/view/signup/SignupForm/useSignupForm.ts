@@ -23,7 +23,7 @@ const useSignupForm = () => {
     resolver: zodResolver(signupSchema),
     mode: "onTouched",
     defaultValues: {
-      profile: "",
+      profile: null,
       id: "",
       password: "",
       confirmPassword: "",
@@ -92,6 +92,7 @@ const useSignupForm = () => {
     if (values.profile) {
       data.append("profileImage", values.profile);
     }
+    
     data.append(
       "request",
       JSON.stringify({

@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const baseSignupSchema = z.object({
-  profile: z.string(),
+  profile: z.instanceof(File).nullable(),
 
   id: z.string().email({ message: "이메일 형식이 아닙니다." }),
 
