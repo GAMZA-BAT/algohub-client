@@ -92,7 +92,7 @@ const useSignupForm = () => {
     if (values.profile) {
       data.append("profileImage", values.profile);
     }
-    
+
     data.append(
       "request",
       JSON.stringify({

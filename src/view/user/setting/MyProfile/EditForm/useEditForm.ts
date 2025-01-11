@@ -22,7 +22,7 @@ const useEditForm = () => {
     },
   });
   const { showToast } = useToast();
-  const isActive = form.formState.isDirty && form.formState.isValid;
+  const isActive = form.formState.isValid && form.formState.isDirty;
 
   const handleSubmit = async ({
     nickname,
