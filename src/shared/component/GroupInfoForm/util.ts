@@ -3,21 +3,28 @@
 import type { groupSchema } from "@/app/api/groups/schema";
 import type { z } from "zod";
 
-export const getGroupFormData = (values: z.infer<typeof groupSchema>) => {
+export const getGroupFormData = ({
+  name,
+  introduction,
+  startDate,
+  endDate,
+  groupImage,
+}: z.infer<typeof groupSchema>) => {
   const data = new FormData();
 
-  if (values.groupImage) {
-    data.append("groupImage", values.groupImage);
-  } else {
+  if (groupImage instanceof File) {
+    data.append("groupImage", groupImage);
+  } else if (!groupImage) {
     data.append("groupImage", "");
   }
+
   data.append(
     "request",
     JSON.stringify({
-      name: values.name,
-      introduction: values.introduction,
-      startDate: values.startDate.toISOString().slice(0, 10),
-      endDate: values.endDate.toISOString().slice(0, 10),
+      name,
+      introduction,
+      startDate: startDate.toISOString().slice(0, 10),
+      endDate: endDate.toISOString().slice(0, 10),
     }),
   );
 

@@ -31,6 +31,9 @@ export const kyBaseInstance = ky.create({
   prefixUrl: process.env.NEXT_PUBLIC_HOST,
 });
 
+export const kyFileBaseInstance = ky.create({
+  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+});
 export const kyFileInstance = ky.create({
   prefixUrl: process.env.NEXT_PUBLIC_HOST,
   hooks: {

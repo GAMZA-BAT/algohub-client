@@ -1,29 +1,54 @@
+import { patchMyInfoAction } from "@/app/[user]/setting/action";
 import { useToast } from "@/common/hook/useToast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { baseEditSchema } from "./schema";
 
 const useEditForm = () => {
-  const user = useSession().data?.user;
+  const session = useSession();
+  const user = session.data?.user;
 
   const form = useForm<z.infer<typeof baseEditSchema>>({
     resolver: zodResolver(baseEditSchema),
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      profile: user?.profileImage,
+      profileImage: user?.profileImage || null,
       nickname: user?.nickname,
-      baekjoonId: user?.bjNickname,
-      introduction: user?.description,
+      bjNickname: user?.bjNickname,
+      description: user?.description,
     },
   });
   const { showToast } = useToast();
-  // TODO: api 연결 후 default values와 달라지면 true가 되게 하기
-  const isActive = form.formState.isDirty && form.formState.isValid;
+  const isActive = form.formState.isValid && form.formState.isDirty;
 
-  const handleSubmit = (_values: z.infer<typeof baseEditSchema>) => {
+  const handleSubmit = async ({
+    nickname,
+    bjNickname,
+    description,
+    profileImage,
+  }: z.infer<typeof baseEditSchema>) => {
+    const data = new FormData();
+
+    if (profileImage instanceof File) {
+      data.append("profileImage", profileImage);
+    } else if (!profileImage) {
+      data.append("profileImage", "");
+    }
+
+    data.append(
+      "request",
+      JSON.stringify({
+        nickname,
+        bjNickname,
+        description,
+      }),
+    );
+
+    await patchMyInfoAction(data);
+    await session.update(await getSession());
     showToast("정상적으로 수정이 되었어요", "success");
   };
 
