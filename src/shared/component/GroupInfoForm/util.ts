@@ -12,9 +12,12 @@ export const getGroupFormData = ({
 }: z.infer<typeof groupSchema>) => {
   const data = new FormData();
 
-  if (groupImage) {
-    data.append("profileImage", groupImage instanceof File ? groupImage : "");
+  if (groupImage instanceof File) {
+    data.append("groupImage", groupImage);
+  } else if (!groupImage) {
+    data.append("groupImage", "");
   }
+
   data.append(
     "request",
     JSON.stringify({
