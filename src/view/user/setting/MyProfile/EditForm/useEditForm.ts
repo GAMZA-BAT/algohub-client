@@ -31,10 +31,13 @@ const useEditForm = () => {
     profileImage,
   }: z.infer<typeof baseEditSchema>) => {
     const data = new FormData();
-    if (profileImage) {
-      data.append("profileImage", profileImage);
-    }
 
+    if (profileImage) {
+      data.append(
+        "profileImage",
+        profileImage instanceof File ? profileImage : "",
+      );
+    }
     data.append(
       "request",
       JSON.stringify({
@@ -43,6 +46,7 @@ const useEditForm = () => {
         description,
       }),
     );
+    
     await patchMyInfoAction(data);
     await session.update(await getSession());
     showToast("정상적으로 수정이 되었어요", "success");
