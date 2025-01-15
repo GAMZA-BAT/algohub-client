@@ -6,9 +6,8 @@ import Avatar from "@/common/component/Avatar";
 import Pagination from "@/shared/component/Pagination";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
-import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
-import { useRouter } from "next/navigation";
-import {} from "react";
+import { textStyle } from "@/view/group/dashboard/index.css";
+import Link from "next/link";
 import {
   contentStyle,
   contentWrapper,
@@ -21,11 +20,7 @@ import {
 } from "./index.css";
 
 const NoticeList = () => {
-  const router = useRouter();
   const groupId = useGetGroupId();
-
-  const handleClick = (noticeId: number) =>
-    router.push(`/group/${groupId}/notice/${noticeId}`);
 
   const {
     data: noticeData,
@@ -44,23 +39,26 @@ const NoticeList = () => {
         <>
           <ul aria-label="공지사항 목록" className={ulStyle}>
             {noticeList.map(
-              ({ noticeId, title, category, author, createdAt, isRead }) => {
-                return (
-                  <li
-                    key={noticeId}
-                    className={liStyle}
-                    aria-labelledby={`notice-title-${noticeId}`}
-                  >
-                    <button
-                      className={overlayStyle}
-                      aria-label={`${title} 공지 상세 보기`}
-                      onClick={() => handleClick(noticeId)}
-                    />
+              ({
+                noticeId,
+                title,
+                category,
+                author,
+                createdAt,
+                isRead,
+                authorImage,
+              }) => (
+                <li
+                  key={noticeId}
+                  className={liStyle}
+                  aria-labelledby={`notice-title-${noticeId}`}
+                >
+                  <Link href={`/group/${groupId}/notice/${noticeId}`}>
                     <article className={itemStyle}>
                       <div className={contentWrapper}>
                         <Avatar
                           size="small"
-                          src={defaultImage}
+                          src={authorImage || defaultImage}
                           alt="작성자 프로필 사진"
                         />
                         <div className={contentStyle}>
@@ -88,9 +86,9 @@ const NoticeList = () => {
                         />
                       </div>
                     </article>
-                  </li>
-                );
-              },
+                  </Link>
+                </li>
+              ),
             )}
           </ul>
           <footer>
