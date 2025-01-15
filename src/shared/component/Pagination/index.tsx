@@ -41,6 +41,8 @@ const Pagination = ({
     }
   };
 
+  if (!totalPages) return;
+
   return (
     <nav
       role="navigation"
