@@ -1,5 +1,3 @@
-import IcnRankingCard from "@/asset/svg/icn_ranking_card.svg?url";
-import IcnRankingCardHover from "@/asset/svg/icn_ranking_card_hover.svg?url";
 import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
@@ -12,12 +10,8 @@ export const topRankingWrapper = style({
 
 export const rankingCardWrapper = style({
   position: "relative",
-  backgroundImage: `url(${IcnRankingCard.src})`,
   width: "146px",
   height: "197px",
-  ":hover": {
-    backgroundImage: `url(${IcnRankingCardHover.src})`,
-  },
 });
 
 export const rankingCardStyle = style({
@@ -139,17 +133,7 @@ export const changeStyle = recipe({
 });
 
 export const emptyRankingWrapper = style({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "3rem",
-
-  width: "100%",
   padding: "5.3rem 0 5.2rem",
-});
-
-export const emptyGuideStyle = style({
-  color: theme.color.mg4,
-  ...theme.font.Head2_SB_18,
+  width: "100%",
+  height: "100%",
 });

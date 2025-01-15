@@ -9,7 +9,7 @@ export const footerStyle = style({
 
   scrollSnapAlign: "end",
 
-  height: "15rem",
+  height: "10rem",
   padding: "0 15rem",
   borderTop: `1px solid ${theme.color.mg5}`,
 

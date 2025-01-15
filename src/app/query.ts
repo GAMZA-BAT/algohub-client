@@ -1,4 +1,5 @@
 import {
+  deleteNotification,
   getNotificationList,
   patchAllNotificationRead,
   patchNotificationRead,
@@ -69,5 +70,11 @@ export const useReadAllNotiMutation = () => {
     onError: (_err, _new, context) => {
       queryClient.setQueryData(["notifications"], context?.prev);
     },
+  });
+};
+
+export const useDeleteNotiMutation = () => {
+  return useMutation({
+    mutationFn: (id: number) => deleteNotification(id),
   });
 };

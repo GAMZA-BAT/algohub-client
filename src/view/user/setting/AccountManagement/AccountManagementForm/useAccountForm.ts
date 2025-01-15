@@ -1,4 +1,4 @@
-import { useToast } from "@/common/hook/useToast";
+import { usePatchPasswordMutation } from "@/app/[user]/setting/query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -9,15 +9,29 @@ const useAccountForm = () => {
     resolver: zodResolver(AccountManagementSchema),
     mode: "onChange",
     defaultValues: {
-      id: "yerinbaek",
-      password: "1234^aaa",
-      confirmPassword: "1234^aaa",
+      currentPassword: "",
+      changePassword: "",
+      confirmPassword: "",
     },
   });
-  const { showToast } = useToast();
+  const { mutate } = usePatchPasswordMutation();
 
-  const handleSubmit = (_values: z.infer<typeof AccountManagementSchema>) => {
-    showToast("정상적으로 수정이 되었어요", "success");
+  const handleSubmit = (values: z.infer<typeof AccountManagementSchema>) => {
+    mutate(
+      {
+        currentPassword: values.currentPassword,
+        newPassword: values.changePassword,
+      },
+      {
+        onSuccess: () => {
+          form.reset({
+            currentPassword: "",
+            changePassword: "",
+            confirmPassword: "",
+          });
+        },
+      },
+    );
   };
 
   const isActive = form.formState.isDirty && form.formState.isValid;

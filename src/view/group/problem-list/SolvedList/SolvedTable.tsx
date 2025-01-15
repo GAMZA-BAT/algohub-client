@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 
 type SolvedTableProps = {
   groupId: string;
-  content: SolutionContent[];
+  content?: SolutionContent[];
 };
 
 const SolvedTable = ({ groupId, content }: SolvedTableProps) => {
@@ -60,7 +60,7 @@ const SolvedTable = ({ groupId, content }: SolvedTableProps) => {
           </tr>
         </thead>
         <tbody className={tbodyStyle}>
-          {content.map((row) => (
+          {content?.map((row) => (
             <tr
               tabIndex={0}
               onKeyDown={(e) =>

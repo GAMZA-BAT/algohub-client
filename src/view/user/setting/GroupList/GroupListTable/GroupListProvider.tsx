@@ -1,5 +1,6 @@
 import {
   useBookmarkGroupMutation,
+  useMyGroupSettingsQuery,
   useVisibilityMutation,
 } from "@/app/[user]/setting/query";
 import type { GroupSettingsContent } from "@/app/api/groups/type";
@@ -119,18 +120,17 @@ const groupListTableReducer = (state: State, action: Actions): State => {
 // Provider 컴포넌트
 type GroupListTableProviderProps = {
   children: React.ReactNode;
-  data: GroupSettingsContent[];
 };
 
 export const GroupListTableProvider = ({
   children,
-  data,
 }: GroupListTableProviderProps) => {
   const [state, dispatch] = useReducer(groupListTableReducer, {
     sortCriteria: [],
     filterKey: undefined,
     filterValue: "",
   } as State);
+  const { data } = useMyGroupSettingsQuery();
   const { mutate: visibilityMutate } = useVisibilityMutation();
   const { mutate: bookmarkMutate } = useBookmarkGroupMutation();
 

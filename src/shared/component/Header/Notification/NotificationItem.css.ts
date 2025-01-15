@@ -3,8 +3,8 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const containerStyle = style({
-  width: "25rem",
-  padding: "0.8rem 0.3rem 0.8rem 0.8rem",
+  width: "22.9rem",
+  padding: "0.8rem 1.1rem",
   borderRadius: "0.8rem",
 
   backdropFilter: "blur(2px)",
@@ -80,6 +80,6 @@ export const messageStyle = style({
 
 export const dateStyle = style({
   fontSize: "1rem",
-  lineHeight: "11.",
+  lineHeight: "1.2rem",
   color: theme.color.mg4,
 });

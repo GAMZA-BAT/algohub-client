@@ -1,7 +1,12 @@
-import { kyFileInstance, kyInstance, kyPublicInstance } from "@/app/api";
+import {
+  kyFileBaseInstance,
+  kyFileInstance,
+  kyInstance,
+  kyPublicInstance,
+} from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
-import type { UserResponse } from "@/app/api/users/type";
+import type { PasswordRequest, UserResponse } from "@/app/api/users/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
 
@@ -76,7 +81,7 @@ export const checkEmail = async (email: string) => {
 };
 
 export const postSignUp = async (formData: FormData) => {
-  const response = await kyFileInstance.post("api/users/sign-up", {
+  const response = await kyFileBaseInstance.post("api/auth/sign-up", {
     body: formData,
   });
 
@@ -127,6 +132,38 @@ export const getExpiredMySolutions = async ({
       `api/users/my-solutions/expired?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
     )
     .json();
+
+  return response;
+};
+
+export const deleteMe = async (password: string) => {
+  const response = await kyInstance.delete("api/users/me", {
+    json: {
+      password,
+    },
+  });
+
+  return response;
+};
+
+export const patchMyInfo = async (formData: FormData) => {
+  const response = await kyFileInstance.patch("api/users/me", {
+    body: formData,
+  });
+
+  return response;
+};
+
+export const patchPassword = async ({
+  currentPassword,
+  newPassword,
+}: PasswordRequest) => {
+  const response = await kyInstance.patch("api/users/me/password", {
+    json: {
+      currentPassword,
+      newPassword,
+    },
+  });
 
   return response;
 };

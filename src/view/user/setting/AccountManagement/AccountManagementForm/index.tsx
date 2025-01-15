@@ -6,32 +6,33 @@ import useAccountForm from "./useAccountForm";
 
 const AccountManagementForm = () => {
   const { form, isActive, handleSubmit } = useAccountForm();
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className={formStyle}>
         <FormController
           form={form}
-          name="id"
+          name="currentPassword"
           type="input"
           showLabel
-          labelProps={{ children: "아이디", className: labelStyle }}
+          labelProps={{ children: "비밀번호 변경", className: labelStyle }}
           fieldProps={{
-            placeholder: "아이디",
+            placeholder: "기존 비밀번호",
             className: width,
+            type: "password",
           }}
         />
         <div className={passwordWrapper}>
           <FormController
             form={form}
             type="input"
-            name="password"
+            name="changePassword"
             revalidationHandlers={getMultipleRevalidationHandlers(
               "confirmPassword",
             )}
-            showLabel
-            labelProps={{ children: "비밀번호", className: labelStyle }}
+            showDescription
             fieldProps={{
-              placeholder: "비밀번호",
+              placeholder: "변경할 비밀번호",
               type: "password",
             }}
           />

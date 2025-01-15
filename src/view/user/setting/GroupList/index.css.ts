@@ -22,3 +22,12 @@ export const backPanelStyle = style({
 
   background: theme.color.bg,
 });
+
+export const loadingSectionStyle = style({
+  width: "100%",
+  height: "62.4rem",
+
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});

@@ -40,11 +40,11 @@ export const getInProgressProblems = async ({
   groupId,
   page,
   size,
-  isUnsolved,
+  isUnsolvedOnly,
 }: GetProblemRequest) => {
   const response = await kyInstance
     .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/in-progress?unsolved-only=${isUnsolved}&page=${page}&size=${size}`,
+      `api/groups/${groupId}/problems/in-progress?unsolved-only=${isUnsolvedOnly}&page=${page}&size=${size}`,
     )
     .json();
 
