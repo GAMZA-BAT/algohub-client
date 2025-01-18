@@ -19,6 +19,7 @@ export const textStyle = style({
   ...theme.font.Caption3_M_12,
   fontWeight: 500,
   color: theme.color.white,
+  textAlign: "center",
 
   overflow: "hidden",
   textOverflow: "ellipsis",

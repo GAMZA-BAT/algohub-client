@@ -3,6 +3,7 @@ import type { ProblemContent } from "@/app/api/problems/type";
 import { getSolutionList } from "@/app/api/solutions";
 import type { SolutionLanguage } from "@/app/api/solutions/type";
 import { IcnBtnArrowLeft } from "@/asset/svg";
+import { useDebounce } from "@/common/hook/useDebounce";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
 import {
@@ -37,11 +38,13 @@ const initOption = {
 
 const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
   const [option, setOption] = useState<SolvedFilterType>(initOption);
+  const [nicknameFilter, setNicknameFilter] = useState("");
+  const debouncedNicknameFilter = useDebounce(nicknameFilter, 200);
 
   const router = useRouter();
 
   const { data } = useQuery({
-    queryKey: ["solution", option],
+    queryKey: ["solution", option, debouncedNicknameFilter],
     queryFn: () =>
       getSolutionList({
         problemId,
@@ -50,8 +53,13 @@ const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
             ? undefined
             : (option.language as SolutionLanguage),
         result: option.result === "모든 결과" ? undefined : option.result,
+        nickname: debouncedNicknameFilter,
       }),
   });
+
+  const handleChangeIdFilter = (value: string) => {
+    setNicknameFilter(value);
+  };
 
   const handleChangeOption = (option: SolvedFilterType) => {
     setOption(option);
@@ -77,7 +85,9 @@ const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
       <ProblemInfo problemInfo={problemInfo} />
       <SolvedFilterBar
         option={option}
-        onChange={handleChangeOption}
+        idFilterValue={nicknameFilter}
+        onChangeIdFilter={handleChangeIdFilter}
+        onChangeOption={handleChangeOption}
         defaultValue={initOption}
       />
       <div className={dividerStyle} />

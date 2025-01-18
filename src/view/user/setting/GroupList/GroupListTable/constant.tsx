@@ -10,6 +10,7 @@ import { format } from "date-fns";
 
 import type { GroupSettingsContent } from "@/app/api/groups/type";
 import { handleA11yClick } from "@/common/util/dom";
+import { TableDispatchContext } from "@/view/user/setting/GroupList/GroupListTable/GroupListProvider";
 import {
   useBookmarkGroupMutation,
   useGroupListDispatch,
@@ -20,6 +21,7 @@ import SortIcon from "@/view/user/setting/GroupList/SortIcon";
 import StatusDropdownMenu from "@/view/user/setting/GroupList/StatusDropdownMenu";
 import { textStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
 import StatusIcon from "@/view/user/setting/GroupList/StatusIcon";
+import { useContext } from "react";
 
 export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
   {
@@ -145,7 +147,20 @@ export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
   {
     key: "withdraw",
     Header: () => "회원탈퇴",
-    Cell: () => <button className={withdrawTextStyle}>회원 탈퇴</button>,
+    Cell: (data) => {
+      const tableContext = useContext(TableDispatchContext);
+
+      if (tableContext === undefined) throw new Error("error");
+
+      return (
+        <button
+          onClick={() => tableContext.withdrawDialogOpen(data.id)}
+          className={withdrawTextStyle}
+        >
+          회원 탈퇴
+        </button>
+      );
+    },
     width: 70,
     align: "right",
   },

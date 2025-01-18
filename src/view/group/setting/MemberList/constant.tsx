@@ -5,7 +5,6 @@ import Menu from "@/common/component/Menu/Menu";
 import { handleA11yClick } from "@/common/util/dom";
 import { ROLE } from "@/shared/constant/role";
 import type { TableDataType } from "@/shared/type/table";
-import {} from "@/view/group/index/WithdrawDialog/index.css";
 import RoleChip from "@/view/group/setting/MemberList/RoleList/RoleChip";
 import {
   useChangeOwner,

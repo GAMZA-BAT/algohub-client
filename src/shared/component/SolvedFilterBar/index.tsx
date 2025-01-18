@@ -18,24 +18,28 @@ import type { SolvedFilterType } from "@/shared/type/solvedFilter";
 
 type SolvedFilterBarProps = {
   option: SolvedFilterType;
-  onChange: (option: SolvedFilterType) => void;
+  onChangeOption: (option: SolvedFilterType) => void;
+  idFilterValue: string;
+  onChangeIdFilter: (value: string) => void;
   defaultValue: SolvedFilterType;
 };
 
 const SolvedFilterBar = ({
   option,
-  onChange,
+  onChangeOption,
+  idFilterValue,
+  onChangeIdFilter,
   defaultValue,
 }: SolvedFilterBarProps) => {
   const handleLanguageChange = (newLanguage: string) => {
-    onChange({
+    onChangeOption({
       ...option,
       language: newLanguage as SolvedFilterType["language"],
     });
   };
 
   const handleResultChange = (newResult: string) => {
-    onChange({
+    onChangeOption({
       ...option,
       result: newResult as SolvedFilterType["result"],
     });
@@ -44,7 +48,12 @@ const SolvedFilterBar = ({
   return (
     <div className={solvedFilterWrapper}>
       <Input className={inputStyle} placeholder="문제 번호" />
-      <Input className={inputStyle} placeholder="아이디" />
+      <Input
+        className={inputStyle}
+        value={idFilterValue}
+        onChange={(e) => onChangeIdFilter(e.target.value)}
+        placeholder="아이디"
+      />
       <SelectBox
         label="모든 언어"
         options={SOLVED_LANGUAGE}
@@ -68,8 +77,8 @@ const SolvedFilterBar = ({
         width={44}
         height={44}
         aria-label="풀이 리스트 필터링 초기화"
-        onClick={() => onChange(defaultValue)}
-        onKeyDown={handleA11yClick(() => onChange(defaultValue))}
+        onClick={() => onChangeOption(defaultValue)}
+        onKeyDown={handleA11yClick(() => onChangeOption(defaultValue))}
         tabIndex={0}
       />
     </div>
