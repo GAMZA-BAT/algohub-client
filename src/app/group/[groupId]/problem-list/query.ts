@@ -19,11 +19,15 @@ export const usePostProblemMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   return useMutation({
-    mutationFn: ({ groupId, link, startDate, endDate }: problemActionRequest) =>
+    mutationFn: ({
+      link,
+      startDate,
+      endDate,
+    }: Omit<problemActionRequest, "groupId">) =>
       postProblemAction({ groupId, link, startDate, endDate }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["inProgressProblem", "queuedProblem", groupId],
+        queryKey: ["inProgressProblem", groupId],
       });
       showToast("문제가 정상적으로 등록되었어요.", "success");
     },

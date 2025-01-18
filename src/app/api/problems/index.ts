@@ -19,6 +19,7 @@ export const postProblem = (groupId: number, body: ProblemRequest) => {
     .post(`api/groups/${groupId}/problems`, { json: body })
     .json();
 
+  console.log("post problem 한다고", { response });
   return response;
 };
 

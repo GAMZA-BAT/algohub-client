@@ -20,13 +20,13 @@ const ProblemSidebar = () => {
     onSuccess: () => void,
   ) => {
     postProblemMutate(
-      { groupId: +groupId, link, startDate, endDate },
+      { link, startDate, endDate },
       {
         onSuccess: () => {
           onSuccess();
           setTimeout(() => {
             close();
-          }, 1700);
+          }, 1500);
         },
       },
     );
