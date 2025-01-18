@@ -40,23 +40,30 @@ export const paginationButtonStyle = recipe({
     alignItems: "center",
     justifyContent: "center",
 
-    padding: "0.5rem",
-    border: "none",
+    width: "2.2rem",
+    height: "2.2rem",
 
+    border: "none",
+    borderRadius: "50%",
     cursor: "pointer",
 
     ...theme.font.Caption3_M_12,
     color: theme.color.mg2,
     backgroundColor: "transparent",
-    borderRadius: "0.375rem",
+
     ":disabled": {
       cursor: "default",
+    },
+
+    ":hover": {
+      backgroundColor: theme.color.mg4,
     },
   },
   variants: {
     isActive: {
       true: {
-        backgroundColor: "#f3f4f6",
+        color: theme.color.white,
+        backgroundColor: theme.color.mg3,
       },
     },
   },

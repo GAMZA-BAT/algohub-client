@@ -20,7 +20,6 @@ export const postProblemAction = async ({
     startDate,
     endDate,
   };
-  console.log("post problem action 한다고");
   const response = await postProblem(groupId, body);
 
   return response;
