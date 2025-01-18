@@ -2,8 +2,8 @@
 
 import Modal from "@/common/component/Modal";
 import Sidebar from "@/common/component/Sidebar";
+import WithdrawDialog from "@/shared/component/WithdrawDialog";
 import { sidebarWrapper } from "@/styles/shared.css";
-import WithdrawDialog from "@/view/group/index/WithdrawDialog";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

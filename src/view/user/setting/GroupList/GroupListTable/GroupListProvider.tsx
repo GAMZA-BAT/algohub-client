@@ -5,8 +5,8 @@ import {
 } from "@/app/[user]/setting/query";
 import type { GroupSettingsContent } from "@/app/api/groups/type";
 import Modal from "@/common/component/Modal";
-import WithdrawDialog from "@/view/group/index/WithdrawDialog";
-import { useWithdrawMutation } from "@/view/group/index/WithdrawDialog/query";
+import WithdrawDialog from "@/shared/component/WithdrawDialog";
+import { useWithdrawMutation } from "@/shared/component/WithdrawDialog/query";
 import type { UseMutateFunction } from "@tanstack/react-query";
 import type { HTTPError, KyResponse } from "ky";
 import type React from "react";

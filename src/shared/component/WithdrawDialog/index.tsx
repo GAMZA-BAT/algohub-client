@@ -1,8 +1,8 @@
 import Button from "@/common/component/Button";
-import PromptWithdraw from "@/view/group/index/WithdrawDialog/PromptWithdraw";
-import SuccessWithdraw from "@/view/group/index/WithdrawDialog/SuccessWithdraw";
-import { withdrawWrapper } from "@/view/group/index/WithdrawDialog/index.css";
-import { useWithdrawMutation } from "@/view/group/index/WithdrawDialog/query";
+import PromptWithdraw from "@/shared/component/WithdrawDialog/PromptWithdraw";
+import SuccessWithdraw from "@/shared/component/WithdrawDialog/SuccessWithdraw";
+import { withdrawWrapper } from "@/shared/component/WithdrawDialog/index.css";
+import { useWithdrawMutation } from "@/shared/component/WithdrawDialog/query";
 import { useState } from "react";
 
 type WithdrawDialogProps = {
