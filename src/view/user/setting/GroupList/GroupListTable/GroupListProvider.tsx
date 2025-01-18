@@ -4,11 +4,13 @@ import {
   useVisibilityMutation,
 } from "@/app/[user]/setting/query";
 import type { GroupSettingsContent } from "@/app/api/groups/type";
+import Modal from "@/common/component/Modal";
+import WithdrawDialog from "@/view/group/index/WithdrawDialog";
 import { useWithdrawMutation } from "@/view/group/index/WithdrawDialog/query";
 import type { UseMutateFunction } from "@tanstack/react-query";
 import type { HTTPError, KyResponse } from "ky";
 import type React from "react";
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
 type TableDataContextType =
   | { processedData: GroupSettingsContent[]; state: State }
@@ -32,6 +34,9 @@ type TableDispatchContextType =
         unknown
       >;
       withdrawMutate: UseMutateFunction<unknown, Error, number, unknown>;
+      withdrawDialogOpen: (id: number) => void;
+      withdrawDialogClose: () => void;
+      isWithdrawBtnClicked: boolean;
     }
   | undefined;
 
@@ -137,6 +142,18 @@ export const GroupListTableProvider = ({
   const { mutate: bookmarkMutate } = useBookmarkGroupMutation();
   const { mutate: withdrawMutate } = useWithdrawMutation();
 
+  const [isWithdrawBtnClicked, setIsWithdrawBtnClicked] = useState(false);
+  const [withdrawGroupId, setWithdrawGroupId] = useState<number | null>(null);
+
+  const withdrawDialogOpen = (id: number) => {
+    setIsWithdrawBtnClicked(true);
+    setWithdrawGroupId(id);
+  };
+  const withdrawDialogClose = () => {
+    setIsWithdrawBtnClicked(false);
+    setWithdrawGroupId(null);
+  };
+
   // 데이터 전처리 (정렬, 필터링)
   const processedData = data
     .filter((item) => {
@@ -174,10 +191,19 @@ export const GroupListTableProvider = ({
         mutation: visibilityMutate,
         bookmarkMutation: bookmarkMutate,
         withdrawMutate,
+        withdrawDialogOpen,
+        withdrawDialogClose,
+        isWithdrawBtnClicked,
       }}
     >
       <TableDataContext.Provider value={{ state, processedData }}>
         {children}
+        <Modal isOpen={isWithdrawBtnClicked} onClose={withdrawDialogClose}>
+          <WithdrawDialog
+            groupId={withdrawGroupId!}
+            onSuccess={withdrawDialogClose}
+          />
+        </Modal>
       </TableDataContext.Provider>
     </TableDispatchContext.Provider>
   );
