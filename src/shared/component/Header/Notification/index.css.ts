@@ -11,6 +11,8 @@ export const notificationContainer = style({
   flexDirection: "column",
 
   zIndex: theme.zIndex.top,
+  minWidth: "26.9rem",
+  height: "27.4rem",
 
   borderRadius: "2rem",
 
@@ -23,7 +25,7 @@ export const ulStyle = style({
   flexDirection: "column",
   gap: "1rem",
 
-  padding: "0 2rem 3rem 2rem",
+  padding: "0.8rem 2rem 3rem",
 
   // scroll bar
   overflowY: "scroll",

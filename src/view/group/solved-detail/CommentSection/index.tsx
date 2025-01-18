@@ -8,6 +8,7 @@ import {
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
+import { useSession } from "next-auth/react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
 
@@ -18,6 +19,7 @@ type CommentSectionProps = {
 const CommentSection = ({ solutionId }: CommentSectionProps) => {
   const commentRef = useRef<HTMLUListElement>(null);
   const [comment, setComment] = useState("");
+  const { data } = useSession();
 
   const { mutate: commentAction } = useCommentMutataion(+solutionId);
   const { mutate: deleteMutate } = useDeleteCommentMutation(+solutionId);
@@ -49,6 +51,7 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
                 key={item.commentId}
                 variant="detail"
                 onDelete={deleteMutate}
+                isMine={item.writerNickname === data?.user?.nickname}
                 {...item}
               />
             ))}
@@ -59,6 +62,7 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
           name="comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
+          profileUrl={data?.user?.profileImage}
         />
       </form>
     </div>

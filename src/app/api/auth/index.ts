@@ -1,4 +1,4 @@
-import { kyBaseInstance, kyPublicInstance } from "@/app/api";
+import { kyBaseInstance, kyInstance, kyPublicInstance } from "@/app/api";
 import type {
   SignInRequest,
   reissueTokenRequest,
@@ -45,7 +45,7 @@ export const postReissueToken = async (requestData: reissueTokenRequest) => {
 };
 
 export const deleteSignOut = async () => {
-  const response = await kyBaseInstance.delete("api/auth/sign-out").json();
+  const response = await kyInstance.delete("api/auth/sign-out").json();
 
   return response;
 };

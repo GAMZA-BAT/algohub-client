@@ -44,6 +44,8 @@ export const titleStyle = style({
   textAlign: "start",
 
   whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 });
 
 export const iconStyle = style({

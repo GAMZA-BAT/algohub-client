@@ -26,6 +26,7 @@ const Avatar = ({
         height="100"
         role="button"
         className={clsx(avatarStyle({ size, hasShadow }), className)}
+        priority
       />
       {children}
     </div>

@@ -26,6 +26,7 @@ type NotificationListProps = {
   date: string;
   isRead: boolean;
   onClick: () => void;
+  onDelete: () => void;
 };
 
 const NotificationListItem = ({
@@ -35,13 +36,10 @@ const NotificationListItem = ({
   message,
   date,
   isRead,
+  onDelete,
 }: NotificationListProps) => {
   const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
     useA11yHoverHandler();
-
-  const handleDeleteClick = () => {
-    alert("delete");
-  };
 
   return (
     <li
@@ -90,8 +88,12 @@ const NotificationListItem = ({
         className={deleteIconStyle({ active: isActive })}
         width={"1.6rem"}
         height={"1.6rem"}
-        onClick={handleDeleteClick}
-        onKeyDown={handleA11yClick(handleDeleteClick)}
+        onClick={(e) => {
+          e.stopPropagation();
+
+          onDelete();
+        }}
+        onKeyDown={handleA11yClick(onDelete)}
         aria-hidden={!isActive}
         aria-label={`${name}님의 알림 삭제`}
         tabIndex={0}

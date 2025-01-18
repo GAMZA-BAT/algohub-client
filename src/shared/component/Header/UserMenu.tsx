@@ -11,6 +11,8 @@ const UserMenu = () => {
   const { data } = useNotificationsQuery();
   const user = useSession().data?.user;
 
+  if (!data) return;
+
   const notiCounts = data.filter((item) => !item.isRead).length;
 
   return (
@@ -20,11 +22,10 @@ const UserMenu = () => {
         renderTriggerButton={<Notification.TriggerButton count={notiCounts} />}
         renderList={<Notification notificationList={data} />}
       />
-
       <Menu
         label="profileMenu"
         renderTriggerButton={
-          <Profile.TriggerButton src={(user as UserResponse).profileImage} />
+          <Profile.TriggerButton src={(user as UserResponse)?.profileImage} />
         }
         renderList={<Profile />}
       />

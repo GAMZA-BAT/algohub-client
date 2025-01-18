@@ -1,8 +1,6 @@
 "use client";
 import { useNoticeByIdQuery } from "@/app/group/[groupId]/notice/query";
-import GroupDashboardPage from "@/app/group/[groupId]/page";
 import Modal from "@/common/component/Modal";
-import useGetGroupId from "@/shared/hook/useGetGroupId";
 import NoticeDetail from "@/view/group/dashboard/NoticeModal/NoticeDetail";
 import {
   noticeHeaderStyle,
@@ -12,9 +10,8 @@ import { textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
 
 const NoticeDetailPage = ({
-  params: { noticeId },
-}: { params: { noticeId: string } }) => {
-  const groupId = useGetGroupId();
+  params: { noticeId, groupId },
+}: { params: { groupId: string; noticeId: string } }) => {
   const router = useRouter();
   const handleClose = () => router.push(`/group/${groupId}/notice`);
 
@@ -22,7 +19,6 @@ const NoticeDetailPage = ({
 
   return (
     <>
-      <GroupDashboardPage params={{ groupId }} />
       <Modal
         isOpen={true}
         onClose={handleClose}
