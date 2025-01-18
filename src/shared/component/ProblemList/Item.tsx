@@ -1,7 +1,7 @@
 "use client";
 
 import type { ProblemContent } from "@/app/api/problems/type";
-import CheckBox from "@/common/component/CheckBox";
+import { IcnSolved, IcnUnsolved } from "@/asset/svg";
 import ProblemEdit from "@/shared/component/ProblemList/ProblemEdit";
 import {
   checkboxStyle,
@@ -22,6 +22,7 @@ import Link from "next/link";
 type ProblemListItemProps = Omit<ProblemContent, "startDate"> & {
   isOwner?: boolean;
   className?: string;
+  isExpired?: boolean;
 };
 
 const JSX_BY_STATUS = {
@@ -32,8 +33,8 @@ const JSX_BY_STATUS = {
       className={clsx(checkboxStyle, wrongCheckBoxStyle)}
     />
   ),
-  unsolved: <CheckBox checked={false} className={checkboxStyle} />,
-  solved: <CheckBox checked={true} className={checkboxStyle} />,
+  unsolved: <IcnUnsolved className={checkboxStyle} />,
+  solved: <IcnSolved className={checkboxStyle} />,
 };
 
 const ProblemListItem = ({
@@ -47,11 +48,10 @@ const ProblemListItem = ({
   memberCount,
   submitMemberCount,
   isOwner = false,
+  isExpired = false,
 }: ProblemListItemProps) => {
   const groupId = useGetGroupId();
   const Icon = getTierImage(level);
-
-  const isExpired = new Date(endDate).getTime() - new Date().getTime() <= 0;
 
   const status = solved ? "solved" : isExpired ? "wrong" : "unsolved";
 

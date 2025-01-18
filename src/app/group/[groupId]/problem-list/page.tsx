@@ -98,6 +98,7 @@ const ProblemListPage = ({
                   />
                   <ProblemSection
                     title="만료된 문제"
+                    isExpired
                     list={expiredList ?? []}
                     totalPages={expiredTotalPages}
                     currentPage={expiredPage}
@@ -134,6 +135,7 @@ const ProblemListPage = ({
               />
               <ProblemSection
                 title="만료된 문제"
+                isExpired
                 list={expiredList ?? []}
                 totalPages={expiredTotalPages}
                 currentPage={expiredPage}
