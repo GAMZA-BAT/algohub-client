@@ -38,13 +38,13 @@ const initOption = {
 
 const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
   const [option, setOption] = useState<SolvedFilterType>(initOption);
-  const [idFilter, setIdFilter] = useState("");
-  const debouncedIdFilter = useDebounce(idFilter, 200);
+  const [nicknameFilter, setNicknameFilter] = useState("");
+  const debouncedNicknameFilter = useDebounce(nicknameFilter, 200);
 
   const router = useRouter();
 
   const { data } = useQuery({
-    queryKey: ["solution", option, debouncedIdFilter],
+    queryKey: ["solution", option, debouncedNicknameFilter],
     queryFn: () =>
       getSolutionList({
         problemId,
@@ -53,12 +53,12 @@ const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
             ? undefined
             : (option.language as SolutionLanguage),
         result: option.result === "모든 결과" ? undefined : option.result,
-        nickname: debouncedIdFilter,
+        nickname: debouncedNicknameFilter,
       }),
   });
 
   const handleChangeIdFilter = (value: string) => {
-    setIdFilter(value);
+    setNicknameFilter(value);
   };
 
   const handleChangeOption = (option: SolvedFilterType) => {
@@ -85,7 +85,7 @@ const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
       <ProblemInfo problemInfo={problemInfo} />
       <SolvedFilterBar
         option={option}
-        idFilterValue={idFilter}
+        idFilterValue={nicknameFilter}
         onChangeIdFilter={handleChangeIdFilter}
         onChangeOption={handleChangeOption}
         defaultValue={initOption}
