@@ -18,4 +18,6 @@ export const headerStyle = style({
 
 export const columnStyle = style({
   ...theme.font.Caption3_M_12,
+
+  textAlign: "center",
 });

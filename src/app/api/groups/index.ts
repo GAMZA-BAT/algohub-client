@@ -8,6 +8,7 @@ import type {
   MemberRoleRequest,
   Role,
 } from "@/app/api/groups/type";
+import { notFound } from "next/navigation";
 
 export const postCreateGroup = async (formData: FormData) => {
   const response = await kyFileInstance
@@ -100,15 +101,18 @@ export const postJoinGroupByCode = async (code: string) => {
 };
 
 export const getRoleByGroupId = async (groupId: number) => {
-  const response = await kyInstance
-    .get<Role>(`api/groups/${groupId}/role`, {
-      next: {
-        tags: ["role"],
-      },
-    })
-    .text();
-
-  return response as Role;
+  try {
+    const response = await kyInstance
+      .get<{ role: Role }>(`api/groups/${groupId}/role`, {
+        next: {
+          tags: ["role"],
+        },
+      })
+      .json();
+    return response.role;
+  } catch (_error) {
+    notFound();
+  }
 };
 
 export const deleteGroupMember = async (userId: number, groupId: number) => {

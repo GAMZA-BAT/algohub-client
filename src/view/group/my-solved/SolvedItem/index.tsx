@@ -46,7 +46,9 @@ const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
       aria-label={`${problemLevel}: ${solutionId}`}
       className={itemStyle}
     >
-      <LevelIcon width={25} height={32} />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <LevelIcon width={25} height={32} />
+      </div>
       <Link
         className={textStyle}
         href={`/group/${groupId}/problem-list/${solutionId}`}

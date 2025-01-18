@@ -9,6 +9,7 @@ interface ProblemSectionProps {
   currentPage: number;
   isOwner?: boolean;
   onPageChange: (page: number) => void;
+  isExpired?: boolean;
 }
 
 const ProblemSection = ({
@@ -18,6 +19,7 @@ const ProblemSection = ({
   currentPage,
   isOwner = false,
   onPageChange,
+  isExpired = false,
 }: ProblemSectionProps) => {
   return (
     <section>
@@ -32,6 +34,7 @@ const ProblemSection = ({
             currentPage={currentPage}
             isOwner={isOwner}
             onPageChange={onPageChange}
+            isExpired={isExpired}
           />
         )}
       </div>

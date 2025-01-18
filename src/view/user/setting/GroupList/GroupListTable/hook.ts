@@ -40,3 +40,11 @@ export const useBookmarkGroupMutation = () => {
   }
   return context.bookmarkMutation;
 };
+
+export const useWithdrawMutation = () => {
+  const context = useContext(TableDispatchContext);
+  if (!context) {
+    throw new Error("useWithdrawMutation must be used within a TableProvider");
+  }
+  return context.withdrawMutate;
+};

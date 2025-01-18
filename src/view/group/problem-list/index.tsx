@@ -12,6 +12,7 @@ type ProgressListProps = {
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
+  isExpired?: boolean;
 };
 
 const ProgressList = ({
@@ -20,13 +21,19 @@ const ProgressList = ({
   totalPages,
   currentPage,
   onPageChange,
+  isExpired = false,
 }: ProgressListProps) => {
   return (
     <>
       <ProblemListHeader />
       <ProblemList>
         {data.map((item) => (
-          <ProblemList.Item key={item.problemId} {...item} isOwner={isOwner} />
+          <ProblemList.Item
+            key={item.problemId}
+            {...item}
+            isOwner={isOwner}
+            isExpired={isExpired}
+          />
         ))}
       </ProblemList>
       <Pagination
