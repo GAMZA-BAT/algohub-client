@@ -24,11 +24,16 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
   const { data: groupData } = useGroupByCodeQuery(code);
   const userNickname = useSession().data?.user?.nickname;
-  const { mutate: joinGroupMutate } = useJoinGroupMutation(groupData?.id || 0);
+  const { mutate: joinGroupMutate } = useJoinGroupMutation();
   const router = useRouter();
 
   const handleAccept = () => {
     joinGroupMutate(code, {
+      onSuccess: (data) => {
+        console.log({ data });
+        router.push(`/group/${groupData.id}`);
+        handleMoveGroup();
+      },
       onError: (error: Error) => {
         if (error.message.includes(`${HTTP_ERROR_STATUS.BAD_REQUEST}`))
           setIsJoinModalOpen(false);
