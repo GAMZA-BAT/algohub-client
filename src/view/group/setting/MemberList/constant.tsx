@@ -19,6 +19,7 @@ import {
 } from "@/view/group/setting/MemberList/index.css";
 import SortIcon from "@/view/user/setting/GroupList/SortIcon";
 import { dropdownStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
+import { chipWrapper } from "./RoleList/index.css";
 
 export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
   {
@@ -88,14 +89,13 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
       };
 
       return (
-        <>
+        <div className={chipWrapper}>
           <Menu
             label="role"
             renderTriggerButton={
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "center",
                   width: "fit-content",
                 }}
               >
@@ -121,7 +121,7 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
               </Dropdown>
             }
           />
-        </>
+        </div>
       );
     },
     width: 80,
