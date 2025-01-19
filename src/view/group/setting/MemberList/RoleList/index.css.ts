@@ -34,6 +34,5 @@ export const chipStyle = recipe({
 });
 
 export const chipWrapper = style({
-  display: "flex",
-  justifyContent: "center",
+  paddingLeft: "42.5%",
 });
