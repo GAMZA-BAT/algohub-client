@@ -15,10 +15,13 @@ import {
   formStyle,
 } from "@/shared/component/GroupInfoForm/index.css";
 import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
+import {
+  plusIconStyle,
+  submitBtnStyle,
+} from "@/view/user/create-group/CreateGroupForm/index.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { submitBtnStyle } from "./index.css";
 
 type CreateGroupFormProps = {
   onSuccess: (code: string) => void;
@@ -82,7 +85,7 @@ const CreateGroupForm = ({ onSuccess }: CreateGroupFormProps) => {
           disabled={!form.formState.isValid || form.formState.isSubmitted}
           isActive={form.formState.isValid && !form.formState.isSubmitted}
         >
-          <IcnPlus fill="white" width={24} height={24} />
+          <IcnPlus className={plusIconStyle} width={24} height={24} />
           스터디 만들기
         </Button>
       </form>
