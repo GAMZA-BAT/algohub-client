@@ -15,3 +15,12 @@ export const groupLabelStyle = style({
   color: theme.color.white,
   ...theme.font.Title1_SB_16,
 });
+
+export const emptyWrapper = style({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  width: "100%",
+  height: "19.2rem",
+});

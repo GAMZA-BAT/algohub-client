@@ -4,7 +4,7 @@ import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
-import ListSection from "@/view/user/index/ListSection/ListSection";
+import ListSection from "@/view/user/index/ListSection";
 import UserCard from "@/view/user/index/UserCard";
 import { userCardWrapper } from "@/view/user/index/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
