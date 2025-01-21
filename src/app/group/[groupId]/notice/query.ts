@@ -6,6 +6,7 @@ import {
   patchNoticeAction,
 } from "@/app/group/[groupId]/notice/action";
 import { useToast } from "@/common/hook/useToast";
+import { queries } from "@/common/query";
 import {
   useMutation,
   useQueryClient,
@@ -15,7 +16,7 @@ import { useRouter } from "next/navigation";
 
 export const useNoticesQuery = ({ groupId, page = 0 }: NoticeListRequest) => {
   const { data } = useSuspenseQuery({
-    queryKey: ["notices", groupId, page],
+    queryKey: queries.notice.all({ groupId, page }),
     queryFn: () => getNotices({ groupId, page }),
     staleTime: 0,
   });
