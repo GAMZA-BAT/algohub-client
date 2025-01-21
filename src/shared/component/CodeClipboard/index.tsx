@@ -16,11 +16,14 @@ interface CodeClipboardProps {
 }
 
 const CodeClipboard = ({ label, code }: CodeClipboardProps) => {
-  const { data: groupInfo } = useGroupByCodeQuery(code);
+  const { data: groupInfo, isSuccess } = useGroupByCodeQuery(code);
+
   const { isCopied, copy } = useClipboard(
-    groupInfo?.ownerNickname,
-    groupInfo?.name,
+    groupInfo?.ownerNickname ?? "",
+    groupInfo?.name ?? "",
   );
+
+  if (!isSuccess) return null;
 
   return (
     <div className={wrapperStyle}>

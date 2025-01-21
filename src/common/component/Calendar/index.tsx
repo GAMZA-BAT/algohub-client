@@ -92,13 +92,21 @@ const renderCustomHeader = ({
 }: CustomHeaderProps) => {
   return (
     <div className={customHeaderWrapperStyle}>
-      <button className={arrowWrapperStyle} onClick={decreaseMonth}>
+      <button
+        type="button"
+        className={arrowWrapperStyle}
+        onClick={decreaseMonth}
+      >
         <IcnBtnArrowLeft className={leftArrowStyle({ rotate: false })} />
       </button>
       <div className={dateDetailStyle}>{`${date.getFullYear()}년 ${
         date.getMonth() + 1
       }월`}</div>
-      <button className={arrowWrapperStyle} onClick={increaseMonth}>
+      <button
+        type="button"
+        className={arrowWrapperStyle}
+        onClick={increaseMonth}
+      >
         <IcnBtnArrowLeft className={leftArrowStyle({ rotate: true })} />
       </button>
     </div>
