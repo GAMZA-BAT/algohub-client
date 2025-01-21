@@ -118,7 +118,7 @@ export const introTextStyle = recipe({
         color: theme.color.mg2,
         fontSize: "24px",
         fontWeight: "500",
-        letterSpacing: "-0.1em",
+        letterSpacing: "-0.36px",
         lineHeight: "33.6px",
       },
     },
