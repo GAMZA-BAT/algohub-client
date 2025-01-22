@@ -5,7 +5,10 @@ import {
 } from "@/shared/component/Table/TableElements/index.css";
 import { pinStyle } from "@/shared/component/Table/index.css";
 import type { TableDataType } from "@/shared/type/table";
-import { chipWrapper, visibilityBtnStyle } from "@/view/user/setting/GroupList/GroupListTable/index.css";
+import {
+  chipWrapper,
+  visibilityBtnStyle,
+} from "@/view/user/setting/GroupList/GroupListTable/index.css";
 import { format } from "date-fns";
 
 import type { GroupSettingsContent } from "@/app/api/groups/type";
