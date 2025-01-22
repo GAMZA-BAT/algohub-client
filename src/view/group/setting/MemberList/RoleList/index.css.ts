@@ -1,4 +1,5 @@
 import { theme } from "@/styles/themes.css";
+import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const chipStyle = recipe({
@@ -30,4 +31,10 @@ export const chipStyle = recipe({
       },
     },
   },
+});
+
+export const chipWrapper = style({
+  display: "inline-flex",
+  width: "8rem",
+  paddingLeft: "0.75rem",
 });
