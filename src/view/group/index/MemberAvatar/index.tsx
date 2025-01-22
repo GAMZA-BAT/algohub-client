@@ -27,7 +27,6 @@ const MemberAvatar = ({
     <Avatar
       src={src}
       size="small"
-      hasShadow
       alt={`${nickname} 프로필`}
       title={nickname}
       className={memberAvatarStyle}

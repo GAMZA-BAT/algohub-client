@@ -11,6 +11,7 @@ export const carouselStyle = recipe({
 
     "::before": {
       content: "",
+      pointerEvents: "none",
 
       position: "absolute",
       top: 0,
@@ -30,6 +31,7 @@ export const carouselStyle = recipe({
 
     "::after": {
       content: "",
+      pointerEvents: "none",
 
       position: "absolute",
       top: 0,
