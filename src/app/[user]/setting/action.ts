@@ -19,7 +19,7 @@ export const patchMyInfoAction = async (
 
   try {
     await patchMyInfo(data);
-  } catch {
+  } catch (err) {
     throw new Error("fail to patch my info");
   }
 };

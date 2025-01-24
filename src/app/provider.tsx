@@ -2,7 +2,7 @@
 
 import ToastProvider from "@/common/component/Toast";
 import JotaiProvider from "@/shared/component/Provider";
-import RefreshTokenExpireTime from "@/shared/component/RefreshTokenExpireTime";
+import TokenManager from "@/shared/component/RefreshTokenExpireTime";
 import {
   QueryClient,
   QueryClientProvider,
@@ -54,7 +54,7 @@ const Providers = ({ children }: ProvidersProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RefreshTokenExpireTime session={session} update={update} />
+      <TokenManager session={session} update={update} />
       <BrowserProvider>
         <JotaiProvider>
           {children}

@@ -1,9 +1,8 @@
-import { postReissueToken } from "@/app/api/auth";
-import { getMyInfo } from "@/app/api/users";
 import authConfig from "@/auth.config";
-import { HTTPError } from "ky";
 import NextAuth from "next-auth";
 import type { AdapterUser } from "../next-auth";
+import { reIssueAction } from "./app/api/auth/actions";
+import { getMyInfo } from "./app/api/users";
 
 // 컴포넌트에서 auth()를 통해 불러와 사용할 session 데이터를 수정할 수 있음
 export const { auth, handlers, signIn, signOut } = NextAuth({
@@ -21,26 +20,27 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.accessTokenExpires = Math.floor(Date.now() / 1000) + 25 * 60; // 25분마다 갱신
       }
 
-      try {
-        const user = await getMyInfo(token.accessToken);
-        token.user = user as AdapterUser;
-      } catch (error) {
-        if (error instanceof HTTPError && error.response.status === 401) {
-          const { accessToken, refreshToken } = await postReissueToken({
-            expiredAccessToken: token.accessToken,
-            refreshToken: token.refreshToken,
-          });
-          token.accessToken = accessToken;
-          token.refreshToken = refreshToken;
-        }
-      }
-
       return token;
     },
-    async session({ session, token }) {
-      session.user = token.user;
-      session.accessToken = token.accessToken;
-      session.refreshToken = token.refreshToken;
+    async session({ session, token, trigger }) {
+      if (trigger === "update") {
+        try {
+          const user = await getMyInfo(session.accessToken);
+          session.user = user as AdapterUser;
+        } catch {
+          const { accessToken, refreshToken } = await reIssueAction(session);
+          const user = await getMyInfo(accessToken);
+          session.user = user as AdapterUser;
+          session.accessToken = accessToken;
+          session.refreshToken = refreshToken;
+
+          return session;
+        }
+      } else {
+        session.user = token.user;
+        session.accessToken = token.accessToken;
+        session.refreshToken = token.refreshToken;
+      }
 
       return session;
     },

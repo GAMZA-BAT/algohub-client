@@ -5,10 +5,11 @@ import {
   type loginSchema,
   loginSchemaMessage,
 } from "@/view/login/LoginForm/schema";
-import { AuthError } from "next-auth";
+import { HTTPError } from "ky";
+import { AuthError, type Session } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import type { z } from "zod";
-import { deleteSignOut } from ".";
+import { deleteSignOut, postReissueToken } from ".";
 
 export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   try {
@@ -41,5 +42,20 @@ export const logoutAction = async () => {
     if (isRedirectError(error)) {
       throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
     }
+  }
+};
+
+export const reIssueAction = async (session: Session) => {
+  try {
+    const newToken = await postReissueToken({
+      expiredAccessToken: session.accessToken,
+      refreshToken: session.refreshToken,
+    });
+    return newToken;
+  } catch (error) {
+    if (error instanceof HTTPError && error.response.status === 401) {
+      await signOut({ redirectTo: "/login" });
+    }
+    throw error;
   }
 };

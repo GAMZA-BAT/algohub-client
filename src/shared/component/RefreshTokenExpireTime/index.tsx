@@ -3,7 +3,17 @@
 import type { Session } from "next-auth";
 import { useEffect, useRef } from "react";
 
-const RefreshTokenExpireTime = ({
+export const [getAccessToken, setAccessToken] = (() => {
+  let accessToken = "";
+  const getAcessToken = () => accessToken;
+  const setAcessToken = (value: string | undefined) => {
+    accessToken = value!;
+  };
+
+  return [getAcessToken, setAcessToken];
+})();
+
+const TokenManager = ({
   session,
   update,
 }: {
@@ -12,17 +22,27 @@ const RefreshTokenExpireTime = ({
 }) => {
   const interval = useRef<ReturnType<typeof setInterval>>();
 
+  // ky hook에서 사용할 액세스 토큰 업데이트
+  useEffect(() => {
+    if (session?.accessToken !== getAccessToken())
+      setAccessToken(session?.accessToken);
+  }, [session?.accessToken]);
+
+  // 토큰 재발급
   useEffect(() => {
     if (interval.current) {
       clearInterval(interval.current);
     }
 
-    const watchAndUpdateIfExpire = () => {
+    const watchAndUpdateIfExpire = async () => {
       if (session) {
         const nowTime = Math.floor(new Date().getTime() / 1000);
         const timeRemaining = session.accessTokenExpires - nowTime;
 
-        if (timeRemaining <= 0) update();
+        if (timeRemaining <= 0) {
+          const { accessToken } = (await update())!;
+          setAccessToken(accessToken);
+        }
       }
     };
 
@@ -34,4 +54,4 @@ const RefreshTokenExpireTime = ({
   return null;
 };
 
-export default RefreshTokenExpireTime;
+export default TokenManager;

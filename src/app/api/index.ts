@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
+import { getAccessToken } from "@/shared/component/RefreshTokenExpireTime";
 import ky from "ky";
-import { getSession } from "next-auth/react";
 
 export const kyPublicInstance = ky.create({
   prefixUrl: process.env.NEXT_PUBLIC_HOST,
@@ -17,10 +17,12 @@ export const kyInstance = ky.create({
   hooks: {
     beforeRequest: [
       async (request) => {
-        const session =
-          typeof window === "undefined" ? await auth() : await getSession();
-        if (session?.accessToken) {
-          request.headers.set("Authorization", `Bearer ${session.accessToken}`);
+        const accessToken =
+          typeof window === "undefined"
+            ? (await auth())?.accessToken
+            : getAccessToken();
+        if (accessToken) {
+          request.headers.set("Authorization", `Bearer ${accessToken}`);
         }
       },
     ],
@@ -39,10 +41,12 @@ export const kyFileInstance = ky.create({
   hooks: {
     beforeRequest: [
       async (request) => {
-        const session =
-          typeof window === "undefined" ? await auth() : await getSession();
-        if (session?.accessToken) {
-          request.headers.set("Authorization", `Bearer ${session.accessToken}`);
+        const accessToken =
+          typeof window === "undefined"
+            ? (await auth())?.accessToken
+            : getAccessToken();
+        if (accessToken) {
+          request.headers.set("Authorization", `Bearer ${accessToken}`);
         }
       },
     ],
