@@ -14,8 +14,6 @@ export const getGroupFormData = ({
 
   if (groupImage instanceof File) {
     data.append("groupImage", groupImage);
-  } else if (!groupImage) {
-    data.append("groupImage", "");
   }
 
   data.append(
@@ -25,6 +23,7 @@ export const getGroupFormData = ({
       introduction,
       startDate: startDate.toISOString().slice(0, 10),
       endDate: endDate.toISOString().slice(0, 10),
+      isDefaultImage: !groupImage,
     }),
   );
 

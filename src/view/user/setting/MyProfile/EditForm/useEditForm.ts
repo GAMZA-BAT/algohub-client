@@ -34,8 +34,6 @@ const useEditForm = () => {
 
     if (profileImage instanceof File) {
       data.append("profileImage", profileImage);
-    } else if (!profileImage) {
-      data.append("profileImage", "");
     }
 
     data.append(
@@ -44,6 +42,7 @@ const useEditForm = () => {
         nickname,
         bjNickname,
         description,
+        isDefaultImage: !profileImage,
       }),
     );
 

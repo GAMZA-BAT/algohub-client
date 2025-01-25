@@ -5,7 +5,8 @@ import type { PasswordRequest } from "@/app/api/users/type";
 export const patchMyInfoAction = async (formData: FormData) => {
   try {
     await patchMyInfo(formData);
-  } catch {
+  } catch (err) {
+    console.log({err});
     throw new Error("fail to patch my info");
   }
 };
