@@ -2,9 +2,10 @@
 
 import type { GroupResponse } from "@/app/api/groups/type";
 import Carousel from "@/common/component/Carousel";
+import Empty from "@/shared/component/Empty";
 import GroupCard from "@/view/user/index/GroupCard";
 import { SECTION_TITLE } from "@/view/user/index/constant";
-import { groupLabelStyle } from "@/view/user/index/index.css";
+import { emptyWrapper, groupLabelStyle } from "@/view/user/index/index.css";
 
 interface ListSectionProps {
   status: "inProgress" | "done" | "queued" | "bookmarked";
@@ -15,7 +16,7 @@ const ListSection = ({ status, groups }: ListSectionProps) => {
   return (
     <div>
       <h2 className={groupLabelStyle}>{SECTION_TITLE[status]}</h2>
-      {groups.length > 0 && (
+      {groups.length ? (
         <Carousel length={groups.length}>
           {groups.map((item: GroupResponse, idx: number) => (
             <Carousel.Item key={item.id} index={idx}>
@@ -23,6 +24,10 @@ const ListSection = ({ status, groups }: ListSectionProps) => {
             </Carousel.Item>
           ))}
         </Carousel>
+      ) : (
+        <div className={emptyWrapper}>
+          <Empty guideText="해당되는 스터디가 없습니다." />
+        </div>
       )}
     </div>
   );

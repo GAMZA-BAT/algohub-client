@@ -31,6 +31,7 @@ export const removeBtnStyle = style({
 
 export const tableStyle = style({
   width: "100%",
+  borderCollapse: "collapse",
 });
 
 export const theadStyle = style({

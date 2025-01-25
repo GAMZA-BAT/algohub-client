@@ -43,3 +43,9 @@ export const visibilityBtnStyle = style({
   ...theme.font.Caption3_M_12,
   color: theme.color.white,
 });
+
+export const chipWrapper = style({
+  display: "inline-flex",
+  width: "8rem",
+  paddingLeft: "2rem",
+});

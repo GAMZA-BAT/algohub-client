@@ -106,14 +106,16 @@ export const usePatchMemberRoleMutation = (groupId: number) => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: (request: MemberRoleRequest) => editRole(groupId, request),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["memberList", groupId],
       });
       showToast("정상적으로 수정되었어요.", "success");
+      if (variables.role === "OWNER") router.push(`/group/${groupId}`);
     },
     onError: (error: HTTPError) => {
       const { response } = error;

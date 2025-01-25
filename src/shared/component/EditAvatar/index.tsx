@@ -11,7 +11,7 @@ interface EditAvatarProps extends Omit<ImageProps, "src" | "alt" | "onChange"> {
   src?: string;
   alt?: string;
   name?: string;
-  onChange?: (img: Blob) => void;
+  onChange?: (img: string) => void;
   variant?: "default" | "secondary";
 }
 
@@ -31,8 +31,9 @@ const EditAvatar = ({
 
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      setPickedImage(fileReader.result as string);
-      onChange?.(file);
+      const { result } = fileReader;
+      setPickedImage(result as string);
+      onChange?.(result as string);
     };
 
     fileReader.readAsDataURL(file);

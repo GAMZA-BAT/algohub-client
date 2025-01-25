@@ -39,6 +39,9 @@ globalStyle("body", {
   background: theme.color.bg,
 });
 
-globalStyle("body", {
-  background: theme.color.bg,
+globalStyle("input:-webkit-autofill", {
+  WebkitTextFillColor: "#fff",
+  WebkitBoxShadow: `0 0 0px 1000px ${theme.color.mg5} inset`,
+  boxShadow: `0 0 0px 1000px ${theme.color.mg5} inset`,
+  transition: "background-color 5000s ease-in-out 0s",
 });

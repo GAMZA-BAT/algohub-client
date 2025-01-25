@@ -45,8 +45,8 @@ export default async function UserLayout({
               내가 푼 문제
             </NavBar.Item>
             <NavBar.Item
-              icon={<IcnMy width={24} height={24} />}
-              mode="stroke"
+              icon={<IcnMy width={24} height={24} fill="#79829A" />}
+              mode="fill"
               href={`/${user}/setting`}
             >
               마이페이지

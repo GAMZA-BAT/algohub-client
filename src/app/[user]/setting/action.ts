@@ -1,12 +1,25 @@
 "use server";
 import { patchMyInfo, patchPassword } from "@/app/api/users";
-import type { PasswordRequest } from "@/app/api/users/type";
+import type { PasswordRequest, UserResponse } from "@/app/api/users/type";
 
-export const patchMyInfoAction = async (formData: FormData) => {
+export const patchMyInfoAction = async (
+  requestData: Omit<UserResponse, "email">,
+) => {
+  const data = new FormData();
+
+  data.append(
+    "request",
+    JSON.stringify({
+      profileImage: requestData.profileImage,
+      nickname: requestData.nickname,
+      bjNickname: requestData.bjNickname,
+      description: requestData.description,
+    }),
+  );
+
   try {
-    await patchMyInfo(formData);
-  } catch (err) {
-    console.log({err});
+    await patchMyInfo(data);
+  } catch {
     throw new Error("fail to patch my info");
   }
 };

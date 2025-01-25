@@ -1,4 +1,4 @@
-import { theme } from "@/styles/themes.css";
+import { scrollTheme, theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
@@ -29,6 +29,10 @@ export const optionWrapper = recipe({
     display: "flex",
     flexDirection: "column",
     gap: "0.4rem",
+
+    maxHeight: "40rem",
+    overflowY: "scroll",
+    ...scrollTheme.scrollbar,
 
     padding: "1.6rem 1rem",
 
