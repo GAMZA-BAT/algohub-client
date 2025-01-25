@@ -30,3 +30,7 @@ export const textStyle = style({
   ...theme.font.Caption3_M_12,
   color: theme.color.mg2,
 });
+
+export const activeStyle = style({
+  backgroundColor: theme.color.mg5,
+});
