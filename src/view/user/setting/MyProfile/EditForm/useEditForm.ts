@@ -9,8 +9,6 @@ import { baseEditSchema } from "./schema";
 const useEditForm = () => {
   const session = useSession();
   const user = session.data?.user;
-  const session = useSession();
-  const user = session.data?.user;
 
   const form = useForm<z.infer<typeof baseEditSchema>>({
     resolver: zodResolver(baseEditSchema),
@@ -19,8 +17,6 @@ const useEditForm = () => {
     defaultValues: {
       profileImage: user?.profileImage || null,
       nickname: user?.nickname,
-      bjNickname: user?.bjNickname,
-      description: user?.description,
       bjNickname: user?.bjNickname,
       description: user?.description,
     },
