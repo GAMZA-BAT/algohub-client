@@ -5,7 +5,18 @@ import type {
 
 export const SOLVED_LANGUAGE: Readonly<SolutionLanguageFilter[]> =
   Object.freeze([
-    "모든 언어", "C", "C++", "Python", "Java", "Rust", "Script Language", "System Language", "Web/App Language", "Functional Language", "Low-Level Language", "Others"
+    "모든 언어",
+    "C",
+    "C++",
+    "Python",
+    "Java",
+    "Rust",
+    "Script Language",
+    "System Language",
+    "Web/App Language",
+    "Functional Language",
+    "Low-Level Language",
+    "Others",
   ]);
 
 export const SOLVED_RESULT: Readonly<SolutionResultFilter[]> = Object.freeze([
