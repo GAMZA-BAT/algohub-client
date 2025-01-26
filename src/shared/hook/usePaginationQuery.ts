@@ -18,7 +18,7 @@ export const usePaginationQuery = <T>({
 
   const query = useQuery({
     queryKey: [...queryKey, currentPage],
-    queryFn: () => queryFn(currentPage),
+    queryFn: () => queryFn(currentPage - 1),
     placeholderData: keepPreviousData,
   });
 

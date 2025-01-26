@@ -8,7 +8,11 @@ const Ranking = ({ rankingData }: { rankingData: RankingContent[] }) => {
   const isValid = rankingData.length > 0;
 
   return (
-    <TabGroup.Tabs tag="section" variant="secondary">
+    <TabGroup.Tabs
+      tag="section"
+      variant="secondary"
+      style={{ height: "32.4rem" }}
+    >
       <TabGroup.TabList>
         <TabGroup.Tab tabId="1" indicatorId="ranking">
           TOP 랭킹
