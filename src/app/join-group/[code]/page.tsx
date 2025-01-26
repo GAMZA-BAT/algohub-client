@@ -1,5 +1,6 @@
 "use client";
-import { postJoinGroupByCode } from "@/app/api/groups";
+import {} from "@/app/api/groups";
+import { joinGroupAction } from "@/app/join-group/[code]/action";
 import { useGroupByCodeQuery } from "@/app/join-group/[code]/query";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
@@ -21,12 +22,12 @@ import { useState } from "react";
 
 const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
+
   const { data: groupData } = useGroupByCodeQuery(code);
   const userNickname = useSession().data?.user?.nickname;
   const router = useRouter();
-
   const { mutate: joinGroupMutate } = useMutation({
-    mutationFn: (code: string) => postJoinGroupByCode(code),
+    mutationFn: (code: string) => joinGroupAction(code),
     onSuccess: () => {
       router.push(`/group/${groupData?.id}`);
     },
