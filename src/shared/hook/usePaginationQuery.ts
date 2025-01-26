@@ -11,14 +11,14 @@ type UsePaginationQueryProps<T> = {
 export const usePaginationQuery = <T>({
   queryKey,
   queryFn,
-  initialPage = 0,
+  initialPage = 1,
 }: UsePaginationQueryProps<T>) => {
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [totalPages, setTotalPages] = useState<number>(0);
 
   const query = useQuery({
     queryKey: [...queryKey, currentPage],
-    queryFn: () => queryFn(currentPage),
+    queryFn: () => queryFn(currentPage - 1),
     placeholderData: keepPreviousData,
   });
 

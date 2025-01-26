@@ -94,7 +94,7 @@ const NoticeList = () => {
           <footer>
             <Pagination
               totalPages={totalPages}
-              currentPage={currentPage + 1}
+              currentPage={currentPage}
               onPageChange={setCurrentPage}
               className={paginationStyle}
             />
