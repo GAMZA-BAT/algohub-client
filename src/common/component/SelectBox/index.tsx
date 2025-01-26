@@ -49,7 +49,7 @@ const SelectBox = ({
       <IcnBtnArrowDown
         width={20}
         height={20}
-        className={clicked ? icnStyle : "none"}
+        className={icnStyle({ clicked })}
       />
       <ul
         aria-label={`${label} 선택하기`}
