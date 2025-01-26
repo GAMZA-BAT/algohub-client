@@ -1,5 +1,4 @@
 "use client";
-import GroupDashboardPage from "@/app/group/[groupId]/page";
 import Modal from "@/common/component/Modal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import NoticeCreate from "@/view/group/dashboard/NoticeModal/NoticeCreate";
@@ -17,7 +16,6 @@ const NoticeCreatePage = () => {
 
   return (
     <>
-      <GroupDashboardPage params={{ groupId }} />
       <Modal
         isOpen={true}
         onClose={handleClose}
