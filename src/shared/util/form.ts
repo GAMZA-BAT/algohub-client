@@ -88,6 +88,5 @@ export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
     {} as Record<string, ValueType>,
   );
   data.append("request", JSON.stringify(requestData));
-  console.log({requestData});
   return data;
 };
