@@ -42,7 +42,7 @@ const CreateGroupForm = () => {
   });
 
   const handleSubmit = async (values: z.infer<typeof groupSchema>) => {
-    const data = getGroupFormData(values);
+    const data = getGroupFormData(form, values);
     const code = await createGroupAction(data);
 
     setCode(code);

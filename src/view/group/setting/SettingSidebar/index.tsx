@@ -56,9 +56,8 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
 
   const { mutate: deleteMutate } = useDeleteGroupMutation();
   const { mutate: patchMutate } = usePatchGroupMutation(+groupId);
-
   const handleSubmit = (values: z.infer<typeof groupSchema>) => {
-    const data = getGroupFormData(values);
+    const data = getGroupFormData(form, values);
     patchMutate(data);
   };
   const error = form.formState.errors.endDate;

@@ -1,5 +1,6 @@
 import { patchMyInfoAction } from "@/app/[user]/setting/action";
 import { useToast } from "@/common/hook/useToast";
+import { createFormDataFromDirtyFields } from "@/shared/util/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -24,27 +25,16 @@ const useEditForm = () => {
   const { showToast } = useToast();
   const isActive = form.formState.isValid && form.formState.isDirty;
 
-  const handleSubmit = async ({
-    nickname,
-    bjNickname,
-    description,
-    profileImage,
-  }: z.infer<typeof baseEditSchema>) => {
-    const data = new FormData();
+  const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
+    const { profileImage } = values;
+    const data = createFormDataFromDirtyFields(
+      form.formState.dirtyFields,
+      values,
+    );
 
     if (profileImage instanceof File) {
       data.append("profileImage", profileImage);
     }
-
-    data.append(
-      "request",
-      JSON.stringify({
-        nickname,
-        bjNickname,
-        description,
-        isDefaultImage: !profileImage,
-      }),
-    );
 
     await patchMyInfoAction(data);
     await session.update(await getSession());

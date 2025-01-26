@@ -5,6 +5,7 @@ import type {
   FieldValues,
   UseFormReturn,
 } from "react-hook-form";
+import type { z } from "zod";
 
 /**
  * 비밀번호 확인처럼 여러 필드의 유효성 검사를 한번에 하는 handlers를 반환하는 함수
@@ -61,4 +62,32 @@ export const handleOnChangeMode = (
       trigger(name);
     },
   };
+};
+
+type ValueType = string | File | boolean | null | Date;
+export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
+  dirtyFields: Record<string, boolean>,
+  values: z.infer<z.ZodObject<T>>,
+): FormData => {
+  const data = new FormData();
+  const requestData = Object.entries(dirtyFields).reduce(
+    (acc, [key, isDirty]) => {
+      if (!isDirty) return acc;
+
+      const value = values[key] as ValueType;
+      if (key.includes("Image")) {
+        acc.isDefaultImage = !value;
+      } else if (value instanceof Date) {
+        acc[key] = value.toISOString().slice(0, 10);
+      } else {
+        acc[key] = value;
+      }
+
+      return acc;
+    },
+    {} as Record<string, ValueType>,
+  );
+  data.append("request", JSON.stringify(requestData));
+  console.log({requestData});
+  return data;
 };
