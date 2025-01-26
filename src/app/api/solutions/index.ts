@@ -14,9 +14,11 @@ export const getSolutionList = async ({
   result,
   page = 0,
 }: SolutionRequest) => {
+  const encodedLanguage = encodeURIComponent(language || "");
+
   const response = await kyInstance
     .get<SolutionResponse>(
-      `api/problems/${problemId}/solutions?page=${page}&size=${size}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}${nickname ? `&nickname=${nickname}` : ""}`,
+      `api/problems/${problemId}/solutions?page=${page}&size=${size}${language ? `&language=${encodedLanguage}` : ""}${result ? `&result=${result}` : ""}${nickname ? `&nickname=${nickname}` : ""}`,
     )
     .json();
 
