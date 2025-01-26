@@ -34,6 +34,7 @@
     "react-datepicker": "^7.3.0",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
+    "react-responsive": "^10.0.0",
     "ts-pattern": "^5.4.0",
     "zod": "^3.23.8"
   },
