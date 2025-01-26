@@ -30,7 +30,7 @@ const AllRanking = () => {
       </ol>
       <Pagination
         totalPages={totalPages}
-        currentPage={currentPage}
+        currentPage={currentPage + 1}
         onPageChange={setCurrentPage}
       />
     </>

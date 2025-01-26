@@ -51,12 +51,13 @@ export const paginationButtonStyle = recipe({
     color: theme.color.mg2,
     backgroundColor: "transparent",
 
-    ":disabled": {
-      cursor: "default",
-    },
-
     ":hover": {
       backgroundColor: theme.color.mg4,
+    },
+
+    ":disabled": {
+      cursor: "default",
+      backgroundColor: "transparent",
     },
   },
   variants: {
