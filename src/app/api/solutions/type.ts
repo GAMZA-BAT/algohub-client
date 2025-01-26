@@ -34,27 +34,19 @@ export type SolutionResponse = PaginationResponse & {
 };
 
 export type SolutionLanguageFilter = SolutionLanguage | "모든 언어";
+
 export type SolutionLanguage =
-  | "C++"
-  | "Java"
-  | "Python"
   | "C"
+  | "C++"
+  | "Python"
+  | "Java"
   | "Rust"
-  | "C++17"
-  | "Python 3"
-  | "PyPy3"
-  | "C99"
-  | "Java 11"
-  | "Ruby"
-  | "Kotlin (JVM)"
-  | "Swift"
-  | "Text"
-  | "C#"
-  | "node.js"
-  | "Go"
-  | "D"
-  | "Rust 2018"
-  | "C++17 (clang)";
+  | "Script Language"
+  | "System Language"
+  | "Web/App Language"
+  | "Functional Language"
+  | "Low-Level Language"
+  | "Others";
 
 export type SolutionResultFilter = SolutionResult | "모든 결과";
 export type SolutionResult =
