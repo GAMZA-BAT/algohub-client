@@ -158,12 +158,14 @@ export const patchPassword = async ({
   currentPassword,
   newPassword,
 }: PasswordRequest) => {
-  const response = await kyInstance.patch("api/users/me/password", {
-    json: {
-      currentPassword,
-      newPassword,
-    },
-  });
+  const response = await kyInstance
+    .patch("api/users/me/password", {
+      json: {
+        currentPassword,
+        newPassword,
+      },
+    })
+    .json();
 
   return response;
 };

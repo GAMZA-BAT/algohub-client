@@ -14,9 +14,7 @@ export const patchPasswordAction = async ({
   currentPassword,
   newPassword,
 }: PasswordRequest) => {
-  try {
-    await patchPassword({ currentPassword, newPassword });
-  } catch {
-    throw new Error("fail to patch password");
-  }
+  const response = await patchPassword({ currentPassword, newPassword });
+
+  return response;
 };
