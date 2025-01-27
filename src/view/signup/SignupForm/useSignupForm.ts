@@ -6,12 +6,24 @@ import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { signupSchema } from "./schema";
 
+const defaultMsg = {
+  email: "이메일을 입력해주세요.",
+  validEmail: "올바른 이메일",
+  usedEmail: "이미 사용 중인 이메일입니다.",
+  password: "영문, 숫자, 특수문자(~!@#$%^&*) 조합 8~15 자리",
+  nickname: "15자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가",
+  validNickname: "사용가능한 닉네임이에요.",
+  nicknameLoading: "로딩중",
+  baekjoonLoading: "로딩중",
+  validBaekjoonId: "정상적으로 연동되었어요.",
+};
+
 const useSignupForm = () => {
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     mode: "onTouched",
     defaultValues: {
-      profile: "",
+      profile: null,
       id: "",
       password: "",
       confirmPassword: "",
@@ -31,31 +43,29 @@ const useSignupForm = () => {
   );
   const { isValid, errors, dirtyFields } = form.formState;
 
-  let idMsg = errors.id?.message || "이메일을 입력해주세요.";
+  let idMsg = errors.id?.message || defaultMsg.email;
 
   const passwordError =
     !!errors.password || errors.confirmPassword?.type === "custom";
 
-  const passwordMsg =
-    errors.confirmPassword?.message ||
-    "영문, 숫자, 특수문자(~!@#$%^&*) 조합 8~15 자리";
+  const passwordMsg = errors.confirmPassword?.message || defaultMsg.password;
 
   const showNicknameMsg =
     !(errors.nickname || isNicknameLoading) && dirtyFields.nickname;
 
   const nicknameMsg = isNicknameLoading
-    ? "로딩중"
+    ? defaultMsg.nicknameLoading
     : showNicknameMsg
-      ? "사용가능한 닉네임이에요."
-      : errors.nickname?.message;
+      ? defaultMsg.validNickname
+      : errors.nickname?.message || defaultMsg.nickname;
 
   const showBjMsg =
     !(errors.baekjoonId || isBaekjoonIdLoading) && dirtyFields.baekjoonId;
 
   const bjMsg = isBaekjoonIdLoading
-    ? "로딩중"
+    ? defaultMsg.baekjoonLoading
     : showBjMsg
-      ? "정상적으로 연동되었어요."
+      ? defaultMsg.validBaekjoonId
       : errors.baekjoonId?.message;
 
   const isActive = isValid && !isNicknameLoading && !isBaekjoonIdLoading;
@@ -68,10 +78,10 @@ const useSignupForm = () => {
     try {
       const response = await checkEmail(id);
 
-      if (response.ok) idMsg = "올바른 이메일";
+      if (response.ok) idMsg = defaultMsg.validEmail;
     } catch {
       form.setError("id", {
-        message: "이미 사용 중인 이메일입니다.",
+        message: defaultMsg.usedEmail,
       });
     }
   };
@@ -82,6 +92,7 @@ const useSignupForm = () => {
     if (values.profile) {
       data.append("profileImage", values.profile);
     }
+
     data.append(
       "request",
       JSON.stringify({

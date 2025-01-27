@@ -32,9 +32,8 @@ const GroupInfoForm = ({
 }: GroupFormProps) => {
   const groupId = useGetGroupId();
   const { mutate: editGroupMutate } = usePatchGroupMutation(+groupId);
-
   const handleSubmit = (values: z.infer<typeof groupSchema>) => {
-    const data = getGroupFormData(values);
+    const data = getGroupFormData(form, values);
 
     if (variant === "create-group") {
       createGroupAction(data);
