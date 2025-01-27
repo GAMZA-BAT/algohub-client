@@ -60,7 +60,7 @@ const SolvedFilterBar = ({
         value={option.language}
         onChange={handleLanguageChange}
         className={selectboxStyle}
-        align="left"
+        align="center"
       />
       <SelectBox
         label="모든 결과"

@@ -45,7 +45,7 @@ export const resetIconStyle = style({
 });
 
 export const selectboxStyle = style({
-  width: "11%",
+  width: "22%",
   minWidth: "11.2rem",
   height: "3.3rem",
 });

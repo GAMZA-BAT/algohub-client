@@ -7,7 +7,6 @@ export const selectStyle = style({
   justifyContent: "space-between",
   alignItems: "center",
   position: "relative",
-  gap: "1.6rem",
 
   padding: "0.8rem 1.6rem",
   width: "100%",
@@ -30,6 +29,7 @@ export const optionWrapper = recipe({
     flexDirection: "column",
     gap: "0.4rem",
 
+    width: "100%",
     maxHeight: "40rem",
     overflowY: "scroll",
     ...scrollTheme.scrollbar,
@@ -61,6 +61,8 @@ export const textStyle = recipe({
   base: {
     whiteSpace: "nowrap",
     ...theme.font.Caption3_M_12,
+    textOverflow: "ellipsis",
+    overflow: "hidden",
   },
   variants: {
     isActive: {
@@ -86,4 +88,13 @@ export const optionStyle = style({
   },
 });
 
-export const icnStyle = style({ transform: "scaleY(-1)" });
+export const icnStyle = recipe({
+  base: { flexShrink: 0 },
+  variants: {
+    clicked: {
+      false: {
+        transform: "scaleY(-1)",
+      },
+    },
+  },
+});
