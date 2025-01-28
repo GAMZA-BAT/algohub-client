@@ -1,9 +1,10 @@
 import type { MemberResponse, Role } from "@/app/api/groups/type";
 import { IcnCalendarTable, IcnClose } from "@/asset/svg";
 import Dropdown from "@/common/component/Dropdown";
-import Menu from "@/common/component/Menu/Menu";
+import Menu, { type MenuRef } from "@/common/component/Menu/Menu";
 import { handleA11yClick } from "@/common/util/dom";
 import { ROLE } from "@/shared/constant/role";
+import { useIntersectionObserver } from "@/shared/hook/useIntersectionObserver";
 import type { TableDataType } from "@/shared/type/table";
 import RoleChip from "@/view/group/setting/MemberList/RoleList/RoleChip";
 import {
@@ -19,6 +20,8 @@ import {
 } from "@/view/group/setting/MemberList/index.css";
 import SortIcon from "@/view/user/setting/GroupList/SortIcon";
 import { dropdownStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
+import clsx from "clsx";
+import { useRef, useState } from "react";
 import { chipWrapper } from "./RoleList/index.css";
 
 export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
@@ -74,13 +77,28 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
   },
   {
     key: "role",
-    // Header: () => <RoleDropdownMenu />,
     Header: () => "역할",
     Cell: (data) => {
+      const [isIntersection, setIsIntersection] = useState(false);
+      const [direction, setDirection] = useState<"down" | "up">("down");
+      const menuRef = useRef<MenuRef>(null);
+      const ref = useIntersectionObserver<HTMLDivElement>(([entry]) => {
+        setIsIntersection(entry.isIntersecting);
+      });
       const handleOwnerChange = useChangeOwner();
       const patchMutate = usePatchMemberRoleMutation();
 
-      const handleClick = (role: Role, memberId: number) => {
+      const handleButtonClick = () => {
+        const showedBtns = Array.from(
+          document.querySelectorAll(".intersection"),
+        );
+
+        const index = showedBtns.findIndex((btn) => btn === ref.current);
+        setDirection(index >= showedBtns.length - 3 ? "up" : "down");
+        menuRef.current?.toggleMenu();
+      };
+
+      const handleListClick = (role: Role, memberId: number) => {
         if (role === "OWNER") {
           handleOwnerChange(data.memberId, data.nickname);
           return;
@@ -91,27 +109,33 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
       return (
         <div className={chipWrapper}>
           <Menu
+            ref={menuRef}
             label="role"
+            onClick={handleButtonClick}
             renderTriggerButton={
               <div
                 style={{
                   display: "flex",
                   width: "fit-content",
                 }}
+                ref={ref}
+                className={clsx(isIntersection && "intersection")}
               >
                 <RoleChip role={data.role as Role} />
               </div>
             }
             renderList={
-              <Dropdown className={dropdownStyle}>
+              <Dropdown className={dropdownStyle({ direction })}>
                 {Object.keys(ROLE).map((role) => {
                   if (role === data.role) return;
                   return (
                     <li
                       key={role}
-                      onClick={() => handleClick(role as Role, data.memberId)}
+                      onClick={() =>
+                        handleListClick(role as Role, data.memberId)
+                      }
                       onKeyDown={handleA11yClick(() =>
-                        handleClick(role as Role, data.memberId),
+                        handleListClick(role as Role, data.memberId),
                       )}
                     >
                       <RoleChip role={role as Role} />

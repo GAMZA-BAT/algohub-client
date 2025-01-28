@@ -33,7 +33,7 @@ const RoleDropdownMenu = () => {
         </div>
       }
       renderList={
-        <Dropdown className={dropdownStyle}>
+        <Dropdown className={dropdownStyle()}>
           {Object.keys(ROLE).map((role) => {
             const handleClick = () => handleFilterChange(role as Role);
             return (

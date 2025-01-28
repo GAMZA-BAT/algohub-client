@@ -1,22 +1,22 @@
 import { useEffect, useRef } from "react";
 
-export const useFadeIn = <T extends HTMLElement>(
+export const useIntersectionObserver = <T extends HTMLElement>(
   callback: IntersectionObserverCallback,
 ) => {
-  const imageRef = useRef<T>(null);
+  const elemntRef = useRef<T>(null);
 
   useEffect(() => {
-    if (!imageRef.current) return;
+    if (!elemntRef.current) return;
     const observer = new IntersectionObserver(callback, { threshold: 0.1 });
 
-    observer.observe(imageRef.current);
+    observer.observe(elemntRef.current);
 
     return () => {
-      if (imageRef.current) {
-        observer.unobserve(imageRef.current);
+      if (elemntRef.current) {
+        observer.unobserve(elemntRef.current);
       }
     };
   }, []);
 
-  return imageRef;
+  return elemntRef;
 };
