@@ -42,7 +42,7 @@ const StatusDropdownMenu = () => {
         </div>
       }
       renderList={
-        <Dropdown className={dropdownStyle}>
+        <Dropdown className={dropdownStyle()}>
           {statusOptions.map(({ label, icon }) => {
             const handleClick = () => handleFilterChange(label);
             return (
