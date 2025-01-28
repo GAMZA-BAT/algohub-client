@@ -131,7 +131,9 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
                   return (
                     <li
                       key={role}
-                      onClick={() => handleListClick(role as Role, data.memberId)}
+                      onClick={() =>
+                        handleListClick(role as Role, data.memberId)
+                      }
                       onKeyDown={handleA11yClick(() =>
                         handleListClick(role as Role, data.memberId),
                       )}
