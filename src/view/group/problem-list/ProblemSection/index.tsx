@@ -1,4 +1,6 @@
 import type { ProblemContent } from "@/app/api/problems/type";
+import Pagination from "@/shared/component/Pagination";
+import ProblemList from "@/shared/component/ProblemList";
 import ProgressList from "@/view/group/problem-list";
 import { titleStyle } from "@/view/group/problem-list/index.css";
 
@@ -27,6 +29,8 @@ const ProblemSection = ({
         <div>
           <h2 className={titleStyle}>{title}</h2>
         </div>
+        <ProblemList.Header />
+
         {list?.length && (
           <ProgressList
             data={list}
@@ -37,6 +41,13 @@ const ProblemSection = ({
             isExpired={isExpired}
           />
         )}
+
+        <Pagination
+          style={{ marginTop: "1.6rem" }}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
+        />
       </div>
     </section>
   );
