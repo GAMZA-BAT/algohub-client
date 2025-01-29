@@ -10,11 +10,7 @@ import {
 } from "@/app/group/[groupId]/problem-list/action";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
-import {
-  useMutation,
-  useQuery,
-  useQueryClient
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 
 export const usePostProblemMutation = (groupId: number) => {

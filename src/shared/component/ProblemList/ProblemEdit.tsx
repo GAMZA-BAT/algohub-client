@@ -63,7 +63,7 @@ const ProblemEdit = ({ problemId, isActive }: ProblemEditProps) => {
         <PatchForm
           onDelete={handleDelete}
           onSubmit={handleEditSubmit}
-          problemInfo={problemInfo}
+          problemInfo={problemInfo!}
         />
       </Modal>
     </>
