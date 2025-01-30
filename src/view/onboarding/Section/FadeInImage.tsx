@@ -1,6 +1,6 @@
 "use client";
 
-import { useFadeIn } from "@/shared/hook/useIntersectionObserver";
+import { useIntersectionObserver } from "@/shared/hook/useIntersectionObserver";
 import type { HTMLAttributes, PropsWithChildren } from "react";
 import { fadeInStyle } from "./index.css";
 
@@ -9,7 +9,7 @@ interface ImageProps
     HTMLAttributes<HTMLDivElement> {}
 
 const FadeInImage = ({ children, ...props }: ImageProps) => {
-  const imageRef = useFadeIn<HTMLDivElement>(function (
+  const imageRef = useIntersectionObserver<HTMLDivElement>(function (
     this: IntersectionObserver,
     [e],
   ) {

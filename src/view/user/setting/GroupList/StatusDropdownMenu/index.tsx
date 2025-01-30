@@ -2,14 +2,19 @@ import { IcnBtnArrowDown } from "@/asset/svg";
 import Dropdown from "@/common/component/Dropdown";
 import Menu from "@/common/component/Menu/Menu";
 import { handleA11yClick } from "@/common/util/dom";
-import { useGroupListDispatch } from "@/view/user/setting/GroupList/GroupListTable/hook";
 import {
+  useGroupListDispatch,
+  useGroupListState,
+} from "@/view/user/setting/GroupList/GroupListTable/hook";
+import {
+  activeStyle,
   arrowDownStyle,
   dropdownStyle,
   textStyle,
   triggerButtonStyle,
 } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
 import StatusIcon from "@/view/user/setting/GroupList/StatusIcon";
+import clsx from "clsx";
 
 const statusOptions = [
   { label: "inProgress", icon: <StatusIcon status="inProgress" /> },
@@ -18,6 +23,7 @@ const statusOptions = [
 ];
 const StatusDropdownMenu = () => {
   const dispatch = useGroupListDispatch();
+  const { filterValue } = useGroupListState();
   const handleFilterChange = (status: string) => {
     dispatch({
       type: "SET_FILTER",
@@ -36,16 +42,17 @@ const StatusDropdownMenu = () => {
         </div>
       }
       renderList={
-        <Dropdown className={dropdownStyle}>
-          {statusOptions.map((option) => {
-            const handleClick = () => handleFilterChange(option.label);
+        <Dropdown className={dropdownStyle()}>
+          {statusOptions.map(({ label, icon }) => {
+            const handleClick = () => handleFilterChange(label);
             return (
               <li
-                key={option.label}
+                key={label}
+                className={clsx(label === filterValue && activeStyle)}
                 onClick={handleClick}
                 onKeyDown={handleA11yClick(handleClick)}
               >
-                {option.icon}
+                {icon}
               </li>
             );
           })}
