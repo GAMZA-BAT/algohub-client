@@ -21,7 +21,10 @@ const LoginAlertModal = ({
 }: LoginAlertModalProps) => {
   const router = useRouter();
 
-  const handleRedirectToLogin = () => router.push("/login");
+  const handleRedirectToLogin = () => {
+    onClose();
+    router.push("/login");
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn>

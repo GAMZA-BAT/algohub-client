@@ -1,6 +1,7 @@
 import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
 import defaultImg from "@/asset/img/img_card_profile.png";
 import { IcnCalenderCard, IcnUser, IcnUser2 } from "@/asset/svg";
+import ProtectedLink from "@/shared/component/ProtectedLink";
 import StatusDot from "@/view/user/index/GroupCard/StatusDot";
 import {
   dateStyle,
@@ -12,7 +13,6 @@ import {
   ownerStyle,
 } from "@/view/user/index/GroupCard/index.css";
 import Image from "next/image";
-import Link from "next/link";
 
 interface GroupCardProps {
   item: GroupResponse;
@@ -23,7 +23,7 @@ const GroupCard = ({ item, status }: GroupCardProps) => {
   const isDone = status === "done";
 
   return (
-    <Link href={`/group/${id}`}>
+    <ProtectedLink href={`/group/${id}`}>
       <article className={groupCardWrapper}>
         <Image
           src={groupImage || defaultImg}
@@ -52,7 +52,7 @@ const GroupCard = ({ item, status }: GroupCardProps) => {
           <p className={descStyle({ isDone })}>{ownerNickname}</p>
         </div>
       </article>
-    </Link>
+    </ProtectedLink>
   );
 };
 
