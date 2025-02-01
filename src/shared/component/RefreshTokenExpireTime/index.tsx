@@ -2,7 +2,8 @@
 
 import type { Session } from "next-auth";
 import { getSession } from "next-auth/react";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { setAccessToken } from "../../util/token";
 
 const RefreshTokenExpireTime = ({
   session,
@@ -16,16 +17,17 @@ const RefreshTokenExpireTime = ({
     if (session) {
       const nowTime = Date.now();
       const timeRemaining = session.accessTokenExpires - nowTime;
-
       if (timeRemaining <= 1000 * 60 * 5) {
-        await update(await getSession());
+        const newSession = await update(await getSession());
+        setAccessToken(newSession?.accessToken!);
       }
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    setAccessToken(session?.accessToken);
     watchAndUpdateIfExpire();
-  }, []);
+  }, [session?.accessToken]);
 
   useEffect(() => {
     if (interval.current) {

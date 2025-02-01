@@ -8,7 +8,6 @@ import {
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import type { z } from "zod";
-import { deleteSignOut } from ".";
 
 export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   try {
@@ -35,7 +34,6 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
 
 export const logoutAction = async () => {
   try {
-    await deleteSignOut();
     await signOut();
   } catch (error) {
     if (isRedirectError(error)) {
