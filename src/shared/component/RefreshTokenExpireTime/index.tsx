@@ -1,7 +1,8 @@
 "use client";
 
 import type { Session } from "next-auth";
-import { useEffect, useRef } from "react";
+import { getSession } from "next-auth/react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 const RefreshTokenExpireTime = ({
   session,
@@ -11,20 +12,25 @@ const RefreshTokenExpireTime = ({
   update: (data?: unknown) => Promise<Session | null>;
 }) => {
   const interval = useRef<ReturnType<typeof setInterval>>();
+  const watchAndUpdateIfExpire = async () => {
+    if (session) {
+      const nowTime = Date.now();
+      const timeRemaining = session.accessTokenExpires - nowTime;
+
+      if (timeRemaining <= 1000 * 60 * 5) {
+        await update(await getSession());
+      }
+    }
+  };
+
+  useLayoutEffect(() => {
+    watchAndUpdateIfExpire();
+  }, []);
 
   useEffect(() => {
     if (interval.current) {
       clearInterval(interval.current);
     }
-
-    const watchAndUpdateIfExpire = () => {
-      if (session) {
-        const nowTime = Math.floor(new Date().getTime() / 1000);
-        const timeRemaining = session.accessTokenExpires - nowTime;
-
-        if (timeRemaining <= 0) update();
-      }
-    };
 
     interval.current = setInterval(watchAndUpdateIfExpire, 1000 * 10);
 
