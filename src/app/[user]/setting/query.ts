@@ -235,12 +235,10 @@ export const usePatchPasswordMutation = () => {
       showToast("비밀번호가 변경되었습니다.", "success");
     },
     onError: (error: HTTPError) => {
-      if (!error.response) return;
-
-      const { status } = error.response;
+      const { status } = JSON.parse(error.message);
 
       switch (status) {
-        case HTTP_ERROR_STATUS.FORBIDDEN: {
+        case HTTP_ERROR_STATUS.BAD_REQUEST: {
           showToast("비밀번호가 일치하지 않습니다.", "error");
           break;
         }
