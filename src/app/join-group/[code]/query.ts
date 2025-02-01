@@ -1,22 +1,9 @@
 import { getGroupsByCode } from "@/app/api/groups";
-import { joinGroupAction } from "@/app/join-group/[code]/action";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 export const useGroupByCodeQuery = (code: string) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["groupByCode", code],
     queryFn: () => getGroupsByCode(code),
-  });
-};
-
-export const useJoinGroupMutation = (groupId: number) => {
-  const router = useRouter();
-
-  return useMutation({
-    mutationFn: (code: string) => joinGroupAction(code),
-    onSuccess: () => {
-      router.push(`/group/${groupId}`);
-    },
   });
 };

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const baseEditSchema = z.object({
-  profileImage: z.string(),
+  profileImage: z.union([z.string(), z.instanceof(File)]).nullable(),
 
   nickname: z
     .string()

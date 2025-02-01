@@ -8,5 +8,7 @@ export const sidebarStyle = style({
   minWidth: "27rem",
   width: "20%",
 
+  zIndex: theme.zIndex.high,
+
   backgroundColor: theme.color.mg6,
 });

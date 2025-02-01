@@ -29,6 +29,7 @@ export const ulStyle = style({
 
   // scroll bar
   overflowY: "scroll",
+  overflowX: "hidden",
   overscrollBehavior: "contain",
 
   height: "26.6rem",

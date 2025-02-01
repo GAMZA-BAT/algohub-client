@@ -6,21 +6,17 @@ import type {
 export const SOLVED_LANGUAGE: Readonly<SolutionLanguageFilter[]> =
   Object.freeze([
     "모든 언어",
-    "C++17",
-    "Python 3",
-    "PyPy3",
-    "C99",
-    "Java 11",
-    "Ruby",
-    "Kotlin (JVM)",
-    "Swift",
-    "Text",
-    "C#",
-    "node.js",
-    "Go",
-    "D",
-    "Rust 2018",
-    "C++17 (clang)",
+    "C",
+    "C++",
+    "Python",
+    "Java",
+    "Rust",
+    "Script Language",
+    "System Language",
+    "Web/App Language",
+    "Functional Language",
+    "Low-Level Language",
+    "Others",
   ]);
 
 export const SOLVED_RESULT: Readonly<SolutionResultFilter[]> = Object.freeze([
