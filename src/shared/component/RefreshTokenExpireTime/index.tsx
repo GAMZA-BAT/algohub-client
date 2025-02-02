@@ -25,19 +25,14 @@ const RefreshTokenExpireTime = ({
   };
 
   useEffect(() => {
-    setAccessToken(session?.accessToken);
-    watchAndUpdateIfExpire();
-  }, [session?.accessToken]);
-
-  useEffect(() => {
     if (interval.current) {
       clearInterval(interval.current);
     }
-
+    watchAndUpdateIfExpire();
     interval.current = setInterval(watchAndUpdateIfExpire, 1000 * 10);
 
     return () => clearInterval(interval.current);
-  }, [session, update]);
+  }, [session?.accessToken]);
 
   return null;
 };

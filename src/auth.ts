@@ -1,10 +1,17 @@
 import authConfig from "@/auth.config";
 import { jwtDecode } from "jwt-decode";
+import { HTTPError } from "ky";
 import NextAuth from "next-auth";
 import type { AdapterUser } from "../next-auth";
 import { deleteSignOut, postReissueToken } from "./app/api/auth";
 // 컴포넌트에서 auth()를 통해 불러와 사용할 session 데이터를 수정할 수 있음
-export const { auth, handlers, signIn, signOut } = NextAuth({
+export const {
+  auth,
+  handlers,
+  signIn,
+  signOut,
+  unstable_update: update,
+} = NextAuth({
   trustHost: true,
   pages: {
     signIn: "/login",
@@ -30,8 +37,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           token.refreshToken = refreshToken;
           token.accessTokenExpires = jwtDecode(accessToken).exp! * 1000;
         }
-      } catch (_err) {
-        console.warn("err");
+      } catch (err) {
+        if (err instanceof HTTPError) {
+          console.warn("auth.ts:", await err.response.json());
+        }
       }
       return token;
     },

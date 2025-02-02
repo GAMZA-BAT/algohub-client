@@ -4,8 +4,9 @@ import type {
   reissueTokenRequest,
   tokenResponse,
 } from "@/app/api/auth/type";
+import { signOut } from "@/auth";
 import { HTTPError } from "ky";
-import { signOut } from "next-auth/react";
+import { signOut as clientSignOut } from "next-auth/react";
 
 export const postSignup = async (formData: FormData) => {
   const response = await kyBaseInstance
@@ -37,7 +38,10 @@ export const postReissueToken = async (requestData: reissueTokenRequest) => {
       .json();
   } catch (error) {
     if (error instanceof HTTPError && error.response.status === 401) {
-      await signOut({ redirectTo: "/login" });
+      const option = { redirectTo: "/login" };
+      typeof window === "undefined"
+        ? await signOut(option)
+        : await clientSignOut(option);
     }
     throw error;
   }

@@ -1,8 +1,10 @@
 import { auth } from "@/auth";
+import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { getAccessToken, setAccessToken } from "@/shared/util/token";
-import type { KyRequest } from "ky";
+import type { BeforeRetryHook, HTTPError, KyRequest } from "ky";
 import ky from "ky";
 import { getSession } from "next-auth/react";
+import { reIssueAction } from "./auth/actions";
 
 const insertToken = async (request: KyRequest) => {
   let accessToken =
@@ -16,6 +18,22 @@ const insertToken = async (request: KyRequest) => {
   }
   if (accessToken) {
     request.headers.set("Authorization", `Bearer ${accessToken}`);
+  }
+};
+const insertNewToken: BeforeRetryHook = async ({
+  error,
+  request,
+  retryCount,
+}) => {
+  if (retryCount === 2) {
+    // signOut();
+    ky.stop;
+  }
+  const { response } = error as HTTPError;
+  if (response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED) {
+    const newAccessToken = (await reIssueAction())?.accessToken;
+    setAccessToken(newAccessToken);
+    request.headers.set("Authorization", `Bearer ${newAccessToken}`);
   }
 };
 const RETRY = 2;
@@ -34,6 +52,7 @@ export const kyInstance = ky.create({
   },
   hooks: {
     beforeRequest: [insertToken],
+    beforeRetry: [insertNewToken],
   },
   retry: RETRY,
 });
@@ -49,6 +68,7 @@ export const kyFileInstance = ky.create({
   prefixUrl: process.env.NEXT_PUBLIC_HOST,
   hooks: {
     beforeRequest: [insertToken],
+    beforeRetry: [insertNewToken],
   },
   retry: RETRY,
 });
