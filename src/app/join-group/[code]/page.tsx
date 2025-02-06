@@ -53,7 +53,12 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
           <GroupInfoCard groupInfo={groupData} />
           <DecisionPrompt owner={groupData.ownerNickname} />
           <div className={btnWrapper}>
-            <Button type="button" size="medium" color="lg">
+            <Button
+              type="button"
+              size="medium"
+              color="lg"
+              onClick={handleReject}
+            >
               거절하기
             </Button>
             <Button
