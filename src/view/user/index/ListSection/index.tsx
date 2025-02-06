@@ -25,9 +25,7 @@ const ListSection = ({ status, groups }: ListSectionProps) => {
           ))}
         </Carousel>
       ) : (
-        <div className={emptyWrapper}>
-          <Empty guideText="해당되는 스터디가 없습니다." />
-        </div>
+        <Empty className={emptyWrapper}>해당되는 스터디가 없습니다.</Empty>
       )}
     </div>
   );

@@ -91,7 +91,7 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
           </ul>
         </>
       ) : (
-        <Empty guideText="지금은 알림이 없어요." />
+        <Empty>지금은 알림이 없어요.</Empty>
       )}
     </div>
   );

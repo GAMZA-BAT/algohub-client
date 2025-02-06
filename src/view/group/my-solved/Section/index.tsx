@@ -1,6 +1,7 @@
 "use client";
 
 import type { SolutionContent } from "@/app/api/solutions/type";
+import Empty from "@/shared/component/Empty";
 import Pagination from "@/shared/component/Pagination";
 import Header from "@/view/group/my-solved/Header";
 import {
@@ -28,12 +29,18 @@ const MySolvedSection = ({
   return (
     <div className={sectionStyle}>
       <h2 className={titleStyle}>{title}</h2>
-      <Header />
-      <ul className={listStyle}>
-        {data.map((item) => (
-          <SolvedItem key={item.solutionId} solutionInfo={item} />
-        ))}
-      </ul>
+      {totalPages - 1 > 0 ? (
+        <>
+          <Header />
+          <ul className={listStyle}>
+            {data.map((item) => (
+              <SolvedItem key={item.solutionId} solutionInfo={item} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <Empty style={{ height: "18rem" }}>문제를 풀어보세요!</Empty>
+      )}
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}

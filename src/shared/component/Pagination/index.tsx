@@ -40,8 +40,7 @@ const Pagination = ({
       onPageChange(currentPage + 1);
     }
   };
-
-  if (!totalPages) return;
+  if (!(totalPages - 1)) return;
 
   return (
     <nav

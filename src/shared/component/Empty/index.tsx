@@ -3,15 +3,16 @@ import {
   emptyGuideStyle,
   emptyWrapper,
 } from "@/shared/component/Empty/index.css";
+import clsx from "clsx";
+import type { HTMLAttributes } from "react";
 
-type EmptyProps = {
-  guideText: string;
-};
-const Empty = ({ guideText }: EmptyProps) => {
+type EmptyProps = HTMLAttributes<HTMLDivElement>;
+
+const Empty = ({ children, className, ...props }: EmptyProps) => {
   return (
-    <section className={emptyWrapper}>
+    <section className={clsx(emptyWrapper, className)} {...props}>
       <IcnEmpty width={100} height={52} />
-      <p className={emptyGuideStyle}>{guideText}</p>
+      <p className={emptyGuideStyle}>{children}</p>
     </section>
   );
 };
