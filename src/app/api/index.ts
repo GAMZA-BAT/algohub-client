@@ -7,18 +7,15 @@ import { getSession } from "next-auth/react";
 import { reIssueAction } from "./auth/actions";
 
 const insertToken = async (request: KyRequest) => {
-  let accessToken =
-    typeof window === "undefined"
-      ? (await auth())?.accessToken
-      : getAccessToken();
+  const isServer = typeof window === "undefined";
+  let accessToken = isServer ? (await auth())?.accessToken : getAccessToken();
 
-  if (!accessToken) {
+  if (!(accessToken || isServer)) {
     accessToken = (await getSession())?.accessToken;
     setAccessToken(accessToken);
   }
-  if (accessToken) {
-    request.headers.set("Authorization", `Bearer ${accessToken}`);
-  }
+  
+  request.headers.set("Authorization", `Bearer ${accessToken}`);
 };
 const insertNewToken: BeforeRetryHook = async ({
   error,
@@ -26,13 +23,13 @@ const insertNewToken: BeforeRetryHook = async ({
   retryCount,
 }) => {
   if (retryCount === 2) {
-    // signOut();
+    // signOut(); reIssueAction에서 로그아웃 처리
     ky.stop;
   }
   const { response } = error as HTTPError;
   if (response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED) {
     const newAccessToken = (await reIssueAction())?.accessToken;
-    setAccessToken(newAccessToken);
+    typeof window !== "undefined" && setAccessToken(newAccessToken);
     request.headers.set("Authorization", `Bearer ${newAccessToken}`);
   }
 };
