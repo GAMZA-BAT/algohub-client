@@ -1,17 +1,17 @@
-import { kyFileInstance, kyInstance } from "@/app/api";
+import { kyFormWithTokenInstance, kyJsonWithTokenInstance } from "@/app/api";
 import type {
-  GroupCodeResponse,
-  GroupListResponse,
-  GroupResponse,
-  GroupSettingsContent,
-  MemberResponse,
-  MemberRoleRequest,
-  Role,
+    GroupCodeResponse,
+    GroupListResponse,
+    GroupResponse,
+    GroupSettingsContent,
+    MemberResponse,
+    MemberRoleRequest,
+    Role,
 } from "@/app/api/groups/type";
 import { notFound } from "next/navigation";
 
 export const postCreateGroup = async (formData: FormData) => {
-  const response = await kyFileInstance
+  const response = await kyFormWithTokenInstance
     .post<GroupCodeResponse>("api/groups", {
       body: formData,
     })
@@ -21,7 +21,7 @@ export const postCreateGroup = async (formData: FormData) => {
 };
 
 export const getGroupList = async () => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<GroupListResponse>("api/users/me/groups")
     .json();
 
@@ -29,7 +29,7 @@ export const getGroupList = async () => {
 };
 
 export const getGroupInfo = async (groupId: number) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<GroupResponse>(`api/groups/${groupId}`, {
       next: {
         tags: ["groupInfo"],
@@ -41,7 +41,7 @@ export const getGroupInfo = async (groupId: number) => {
 };
 
 export const getGroupMemberList = async (groupId: number) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<MemberResponse[]>(`api/groups/${groupId}/members`, {
       next: {
         tags: ["groupMember"],
@@ -53,7 +53,7 @@ export const getGroupMemberList = async (groupId: number) => {
 };
 
 export const patchGroupVisibility = async (groupId: number, flag: boolean) => {
-  const response = await kyInstance.patch(`api/groups/${groupId}/visibility`, {
+  const response = await kyJsonWithTokenInstance.patch(`api/groups/${groupId}/visibility`, {
     json: {
       isVisible: flag,
     },
@@ -63,7 +63,7 @@ export const patchGroupVisibility = async (groupId: number, flag: boolean) => {
 };
 
 export const patchGroupInfo = async (groupId: number, formData: FormData) => {
-  const response = await kyFileInstance.patch(`api/groups/${groupId}`, {
+  const response = await kyFormWithTokenInstance.patch(`api/groups/${groupId}`, {
     body: formData,
   });
 
@@ -71,7 +71,7 @@ export const patchGroupInfo = async (groupId: number, formData: FormData) => {
 };
 
 export const getGroupCode = async (groupId: number) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<GroupCodeResponse>(`api/groups/${groupId}/code`)
     .json();
 
@@ -79,7 +79,7 @@ export const getGroupCode = async (groupId: number) => {
 };
 
 export const withdrawGroup = async (groupId: number) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .delete(`api/groups/${groupId}/members/me`)
     .json();
 
@@ -87,7 +87,7 @@ export const withdrawGroup = async (groupId: number) => {
 };
 
 export const getGroupsByCode = async (code: string) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<GroupResponse>(`api/groups?code=${code}`)
     .json();
 
@@ -95,14 +95,14 @@ export const getGroupsByCode = async (code: string) => {
 };
 
 export const postJoinGroupByCode = async (code: string) => {
-  const response = await kyInstance.post(`api/groups/${code}/join`);
+  const response = await kyJsonWithTokenInstance.post(`api/groups/${code}/join`);
 
   return response;
 };
 
 export const getRoleByGroupId = async (groupId: number) => {
   try {
-    const response = await kyInstance
+    const response = await kyJsonWithTokenInstance
       .get<{ role: Role }>(`api/groups/${groupId}/role`, {
         next: {
           tags: ["role"],
@@ -116,7 +116,7 @@ export const getRoleByGroupId = async (groupId: number) => {
 };
 
 export const deleteGroupMember = async (userId: number, groupId: number) => {
-  const response = await kyInstance.delete(
+  const response = await kyJsonWithTokenInstance.delete(
     `api/groups/${groupId}/members/${userId}`,
   );
 
@@ -124,7 +124,7 @@ export const deleteGroupMember = async (userId: number, groupId: number) => {
 };
 
 export const deleteGroup = async (groupId: number) => {
-  const response = await kyInstance.delete(`api/groups/${groupId}`);
+  const response = await kyJsonWithTokenInstance.delete(`api/groups/${groupId}`);
 
   return response;
 };
@@ -133,7 +133,7 @@ export const patchMemberRole = async (
   groupId: number,
   request: MemberRoleRequest,
 ) => {
-  const response = await kyInstance.patch(`api/groups/${groupId}/role`, {
+  const response = await kyJsonWithTokenInstance.patch(`api/groups/${groupId}/role`, {
     json: request,
   });
 
@@ -141,7 +141,7 @@ export const patchMemberRole = async (
 };
 
 export const getMyGroupSettings = async () => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<GroupSettingsContent[]>("api/groups/settings")
     .json();
 
@@ -149,7 +149,7 @@ export const getMyGroupSettings = async () => {
 };
 
 export const postGroupBookmark = async (groupId: number) => {
-  const response = await kyInstance.post(`api/groups/${groupId}/bookmark`);
+  const response = await kyJsonWithTokenInstance.post(`api/groups/${groupId}/bookmark`);
 
   return response;
 };
