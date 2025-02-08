@@ -1,7 +1,7 @@
 import { kyJsonWithTokenInstance } from "@/app/api";
 import type {
-    NotificationItem,
-    NotificationSettingContent,
+  NotificationItem,
+  NotificationSettingContent,
 } from "@/app/api/notifications/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
@@ -59,12 +59,13 @@ export const getNotificationsSettings = async () => {
 export const patchNotificationsSettings = async (
   requestData: NotificationSettingContent,
 ) => {
-  const response = await kyJsonWithTokenInstance.patch<NotificationSettingContent>(
-    "api/notifications/settings",
-    {
-      json: requestData,
-    },
-  );
+  const response =
+    await kyJsonWithTokenInstance.patch<NotificationSettingContent>(
+      "api/notifications/settings",
+      {
+        json: requestData,
+      },
+    );
 
   return response;
 };

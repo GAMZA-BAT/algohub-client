@@ -1,4 +1,8 @@
-import { kyFormInstance, kyJsonInstance, kyJsonWithTokenInstance } from "@/app/api";
+import {
+  kyFormInstance,
+  kyJsonInstance,
+  kyJsonWithTokenInstance,
+} from "@/app/api";
 import type {
   SignInRequest,
   reissueTokenRequest,
@@ -49,7 +53,9 @@ export const postReissueToken = async (requestData: reissueTokenRequest) => {
 };
 
 export const deleteSignOut = async () => {
-  const response = await kyJsonWithTokenInstance.delete("api/auth/sign-out").json();
+  const response = await kyJsonWithTokenInstance
+    .delete("api/auth/sign-out")
+    .json();
 
   return response;
 };

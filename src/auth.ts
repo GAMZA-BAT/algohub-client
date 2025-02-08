@@ -36,7 +36,7 @@ export const {
             token.refreshToken = refreshToken;
             token.accessTokenExpires = jwtDecode(accessToken).exp! * 1000;
           }
-          token.user = await getMyInfo(token.accessToken) as AdapterUser;
+          token.user = (await getMyInfo(token.accessToken)) as AdapterUser;
         }
       } catch (err) {
         if (err instanceof HTTPError) {

@@ -1,7 +1,7 @@
 import {
   kyFormWithTokenInstance,
   kyJsonInstance,
-  kyJsonWithTokenInstance
+  kyJsonWithTokenInstance,
 } from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
@@ -10,7 +10,7 @@ import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
 
 export const getGroupsByUsers = async (userNickname: string) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyJsonInstance
     .get<GroupListResponse>(`api/users/${userNickname}/groups`)
     .json();
 
@@ -38,7 +38,7 @@ export const getMyInfo = async (accessToken: string) => {
 };
 
 export const checkNickname = async (nickname: string) => {
-  const response = await kyJsonWithTokenInstance.get(
+  const response = await kyJsonInstance.get(
     `api/users/check-nickname?nickname=${nickname}`,
   );
 
@@ -62,7 +62,7 @@ export const getInProgressMySolutions = async ({
 };
 
 export const checkBojNickname = async (nickname: string) => {
-  const response = await kyJsonWithTokenInstance.get(
+  const response = await kyJsonInstance.get(
     `api/users/check-baekjoon-nickname?bjNickname=${nickname}`,
   );
 
@@ -70,7 +70,7 @@ export const checkBojNickname = async (nickname: string) => {
 };
 
 export const checkEmail = async (email: string) => {
-  const response = await kyJsonWithTokenInstance.post("api/users/check-email", {
+  const response = await kyJsonInstance.post("api/users/check-email", {
     json: {
       email,
     },

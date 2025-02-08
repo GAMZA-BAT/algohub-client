@@ -1,10 +1,10 @@
 import { kyJsonWithTokenInstance } from "@/app/api";
 import type { CommentContent } from "@/app/api/comments/type";
 import type {
-    NoticeContent,
-    NoticeListRequest,
-    NoticeRequest,
-    NoticeResponse,
+  NoticeContent,
+  NoticeListRequest,
+  NoticeRequest,
+  NoticeResponse,
 } from "@/app/api/notices/type";
 
 export const getNoticeCommentList = async (noticeId: number) => {
@@ -93,7 +93,9 @@ export const patchNotice = async (
 };
 
 export const deleteNotice = async (noticeId: number) => {
-  const response = await kyJsonWithTokenInstance.delete(`api/notices/${noticeId}`);
+  const response = await kyJsonWithTokenInstance.delete(
+    `api/notices/${noticeId}`,
+  );
 
   return response;
 };

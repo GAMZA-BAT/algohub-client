@@ -1,8 +1,8 @@
 import { kyJsonWithTokenInstance } from "@/app/api";
 import type {
-    SolutionContent,
-    SolutionRequest,
-    SolutionResponse,
+  SolutionContent,
+  SolutionRequest,
+  SolutionResponse,
 } from "@/app/api/solutions/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
 

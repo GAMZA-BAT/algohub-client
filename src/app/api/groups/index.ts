@@ -1,12 +1,12 @@
 import { kyFormWithTokenInstance, kyJsonWithTokenInstance } from "@/app/api";
 import type {
-    GroupCodeResponse,
-    GroupListResponse,
-    GroupResponse,
-    GroupSettingsContent,
-    MemberResponse,
-    MemberRoleRequest,
-    Role,
+  GroupCodeResponse,
+  GroupListResponse,
+  GroupResponse,
+  GroupSettingsContent,
+  MemberResponse,
+  MemberRoleRequest,
+  Role,
 } from "@/app/api/groups/type";
 import { notFound } from "next/navigation";
 
@@ -53,19 +53,25 @@ export const getGroupMemberList = async (groupId: number) => {
 };
 
 export const patchGroupVisibility = async (groupId: number, flag: boolean) => {
-  const response = await kyJsonWithTokenInstance.patch(`api/groups/${groupId}/visibility`, {
-    json: {
-      isVisible: flag,
+  const response = await kyJsonWithTokenInstance.patch(
+    `api/groups/${groupId}/visibility`,
+    {
+      json: {
+        isVisible: flag,
+      },
     },
-  });
+  );
 
   return response;
 };
 
 export const patchGroupInfo = async (groupId: number, formData: FormData) => {
-  const response = await kyFormWithTokenInstance.patch(`api/groups/${groupId}`, {
-    body: formData,
-  });
+  const response = await kyFormWithTokenInstance.patch(
+    `api/groups/${groupId}`,
+    {
+      body: formData,
+    },
+  );
 
   return response;
 };
@@ -95,7 +101,9 @@ export const getGroupsByCode = async (code: string) => {
 };
 
 export const postJoinGroupByCode = async (code: string) => {
-  const response = await kyJsonWithTokenInstance.post(`api/groups/${code}/join`);
+  const response = await kyJsonWithTokenInstance.post(
+    `api/groups/${code}/join`,
+  );
 
   return response;
 };
@@ -124,7 +132,9 @@ export const deleteGroupMember = async (userId: number, groupId: number) => {
 };
 
 export const deleteGroup = async (groupId: number) => {
-  const response = await kyJsonWithTokenInstance.delete(`api/groups/${groupId}`);
+  const response = await kyJsonWithTokenInstance.delete(
+    `api/groups/${groupId}`,
+  );
 
   return response;
 };
@@ -133,9 +143,12 @@ export const patchMemberRole = async (
   groupId: number,
   request: MemberRoleRequest,
 ) => {
-  const response = await kyJsonWithTokenInstance.patch(`api/groups/${groupId}/role`, {
-    json: request,
-  });
+  const response = await kyJsonWithTokenInstance.patch(
+    `api/groups/${groupId}/role`,
+    {
+      json: request,
+    },
+  );
 
   return response;
 };
@@ -149,7 +162,9 @@ export const getMyGroupSettings = async () => {
 };
 
 export const postGroupBookmark = async (groupId: number) => {
-  const response = await kyJsonWithTokenInstance.post(`api/groups/${groupId}/bookmark`);
+  const response = await kyJsonWithTokenInstance.post(
+    `api/groups/${groupId}/bookmark`,
+  );
 
   return response;
 };

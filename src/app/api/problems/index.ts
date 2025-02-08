@@ -1,10 +1,10 @@
 import { kyJsonWithTokenInstance } from "@/app/api";
 import type {
-    EditProblemRequest,
-    GetProblemRequest,
-    ProblemContent,
-    ProblemListResponse,
-    ProblemRequest,
+  EditProblemRequest,
+  GetProblemRequest,
+  ProblemContent,
+  ProblemListResponse,
+  ProblemRequest,
 } from "@/app/api/problems/type";
 
 export const getProblemInfo = async (problemId: number) => {
@@ -23,7 +23,9 @@ export const postProblem = (groupId: number, body: ProblemRequest) => {
 };
 
 export const deleteProblem = (problemId: number) => {
-  const response = kyJsonWithTokenInstance.delete(`api/problems/${problemId}`).json();
+  const response = kyJsonWithTokenInstance
+    .delete(`api/problems/${problemId}`)
+    .json();
 
   return response;
 };
