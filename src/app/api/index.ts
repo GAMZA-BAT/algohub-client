@@ -14,7 +14,7 @@ const insertToken = async (request: KyRequest) => {
     accessToken = (await getSession())?.accessToken;
     setAccessToken(accessToken);
   }
-  
+
   request.headers.set("Authorization", `Bearer ${accessToken}`);
 };
 const insertNewToken: BeforeRetryHook = async ({
