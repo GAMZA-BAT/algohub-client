@@ -15,8 +15,7 @@ const RefreshTokenExpireTime = ({
   const interval = useRef<ReturnType<typeof setInterval>>();
   const watchAndUpdateIfExpire = async () => {
     if (session) {
-      const nowTime = Date.now();
-      const timeRemaining = session.accessTokenExpires - nowTime;
+      const timeRemaining = session.accessTokenExpires - Date.now();
       if (timeRemaining <= 1000 * 60 * 5) {
         const newSession = await update(await getSession());
         setAccessToken(newSession?.accessToken!);
@@ -29,7 +28,7 @@ const RefreshTokenExpireTime = ({
       clearInterval(interval.current);
     }
     watchAndUpdateIfExpire();
-    interval.current = setInterval(watchAndUpdateIfExpire, 1000 * 10);
+    interval.current = setInterval(watchAndUpdateIfExpire, 1000 * 60);
 
     return () => clearInterval(interval.current);
   }, [session?.accessToken]);
