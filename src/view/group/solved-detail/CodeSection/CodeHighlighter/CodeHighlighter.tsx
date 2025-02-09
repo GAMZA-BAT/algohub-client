@@ -31,7 +31,9 @@ const CodeHighlighter = ({ code, language }: CodeHighlighterProps) => {
 
   useEffect(() => {
     const highlight = async () => {
-      await import(`prismjs/components/prism-${mappedLanguage}` as string);
+      await import(`prismjs/components/prism-${mappedLanguage}` as string).then(
+        (module) => module.default,
+      );
       addCustomPatternsToAllLanguages();
       Prism.highlightAll();
     };
