@@ -5,8 +5,7 @@ export const loginSchema = z.object({
   email: z.string().min(6).max(18),
   password: z
     .string()
-    .min(8, { message: "영문, 숫자, 특수문자 조합 8~15 자리" })
-    .max(15, { message: "영문, 숫자, 특수문자 조합 8~15 자리" }),
+    .min(8, { message: "영문, 숫자, 특수문자 조합 8~15 자리" }),
 });
 
 export const passwordSchema = loginSchema.pick({ password: true });
