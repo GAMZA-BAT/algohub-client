@@ -20,7 +20,7 @@ const Profile = ({ ...props }: DropdownProps) => {
 
   return (
     <Dropdown {...props} className={dropdownStyle}>
-      <Link href={`/${nickname}`}>
+      <Link href={`/${nickname}/setting`}>
         <li className={dropdownTextStyle}>내 프로필</li>
       </Link>
       <li
