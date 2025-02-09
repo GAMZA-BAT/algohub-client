@@ -1,14 +1,25 @@
 "use server";
 
-import { signIn, signOut } from "@/auth";
+import { auth, signIn, update } from "@/auth";
 import {
   type loginSchema,
   loginSchemaMessage,
 } from "@/view/login/LoginForm/schema";
-import { AuthError } from "next-auth";
+import { HTTPError } from "ky";
+import { AuthError, type Session } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { redirect } from "next/navigation";
 import type { z } from "zod";
-import { deleteSignOut } from ".";
+import { postReissueToken, postSignUp } from ".";
+
+export const signUpAction = async (formData: FormData) => {
+  try {
+    await postSignUp(formData);
+  } catch (_err) {
+    throw new Error("fail to sign up");
+  }
+  redirect("/login");
+};
 
 export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   try {
@@ -33,11 +44,24 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   }
 };
 
-export const logoutAction = async () => {
+export const reIssueAction = async () => {
   try {
-    await deleteSignOut();
-    await signOut();
+    const session = (await auth()) as Session;
+    const { accessToken: expiredAccessToken, refreshToken } = session;
+    const newTokens = await postReissueToken({
+      expiredAccessToken,
+      refreshToken,
+    });
+    await update({
+      ...session,
+      ...newTokens,
+    });
+
+    return newTokens;
   } catch (error) {
+    if (error instanceof HTTPError) {
+      console.warn("reIssueAction:", await error.response.json());
+    }
     if (isRedirectError(error)) {
       throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
     }
