@@ -1,4 +1,4 @@
-import { getNoticeById, getNotices } from "@/app/api/notices";
+import { getNoticeById, getNotices, postReadNotice } from "@/app/api/notices";
 import type { NoticeListRequest, NoticeRequest } from "@/app/api/notices/type";
 import {
   deleteNoticeAction,
@@ -13,11 +13,10 @@ import {
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-export const useNoticesQuery = ({ groupId, page }: NoticeListRequest) => {
+export const useNoticesQuery = ({ groupId, page = 0 }: NoticeListRequest) => {
   const { data } = useSuspenseQuery({
     queryKey: ["notices", groupId, page],
     queryFn: () => getNotices({ groupId, page }),
-    staleTime: 0,
   });
 
   return { content: data.content, totalPages: data.totalPages };
@@ -55,8 +54,8 @@ export const usePatchNoticeMutation = (noticeId: number) => {
   return useMutation({
     mutationFn: (requestData: NoticeRequest) =>
       patchNoticeAction(noticeId, requestData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["notice", noticeId],
       });
       showToast("정상적으로 수정되었어요.", "success");
@@ -73,14 +72,30 @@ export const useDeleteNoticeMutation = (groupId: number, noticeId: number) => {
 
   return useMutation({
     mutationFn: () => deleteNoticeAction(noticeId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["notices", groupId],
       });
       showToast("정상적으로 삭제되었어요.", "success");
     },
     onError: () => {
       showToast("정상적으로 삭제되지 않았어요.", "error");
+    },
+  });
+};
+
+export const useReadNoticeMutation = (groupId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (noticeId: number) => postReadNotice(noticeId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["notices", groupId, 0],
+      });
+    },
+    onError: (error) => {
+      console.error({ error });
     },
   });
 };

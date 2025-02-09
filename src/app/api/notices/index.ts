@@ -72,8 +72,11 @@ export const getNoticeById = async (noticeId: number) => {
   return response;
 };
 
-export const postNotice = (groupId: number, requestData: NoticeRequest) => {
-  return kyInstance
+export const postNotice = async (
+  groupId: number,
+  requestData: NoticeRequest,
+) => {
+  return await kyInstance
     .post<NoticeRequest>(`api/groups/${groupId}/notices`, {
       json: requestData,
     })
@@ -96,6 +99,12 @@ export const patchNotice = async (
 
 export const deleteNotice = async (noticeId: number) => {
   const response = await kyInstance.delete(`api/notices/${noticeId}`);
+
+  return response;
+};
+
+export const postReadNotice = async (noticeId: number) => {
+  const response = await kyInstance.post(`api/notices/${noticeId}/read`).json();
 
   return response;
 };

@@ -40,7 +40,11 @@ const NoticeBanner = () => {
           </div>
           {recentNotice ? (
             <>
-              <Avatar size="mini" alt="방장 프로필 사진" />
+              <Avatar
+                size="mini"
+                alt="공지 작성자 프로필 사진"
+                src={recentNotice.authorImage}
+              />
               <h2 className={textStyle.category}>{recentNotice.category}</h2>
             </>
           ) : (

@@ -1,8 +1,10 @@
 "use client";
 import { getNotices } from "@/app/api/notices";
+import { useReadNoticeMutation } from "@/app/group/[groupId]/notice/query";
 import defaultImage from "@/asset/img/img_card_profile.png";
 import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
+import { handleA11yClick } from "@/common/util/dom";
 import Pagination from "@/shared/component/Pagination";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
@@ -32,6 +34,10 @@ const NoticeList = () => {
     queryFn: (page) => getNotices({ groupId: +groupId, page }),
   });
   const noticeList = noticeData?.content;
+  const { mutate: readMutate } = useReadNoticeMutation(+groupId);
+  const handleClick = (noticeId: number) => {
+    readMutate(noticeId);
+  };
 
   return (
     <>
@@ -52,6 +58,8 @@ const NoticeList = () => {
                   key={noticeId}
                   className={liStyle}
                   aria-labelledby={`notice-title-${noticeId}`}
+                  onClick={() => handleClick(noticeId)}
+                  onKeyDown={handleA11yClick(() => handleClick(noticeId))}
                 >
                   <Link href={`/group/${groupId}/notice/${noticeId}`}>
                     <article className={itemStyle}>
