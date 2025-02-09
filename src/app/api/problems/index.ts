@@ -1,4 +1,4 @@
-import { kyJsonWithTokenInstance } from "@/app/api";
+import { kyInstance } from "@/app/api";
 import type {
   EditProblemRequest,
   GetProblemRequest,
@@ -8,14 +8,14 @@ import type {
 } from "@/app/api/problems/type";
 
 export const getProblemInfo = async (problemId: number) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<ProblemContent>(`api/problems/${problemId}`)
     .json();
 
   return response;
 };
 export const postProblem = (groupId: number, body: ProblemRequest) => {
-  const response = kyJsonWithTokenInstance
+  const response = kyInstance
     .post(`api/groups/${groupId}/problems`, { json: body })
     .json();
 
@@ -23,15 +23,13 @@ export const postProblem = (groupId: number, body: ProblemRequest) => {
 };
 
 export const deleteProblem = (problemId: number) => {
-  const response = kyJsonWithTokenInstance
-    .delete(`api/problems/${problemId}`)
-    .json();
+  const response = kyInstance.delete(`api/problems/${problemId}`).json();
 
   return response;
 };
 
 export const getDeadlineReachedProblems = async (groupId: number) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<ProblemContent[]>(`api/groups/${groupId}/problems/deadline-reached`)
     .json();
 
@@ -44,7 +42,7 @@ export const getInProgressProblems = async ({
   size,
   isUnsolvedOnly,
 }: GetProblemRequest) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<ProblemListResponse>(
       `api/groups/${groupId}/problems/in-progress?unsolved-only=${isUnsolvedOnly}&page=${page}&size=${size}`,
     )
@@ -58,7 +56,7 @@ export const getExpiredProblems = async ({
   page,
   size,
 }: GetProblemRequest) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<ProblemListResponse>(
       `api/groups/${groupId}/problems/expired?page=${page}&size=${size}`,
     )
@@ -72,7 +70,7 @@ export const getQueuedProblems = async ({
   page,
   size,
 }: GetProblemRequest) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<ProblemListResponse>(
       `api/groups/${groupId}/problems/queued?page=${page}&size=${size}`,
     )
@@ -86,7 +84,7 @@ export const patchProblem = async ({
   startDate,
   endDate,
 }: EditProblemRequest) => {
-  const response = await kyJsonWithTokenInstance.patch<EditProblemRequest>(
+  const response = await kyInstance.patch<EditProblemRequest>(
     `api/problems/${problemId}`,
     {
       json: { startDate, endDate },

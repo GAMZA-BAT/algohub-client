@@ -8,8 +8,8 @@ import { useSession } from "next-auth/react";
 import Notification from "./Notification";
 
 const UserMenu = () => {
-  const user = useSession().data?.user;
   const { data } = useNotificationsQuery();
+  const user = useSession().data?.user;
 
   if (!data) return;
 

@@ -1,5 +1,5 @@
-import { signUpAction } from "@/app/api/auth/actions";
 import { checkEmail } from "@/app/api/users";
+import { signUp } from "@/app/signup/action";
 import { useCheckOnServer } from "@/shared/hook/useCheckOnServer";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -103,7 +103,7 @@ const useSignupForm = () => {
       }),
     );
 
-    await signUpAction(data);
+    signUp(data);
   };
 
   return {

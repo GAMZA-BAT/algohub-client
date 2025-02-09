@@ -1,4 +1,4 @@
-import { kyJsonWithTokenInstance } from "@/app/api";
+import { kyInstance } from "@/app/api";
 import type {
   SolutionContent,
   SolutionRequest,
@@ -16,7 +16,7 @@ export const getSolutionList = async ({
 }: SolutionRequest) => {
   const encodedLanguage = encodeURIComponent(language || "");
 
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<SolutionResponse>(
       `api/problems/${problemId}/solutions?page=${page}&size=${size}${language ? `&language=${encodedLanguage}` : ""}${result ? `&result=${result}` : ""}${nickname ? `&nickname=${nickname}` : ""}`,
     )
@@ -26,7 +26,7 @@ export const getSolutionList = async ({
 };
 
 export const getSolution = async (solutionId: number) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<SolutionContent>(`api/solutions/${solutionId}`)
     .json();
 
@@ -41,7 +41,7 @@ export const getInProgressMyGroupSolutions = async ({
   page,
   size,
 }: MySolutionRequest) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<MySolutionResponse>(
       `api/groups/${groupId}/my-solutions/in-progress?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
     )
@@ -58,7 +58,7 @@ export const getExpiredMyGroupSolutions = async ({
   page,
   size,
 }: MySolutionRequest) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<MySolutionResponse>(
       `api/groups/${groupId}/my-solutions/expired?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
     )
