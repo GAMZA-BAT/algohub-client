@@ -1,4 +1,8 @@
-import { QueryClient, type QueryFunction, type SkipToken, dehydrate } from "@tanstack/react-query";
+import {
+  QueryClient,
+  type QueryFunction,
+  dehydrate,
+} from "@tanstack/react-query";
 import { cache } from "react";
 
 const getQueryClient = cache(() => {
@@ -11,12 +15,29 @@ const getQueryClient = cache(() => {
   });
 });
 
-export const prefetchQuery = async ({ queryKey, queryFn }: {queryKey: (string|number)[], queryFn: QueryFunction | SkipToken;}) => {
+export const prefetchQuery = async ({
+  queryKey,
+  queryFn,
+}: { queryKey: (string | number)[]; queryFn: QueryFunction }) => {
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
     queryKey,
-    queryFn
+    queryFn,
   });
+
+  return dehydrate(queryClient);
+};
+
+export const prefetchQueries = async (
+  queries: { queryKey: (string | number)[]; queryFn: QueryFunction }[],
+) => {
+  const queryClient = getQueryClient();
+
+  await Promise.all(
+    queries.map(({ queryKey, queryFn }) =>
+      queryClient.prefetchQuery({ queryKey, queryFn }),
+    ),
+  );
 
   return dehydrate(queryClient);
 };
