@@ -85,7 +85,7 @@ export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
 
       return acc;
     },
-    { isDefaultImage: false } as Record<string, ValueType>,
+    { isDefaultImage: true } as Record<string, ValueType>,
   );
   data.append("request", JSON.stringify(requestData));
   return data;

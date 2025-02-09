@@ -1,4 +1,4 @@
-import { kyJsonWithTokenInstance } from "@/app/api";
+import { kyInstance } from "@/app/api";
 import type { CommentContent } from "@/app/api/comments/type";
 import type {
   NoticeContent,
@@ -8,7 +8,7 @@ import type {
 } from "@/app/api/notices/type";
 
 export const getNoticeCommentList = async (noticeId: number) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<CommentContent[]>(`api/notices/${noticeId}/comments`)
     .json();
 
@@ -16,7 +16,7 @@ export const getNoticeCommentList = async (noticeId: number) => {
 };
 
 export const postNoticeComment = async (noticeId: number, content: string) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .post(`api/notices/${noticeId}/comments`, {
       json: {
         content,
@@ -28,7 +28,7 @@ export const postNoticeComment = async (noticeId: number, content: string) => {
 };
 
 export const deleteNoticeComment = async (commentId: number) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .delete(`api/notices/comments/${commentId}`)
     .json();
 
@@ -39,7 +39,7 @@ export const patchNoticeComment = async (
   commentId: number,
   content: string,
 ) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .patch(`api/notices/comments/${commentId}`, {
       json: {
         content,
@@ -55,7 +55,7 @@ export const getNotices = async ({
   page = 0,
   size = 7,
 }: NoticeListRequest) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<NoticeResponse>(
       `api/groups/${groupId}/notices?page=${page}&size=${size}`,
     )
@@ -65,7 +65,7 @@ export const getNotices = async ({
 };
 
 export const getNoticeById = async (noticeId: number) => {
-  const response = await kyJsonWithTokenInstance
+  const response = await kyInstance
     .get<NoticeContent>(`api/notices/${noticeId}`)
     .json();
 
@@ -73,7 +73,7 @@ export const getNoticeById = async (noticeId: number) => {
 };
 
 export const postNotice = (groupId: number, requestData: NoticeRequest) => {
-  kyJsonWithTokenInstance.post<NoticeRequest>(`api/groups/${groupId}/notices`, {
+  kyInstance.post<NoticeRequest>(`api/groups/${groupId}/notices`, {
     json: requestData,
   });
 };
@@ -82,7 +82,7 @@ export const patchNotice = async (
   noticeId: number,
   requestData: NoticeRequest,
 ) => {
-  const response = await kyJsonWithTokenInstance.patch<NoticeRequest>(
+  const response = await kyInstance.patch<NoticeRequest>(
     `api/notices/${noticeId}`,
     {
       json: requestData,
@@ -93,9 +93,7 @@ export const patchNotice = async (
 };
 
 export const deleteNotice = async (noticeId: number) => {
-  const response = await kyJsonWithTokenInstance.delete(
-    `api/notices/${noticeId}`,
-  );
+  const response = await kyInstance.delete(`api/notices/${noticeId}`);
 
   return response;
 };
