@@ -13,7 +13,7 @@ import {
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-export const useNoticesQuery = ({ groupId, page = 0 }: NoticeListRequest) => {
+export const useNoticesQuery = ({ groupId, page }: NoticeListRequest) => {
   const { data } = useSuspenseQuery({
     queryKey: ["notices", groupId, page],
     queryFn: () => getNotices({ groupId, page }),
@@ -37,8 +37,8 @@ export const useNoticeMutation = (groupId: number) => {
   return useMutation({
     mutationFn: (requestData: NoticeRequest) =>
       noticeAction(groupId, requestData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["notices", groupId, 0],
       });
       router.push(`/group/${groupId}/notice`);
