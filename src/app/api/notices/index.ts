@@ -73,9 +73,11 @@ export const getNoticeById = async (noticeId: number) => {
 };
 
 export const postNotice = (groupId: number, requestData: NoticeRequest) => {
-  kyInstance.post<NoticeRequest>(`api/groups/${groupId}/notices`, {
-    json: requestData,
-  });
+  return kyInstance
+    .post<NoticeRequest>(`api/groups/${groupId}/notices`, {
+      json: requestData,
+    })
+    .json();
 };
 
 export const patchNotice = async (

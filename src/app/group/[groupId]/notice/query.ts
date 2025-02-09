@@ -37,11 +37,13 @@ export const useNoticeMutation = (groupId: number) => {
   return useMutation({
     mutationFn: (requestData: NoticeRequest) =>
       noticeAction(groupId, requestData),
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries({
         queryKey: ["notices", groupId, 0],
       });
-      router.push(`/group/${groupId}/notice`);
+      if ("noticeId" in data)
+        router.push(`/group/${groupId}/notice/${data.noticeId}`);
+      else router.push(`/group/${groupId}/notice`);
     },
   });
 };
