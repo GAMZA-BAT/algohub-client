@@ -64,3 +64,9 @@ export const avatarStyle = style({
 export const paginationStyle = style({
   paddingTop: "1rem",
 });
+
+export const wrapperStyle = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "1.4rem",
+});

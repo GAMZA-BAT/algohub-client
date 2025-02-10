@@ -3,11 +3,14 @@ import { getNotices } from "@/app/api/notices";
 import defaultImage from "@/asset/img/img_card_profile.png";
 import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
+import Button from "@/common/component/Button";
 import Pagination from "@/shared/component/Pagination";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
+import { buttonStyle } from "@/view/group/dashboard/NoticeModal/index.css";
 import { textStyle } from "@/view/group/dashboard/index.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   contentStyle,
   contentWrapper,
@@ -17,10 +20,13 @@ import {
   noticeInfoStyle,
   paginationStyle,
   ulStyle,
+  wrapperStyle,
 } from "./index.css";
 
 const NoticeList = () => {
   const groupId = useGetGroupId();
+
+  const router = useRouter();
 
   const {
     data: noticeData,
@@ -35,8 +41,8 @@ const NoticeList = () => {
 
   return (
     <>
-      {noticeList?.length ? (
-        <>
+      {noticeList && noticeList?.length > 0 && (
+        <article className={wrapperStyle}>
           <ul aria-label="공지사항 목록" className={ulStyle}>
             {noticeList.map(
               ({
@@ -91,6 +97,14 @@ const NoticeList = () => {
               ),
             )}
           </ul>
+          <Button
+            size="small"
+            color="gray"
+            className={buttonStyle}
+            onClick={() => router.push(`/group/${groupId}/notice/create`)}
+          >
+            글쓰기
+          </Button>
           <footer>
             <Pagination
               totalPages={totalPages}
@@ -99,9 +113,7 @@ const NoticeList = () => {
               className={paginationStyle}
             />
           </footer>
-        </>
-      ) : (
-        <p>공지가 없습니다.</p>
+        </article>
       )}
     </>
   );

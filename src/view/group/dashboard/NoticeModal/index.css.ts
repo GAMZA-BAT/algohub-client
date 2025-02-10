@@ -20,12 +20,11 @@ export const noticeHeaderStyle = style({
 });
 
 export const buttonStyle = style({
-  position: "absolute",
-  right: "4.3rem",
-  bottom: "6.7rem",
-
+  placeSelf: "end",
   width: "8.4rem",
   height: "4rem",
+
+  margin: "1.2rem 2rem 0 0",
 
   ...theme.font.Body3_SB_14,
   color: theme.color.lg2,
