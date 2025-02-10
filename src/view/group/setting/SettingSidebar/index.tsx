@@ -86,11 +86,13 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
                   form={form}
                   variant="group-setting"
                   dateType="startDate"
+                  placeholder={new Date(info.startDate)}
                 />
                 <DateFormController
                   form={form}
                   variant="group-setting"
                   dateType="endDate"
+                  placeholder={new Date(info.endDate)}
                 />
               </div>
               {error && (
