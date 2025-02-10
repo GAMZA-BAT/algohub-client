@@ -1,3 +1,4 @@
+import GithubButton from "@/shared/component/FormFooter/GithubButton";
 import Link from "next/link";
 import { labelContainer, labelStyle } from "./index.css";
 
@@ -12,10 +13,20 @@ interface FooterProps {
 const FormFooter = ({ guideLabel, link: { label, href } }: FooterProps) => {
   return (
     <footer className={labelContainer}>
-      <p className={labelStyle.guide}>{guideLabel}</p>
-      <Link href={href} className={labelStyle.link} scroll={false}>
-        {label}
-      </Link>
+      <div
+        style={{
+          display: "flex",
+          gap: "0.4rem",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <p className={labelStyle.guide}>{guideLabel}</p>
+        <Link href={href} className={labelStyle.link} scroll={false}>
+          {label}
+        </Link>
+      </div>
+      <GithubButton />
     </footer>
   );
 };

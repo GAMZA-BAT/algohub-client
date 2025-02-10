@@ -3,10 +3,10 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 export const labelContainer = style({
   display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: "0.4rem",
+  flexDirection: "column",
+  gap: "6rem",
+
+  width: "100%",
 });
 
 export const labelStyle = styleVariants({
@@ -26,4 +26,10 @@ export const labelStyle = styleVariants({
       borderRadius: ".4rem",
     },
   },
+});
+
+export const githubButtonStyle = style({
+  width: "100%",
+
+  ...theme.font.Head2_SB_18,
 });
