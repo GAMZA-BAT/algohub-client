@@ -9,13 +9,19 @@ import {
 import { iconStyle } from "@/shared/component/Header/index.css";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Profile = ({ ...props }: DropdownProps) => {
   const session = useSession();
   const nickname = session.data?.user?.nickname;
+
+  const router = useRouter();
+
   const handleLogout = async () => {
     await logoutAction();
     await session.update(await getSession());
+
+    router.push("/login");
   };
 
   return (
