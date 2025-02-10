@@ -13,7 +13,7 @@ import type { z } from "zod";
 interface DateFormControllerProps
   extends Omit<ComponentProps<typeof Calendar>, "form" | "disabled"> {
   form: UseFormReturn<z.infer<typeof registerProblemSchema>>;
-  disabled: {
+  disabled?: {
     startDate?: boolean;
     endDate?: boolean;
   };
@@ -23,7 +23,10 @@ const DateFormController = ({
   form,
   startDate,
   endDate,
-  disabled,
+  disabled = {
+    startDate: false,
+    endDate: false,
+  },
 }: DateFormControllerProps) => {
   return (
     <fieldset className={fieldsetStyle}>
