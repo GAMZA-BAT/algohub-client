@@ -62,6 +62,11 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
   };
   const error = form.formState.errors.endDate;
 
+  const isSubmittable =
+    form.formState.isDirty &&
+    form.formState.isValid &&
+    !form.formState.isSubmitted;
+
   return (
     <>
       <div className={sidebarWrapper}>
@@ -97,10 +102,9 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
               <button
                 type="submit"
                 className={editTextStyle({
-                  isActive:
-                    form.formState.isValid && !form.formState.isSubmitted,
+                  isActive: isSubmittable,
                 })}
-                disabled={!form.formState.isValid || form.formState.isSubmitted}
+                disabled={!isSubmittable}
               >
                 수정하기
               </button>
