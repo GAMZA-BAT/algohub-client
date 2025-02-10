@@ -3,7 +3,7 @@ import Section1 from "@/view/onboarding/Section/Section1";
 import Section2 from "@/view/onboarding/Section/Section2";
 import Section3 from "@/view/onboarding/Section/Section3";
 
-const OnboardingPage = async () => {
+const OnboardingPage = () => {
   return (
     <MainWithFooter>
       <Section1 />
