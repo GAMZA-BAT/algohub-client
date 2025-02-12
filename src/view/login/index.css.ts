@@ -46,3 +46,16 @@ export const wrapper = style({
   position: "fixed",
   top: 0,
 });
+
+export const cardStyle = style({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "2.1rem",
+
+  padding: "3rem",
+
+  background: theme.color.mg6,
+  borderRadius: "24px",
+});

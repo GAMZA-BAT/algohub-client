@@ -25,4 +25,10 @@ export const itemStyle = style({
 export const resetPwStyle = style({
   color: theme.color.purple,
   ...theme.font.Body1_M_14,
+  padding: "0 .4rem",
+
+  ":hover": {
+    backgroundColor: theme.color.mg5,
+    borderRadius: ".4rem",
+  },
 });

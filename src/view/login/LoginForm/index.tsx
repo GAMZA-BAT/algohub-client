@@ -27,24 +27,23 @@ const LoginForm = () => {
             fieldProps={{
               placeholder: "아이디",
             }}
-            showDescription
-            descriptionPosition="top"
-            descriptionProps={{
-              isError,
-              message,
-            }}
           />
           <FormController
             form={form}
             name="password"
             type="input"
+            showDescription
             fieldProps={{
               placeholder: "비밀번호",
               type: "password",
             }}
+            descriptionProps={{
+              isError,
+              message,
+            }}
           />
           <Link href="/reset-password">
-            <p className={resetPwStyle}>비밀번호를 잊으셨나요?</p>
+            <span className={resetPwStyle}>비밀번호를 잊으셨나요?</span>
           </Link>
         </div>
         <SubmitButton
