@@ -32,14 +32,24 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
       switch (error.type) {
         case "CallbackRouteError":
         case "CredentialsSignin": {
-          return { error: loginSchemaMessage };
+          return {
+            error: loginSchemaMessage,
+            cause: JSON.stringify(error.cause),
+            message: error.cause?.err?.message,
+            msg: await (error.cause?.err as HTTPError).response.json(),
+            type: error.type,
+          };
         }
         default: {
-          return { error: "Something went wrong!" };
+          return {
+            error: "Something went wrong!",
+            cause: JSON.stringify(error.cause),
+            message: error.message,
+            type: error.type,
+          };
         }
       }
     }
-
     throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
   }
 };
