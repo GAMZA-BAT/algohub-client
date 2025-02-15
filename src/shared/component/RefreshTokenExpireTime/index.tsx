@@ -1,7 +1,9 @@
 "use client";
 
 import type { Session } from "next-auth";
+import { getSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
+import { setAccessToken } from "../../util/token";
 
 const RefreshTokenExpireTime = ({
   session,
@@ -11,25 +13,25 @@ const RefreshTokenExpireTime = ({
   update: (data?: unknown) => Promise<Session | null>;
 }) => {
   const interval = useRef<ReturnType<typeof setInterval>>();
+  const watchAndUpdateIfExpire = async () => {
+    if (session) {
+      const timeRemaining = session.accessTokenExpires - Date.now();
+      if (timeRemaining <= 1000 * 60 * 5) {
+        const newSession = await update(await getSession());
+        setAccessToken(newSession?.accessToken!);
+      }
+    }
+  };
 
   useEffect(() => {
     if (interval.current) {
       clearInterval(interval.current);
     }
-
-    const watchAndUpdateIfExpire = () => {
-      if (session) {
-        const nowTime = Math.floor(new Date().getTime() / 1000);
-        const timeRemaining = session.accessTokenExpires - nowTime;
-
-        if (timeRemaining <= 0) update();
-      }
-    };
-
-    interval.current = setInterval(watchAndUpdateIfExpire, 1000 * 10);
+    watchAndUpdateIfExpire();
+    interval.current = setInterval(watchAndUpdateIfExpire, 1000 * 60);
 
     return () => clearInterval(interval.current);
-  }, [session, update]);
+  }, [session?.accessToken]);
 
   return null;
 };
