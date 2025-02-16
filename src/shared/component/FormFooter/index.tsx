@@ -1,3 +1,5 @@
+"use client";
+
 import GithubButton from "@/shared/component/FormFooter/GithubButton";
 import Link from "next/link";
 import { labelContainer, labelStyle } from "./index.css";

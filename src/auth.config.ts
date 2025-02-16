@@ -3,9 +3,14 @@ import { getMyInfo } from "@/app/api/users";
 import { loginSchema } from "@/view/login/LoginForm/schema";
 import type { NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
 
 export default {
   providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
     credentials({
       async authorize(credentials) {
         try {
