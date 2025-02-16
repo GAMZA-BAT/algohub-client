@@ -36,6 +36,8 @@ const PatchForm = ({
 }: PatchFormProps) => {
   const [isSuccess, setIsSuccess] = useState(false);
 
+  const isPending = new Date(problemInfo.startDate).getTime() > Date.now();
+
   const form = useForm<z.infer<typeof registerProblemSchema>>({
     resolver: zodResolver(registerProblemSchema),
     mode: "onTouched",
@@ -47,6 +49,7 @@ const PatchForm = ({
 
   const handleSubmit = (values: z.infer<typeof registerProblemSchema>) => {
     const { startDate, endDate } = values;
+
     const onSuccess = () => setIsSuccess(true);
     onSubmit(startDate, endDate, onSuccess);
   };
@@ -61,7 +64,12 @@ const PatchForm = ({
             onSubmit={form.handleSubmit(handleSubmit)}
           >
             <Input placeholder={problemInfo?.link} disabled />
-            <DateFormController form={form} />
+            <DateFormController
+              form={form}
+              startDate={new Date(problemInfo.startDate)}
+              endDate={new Date(problemInfo.endDate)}
+              disabled={{ startDate: !isPending }}
+            />
             <Button
               type="submit"
               size="large"

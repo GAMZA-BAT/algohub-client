@@ -8,18 +8,24 @@ import {
 import { iconStyle } from "@/shared/component/Header/index.css";
 import { getSession, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Profile = ({ ...props }: DropdownProps) => {
   const session = useSession();
   const nickname = session.data?.user?.nickname;
+
+  const router = useRouter();
+
   const handleLogout = async () => {
     await signOut();
     await session.update(await getSession());
+
+    router.push("/login");
   };
 
   return (
     <Dropdown {...props} className={dropdownStyle}>
-      <Link href={`/${nickname}`}>
+      <Link href={`/${nickname}/setting`}>
         <li className={dropdownTextStyle}>내 프로필</li>
       </Link>
       <li

@@ -7,12 +7,14 @@ import {
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";
 
 interface DateFormControllerProps extends GroupFormProps {
+  placeholder?: Date;
   dateType: "startDate" | "endDate";
 }
 const DateFormController = ({
   dateType,
   form,
   variant,
+  placeholder,
 }: DateFormControllerProps) => {
   return (
     <FormController
@@ -29,6 +31,7 @@ const DateFormController = ({
       }}
       fieldProps={{
         className: dateInputStyle,
+        startDate: placeholder,
       }}
     />
   );
