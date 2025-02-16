@@ -68,5 +68,15 @@ export const paginationStyle = style({
 export const wrapperStyle = style({
   display: "flex",
   flexDirection: "column",
+  justifyContent: "space-between",
   gap: "1.4rem",
+
+  height: "52.6rem",
+});
+
+export const noNoticeGuideTextStyle = style({
+  padding: "1rem 0",
+
+  ...theme.font.Caption3_M_12,
+  color: theme.color.white,
 });

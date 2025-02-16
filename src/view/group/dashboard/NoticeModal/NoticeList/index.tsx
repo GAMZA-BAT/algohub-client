@@ -17,6 +17,7 @@ import {
   infoWrapper,
   itemStyle,
   liStyle,
+  noNoticeGuideTextStyle,
   noticeInfoStyle,
   paginationStyle,
   ulStyle,
@@ -40,63 +41,67 @@ const NoticeList = () => {
   const noticeList = noticeData?.content;
 
   return (
-    <>
-      {noticeList && noticeList?.length > 0 && (
-        <article className={wrapperStyle}>
-          <ul aria-label="공지사항 목록" className={ulStyle}>
-            {noticeList.map(
-              ({
-                noticeId,
-                title,
-                category,
-                author,
-                createdAt,
-                isRead,
-                authorImage,
-              }) => (
-                <li
-                  key={noticeId}
-                  className={liStyle}
-                  aria-labelledby={`notice-title-${noticeId}`}
-                >
-                  <Link href={`/group/${groupId}/notice/${noticeId}`}>
-                    <article className={itemStyle}>
-                      <div className={contentWrapper}>
-                        <Avatar
-                          size="small"
-                          src={authorImage || defaultImage}
-                          alt="작성자 프로필 사진"
-                        />
-                        <div className={contentStyle}>
-                          <h3
-                            id={`notice-title-${noticeId}`}
-                            className={textStyle.category}
-                          >
-                            {category}
-                          </h3>
-                          <p className={textStyle.modalTitle}>{title}</p>
-                        </div>
+    <article className={wrapperStyle}>
+      {noticeList && noticeList?.length > 0 ? (
+        <ul aria-label="공지사항 목록" className={ulStyle}>
+          {noticeList.map(
+            ({
+              noticeId,
+              title,
+              category,
+              author,
+              createdAt,
+              isRead,
+              authorImage,
+            }) => (
+              <li
+                key={noticeId}
+                className={liStyle}
+                aria-labelledby={`notice-title-${noticeId}`}
+              >
+                <Link href={`/group/${groupId}/notice/${noticeId}`}>
+                  <article className={itemStyle}>
+                    <div className={contentWrapper}>
+                      <Avatar
+                        size="small"
+                        src={authorImage || defaultImage}
+                        alt="작성자 프로필 사진"
+                      />
+                      <div className={contentStyle}>
+                        <h3
+                          id={`notice-title-${noticeId}`}
+                          className={textStyle.category}
+                        >
+                          {category}
+                        </h3>
+                        <p className={textStyle.modalTitle}>{title}</p>
                       </div>
-                      <div className={noticeInfoStyle}>
-                        <div className={infoWrapper}>
-                          <span className={textStyle.author}>{author}</span>
-                          <time dateTime={createdAt} className={textStyle.time}>
-                            {createdAt}
-                          </time>
-                        </div>
-                        <IcnNew
-                          width={13}
-                          height={13}
-                          aria-label="읽지 않은 공지"
-                          style={{ opacity: isRead ? "0" : "1" }}
-                        />
+                    </div>
+                    <div className={noticeInfoStyle}>
+                      <div className={infoWrapper}>
+                        <span className={textStyle.author}>{author}</span>
+                        <time dateTime={createdAt} className={textStyle.time}>
+                          {createdAt}
+                        </time>
                       </div>
-                    </article>
-                  </Link>
-                </li>
-              ),
-            )}
-          </ul>
+                      <IcnNew
+                        width={13}
+                        height={13}
+                        aria-label="읽지 않은 공지"
+                        style={{ opacity: isRead ? "0" : "1" }}
+                      />
+                    </div>
+                  </article>
+                </Link>
+              </li>
+            ),
+          )}
+        </ul>
+      ) : (
+        <p className={noNoticeGuideTextStyle}>공지가 없습니다.</p>
+      )}
+      <footer style={{}}>
+        <div style={{ width: "8.4rem", placeSelf: "end" }}>
           <Button
             size="small"
             color="gray"
@@ -105,17 +110,16 @@ const NoticeList = () => {
           >
             글쓰기
           </Button>
-          <footer>
-            <Pagination
-              totalPages={totalPages}
-              currentPage={currentPage}
-              onPageChange={setCurrentPage}
-              className={paginationStyle}
-            />
-          </footer>
-        </article>
-      )}
-    </>
+        </div>
+
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          className={paginationStyle}
+        />
+      </footer>
+    </article>
   );
 };
 
