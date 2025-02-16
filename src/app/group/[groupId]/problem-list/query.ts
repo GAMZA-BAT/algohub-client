@@ -9,9 +9,7 @@ import {
   type problemActionRequest,
 } from "@/app/group/[groupId]/problem-list/action";
 import { useToast } from "@/common/hook/useToast";
-import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { HTTPError } from "ky";
 
 export const usePostProblemMutation = (groupId: number) => {
   const queryClient = useQueryClient();
@@ -32,22 +30,8 @@ export const usePostProblemMutation = (groupId: number) => {
       });
       showToast("문제가 정상적으로 등록되었어요.", "success");
     },
-    onError: (error: HTTPError) => {
-      const { response } = error;
-
-      switch (response.status) {
-        case HTTP_ERROR_STATUS.NOT_FOUND:
-          showToast("존재하지 않는 그룹입니다.", "error");
-          break;
-        case HTTP_ERROR_STATUS.FORBIDDEN:
-          showToast("문제 생성 권한이 없습니다.", "error");
-          break;
-        case HTTP_ERROR_STATUS.BAD_REQUEST:
-          showToast("링크가 유효하지 않습니다", "error");
-          break;
-        default:
-          showToast("문제가 정상적으로 등록되지 않았어요.", "error");
-      }
+    onError: (error: Error) => {
+      showToast(error.message, "error");
     },
   });
 };

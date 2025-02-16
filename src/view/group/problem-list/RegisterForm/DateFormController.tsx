@@ -1,3 +1,4 @@
+import type Calendar from "@/common/component/Calendar";
 import { FormController } from "@/shared/component/Form";
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";
 import {
@@ -5,14 +6,28 @@ import {
   itemStyle,
 } from "@/view/group/problem-list/RegisterForm/index.css";
 import type { registerProblemSchema } from "@/view/group/problem-list/RegisterForm/schema";
+import type { ComponentProps } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
-interface DateFormControllerProps {
+interface DateFormControllerProps
+  extends Omit<ComponentProps<typeof Calendar>, "form" | "disabled"> {
   form: UseFormReturn<z.infer<typeof registerProblemSchema>>;
+  disabled?: {
+    startDate?: boolean;
+    endDate?: boolean;
+  };
 }
 
-const DateFormController = ({ form }: DateFormControllerProps) => {
+const DateFormController = ({
+  form,
+  startDate,
+  endDate,
+  disabled = {
+    startDate: false,
+    endDate: false,
+  },
+}: DateFormControllerProps) => {
   return (
     <fieldset className={fieldsetStyle}>
       <legend className={itemStyle}>풀이 기간</legend>
@@ -28,6 +43,8 @@ const DateFormController = ({ form }: DateFormControllerProps) => {
         }}
         fieldProps={{
           ariaDescribedBy: "date-description", // description 공유 (start date)
+          startDate,
+          disabled: disabled.startDate,
         }}
         descriptionProps={{
           style: {
@@ -49,6 +66,8 @@ const DateFormController = ({ form }: DateFormControllerProps) => {
         }}
         fieldProps={{
           ariaDescribedBy: "date-description", // description 공유 (start date)
+          startDate: endDate,
+          disabled: disabled.endDate,
         }}
       />
     </fieldset>
