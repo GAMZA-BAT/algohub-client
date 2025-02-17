@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, signIn, update } from "@/auth";
+import { auth, signIn, signOut, update } from "@/auth";
 import {
   type loginSchema,
   loginSchemaMessage,
@@ -72,6 +72,16 @@ export const reIssueAction = async () => {
     if (error instanceof HTTPError) {
       console.warn("reIssueAction:", await error.response.json());
     }
+    if (isRedirectError(error)) {
+      throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
+    }
+  }
+};
+
+export const logoutAction = async () => {
+  try {
+    await signOut();
+  } catch (error) {
     if (isRedirectError(error)) {
       throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
     }

@@ -1,3 +1,4 @@
+import { logoutAction } from "@/app/api/auth/actions";
 import Avatar from "@/common/component/Avatar";
 import Dropdown, { type DropdownProps } from "@/common/component/Dropdown";
 import { handleA11yClick } from "@/common/util/dom";
@@ -6,7 +7,7 @@ import {
   dropdownTextStyle,
 } from "@/shared/component/Header/Profile.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -17,7 +18,7 @@ const Profile = ({ ...props }: DropdownProps) => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await signOut();
+    await logoutAction();
     await session.update(await getSession());
 
     router.push("/login");
