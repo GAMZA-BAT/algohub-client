@@ -1,11 +1,8 @@
 "use client";
 
-import { useGroupRoleQuery } from "@/app/group/[groupId]/query";
-import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
 import {
-  buttonStyle,
   noticeHeaderStyle,
   noticeModalWrapper,
 } from "@/view/group/dashboard/NoticeModal/index.css";
@@ -17,7 +14,6 @@ const NoticeListPage = ({
 }: { params: { groupId: string } }) => {
   const router = useRouter();
   const handleClose = () => router.push(`/group/${groupId}`);
-  const { data: role } = useGroupRoleQuery(+groupId);
 
   return (
     <Modal
@@ -31,16 +27,6 @@ const NoticeListPage = ({
           <h2 className={textStyle.head}>NOTICE</h2>
         </header>
         <NoticeList />
-        {role !== "PARTICIPANT" && (
-          <Button
-            size="small"
-            color="gray"
-            className={buttonStyle}
-            onClick={() => router.push(`/group/${groupId}/notice/create`)}
-          >
-            글쓰기
-          </Button>
-        )}
       </div>
     </Modal>
   );

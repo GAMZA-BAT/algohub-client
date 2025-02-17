@@ -1,8 +1,8 @@
-import { kyInstance } from "@/app/api";
+import { kyJsonWithTokenInstance } from "@/app/api";
 import type { RankingResponse } from "@/app/api/groups/type";
 
 export const getTopRanking = async (groupId: number) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<RankingResponse>(`api/groups/${groupId}/rankings`)
     .json();
 
@@ -10,7 +10,7 @@ export const getTopRanking = async (groupId: number) => {
 };
 
 export const getAllRanking = async (groupId: number, page: number) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<RankingResponse>(`api/groups/${groupId}/rankings?page=${page}&size=4`)
     .json();
 
