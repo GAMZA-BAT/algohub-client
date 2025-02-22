@@ -49,3 +49,9 @@ export const chipWrapper = style({
   width: "8rem",
   paddingLeft: "2rem",
 });
+
+export const groupNameStyle = style({
+  border: "none",
+
+  color: theme.color.white,
+});

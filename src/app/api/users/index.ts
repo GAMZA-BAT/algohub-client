@@ -1,8 +1,7 @@
 import {
-  kyFileBaseInstance,
-  kyFileInstance,
-  kyInstance,
-  kyPublicInstance,
+  kyFormWithTokenInstance,
+  kyJsonInstance,
+  kyJsonWithTokenInstance,
 } from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
@@ -11,7 +10,7 @@ import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
 
 export const getGroupsByUsers = async (userNickname: string) => {
-  const response = await kyInstance
+  const response = await kyJsonInstance
     .get<GroupListResponse>(`api/users/${userNickname}/groups`)
     .json();
 
@@ -19,7 +18,7 @@ export const getGroupsByUsers = async (userNickname: string) => {
 };
 
 export const getUsers = async (userNickname: string) => {
-  const response = await kyPublicInstance
+  const response = await kyJsonInstance
     .get<UserResponse>(`api/users/${userNickname}`)
     .json();
 
@@ -27,7 +26,7 @@ export const getUsers = async (userNickname: string) => {
 };
 
 export const getMyInfo = async (accessToken: string) => {
-  const response = await kyPublicInstance
+  const response = await kyJsonInstance
     .get<UserResponse>("api/users/me", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -39,7 +38,7 @@ export const getMyInfo = async (accessToken: string) => {
 };
 
 export const checkNickname = async (nickname: string) => {
-  const response = await kyInstance.get(
+  const response = await kyJsonInstance.get(
     `api/users/check-nickname?nickname=${nickname}`,
   );
 
@@ -53,7 +52,7 @@ export const getInProgressMySolutions = async ({
   page,
   size,
 }: MySolutionRequest) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<MySolutionResponse>(
       `api/users/my-solutions/in-progress?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
     )
@@ -63,7 +62,7 @@ export const getInProgressMySolutions = async ({
 };
 
 export const checkBojNickname = async (nickname: string) => {
-  const response = await kyInstance.get(
+  const response = await kyJsonInstance.get(
     `api/users/check-baekjoon-nickname?bjNickname=${nickname}`,
   );
 
@@ -71,18 +70,10 @@ export const checkBojNickname = async (nickname: string) => {
 };
 
 export const checkEmail = async (email: string) => {
-  const response = await kyInstance.post("api/users/check-email", {
+  const response = await kyJsonInstance.post("api/users/check-email", {
     json: {
       email,
     },
-  });
-
-  return response;
-};
-
-export const postSignUp = async (formData: FormData) => {
-  const response = await kyFileBaseInstance.post("api/auth/sign-up", {
-    body: formData,
   });
 
   return response;
@@ -127,7 +118,7 @@ export const getExpiredMySolutions = async ({
   page,
   size,
 }: MySolutionRequest) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<MySolutionResponse>(
       `api/users/my-solutions/expired?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
     )
@@ -137,7 +128,7 @@ export const getExpiredMySolutions = async ({
 };
 
 export const deleteMe = async (password: string) => {
-  const response = await kyInstance.delete("api/users/me", {
+  const response = await kyJsonWithTokenInstance.delete("api/users/me", {
     json: {
       password,
     },
@@ -147,7 +138,7 @@ export const deleteMe = async (password: string) => {
 };
 
 export const patchMyInfo = async (formData: FormData) => {
-  const response = await kyFileInstance.patch("api/users/me", {
+  const response = await kyFormWithTokenInstance.patch("api/users/me", {
     body: formData,
   });
 
@@ -159,7 +150,7 @@ export const patchPassword = async ({
   newPassword,
 }: PasswordRequest) => {
   try {
-    const response = await kyInstance
+    const response = await kyJsonWithTokenInstance
       .patch("api/users/me/password", {
         json: {
           currentPassword,

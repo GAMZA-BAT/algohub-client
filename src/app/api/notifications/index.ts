@@ -1,4 +1,4 @@
-import { kyInstance } from "@/app/api";
+import { kyJsonWithTokenInstance } from "@/app/api";
 import type {
   NotificationItem,
   NotificationSettingContent,
@@ -9,7 +9,7 @@ import { signOut } from "next-auth/react";
 
 export const getNotificationList = async () => {
   try {
-    const response = await kyInstance
+    const response = await kyJsonWithTokenInstance
       .get<NotificationItem[]>("api/notifications")
       .json();
 
@@ -27,13 +27,13 @@ export const getNotificationList = async () => {
 };
 
 export const patchAllNotificationRead = () => {
-  const response = kyInstance.patch("api/notifications").json();
+  const response = kyJsonWithTokenInstance.patch("api/notifications").json();
 
   return response;
 };
 
 export const patchNotificationRead = (notificationId: number) => {
-  const response = kyInstance
+  const response = kyJsonWithTokenInstance
     .patch(`api/notifications/${notificationId}`)
     .json();
 
@@ -41,7 +41,7 @@ export const patchNotificationRead = (notificationId: number) => {
 };
 
 export const deleteNotification = async (notificationId: number) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .delete(`api/notifications/${notificationId}`)
     .json();
 
@@ -49,7 +49,7 @@ export const deleteNotification = async (notificationId: number) => {
 };
 
 export const getNotificationsSettings = async () => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<NotificationSettingContent[]>("api/notifications/settings")
     .json();
 
@@ -59,12 +59,13 @@ export const getNotificationsSettings = async () => {
 export const patchNotificationsSettings = async (
   requestData: NotificationSettingContent,
 ) => {
-  const response = await kyInstance.patch<NotificationSettingContent>(
-    "api/notifications/settings",
-    {
-      json: requestData,
-    },
-  );
+  const response =
+    await kyJsonWithTokenInstance.patch<NotificationSettingContent>(
+      "api/notifications/settings",
+      {
+        json: requestData,
+      },
+    );
 
   return response;
 };

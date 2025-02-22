@@ -7,6 +7,7 @@ import { pinStyle } from "@/shared/component/Table/index.css";
 import type { TableDataType } from "@/shared/type/table";
 import {
   chipWrapper,
+  groupNameStyle,
   visibilityBtnStyle,
 } from "@/view/user/setting/GroupList/GroupListTable/index.css";
 import { format } from "date-fns";
@@ -24,8 +25,8 @@ import SortIcon from "@/view/user/setting/GroupList/SortIcon";
 import StatusDropdownMenu from "@/view/user/setting/GroupList/StatusDropdownMenu";
 import { textStyle } from "@/view/user/setting/GroupList/StatusDropdownMenu/index.css";
 import StatusIcon from "@/view/user/setting/GroupList/StatusIcon";
+import { useRouter } from "next/navigation";
 import { useContext } from "react";
-
 export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
   {
     key: "isBookmarked",
@@ -73,7 +74,18 @@ export const STUDY_LIST_COLUMNS: TableDataType<GroupSettingsContent>[] = [
   {
     key: "name",
     Header: () => "그룹명",
-    Cell: (data) => data.name,
+    Cell: (data) => {
+      const router = useRouter();
+
+      return (
+        <button
+          className={groupNameStyle}
+          onClick={() => router.push(`/group/${data.id}`)}
+        >
+          {data.name}
+        </button>
+      );
+    },
     width: 100,
     align: "left",
   },
