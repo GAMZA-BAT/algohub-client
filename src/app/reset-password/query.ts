@@ -1,8 +1,13 @@
-import { sendEmailForResetPWAction } from "@/app/reset-password/action";
+import type { resetPasswordRequest } from "@/app/api/auth/type";
+import {
+  patchResetPasswordAction,
+  sendEmailForResetPWAction,
+} from "@/app/reset-password/action";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
+import { useRouter } from "next/navigation";
 
 export const useSendEmailForResetPWMutation = () => {
   const { showToast } = useToast();
@@ -22,6 +27,43 @@ export const useSendEmailForResetPWMutation = () => {
         default:
           showToast("정상적으로 전송되지 않았습니다.", "error");
       }
+    },
+  });
+};
+
+export const useResetPasswordMutation = () => {
+  const { showToast } = useToast();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: ({ token, password }: resetPasswordRequest) =>
+      patchResetPasswordAction({ token, password }),
+    onSuccess: async () => {
+      showToast("비밀번호가 변경되었습니다.", "success");
+      router.push("/login");
+    },
+    onError: (error: HTTPError) => {
+      const { status } = error.response;
+
+      switch (status) {
+        case HTTP_ERROR_STATUS.BAD_REQUEST: {
+          showToast("유효하지 않은 요청입니다.", "error");
+          break;
+        }
+        case HTTP_ERROR_STATUS.GONE: {
+          showToast("기한이 만료된 요청입니다.", "error");
+          break;
+        }
+        case HTTP_ERROR_STATUS.CONFLICT: {
+          showToast("이미 수정 완료된 요청입니다.", "error");
+          break;
+        }
+        default: {
+          showToast("비밀번호가 정상적으로 변경되지 않았습니다.", "error");
+        }
+      }
+
+      router.push("/reset-password");
     },
   });
 };

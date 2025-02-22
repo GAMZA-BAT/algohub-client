@@ -1,5 +1,6 @@
 "use client";
-import { FormController } from "@/shared/component/Form";
+import { useResetPasswordMutation } from "@/app/reset-password/query";
+import { Form, FormController } from "@/shared/component/Form";
 import SubmitButton from "@/shared/component/SubmitButton";
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";
 import { resetWrapper, titleTextStyle } from "@/view/reset-password/index.css";
@@ -18,64 +19,66 @@ const ResetPassword = ({ token }: { token: string }) => {
       confirmPassword: "",
     },
   });
-  // const { mutate } = usePatchPasswordMutation();
+  const { mutate } = useResetPasswordMutation();
 
   const handleSubmit = (values: z.infer<typeof resetPasswordSchema>) => {
-    // mutate(
-    //   {
-    //     currentPassword: values.currentPassword,
-    //     newPassword: values.changePassword,
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       form.reset({
-    //         changePassword: "",
-    //         confirmPassword: "",
-    //       });
-    //     },
-    //   },
-    // );
+    mutate(
+      {
+        token,
+        password: values.changePassword,
+      },
+      {
+        onSuccess: () => {
+          form.reset({
+            changePassword: "",
+            confirmPassword: "",
+          });
+        },
+      },
+    );
   };
 
   const isActive = form.formState.isDirty && form.formState.isValid;
 
   return (
-    <form className={resetWrapper}>
-      <h1 className={titleTextStyle}>비밀번호 재설정</h1>
-      <div className={passwordWrapper}>
-        <FormController
-          form={form}
-          type="input"
-          name="changePassword"
-          revalidationHandlers={getMultipleRevalidationHandlers(
-            "confirmPassword",
-          )}
-          showDescription
-          fieldProps={{
-            placeholder: "변경할 비밀번호",
-            type: "password",
-          }}
-        />
-        <FormController
-          form={form}
-          type="input"
-          name="confirmPassword"
-          revalidationHandlers={getMultipleRevalidationHandlers("password")}
-          showDescription
-          fieldProps={{
-            placeholder: "비밀번호 확인",
-            type: "password",
-          }}
-        />
-      </div>
-      <SubmitButton
-        style={{ marginTop: "2rem" }}
-        isActive={isActive}
-        disabled={!isActive}
-      >
-        완료
-      </SubmitButton>
-    </form>
+    <Form {...form}>
+      <form className={resetWrapper} onSubmit={form.handleSubmit(handleSubmit)}>
+        <h1 className={titleTextStyle}>비밀번호 재설정</h1>
+        <div className={passwordWrapper}>
+          <FormController
+            form={form}
+            type="input"
+            name="changePassword"
+            revalidationHandlers={getMultipleRevalidationHandlers(
+              "confirmPassword",
+            )}
+            showDescription
+            fieldProps={{
+              placeholder: "변경할 비밀번호",
+              type: "password",
+            }}
+          />
+          <FormController
+            form={form}
+            type="input"
+            name="confirmPassword"
+            revalidationHandlers={getMultipleRevalidationHandlers("password")}
+            showDescription
+            fieldProps={{
+              placeholder: "비밀번호 확인",
+              type: "password",
+            }}
+          />
+        </div>
+        <SubmitButton
+          style={{ marginTop: "2rem" }}
+          isActive={isActive}
+          disabled={!isActive}
+        >
+          완료
+        </SubmitButton>
+      </form>
+    </Form>
   );
 };
 
