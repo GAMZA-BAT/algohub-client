@@ -10,7 +10,7 @@ import { AuthError, type Session } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 import type { z } from "zod";
-import { postReissueToken, postSignUp } from ".";
+import { postEmailForResetPassword, postReissueToken, postSignUp } from ".";
 
 export const signUpAction = async (formData: FormData) => {
   try {
@@ -85,5 +85,15 @@ export const logoutAction = async () => {
     if (isRedirectError(error)) {
       throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
     }
+  }
+};
+
+export const sendEmailForResetPWAction = async (email: string) => {
+  try {
+    const response = await postEmailForResetPassword(email);
+
+    return response;
+  } catch (err) {
+    return err;
   }
 };

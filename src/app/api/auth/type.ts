@@ -20,3 +20,8 @@ export type tokenResponse = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type resetPasswordRequest = {
+  token: string;
+  password: string;
+};
