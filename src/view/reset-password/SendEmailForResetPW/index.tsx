@@ -6,7 +6,7 @@ import {
   descTextStyle,
   resetWrapper,
   titleTextStyle,
-} from "@/view/reset-password/SendEmailForResetPW/index.css";
+} from "@/view/reset-password/index.css";
 import { useState } from "react";
 
 const SendEmailForResetPW = () => {
