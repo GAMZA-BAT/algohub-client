@@ -74,3 +74,11 @@ export const patchResetPassword = async (requestData: resetPasswordRequest) => {
 
   return response;
 };
+
+export const getCheckPasswordToken = async (token: string) => {
+  const response = await kyJsonInstance
+    .get(`api/auth/check-password-token?token=${token}`)
+    .json();
+
+  return response;
+};

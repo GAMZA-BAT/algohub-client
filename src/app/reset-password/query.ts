@@ -1,4 +1,4 @@
-import { sendEmailForResetPWAction } from "@/app/api/auth/actions";
+import { sendEmailForResetPWAction } from "@/app/reset-password/action";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation } from "@tanstack/react-query";
