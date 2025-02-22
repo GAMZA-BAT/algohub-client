@@ -3,6 +3,7 @@ import { style } from "@vanilla-extract/css";
 
 export const resetWrapper = style({
   width: "33.5rem",
+  paddingTop: "7.3rem",
 });
 
 export const titleTextStyle = style({

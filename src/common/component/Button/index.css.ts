@@ -53,7 +53,10 @@ export const buttonStyle = recipe({
     },
     isActive: {
       true: {},
-      false: {},
+      false: {
+        pointerEvents: "none",
+        ":hover": {},
+      },
     },
   },
   compoundVariants: [
