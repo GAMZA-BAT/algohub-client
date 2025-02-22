@@ -51,7 +51,7 @@ const LoginForm = () => {
           disabled={isPending}
           onClick={handleClick}
         >
-          로그인하기
+          로그인
         </SubmitButton>
       </form>
     </Form>

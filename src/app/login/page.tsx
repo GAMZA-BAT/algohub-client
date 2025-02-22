@@ -2,8 +2,16 @@ import { IcnLogo } from "@/asset/svg";
 import ToastProvider from "@/common/component/Toast";
 import AuthHeader from "@/shared/component/AuthHeader";
 import FormFooter from "@/shared/component/FormFooter";
+import GoogleLogin from "@/view/login/GoogleLogin";
 import LoginForm from "@/view/login/LoginForm";
-import { cardStyle, containerStyle, wrapper } from "@/view/login/index.css";
+import {
+  cardStyle,
+  containerStyle,
+  divider,
+  dividerTextStyle,
+  dividerWrapper,
+  wrapper,
+} from "@/view/login/index.css";
 
 const LoginPage = () => {
   return (
@@ -17,6 +25,12 @@ const LoginPage = () => {
             guideLabel="아직 계정이 없으신가요?"
             link={{ href: "/signup", label: "회원가입하기" }}
           />
+          <div className={dividerWrapper}>
+            <div className={divider} />
+            <p className={dividerTextStyle}>or</p>
+            <div className={divider} />
+          </div>
+          <GoogleLogin />
         </div>
       </div>
       <ToastProvider />

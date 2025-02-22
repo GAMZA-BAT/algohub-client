@@ -59,3 +59,23 @@ export const cardStyle = style({
   background: theme.color.mg6,
   borderRadius: "24px",
 });
+
+export const dividerWrapper = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "1.3rem",
+});
+
+export const dividerTextStyle = style({
+  color: theme.color.mg2,
+  ...theme.font.Body2_R_14,
+});
+
+export const divider = style({
+  width: "13.05rem",
+  height: "0.1rem",
+  margin: "2rem 0",
+
+  background: theme.color.mg4,
+});
