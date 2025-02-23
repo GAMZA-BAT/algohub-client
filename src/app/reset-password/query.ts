@@ -42,27 +42,8 @@ export const useResetPasswordMutation = () => {
       showToast("비밀번호가 변경되었습니다.", "success");
       router.push("/login");
     },
-    onError: (error: HTTPError) => {
-      const { status } = error.response;
-
-      switch (status) {
-        case HTTP_ERROR_STATUS.BAD_REQUEST: {
-          showToast("유효하지 않은 요청입니다.", "error");
-          break;
-        }
-        case HTTP_ERROR_STATUS.GONE: {
-          showToast("기한이 만료된 요청입니다.", "error");
-          break;
-        }
-        case HTTP_ERROR_STATUS.CONFLICT: {
-          showToast("이미 수정 완료된 요청입니다.", "error");
-          break;
-        }
-        default: {
-          showToast("비밀번호가 정상적으로 변경되지 않았습니다.", "error");
-        }
-      }
-
+    onError: (error: Error) => {
+      showToast(error.message, "error");
       router.push("/reset-password");
     },
   });

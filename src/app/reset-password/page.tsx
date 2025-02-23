@@ -3,17 +3,16 @@ import AuthHeader from "@/shared/component/AuthHeader";
 import { containerStyle, wrapper } from "@/view/login/index.css";
 import ResetPassword from "@/view/reset-password/ResetPassword";
 import SendEmailForResetPW from "@/view/reset-password/SendEmailForResetPW";
+import { notFound } from "next/navigation";
 
 const ResetPasswordPage = async ({
   searchParams: { token },
 }: { searchParams: { token?: string } }) => {
   if (token) {
     try {
-      const response = await checkPasswordTokenAction(token);
-      console.log({ response });
+      await checkPasswordTokenAction(token);
     } catch (_error) {
-      console.log("notFound 시킬거야");
-      // notFound();
+      notFound();
     }
   }
 
