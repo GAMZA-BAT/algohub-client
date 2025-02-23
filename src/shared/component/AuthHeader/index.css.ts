@@ -25,6 +25,10 @@ export const headerStyle = recipe({
 });
 
 export const iconStyle = style({
+  position: "fixed",
+  right: "2.5rem",
+  top: "2.2rem",
+
   cursor: "pointer",
   ":hover": {
     backgroundColor: theme.color.mg4,

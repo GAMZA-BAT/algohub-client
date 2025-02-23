@@ -15,7 +15,6 @@ export const labelStyle = styleVariants({
     textAlign: "left",
     color: theme.color.mg2,
     letterSpacing: "-1.5px",
-    borderBottom: `1px solid ${theme.color.mg2}`,
   },
   link: {
     ...theme.font.Body1_M_14,

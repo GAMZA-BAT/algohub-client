@@ -28,7 +28,6 @@ const useLoginForm = () => {
     startTransition(async () => {
       const data = await loginAction(values);
 
-      console.log({ data });
       if (data?.error) {
         form.setError("email", { message: data.error });
         return;
