@@ -2,13 +2,13 @@ import { IcnGithub } from "@/asset/svg";
 
 import Button from "@/common/component/Button";
 import { githubButtonStyle } from "@/shared/component/FormFooter/index.css";
-import { signIn } from "next-auth/react";
+import { requestAuthorizationGithub } from "./action";
 
 const GithubButton = () => {
   return (
     <Button
       type="button"
-      onClick={() => signIn("github")}
+      onClick={() => requestAuthorizationGithub()}
       className={githubButtonStyle}
       size="medium"
       color="white"
