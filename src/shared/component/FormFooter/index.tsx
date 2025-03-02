@@ -1,7 +1,11 @@
 "use client";
 
 import GithubButton from "@/shared/component/FormFooter/GithubButton";
-import { divider, dividerTextStyle, dividerWrapper } from "@/view/login/index.css";
+import {
+  divider,
+  dividerTextStyle,
+  dividerWrapper,
+} from "@/view/login/index.css";
 import Link from "next/link";
 import { labelContainer, labelStyle } from "./index.css";
 

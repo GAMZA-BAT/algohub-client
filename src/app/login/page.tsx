@@ -3,11 +3,7 @@ import ToastProvider from "@/common/component/Toast";
 import AuthHeader from "@/shared/component/AuthHeader";
 import FormFooter from "@/shared/component/FormFooter";
 import LoginForm from "@/view/login/LoginForm";
-import {
-  cardStyle,
-  containerStyle,
-  wrapper
-} from "@/view/login/index.css";
+import { cardStyle, containerStyle, wrapper } from "@/view/login/index.css";
 
 const LoginPage = () => {
   return (
