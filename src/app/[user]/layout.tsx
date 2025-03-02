@@ -10,12 +10,13 @@ export const metadata: Metadata = {
 
 export default async function UserLayout({
   children,
-  params: { user },
+  params,
 }: Readonly<{
   children: React.ReactNode;
   params: { user: string };
 }>) {
   const session = await auth();
+  const user = decodeURIComponent(params.user);
   const isMe = session?.user?.nickname === user;
 
   return (

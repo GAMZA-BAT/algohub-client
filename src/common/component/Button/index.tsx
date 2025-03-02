@@ -4,7 +4,7 @@ import type { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "small" | "medium" | "large";
-  color?: "purple" | "gray" | "lg";
+  color?: "purple" | "gray" | "lg" | "white";
   isActive?: boolean;
 }
 
