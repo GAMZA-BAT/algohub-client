@@ -23,7 +23,7 @@ const Body = <T,>({ rows, cols, trClassName, tdClassName }: BodyProps<T>) => {
               align={align}
               className={clsx(tableCellTextStyle, tdClassName)}
             >
-              <Cell {...(row as Attributes)} />
+              <Cell {...(row as Attributes & T)} />
             </TableCell>
           ))}
         </tr>
