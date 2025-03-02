@@ -70,6 +70,18 @@ export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
   values: z.infer<z.ZodObject<T>>,
 ): FormData => {
   const data = new FormData();
+
+  const withoutImageField = Object.entries(values).reduce(
+    (acc, [key, value]) => {
+      if (key.includes("Image")) {
+        return acc;
+      }
+      acc[key] = value;
+      return acc;
+    },
+    {} as Record<string, ValueType>,
+  );
+
   const requestData = Object.entries(dirtyFields).reduce(
     (acc, [key, isDirty]) => {
       if (!isDirty) return acc;
@@ -85,8 +97,21 @@ export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
 
       return acc;
     },
-    { isDefaultImage: true } as Record<string, ValueType>,
+    { isDefaultImage: false } as Record<string, ValueType>,
   );
-  data.append("request", JSON.stringify(requestData));
+
+  if (!Object.hasOwn(dirtyFields, "groupImage")) {
+    requestData.isDefaultImage = false;
+  }
+
+  /** 중복 허용하지 않는 nickname 필드는 dirty하지 않을 시 formData에서 제거 */
+  if (!Object.hasOwn(dirtyFields, "nickname") && values.nickname) {
+    withoutImageField.nickname = null;
+  }
+
+  data.append(
+    "request",
+    JSON.stringify({ ...requestData, ...withoutImageField }),
+  );
   return data;
 };

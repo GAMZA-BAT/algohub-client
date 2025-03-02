@@ -1,7 +1,8 @@
 "use client";
 import { Form, FormController } from "@/shared/component/Form";
 import SubmitButton from "@/shared/component/SubmitButton";
-import { contentStyle, formStyle } from "./index.css";
+import Link from "next/link";
+import { contentStyle, formStyle, resetPwStyle } from "./index.css";
 import useLoginForm from "./useLoginForm";
 
 const LoginForm = () => {
@@ -26,29 +27,31 @@ const LoginForm = () => {
             fieldProps={{
               placeholder: "아이디",
             }}
-            showDescription
-            descriptionPosition="top"
-            descriptionProps={{
-              isError,
-              message,
-            }}
           />
           <FormController
             form={form}
             name="password"
             type="input"
+            showDescription
             fieldProps={{
               placeholder: "비밀번호",
               type: "password",
             }}
+            descriptionProps={{
+              isError,
+              message,
+            }}
           />
+          <Link href="/reset-password">
+            <span className={resetPwStyle}>비밀번호를 잊으셨나요?</span>
+          </Link>
         </div>
         <SubmitButton
           isActive={isActive}
           disabled={isPending}
           onClick={handleClick}
         >
-          로그인하기
+          로그인
         </SubmitButton>
       </form>
     </Form>

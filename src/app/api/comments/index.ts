@@ -1,8 +1,8 @@
-import { kyInstance } from "@/app/api";
+import { kyJsonWithTokenInstance } from "@/app/api";
 import type { CommentContent } from "@/app/api/comments/type";
 
 export const getCommentList = async (solutionId: number) => {
-  const response = await kyInstance
+  const response = await kyJsonWithTokenInstance
     .get<CommentContent[]>(`api/solutions/${solutionId}/comments`)
     .json();
 
@@ -10,7 +10,7 @@ export const getCommentList = async (solutionId: number) => {
 };
 
 export const postCommentInput = async (solutionId: number, content: string) => {
-  const response = await kyInstance.post(
+  const response = await kyJsonWithTokenInstance.post(
     `api/solutions/${solutionId}/comments`,
     {
       json: {
@@ -23,7 +23,7 @@ export const postCommentInput = async (solutionId: number, content: string) => {
 };
 
 export const deleteComment = async (commentId: number) => {
-  const response = await kyInstance.delete(
+  const response = await kyJsonWithTokenInstance.delete(
     `api/solutions/comments/${commentId}`,
   );
 
@@ -31,7 +31,7 @@ export const deleteComment = async (commentId: number) => {
 };
 
 export const editComment = async (commentId: number, content: string) => {
-  const response = await kyInstance.patch(
+  const response = await kyJsonWithTokenInstance.patch(
     `api/solutions/comments/${commentId}`,
     {
       json: {
