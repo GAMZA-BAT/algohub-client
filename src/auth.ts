@@ -13,9 +13,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     error: "/error",
   },
   callbacks: {
-    async jwt({ token, user, account, profile }) {
-      console.log(account, profile);
-
+    async jwt({ token, user }) {
       if (user) {
         token.user = user as AdapterUser;
         token.accessToken = user.accessToken;
