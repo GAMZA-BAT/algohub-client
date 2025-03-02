@@ -15,11 +15,9 @@ import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
-const UserDashboardPage = async ({
-  params: { user },
-}: { params: { user: string } }) => {
+const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   const userInfo = await auth();
-
+  const user = decodeURIComponent(params.user);
   const nickname = userInfo?.user?.nickname;
 
   let data: GroupListResponse;

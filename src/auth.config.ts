@@ -4,6 +4,7 @@ import { loginSchema } from "@/view/login/LoginForm/schema";
 import type { NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
+import type { tokenResponse } from "./app/api/auth/type";
 
 export default {
   providers: [
@@ -30,6 +31,20 @@ export default {
         } catch (_error) {
           return null;
         }
+      },
+    }),
+    credentials({
+      id: "github-login",
+      async authorize(credentials) {
+        const { accessToken, refreshToken } = credentials as tokenResponse;
+        const user = await getMyInfo(accessToken);
+        if (!user) return null;
+
+        return {
+          ...user,
+          accessToken,
+          refreshToken,
+        };
       },
     }),
   ],
