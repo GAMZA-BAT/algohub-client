@@ -17,9 +17,9 @@ declare module "next-auth" {
     accessTokenExpires: number;
   }
   interface User {
-    nickname: string;
+    nickname?: string;
     profileImage?: string;
-    bjNickname: string;
+    bjNickname?: string;
     description?: string;
     accessToken: string;
     refreshToken: string;

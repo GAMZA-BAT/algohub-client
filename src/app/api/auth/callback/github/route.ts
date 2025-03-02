@@ -1,5 +1,6 @@
 // app/api/auth/callback/custom-oauth/route.ts
 import { kyJsonInstance } from "@/app/api";
+import { getMyInfo } from "@/app/api/users";
 import { signIn } from "@/auth";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -14,13 +15,16 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // 추출한 authorization code를 자체 서버로 전달
   const tokens = await kyJsonInstance
     .post<{ accessToken: string; refreshToken: string }>(
       `api/oauth/github/sign-in?code=${code}`,
     )
     .json();
+  const user = await getMyInfo(tokens.accessToken);
 
-  // 내부 API 호출 결과의 헤더(예: 세션 쿠키 등)를 클라이언트에 전달
-  await signIn("github-login", tokens)
+  await signIn("github-login", {
+    ...tokens,
+    ...user,
+    redirectTo: `/${user?.nickname}`,
+  });
 }

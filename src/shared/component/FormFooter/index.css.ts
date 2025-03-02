@@ -4,7 +4,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 export const labelContainer = style({
   display: "flex",
   flexDirection: "column",
-  gap: "6rem",
+  gap: "4rem",
 
   width: "100%",
 });
