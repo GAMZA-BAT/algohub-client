@@ -1,9 +1,9 @@
 "use client";
 import AuthHeader from "@/shared/component/AuthHeader";
 import FormFooter from "@/shared/component/FormFooter";
-import Stepper from "@/shared/component/Stepper";
 import { wrapper } from "@/view/login/index.css";
 import SignupForm from "@/view/signup/SignupForm";
+import Stepper from "@/view/signup/Stepper";
 import { containerStyle } from "@/view/signup/index.css";
 import { useState } from "react";
 
