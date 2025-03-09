@@ -4,11 +4,12 @@ import FormFooter from "@/shared/component/FormFooter";
 import { wrapper } from "@/view/login/index.css";
 import SignupForm from "@/view/signup/SignupForm";
 import Stepper from "@/view/signup/Stepper";
+import { SIGNUP_STEPS } from "@/view/signup/constant";
 import { containerStyle } from "@/view/signup/index.css";
 import { useState } from "react";
 
 const SignupPage = () => {
-  const [curStep, setCurStep] = useState(1);
+  const [curStep, setCurStep] = useState(SIGNUP_STEPS.EMAIL_VERIFICATION);
 
   return (
     <div className={wrapper}>

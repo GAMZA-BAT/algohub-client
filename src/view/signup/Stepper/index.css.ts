@@ -3,6 +3,11 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 export const stepperWrapper = style({
   display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  width: "100%",
+  paddingTop: "2.4rem",
 });
 
 export const stepperSectionStyle = style({
