@@ -1,9 +1,9 @@
-import SignupPage from "@/app/signup/page";
+import RegisterPage from "@/app/signup/register/page";
 import type { Meta, StoryObj } from "@storybook/react";
 
-const meta: Meta<typeof SignupPage> = {
+const meta: Meta<typeof RegisterPage> = {
   title: "page/SignupPage",
-  component: SignupPage,
+  component: RegisterPage,
   parameters: {
     design: {
       type: "figma",
@@ -12,7 +12,7 @@ const meta: Meta<typeof SignupPage> = {
   },
 };
 
-type Story = StoryObj<typeof SignupPage>;
+type Story = StoryObj<typeof RegisterPage>;
 
 export const Signup: Story = {
   parameters: {
