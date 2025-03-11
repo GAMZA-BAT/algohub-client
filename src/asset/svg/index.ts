@@ -95,4 +95,3 @@ export { default as IcnUnsolved } from "./icn_unsolved.svg";
 export { default as IcnUser } from "./icn_user.svg";
 export { default as IcnUser2 } from "./icn_user2.svg";
 export { default as IcnUser3 } from "./icn_user3.svg";
-export { default as IcnGitHub } from "./logo_GitHub.svg";
