@@ -17,7 +17,7 @@ export const revalidate = 60;
 
 const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   const userInfo = await auth();
-  const user = decodeURIComponent(params.user);
+  const { user } = params;
   const nickname = userInfo?.user?.nickname;
 
   let data: GroupListResponse;

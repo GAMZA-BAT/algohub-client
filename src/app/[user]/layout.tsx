@@ -16,7 +16,7 @@ export default async function UserLayout({
   params: { user: string };
 }>) {
   const session = await auth();
-  const user = decodeURIComponent(params.user);
+  const { user } = params;
   const isMe = session?.user?.nickname === user;
 
   return (
