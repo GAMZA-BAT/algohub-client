@@ -10,10 +10,10 @@ const LoginForm = () => {
     form,
     isError,
     message,
+    descriptionId,
     isActive,
     isPending,
     handleSubmit,
-    handleClick,
   } = useLoginForm();
 
   return (
@@ -22,7 +22,7 @@ const LoginForm = () => {
         <div className={contentStyle}>
           <FormController
             form={form}
-            name="email"
+            name="identifier"
             type="input"
             fieldProps={{
               placeholder: "아이디",
@@ -40,6 +40,7 @@ const LoginForm = () => {
             descriptionProps={{
               isError,
               message,
+              id: descriptionId,
             }}
           />
           <Link href="/reset-password">
@@ -49,7 +50,6 @@ const LoginForm = () => {
         <SubmitButton
           isActive={isActive}
           disabled={isPending}
-          onClick={handleClick}
         >
           로그인
         </SubmitButton>
