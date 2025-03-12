@@ -47,10 +47,7 @@ const LoginForm = () => {
             <span className={resetPwStyle}>비밀번호를 잊으셨나요?</span>
           </Link>
         </div>
-        <SubmitButton
-          isActive={isActive}
-          disabled={isPending}
-        >
+        <SubmitButton isActive={isActive} disabled={isPending}>
           로그인
         </SubmitButton>
       </form>
