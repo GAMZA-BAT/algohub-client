@@ -37,7 +37,7 @@ export const idRegisterStyle = style({
 
 export const idTextStyle = style({
   ...theme.font.Title2_M_16,
-  color: theme.color.wg
+  color: theme.color.wg,
 });
 
 export const registerModalContainerStyle = style({
@@ -48,7 +48,7 @@ export const registerModalContainerStyle = style({
   width: "40rem",
   height: "30rem",
 
-  padding: '5.2rem 2.4rem',
+  padding: "5.2rem 2.4rem",
   borderRadius: "16px",
   backgroundColor: theme.color.mg6,
 });
@@ -62,7 +62,3 @@ export const registerModalDescriptionStyle = style({
   ...theme.font.Caption3_M_12,
   color: theme.color.wg,
 });
-
-
-
-
