@@ -1,11 +1,16 @@
+import Modal from "@/common/component/Modal";
+import { useBooleanState } from "@/common/hook/useBooleanState";
 import { Form, FormController } from "@/shared/component/Form";
 import SubmitButton from "@/shared/component/SubmitButton";
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";
-import { formStyle, labelStyle, passwordWrapper, width } from "./index.css";
+import IdRegisterModalContent from "./IdRegisterModalContent";
+import { formStyle, idRegisterStyle, idTextStyle, labelStyle, passwordWrapper, width } from "./index.css";
 import useAccountForm from "./useAccountForm";
-
+  
 const AccountManagementForm = () => {
   const { form, isActive, handleSubmit } = useAccountForm();
+
+  const { isOpen, open, close } = useBooleanState();
 
   return (
     <Form {...form}>
@@ -51,7 +56,14 @@ const AccountManagementForm = () => {
         <SubmitButton isActive={isActive} disabled={!isActive}>
           수정하기
         </SubmitButton>
+        <div style={{display:'flex', justifyContent:'space-between'}}>
+          <p className={idTextStyle}>백준 아이디</p>
+          <button type='button' onClick={open} className={idRegisterStyle}>등록하기</button>
+        </div>
       </form>
+      <Modal isOpen={isOpen} onClose={close}>
+        <IdRegisterModalContent />
+      </Modal>
     </Form>
   );
 };
