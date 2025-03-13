@@ -70,7 +70,7 @@ const AccountManagementForm = () => {
           </button>
         </div>
       </form>
-      <Modal isOpen={isOpen} onClose={close}>
+      <Modal isOpen={isOpen} onClose={close} hasCloseBtn>
         <IdRegisterModalContent />
       </Modal>
     </Form>
