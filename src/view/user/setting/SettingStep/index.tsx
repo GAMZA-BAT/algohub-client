@@ -1,4 +1,9 @@
-import { IcnNotification, IcnPencil, IcnSetting, IcnSquare } from "@/asset/svg";
+import {
+  IcnNotifications,
+  IcnPencil,
+  IcnSetting,
+  IcnSquare,
+} from "@/asset/svg";
 import { theme } from "@/styles/themes.css";
 import {
   barStyle,
@@ -21,7 +26,11 @@ const SettingStep = ({ step, setStep }: SettingStepProps) => {
     { type: "my-profile", label: "내 프로필", Icon: IcnSquare },
     { type: "study-setting", label: "스터디 관리", Icon: IcnPencil },
     { type: "account-setting", label: "계정 관리", Icon: IcnSetting },
-    { type: "notification-setting", label: "알람 설정", Icon: IcnNotification },
+    {
+      type: "notification-setting",
+      label: "알람 설정",
+      Icon: IcnNotifications,
+    },
   ];
 
   return (
