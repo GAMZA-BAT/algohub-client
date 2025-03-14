@@ -5,6 +5,7 @@ import {
   metaTextStyle,
   promptModalWrapper,
 } from "@/shared/component/PromptModal/index.css";
+import clsx from "clsx";
 
 type PromptModalProps = {
   isOpen: boolean;
@@ -13,7 +14,10 @@ type PromptModalProps = {
   prompt?: string;
   confirmText: string;
   onConfirm: () => void;
-};
+  wrapperClassName?: string;
+  titleTextClassName?: string;
+  promptTextClassName?: string;
+}
 const PromptModal = ({
   isOpen,
   onClose,
@@ -21,12 +25,15 @@ const PromptModal = ({
   prompt,
   confirmText,
   onConfirm,
+  wrapperClassName,
+  titleTextClassName,
+  promptTextClassName
 }: PromptModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn>
-      <div className={promptModalWrapper}>
-        <h2 className={metaTextStyle}>{title}</h2>
-        <p className={descTextStyle}>{prompt}</p>
+      <div className={clsx(promptModalWrapper, wrapperClassName)}>
+        <h2 className={clsx(metaTextStyle, titleTextClassName)}>{title}</h2>
+        <p className={clsx(descTextStyle, promptTextClassName)}>{prompt}</p>
         <Button onClick={onConfirm}>{confirmText}</Button>
       </div>
     </Modal>
