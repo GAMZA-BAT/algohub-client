@@ -43,6 +43,7 @@ export const {
           console.warn("auth.ts:", await err.response.json());
         }
       }
+
       return token;
     },
     async session({ session, token }) {
@@ -55,7 +56,12 @@ export const {
   },
   events: {
     signOut: async () => {
-      await deleteSignOut();
+      try {
+        await deleteSignOut();
+      } catch (_e) {
+        console.log({ _e });
+        return;
+      }
     },
   },
   session: { strategy: "jwt" },
