@@ -7,7 +7,7 @@ export type SignUpRequest = {
 };
 
 export type SignInRequest = {
-  email: string;
+  identifier: string;
   password: string;
 };
 

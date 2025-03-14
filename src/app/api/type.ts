@@ -1,5 +1,10 @@
 import type { SolutionContent } from "@/app/api/solutions/type";
 
+export type APIError = {
+  error: string;
+  status: number;
+};
+
 export type PaginationResponse = {
   totalPages: number;
   totalElements: number;

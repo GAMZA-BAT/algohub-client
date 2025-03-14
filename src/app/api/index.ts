@@ -28,7 +28,10 @@ const insertNewToken: BeforeRetryHook = async ({
     ky.stop;
   }
   const { response } = error as HTTPError;
-  if (response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED) {
+  if (
+    response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED ||
+    error.message === "Failed to fetch"
+  ) {
     const newAccessToken = (await reIssueAction())?.accessToken;
     typeof window !== "undefined" && setAccessToken(newAccessToken);
     request.headers.set("Authorization", `Bearer ${newAccessToken}`);
