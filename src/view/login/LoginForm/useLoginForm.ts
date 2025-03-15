@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { loginSchema, loginSchemaMessage } from "./schema";
+import { loginSchema } from "./schema";
 
 const useLoginForm = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     mode: "onTouched",
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
@@ -20,8 +20,12 @@ const useLoginForm = () => {
   const session = useSession();
   const router = useRouter();
 
-  const isError = !!Object.keys(form.formState.errors).length;
-  const message = isError ? loginSchemaMessage : undefined;
+  const errors = Object.keys(form.formState.errors);
+  const isError = !!errors;
+  const message =
+    form.formState.errors.password?.message ||
+    form.formState.errors.identifier?.message;
+  const descriptionId = `${errors[0]}-description`;
   const isActive = form.formState.isValid;
 
   const handleSubmit = (values: z.infer<typeof loginSchema>) => {
@@ -29,7 +33,10 @@ const useLoginForm = () => {
       const data = await loginAction(values);
 
       if (data?.error) {
-        form.setError("email", { message: data.error });
+        form.setError(
+          data.msg?.error.includes("비밀번호") ? "password" : "identifier",
+          { message: data.msg?.error },
+        );
         return;
       }
 
@@ -41,21 +48,14 @@ const useLoginForm = () => {
     });
   };
 
-  const handleClick = () => {
-    if (!form.formState.isValid)
-      form.setError("email", {
-        message: "아이디 혹은 비밀번호를 확인해주세요",
-      });
-  };
-
   return {
     form,
     isError,
     message,
+    descriptionId,
     isActive,
     isPending,
     handleSubmit,
-    handleClick,
   };
 };
 

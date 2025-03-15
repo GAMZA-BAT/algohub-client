@@ -9,6 +9,7 @@ import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
 import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
 import Ranking from "@/view/group/dashboard/Ranking";
+import ExtensionAlertModalController from "@/view/user/index/ExtensionAlertModal";
 import { HydrationBoundary } from "@tanstack/react-query";
 
 const GroupDashboardPage = async ({
@@ -53,6 +54,7 @@ const GroupDashboardPage = async ({
           </ProblemList>
         </section>
       </div>
+      <ExtensionAlertModalController domain="group" />
     </main>
   );
 };
