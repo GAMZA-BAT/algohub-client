@@ -17,7 +17,7 @@ type PromptModalProps = {
   wrapperClassName?: string;
   titleTextClassName?: string;
   promptTextClassName?: string;
-}
+};
 const PromptModal = ({
   isOpen,
   onClose,
@@ -27,7 +27,7 @@ const PromptModal = ({
   onConfirm,
   wrapperClassName,
   titleTextClassName,
-  promptTextClassName
+  promptTextClassName,
 }: PromptModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn>

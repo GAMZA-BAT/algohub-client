@@ -7,12 +7,6 @@ import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
-declare global {
-  interface Window {
-    isExtensionInstalled: boolean;
-  }
-}
-
 type ExtensionAlertModalControllerProps = {
   domain: "user" | "group";
 };
@@ -31,11 +25,12 @@ const ExtensionAlertModalController = ({
   };
 
   useEffect(() => {
-    // 테스트용
-    // TODO: 익스텐션 업데이트 후 제거하기
-    window.isExtensionInstalled = false;
+    const isAuth = status === "authenticated";
+    const isInstalled = !!document.querySelector(
+      'meta[name="extension-installed"]',
+    );
 
-    if (status === "authenticated" && !window?.isExtensionInstalled) {
+    if (isAuth && !isInstalled) {
       const extensionAlertDate = localStorage.getItem(key);
       const isNextDate = extensionAlertDate
         ? Date.now() < +extensionAlertDate
