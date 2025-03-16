@@ -39,15 +39,20 @@ const insertNewToken: BeforeRetryHook = async ({
 };
 const RETRY = 2;
 
+const prefixUrl =
+  process.env.NEXT_PUBLIC_APP_ENV === "production"
+    ? process.env.NEXT_PUBLIC_HOST
+    : process.env.NEXT_PRIVATE_HOST;
+
 export const kyJsonInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 export const kyJsonWithTokenInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   headers: {
     "Content-Type": "application/json",
   },
@@ -59,11 +64,11 @@ export const kyJsonWithTokenInstance = ky.create({
 });
 
 export const kyFormInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
 });
 
 export const kyFormWithTokenInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   hooks: {
     beforeRequest: [insertToken],
     beforeRetry: [insertNewToken],
