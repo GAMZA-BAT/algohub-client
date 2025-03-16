@@ -165,3 +165,16 @@ export const patchPassword = async ({
     throw err;
   }
 };
+
+export const patchBjNickname = async (bjNickName: string) => {
+  const response = await kyJsonWithTokenInstance.patch(
+    "api/users/baekjoon-nickname",
+    {
+      json: {
+        bjNickName,
+      },
+    },
+  ).json();
+
+  return response;
+}
