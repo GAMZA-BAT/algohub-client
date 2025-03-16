@@ -174,7 +174,15 @@ export const patchBjNickname = async (bjNickName: string) => {
         bjNickName,
       },
     },
-  ).json();
+  );
 
   return response;
-}
+};
+
+export const deleteBjNickname = async () => {
+  const response = await kyJsonWithTokenInstance.delete(
+    "api/users/baekjoon-nickname",
+  );
+
+  return response;
+};

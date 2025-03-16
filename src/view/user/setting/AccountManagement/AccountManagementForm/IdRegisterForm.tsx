@@ -1,5 +1,10 @@
+import { patchBjNickname } from "@/app/api/users";
 import Button from "@/common/component/Button";
 import Input from "@/common/component/Input";
+import { useToast } from "@/common/hook/useToast";
+import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
+import { HTTPError } from "ky";
+import {} from "next-auth/react";
 import { useState } from "react";
 import {
   registerModalContainerStyle,
@@ -7,13 +12,35 @@ import {
 } from "./index.css";
 import { registerModalHeadingStyle } from "./index.css";
 
-const IdRegisterModalContent = () => {
-  const [id, setId] = useState("");
+type Props = {
+  onSuccess: (id: string) => void;
+};
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const IdRegisterForm = ({ onSuccess }: Props) => {
+  const [id, setId] = useState("");
+  const { showToast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    /** api request */
-    console.log(id);
+    try {
+      const response = await patchBjNickname(id);
+
+      if (response.ok) {
+        showToast("등록이 완료되었습니다", "success");
+        onSuccess(id);
+      }
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        switch (error.response.status) {
+          case HTTP_ERROR_STATUS.NOT_FOUND:
+            showToast("등록되지 않은 아이디입니다", "error");
+            break;
+          default:
+            showToast("등록에 실패하였어요", "error");
+            break;
+        }
+      }
+    }
   };
 
   return (
@@ -43,4 +70,4 @@ const IdRegisterModalContent = () => {
   );
 };
 
-export default IdRegisterModalContent;
+export default IdRegisterForm;
