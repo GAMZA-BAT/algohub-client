@@ -45,7 +45,7 @@ jobs:
       - name: Set environment variables for build
         run: |
           echo "NEXT_PUBLIC_HOST=${{ secrets.NEXT_PUBLIC_HOST }}" >> .env.local
-          echo "NEXT_PRIVATE_HOST=${{ secrets.NEXT_PRIVATE_HOST }}" >> .env.local
+          echo "NEXT_PUBLIC_RC_HOST=${{ secrets.NEXT_PUBLIC_RC_HOST }}" >> .env.local
           echo "NEXT_PUBLIC_APP_ENV=production" >> .env.local
           echo "AUTH_SECRET=${{ secrets.AUTH_SECRET }}" >> .env.local
           echo "NEXT_GITHUB_ID=${{ secrets.NEXT_GITHUB_ID }}" >> .env.local
