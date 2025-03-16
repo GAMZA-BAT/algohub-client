@@ -17,7 +17,7 @@ const SignupPage = async ({
   return (
     <div className={wrapper}>
       <AuthHeader />
-      {token ? <AccountRegister /> : <EmailVerification />}
+      {token ? <AccountRegister token={token} /> : <EmailVerification />}
     </div>
   );
 };

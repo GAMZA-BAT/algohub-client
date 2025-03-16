@@ -1,4 +1,3 @@
-import { signUpAction } from "@/app/api/auth/actions";
 import { useCheckOnServer } from "@/shared/hook/useCheckOnServer";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -45,31 +44,12 @@ const useSignupForm = () => {
 
   const isActive = isValid && !isNicknameLoading;
 
-  const handleSubmit = async (values: z.infer<typeof signupSchema>) => {
-    const data = new FormData();
-
-    if (values.profile) {
-      data.append("profileImage", values.profile);
-    }
-
-    data.append(
-      "request",
-      JSON.stringify({
-        password: values.password,
-        nickname: values.nickname,
-      }),
-    );
-
-    await signUpAction(data);
-  };
-
   return {
     form,
     isActive,
     passwordError,
     passwordMsg,
     nicknameMsg,
-    handleSubmit,
   };
 };
 
