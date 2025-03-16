@@ -1,4 +1,3 @@
-"use client";
 import AuthHeader from "@/shared/component/AuthHeader";
 import { wrapper } from "@/view/login/index.css";
 import AccountRegister from "@/view/signup/AccountRegister";
@@ -13,6 +12,7 @@ const SignupPage = async ({
   if (token) {
     await getVerifyEmail(token);
   }
+  console.log({ token });
 
   return (
     <div className={wrapper}>
