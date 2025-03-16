@@ -34,7 +34,6 @@ const EmailVerification = () => {
         <form
           className={containerStyle}
           onSubmit={form.handleSubmit(handleSubmit)}
-          style={{ width: "100%" }}
         >
           <FormController
             form={form}
@@ -44,10 +43,9 @@ const EmailVerification = () => {
             fieldProps={{
               placeholder: "이메일을 입력해주세요",
               size: "large",
-              // onBlurCapture: handleBlurEmail,
+              style: { width: "100%" },
             }}
           />
-          {/* <Input placeholder="이메일을 입력해주세요." size="large" /> */}
           <Button
             type="submit"
             size="large"
