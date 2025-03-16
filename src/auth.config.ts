@@ -8,8 +8,8 @@ import GithubProvider from "next-auth/providers/github";
 export default {
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.NEXT_GITHUB_ID,
+      clientSecret: process.env.NEXT_GITHUB_SECRET,
     }),
     credentials({
       async authorize(credentials) {

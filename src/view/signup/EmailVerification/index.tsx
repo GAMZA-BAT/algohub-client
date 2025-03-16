@@ -54,6 +54,7 @@ const EmailVerification = () => {
             인증 메일 전송
           </Button>
           <FormFooter
+            variant="signup"
             guideLabel="이미 계정이 있으신가요?"
             link={{ href: "/login", label: "로그인하기" }}
           />

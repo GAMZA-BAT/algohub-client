@@ -28,40 +28,49 @@ const PasswordSetup = ({
   form,
 }: PasswordSetupProps) => {
   return (
-    <div className={formContainer}>
-      <FormController
-        form={form}
-        name="password"
-        type="input"
-        fieldProps={{
-          placeholder: "비밀번호",
-          type: "password",
-          "aria-describedby": "password-description",
-        }}
-      />
-      <FormController
-        form={form}
-        name="confirmPassword"
-        type="input"
-        showDescription
-        revalidationHandlers={getMultipleRevalidationHandlers("password")}
-        fieldProps={{
-          placeholder: "비밀번호 확인",
-          type: "password",
-          "aria-describedby": "password-description",
-        }}
-        descriptionProps={{
-          showErrorIcon: false,
-          id: "password-description",
-          isError: passwordError,
-          message: passwordMsg,
-          className: descriptionStyle,
-        }}
-      />
-      <Button type="button" onClick={onNextStep}>
+    <>
+      <div className={formContainer}>
+        <FormController
+          form={form}
+          name="password"
+          type="input"
+          fieldProps={{
+            placeholder: "비밀번호",
+            type: "password",
+            "aria-describedby": "password-description",
+            size: "large",
+          }}
+        />
+        <FormController
+          form={form}
+          name="confirmPassword"
+          type="input"
+          showDescription
+          revalidationHandlers={getMultipleRevalidationHandlers("password")}
+          fieldProps={{
+            placeholder: "비밀번호 확인",
+            type: "password",
+            "aria-describedby": "password-description",
+            size: "large",
+          }}
+          descriptionProps={{
+            showErrorIcon: false,
+            id: "password-description",
+            isError: passwordError,
+            message: passwordMsg,
+            className: descriptionStyle,
+          }}
+        />
+      </div>
+      <Button
+        style={{ marginTop: "4rem" }}
+        type="button"
+        size="large"
+        onClick={onNextStep}
+      >
         다음
       </Button>
-    </div>
+    </>
   );
 };
 

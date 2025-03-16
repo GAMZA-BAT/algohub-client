@@ -1,6 +1,7 @@
 import Button from "@/common/component/Button";
 import { FormController } from "@/shared/component/Form";
 import { handleOnChangeMode } from "@/shared/util/form";
+import { controllerStyle, formContainer } from "@/view/signup/index.css";
 import type { UseFormReturn } from "react-hook-form";
 
 type ProfileCreationProps = {
@@ -26,8 +27,10 @@ const ProfileCreation = ({
 }: ProfileCreationProps) => {
   return (
     <>
-      <div>
-        <FormController form={form} name="profile" type="image" />
+      <div className={formContainer}>
+        <div className={controllerStyle}>
+          <FormController form={form} name="profile" type="image" />
+        </div>
         <FormController
           form={form}
           name="nickname"
@@ -36,6 +39,7 @@ const ProfileCreation = ({
           revalidationHandlers={handleOnChangeMode}
           fieldProps={{
             placeholder: "닉네임",
+            size: "large",
           }}
           descriptionProps={{
             showErrorIcon: false,

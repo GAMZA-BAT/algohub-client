@@ -9,3 +9,19 @@ export const containerStyle = style({
   width: "33.5rem",
   paddingTop: "7.4rem",
 });
+
+export const formContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+
+  width: "100%",
+  marginBottom: "4rem",
+});
+
+export const controllerStyle = style({
+  display: "flex",
+  justifyContent: "center",
+
+  width: "100%",
+});
