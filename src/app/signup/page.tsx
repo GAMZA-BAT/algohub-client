@@ -12,7 +12,6 @@ const SignupPage = async ({
   if (token) {
     await getVerifyEmail(token);
   }
-  console.log({ token });
 
   return (
     <div className={wrapper}>

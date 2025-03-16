@@ -9,7 +9,7 @@ import type {
   resetPasswordRequest,
   tokenResponse,
 } from "@/app/api/auth/type";
-import ky, { HTTPError } from "ky";
+import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
 import { logoutAction } from "./actions";
 
@@ -85,9 +85,8 @@ export const getCheckPasswordToken = async (token: string) => {
 };
 
 export const postVerifyEmail = async (email: string) => {
-  console.log({ email });
-  const response = await ky
-    .post("https://api.rc.algohub.kr/api/auth/verify/send", {
+  const response = await kyJsonInstance
+    .post("api/auth/verify/send", {
       json: {
         email,
       },

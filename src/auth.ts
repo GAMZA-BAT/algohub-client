@@ -56,12 +56,12 @@ export const {
   },
   events: {
     signOut: async () => {
-      try {
-        await deleteSignOut();
-      } catch (_e) {
-        console.log({ _e });
-        return;
-      }
+      // try {
+      await deleteSignOut();
+      // } catch (_e) {
+      //   console.log({ _e });
+      //   return;
+      // }
     },
   },
   session: { strategy: "jwt" },

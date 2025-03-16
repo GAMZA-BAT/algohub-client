@@ -21,7 +21,6 @@ const EmailVerification = () => {
   });
 
   const handleSubmit = (values: z.infer<typeof emailVerificationSchema>) => {
-    console.log("values.email: ", values.email);
     sendEmail(values.email);
   };
 
