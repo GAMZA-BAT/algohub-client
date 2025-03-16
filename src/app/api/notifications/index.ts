@@ -5,24 +5,11 @@ import type {
 } from "@/app/api/notifications/type";
 
 export const getNotificationList = async () => {
-  try {
-    const response = await kyJsonWithTokenInstance
-      .get<NotificationItem[]>("api/notifications")
-      .json();
+  const response = await kyJsonWithTokenInstance
+    .get<NotificationItem[]>("api/notifications")
+    .json();
 
-    return response;
-  } catch (error) {
-    // if (
-    //   error instanceof HTTPError &&
-    //   error.response.status === HTTP_ERROR_STATUS.BAD_REQUEST
-    // ) {
-    //   console.log("noti");
-    //   await signOut();
-    // } else {
-    // biome-ignore lint/complexity/noUselessCatch: <explanation>
-    throw error;
-    // }
-  }
+  return response;
 };
 
 export const patchAllNotificationRead = () => {

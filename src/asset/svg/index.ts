@@ -95,7 +95,7 @@ export { default as IcnUser2 } from "./icn_user2.svg";
 export { default as IcnUser3 } from "./icn_user3.svg";
 export { default as IcnUnsolved } from "./icn_unsolved.svg";
 export { default as IcnUnrank } from "./icn_unrank.svg";
-export { default as IcnGitHub } from "./logo_GitHub.svg";
+export { default as IcnGitHub } from "./icn_github.svg";
 export { default as IcnStepperDone } from "./icn_stepper_done.svg";
 export { default as IcnStepperCurrent } from "./icn_stepper_current.svg";
 export { default as IcnStepperTodo } from "./icn_stepper_todo.svg";
