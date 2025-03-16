@@ -50,6 +50,10 @@ export const buttonStyle = recipe({
           backgroundColor: theme.color.wg,
         },
       },
+      white: {
+        color: "#24292F",
+        backgroundColor: theme.color.white,
+      },
     },
     isActive: {
       true: {},
