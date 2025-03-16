@@ -9,8 +9,7 @@ export const cardStyle = style({
   gap: "2rem",
 
   width: "40rem",
-  height: "31rem",
-  padding: "0 3rem 3rem",
+  padding: "3rem 3rem",
 
   borderRadius: "2.4rem",
   backgroundColor: theme.color.mg6,

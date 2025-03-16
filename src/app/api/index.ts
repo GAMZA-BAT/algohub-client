@@ -1,9 +1,10 @@
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { getAccessToken, setAccessToken } from "@/shared/util/token";
+import { isServer } from "@tanstack/react-query";
 import type { BeforeRetryHook, HTTPError, KyRequest } from "ky";
 import ky from "ky";
-import { getSession } from "next-auth/react";
+import { signOut as cSignOut, getSession } from "next-auth/react";
 import { reIssueAction } from "./auth/actions";
 
 const insertToken = async (request: KyRequest) => {
@@ -23,11 +24,14 @@ const insertNewToken: BeforeRetryHook = async ({
   retryCount,
 }) => {
   if (retryCount === 2) {
-    // signOut(); reIssueAction에서 로그아웃 처리
+    isServer ? await signOut() : await cSignOut();
     ky.stop;
   }
   const { response } = error as HTTPError;
-  if (response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED) {
+  if (
+    response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED ||
+    error.message === "Failed to fetch"
+  ) {
     const newAccessToken = (await reIssueAction())?.accessToken;
     typeof window !== "undefined" && setAccessToken(newAccessToken);
     request.headers.set("Authorization", `Bearer ${newAccessToken}`);
