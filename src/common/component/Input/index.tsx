@@ -18,6 +18,7 @@ const Input = forwardRef(
     return (
       <input
         ref={ref}
+        data-disabled={props.disabled}
         className={clsx(inputStyle({ size, isError }), className)}
         aria-invalid={isError}
         {...props}
