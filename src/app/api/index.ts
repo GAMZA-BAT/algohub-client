@@ -5,6 +5,7 @@ import { isServer } from "@tanstack/react-query";
 import type { BeforeRetryHook, HTTPError, KyRequest } from "ky";
 import ky from "ky";
 import { signOut as cSignOut, getSession } from "next-auth/react";
+import { IS_PROD } from "../config";
 import { reIssueAction } from "./auth/actions";
 
 const insertToken = async (request: KyRequest) => {
@@ -40,7 +41,7 @@ const insertNewToken: BeforeRetryHook = async ({
 const RETRY = 2;
 
 const prefixUrl =
-  process.env.NEXT_PUBLIC_APP_ENV === "production"
+  IS_PROD
     ? process.env.NEXT_PUBLIC_HOST
     : process.env.NEXT_PRIVATE_HOST;
 
