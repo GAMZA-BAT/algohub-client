@@ -84,8 +84,9 @@ export const getCheckPasswordToken = async (token: string) => {
 };
 
 export const postVerifyEmail = async (email: string) => {
+  console.log({ email });
   const response = await kyJsonInstance
-    .post('api/auth/verify/send', {
+    .post("api/auth/verify/send", {
       json: {
         email,
       },

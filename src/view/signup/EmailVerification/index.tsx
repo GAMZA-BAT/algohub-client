@@ -1,5 +1,5 @@
 "use client";
-import { useSendEmailMutation } from "@/app/signup/query";
+import { useVerifyEmailMutation } from "@/app/signup/query";
 import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
 import FormFooter from "@/shared/component/FormFooter";
@@ -9,7 +9,7 @@ import type { z } from "zod";
 import emailVerificationSchema from "./schema";
 
 const EmailVerification = () => {
-  const { mutate: sendEmail } = useSendEmailMutation();
+  const { mutate: sendEmail } = useVerifyEmailMutation();
   const form = useForm<z.infer<typeof emailVerificationSchema>>({
     resolver: zodResolver(emailVerificationSchema),
     mode: "onTouched",
