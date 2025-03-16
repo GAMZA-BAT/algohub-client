@@ -40,10 +40,9 @@ const insertNewToken: BeforeRetryHook = async ({
 };
 const RETRY = 2;
 
-const prefixUrl =
-  IS_PROD
-    ? process.env.NEXT_PUBLIC_HOST
-    : process.env.NEXT_PRIVATE_HOST;
+const prefixUrl = IS_PROD
+  ? process.env.NEXT_PUBLIC_HOST
+  : process.env.NEXT_PRIVATE_HOST;
 
 export const kyJsonInstance = ky.create({
   prefixUrl,
