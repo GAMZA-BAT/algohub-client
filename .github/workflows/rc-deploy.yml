@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+env:
+  NEXT_PUBLIC_APP_ENV: rc
+  NEXT_GITHUB_ID: ${{ secrets.NEXT_RC_GITHUB_ID }}
+  NEXT_GITHUB_SECRET: ${{ secrets.NEXT_RC_GITHUB_SECRET }}
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04-arm
