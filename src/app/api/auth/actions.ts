@@ -13,9 +13,9 @@ import type { z } from "zod";
 import { postReissueToken, postSignUp } from ".";
 import type { APIError } from "../type";
 
-export const signUpAction = async (formData: FormData) => {
+export const signUpAction = async (token: string, formData: FormData) => {
   try {
-    await postSignUp(formData);
+    await postSignUp(token, formData);
   } catch (_err) {
     throw new Error("fail to sign up");
   }
