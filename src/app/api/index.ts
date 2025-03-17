@@ -42,7 +42,7 @@ const RETRY = 2;
 
 const prefixUrl = IS_PROD
   ? process.env.NEXT_PUBLIC_HOST
-  : process.env.NEXT_PRIVATE_HOST;
+  : process.env.NEXT_PUBLIC_RC_HOST;
 
 export const kyJsonInstance = ky.create({
   prefixUrl,
