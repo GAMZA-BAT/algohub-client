@@ -9,6 +9,7 @@ import { useState } from "react";
 import {
   registerModalContainerStyle,
   registerModalDescriptionStyle,
+  registerModalTextContainerStyle,
 } from "./index.css";
 import { registerModalHeadingStyle } from "./index.css";
 
@@ -45,14 +46,7 @@ const IdRegisterForm = ({ onSuccess }: Props) => {
 
   return (
     <form onSubmit={handleSubmit} className={registerModalContainerStyle}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "0.8rem",
-          marginBottom: "0.4rem",
-        }}
-      >
+      <div className={registerModalTextContainerStyle}>
         <h2 className={registerModalHeadingStyle}> 백준 아이디 등록 </h2>
         <p className={registerModalDescriptionStyle}>
           그룹 가입 시 백준 아이디 등록이 필요합니다.

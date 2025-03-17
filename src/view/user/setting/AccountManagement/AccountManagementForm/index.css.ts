@@ -62,3 +62,10 @@ export const registerModalDescriptionStyle = style({
   ...theme.font.Caption3_M_12,
   color: theme.color.wg,
 });
+
+export const registerModalTextContainerStyle = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.8rem",
+  marginBottom: "0.4rem",
+});
