@@ -10,6 +10,7 @@ import Link from "next/link";
 import { labelContainer, labelStyle } from "./index.css";
 
 interface FooterProps {
+  variant?: "login" | "signup";
   guideLabel?: string;
   link: {
     label: string;
@@ -17,7 +18,11 @@ interface FooterProps {
   };
 }
 
-const FormFooter = ({ guideLabel, link: { label, href } }: FooterProps) => {
+const FormFooter = ({
+  variant = "login",
+  guideLabel,
+  link: { label, href },
+}: FooterProps) => {
   return (
     <footer className={labelContainer}>
       <div
@@ -33,12 +38,16 @@ const FormFooter = ({ guideLabel, link: { label, href } }: FooterProps) => {
           {label}
         </Link>
       </div>
-      <div className={dividerWrapper}>
-        <div className={divider} />
-        <p className={dividerTextStyle}>or</p>
-        <div className={divider} />
-      </div>
-      <GithubButton />
+      {variant === "login" ? (
+        <>
+          <div className={dividerWrapper}>
+            <div className={divider} />
+            <p className={dividerTextStyle}>or</p>
+            <div className={divider} />
+          </div>
+          <GithubButton />
+        </>
+      ) : null}
     </footer>
   );
 };
