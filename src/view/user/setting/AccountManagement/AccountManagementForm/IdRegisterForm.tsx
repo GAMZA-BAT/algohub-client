@@ -37,7 +37,7 @@ const IdRegisterForm = ({ onSuccess }: Props) => {
             showToast("등록되지 않은 아이디입니다", "error");
             break;
           default:
-            showToast("등록에 실패하였어요", "error");
+            showToast("정상적으로 등록되지 않았습니다", "error");
             break;
         }
       }

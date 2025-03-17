@@ -69,3 +69,14 @@ export const registerModalTextContainerStyle = style({
   gap: "0.8rem",
   marginBottom: "0.4rem",
 });
+
+export const regiserNicknameTextStyle = style({
+  display: "flex",
+  justifyContent: "space-between",
+});
+
+export const deleteBjNicknameWrapperStyle = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.4rem",
+});

@@ -10,11 +10,13 @@ import { useSession } from "next-auth/react";
 import { match } from "ts-pattern";
 import IdRegisterForm from "./IdRegisterForm";
 import {
+  deleteBjNicknameWrapperStyle,
   formStyle,
   idRegisterStyle,
   idTextStyle,
   labelStyle,
   passwordWrapper,
+  regiserNicknameTextStyle,
   width,
 } from "./index.css";
 import useAccountForm from "./useAccountForm";
@@ -95,7 +97,7 @@ const AccountManagementForm = () => {
 
         {match(bjNickname)
           .with(undefined, () => (
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className={regiserNicknameTextStyle}>
               <p className={idTextStyle}>백준 아이디</p>
               <button type="button" onClick={open} className={idRegisterStyle}>
                 등록하기
@@ -103,14 +105,8 @@ const AccountManagementForm = () => {
             </div>
           ))
           .otherwise(() => (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.4rem",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className={deleteBjNicknameWrapperStyle}>
+              <div className={regiserNicknameTextStyle}>
                 <p className={idTextStyle}>백준 아이디</p>
                 <button
                   type="button"
