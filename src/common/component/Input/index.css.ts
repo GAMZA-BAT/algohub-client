@@ -26,13 +26,6 @@ export const inputStyle = recipe({
     "::placeholder": {
       color: theme.color.mg4,
     },
-
-    selectors: {
-      '&[data-disabled="true"]': {
-        border: "1px solid transparent",
-        pointerEvents: "none",
-      },
-    },
   },
 
   variants: {
@@ -56,6 +49,12 @@ export const inputStyle = recipe({
     isError: {
       true: {
         border: `1px solid ${theme.color.red}`,
+      },
+    },
+    disabled: {
+      true: {
+        border: "1px solid transparent",
+        pointerEvents: "none",
       },
     },
   },
