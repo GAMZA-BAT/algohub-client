@@ -9,7 +9,8 @@ env:
   NEXT_PUBLIC_APP_ENV: rc
   NEXT_GITHUB_ID: ${{ secrets.NEXT_RC_GITHUB_ID }}
   NEXT_GITHUB_SECRET: ${{ secrets.NEXT_RC_GITHUB_SECRET }}
-
+  NEXT_PUBLIC_RC_HOST: ${{ secrets.NEXT_PUBLIC_RC_HOST }}
+  
 jobs:
   deploy:
     runs-on: ubuntu-22.04-arm
