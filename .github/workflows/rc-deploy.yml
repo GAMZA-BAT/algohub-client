@@ -24,7 +24,7 @@ jobs:
           echo "DOCKER_USERNAME=$(sed -n '1p' docker.txt)" >> $GITHUB_ENV
           echo "DOCKER_PASSWORD=$(sed -n '2p' docker.txt)" >> $GITHUB_ENV
 
-      - name : Setup .env
+      - name: Setup .env
         run: |
           curl -u ${{ secrets.CREDENTIAL_NAME }}:${{ secrets.CREDENTIAL_PW }} -X GET https://webdav.hwangdo.kr/algohub-client/rc/env -o .env
       
