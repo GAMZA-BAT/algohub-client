@@ -44,6 +44,10 @@ const prefixUrl = IS_PROD
   ? process.env.NEXT_PUBLIC_HOST
   : process.env.NEXT_PUBLIC_RC_HOST;
 
+if (isServer) {
+  console.log({ prefixUrl });
+  console.log(process.env);
+}
 export const kyJsonInstance = ky.create({
   prefixUrl,
   headers: {

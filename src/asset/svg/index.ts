@@ -93,11 +93,8 @@ export { default as IcnStepperCurrent } from "./icn_stepper_current.svg";
 export { default as IcnStepperDone } from "./icn_stepper_done.svg";
 export { default as IcnStepperTodo } from "./icn_stepper_todo.svg";
 export { default as IcnTrash } from "./icn_trash.svg";
-export { default as IcnUnrank, default as IcnUnrank } from "./icn_unrank.svg";
-export {
-  default as IcnUnsolved,
-  default as IcnUnsolved,
-} from "./icn_unsolved.svg";
+export { default as IcnUnrank } from "./icn_unrank.svg";
+export { default as IcnUnsolved } from "./icn_unsolved.svg";
 export { default as IcnUser } from "./icn_user.svg";
 export { default as IcnUser2 } from "./icn_user2.svg";
 export { default as IcnUser3 } from "./icn_user3.svg";
