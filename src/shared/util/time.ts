@@ -42,3 +42,10 @@ export const getFormattedcreatedAt = (createdAt: string) => {
     ? `${currentMinute - createdMinute}분 전`
     : "방금 전";
 };
+
+export const getNextMidnight = () => {
+  const now = new Date();
+  now.setDate(now.getDate() + 1);
+  now.setHours(0, 0, 0, 0);
+  return now;
+};
