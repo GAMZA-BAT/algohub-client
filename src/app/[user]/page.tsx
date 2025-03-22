@@ -4,6 +4,7 @@ import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
+import ExtensionAlertModalController from "@/view/user/index/ExtensionAlertModal";
 import LoginAlertModalController from "@/view/user/index/GroupCard/LoginAlertModalController";
 import ListSection from "@/view/user/index/ListSection";
 import UserCard from "@/view/user/index/UserCard";
@@ -48,6 +49,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
         ))}
       </div>
       <LoginAlertModalController />
+      <ExtensionAlertModalController domain="user" />
     </main>
   );
 };
