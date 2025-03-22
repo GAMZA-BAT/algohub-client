@@ -44,7 +44,7 @@ export { default as IcnError } from "./icn_error.svg";
 export { default as IcnExit } from "./icn_exit.svg";
 export { default as IcnExpandMore } from "./icn_expand_more.svg";
 export { default as IcnFirefox } from "./icn_firefox.svg";
-export { default as IcnGithub } from "./icn_github.svg";
+export { default as IcnGithub, default as IcnGitHub } from "./icn_github.svg";
 export { default as IcnGold1 } from "./icn_gold1.svg";
 export { default as IcnGold2 } from "./icn_gold2.svg";
 export { default as IcnGold3 } from "./icn_gold3.svg";
@@ -89,9 +89,15 @@ export { default as IcnSilver4 } from "./icn_silver4.svg";
 export { default as IcnSilver5 } from "./icn_silver5.svg";
 export { default as IcnSolved } from "./icn_solved.svg";
 export { default as IcnSquare } from "./icn_square.svg";
+export { default as IcnStepperCurrent } from "./icn_stepper_current.svg";
+export { default as IcnStepperDone } from "./icn_stepper_done.svg";
+export { default as IcnStepperTodo } from "./icn_stepper_todo.svg";
 export { default as IcnTrash } from "./icn_trash.svg";
-export { default as IcnUnrank } from "./icn_unrank.svg";
-export { default as IcnUnsolved } from "./icn_unsolved.svg";
+export { default as IcnUnrank, default as IcnUnrank } from "./icn_unrank.svg";
+export {
+  default as IcnUnsolved,
+  default as IcnUnsolved,
+} from "./icn_unsolved.svg";
 export { default as IcnUser } from "./icn_user.svg";
 export { default as IcnUser2 } from "./icn_user2.svg";
 export { default as IcnUser3 } from "./icn_user3.svg";

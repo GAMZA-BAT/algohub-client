@@ -1,5 +1,5 @@
-import { validateBojNickname, validateNickname } from "@/app/api/users";
-import { baseSignupSchema } from "@/view/signup/SignupForm/schema";
+import { validateNickname } from "@/app/api/users";
+import { baseSignupSchema } from "@/view/signup/AccountRegister/schema";
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
@@ -7,15 +7,13 @@ import type { z } from "zod";
 export const useCheckOnServer = (
   form: UseFormReturn<z.infer<typeof baseSignupSchema>>,
   nickname: string,
-  baekjoonId: string,
 ) => {
   const [isNicknameLoading, setNicknameLoading] = useState(false);
-  const [isBaekjoonIdLoading, setBaekjoonIdLoading] = useState(false);
 
   const handleValidation = async (
-    fieldName: "nickname" | "baekjoonId",
+    fieldName: "nickname",
     value: string,
-    validateFn: typeof validateNickname | typeof validateBojNickname,
+    validateFn: typeof validateNickname,
     loadingSetter: (value: boolean) => void,
   ) => {
     if (!value.length) {
@@ -67,14 +65,5 @@ export const useCheckOnServer = (
     );
   }, [nickname]);
 
-  useEffect(() => {
-    handleValidation(
-      "baekjoonId",
-      baekjoonId,
-      validateBojNickname,
-      setBaekjoonIdLoading,
-    );
-  }, [baekjoonId]);
-
-  return { isNicknameLoading, isBaekjoonIdLoading };
+  return { isNicknameLoading };
 };

@@ -5,6 +5,7 @@ import { isServer } from "@tanstack/react-query";
 import type { BeforeRetryHook, HTTPError, KyRequest } from "ky";
 import ky from "ky";
 import { signOut as cSignOut, getSession } from "next-auth/react";
+import { IS_PROD } from "../config";
 import { reIssueAction } from "./auth/actions";
 
 const insertToken = async (request: KyRequest) => {
@@ -39,15 +40,19 @@ const insertNewToken: BeforeRetryHook = async ({
 };
 const RETRY = 2;
 
+const prefixUrl = IS_PROD
+  ? process.env.NEXT_PUBLIC_HOST
+  : process.env.NEXT_PUBLIC_RC_HOST;
+
 export const kyJsonInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 export const kyJsonWithTokenInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   headers: {
     "Content-Type": "application/json",
   },
@@ -59,11 +64,11 @@ export const kyJsonWithTokenInstance = ky.create({
 });
 
 export const kyFormInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
 });
 
 export const kyFormWithTokenInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   hooks: {
     beforeRequest: [insertToken],
     beforeRetry: [insertNewToken],

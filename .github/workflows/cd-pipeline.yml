@@ -5,6 +5,11 @@ on:
     branches:
       - deploy
 
+env:
+  NEXT_PUBLIC_APP_ENV: production
+  NEXT_GITHUB_ID: ${{ secrets.NEXT_PROD_GITHUB_ID }}
+  NEXT_GITHUB_SECRET: ${{ secrets.NEXT_PROD_GITHUB_SECRET }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,6 +50,8 @@ jobs:
       - name: Set environment variables for build
         run: |
           echo "NEXT_PUBLIC_HOST=${{ secrets.NEXT_PUBLIC_HOST }}" >> .env.local
+          echo "NEXT_PUBLIC_RC_HOST=${{ secrets.NEXT_PUBLIC_RC_HOST }}" >> .env.local
+          echo "NEXT_PUBLIC_APP_ENV=production" >> .env.local
           echo "AUTH_SECRET=${{ secrets.AUTH_SECRET }}" >> .env.local
 
       - name: Install Dependencies
