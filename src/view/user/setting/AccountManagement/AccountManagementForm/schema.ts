@@ -1,4 +1,4 @@
-import { validateNickname } from "@/app/api/users";
+import { validateBojNickname } from "@/app/api/users";
 import { z } from "zod";
 
 // 1. 기본 스키마 정의 (ZodObject)
@@ -50,12 +50,12 @@ export const formSchema = z.object({
         message: "닉네임은 16자 이하여야 합니다.",
       });
     } else {
-      const response = await validateNickname(val);
+      const response = await validateBojNickname(val);
 
       if (!response) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "백준 닉네임이 유효하지 않습니다.",
+          message: "유효하지 않은 백준 닉네임이에요.",
         });
       }
     }
