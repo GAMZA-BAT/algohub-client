@@ -13,7 +13,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: hostname
+        hostname: 'algohubbucket.s3.ap-northeast-2.amazonaws.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'storage.hwangdo.kr'
       }
     ]
   },

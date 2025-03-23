@@ -46,20 +46,6 @@ const EditForm = () => {
 
               <FormController
                 form={form}
-                name="bjNickname"
-                type="input"
-                showLabel
-                labelProps={{
-                  className: labelStyle,
-                  children: "백준 아이디",
-                }}
-                fieldProps={{
-                  placeholder: "백준 아이디",
-                }}
-              />
-
-              <FormController
-                form={form}
                 name="description"
                 type="input"
                 revalidationHandlers={handleOnChangeMode}
