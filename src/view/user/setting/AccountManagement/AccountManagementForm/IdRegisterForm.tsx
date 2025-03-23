@@ -16,11 +16,12 @@ import {
 } from "./index.css";
 import { registerModalHeadingStyle } from "./index.css";
 import { formSchema } from "./schema";
-type Props = {
+
+type IdRegisterFormProps = {
   onSuccess: (id: string) => void;
 };
 
-const IdRegisterForm = ({ onSuccess }: Props) => {
+const IdRegisterForm = ({ onSuccess }: IdRegisterFormProps) => {
   const { showToast } = useToast();
   const [form, setForm] = useState<z.input<typeof formSchema>>({
     bjNickname: "",
