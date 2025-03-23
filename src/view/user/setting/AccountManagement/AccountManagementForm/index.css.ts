@@ -46,7 +46,6 @@ export const registerModalContainerStyle = style({
   gap: "2rem",
 
   width: "40rem",
-  height: "30rem",
 
   padding: "5.2rem 2.4rem",
   borderRadius: "16px",

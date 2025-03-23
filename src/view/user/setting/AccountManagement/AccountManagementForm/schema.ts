@@ -1,3 +1,4 @@
+import { validateNickname } from "@/app/api/users";
 import { z } from "zod";
 
 // 1. 기본 스키마 정의 (ZodObject)
@@ -33,3 +34,30 @@ export const resetPasswordSchema = baseAccountManagementSchema
     message: "비밀번호와 비밀번호 확인이 일치하지 않습니다.",
     path: ["confirmPassword"],
   });
+
+export const formSchema = z.object({
+  bjNickname: z.string().superRefine(async (val, ctx) => {
+    if (val === "") return null;
+
+    if (val.length < 3) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "닉네임은 3자 이상이여야 합니다.",
+      });
+    } else if (val.length > 16) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "닉네임은 16자 이하여야 합니다.",
+      });
+    } else {
+      const response = await validateNickname(val);
+
+      if (!response) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "백준 닉네임이 유효하지 않습니다.",
+        });
+      }
+    }
+  }),
+});

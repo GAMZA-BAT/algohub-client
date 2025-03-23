@@ -1,34 +1,52 @@
 import { patchBjNickname } from "@/app/api/users";
 import Button from "@/common/component/Button";
 import Input from "@/common/component/Input";
+import SupportingText from "@/common/component/SupportingText";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
+import { useZodHelper } from "@/shared/hook/useZodHelper";
 import { HTTPError } from "ky";
-import {} from "next-auth/react";
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
+
+import type { z } from "zod";
 import {
   registerModalContainerStyle,
   registerModalDescriptionStyle,
   registerModalTextContainerStyle,
 } from "./index.css";
 import { registerModalHeadingStyle } from "./index.css";
-
+import { formSchema } from "./schema";
 type Props = {
   onSuccess: (id: string) => void;
 };
 
 const IdRegisterForm = ({ onSuccess }: Props) => {
-  const [id, setId] = useState("");
   const { showToast } = useToast();
+  const [form, setForm] = useState<z.input<typeof formSchema>>({
+    bjNickname: "",
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const { result } = useZodHelper(formSchema, form, {
+    asyncValidate: true,
+  });
+
+  const isInvalid = result?.success === false;
+
+  const errorMessage = result?.error?.issues
+    .filter((issue) => issue.code === "custom")
+    .at(0)?.message;
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (isInvalid) return;
+
     try {
-      const response = await patchBjNickname(id);
+      const response = await patchBjNickname(form.bjNickname);
 
       if (response.ok) {
         showToast("등록이 완료되었습니다", "success");
-        onSuccess(id);
+        onSuccess(form.bjNickname);
       }
     } catch (error) {
       if (error instanceof HTTPError) {
@@ -53,11 +71,21 @@ const IdRegisterForm = ({ onSuccess }: Props) => {
         </p>
       </div>
       <Input
-        onChange={(e) => setId(e.target.value)}
+        value={form.bjNickname}
+        onChange={(e) =>
+          setForm({
+            bjNickname: e.target.value,
+          })
+        }
         type="text"
         placeholder="백준 아이디를 입력해주세요"
       />
-      <Button type="submit" size="medium" color="purple">
+      {isInvalid ? (
+        <SupportingText isError={true} message={errorMessage} />
+      ) : (
+        <div style={{ height: "1.5rem", width: "100%" }} />
+      )}
+      <Button disabled={isInvalid} type="submit" size="medium" color="purple">
         등록하기
       </Button>
     </form>

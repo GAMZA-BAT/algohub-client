@@ -9,6 +9,10 @@ export const buttonStyle = recipe({
     alignItems: "center",
 
     width: "100%",
+
+    ":disabled": {
+      backgroundColor: theme.color.purple2,
+    },
   },
   variants: {
     size: {
