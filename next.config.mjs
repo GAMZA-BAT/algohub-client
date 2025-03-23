@@ -2,6 +2,11 @@
 import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
 
+const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
+const hostname = isProd 
+  ? 'algohubbucket.s3.ap-northeast-2.amazonaws.com'
+  : 'storage.hwangdo.kr';
+
 const nextConfig = {
   output: "standalone",
   images: {
@@ -9,6 +14,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'algohubbucket.s3.ap-northeast-2.amazonaws.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'storage.hwangdo.kr'
       }
     ]
   },

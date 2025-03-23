@@ -10,11 +10,12 @@ import type {
   tokenResponse,
 } from "@/app/api/auth/type";
 import { HTTPError } from "ky";
+import { notFound } from "next/navigation";
 import { logoutAction } from "./actions";
 
-export const postSignUp = async (formData: FormData) => {
+export const postSignUp = async (token: string, formData: FormData) => {
   const response = await kyFormInstance
-    .post("api/auth/sign-up", {
+    .post(`api/auth/sign-up?token=${token}`, {
       body: formData,
     })
     .json();
@@ -81,4 +82,24 @@ export const getCheckPasswordToken = async (token: string) => {
     .json();
 
   return response;
+};
+
+export const postVerifyEmail = async (email: string) => {
+  const response = await kyJsonInstance
+    .post("api/auth/verify/send", {
+      json: {
+        email,
+      },
+    })
+    .json();
+
+  return response;
+};
+
+export const getVerifyEmail = async (token: string) => {
+  try {
+    await kyJsonInstance.get(`api/auth/verify?token=${token}`).json();
+  } catch (_error) {
+    notFound();
+  }
 };

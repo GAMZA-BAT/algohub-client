@@ -1,4 +1,3 @@
-import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
@@ -6,16 +5,23 @@ export const containerStyle = style({
   flexDirection: "column",
   justifyContent: "flex-start",
   alignItems: "center",
-  gap: "1.5rem",
 
-  position: "relative",
-  zIndex: 0,
+  width: "33.5rem",
+  paddingTop: "7.4rem",
+});
 
-  width: "100vw",
-  height: "calc(100vh - 7.2rem)",
-  paddingTop: "3rem",
+export const formContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 
-  overflow: "hidden",
+  width: "100%",
+  marginBottom: "4rem",
+});
 
-  backgroundColor: theme.color.bg,
+export const controllerStyle = style({
+  display: "flex",
+  justifyContent: "center",
+
+  width: "100%",
 });

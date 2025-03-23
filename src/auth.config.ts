@@ -1,11 +1,16 @@
 import { postSignin } from "@/app/api/auth";
 import { getMyInfo } from "@/app/api/users";
 import { loginSchema } from "@/view/login/LoginForm/schema";
-import type { NextAuthConfig } from "next-auth";
+import type { NextAuthConfig, User } from "next-auth";
 import credentials from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
 
 export default {
   providers: [
+    GithubProvider({
+      clientId: process.env.NEXT_GITHUB_ID,
+      clientSecret: process.env.NEXT_GITHUB_SECRET,
+    }),
     credentials({
       async authorize(credentials) {
         const validatedFields = loginSchema.safeParse(credentials);
@@ -20,6 +25,20 @@ export default {
           ...user,
           accessToken,
           refreshToken,
+        };
+      },
+    }),
+    credentials({
+      id: "github-login",
+      async authorize(credentials: Partial<User>): Promise<User | null> {
+        const { accessToken, refreshToken, ...user } = credentials;
+        if (!user) return null;
+        if (user.profileImage === "null") user.profileImage = undefined;
+        if (user.bjNickname === "null") user.bjNickname = undefined;
+        return {
+          ...user,
+          accessToken: accessToken!,
+          refreshToken: refreshToken!,
         };
       },
     }),

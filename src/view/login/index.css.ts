@@ -43,6 +43,10 @@ export const containerStyle = style({
 });
 
 export const wrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+
   position: "fixed",
   top: 0,
 });

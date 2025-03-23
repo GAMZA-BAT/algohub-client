@@ -1,5 +1,6 @@
 import type { TableDataType } from "@/shared/type/table";
 import clsx from "clsx";
+import type { Attributes } from "react";
 import TableCell from "./TableCell";
 import { tableCellTextStyle, tableRowStyle } from "./index.css";
 
@@ -22,7 +23,7 @@ const Body = <T,>({ rows, cols, trClassName, tdClassName }: BodyProps<T>) => {
               align={align}
               className={clsx(tableCellTextStyle, tdClassName)}
             >
-              {Cell(row)}
+              <Cell {...(row as Attributes & T)} />
             </TableCell>
           ))}
         </tr>

@@ -3,27 +3,13 @@ import type {
   NotificationItem,
   NotificationSettingContent,
 } from "@/app/api/notifications/type";
-import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
-import { HTTPError } from "ky";
-import { signOut } from "next-auth/react";
 
 export const getNotificationList = async () => {
-  try {
-    const response = await kyJsonWithTokenInstance
-      .get<NotificationItem[]>("api/notifications")
-      .json();
+  const response = await kyJsonWithTokenInstance
+    .get<NotificationItem[]>("api/notifications")
+    .json();
 
-    return response;
-  } catch (error) {
-    if (
-      error instanceof HTTPError &&
-      error.response.status === HTTP_ERROR_STATUS.BAD_REQUEST
-    ) {
-      await signOut();
-    } else {
-      throw error;
-    }
-  }
+  return response;
 };
 
 export const patchAllNotificationRead = () => {

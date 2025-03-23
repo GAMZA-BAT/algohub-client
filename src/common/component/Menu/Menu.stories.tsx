@@ -1,4 +1,4 @@
-import { IcnBtnArrowDown, IcnNotification } from "@/asset/svg";
+import { IcnBtnArrowDown, IcnNotifications } from "@/asset/svg";
 import type { Meta, StoryObj } from "@storybook/react";
 import clsx from "clsx";
 import type { ComponentProps } from "react";
@@ -39,7 +39,7 @@ export const Default: Story = {
     }: ComponentProps<"button">) => {
       return (
         <button className={clsx(storyButtonStyle, className)} {...props}>
-          <IcnNotification width="2.5rem" height="2.5rem" />
+          <IcnNotifications width="2.5rem" height="2.5rem" />
         </button>
       );
     };

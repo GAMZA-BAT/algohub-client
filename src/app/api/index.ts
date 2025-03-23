@@ -1,9 +1,11 @@
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { getAccessToken, setAccessToken } from "@/shared/util/token";
+import { isServer } from "@tanstack/react-query";
 import type { BeforeRetryHook, HTTPError, KyRequest } from "ky";
 import ky from "ky";
-import { getSession } from "next-auth/react";
+import { signOut as cSignOut, getSession } from "next-auth/react";
+import { IS_PROD } from "../config";
 import { reIssueAction } from "./auth/actions";
 
 const insertToken = async (request: KyRequest) => {
@@ -23,11 +25,14 @@ const insertNewToken: BeforeRetryHook = async ({
   retryCount,
 }) => {
   if (retryCount === 2) {
-    // signOut(); reIssueAction에서 로그아웃 처리
+    isServer ? await signOut() : await cSignOut();
     ky.stop;
   }
   const { response } = error as HTTPError;
-  if (response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED) {
+  if (
+    response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED ||
+    error.message === "Failed to fetch"
+  ) {
     const newAccessToken = (await reIssueAction())?.accessToken;
     typeof window !== "undefined" && setAccessToken(newAccessToken);
     request.headers.set("Authorization", `Bearer ${newAccessToken}`);
@@ -35,15 +40,23 @@ const insertNewToken: BeforeRetryHook = async ({
 };
 const RETRY = 2;
 
+const prefixUrl = IS_PROD
+  ? process.env.NEXT_PUBLIC_HOST
+  : process.env.NEXT_PUBLIC_RC_HOST;
+
+if (isServer) {
+  console.log({ prefixUrl });
+  console.log(process.env);
+}
 export const kyJsonInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 export const kyJsonWithTokenInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   headers: {
     "Content-Type": "application/json",
   },
@@ -55,11 +68,11 @@ export const kyJsonWithTokenInstance = ky.create({
 });
 
 export const kyFormInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
 });
 
 export const kyFormWithTokenInstance = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_HOST,
+  prefixUrl,
   hooks: {
     beforeRequest: [insertToken],
     beforeRetry: [insertNewToken],

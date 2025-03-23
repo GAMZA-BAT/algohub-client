@@ -149,19 +149,35 @@ export const patchPassword = async ({
   currentPassword,
   newPassword,
 }: PasswordRequest) => {
-  try {
-    const response = await kyJsonWithTokenInstance
-      .patch("api/users/me/password", {
-        json: {
-          currentPassword,
-          newPassword,
-        },
-      })
-      .json();
+  const response = await kyJsonWithTokenInstance
+    .patch("api/users/me/password", {
+      json: {
+        currentPassword,
+        newPassword,
+      },
+    })
+    .json();
 
-    return response;
-  } catch (err) {
-    console.log({ err });
-    throw err;
-  }
+  return response;
+};
+
+export const patchBjNickname = async (bjNickName: string) => {
+  const response = await kyJsonWithTokenInstance.patch(
+    "api/users/baekjoon-nickname",
+    {
+      json: {
+        bjNickName,
+      },
+    },
+  );
+
+  return response;
+};
+
+export const deleteBjNickname = async () => {
+  const response = await kyJsonWithTokenInstance.delete(
+    "api/users/baekjoon-nickname",
+  );
+
+  return response;
 };
