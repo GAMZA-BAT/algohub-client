@@ -37,8 +37,8 @@ export const useNoticeMutation = (groupId: number) => {
   return useMutation({
     mutationFn: (requestData: NoticeRequest) =>
       noticeAction(groupId, requestData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["notices", groupId],
       });
       router.push(`/group/${groupId}/notice`);
