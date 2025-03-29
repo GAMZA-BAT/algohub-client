@@ -51,5 +51,11 @@ export const inputStyle = recipe({
         border: `1px solid ${theme.color.red}`,
       },
     },
+    disabled: {
+      true: {
+        border: "1px solid transparent",
+        pointerEvents: "none",
+      },
+    },
   },
 });

@@ -1,11 +1,54 @@
+import { deleteBjNickname } from "@/app/api/users";
+import Input from "@/common/component/Input";
+import Modal from "@/common/component/Modal";
+import { useBooleanState } from "@/common/hook/useBooleanState";
+import { useToast } from "@/common/hook/useToast";
 import { Form, FormController } from "@/shared/component/Form";
 import SubmitButton from "@/shared/component/SubmitButton";
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";
-import { formStyle, labelStyle, passwordWrapper, width } from "./index.css";
+import { useSession } from "next-auth/react";
+import { match } from "ts-pattern";
+import IdRegisterForm from "./IdRegisterForm";
+import {
+  deleteBjNicknameWrapperStyle,
+  formStyle,
+  idRegisterStyle,
+  idTextStyle,
+  labelStyle,
+  passwordWrapper,
+  regiserNicknameTextStyle,
+  width,
+} from "./index.css";
 import useAccountForm from "./useAccountForm";
 
 const AccountManagementForm = () => {
   const { form, isActive, handleSubmit } = useAccountForm();
+
+  const { isOpen, open, close } = useBooleanState();
+
+  const { data, update } = useSession();
+  const bjNickname = data?.user?.bjNickname || undefined;
+
+  const { showToast } = useToast();
+
+  const updateBjNickname = async (bjNickname?: string) => {
+    await update({
+      ...data,
+      user: { ...data?.user, bjNickname },
+    });
+  };
+
+  const handleDeleteBjNickname = async () => {
+    const response = await deleteBjNickname();
+
+    if (response.ok) {
+      updateBjNickname(undefined);
+    }
+  };
+
+  const handleRegisterBjNickname = async (id: string) => {
+    updateBjNickname(id);
+  };
 
   return (
     <Form {...form}>
@@ -51,7 +94,43 @@ const AccountManagementForm = () => {
         <SubmitButton isActive={isActive} disabled={!isActive}>
           수정하기
         </SubmitButton>
+
+        {match(bjNickname)
+          .with(undefined, () => (
+            <div className={regiserNicknameTextStyle}>
+              <p className={idTextStyle}>백준 아이디</p>
+              <button type="button" onClick={open} className={idRegisterStyle}>
+                등록하기
+              </button>
+            </div>
+          ))
+          .otherwise(() => (
+            <div className={deleteBjNicknameWrapperStyle}>
+              <div className={regiserNicknameTextStyle}>
+                <p className={idTextStyle}>백준 아이디</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDeleteBjNickname();
+                    showToast("백준 아이디 삭제를 완료하였어요", "success");
+                  }}
+                  className={idRegisterStyle}
+                >
+                  삭제하기
+                </button>
+              </div>
+              <Input disabled placeholder={bjNickname} />
+            </div>
+          ))}
       </form>
+      <Modal isOpen={isOpen} onClose={close} hasCloseBtn>
+        <IdRegisterForm
+          onSuccess={async (id: string) => {
+            handleRegisterBjNickname(id);
+            close();
+          }}
+        />
+      </Modal>
     </Form>
   );
 };

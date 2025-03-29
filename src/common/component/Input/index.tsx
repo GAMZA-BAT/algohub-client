@@ -18,7 +18,10 @@ const Input = forwardRef(
     return (
       <input
         ref={ref}
-        className={clsx(inputStyle({ size, isError }), className)}
+        className={clsx(
+          inputStyle({ size, isError, disabled: props.disabled }),
+          className,
+        )}
         aria-invalid={isError}
         {...props}
       />
