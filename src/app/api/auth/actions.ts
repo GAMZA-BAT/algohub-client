@@ -39,7 +39,7 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
             message: error.cause?.err?.message,
             msg: (await (
               error.cause?.err as HTTPError
-            ).response.json()) as APIError,
+            ).response?.json()) as APIError,
             type: error.type,
           };
         }

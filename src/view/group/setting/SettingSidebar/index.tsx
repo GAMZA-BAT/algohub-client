@@ -63,8 +63,8 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
   const error = form.formState.errors.endDate;
 
   const isSubmittable =
-    form.formState.isDirty &&
     form.formState.isValid &&
+    form.formState.isDirty &&
     !form.formState.isSubmitted;
 
   return (

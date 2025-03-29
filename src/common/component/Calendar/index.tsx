@@ -43,6 +43,12 @@ const Calendar = forwardRef<DatePicker, CalendarProps>(
       }
     };
 
+    // 820px 이상일 때 아래에 표시
+    const popperPlacement =
+      document?.documentElement?.clientHeight > 820
+        ? "bottom-start"
+        : "top-start";
+
     return (
       <div className={wrapperStyle}>
         <DatePicker
@@ -54,7 +60,7 @@ const Calendar = forwardRef<DatePicker, CalendarProps>(
           onChange={handleDateChange}
           locale="ko"
           calendarStartDay={1}
-          popperPlacement="bottom-start"
+          popperPlacement={popperPlacement}
           shouldCloseOnSelect
           popperProps={{ strategy: "fixed" }}
           popperModifiers={[

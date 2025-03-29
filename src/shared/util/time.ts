@@ -47,5 +47,5 @@ export const getNextMidnight = () => {
   const now = new Date();
   now.setDate(now.getDate() + 1);
   now.setHours(0, 0, 0, 0);
-  return now;
+  return now.getTime();
 };

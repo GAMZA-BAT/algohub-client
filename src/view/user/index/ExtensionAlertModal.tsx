@@ -31,9 +31,13 @@ const ExtensionAlertModalController = ({
     );
 
     if (isAuth && !isInstalled) {
-      const extensionAlertDate = localStorage.getItem(key);
-      const isNextDate = extensionAlertDate
-        ? Date.now() < +extensionAlertDate
+      const storedDate = localStorage.getItem(key);
+      const parsedStoredDate = storedDate
+        ? Number.parseInt(storedDate, 10)
+        : null;
+
+      const isNextDate = parsedStoredDate
+        ? Date.now() < parsedStoredDate
         : false;
       if (!isNextDate) setIsOpen(true);
     }

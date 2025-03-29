@@ -8,3 +8,5 @@ export const HTTP_ERROR_STATUS = {
   GONE: 410,
   INTERNAL_SERVER_ERROR: 500,
 } as const;
+
+export const NO_RETRY_STATUSES = Object.values(HTTP_ERROR_STATUS) as number[];

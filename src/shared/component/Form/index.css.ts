@@ -103,8 +103,6 @@ export const itemDefaultStyle = style({
   display: "flex",
   flexDirection: "column",
   gap: ".5rem",
-
-  width: "100%",
 });
 
 export const errorLabelStyle = style({
