@@ -1,5 +1,5 @@
 import { IS_PROD } from "@/app/config";
 
-export const AppUrl = IS_PROD
+export const APP_URL = IS_PROD
   ? "https://algohub.kr"
   : "https://rc.algohub.kr";
