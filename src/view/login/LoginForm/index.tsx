@@ -1,6 +1,7 @@
 "use client";
+import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
-import SubmitButton from "@/shared/component/SubmitButton";
+import { buttonStyle } from "@/shared/component/SubmitButton/index.css";
 import Link from "next/link";
 import { contentStyle, formStyle, resetPwStyle } from "./index.css";
 import useLoginForm from "./useLoginForm";
@@ -47,9 +48,15 @@ const LoginForm = () => {
             <span className={resetPwStyle}>비밀번호를 잊으셨나요?</span>
           </Link>
         </div>
-        <SubmitButton isActive={isActive} disabled={isPending}>
+        <Button
+          className={buttonStyle}
+          type="submit"
+          size="medium"
+          color="purple"
+          disabled={!isActive}
+        >
           로그인
-        </SubmitButton>
+        </Button>
       </form>
     </Form>
   );

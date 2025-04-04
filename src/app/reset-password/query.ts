@@ -15,7 +15,7 @@ export const useSendEmailForResetPWMutation = () => {
   return useMutation({
     mutationFn: (email: string) => sendEmailForResetPWAction(email),
     onSuccess: () => {
-      showToast("이메일을 확인해주세요.", "success");
+      showToast("메일함을 확인해주세요.", "success");
     },
     onError: (error: HTTPError) => {
       const { status } = error.response;
