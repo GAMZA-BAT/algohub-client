@@ -3,14 +3,17 @@ import { useVerifyEmailMutation } from "@/app/signup/query";
 import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
 import FormFooter from "@/shared/component/FormFooter";
+import {
+  timeTextStyle,
+  timeWrapper,
+} from "@/view/signup/EmailVerification/index.css";
 import { containerStyle } from "@/view/signup/index.css";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import Stepper from "../Stepper";
 import emailVerificationSchema from "./schema";
-import { timeTextStyle, timeWrapper } from "@/view/signup/EmailVerification/index.css";
-import { useEffect, useRef, useState } from "react";
 
 const EmailVerification = () => {
   const [isSubmit, setIsSubmit] = useState(false);
@@ -48,7 +51,7 @@ const EmailVerification = () => {
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   const handleSubmit = (values: z.infer<typeof emailVerificationSchema>) => {
@@ -60,19 +63,19 @@ const EmailVerification = () => {
     });
   };
 
-  return ( 
+  return (
     <>
       <Stepper
         curStep={0}
         stepName={["메일 인증", "비밀번호 설정", "프로필 생성"]}
       />
-      <Form {...form}> 
-        <form   
+      <Form {...form}>
+        <form
           className={containerStyle}
           onSubmit={form.handleSubmit(handleSubmit)}
         >
           <div className={timeWrapper}>
-            <FormController 
+            <FormController
               form={form}
               name="email"
               type="input"
@@ -82,8 +85,8 @@ const EmailVerification = () => {
                 size: "large",
                 style: { width: "100%" },
               }}
-              />
-              {isSubmit && <p className={timeTextStyle}>{formatTime(time)}</p>}
+            />
+            {isSubmit && <p className={timeTextStyle}>{formatTime(time)}</p>}
           </div>
           <Button
             type="submit"
