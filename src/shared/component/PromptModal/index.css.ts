@@ -17,6 +17,8 @@ export const promptModalWrapper = style({
 });
 
 export const metaTextStyle = style({
+  whiteSpace: "pre-wrap",
+  
   paddingTop: "0.7rem",
   ...theme.font.Title1_SB_16,
 });
