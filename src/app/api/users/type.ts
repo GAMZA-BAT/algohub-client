@@ -3,6 +3,7 @@ export type CheckEmailRequest = {
 };
 
 export type DeleteUserRequest = {
+  isOAuthAccount?: boolean;
   password: string;
 };
 
