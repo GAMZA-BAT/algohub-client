@@ -1,4 +1,3 @@
-// app/api/auth/callback/custom-oauth/route.ts
 import { kyJsonInstance } from "@/app/api";
 import { getMyInfo } from "@/app/api/users";
 import { signIn } from "@/auth";
