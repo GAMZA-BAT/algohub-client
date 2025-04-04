@@ -40,10 +40,12 @@ const EmailVerification = () => {
             name="email"
             type="input"
             showDescription
+            wrapperProps={{
+              style: { width: "100%" },
+            }}
             fieldProps={{
               placeholder: "이메일을 입력해주세요",
               size: "large",
-              style: { width: "100%" },
             }}
           />
           <Button
