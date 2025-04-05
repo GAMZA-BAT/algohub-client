@@ -6,11 +6,11 @@ import type {
 } from "@/app/api/notifications/type";
 
 export const getNotificationList = async () => {
-  try{
+  try {
     const response = await kyJsonWithTokenInstance
-    .get<NotificationItem[]>("api/notifications")
-    .json();
-    
+      .get<NotificationItem[]>("api/notifications")
+      .json();
+
     return response;
   } catch (error) {
     await logoutAction();

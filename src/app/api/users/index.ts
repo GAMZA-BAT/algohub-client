@@ -5,7 +5,11 @@ import {
 } from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
-import type { DeleteUserRequest, PasswordRequest, UserResponse } from "@/app/api/users/type";
+import type {
+  DeleteUserRequest,
+  PasswordRequest,
+  UserResponse,
+} from "@/app/api/users/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
 
@@ -127,7 +131,10 @@ export const getExpiredMySolutions = async ({
   return response;
 };
 
-export const deleteMe = async ({isOAuthAccount = false, password}: DeleteUserRequest) => {
+export const deleteMe = async ({
+  isOAuthAccount = false,
+  password,
+}: DeleteUserRequest) => {
   const response = await kyJsonWithTokenInstance.delete("api/users/me", {
     json: {
       isOAuthAccount,
