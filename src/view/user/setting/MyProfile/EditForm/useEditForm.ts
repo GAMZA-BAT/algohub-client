@@ -18,7 +18,6 @@ const useEditForm = () => {
     defaultValues: {
       profileImage: user?.profileImage || null,
       nickname: user?.nickname,
-      bjNickname: user?.bjNickname,
       description: user?.description,
     },
   });
