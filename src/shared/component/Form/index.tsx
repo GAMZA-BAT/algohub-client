@@ -28,6 +28,7 @@ type FormFieldProps<
   showDescription?: boolean;
   revalidationHandlers?: typeof handleOnChangeMode;
   form: UseFormReturn<TFieldValues>;
+  wrapperProps?: ComponentProps<"div">;
   labelProps?: ComponentProps<typeof FormLabel>;
   descriptionProps?: ComponentProps<typeof FormDescription>;
 } & (
@@ -49,6 +50,7 @@ const FormController = <
   showDescription = false,
   revalidationHandlers,
   form,
+  wrapperProps,
   labelProps,
   fieldProps,
   descriptionProps,
@@ -112,7 +114,10 @@ const FormController = <
           );
         }
         return (
-          <div className={clsx(itemDefaultStyle)}>
+          <div
+            {...wrapperProps}
+            className={clsx(itemDefaultStyle, wrapperProps?.className)}
+          >
             {showDescription && descriptionPosition === "top" && Description}
 
             {showLabel && labelPosition === "top" && (

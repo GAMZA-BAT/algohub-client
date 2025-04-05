@@ -64,5 +64,8 @@ export const {
     },
   },
   session: { strategy: "jwt" },
+  logger: {
+    error: () => {},
+  },
   ...authConfig,
 });
