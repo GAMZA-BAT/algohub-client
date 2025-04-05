@@ -78,9 +78,7 @@ const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
         aria-label="뒤로 가기"
       >
         <IcnBtnArrowLeft width={32} height={32} />
-        <h1
-          className={headerTextStyle}
-        >{`${problemInfo.title} ${problemInfo.problemId}`}</h1>
+        <h1 className={headerTextStyle}>{`${problemInfo.title}`}</h1>
       </div>
       <ProblemInfo problemInfo={problemInfo} />
       <SolvedFilterBar
