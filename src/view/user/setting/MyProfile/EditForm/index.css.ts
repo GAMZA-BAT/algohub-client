@@ -7,6 +7,7 @@ export const formStyle = style({
   alignItems: "center",
   gap: "2rem",
 
+  marginTop: "5rem",
   borderRadius: "1rem",
 });
 
