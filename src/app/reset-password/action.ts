@@ -1,22 +1,8 @@
 "use server";
-import {
-  getCheckPasswordToken,
-  patchResetPassword,
-  postEmailForResetPassword,
-} from "@/app/api/auth";
+import { getCheckPasswordToken, patchResetPassword } from "@/app/api/auth";
 import type { resetPasswordRequest } from "@/app/api/auth/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";
-
-export const sendEmailForResetPWAction = async (email: string) => {
-  try {
-    const response = await postEmailForResetPassword(email);
-
-    return response;
-  } catch (err) {
-    return err;
-  }
-};
 
 export const checkPasswordTokenAction = async (token: string) => {
   const response = await getCheckPasswordToken(token);
