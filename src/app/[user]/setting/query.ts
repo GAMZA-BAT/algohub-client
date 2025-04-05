@@ -215,7 +215,7 @@ export const useDeleteMeMutation = () => {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (password: string) => deleteMe(password),
+    mutationFn: (password: string) => deleteMe({ password }),
     onSuccess: async () => {
       showToast("정상적으로 계정이 삭제되었습니다.", "success");
       await signOut({
