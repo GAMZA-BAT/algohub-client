@@ -89,8 +89,6 @@ const EmailVerification = () => {
             type="submit"
             size="large"
             style={{ margin: "4rem 0 2.1rem" }}
-            disabled={isSubmit}
-            isActive={!isSubmit}
           >
             {isSubmit ? "재전송" : "인증 메일 전송"}
           </Button>
