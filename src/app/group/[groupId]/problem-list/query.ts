@@ -21,13 +21,15 @@ export const usePostProblemMutation = (groupId: number) => {
       endDate,
     }: Omit<problemActionRequest, "groupId">) =>
       postProblemAction({ groupId, link, startDate, endDate }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["inProgressProblem", groupId, 0],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["queuedProblem", groupId, 0],
-      });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["inProgressProblem", groupId, 0],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["queuedProblem", groupId, 0],
+        }),
+      ]);
       showToast("문제가 정상적으로 등록되었어요.", "success");
     },
     onError: (error: Error) => {
@@ -42,17 +44,18 @@ export const useDeleteProblemMutation = (groupId: number) => {
 
   return useMutation({
     mutationFn: (problemId: number) => deleteProblem(problemId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["deleteProblem"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["queuedProblem", groupId, 0],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["inProgressProblem", groupId, 0],
-      });
-
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["deleteProblem"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["queuedProblem", groupId, 0],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["inProgressProblem", groupId, 0],
+        }),
+      ]);
       showToast("문제가 삭제되었습니다.", "success");
     },
     onError: () => {
@@ -75,13 +78,15 @@ export const usePatchProblemMutation = (groupId: number, problemId: number) => {
   return useMutation({
     mutationFn: ({ startDate, endDate }: EditProblemRequest) =>
       patchProblem({ problemId, startDate, endDate }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["queuedProblem", groupId, 0],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["inProgressProblem", groupId, 0],
-      });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["queuedProblem", groupId, 0],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["inProgressProblem", groupId, 0],
+        }),
+      ]);
       showToast("문제가 정상적으로 수정되었어요.", "success");
     },
     onError: () => {

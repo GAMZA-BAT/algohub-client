@@ -83,9 +83,11 @@ export const useBookmarkGroupMutation = () => {
         }
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
-      queryClient.invalidateQueries({ queryKey: ["myGroups"] });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["groupsSetting"] }),
+        queryClient.invalidateQueries({ queryKey: ["myGroups"] }),
+      ]);
       showToast("정상적으로 수정되었습니다.", "success");
     },
   });
@@ -119,8 +121,8 @@ export const useVisibilityMutation = () => {
 
       return { prevData };
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
     },
     onError: (error: HTTPError, _newData, context) => {
       queryClient.setQueryData(["groupsSetting"], context?.prevData);
@@ -179,8 +181,8 @@ export const useNotificationSettingMutation = () => {
 
       return { prevData };
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["notificationsSetting"],
       });
       showToast("정상적으로 수정되었습니다.", "success");
