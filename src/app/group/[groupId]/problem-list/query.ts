@@ -24,10 +24,10 @@ export const usePostProblemMutation = (groupId: number) => {
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ["inProgressProblem", groupId],
+          queryKey: ["inProgressProblem", groupId.toString()],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["queuedProblem", groupId],
+          queryKey: ["queuedProblem", groupId.toString()],
         }),
       ]);
       showToast("문제가 정상적으로 등록되었어요.", "success");
@@ -50,10 +50,10 @@ export const useDeleteProblemMutation = (groupId: number) => {
           queryKey: ["deleteProblem"],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["queuedProblem", groupId],
+          queryKey: ["queuedProblem", groupId.toString()],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["inProgressProblem", groupId],
+          queryKey: ["inProgressProblem", groupId.toString()],
         }),
       ]);
       showToast("문제가 삭제되었습니다.", "success");
