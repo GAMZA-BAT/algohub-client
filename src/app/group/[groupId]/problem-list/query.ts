@@ -24,15 +24,18 @@ export const usePostProblemMutation = (groupId: number) => {
     onSuccess: async (_, variables) => {
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ["inProgressProblem", groupId.toString()],
+          queryKey: ["inProgressProblem", groupId],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["queuedProblem", groupId.toString()],
+          queryKey: ["queuedProblem", groupId],
         }),
       ]);
-      if (+variables.startDate >= Date.now()) {
-        (document.querySelector("#tab-2") as HTMLLIElement)?.click();
-      }
+      (
+        document.querySelector(
+          +variables.startDate < Date.now() ? "#tab-1" : "#tab-2",
+        ) as HTMLLIElement
+      )?.click();
+
       showToast("문제가 정상적으로 등록되었어요.", "success");
     },
     onError: (error: Error) => {
@@ -53,10 +56,10 @@ export const useDeleteProblemMutation = (groupId: number) => {
           queryKey: ["deleteProblem"],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["queuedProblem", groupId.toString()],
+          queryKey: ["queuedProblem", groupId],
         }),
         queryClient.invalidateQueries({
-          queryKey: ["inProgressProblem", groupId.toString()],
+          queryKey: ["inProgressProblem", groupId],
         }),
       ]);
       showToast("문제가 삭제되었습니다.", "success");
