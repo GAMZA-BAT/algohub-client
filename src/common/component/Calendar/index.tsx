@@ -39,7 +39,9 @@ const Calendar = forwardRef<DatePicker, CalendarProps>(
       setSelectedDate(date);
       setSelected(true);
       if (onChange && date) {
-        onChange(date);
+        // YYYY-MM-DD 형식으로 변환
+        const utc9Date = new Date(date.toLocaleDateString("sv"));
+        onChange(utc9Date);
       }
     };
 
