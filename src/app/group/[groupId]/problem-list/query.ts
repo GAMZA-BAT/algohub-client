@@ -21,7 +21,7 @@ export const usePostProblemMutation = (groupId: number) => {
       endDate,
     }: Omit<problemActionRequest, "groupId">) =>
       postProblemAction({ groupId, link, startDate, endDate }),
-    onSuccess: async () => {
+    onSuccess: async (_, variables) => {
       await Promise.all([
         queryClient.invalidateQueries({
           queryKey: ["inProgressProblem", groupId.toString()],
@@ -30,6 +30,9 @@ export const usePostProblemMutation = (groupId: number) => {
           queryKey: ["queuedProblem", groupId.toString()],
         }),
       ]);
+      if (+variables.startDate >= Date.now()) {
+        (document.querySelector("#tab-2") as HTMLLIElement)?.click();
+      }
       showToast("문제가 정상적으로 등록되었어요.", "success");
     },
     onError: (error: Error) => {
