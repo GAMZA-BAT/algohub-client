@@ -3,7 +3,6 @@ export type CheckEmailRequest = {
 };
 
 export type DeleteUserRequest = {
-  isOAuthAccount?: boolean;
   password: string;
 };
 
@@ -16,7 +15,8 @@ export type UserResponse = {
   email: string;
   nickname: string;
   profileImage?: string;
-  bjNickname: string;
+  bjNickname?: string;
+  githubName?: string;
   description?: string;
 };
 

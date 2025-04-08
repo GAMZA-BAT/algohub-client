@@ -131,13 +131,9 @@ export const getExpiredMySolutions = async ({
   return response;
 };
 
-export const deleteMe = async ({
-  isOAuthAccount = false,
-  password,
-}: DeleteUserRequest) => {
+export const deleteMe = async ({ password }: DeleteUserRequest) => {
   const response = await kyJsonWithTokenInstance.delete("api/users/me", {
     json: {
-      isOAuthAccount,
       password,
     },
   });
