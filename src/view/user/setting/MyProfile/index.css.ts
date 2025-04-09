@@ -6,6 +6,7 @@ export const containerStyle = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+
   padding: "2rem 0",
 
   width: "80%",

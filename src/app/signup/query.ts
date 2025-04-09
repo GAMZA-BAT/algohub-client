@@ -10,7 +10,7 @@ export const useVerifyEmailMutation = () => {
   return useMutation({
     mutationFn: (email: string) => postVerifyEmail(email),
     onSuccess: () => {
-      showToast("이메일을 확인해주세요.", "success");
+      showToast("메일함을 확인해주세요.", "success");
     },
     onError: (error: HTTPError) => {
       const { status } = error.response;

@@ -1,9 +1,7 @@
 "use client";
 import type { ProblemContent } from "@/app/api/problems/type";
-import { getSolutionList } from "@/app/api/solutions";
-import type { SolutionLanguage } from "@/app/api/solutions/type";
+import { useSolutionListQuery } from "@/app/group/[groupId]/problem-list/[id]/query";
 import { IcnBtnArrowLeft } from "@/asset/svg";
-import { useDebounce } from "@/common/hook/useDebounce";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
 import {
@@ -19,7 +17,6 @@ import {
   headerTextStyle,
   solvedListWrapper,
 } from "@/view/group/problem-list/SolvedList/index.css";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -39,22 +36,14 @@ const initOption = {
 const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
   const [option, setOption] = useState<SolvedFilterType>(initOption);
   const [nicknameFilter, setNicknameFilter] = useState("");
-  const debouncedNicknameFilter = useDebounce(nicknameFilter, 200);
 
   const router = useRouter();
 
-  const { data } = useQuery({
-    queryKey: ["solution", option, debouncedNicknameFilter],
-    queryFn: () =>
-      getSolutionList({
-        problemId,
-        language:
-          option.language === "모든 언어"
-            ? undefined
-            : (option.language as SolutionLanguage),
-        result: option.result === "모든 결과" ? undefined : option.result,
-        nickname: debouncedNicknameFilter,
-      }),
+  const { data } = useSolutionListQuery({
+    problemId,
+    groupId,
+    option,
+    nicknameFilter,
   });
 
   const handleChangeIdFilter = (value: string) => {
@@ -78,9 +67,7 @@ const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
         aria-label="뒤로 가기"
       >
         <IcnBtnArrowLeft width={32} height={32} />
-        <h1
-          className={headerTextStyle}
-        >{`${problemInfo.title} ${problemInfo.problemId}`}</h1>
+        <h1 className={headerTextStyle}>{`${problemInfo.title}`}</h1>
       </div>
       <ProblemInfo problemInfo={problemInfo} />
       <SolvedFilterBar

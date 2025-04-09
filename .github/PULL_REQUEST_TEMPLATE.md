@@ -1,7 +1,3 @@
-<!-- # 뒤에 이슈번호를 적어주세요! -->
-## #️⃣ Related Issue
-Closes #
-
 ## ✅ Done Task
   - [ ] To-do
 

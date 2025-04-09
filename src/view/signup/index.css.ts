@@ -22,6 +22,5 @@ export const formContainer = style({
 export const controllerStyle = style({
   display: "flex",
   justifyContent: "center",
-
-  width: "100%",
+  marginBottom: "4rem",
 });

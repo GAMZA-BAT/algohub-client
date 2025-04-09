@@ -3,14 +3,22 @@ import { useVerifyEmailMutation } from "@/app/signup/query";
 import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
 import FormFooter from "@/shared/component/FormFooter";
+import {
+  timeTextStyle,
+  timeWrapper,
+} from "@/view/signup/EmailVerification/index.css";
 import { containerStyle } from "@/view/signup/index.css";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import Stepper from "../Stepper";
 import emailVerificationSchema from "./schema";
 
 const EmailVerification = () => {
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [time, setTime] = useState(180);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const { mutate: sendEmail } = useVerifyEmailMutation();
   const form = useForm<z.infer<typeof emailVerificationSchema>>({
     resolver: zodResolver(emailVerificationSchema),
@@ -20,8 +28,39 @@ const EmailVerification = () => {
     },
   });
 
+  useEffect(() => {
+    if (isSubmit && time > 0) {
+      intervalRef.current = setInterval(() => {
+        setTime((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(intervalRef.current as NodeJS.Timeout);
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isSubmit, time]);
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  };
+
   const handleSubmit = (values: z.infer<typeof emailVerificationSchema>) => {
-    sendEmail(values.email);
+    sendEmail(values.email, {
+      onSuccess: () => {
+        setIsSubmit(true);
+        setTime(180);
+      },
+    });
   };
 
   return (
@@ -35,25 +74,26 @@ const EmailVerification = () => {
           className={containerStyle}
           onSubmit={form.handleSubmit(handleSubmit)}
         >
-          <FormController
-            form={form}
-            name="email"
-            type="input"
-            showDescription
-            wrapperProps={{
-              style: { width: "100%" },
-            }}
-            fieldProps={{
-              placeholder: "이메일을 입력해주세요",
-              size: "large",
-            }}
-          />
+          <div className={timeWrapper}>
+            <FormController
+              form={form}
+              name="email"
+              type="input"
+              showDescription
+              fieldProps={{
+                placeholder: "이메일을 입력해주세요",
+                size: "large",
+                style: { width: "100%" },
+              }}
+            />
+            {isSubmit && <p className={timeTextStyle}>{formatTime(time)}</p>}
+          </div>
           <Button
             type="submit"
             size="large"
             style={{ margin: "4rem 0 2.1rem" }}
           >
-            인증 메일 전송
+            {isSubmit ? "재전송" : "인증 메일 전송"}
           </Button>
           <FormFooter
             variant="signup"

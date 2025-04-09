@@ -1,15 +1,21 @@
 import { kyJsonWithTokenInstance } from "@/app/api";
+import { logoutAction } from "@/app/api/auth/actions";
 import type {
   NotificationItem,
   NotificationSettingContent,
 } from "@/app/api/notifications/type";
 
 export const getNotificationList = async () => {
-  const response = await kyJsonWithTokenInstance
-    .get<NotificationItem[]>("api/notifications")
-    .json();
+  try {
+    const response = await kyJsonWithTokenInstance
+      .get<NotificationItem[]>("api/notifications")
+      .json();
 
-  return response;
+    return response;
+  } catch (error) {
+    await logoutAction();
+    throw error;
+  }
 };
 
 export const patchAllNotificationRead = () => {

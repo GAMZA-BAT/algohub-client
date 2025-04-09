@@ -59,7 +59,6 @@ export const {
       try {
         await deleteSignOut();
       } catch (_e) {
-        console.log({ _e });
         return;
       }
     },

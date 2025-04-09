@@ -15,7 +15,8 @@ export type UserResponse = {
   email: string;
   nickname: string;
   profileImage?: string;
-  bjNickname: string;
+  bjNickname?: string;
+  githubName?: string;
   description?: string;
 };
 
