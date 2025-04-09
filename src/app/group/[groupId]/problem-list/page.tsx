@@ -35,7 +35,7 @@ const ProblemListPage = ({
   } = usePaginationQuery({
     queryKey: [
       "inProgressProblem",
-      groupId,
+      +groupId,
       { unsolved: isUnsolvedOnlyChecked },
     ],
     queryFn: (page) =>
@@ -54,7 +54,7 @@ const ProblemListPage = ({
     totalPages: expiredTotalPages,
     setCurrentPage: setExpiredPage,
   } = usePaginationQuery({
-    queryKey: ["expiredProblem", groupId],
+    queryKey: ["expiredProblem", +groupId],
     queryFn: (page) =>
       getExpiredProblems({
         groupId: +groupId,

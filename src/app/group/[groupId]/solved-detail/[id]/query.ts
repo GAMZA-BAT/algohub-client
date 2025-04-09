@@ -29,8 +29,8 @@ export const useCommentMutataion = (solutionId: number) => {
 
   return useMutation({
     mutationFn: (content: string) => commentAction(solutionId, content),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["solution", "comment", solutionId],
       });
     },
@@ -47,8 +47,8 @@ export const useDeleteCommentMutation = (solutionId: number) => {
 
   return useMutation({
     mutationFn: (commentId: number) => deleteComment(commentId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["solution", "comment", solutionId],
       });
     },
@@ -74,8 +74,8 @@ export const useEditCommentMutation = (
 
   return useMutation({
     mutationFn: (content: string) => editComment(commentId, content),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["solution", "comment", solutionId],
       });
     },

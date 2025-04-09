@@ -38,8 +38,8 @@ export const useReadNotiItemMutation = () => {
 
       return { prev };
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
     onError: (_err, _new, context) => {
       queryClient.setQueryData(["notifications"], context?.prev);
@@ -64,8 +64,8 @@ export const useReadAllNotiMutation = () => {
 
       return { prev };
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
     onError: (_err, _new, context) => {
       queryClient.setQueryData(["notifications"], context?.prev);

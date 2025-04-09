@@ -94,10 +94,6 @@ export const sliderWrapperStyle = style({
 export const itemStyle = style({
   display: "flex",
   justifyContent: "center",
-
-  width: "calc(25% - 1.5rem)",
-  minWidth: "25rem",
-  maxWidth: "30rem",
   height: "100%",
 
   overflow: "hidden",

@@ -32,11 +32,10 @@ export const useDeleteMemberMutation = (groupId: number) => {
   return useMutation({
     mutationFn: ({ memberId }: { memberId: number }) =>
       deleteGroupMember(memberId, groupId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["memberList", groupId],
       });
-
       showToast("멤버가 정상적으로 삭제되었어요.", "success");
     },
     onError: () => {
@@ -53,8 +52,8 @@ export const useDeleteGroupMutation = () => {
 
   return useMutation({
     mutationFn: (groupId: number) => deleteGroup(groupId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["groups", "setting"],
       });
       showToast("그룹이 정상적으로 삭제되었어요.", "success");
@@ -75,8 +74,8 @@ export const usePatchGroupMutation = (groupId: number) => {
 
   return useMutation({
     mutationFn: (formData: FormData) => editGroup(groupId, formData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["deleteGroup", groupId],
       });
       showToast("정상적으로 수정되었어요.", "success");
@@ -110,8 +109,8 @@ export const usePatchMemberRoleMutation = (groupId: number) => {
 
   return useMutation({
     mutationFn: (request: MemberRoleRequest) => editRole(groupId, request),
-    onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({
+    onSuccess: async (_data, variables) => {
+      await queryClient.invalidateQueries({
         queryKey: ["memberList", groupId],
       });
       showToast("정상적으로 수정되었어요.", "success");

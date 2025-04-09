@@ -45,11 +45,11 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
 
   const handleItemDelete = (notificationId: number) => {
     deleteMutate(notificationId, {
-      onSuccess: () => {
+      onSuccess: async () => {
         setNotifications((prev) =>
           prev.filter((item) => item.id !== notificationId),
         );
-        queryClient.invalidateQueries({
+        await queryClient.invalidateQueries({
           queryKey: ["notifications"],
         });
       },
