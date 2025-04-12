@@ -49,7 +49,7 @@ const ProblemListItem = ({
   accuracy,
   memberCount,
   submitMemberCount,
-  hasAnchor = false,
+  hasAnchor = true,
   isOwner = false,
   isExpired = false,
 }: ProblemListItemProps) => {
@@ -64,14 +64,14 @@ const ProblemListItem = ({
   const Title = useMemo(
     () =>
       hasAnchor ? (
-        <span className={clsx(titleStyle, commonStyle)}>{title}</span>
-      ) : (
         <Link
           className={titleStyle}
           href={`/group/${groupId}/problem-list/${problemId}`}
         >
           <span className={commonStyle}>{title}</span>
         </Link>
+      ) : (
+        <span className={clsx(titleStyle, commonStyle)}>{title}</span>
       ),
     [hasAnchor],
   );
