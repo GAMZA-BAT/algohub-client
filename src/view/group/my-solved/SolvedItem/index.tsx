@@ -10,7 +10,6 @@ import {
   itemStyle,
   textStyle,
 } from "@/view/group/my-solved/SolvedItem/index.css";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
@@ -49,12 +48,9 @@ const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <LevelIcon width={25} height={32} />
       </div>
-      <Link
-        className={textStyle}
-        href={`/group/${groupId}/problem-list/${solutionId}`}
-      >
-        {problemTitle}
-      </Link>
+
+      <span className={textStyle}>{problemTitle}</span>
+
       <time dateTime={solvedDateTime} className={textStyle}>
         {solvedDateTime}
       </time>

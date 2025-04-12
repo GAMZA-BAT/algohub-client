@@ -18,11 +18,13 @@ import clsx from "clsx";
 
 import { format } from "date-fns";
 import Link from "next/link";
+import { useMemo } from "react";
 
 type ProblemListItemProps = Omit<ProblemContent, "startDate"> & {
   isOwner?: boolean;
   className?: string;
   isExpired?: boolean;
+  hasAnchor?: boolean;
 };
 
 const JSX_BY_STATUS = {
@@ -47,6 +49,7 @@ const ProblemListItem = ({
   accuracy,
   memberCount,
   submitMemberCount,
+  hasAnchor = false,
   isOwner = false,
   isExpired = false,
 }: ProblemListItemProps) => {
@@ -58,6 +61,21 @@ const ProblemListItem = ({
   const { isActive, handleBlur, handleFocus, handleMouseOut, handleMouseOver } =
     useA11yHoverHandler();
 
+  const Title = useMemo(
+    () =>
+      hasAnchor ? (
+        <span className={clsx(titleStyle, commonStyle)}>{title}</span>
+      ) : (
+        <Link
+          className={titleStyle}
+          href={`/group/${groupId}/problem-list/${problemId}`}
+        >
+          <span className={commonStyle}>{title}</span>
+        </Link>
+      ),
+    [hasAnchor],
+  );
+
   return (
     <li
       onFocus={handleFocus}
@@ -65,18 +83,10 @@ const ProblemListItem = ({
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseOut}
       aria-label={`문제: ${title}`}
-      className={clsx(
-        itemStyle({ isActive: isOwner ? isActive : false }),
-        className,
-      )}
+      className={clsx(itemStyle({ isActive }), className)}
     >
       <Icon width={25} height={32} />
-      <Link
-        className={titleStyle}
-        href={`/group/${groupId}/problem-list/${problemId}`}
-      >
-        <span className={commonStyle}>{title}</span>
-      </Link>
+      {Title}
       <time dateTime={endDate} className={commonStyle}>
         {format(endDate, "yyyy.MM.dd")}
       </time>
