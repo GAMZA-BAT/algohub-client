@@ -58,8 +58,7 @@ const ProblemListItem = ({
 
   const status = solved ? "solved" : isExpired ? "wrong" : "unsolved";
 
-  const { isActive, handleBlur, handleFocus, handleMouseOut, handleMouseOver } =
-    useA11yHoverHandler();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   const Title = useMemo(
     () =>
@@ -78,10 +77,7 @@ const ProblemListItem = ({
 
   return (
     <li
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseOut}
+      {...handlers}
       aria-label={`문제: ${title}`}
       className={clsx(itemStyle({ isActive }), className)}
     >

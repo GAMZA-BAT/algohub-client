@@ -38,17 +38,13 @@ const NotificationListItem = ({
   isRead,
   onDelete,
 }: NotificationListProps) => {
-  const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
-    useA11yHoverHandler();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   return (
     <li
       className={containerStyle}
       aria-label={`${name}님의 알림: ${message}, ${date}`}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
+      {...handlers}
     >
       <div
         role="button"
