@@ -9,7 +9,7 @@ import { baseEditSchema } from "./schema";
 
 const useEditForm = (session: ReturnType<typeof useSession>) => {
   const { data, update } = session;
-  const { user } = data!;
+  const user = data?.user;
   const form = useForm<z.infer<typeof baseEditSchema>>({
     resolver: zodResolver(baseEditSchema),
     mode: "onChange",
