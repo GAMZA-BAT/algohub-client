@@ -14,9 +14,9 @@ export type EditPasswordRequest = {
 export type UserResponse = {
   email: string;
   nickname: string;
-  profileImage?: string;
   bjNickname?: string;
   githubName?: string;
+  profileImage?: string;
   description?: string;
 };
 
