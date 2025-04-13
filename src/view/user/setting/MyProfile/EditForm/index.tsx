@@ -11,11 +11,15 @@ import {
   editCardStyle,
   footerStyle,
 } from "@/view/user/setting/MyProfile/index.css";
+import { useSession } from "next-auth/react";
 import { contentStyle, formStyle, labelStyle } from "./index.css";
 import useEditForm from "./useEditForm";
 
 const EditForm = () => {
-  const { form, handleSubmit, isActive } = useEditForm();
+  const { data } = useSession();
+  const user = data?.user!;
+  const isOAuthAccount = data?.isOAuthAccount!;
+  const { form, handleSubmit, isActive } = useEditForm(user);
   const { isOpen, open, close } = useBooleanState();
 
   return (
@@ -74,7 +78,11 @@ const EditForm = () => {
           </Card>
         </form>
       </Form>
-      <WithdrawModal isOpen={isOpen} onClose={close} />
+      <WithdrawModal
+        isOpen={isOpen}
+        onClose={close}
+        isOAuthAccount={isOAuthAccount}
+      />
     </>
   );
 };

@@ -51,7 +51,7 @@ export const {
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
       session.accessTokenExpires = token.accessTokenExpires;
-      session.isOAuthAccount = !token.user.githubName;
+      session.isOAuthAccount = !!token.user.githubName;
       return session;
     },
   },

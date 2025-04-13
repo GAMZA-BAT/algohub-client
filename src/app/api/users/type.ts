@@ -4,6 +4,7 @@ export type CheckEmailRequest = {
 
 export type DeleteUserRequest = {
   password: string;
+  isOAuthAccount: boolean;
 };
 
 export type EditPasswordRequest = {

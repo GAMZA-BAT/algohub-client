@@ -2,15 +2,13 @@ import { patchMyInfoAction } from "@/app/[user]/setting/action";
 import { useToast } from "@/common/hook/useToast";
 import { createFormDataFromDirtyFields } from "@/shared/util/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getSession, useSession } from "next-auth/react";
+import type { User } from "next-auth";
+import { getSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { baseEditSchema } from "./schema";
 
-const useEditForm = () => {
-  const session = useSession();
-  const user = session.data?.user;
-
+const useEditForm = (user: User) => {
   const form = useForm<z.infer<typeof baseEditSchema>>({
     resolver: zodResolver(baseEditSchema),
     mode: "onChange",
