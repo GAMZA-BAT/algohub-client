@@ -2,7 +2,10 @@ import { useDeleteMeMutation } from "@/app/[user]/setting/query";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { Form, FormController } from "@/shared/component/Form";
-import { passwordSchema } from "@/view/login/LoginForm/schema";
+import {
+  accountDeleteSchema,
+  passwordSchema,
+} from "@/view/login/LoginForm/schema";
 import {
   descTextStyle,
   metaTextStyle,
@@ -22,8 +25,12 @@ const WithdrawModal = ({
   onClose,
   isOAuthAccount,
 }: WithdrawModalProps) => {
-  const form = useForm<z.infer<typeof passwordSchema>>({
-    resolver: zodResolver(passwordSchema),
+  const form = useForm<
+    z.infer<typeof passwordSchema | typeof accountDeleteSchema>
+  >({
+    resolver: zodResolver(
+      isOAuthAccount ? accountDeleteSchema : passwordSchema,
+    ),
     mode: "onTouched",
     defaultValues: {
       password: "",
@@ -31,8 +38,15 @@ const WithdrawModal = ({
   });
   const { mutate } = useDeleteMeMutation();
   const isActive = form.formState.isValid;
+  const placeholder = isOAuthAccount ? "계정삭제" : "비밀번호";
 
   const handleSubmit = ({ password }: z.infer<typeof passwordSchema>) => {
+    if (isOAuthAccount && form.getValues("password") !== "계정삭제") {
+      form.setError("password", {
+        message: "계정삭제를 정확하게 입력해 주세요.",
+      });
+      return;
+    }
     mutate(
       { password, isOAuthAccount },
       {
@@ -54,8 +68,8 @@ const WithdrawModal = ({
         >
           <h2 className={metaTextStyle}>정말 계정을 삭제하시겠습니까?</h2>
           <p className={descTextStyle}>
-            이 작업은 되돌릴 수 없습니다. 비밀번호를 입력한 후 ‘계정 삭제’
-            버튼을 눌러 진행해주세요.
+            이 작업은 되돌릴 수 없습니다. {placeholder}를 입력한 후 ‘계정
+            삭제’버튼을 눌러 진행해주세요.
           </p>
           <FormController
             form={form}
@@ -63,8 +77,8 @@ const WithdrawModal = ({
             type="input"
             showDescription
             fieldProps={{
-              placeholder: "비밀번호",
-              type: "password",
+              placeholder,
+              type: isOAuthAccount ? "text" : "password",
             }}
           />
           <Button
