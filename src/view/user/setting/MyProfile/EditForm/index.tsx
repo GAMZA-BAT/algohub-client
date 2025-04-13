@@ -16,10 +16,9 @@ import { contentStyle, formStyle, labelStyle } from "./index.css";
 import useEditForm from "./useEditForm";
 
 const EditForm = () => {
-  const { data } = useSession();
-  const user = data?.user!;
-  const isOAuthAccount = data?.isOAuthAccount!;
-  const { form, handleSubmit, isActive } = useEditForm(user);
+  const session = useSession();
+  const isOAuthAccount = session.data?.isOAuthAccount!;
+  const { form, handleSubmit, isActive } = useEditForm(session);
   const { isOpen, open, close } = useBooleanState();
 
   return (
