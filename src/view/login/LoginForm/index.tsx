@@ -53,7 +53,7 @@ const LoginForm = () => {
           type="submit"
           size="medium"
           color="purple"
-          disabled={!isActive}
+          disabled={isPending || !isActive}
         >
           로그인
         </Button>

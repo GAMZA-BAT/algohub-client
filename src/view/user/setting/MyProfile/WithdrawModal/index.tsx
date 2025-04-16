@@ -13,10 +13,15 @@ import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
 type WithdrawModalProps = {
+  isOAuthAccount: boolean;
   isOpen: boolean;
   onClose: () => void;
 };
-const WithdrawModal = ({ isOpen, onClose }: WithdrawModalProps) => {
+const WithdrawModal = ({
+  isOpen,
+  onClose,
+  isOAuthAccount,
+}: WithdrawModalProps) => {
   const form = useForm<z.infer<typeof passwordSchema>>({
     resolver: zodResolver(passwordSchema),
     mode: "onTouched",
@@ -27,12 +32,17 @@ const WithdrawModal = ({ isOpen, onClose }: WithdrawModalProps) => {
   const { mutate } = useDeleteMeMutation();
   const isActive = form.formState.isValid;
 
-  const handleSubmit = (values: z.infer<typeof passwordSchema>) => {
-    mutate(values.password, {
-      onError: () => {
-        form.setError("password", { message: "비밀번호가 올바르지 않습니다." });
+  const handleSubmit = ({ password }: z.infer<typeof passwordSchema>) => {
+    mutate(
+      { password, isOAuthAccount },
+      {
+        onError: () => {
+          form.setError("password", {
+            message: "비밀번호가 올바르지 않습니다.",
+          });
+        },
       },
-    });
+    );
   };
 
   return (
