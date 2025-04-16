@@ -1,15 +1,12 @@
 import { patchMyInfoAction } from "@/app/[user]/setting/action";
-import { useToast } from "@/common/hook/useToast";
 import { createFormDataFromDirtyFields } from "@/shared/util/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getSession, type useSession } from "next-auth/react";
+import type { User } from "next-auth";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { baseEditSchema } from "./schema";
 
-const useEditForm = (session: ReturnType<typeof useSession>) => {
-  const { data, update } = session;
-  const user = data?.user;
+const useEditForm = (user: User) => {
   const form = useForm<z.infer<typeof baseEditSchema>>({
     resolver: zodResolver(baseEditSchema),
     mode: "onChange",
@@ -20,7 +17,6 @@ const useEditForm = (session: ReturnType<typeof useSession>) => {
       description: user?.description,
     },
   });
-  const { showToast } = useToast();
   const isActive = form.formState.isValid && form.formState.isDirty;
 
   const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
@@ -35,8 +31,6 @@ const useEditForm = (session: ReturnType<typeof useSession>) => {
     }
 
     await patchMyInfoAction(data);
-    await update(await getSession());
-    showToast("정상적으로 수정이 되었어요", "success");
   };
 
   return {
