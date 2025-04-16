@@ -9,11 +9,10 @@ export const useWithdrawMutation = () => {
 
   return useMutation({
     mutationFn: (groupId: number) => withdrawGroup(groupId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["groupsSetting"],
       });
-
       showToast("정상적으로 탈퇴되었어요.", "success");
     },
     onError: (error: HTTPError) => {
