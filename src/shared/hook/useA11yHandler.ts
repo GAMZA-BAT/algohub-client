@@ -29,25 +29,25 @@ import { type FocusEvent, useState } from "react";
  */
 const useA11yHoverHandler = () => {
   const [isActive, setIsActive] = useState(false);
-  const handleFocus = (event: FocusEvent<HTMLElement | SVGElement>) => {
+  const onFocus = (event: FocusEvent<HTMLElement | SVGElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget)) {
       setIsActive(true);
     }
   };
-  const handleBlur = (event: FocusEvent<HTMLElement | SVGElement>) => {
+  const onBlur = (event: FocusEvent<HTMLElement | SVGElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget)) {
       setIsActive(false);
     }
   };
 
-  const handleMouseOver = () => {
+  const onMouseOver = () => {
     setIsActive(true);
   };
-  const handleMouseOut = () => {
+  const onMouseLeave = () => {
     setIsActive(false);
   };
 
-  return { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut };
+  return { isActive, onFocus, onBlur, onMouseOver, onMouseLeave };
 };
 
 export default useA11yHoverHandler;

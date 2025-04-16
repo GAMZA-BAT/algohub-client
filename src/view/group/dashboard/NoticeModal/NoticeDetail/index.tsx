@@ -43,8 +43,7 @@ const NoticeDetail = ({
   data: { author, title, createdAt, category, noticeId, content, isRead },
   goBack,
 }: NoticeDetailProps) => {
-  const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
-    useA11yHoverHandler();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   const [isEdit, setIsEdit] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -118,13 +117,7 @@ const NoticeDetail = ({
       </header>
 
       {/* 상세보기 내용 */}
-      <div
-        className={textareaWrapper}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      >
+      <div className={textareaWrapper} {...handlers}>
         <Textarea
           ref={textareaRef}
           defaultValue={content}
