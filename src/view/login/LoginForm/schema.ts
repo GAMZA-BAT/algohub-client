@@ -10,3 +10,6 @@ export const loginSchema = z.object({
 });
 
 export const passwordSchema = loginSchema.pick({ password: true });
+export const accountDeleteSchema = z.object({
+  password: z.string(),
+});
