@@ -14,7 +14,7 @@ import {
 } from "@/app/api/notifications";
 import type { NotificationSettingContent } from "@/app/api/notifications/type";
 import { deleteMe } from "@/app/api/users";
-import type { PasswordRequest } from "@/app/api/users/type";
+import type { DeleteUserRequest, PasswordRequest } from "@/app/api/users/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import {
@@ -217,7 +217,8 @@ export const useDeleteMeMutation = () => {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (password: string) => deleteMe({ password }),
+    mutationFn: ({ password, isOAuthAccount }: DeleteUserRequest) =>
+      deleteMe({ password, isOAuthAccount }),
     onSuccess: async () => {
       showToast("정상적으로 계정이 삭제되었습니다.", "success");
       await signOut({
