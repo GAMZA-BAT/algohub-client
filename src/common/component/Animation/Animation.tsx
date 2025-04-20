@@ -22,7 +22,7 @@ const Animation = ({
     <Lottie
       autoplay
       loop={loop}
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, placeSelf: "center" }}
       animationData={animationJson}
       {...props}
     />
