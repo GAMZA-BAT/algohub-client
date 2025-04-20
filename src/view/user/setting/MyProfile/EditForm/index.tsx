@@ -33,7 +33,7 @@ const EditForm = () => {
   const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
     try {
       await _handleSubmit(values);
-      await update(getSession());
+      await update(await getSession());
       showToast("정상적으로 수정이 되었어요", "success");
     } catch (_err) {
       showToast("정상적으로 수정되지 않았어요.", "error");
