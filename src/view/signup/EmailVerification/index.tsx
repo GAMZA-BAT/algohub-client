@@ -1,25 +1,24 @@
 "use client";
 import { useVerifyEmailMutation } from "@/app/signup/query";
-import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
 import FormFooter from "@/shared/component/FormFooter";
+import SubmitButton from "@/shared/component/SubmitButton";
+import { getRemainedSeconds } from "@/shared/util/time";
+import { fullWidthStyle } from "@/styles/shared.css";
 import {
+  buttonWrapper,
   timeTextStyle,
   timeWrapper,
 } from "@/view/signup/EmailVerification/index.css";
 import { containerStyle } from "@/view/signup/index.css";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import Stepper from "../Stepper";
 import emailVerificationSchema from "./schema";
 
 const EmailVerification = () => {
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [time, setTime] = useState(180);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const { mutate: sendEmail } = useVerifyEmailMutation();
   const form = useForm<z.infer<typeof emailVerificationSchema>>({
     resolver: zodResolver(emailVerificationSchema),
     mode: "onTouched",
@@ -27,38 +26,32 @@ const EmailVerification = () => {
       email: "",
     },
   });
+  const isSubmit = form.formState.isSubmitted;
+  const [time, setTime] = useState(180);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const { mutate: sendEmail } = useVerifyEmailMutation();
 
-  useEffect(() => {
-    if (isSubmit && time > 0) {
-      intervalRef.current = setInterval(() => {
-        setTime((prevTime) => {
-          if (prevTime <= 1) {
-            clearInterval(intervalRef.current as NodeJS.Timeout);
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
+  const startTimer = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
     }
 
-    return () => {
-      if (intervalRef.current) {
+    const startTime = Date.now();
+    setTime(180);
+
+    intervalRef.current = setInterval(() => {
+      const remaining = 180 - Math.floor((Date.now() - startTime) / 1000);
+      setTime(Math.max(0, remaining));
+      if (remaining <= 0 && intervalRef.current) {
         clearInterval(intervalRef.current);
       }
-    };
-  }, [isSubmit, time]);
-
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+    }, 250);
   };
 
   const handleSubmit = (values: z.infer<typeof emailVerificationSchema>) => {
     sendEmail(values.email, {
       onSuccess: () => {
-        setIsSubmit(true);
-        setTime(180);
+        startTimer();
       },
     });
   };
@@ -83,25 +76,27 @@ const EmailVerification = () => {
               fieldProps={{
                 placeholder: "이메일을 입력해주세요",
                 size: "large",
-                style: { width: "100%" },
+                className: fullWidthStyle,
               }}
             />
-            {isSubmit && <p className={timeTextStyle}>{formatTime(time)}</p>}
+            {isSubmit && (
+              <p className={timeTextStyle}>{getRemainedSeconds(time)}</p>
+            )}
           </div>
-          <Button
-            type="submit"
+          <SubmitButton
+            className={buttonWrapper}
             size="large"
-            style={{ margin: "4rem 0 2.1rem" }}
+            isActive={form.formState.isValid}
           >
             {isSubmit ? "재전송" : "인증 메일 전송"}
-          </Button>
-          <FormFooter
-            variant="signup"
-            guideLabel="이미 계정이 있으신가요?"
-            link={{ href: "/login", label: "로그인하기" }}
-          />
+          </SubmitButton>
         </form>
       </Form>
+      <FormFooter
+        variant="signup"
+        guideLabel="이미 계정이 있으신가요?"
+        link={{ href: "/login", label: "로그인하기" }}
+      />
     </>
   );
 };

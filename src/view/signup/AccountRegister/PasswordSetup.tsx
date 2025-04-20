@@ -3,6 +3,7 @@ import { FormController } from "@/shared/component/Form";
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";
 import type { UseFormReturn } from "react-hook-form";
 import { descriptionStyle, formContainer } from "../SignupForm/index.css";
+import { passwordCheckSchema } from "./schema";
 
 type PasswordSetupProps = {
   passwordError: boolean;
@@ -27,6 +28,11 @@ const PasswordSetup = ({
   onNextStep,
   form,
 }: PasswordSetupProps) => {
+  const { password, confirmPassword } = form.getValues();
+  const { success } = passwordCheckSchema.safeParse({
+    password,
+    confirmPassword,
+  });
   return (
     <>
       <div className={formContainer}>
@@ -62,11 +68,12 @@ const PasswordSetup = ({
           }}
         />
       </div>
+      {/* 중간 단계이므로 submit 금지 */}
       <Button
-        style={{ marginTop: "4rem" }}
         type="button"
-        size="large"
+        size="medium"
         onClick={onNextStep}
+        isActive={success}
       >
         다음
       </Button>

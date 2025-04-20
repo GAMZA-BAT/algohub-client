@@ -49,3 +49,9 @@ export const getNextMidnight = () => {
   now.setHours(0, 0, 0, 0);
   return now.getTime();
 };
+
+export const getRemainedSeconds = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+};
