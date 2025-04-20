@@ -11,9 +11,7 @@ export const loginSchema = z.object({
 
 export const passwordSchema = loginSchema.pick({ password: true });
 export const accountDeleteSchema = z.object({
-  password: z
-    .string()
-    .refine((val) => val === "DELETE", {
-      message: "DELETE를 정확하게 입력해 주세요.",
-    }),
+  password: z.string().refine((val) => val === "DELETE", {
+    message: "DELETE를 정확하게 입력해 주세요.",
+  }),
 });
