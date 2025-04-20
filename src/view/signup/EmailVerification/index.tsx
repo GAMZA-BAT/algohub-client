@@ -1,5 +1,6 @@
 "use client";
 import { useVerifyEmailMutation } from "@/app/signup/query";
+import { useTimer } from "@/common/hook/useTimer";
 import { Form, FormController } from "@/shared/component/Form";
 import FormFooter from "@/shared/component/FormFooter";
 import SubmitButton from "@/shared/component/SubmitButton";
@@ -12,7 +13,6 @@ import {
 } from "@/view/signup/EmailVerification/index.css";
 import { containerStyle } from "@/view/signup/index.css";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import Stepper from "../Stepper";
@@ -26,27 +26,9 @@ const EmailVerification = () => {
       email: "",
     },
   });
+  const { time, startTimer } = useTimer(180);
   const isSubmit = form.formState.isSubmitted;
-  const [time, setTime] = useState(180);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const { mutate: sendEmail } = useVerifyEmailMutation();
-
-  const startTimer = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-
-    const startTime = Date.now();
-    setTime(180);
-
-    intervalRef.current = setInterval(() => {
-      const remaining = 180 - Math.floor((Date.now() - startTime) / 1000);
-      setTime(Math.max(0, remaining));
-      if (remaining <= 0 && intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    }, 250);
-  };
 
   const handleSubmit = (values: z.infer<typeof emailVerificationSchema>) => {
     sendEmail(values.email, {
