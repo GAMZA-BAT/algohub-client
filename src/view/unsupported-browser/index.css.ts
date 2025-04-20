@@ -60,6 +60,15 @@ export const mainTextStyle = style({
   color: theme.color.lg2,
 });
 
+export const buttonWrapper = style({
+  width: "24rem",
+});
+
+export const linkWrapper = style({
+  display: "flex",
+  gap: "1.4rem",
+});
+
 export const inquireBtnStyle = style({
   marginTop: "2.7rem",
 });

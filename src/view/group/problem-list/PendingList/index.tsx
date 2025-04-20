@@ -2,7 +2,10 @@ import { getQueuedProblems } from "@/app/api/problems";
 import Pagination from "@/shared/component/Pagination";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import PendingListItem from "@/view/group/problem-list/PendingList/Item";
-import { listStyle } from "@/view/group/problem-list/PendingList/index.css";
+import {
+  listStyle,
+  marginTopStyle,
+} from "@/view/group/problem-list/PendingList/index.css";
 
 const PendingList = ({ groupId }: { groupId: number }) => {
   const {
@@ -32,7 +35,7 @@ const PendingList = ({ groupId }: { groupId: number }) => {
       </ul>
       {queuedList?.length && (
         <Pagination
-          style={{ marginTop: "1.6rem" }}
+          className={marginTopStyle}
           totalPages={queuedTotalPages}
           currentPage={queuedPage}
           onPageChange={setQueuedPage}

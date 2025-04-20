@@ -7,7 +7,7 @@ import {
   dividerWrapper,
 } from "@/view/login/index.css";
 import Link from "next/link";
-import { labelContainer, labelStyle } from "./index.css";
+import { labelContainer, labelStyle, linkWrapper } from "./index.css";
 
 interface FooterProps {
   variant?: "login" | "signup";
@@ -25,14 +25,7 @@ const FormFooter = ({
 }: FooterProps) => {
   return (
     <footer className={labelContainer}>
-      <div
-        style={{
-          display: "flex",
-          gap: "0.4rem",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className={linkWrapper}>
         <p className={labelStyle.guide}>{guideLabel}</p>
         <Link href={href} className={labelStyle.link} scroll={false}>
           {label}
