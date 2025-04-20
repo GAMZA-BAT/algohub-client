@@ -21,6 +21,7 @@ const ProblemInfo = ({ problemInfo }: ProblemInfoProps) => {
           submitMemberCount={problemInfo.submitMemberCount}
           accuracy={problemInfo.accuracy}
           link={problemInfo.link}
+          hasAnchor={false}
         />
       </Link>
     </ProblemList>
