@@ -38,22 +38,18 @@ const WithdrawModal = ({
   });
   const { mutate } = useDeleteMeMutation();
   const isActive = form.formState.isValid;
-  const placeholder = isOAuthAccount ? "계정삭제" : "비밀번호";
+  const placeholder = isOAuthAccount ? "DELETE" : "비밀번호";
 
   const handleSubmit = ({ password }: z.infer<typeof passwordSchema>) => {
-    if (isOAuthAccount && form.getValues("password") !== "계정삭제") {
-      form.setError("password", {
-        message: "계정삭제를 정확하게 입력해 주세요.",
-      });
-      return;
-    }
     mutate(
       { password, isOAuthAccount },
       {
         onError: () => {
-          form.setError("password", {
-            message: "비밀번호가 올바르지 않습니다.",
-          });
+          if (!isOAuthAccount) {
+            form.setError("password", {
+              message: "비밀번호가 올바르지 않습니다.",
+            });
+          }
         },
       },
     );
