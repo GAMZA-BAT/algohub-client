@@ -1,6 +1,7 @@
 "use client";
 
 import { useBooleanState } from "@/common/hook/useBooleanState";
+import { useToast } from "@/common/hook/useToast";
 import { handleA11yClick } from "@/common/util/dom";
 import Card from "@/shared/component/Card";
 import { Form, FormController } from "@/shared/component/Form";
@@ -11,16 +12,33 @@ import {
   editCardStyle,
   footerStyle,
 } from "@/view/user/setting/MyProfile/index.css";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
+import type { z } from "zod";
 import { contentStyle, formStyle, labelStyle } from "./index.css";
+import type { baseEditSchema } from "./schema";
 import useEditForm from "./useEditForm";
 
 const EditForm = () => {
-  const session = useSession();
-  const isOAuthAccount = session.data?.isOAuthAccount!;
-  const { form, handleSubmit, isActive } = useEditForm(session);
+  const { data, update } = useSession();
+  const {
+    form,
+    handleSubmit: _handleSubmit,
+    isActive,
+  } = useEditForm(data?.user!);
+  const { showToast } = useToast();
   const { isOpen, open, close } = useBooleanState();
 
+  const isOAuthAccount = data?.isOAuthAccount!;
+
+  const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
+    try {
+      await _handleSubmit(values);
+      await update(await getSession());
+      showToast("정상적으로 수정이 되었어요", "success");
+    } catch (_err) {
+      showToast("정상적으로 수정되지 않았어요.", "error");
+    }
+  };
   return (
     <>
       <Form {...form}>

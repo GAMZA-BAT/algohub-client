@@ -45,6 +45,9 @@ const ProfileCreation = ({
             showErrorIcon: false,
             message: nicknameMsg,
           }}
+          wrapperProps={{
+            style: { width: "100%" },
+          }}
         />
       </div>
       <Button type="submit" size="large" isActive={isActive}>

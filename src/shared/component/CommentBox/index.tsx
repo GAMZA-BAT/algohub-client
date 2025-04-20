@@ -38,8 +38,7 @@ const CommentBox = ({
   className,
   isMine,
 }: CommentBoxProps) => {
-  const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
-    useA11yHoverHandler();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   const { register, control } = useEditForm(commentId, content);
 
@@ -52,10 +51,7 @@ const CommentBox = ({
 
   return (
     <li
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseOut}
+      {...handlers}
       aria-label={`코멘트 ${commentId}`}
       className={clsx(containerStyle({ isActive }), className)}
     >

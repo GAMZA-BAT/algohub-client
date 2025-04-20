@@ -47,8 +47,11 @@ const insertNewToken: BeforeRetryHook = async ({
     request.headers.set("Authorization", `Bearer ${newAccessToken}`);
   }
 };
-const handleAbortRetryError: BeforeRetryHook = async ({ request }) => {
-  if (request.headers.get("AbortRetryError")) {
+const handleAbortRetryError: BeforeRetryHook = async ({
+  request,
+  retryCount,
+}) => {
+  if (retryCount === 2 && request.headers.get("AbortRetryError")) {
     throw new Error("AbortRetryError");
   }
 };
@@ -98,8 +101,7 @@ export const kyJsonWithTokenInstance = ky.create({
   },
   hooks: {
     beforeRequest: [insertToken],
-    beforeRetry: [handleAbortRetryError, insertNewToken],
-    afterResponse: [handleErrorResponse],
+    beforeRetry: [insertNewToken],
   },
   retry: RETRY,
 });
@@ -116,8 +118,7 @@ export const kyFormWithTokenInstance = ky.create({
   prefixUrl,
   hooks: {
     beforeRequest: [insertToken],
-    beforeRetry: [handleAbortRetryError, insertNewToken],
-    afterResponse: [handleErrorResponse],
+    beforeRetry: [insertNewToken],
   },
   retry: RETRY,
 });

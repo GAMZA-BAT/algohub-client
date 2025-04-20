@@ -2,6 +2,7 @@
 
 import type { SolutionContent } from "@/app/api/solutions/type";
 import { IcnMessage, IcnMessageDot } from "@/asset/svg";
+import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { getFormattedMemory } from "@/shared/util/byte";
 import { getTierImage } from "@/shared/util/img";
@@ -10,7 +11,6 @@ import {
   itemStyle,
   textStyle,
 } from "@/view/group/my-solved/SolvedItem/index.css";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
@@ -31,6 +31,7 @@ const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
   const LevelIcon = getTierImage(problemLevel);
 
   const router = useRouter();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   const handleClickItem = () => {
     router.push(`/group/${groupId || pathGroupId}/solved-detail/${solutionId}`);
@@ -43,18 +44,16 @@ const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
       tabIndex={0}
       onKeyDown={(e) => e.key === "Enter" && handleClickItem()}
       onClick={handleClickItem}
+      {...handlers}
       aria-label={`${problemLevel}: ${solutionId}`}
-      className={itemStyle}
+      className={itemStyle({ isActive })}
     >
       <div style={{ display: "flex", justifyContent: "center" }}>
         <LevelIcon width={25} height={32} />
       </div>
-      <Link
-        className={textStyle}
-        href={`/group/${groupId}/problem-list/${solutionId}`}
-      >
-        {problemTitle}
-      </Link>
+
+      <span className={textStyle}>{problemTitle}</span>
+
       <time dateTime={solvedDateTime} className={textStyle}>
         {solvedDateTime}
       </time>

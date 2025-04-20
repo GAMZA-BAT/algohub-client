@@ -33,15 +33,11 @@ const PendingListItem = ({
 }: PendingListItemProps) => {
   const Icon = getTierImage(level);
   const groupId = useGetGroupId();
-  const { isActive, handleBlur, handleFocus, handleMouseOut, handleMouseOver } =
-    useA11yHoverHandler();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   return (
     <li
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseOut}
+      {...handlers}
       aria-label={`${level}: ${title}`}
       className={clsx(itemStyle, isActive && activeStyle, className)}
     >
