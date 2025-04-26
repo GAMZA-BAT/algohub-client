@@ -27,8 +27,7 @@ const EmailVerification = () => {
     },
   });
   const { time, startTimer } = useTimer(180);
-  const isSubmit = form.formState.isSubmitted;
-  const { mutate: sendEmail } = useVerifyEmailMutation();
+  const { mutate: sendEmail, isSuccess } = useVerifyEmailMutation();
 
   const handleSubmit = (values: z.infer<typeof emailVerificationSchema>) => {
     sendEmail(values.email, {
@@ -61,7 +60,7 @@ const EmailVerification = () => {
                 className: fullWidthStyle,
               }}
             />
-            {isSubmit && (
+            {isSuccess && (
               <p className={timeTextStyle}>{getRemainedSeconds(time)}</p>
             )}
           </div>
@@ -70,7 +69,7 @@ const EmailVerification = () => {
             size="large"
             isActive={form.formState.isValid}
           >
-            {isSubmit ? "재전송" : "인증 메일 전송"}
+            {isSuccess ? "재전송" : "인증 메일 전송"}
           </SubmitButton>
         </form>
       </Form>
