@@ -7,6 +7,7 @@ import Modal from "@/common/component/Modal";
 import {
   alertTextStyle,
   containerStyle,
+  loginLottieStyle,
 } from "@/shared/component/LoginAlertModal/index.css";
 import { useRouter } from "next/navigation";
 
@@ -30,7 +31,11 @@ const LoginAlertModal = ({
     <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn>
       <div className={containerStyle}>
         <p className={alertTextStyle}>로그인이 필요한 서비스입니다.</p>
-        <Animation animationJson={loginAni} size="12.5rem" />
+        <Animation
+          animationJson={loginAni}
+          size="12.5rem"
+          className={loginLottieStyle}
+        />
         <Button onClick={handleRedirectToLogin}>로그인하러 가기</Button>
       </div>
     </Modal>
