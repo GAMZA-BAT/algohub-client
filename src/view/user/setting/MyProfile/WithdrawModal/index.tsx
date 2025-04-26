@@ -12,6 +12,7 @@ import {
   modalWrapper,
 } from "@/view/user/setting/MyProfile/WithdrawModal/index.css";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
@@ -36,6 +37,13 @@ const WithdrawModal = ({
       password: "",
     },
   });
+
+  useEffect(() => {
+    if (!isOpen) {
+      form.reset();
+    }
+  }, [isOpen, form]);
+
   const { mutate } = useDeleteMeMutation();
   const isActive = form.formState.isValid;
   const placeholder = isOAuthAccount ? "DELETE" : "비밀번호";
