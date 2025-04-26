@@ -2,10 +2,8 @@ import { useDeleteMeMutation } from "@/app/[user]/setting/query";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { Form, FormController } from "@/shared/component/Form";
-import {
-  accountDeleteSchema,
-  passwordSchema,
-} from "@/view/login/LoginForm/schema";
+import { withdrawSchema } from "@/view/login/LoginForm/schema";
+
 import {
   descTextStyle,
   metaTextStyle,
@@ -26,14 +24,11 @@ const WithdrawModal = ({
   onClose,
   isOAuthAccount,
 }: WithdrawModalProps) => {
-  const form = useForm<
-    z.infer<typeof passwordSchema | typeof accountDeleteSchema>
-  >({
-    resolver: zodResolver(
-      isOAuthAccount ? accountDeleteSchema : passwordSchema,
-    ),
+  const form = useForm<z.infer<typeof withdrawSchema>>({
+    resolver: zodResolver(withdrawSchema),
     mode: "onTouched",
     defaultValues: {
+      isOAuthAccount,
       password: "",
     },
   });
@@ -47,8 +42,7 @@ const WithdrawModal = ({
   const { mutate } = useDeleteMeMutation();
   const isActive = form.formState.isValid;
   const placeholder = isOAuthAccount ? "DELETE" : "비밀번호";
-
-  const handleSubmit = ({ password }: z.infer<typeof passwordSchema>) => {
+  const handleSubmit = ({ password }: z.infer<typeof withdrawSchema>) => {
     mutate(
       { password, isOAuthAccount },
       {
@@ -85,11 +79,7 @@ const WithdrawModal = ({
               type: isOAuthAccount ? "text" : "password",
             }}
           />
-          <Button
-            type="submit"
-            isActive={isActive}
-            disabled={!form.formState.isValid}
-          >
+          <Button type="submit" isActive={isActive} disabled={!isActive}>
             계정 삭제
           </Button>
         </form>
