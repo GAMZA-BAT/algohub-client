@@ -38,6 +38,10 @@ const MixpanelTracker = () => {
 
   return {
     initialize,
+    reset() {
+      initialized = false;
+      mixpanel.reset();
+    },
     trackEvent(name: string, params?: Record<string, unknown>) {
       if (!CustomEventRegex.test(name)) return undefined;
 
@@ -50,6 +54,7 @@ const MixpanelTracker = () => {
 
       if (!initialized) return;
 
+      /** track_pageview가 있으나 이벤트명이 디폴트값으로 설정되어 track 메서드로 트래킹 */
       mixpanel.track(name, params);
     },
   };
