@@ -11,7 +11,7 @@ import type {
 } from "ky";
 import ky from "ky";
 import { signOut as cSignOut, getSession } from "next-auth/react";
-import { IS_PROD } from "../config";
+import { IS_PROD } from "../../shared/constant/config";
 import { reIssueAction } from "./auth/actions";
 
 // beforeRequest
