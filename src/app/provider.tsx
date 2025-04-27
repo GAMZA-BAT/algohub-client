@@ -1,7 +1,7 @@
 "use client";
 
 import ToastProvider from "@/common/component/Toast";
-import { MixpanelTracker } from "@/sdk/mixpanel";
+import { mixpanelTracker } from "@/sdk/mixpanel";
 import JotaiProvider from "@/shared/component/Provider";
 import QueryProvider from "@/shared/component/QueryProvider";
 import RefreshTokenExpireTime from "@/shared/component/RefreshTokenExpireTime";
@@ -17,15 +17,13 @@ const BrowserProvider = dynamic(
   },
 );
 
-const tracker = MixpanelTracker();
-tracker.initialize();
-
 type ProvidersProps = {
   children: ReactNode;
 };
 
 const Providers = ({ children }: ProvidersProps) => {
   const { data: session, update } = useSession();
+  mixpanelTracker.initialize();
 
   return (
     <QueryProvider>

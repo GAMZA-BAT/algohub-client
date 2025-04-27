@@ -3,7 +3,7 @@ import mixpanel from "mixpanel-browser";
 import { CustomEventRegex } from "./__generated__/custom.gen";
 import { PvEventRegex } from "./__generated__/pv.gen";
 
-export const MixpanelTracker = () => {
+const MixpanelTracker = () => {
   let initialized = false;
 
   const initialize = () => {
@@ -36,9 +36,11 @@ export const MixpanelTracker = () => {
       if (!initialized) return;
 
       mixpanel.track_pageview({
-        name,
+        page: name,
         ...params,
       });
     },
   };
 };
+
+export const mixpanelTracker = MixpanelTracker();
