@@ -1,4 +1,5 @@
 import { loginAction } from "@/app/api/auth/actions";
+import { useTrack } from "@/shared/hook/useTrack";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -19,6 +20,7 @@ const useLoginForm = () => {
   const [isPending, startTransition] = useTransition();
   const session = useSession();
   const router = useRouter();
+  const { track } = useTrack();
 
   const errors = Object.keys(form.formState.errors);
   const isError = !!errors;
@@ -45,6 +47,7 @@ const useLoginForm = () => {
         session.update(newSession);
         router.push(`/${newSession?.user?.nickname}`);
       }
+      track("login_cta_button_click");
     });
   };
 
