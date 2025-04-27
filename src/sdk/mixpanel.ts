@@ -1,12 +1,22 @@
 import { IS_PROD } from "@/shared/constant/config";
 import mixpanel from "mixpanel-browser";
+import type { User } from "next-auth";
 import { CustomEventRegex } from "./__generated__/custom.gen";
 import { PvEventRegex } from "./__generated__/pv.gen";
+
+type MixpanelInfo = {
+  $name: string;
+  $email: string;
+};
+
+type ExtraProperties = Pick<User, "id" | "bjNickname">;
+
+type Info = MixpanelInfo & ExtraProperties;
 
 const MixpanelTracker = () => {
   let initialized = false;
 
-  const initialize = () => {
+  const initialize = (info: Info) => {
     if (
       !IS_PROD ||
       process.env.NEXT_PUBLIC_MIXPANEL_TOKEN === undefined ||
@@ -16,7 +26,12 @@ const MixpanelTracker = () => {
 
     mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN, {
       debug: true,
+      autotrack: false,
+      track_pageview: false,
     });
+
+    if (info.id) mixpanel.identify(info.id);
+    mixpanel.people.set(info);
 
     initialized = true;
   };
@@ -35,10 +50,7 @@ const MixpanelTracker = () => {
 
       if (!initialized) return;
 
-      mixpanel.track_pageview({
-        page: name,
-        ...params,
-      });
+      mixpanel.track(name, params);
     },
   };
 };

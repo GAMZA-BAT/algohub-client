@@ -23,7 +23,14 @@ type ProvidersProps = {
 
 const Providers = ({ children }: ProvidersProps) => {
   const { data: session, update } = useSession();
-  mixpanelTracker.initialize();
+  const { id, email, nickname, bjNickname } = session?.user ?? {};
+
+  mixpanelTracker.initialize({
+    $email: email ?? "",
+    $name: nickname ?? "",
+    id,
+    bjNickname,
+  });
 
   return (
     <QueryProvider>
