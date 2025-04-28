@@ -2,16 +2,18 @@
   "name": "algohub-client",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 8080",
-    "generate-icon-export": "node ./generateIconExport.js",
+    "generate:icon": "node ./generateIconExport.js",
     "lint": "biome lint",
     "typecheck": "tsc --noEmit",
     "check": "concurrently \"pnpm biome ci --formatter-enabled=true\" \"pnpm typecheck\"",
     "storybook": "cross-env STORYBOOK=true storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate:event": "tsx ./src/sdk/codegen/generateEvent.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -73,6 +75,7 @@
     "storybook": "^8.3.1",
     "storybook-addon-jsdoc-to-mdx": "^1.0.3",
     "storybook-dark-mode": "^4.0.2",
+    "tsx": "^4.19.3",
     "typescript": "^5",
     "zx": "^8.5.3"
   }
