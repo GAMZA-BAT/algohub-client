@@ -25,6 +25,10 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
+      - name: Use pnpm version from package.json
+        run: |
+          corepack prepare pnpm@$(jq -r '.packageManager' package.json | cut -d'@' -f2 | cut -d'+' -f1) --activate
+
       - name: Restore next cache
         uses: actions/cache@v4
         id: cache
