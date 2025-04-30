@@ -12,5 +12,11 @@ export type CustomEvent =
         params: {
         
         }
+    } | {
+        
+        name: "landing_login_button_click",
+        params: {
+        
+        }
     }
-export const CustomEventRegex = /^(login_cta_button_click|github_login_cta_button_click)$/m
+export const CustomEventRegex = /^(login_cta_button_click|github_login_cta_button_click|landing_login_button_click)$/m

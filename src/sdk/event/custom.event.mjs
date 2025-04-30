@@ -7,4 +7,8 @@ export const docs = [
     name: "github_login_cta_button_click",
     properties: [],
   },
+  {
+    name: "landing_login_button_click",
+    properties: [],
+  },
 ];

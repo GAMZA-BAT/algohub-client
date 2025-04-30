@@ -4,7 +4,7 @@ import { capitalize } from "es-toolkit";
 /** biome-ignore lint/style/useNodejsImportProtocol: */
 import { mkdir, writeFile } from "fs/promises";
 import { z } from "zod";
-import { path, globby } from "zx";
+import { path, chalk, globby } from "zx";
 
 export type GenerateEventOption = {
   currentDir: string;
@@ -82,6 +82,8 @@ export const generateEvent = async () => {
       "utf-8",
     );
   }
+  /** biome-ignore lint/suspicious/noConsoleLog: logging result of generateEvent */
+  console.log(chalk.blue("이벤트 생성을 완료하였어요."));
 };
 
 export const makeDocs = (name: string, docs: EventDoc[]) => {
@@ -114,5 +116,3 @@ export const makeDocs = (name: string, docs: EventDoc[]) => {
 
   return result.join("\n");
 };
-
-generateEvent();

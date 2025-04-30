@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
+import { WebpackGenerateEventPlugin } from "./src/sdk/webpackGenerateEventPlugin.cjs";
 
 const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
 const hostname = isProd 
@@ -46,6 +47,8 @@ const nextConfig = {
 
     // 처리가 완료된 *.svg를 무시하도록 파일 로더 규칙을 수정
     fileLoaderRule.exclude = /\.svg$/i;
+
+    config.plugins.push(new WebpackGenerateEventPlugin());
 
     return config;
   },
