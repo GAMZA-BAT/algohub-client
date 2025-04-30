@@ -18,10 +18,8 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Setup Pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Cache node modules
         id: cache-node
