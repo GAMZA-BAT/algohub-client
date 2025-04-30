@@ -63,6 +63,11 @@
   },
   "files": {
     "ignore": [".next/*", "main.ts", "src/sdk/__generated__/*"],
-    "include": ["**/*.ts", "**/*.tsx", "src/sdk/event/pv.event.mjs"]
+    "include": [
+      "**/*.ts",
+      "**/*.tsx",
+      "src/sdk/event/pv.event.mjs",
+      "src/sdk/webpackGenerateEventPlugin.cjs"
+    ]
   }
 }
