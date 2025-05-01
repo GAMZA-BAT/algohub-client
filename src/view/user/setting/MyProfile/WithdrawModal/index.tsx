@@ -2,13 +2,15 @@ import { useDeleteMeMutation } from "@/app/[user]/setting/query";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { Form, FormController } from "@/shared/component/Form";
-import { passwordSchema } from "@/view/login/LoginForm/schema";
+import { withdrawSchema } from "@/view/login/LoginForm/schema";
+
 import {
   descTextStyle,
   metaTextStyle,
   modalWrapper,
 } from "@/view/user/setting/MyProfile/WithdrawModal/index.css";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
@@ -22,24 +24,34 @@ const WithdrawModal = ({
   onClose,
   isOAuthAccount,
 }: WithdrawModalProps) => {
-  const form = useForm<z.infer<typeof passwordSchema>>({
-    resolver: zodResolver(passwordSchema),
+  const form = useForm<z.infer<typeof withdrawSchema>>({
+    resolver: zodResolver(withdrawSchema),
     mode: "onTouched",
     defaultValues: {
+      isOAuthAccount,
       password: "",
     },
   });
+
+  useEffect(() => {
+    if (!isOpen) {
+      form.reset();
+    }
+  }, [isOpen, form]);
+
   const { mutate } = useDeleteMeMutation();
   const isActive = form.formState.isValid;
-
-  const handleSubmit = ({ password }: z.infer<typeof passwordSchema>) => {
+  const placeholder = isOAuthAccount ? "DELETE" : "비밀번호";
+  const handleSubmit = ({ password }: z.infer<typeof withdrawSchema>) => {
     mutate(
       { password, isOAuthAccount },
       {
         onError: () => {
-          form.setError("password", {
-            message: "비밀번호가 올바르지 않습니다.",
-          });
+          if (!isOAuthAccount) {
+            form.setError("password", {
+              message: "비밀번호가 올바르지 않습니다.",
+            });
+          }
         },
       },
     );
@@ -54,8 +66,8 @@ const WithdrawModal = ({
         >
           <h2 className={metaTextStyle}>정말 계정을 삭제하시겠습니까?</h2>
           <p className={descTextStyle}>
-            이 작업은 되돌릴 수 없습니다. 비밀번호를 입력한 후 ‘계정 삭제’
-            버튼을 눌러 진행해주세요.
+            이 작업은 되돌릴 수 없습니다. {placeholder}를 입력한 후 ‘계정
+            삭제’버튼을 눌러 진행해주세요.
           </p>
           <FormController
             form={form}
@@ -63,15 +75,11 @@ const WithdrawModal = ({
             type="input"
             showDescription
             fieldProps={{
-              placeholder: "비밀번호",
-              type: "password",
+              placeholder,
+              type: isOAuthAccount ? "text" : "password",
             }}
           />
-          <Button
-            type="submit"
-            isActive={isActive}
-            disabled={!form.formState.isValid}
-          >
+          <Button type="submit" isActive={isActive} disabled={!isActive}>
             계정 삭제
           </Button>
         </form>
