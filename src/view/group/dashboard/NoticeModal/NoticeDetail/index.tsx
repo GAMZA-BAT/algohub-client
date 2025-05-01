@@ -22,6 +22,7 @@ import {
   articleStyle,
   contentStyle,
   contentWrapper,
+  contentWrapperStyle,
   headerStyle,
   iconContainerStyle,
   iconStyle,
@@ -116,59 +117,62 @@ const NoticeDetail = ({
         </div>
       </header>
 
-      {/* 상세보기 내용 */}
-      <div className={textareaWrapper} {...handlers}>
-        <Textarea
-          ref={textareaRef}
-          defaultValue={content}
-          disabled={!isEdit}
-          className={textareaStyle}
-        />
-        <div className={iconContainerStyle}>
-          <button
-            aria-label="공지 수정하기"
-            onClick={handleEditClick}
-            className={iconStyle({ isEdit, isActive })}
-          >
-            <IcnEdit width={18} height={18} />
-          </button>
-          <button
-            aria-label="공지 삭제하기"
-            onClick={handleDeleteClick}
-            className={iconStyle({ isActive })}
-          >
-            <IcnClose width={16} height={16} />
-          </button>
+      <div className={contentWrapperStyle}>
+        {/* 상세보기 내용 */}
+        <div className={textareaWrapper} {...handlers}>
+          <Textarea
+            ref={textareaRef}
+            defaultValue={content}
+            disabled={!isEdit}
+            className={textareaStyle}
+          />
+          <div className={iconContainerStyle}>
+            <button
+              aria-label="공지 수정하기"
+              onClick={handleEditClick}
+              className={iconStyle({ isEdit, isActive })}
+            >
+              <IcnEdit width={18} height={18} />
+            </button>
+            <button
+              aria-label="공지 삭제하기"
+              onClick={handleDeleteClick}
+              className={iconStyle({ isActive })}
+            >
+              <IcnClose width={16} height={16} />
+            </button>
+          </div>
+        </div>
+
+        <div style={{ width: "50%", height: "100%", position: "relative" }}>
+          {/* 댓글란 */}
+          <ul className={listStyle}>
+            <NoticeCommentsProvider noticeId={noticeId}>
+              {commentList?.map((item) => (
+                <div key={item.commentId} className={itemStyle}>
+                  <CommentBox
+                    variant="notice"
+                    commentId={item.commentId}
+                    createdAt={item.createdAt}
+                    content={item.content}
+                    writerNickname={item.writerNickname}
+                    writerProfileImage={item.writerProfileImage}
+                    onDelete={deleteCommentMutate}
+                  />
+                </div>
+              ))}
+            </NoticeCommentsProvider>
+          </ul>
+          {/* 댓글 입력란 */}
+          <form onSubmit={handleSubmit} className={inputStyle}>
+            <CommentInput
+              name="comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+          </form>
         </div>
       </div>
-
-      {/* 댓글란 */}
-      <ul className={listStyle}>
-        <NoticeCommentsProvider noticeId={noticeId}>
-          {commentList?.map((item) => (
-            <CommentBox
-              key={item.commentId}
-              className={itemStyle}
-              variant="notice"
-              commentId={item.commentId}
-              createdAt={item.createdAt}
-              content={item.content}
-              writerNickname={item.writerNickname}
-              writerProfileImage={item.writerProfileImage}
-              onDelete={deleteCommentMutate}
-            />
-          ))}
-        </NoticeCommentsProvider>
-      </ul>
-
-      {/* 댓글 입력란 */}
-      <form onSubmit={handleSubmit} className={inputStyle}>
-        <CommentInput
-          name="comment"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-      </form>
     </article>
   );
 };

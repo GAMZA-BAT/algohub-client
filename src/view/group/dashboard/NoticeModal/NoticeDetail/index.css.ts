@@ -6,11 +6,17 @@ export const articleStyle = style({
   position: "relative",
   display: "flex",
   flexDirection: "column",
-  gap: "2.4rem",
+  gap: "2.2rem",
 
-  width: "91.7rem",
+  width: "100%",
   height: "calc(100% - 3.6rem)",
-  margin: "2.4rem auto",
+  marginTop: "1.5rem",
+});
+
+export const contentWrapperStyle = style({
+  display: "flex",
+  gap: "1rem",
+  height: "100%",
 });
 
 export const headerStyle = style({
@@ -52,13 +58,16 @@ export const noticeInfoStyle = style({
 
 export const textareaWrapper = style({
   position: "relative",
+  width: "50%",
+  height: "100%",
 });
 
 export const textareaStyle = style({
-  height: "20rem",
+  height: "100%",
 });
 
 export const inputStyle = style({
+  backgroundColor: theme.color.bg,
   position: "absolute",
   bottom: 0,
 
@@ -113,8 +122,9 @@ export const iconStyle = recipe({
 
 export const listStyle = style({
   width: "100%",
-  height: "17rem",
+  height: "43rem",
 
+  padding: "1.2rem 2.4rem 0 2.4rem",
   overflowY: "scroll",
 
   ...scrollTheme.scrollbar,

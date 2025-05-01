@@ -8,7 +8,7 @@ export const noticeModalWrapper = style({
 
   width: "100rem",
   height: "66rem",
-  padding: "3.6rem 2.4rem",
+  padding: "3.6rem 2.4rem 2.5rem 2.4rem",
 
   backgroundColor: theme.color.bg,
   borderRadius: "2rem",
