@@ -14,7 +14,7 @@ interface EditAvatarProps extends Omit<ImageProps, "src" | "alt" | "onChange"> {
   src?: string;
   alt?: string;
   name?: string;
-  onChange?: (img?: Blob) => void;
+  onChange?: (img: Blob | null) => void;
   variant?: "default" | "secondary";
 }
 
@@ -49,7 +49,7 @@ const EditAvatar = ({
 
   const handleDelete = () => {
     setPickedImage(null);
-    onChange?.();
+    onChange?.(null);
   };
 
   return (
