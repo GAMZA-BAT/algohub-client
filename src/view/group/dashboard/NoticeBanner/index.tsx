@@ -3,6 +3,7 @@
 import { useNoticesQuery } from "@/app/group/[groupId]/notice/query";
 import { IcnNew, IcnNotifications } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
+import { formatDistanceDate } from "@/common/util/date";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
 import { useRouter } from "next/navigation";
@@ -51,7 +52,7 @@ const NoticeBanner = () => {
           <div className={contentWrapper}>
             <p className={textStyle.bannerTitle}>{recentNotice.title}</p>
             <time className={textStyle.time} dateTime={recentNotice.createdAt}>
-              {recentNotice.createdAt}
+              {formatDistanceDate(recentNotice.createdAt)}
             </time>
             {
               <IcnNew

@@ -7,6 +7,7 @@ import {
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
+import { formatDistanceDate } from "@/common/util/date";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
@@ -108,7 +109,7 @@ const NoticeDetail = ({
         <div className={noticeInfoStyle}>
           <p className={textStyle.author}>{author}</p>
           <time dateTime={createdAt} className={textStyle.time}>
-            {createdAt}
+            {formatDistanceDate(createdAt)}
           </time>
           {!isRead && (
             <IcnNew width={13} height={13} style={{ minWidth: 13 }} />
