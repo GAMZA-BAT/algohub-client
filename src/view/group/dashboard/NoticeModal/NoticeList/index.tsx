@@ -4,6 +4,7 @@ import defaultImage from "@/asset/img/img_card_profile.png";
 import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Button from "@/common/component/Button";
+import { formatDistanceDate } from "@/common/util/date";
 import Pagination from "@/shared/component/Pagination";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
@@ -81,7 +82,7 @@ const NoticeList = () => {
                       <div className={infoWrapper}>
                         <span className={textStyle.author}>{author}</span>
                         <time dateTime={createdAt} className={textStyle.time}>
-                          {createdAt}
+                          {formatDistanceDate(createdAt)}
                         </time>
                       </div>
                       <IcnNew
