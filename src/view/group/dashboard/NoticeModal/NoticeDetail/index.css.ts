@@ -62,6 +62,8 @@ export const textareaWrapper = style({
   height: "100%",
 });
 
+export const sectionWrapper = style([textareaWrapper]);
+
 export const textareaStyle = style({
   height: "100%",
 });

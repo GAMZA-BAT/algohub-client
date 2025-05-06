@@ -30,6 +30,7 @@ import {
   itemStyle,
   listStyle,
   noticeInfoStyle,
+  sectionWrapper,
   textStyle,
   textareaStyle,
   textareaWrapper,
@@ -144,7 +145,7 @@ const NoticeDetail = ({
           </div>
         </div>
 
-        <div style={{ width: "50%", height: "100%", position: "relative" }}>
+        <div className={sectionWrapper}>
           {/* 댓글란 */}
           <ul className={listStyle}>
             <NoticeCommentsProvider noticeId={noticeId}>
