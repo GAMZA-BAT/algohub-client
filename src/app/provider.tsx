@@ -1,6 +1,7 @@
 "use client";
 
 import ToastProvider from "@/common/component/Toast";
+import { mixpanelTracker } from "@/sdk/mixpanel";
 import JotaiProvider from "@/shared/component/Provider";
 import QueryProvider from "@/shared/component/QueryProvider";
 import RefreshTokenExpireTime from "@/shared/component/RefreshTokenExpireTime";
@@ -22,6 +23,14 @@ type ProvidersProps = {
 
 const Providers = ({ children }: ProvidersProps) => {
   const { data: session, update } = useSession();
+  const { id, email, nickname, bjNickname } = session?.user ?? {};
+
+  mixpanelTracker.initialize({
+    $email: email ?? "",
+    $name: nickname ?? "",
+    id,
+    bjNickname,
+  });
 
   return (
     <QueryProvider>
