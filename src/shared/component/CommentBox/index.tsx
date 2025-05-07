@@ -4,6 +4,7 @@ import type { CommentContent } from "@/app/api/comments/type";
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
+import { formatDistanceDate } from "@/common/util/date";
 import { useEditForm } from "@/shared/component/CommentBox/hook";
 import {
   containerStyle,
@@ -17,7 +18,6 @@ import {
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { getFormattedcreatedAt } from "@/shared/util/time";
 import clsx from "clsx";
 
 type CommentBoxProps = CommentContent & {
@@ -38,8 +38,7 @@ const CommentBox = ({
   className,
   isMine,
 }: CommentBoxProps) => {
-  const { isActive, handleFocus, handleBlur, handleMouseOver, handleMouseOut } =
-    useA11yHoverHandler();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   const { register, control } = useEditForm(commentId, content);
 
@@ -52,10 +51,7 @@ const CommentBox = ({
 
   return (
     <li
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseOut}
+      {...handlers}
       aria-label={`코멘트 ${commentId}`}
       className={clsx(containerStyle({ isActive }), className)}
     >
@@ -67,7 +63,7 @@ const CommentBox = ({
       <div className={contentWrapperStyle({ variant })}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createdAtStyle}>{getFormattedcreatedAt(createdAt)}</p>
+          <p className={createdAtStyle}>{formatDistanceDate(createdAt)}</p>
         </div>
         {isEditing ? (
           <form

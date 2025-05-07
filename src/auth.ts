@@ -5,6 +5,7 @@ import NextAuth from "next-auth";
 import type { AdapterUser } from "../next-auth";
 import { deleteSignOut, postReissueToken } from "./app/api/auth";
 import { getMyInfo } from "./app/api/users";
+import { mixpanelTracker } from "./sdk/mixpanel";
 // 컴포넌트에서 auth()를 통해 불러와 사용할 session 데이터를 수정할 수 있음
 export const {
   auth,
@@ -41,6 +42,7 @@ export const {
       } catch (err) {
         if (err instanceof HTTPError) {
           console.warn("auth.ts:", await err.response.json());
+          await signOut();
         }
       }
 
@@ -51,6 +53,7 @@ export const {
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
       session.accessTokenExpires = token.accessTokenExpires;
+      session.isOAuthAccount = !!token.user.githubName;
       return session;
     },
   },
@@ -58,6 +61,8 @@ export const {
     signOut: async () => {
       try {
         await deleteSignOut();
+        mixpanelTracker.trackEvent("logout");
+        mixpanelTracker.reset();
       } catch (_e) {
         return;
       }

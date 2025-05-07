@@ -2,17 +2,25 @@ import { theme } from "@/styles/themes.css";
 import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-export const wrapperStyle = style({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+export const wrapperStyle = recipe({
+  base: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
 
-  width: "100%",
-  padding: "0.8rem",
-  borderRadius: "0.5rem",
+    padding: "0.8rem",
+    borderRadius: "0.5rem",
 
-  backgroundColor: theme.color.mg5,
-  height: "3.6rem",
+    backgroundColor: theme.color.mg5,
+    height: "3.6rem",
+  },
+  variants: {
+    isOpen: {
+      true: {
+        boxShadow: `0 0 0 0.1rem ${theme.color.purple}`,
+      },
+    },
+  },
 });
 
 export const calendarIcnStyle = recipe({
@@ -40,7 +48,11 @@ export const dateStyle = recipe({
     backgroundColor: "transparent",
 
     ...theme.font.Caption1_R_12,
-    color: theme.color.mg4,
+    color: theme.color.mg2,
+
+    ":disabled": {
+      color: theme.color.mg4,
+    },
   },
 
   variants: {

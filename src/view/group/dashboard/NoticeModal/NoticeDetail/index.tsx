@@ -7,6 +7,7 @@ import {
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
+import { formatDistanceDate } from "@/common/util/date";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
@@ -22,6 +23,7 @@ import {
   articleStyle,
   contentStyle,
   contentWrapper,
+  contentWrapperStyle,
   headerStyle,
   iconContainerStyle,
   iconStyle,
@@ -29,6 +31,7 @@ import {
   itemStyle,
   listStyle,
   noticeInfoStyle,
+  sectionWrapper,
   textStyle,
   textareaStyle,
   textareaWrapper,
@@ -43,8 +46,7 @@ const NoticeDetail = ({
   data: { author, title, createdAt, category, noticeId, content, isRead },
   goBack,
 }: NoticeDetailProps) => {
-  const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
-    useA11yHoverHandler();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   const [isEdit, setIsEdit] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -109,7 +111,7 @@ const NoticeDetail = ({
         <div className={noticeInfoStyle}>
           <p className={textStyle.author}>{author}</p>
           <time dateTime={createdAt} className={textStyle.time}>
-            {createdAt}
+            {formatDistanceDate(createdAt)}
           </time>
           {!isRead && (
             <IcnNew width={13} height={13} style={{ minWidth: 13 }} />
@@ -117,65 +119,62 @@ const NoticeDetail = ({
         </div>
       </header>
 
-      {/* 상세보기 내용 */}
-      <div
-        className={textareaWrapper}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      >
-        <Textarea
-          ref={textareaRef}
-          defaultValue={content}
-          disabled={!isEdit}
-          className={textareaStyle}
-        />
-        <div className={iconContainerStyle}>
-          <button
-            aria-label="공지 수정하기"
-            onClick={handleEditClick}
-            className={iconStyle({ isEdit, isActive })}
-          >
-            <IcnEdit width={18} height={18} />
-          </button>
-          <button
-            aria-label="공지 삭제하기"
-            onClick={handleDeleteClick}
-            className={iconStyle({ isActive })}
-          >
-            <IcnClose width={16} height={16} />
-          </button>
+      <div className={contentWrapperStyle}>
+        {/* 상세보기 내용 */}
+        <div className={textareaWrapper} {...handlers}>
+          <Textarea
+            ref={textareaRef}
+            defaultValue={content}
+            disabled={!isEdit}
+            className={textareaStyle}
+          />
+          <div className={iconContainerStyle}>
+            <button
+              aria-label="공지 수정하기"
+              onClick={handleEditClick}
+              className={iconStyle({ isEdit, isActive })}
+            >
+              <IcnEdit width={18} height={18} />
+            </button>
+            <button
+              aria-label="공지 삭제하기"
+              onClick={handleDeleteClick}
+              className={iconStyle({ isActive })}
+            >
+              <IcnClose width={16} height={16} />
+            </button>
+          </div>
+        </div>
+
+        <div className={sectionWrapper}>
+          {/* 댓글란 */}
+          <ul className={listStyle}>
+            <NoticeCommentsProvider noticeId={noticeId}>
+              {commentList?.map((item) => (
+                <div key={item.commentId} className={itemStyle}>
+                  <CommentBox
+                    variant="notice"
+                    commentId={item.commentId}
+                    createdAt={item.createdAt}
+                    content={item.content}
+                    writerNickname={item.writerNickname}
+                    writerProfileImage={item.writerProfileImage}
+                    onDelete={deleteCommentMutate}
+                  />
+                </div>
+              ))}
+            </NoticeCommentsProvider>
+          </ul>
+          {/* 댓글 입력란 */}
+          <form onSubmit={handleSubmit} className={inputStyle}>
+            <CommentInput
+              name="comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+          </form>
         </div>
       </div>
-
-      {/* 댓글란 */}
-      <ul className={listStyle}>
-        <NoticeCommentsProvider noticeId={noticeId}>
-          {commentList?.map((item) => (
-            <CommentBox
-              key={item.commentId}
-              className={itemStyle}
-              variant="notice"
-              commentId={item.commentId}
-              createdAt={item.createdAt}
-              content={item.content}
-              writerNickname={item.writerNickname}
-              writerProfileImage={item.writerProfileImage}
-              onDelete={deleteCommentMutate}
-            />
-          ))}
-        </NoticeCommentsProvider>
-      </ul>
-
-      {/* 댓글 입력란 */}
-      <form onSubmit={handleSubmit} className={inputStyle}>
-        <CommentInput
-          name="comment"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-      </form>
     </article>
   );
 };

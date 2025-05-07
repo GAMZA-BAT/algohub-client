@@ -53,8 +53,8 @@ export const usePatchNoticeMutation = (noticeId: number) => {
   return useMutation({
     mutationFn: (requestData: NoticeRequest) =>
       patchNoticeAction(noticeId, requestData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["notice", noticeId],
       });
       showToast("정상적으로 수정되었어요.", "success");
@@ -71,8 +71,8 @@ export const useDeleteNoticeMutation = (groupId: number, noticeId: number) => {
 
   return useMutation({
     mutationFn: () => deleteNoticeAction(noticeId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["notices", groupId],
       });
       showToast("정상적으로 삭제되었어요.", "success");

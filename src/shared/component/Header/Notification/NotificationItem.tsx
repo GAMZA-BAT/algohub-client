@@ -1,12 +1,12 @@
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import icnNew from "@/asset/svg/icn_new.svg?url";
+import { formatDistanceDate } from "@/common/util/date";
 import { handleA11yClick } from "@/common/util/dom";
 import {
   dateContainerStyle,
   dotStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { getFormattedcreatedAt } from "@/shared/util/time";
 import Image from "next/image";
 import {
   containerStyle,
@@ -38,17 +38,13 @@ const NotificationListItem = ({
   isRead,
   onDelete,
 }: NotificationListProps) => {
-  const { isActive, handleMouseOver, handleMouseOut, handleFocus, handleBlur } =
-    useA11yHoverHandler();
+  const { isActive, ...handlers } = useA11yHoverHandler();
 
   return (
     <li
       className={containerStyle}
       aria-label={`${name}님의 알림: ${message}, ${date}`}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
+      {...handlers}
     >
       <div
         role="button"
@@ -79,7 +75,7 @@ const NotificationListItem = ({
         <div className={dateContainerStyle}>
           <div className={dotStyle({ isRead })} />
           <time className={dateStyle} aria-label={date}>
-            {getFormattedcreatedAt(date)}
+            {formatDistanceDate(date)}
           </time>
         </div>
       </div>

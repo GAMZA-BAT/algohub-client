@@ -1,18 +1,28 @@
 import { theme } from "@/styles/themes.css";
 import { MYSOLVED_GRID_FRACTION } from "@/view/group/my-solved/constant";
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
-export const itemStyle = style({
-  display: "grid",
-  gridTemplateColumns: MYSOLVED_GRID_FRACTION,
-  alignItems: "center",
-  gap: "0.4rem",
+export const itemStyle = recipe({
+  base: {
+    display: "grid",
+    gridTemplateColumns: MYSOLVED_GRID_FRACTION,
+    alignItems: "center",
+    gap: "0.4rem",
 
-  width: "100%",
+    width: "100%",
 
-  padding: "0.5rem 2rem",
+    padding: "0.5rem 2rem",
 
-  cursor: "pointer",
+    cursor: "pointer",
+  },
+  variants: {
+    isActive: {
+      true: {
+        backgroundColor: "rgba(34, 39, 52, 1)",
+      },
+    },
+  },
 });
 
 export const textStyle = style({

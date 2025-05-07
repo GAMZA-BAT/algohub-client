@@ -15,11 +15,13 @@ declare module "next-auth" {
     accessToken: string;
     refreshToken: string;
     accessTokenExpires: number;
+    isOAuthAccount: boolean;
   }
   interface User {
     nickname?: string;
     profileImage?: string;
     bjNickname?: string;
+    githubName?: string;
     description?: string;
     accessToken: string;
     refreshToken: string;

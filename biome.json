@@ -39,7 +39,8 @@
       },
       "correctness": {
         "useExhaustiveDependencies": "off",
-        "noUnusedImports": "warn"
+        "noUnusedImports": "warn",
+        "noNodejsModules": "off"
       },
       "performance": {
         "noAccumulatingSpread": "off",
@@ -61,7 +62,12 @@
     "indentStyle": "space"
   },
   "files": {
-    "ignore": [".next/*", "main.ts"],
-    "include": ["**/*.ts", "**/*.tsx"]
+    "ignore": [".next/*", "main.ts", "src/sdk/__generated__/*"],
+    "include": [
+      "**/*.ts",
+      "**/*.tsx",
+      "src/sdk/event/pv.event.mjs",
+      "src/sdk/webpackGenerateEventPlugin.cjs"
+    ]
   }
 }

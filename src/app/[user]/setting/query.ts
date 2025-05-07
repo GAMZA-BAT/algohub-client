@@ -14,7 +14,7 @@ import {
 } from "@/app/api/notifications";
 import type { NotificationSettingContent } from "@/app/api/notifications/type";
 import { deleteMe } from "@/app/api/users";
-import type { PasswordRequest } from "@/app/api/users/type";
+import type { DeleteUserRequest, PasswordRequest } from "@/app/api/users/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import {
@@ -83,9 +83,11 @@ export const useBookmarkGroupMutation = () => {
         }
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
-      queryClient.invalidateQueries({ queryKey: ["myGroups"] });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["groupsSetting"] }),
+        queryClient.invalidateQueries({ queryKey: ["myGroups"] }),
+      ]);
       showToast("정상적으로 수정되었습니다.", "success");
     },
   });
@@ -119,8 +121,8 @@ export const useVisibilityMutation = () => {
 
       return { prevData };
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["groupsSetting"] });
     },
     onError: (error: HTTPError, _newData, context) => {
       queryClient.setQueryData(["groupsSetting"], context?.prevData);
@@ -179,8 +181,8 @@ export const useNotificationSettingMutation = () => {
 
       return { prevData };
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["notificationsSetting"],
       });
       showToast("정상적으로 수정되었습니다.", "success");
@@ -215,7 +217,8 @@ export const useDeleteMeMutation = () => {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (password: string) => deleteMe({ password }),
+    mutationFn: ({ password, isOAuthAccount }: DeleteUserRequest) =>
+      deleteMe({ password, isOAuthAccount }),
     onSuccess: async () => {
       showToast("정상적으로 계정이 삭제되었습니다.", "success");
       await signOut({

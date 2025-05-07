@@ -2,16 +2,18 @@
   "name": "algohub-client",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 8080",
-    "generate-icon-export": "node ./generateIconExport.js",
+    "generate:icon": "node ./generateIconExport.js",
     "lint": "biome lint",
     "typecheck": "tsc --noEmit",
     "check": "concurrently \"pnpm biome ci --formatter-enabled=true\" \"pnpm typecheck\"",
     "storybook": "cross-env STORYBOOK=true storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate:event": "tsx ./src/sdk/codegen/generateEvent.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -22,11 +24,13 @@
     "@vanilla-extract/recipes": "^0.5.5",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "es-toolkit": "^1.36.0",
     "framer-motion": "^11.7.0",
     "jotai": "^2.9.3",
     "jwt-decode": "^4.0.0",
     "ky": "^1.7.2",
     "lottie-react": "^2.4.0",
+    "mixpanel-browser": "^2.64.0",
     "next": "14.2.8",
     "next-auth": "5.0.0-beta.25",
     "prism-themes": "^1.9.0",
@@ -56,6 +60,7 @@
     "@storybook/test": "^8.3.1",
     "@storybook/theming": "^8.3.2",
     "@svgr/webpack": "^8.1.0",
+    "@types/mixpanel-browser": "^2.54.0",
     "@types/node": "^20",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^18",
@@ -70,6 +75,9 @@
     "storybook": "^8.3.1",
     "storybook-addon-jsdoc-to-mdx": "^1.0.3",
     "storybook-dark-mode": "^4.0.2",
-    "typescript": "^5"
+    "tsx": "^4.19.3",
+    "typescript": "^5",
+    "webpack": "^5.99.7",
+    "zx": "^8.5.3"
   }
 }

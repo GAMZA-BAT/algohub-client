@@ -31,9 +31,10 @@ interface CalendarProps
 const Calendar = forwardRef<DatePicker, CalendarProps>(
   ({ onChange, className, ...props }, ref) => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(
-      props.startDate ?? new Date(),
+      props.startDate ?? null,
     );
     const [selected, setSelected] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const handleDateChange = (date: Date | null) => {
       setSelectedDate(date);
@@ -52,7 +53,7 @@ const Calendar = forwardRef<DatePicker, CalendarProps>(
         : "top-start";
 
     return (
-      <div className={wrapperStyle}>
+      <div className={wrapperStyle({ isOpen })}>
         <DatePicker
           ref={ref}
           dateFormat="yyyy.MM.dd"
@@ -61,6 +62,13 @@ const Calendar = forwardRef<DatePicker, CalendarProps>(
           renderCustomHeader={renderCustomHeader}
           onChange={handleDateChange}
           locale="ko"
+          value={
+            selectedDate === null
+              ? "YYYY.MM.DD"
+              : selectedDate.toLocaleDateString("sv")
+          }
+          onCalendarOpen={() => setIsOpen(true)}
+          onCalendarClose={() => setIsOpen(false)}
           calendarStartDay={1}
           popperPlacement={popperPlacement}
           shouldCloseOnSelect
