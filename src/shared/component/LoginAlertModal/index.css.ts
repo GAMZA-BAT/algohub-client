@@ -15,6 +15,10 @@ export const containerStyle = style({
   borderRadius: "16px",
 });
 
+export const loginLottieStyle = style({
+  placeSelf: "center",
+});
+
 export const alertTextStyle = style({
   ...theme.font.Title1_SB_16,
   color: theme.color.white,

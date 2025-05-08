@@ -10,6 +10,10 @@ export const stepperWrapper = style({
   paddingTop: "2.4rem",
 });
 
+export const stepperSectionWrapper = style({
+  display: "flex",
+});
+
 export const stepperSectionStyle = style({
   display: "flex",
   flexDirection: "column",

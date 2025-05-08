@@ -1,8 +1,11 @@
 import type { ProblemContent } from "@/app/api/problems/type";
 import Pagination from "@/shared/component/Pagination";
 import ProblemList from "@/shared/component/ProblemList";
+import { fullWidthStyle, topBottomMarginStyle } from "@/styles/shared.css";
 import ProgressList from "@/view/group/problem-list";
 import { titleStyle } from "@/view/group/problem-list/index.css";
+import clsx from "clsx";
+import { marginTopStyle } from "../PendingList/index.css";
 
 interface ProblemSectionProps {
   title: string;
@@ -25,7 +28,7 @@ const ProblemSection = ({
 }: ProblemSectionProps) => {
   return (
     <section>
-      <div style={{ width: "100%", margin: "1.6rem 0" }}>
+      <div className={clsx(fullWidthStyle, topBottomMarginStyle)}>
         <div>
           <h2 className={titleStyle}>{title}</h2>
         </div>
@@ -43,7 +46,7 @@ const ProblemSection = ({
         )}
 
         <Pagination
-          style={{ marginTop: "1.6rem" }}
+          className={marginTopStyle}
           totalPages={totalPages}
           currentPage={currentPage}
           onPageChange={onPageChange}

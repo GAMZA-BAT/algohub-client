@@ -15,6 +15,7 @@ import {
   usePatchMemberRoleMutation,
 } from "@/view/group/setting/MemberList/hook";
 import {
+  chipWrapperStyle,
   removeBtnStyle,
   textStyle,
 } from "@/view/group/setting/MemberList/index.css";
@@ -114,12 +115,11 @@ export const MEMBER_LIST_COLUMNS: TableDataType<MemberResponse>[] = [
             onClick={handleButtonClick}
             renderTriggerButton={
               <div
-                style={{
-                  display: "flex",
-                  width: "fit-content",
-                }}
                 ref={ref}
-                className={clsx(isIntersection && "intersection")}
+                className={clsx(
+                  chipWrapperStyle,
+                  isIntersection && "intersection",
+                )}
               >
                 <RoleChip role={data.role as Role} />
               </div>

@@ -70,11 +70,7 @@ const ResetPassword = ({ token }: { token: string }) => {
             }}
           />
         </div>
-        <SubmitButton
-          style={{ marginTop: "2rem" }}
-          isActive={isActive}
-          disabled={!isActive}
-        >
+        <SubmitButton isActive={isActive} disabled={!isActive}>
           완료
         </SubmitButton>
       </form>

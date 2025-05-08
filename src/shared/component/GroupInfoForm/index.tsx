@@ -16,6 +16,7 @@ import {
 } from "@/shared/component/GroupInfoForm/index.css";
 import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
+import { fullWidthStyle } from "@/styles/shared.css";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
@@ -50,7 +51,7 @@ const GroupInfoForm = ({
       >
         <ImageFormController form={form} />
         <NameFormController form={form} variant={variant} />
-        <div style={{ width: "100%" }}>
+        <div className={fullWidthStyle}>
           <p className={formLabelStyle({ variant })}>스터디 기간</p>
           <div className={dateWrapper}>
             <DateFormController

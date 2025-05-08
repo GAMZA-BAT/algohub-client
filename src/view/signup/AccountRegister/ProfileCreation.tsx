@@ -1,6 +1,7 @@
-import Button from "@/common/component/Button";
 import { FormController } from "@/shared/component/Form";
+import SubmitButton from "@/shared/component/SubmitButton";
 import { handleOnChangeMode } from "@/shared/util/form";
+import { fullWidthStyle } from "@/styles/shared.css";
 import { controllerStyle, formContainer } from "@/view/signup/index.css";
 import type { UseFormReturn } from "react-hook-form";
 
@@ -46,13 +47,13 @@ const ProfileCreation = ({
             message: nicknameMsg,
           }}
           wrapperProps={{
-            style: { width: "100%" },
+            className: fullWidthStyle,
           }}
         />
       </div>
-      <Button type="submit" size="large" isActive={isActive}>
+      <SubmitButton size="large" isActive={isActive}>
         완료
-      </Button>
+      </SubmitButton>
     </>
   );
 };

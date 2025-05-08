@@ -3,6 +3,7 @@ import TabGroup from "@/common/component/Tab";
 import AllRanking from "@/view/group/dashboard/Ranking/AllRanking";
 import EmptyRanking from "@/view/group/dashboard/Ranking/EmptyRanking";
 import TopRanking from "@/view/group/dashboard/Ranking/TopRanking";
+import { rankingTabStyle } from "./index.css";
 
 const Ranking = ({ rankingData }: { rankingData: RankingContent[] }) => {
   const isValid = rankingData.length > 0;
@@ -11,7 +12,7 @@ const Ranking = ({ rankingData }: { rankingData: RankingContent[] }) => {
     <TabGroup.Tabs
       tag="section"
       variant="secondary"
-      style={{ height: "32.4rem" }}
+      className={rankingTabStyle}
     >
       <TabGroup.TabList>
         <TabGroup.Tab tabId="1" indicatorId="ranking">

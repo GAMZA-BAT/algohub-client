@@ -34,3 +34,7 @@ export const textStyle = style({
 export const titleStyle = style({
   whiteSpace: "nowrap",
 });
+
+export const marginTopStyle = style({
+  marginTop: "1.6rem",
+});

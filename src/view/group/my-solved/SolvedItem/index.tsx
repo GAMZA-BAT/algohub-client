@@ -8,6 +8,7 @@ import { getFormattedMemory } from "@/shared/util/byte";
 import { getTierImage } from "@/shared/util/img";
 import {
   commentWrapperStyle,
+  iconWrapperStyle,
   itemStyle,
   textStyle,
 } from "@/view/group/my-solved/SolvedItem/index.css";
@@ -48,7 +49,7 @@ const SolvedItem = ({ solutionInfo }: { solutionInfo: SolutionContent }) => {
       aria-label={`${problemLevel}: ${solutionId}`}
       className={itemStyle({ isActive })}
     >
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className={iconWrapperStyle}>
         <LevelIcon width={25} height={32} />
       </div>
 
