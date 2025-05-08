@@ -47,7 +47,6 @@ class WebpackGenerateEventPlugin {
       compiler.hooks.done.tap(PLUGIN_NAME, () => {
         /** biome-ignore lint/style/useTemplate: logging result of generateEvent */
         console.info("✅ " + PLUGIN_NAME + ": route tree gen completed.");
-        setTimeout(() => process.exit(0), 0);
       });
     }
   }
