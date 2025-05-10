@@ -1,17 +1,20 @@
 "use client";
 import grayDefaultImg from "@/asset/img/img_card_profile.png";
 import defaultImg from "@/asset/img/small_logo.png";
-import { IcnEditProfile } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
-import { iconStyle, inputStyle } from "@/shared/component/EditAvatar/index.css";
+import {
+  actionButton,
+  buttonWrapper,
+  inputStyle,
+} from "@/shared/component/EditAvatar/index.css";
 import type { ImageProps } from "next/image";
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, useRef, useState } from "react";
 
 interface EditAvatarProps extends Omit<ImageProps, "src" | "alt" | "onChange"> {
   src?: string;
   alt?: string;
   name?: string;
-  onChange?: (img: Blob) => void;
+  onChange?: (img: Blob | null) => void;
   variant?: "default" | "secondary";
 }
 
@@ -24,6 +27,8 @@ const EditAvatar = ({
   ...props
 }: EditAvatarProps) => {
   const [pickedImage, setPickedImage] = useState<string | null>(src || null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -38,11 +43,13 @@ const EditAvatar = ({
     fileReader.readAsDataURL(file);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<SVGElement>) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      document.getElementById("edit-avatar-label")?.click();
-    }
+  const handleEdit = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleDelete = () => {
+    setPickedImage(null);
+    onChange?.(null);
   };
 
   return (
@@ -52,18 +59,29 @@ const EditAvatar = ({
       size="large"
       {...props}
     >
-      <label id="edit-avatar-label" htmlFor="edit-avatar">
-        <IcnEditProfile
-          className={iconStyle}
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-        />
-      </label>
+      <div className={buttonWrapper}>
+        <button
+          type="button"
+          className={actionButton}
+          onClick={handleEdit}
+          aria-label="프로필 사진 수정"
+        >
+          수정
+        </button>
+        <button
+          type="button"
+          className={actionButton}
+          onClick={handleDelete}
+          aria-label="프로필 사진 삭제"
+        >
+          삭제
+        </button>
+      </div>
       <input
+        ref={fileInputRef}
         className={inputStyle}
         type="file"
         name={name}
-        id="edit-avatar"
         accept="image/*"
         onChange={handleImageChange}
       />
