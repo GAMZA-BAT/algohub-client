@@ -15,27 +15,27 @@ import {
   errorWrapper,
   wrapper,
 } from "@/view/user/join-group/index.css";
-import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
-
   const { data: groupData } = useGroupByCodeQuery(code);
   const userNickname = useSession().data?.user?.nickname;
   const router = useRouter();
-  const { mutate: joinGroupMutate } = useMutation({
-    mutationFn: (code: string) => joinGroupAction(code),
-    onSuccess: () => {
+
+  const handleJoin = async () => {
+    const result = await joinGroupAction(code);
+
+    if (result.status === 200) {
       router.push(`/group/${groupData?.id}`);
-    },
-    onError: (error: Error) => {
-      if (error.message.includes(`${HTTP_ERROR_STATUS.BAD_REQUEST}`))
-        setIsJoinModalOpen(false);
-    },
-  });
+    } else if (result.status === HTTP_ERROR_STATUS.BAD_REQUEST) {
+      setIsJoinModalOpen(false);
+    } else {
+      console.error(result);
+    }
+  };
 
   const handleReject = () => {
     if (isJoinModalOpen) router.push(`/${userNickname}`);
@@ -53,14 +53,19 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
           <GroupInfoCard groupInfo={groupData} />
           <DecisionPrompt owner={groupData.ownerNickname} />
           <div className={btnWrapper}>
-            <Button type="button" size="medium" color="lg">
+            <Button
+              type="button"
+              size="medium"
+              color="lg"
+              onClick={handleReject}
+            >
               거절하기
             </Button>
             <Button
               type="button"
               size="medium"
               color="purple"
-              onClick={() => joinGroupMutate(code)}
+              onClick={handleJoin}
             >
               수락하기
             </Button>

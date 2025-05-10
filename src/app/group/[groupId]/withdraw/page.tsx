@@ -6,6 +6,7 @@ import WithdrawDialog from "@/shared/component/WithdrawDialog";
 import { sidebarWrapper } from "@/styles/shared.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { revalidateUserPage } from "./action";
 
 const WithdrawPage = ({ params }: { params: { groupId: string } }) => {
   const router = useRouter();
@@ -16,7 +17,10 @@ const WithdrawPage = ({ params }: { params: { groupId: string } }) => {
       <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
         <WithdrawDialog
           groupId={+params.groupId}
-          onSuccess={() => router.push(`/${userNickname}`)}
+          onSuccess={() => {
+            revalidateUserPage(userNickname!);
+            router.push(`/${userNickname}`);
+          }}
         />
       </Modal>
     </main>

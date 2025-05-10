@@ -87,6 +87,8 @@ export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
       if (!isDirty) return acc;
 
       const value = values[key] as ValueType;
+
+      /** 이미지가 수정됐는데 값이 있으면 기본이미지 X / 값이 없으면 기본이미지 O */
       if (key.includes("Image")) {
         acc.isDefaultImage = !value;
       } else if (value instanceof Date) {
@@ -97,12 +99,8 @@ export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
 
       return acc;
     },
-    { isDefaultImage: false } as Record<string, ValueType>,
+    {} as Record<string, ValueType>,
   );
-
-  if (!Object.hasOwn(dirtyFields, "groupImage")) {
-    requestData.isDefaultImage = false;
-  }
 
   /** 중복 허용하지 않는 nickname 필드는 dirty하지 않을 시 formData에서 제거 */
   if (!Object.hasOwn(dirtyFields, "nickname") && values.nickname) {
