@@ -99,7 +99,7 @@ export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
 
       return acc;
     },
-    {} as Record<string, ValueType>,
+    { isDefaultImage: false } as Record<string, ValueType>,
   );
 
   /** 중복 허용하지 않는 nickname 필드는 dirty하지 않을 시 formData에서 제거 */

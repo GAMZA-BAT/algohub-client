@@ -2,6 +2,7 @@ import { patchMyInfoAction } from "@/app/[user]/setting/action";
 import { createFormDataFromDirtyFields } from "@/shared/util/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { User } from "next-auth";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { baseEditSchema } from "./schema";
@@ -17,6 +18,27 @@ const useEditForm = (user: User) => {
       description: user?.description,
     },
   });
+
+  useEffect(() => {
+    const subscription = form.watch((value, { name, type }) => {
+      if (name === "profileImage" && type === "change") {
+        const currentValue = value.profileImage;
+        if (currentValue instanceof File) {
+          // 직접 dirty 상태 설정
+          form.resetField("profileImage", {
+            keepDirty: false,
+            defaultValue: "",
+          });
+          form.setValue("profileImage", currentValue, {
+            shouldDirty: true,
+            shouldValidate: true,
+          });
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [form]);
   const isActive = form.formState.isValid && form.formState.isDirty;
 
   const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
