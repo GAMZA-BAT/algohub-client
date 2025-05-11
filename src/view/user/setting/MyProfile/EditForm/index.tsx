@@ -33,9 +33,14 @@ const EditForm = () => {
 
   const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
     const response = await _handleSubmit(values);
-    console.log({ response });
     if (response.status === 200) {
       await update(await getSession());
+
+      form.reset(values, {
+        keepValues: true, // 현재 입력값 유지
+        keepDirty: false, // dirty 상태 초기화
+      });
+
       showToast("정상적으로 수정되었어요.", "success");
     } else if (response.status === HTTP_ERROR_STATUS.INTERNAL_SERVER_ERROR)
       showToast("정상적으로 수정되지 않았어요.", "error");
