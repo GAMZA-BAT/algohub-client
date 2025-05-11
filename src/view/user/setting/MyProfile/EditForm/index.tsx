@@ -34,6 +34,12 @@ const EditForm = () => {
     try {
       await _handleSubmit(values);
       await update(await getSession());
+
+      form.reset(values, {
+        keepValues: true, // 현재 입력값 유지
+        keepDirty: false, // dirty 상태 초기화
+      });
+
       showToast("정상적으로 수정이 되었어요", "success");
     } catch (_err) {
       showToast("정상적으로 수정되지 않았어요.", "error");
