@@ -1,10 +1,7 @@
 "use server";
 
 import { auth, signIn, signOut, update } from "@/auth";
-import {
-  type loginSchema,
-  loginSchemaMessage,
-} from "@/view/login/LoginForm/schema";
+import type { loginSchema } from "@/view/login/LoginForm/schema";
 import { HTTPError } from "ky";
 import { AuthError, type Session } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
@@ -22,39 +19,31 @@ export const signUpAction = async (token: string, formData: FormData) => {
   redirect("/login");
 };
 
-export const loginAction = async (values: z.infer<typeof loginSchema>) => {
+export const loginAction = async (
+  values: z.infer<typeof loginSchema>,
+): Promise<APIResponse> => {
   try {
     await signIn("credentials", {
       ...values,
     });
-    return { success: "Successfully logged in!" };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CallbackRouteError":
         case "CredentialsSignin": {
-          return {
-            error: loginSchemaMessage,
-            cause: JSON.stringify(error.cause),
-            message: error.cause?.err?.message,
-            msg: (await (
-              error.cause?.err as HTTPError
-            ).response?.json()) as APIResponse,
-            type: error.type,
-          };
-        }
-        default: {
-          return {
-            error: "Something went wrong!",
-            cause: JSON.stringify(error.cause),
-            message: error.message,
-            type: error.type,
-          };
+          return (await (
+            error.cause?.err as HTTPError
+          ).response?.json()) as APIResponse;
         }
       }
     }
     throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
   }
+
+  return {
+    status: 500,
+    error: "서버에 문제가 발생했어요.",
+  };
 };
 
 export const reIssueAction = async () => {

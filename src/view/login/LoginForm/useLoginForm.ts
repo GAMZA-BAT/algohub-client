@@ -34,10 +34,10 @@ const useLoginForm = () => {
     startTransition(async () => {
       const data = await loginAction(values);
 
-      if (data?.error) {
+      if (data && data.status !== 200) {
         form.setError(
-          data.msg?.error.includes("비밀번호") ? "password" : "identifier",
-          { message: data.msg?.error },
+          data.error.includes("비밀번호") ? "password" : "identifier",
+          { message: data.error },
         );
         return;
       }
