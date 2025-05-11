@@ -34,8 +34,14 @@ const insertNewToken: BeforeRetryHook = async ({
   retryCount,
 }) => {
   if (retryCount === 2) {
-    isServer ? await signOut() : await cSignOut();
+    if (isServer) {
+      await signOut();
+    } else {
+      await cSignOut();
+      setAccessToken("");
+    }
     ky.stop;
+    return;
   }
   const { response } = error as HTTPError;
   if (
