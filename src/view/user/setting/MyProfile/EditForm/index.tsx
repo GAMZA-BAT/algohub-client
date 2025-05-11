@@ -6,6 +6,7 @@ import { handleA11yClick } from "@/common/util/dom";
 import Card from "@/shared/component/Card";
 import { Form, FormController } from "@/shared/component/Form";
 import SubmitButton from "@/shared/component/SubmitButton";
+import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { handleOnChangeMode } from "@/shared/util/form";
 import WithdrawModal from "@/view/user/setting/MyProfile/WithdrawModal";
 import {
@@ -31,14 +32,18 @@ const EditForm = () => {
   const isOAuthAccount = data?.isOAuthAccount!;
 
   const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
-    try {
-      await _handleSubmit(values);
+    const response = await _handleSubmit(values);
+    console.log({ response });
+    if (response.status === 200) {
       await update(await getSession());
-      showToast("정상적으로 수정이 되었어요", "success");
-    } catch (_err) {
+      showToast("정상적으로 수정되었어요.", "success");
+    } else if (response.status === HTTP_ERROR_STATUS.INTERNAL_SERVER_ERROR)
       showToast("정상적으로 수정되지 않았어요.", "error");
+    else {
+      showToast(response.error, "error");
     }
   };
+
   return (
     <>
       <Form {...form}>

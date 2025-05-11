@@ -9,4 +9,6 @@ export const HTTP_ERROR_STATUS = {
   INTERNAL_SERVER_ERROR: 500,
 } as const;
 
+export type HTTPErrorStatusValues =
+  (typeof HTTP_ERROR_STATUS)[keyof typeof HTTP_ERROR_STATUS];
 export const NO_RETRY_STATUSES = Object.values(HTTP_ERROR_STATUS) as number[];

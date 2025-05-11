@@ -1,13 +1,23 @@
 "use server";
+import type { APIResponse } from "@/app/api/type";
 import { patchMyInfo, patchPassword } from "@/app/api/users";
 import type { PasswordRequest } from "@/app/api/users/type";
 import { isHTTPError } from "@/shared/util/error";
+import { HTTPError } from "ky";
 
-export const patchMyInfoAction = async (formData: FormData) => {
+export const patchMyInfoAction = async (
+  formData: FormData,
+): Promise<APIResponse> => {
   try {
     await patchMyInfo(formData);
-  } catch {
-    throw new Error("fail to patch my info");
+    return {
+      status: 200,
+    };
+  } catch (error) {
+    if (error instanceof HTTPError) {
+      return await error.response.json();
+    }
+    throw new Error("Failed patch my info");
   }
 };
 

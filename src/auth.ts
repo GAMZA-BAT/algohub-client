@@ -41,7 +41,6 @@ export const {
         }
       } catch (err) {
         if (err instanceof HTTPError) {
-          console.warn("auth.ts:", await err.response.json());
           await signOut();
         }
       }

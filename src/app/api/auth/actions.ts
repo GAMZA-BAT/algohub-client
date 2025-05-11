@@ -11,7 +11,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 import type { z } from "zod";
 import { postReissueToken, postSignUp } from ".";
-import type { APIError } from "../type";
+import type { APIResponse } from "../type";
 
 export const signUpAction = async (token: string, formData: FormData) => {
   try {
@@ -39,7 +39,7 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
             message: error.cause?.err?.message,
             msg: (await (
               error.cause?.err as HTTPError
-            ).response?.json()) as APIError,
+            ).response?.json()) as APIResponse,
             type: error.type,
           };
         }

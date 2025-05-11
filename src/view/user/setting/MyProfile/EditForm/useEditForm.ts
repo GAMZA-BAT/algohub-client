@@ -30,7 +30,7 @@ const useEditForm = (user: User) => {
       data.append("profileImage", profileImage);
     }
 
-    await patchMyInfoAction(data);
+    return await patchMyInfoAction(data);
   };
 
   return {
