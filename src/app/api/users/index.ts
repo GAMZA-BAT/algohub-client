@@ -4,7 +4,11 @@ import {
   kyJsonWithTokenInstance,
 } from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
-import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
+import type {
+  APIResponse,
+  MySolutionRequest,
+  MySolutionResponse,
+} from "@/app/api/type";
 import type {
   DeleteUserRequest,
   PasswordRequest,
@@ -146,9 +150,11 @@ export const deleteMe = async ({
 };
 
 export const patchMyInfo = async (formData: FormData) => {
-  const response = await kyFormWithTokenInstance.patch("api/users/me", {
-    body: formData,
-  });
+  const response = await kyFormWithTokenInstance
+    .patch<APIResponse>("api/users/me", {
+      body: formData,
+    })
+    .json();
 
   return response;
 };

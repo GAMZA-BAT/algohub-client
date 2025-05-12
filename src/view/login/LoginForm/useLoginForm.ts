@@ -1,5 +1,6 @@
 import { loginAction } from "@/app/api/auth/actions";
 import { useTrack } from "@/shared/hook/useTrack";
+import { setAccessToken } from "@/shared/util/token";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -34,10 +35,10 @@ const useLoginForm = () => {
     startTransition(async () => {
       const data = await loginAction(values);
 
-      if (data?.error) {
+      if (data && data.status !== 200) {
         form.setError(
-          data.msg?.error.includes("비밀번호") ? "password" : "identifier",
-          { message: data.msg?.error },
+          data.error.includes("비밀번호") ? "password" : "identifier",
+          { message: data.error },
         );
         return;
       }
@@ -45,6 +46,8 @@ const useLoginForm = () => {
       const newSession = await getSession();
       if (newSession) {
         session.update(newSession);
+        setAccessToken(newSession.accessToken);
+
         router.push(`/${newSession?.user?.nickname}`);
       }
       track("login_cta_button_click");

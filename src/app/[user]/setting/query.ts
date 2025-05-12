@@ -17,6 +17,7 @@ import { deleteMe } from "@/app/api/users";
 import type { DeleteUserRequest, PasswordRequest } from "@/app/api/users/type";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
+import { setAccessToken } from "@/shared/util/token";
 import {
   useMutation,
   useQueryClient,
@@ -221,6 +222,7 @@ export const useDeleteMeMutation = () => {
       deleteMe({ password, isOAuthAccount }),
     onSuccess: async () => {
       showToast("정상적으로 계정이 삭제되었습니다.", "success");
+      setAccessToken("");
       await signOut({
         redirectTo: "/",
       });
