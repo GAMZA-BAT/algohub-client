@@ -35,7 +35,7 @@ export const resetPasswordSchema = baseAccountManagementSchema
     path: ["confirmPassword"],
   });
 
-export const formSchema = z.object({
+export const IdRegisterFormSchema = z.object({
   bjNickname: z.string().superRefine(async (val, ctx) => {
     if (val === "") return null;
 

@@ -6,7 +6,11 @@ import CheckBox from "@/common/component/CheckBox";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
-import { sidebarWrapper } from "@/styles/shared.css";
+import {
+  fullWidthStyle,
+  sidebarWrapper,
+  topBottomMarginStyle,
+} from "@/styles/shared.css";
 import PendingList from "@/view/group/problem-list/PendingList";
 import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
 import ProblemSection from "@/view/group/problem-list/ProblemSection";
@@ -17,6 +21,7 @@ import {
   titleStyle,
   unSolvedFilterTextStyle,
 } from "@/view/group/problem-list/index.css";
+import clsx from "clsx";
 import { useState } from "react";
 
 const ProblemListPage = ({
@@ -107,7 +112,7 @@ const ProblemListPage = ({
                 </>
               </div>
               <section>
-                <div style={{ width: "100%", margin: "1.6rem 0" }}>
+                <div className={clsx(fullWidthStyle, topBottomMarginStyle)}>
                   <h2 className={titleStyle}>대기중인 문제</h2>
                   <PendingListHeader />
                   <PendingList groupId={+groupId} />

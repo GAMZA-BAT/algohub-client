@@ -11,10 +11,12 @@ import Footer from "@/view/onboarding/Footer";
 import {
   bottomContainerStyle,
   browserItemStyle,
+  buttonWrapper,
   h1Style,
   h2Style,
   iconWrapperStyle,
   inquireBtnStyle,
+  linkWrapper,
   mainSectionStyle,
   mainTextStyle,
   pageStyle,
@@ -40,7 +42,7 @@ const UnSupportedBrowser = () => {
               편하게 문의해주시면 알고허브가 방법을 찾겠습니다.
             </p>
 
-            <div style={{ width: "24rem" }}>
+            <div className={buttonWrapper}>
               <Button
                 onClick={handleInquire}
                 className={inquireBtnStyle}
@@ -79,7 +81,7 @@ const UnSupportedBrowser = () => {
                 브라우저 업데이트 하기
                 <IcnBtnArrowRight width={24} height={24} />
               </p>
-              <div style={{ display: "flex", gap: "1.4rem" }}>
+              <div className={linkWrapper}>
                 <a
                   href="https://www.google.com/chrome/update"
                   target="_blank"

@@ -37,7 +37,7 @@ const AccountRegister = ({ token }: { token: string }) => {
   };
 
   return (
-    <div>
+    <>
       <Stepper
         curStep={step}
         stepName={["메일 인증", "비밀번호 설정", "프로필 생성"]}
@@ -63,7 +63,7 @@ const AccountRegister = ({ token }: { token: string }) => {
           )}
         </form>
       </Form>
-    </div>
+    </>
   );
 };
 

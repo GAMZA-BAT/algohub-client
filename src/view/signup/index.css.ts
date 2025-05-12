@@ -5,6 +5,7 @@ export const containerStyle = style({
   flexDirection: "column",
   justifyContent: "flex-start",
   alignItems: "center",
+  gap: "4rem",
 
   width: "33.5rem",
   paddingTop: "7.4rem",
@@ -16,7 +17,6 @@ export const formContainer = style({
   alignItems: "center",
 
   width: "100%",
-  marginBottom: "4rem",
 });
 
 export const controllerStyle = style({

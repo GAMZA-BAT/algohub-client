@@ -31,7 +31,7 @@ export const emailStyle = style({
   width: "33.5rem",
   height: "5rem",
   padding: "1rem 1.6rem",
-  marginBottom: "2rem",
+  margin: "0.4rem 0 2rem 0",
 
   background: theme.color.mg5,
   borderRadius: "5px",

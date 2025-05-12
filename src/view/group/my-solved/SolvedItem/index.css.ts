@@ -42,3 +42,8 @@ export const commentWrapperStyle = style({
 
   placeSelf: "center",
 });
+
+export const iconWrapperStyle = style({
+  display: "flex",
+  justifyContent: "center",
+});

@@ -7,7 +7,7 @@ import {
 } from "@/app/api/solutions";
 import Sidebar from "@/common/component/Sidebar";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
-import { sidebarWrapper } from "@/styles/shared.css";
+import { sidebarWrapper, solvedSectionStyle } from "@/styles/shared.css";
 import MySolvedSection from "@/view/group/my-solved/Section";
 
 const MyGroupSolvedPage = ({
@@ -48,7 +48,7 @@ const MyGroupSolvedPage = ({
   return (
     <main className={sidebarWrapper}>
       <Sidebar />
-      <section style={{ width: "80%", marginTop: "4.8rem" }}>
+      <section className={solvedSectionStyle}>
         <MySolvedSection
           data={inProgressList}
           title="진행중인 문제"

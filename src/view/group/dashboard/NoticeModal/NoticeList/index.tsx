@@ -41,6 +41,10 @@ const NoticeList = () => {
   });
   const noticeList = noticeData?.content;
 
+  const handleClick = () => {
+    router.push(`/group/${groupId}/notice/create`);
+  };
+
   return (
     <article className={wrapperStyle}>
       {noticeList && noticeList?.length > 0 ? (
@@ -101,17 +105,15 @@ const NoticeList = () => {
       ) : (
         <p className={noNoticeGuideTextStyle}>공지가 없습니다.</p>
       )}
-      <footer style={{}}>
-        <div style={{ width: "8.4rem", placeSelf: "end" }}>
-          <Button
-            size="small"
-            color="gray"
-            className={buttonStyle}
-            onClick={() => router.push(`/group/${groupId}/notice/create`)}
-          >
-            글쓰기
-          </Button>
-        </div>
+      <footer>
+        <Button
+          size="small"
+          color="gray"
+          className={buttonStyle}
+          onClick={handleClick}
+        >
+          글쓰기
+        </Button>
 
         <Pagination
           totalPages={totalPages}
