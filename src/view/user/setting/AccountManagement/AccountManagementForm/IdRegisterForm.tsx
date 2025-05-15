@@ -1,4 +1,4 @@
-import { patchBjNickname } from "@/app/api/users";
+import { postBjNickname } from "@/app/api/users";
 import Button from "@/common/component/Button";
 import Input from "@/common/component/Input";
 import SupportingText from "@/common/component/SupportingText";
@@ -10,9 +10,9 @@ import { type FormEvent, useState } from "react";
 
 import type { z } from "zod";
 import {
-  registerModalContainerStyle,
-  registerModalDescriptionStyle,
-  registerModalTextContainerStyle,
+    registerModalContainerStyle,
+    registerModalDescriptionStyle,
+    registerModalTextContainerStyle,
 } from "./index.css";
 import { registerModalHeadingStyle } from "./index.css";
 import { formSchema } from "./schema";
@@ -43,7 +43,7 @@ const IdRegisterForm = ({ onSuccess }: IdRegisterFormProps) => {
     if (isInvalid) return;
 
     try {
-      const response = await patchBjNickname(form.bjNickname);
+      const response = await postBjNickname(form.bjNickname);
 
       if (response.ok) {
         showToast("등록이 완료되었습니다", "success");
