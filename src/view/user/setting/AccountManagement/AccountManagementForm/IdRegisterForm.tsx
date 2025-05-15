@@ -10,9 +10,9 @@ import { type FormEvent, useState } from "react";
 
 import type { z } from "zod";
 import {
-    registerModalContainerStyle,
-    registerModalDescriptionStyle,
-    registerModalTextContainerStyle,
+  registerModalContainerStyle,
+  registerModalDescriptionStyle,
+  registerModalTextContainerStyle,
 } from "./index.css";
 import { registerModalHeadingStyle } from "./index.css";
 import { formSchema } from "./schema";
