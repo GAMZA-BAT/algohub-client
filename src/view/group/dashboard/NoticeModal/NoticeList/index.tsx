@@ -36,7 +36,7 @@ const NoticeList = () => {
     totalPages,
     setCurrentPage,
   } = usePaginationQuery({
-    queryKey: ["notices", groupId],
+    queryKey: ["notices", +groupId],
     queryFn: (page) => getNotices({ groupId: +groupId, page }),
   });
   const noticeList = noticeData?.content;

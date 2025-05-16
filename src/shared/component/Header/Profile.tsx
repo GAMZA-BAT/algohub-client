@@ -7,7 +7,8 @@ import {
   dropdownTextStyle,
 } from "@/shared/component/Header/Profile.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
-import { getSession, useSession } from "next-auth/react";
+import { setAccessToken } from "@/shared/util/token";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +20,8 @@ const Profile = ({ ...props }: DropdownProps) => {
 
   const handleLogout = async () => {
     await logoutAction();
-    await session.update(await getSession());
+    await session.update(null);
+    setAccessToken("");
 
     router.push("/login");
   };

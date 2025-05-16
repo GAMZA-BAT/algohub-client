@@ -1,9 +1,22 @@
 import type { SolutionContent } from "@/app/api/solutions/type";
+import type { HTTPErrorStatusValues } from "@/shared/constant/api";
 
-export type APIError = {
-  error: string;
+type BaseAPIResponse = {
   status: number;
+  message?: string | null;
 };
+
+type APISuccessResponse = BaseAPIResponse & {
+  status: 200;
+  data?: string;
+};
+
+type APIErrorResponse = BaseAPIResponse & {
+  status: HTTPErrorStatusValues;
+  error: string;
+};
+
+export type APIResponse = APISuccessResponse | APIErrorResponse;
 
 export type PaginationResponse = {
   totalPages: number;

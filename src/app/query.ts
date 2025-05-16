@@ -5,14 +5,10 @@ import {
   patchNotificationRead,
 } from "@/app/api/notifications";
 import type { NotificationItem } from "@/app/api/notifications/type";
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useNotificationsQuery = () => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["notifications"],
     queryFn: getNotificationList,
     staleTime: 0,
