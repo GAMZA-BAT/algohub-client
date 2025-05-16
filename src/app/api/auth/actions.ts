@@ -7,7 +7,7 @@ import { AuthError, type Session } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 import type { z } from "zod";
-import { postReissueToken, postSignUp } from ".";
+import { postSignUp } from ".";
 import type { APIResponse } from "../type";
 
 export const signUpAction = async (token: string, formData: FormData) => {
@@ -49,21 +49,14 @@ export const loginAction = async (
 export const reIssueAction = async () => {
   try {
     const session = (await auth()) as Session;
-    const { accessToken: expiredAccessToken, refreshToken } = session;
-    const newTokens = await postReissueToken({
-      expiredAccessToken,
-      refreshToken,
-    });
-    await update({
-      ...session,
-      ...newTokens,
-    });
+    const newSession = await update(session);
 
-    return newTokens;
+    return newSession?.accessToken;
   } catch (error) {
     if (error instanceof HTTPError) {
-      console.warn("reIssueAction:", await error.response.json());
+      return await error.response.json<APIResponse>();
     }
+
     if (isRedirectError(error)) {
       throw error; // AuthError가 아닐 경우 다른 try catch로 보내주기 위함
     }

@@ -12,9 +12,9 @@ import type { z } from "zod";
 import {
   registerModalContainerStyle,
   registerModalDescriptionStyle,
+  registerModalHeadingStyle,
   registerModalTextContainerStyle,
 } from "./index.css";
-import { registerModalHeadingStyle } from "./index.css";
 import { formSchema } from "./schema";
 
 type IdRegisterFormProps = {

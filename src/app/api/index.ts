@@ -1,4 +1,4 @@
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 import { HTTP_ERROR_STATUS, NO_RETRY_STATUSES } from "@/shared/constant/api";
 import { logError } from "@/shared/util/error";
 import { getAccessToken, setAccessToken } from "@/shared/util/token";
@@ -10,13 +10,12 @@ import type {
   KyRequest,
 } from "ky";
 import ky from "ky";
-import { signOut as cSignOut, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { IS_PROD } from "../../shared/constant/config";
-import { reIssueAction } from "./auth/actions";
+import { logoutAction, reIssueAction } from "./auth/actions";
 
 // beforeRequest
 const insertToken = async (request: KyRequest) => {
-  const isServer = typeof window === "undefined";
   let accessToken = isServer ? (await auth())?.accessToken : getAccessToken();
 
   if (!(accessToken || isServer)) {
@@ -34,12 +33,6 @@ const insertNewToken: BeforeRetryHook = async ({
   retryCount,
 }) => {
   if (retryCount === 2) {
-    if (isServer) {
-      await signOut();
-    } else {
-      await cSignOut();
-      setAccessToken("");
-    }
     ky.stop;
     return;
   }
@@ -48,9 +41,16 @@ const insertNewToken: BeforeRetryHook = async ({
     response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED ||
     error.message === "Failed to fetch"
   ) {
-    const newAccessToken = (await reIssueAction())?.accessToken;
-    typeof window !== "undefined" && setAccessToken(newAccessToken);
-    request.headers.set("Authorization", `Bearer ${newAccessToken}`);
+    const reIssueData = (await reIssueAction())!;
+
+    if (typeof reIssueData === "string") {
+      !isServer && setAccessToken(reIssueData);
+      request.headers.set("Authorization", `Bearer ${reIssueData}`);
+    } else if (reIssueData.status !== 500) {
+      await logoutAction();
+      ky.stop;
+      return;
+    }
   }
 };
 const handleAbortRetryError: BeforeRetryHook = async ({

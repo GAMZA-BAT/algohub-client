@@ -20,7 +20,7 @@ export const {
     error: "/error",
   },
   callbacks: {
-    async jwt({ token, user, trigger }) {
+    async jwt({ token, user, trigger, session }) {
       try {
         if (trigger === "signIn") {
           token.user = user as AdapterUser;
@@ -28,10 +28,11 @@ export const {
           token.refreshToken = user.refreshToken;
           token.accessTokenExpires = jwtDecode(user.accessToken).exp! * 1000;
         } else if (trigger === "update") {
-          if (token.accessTokenExpires - Date.now() < 1000 * 60 * 5) {
+          // useSession().update()의 인자는 session 객체
+          if (session.accessTokenExpires - Date.now() < 1000 * 60 * 5) {
             const { accessToken, refreshToken } = await postReissueToken({
-              expiredAccessToken: token.accessToken,
-              refreshToken: token.refreshToken,
+              expiredAccessToken: session.accessToken,
+              refreshToken: session.refreshToken,
             });
             token.accessToken = accessToken;
             token.refreshToken = refreshToken;
