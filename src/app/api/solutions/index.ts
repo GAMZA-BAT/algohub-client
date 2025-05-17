@@ -4,7 +4,7 @@ import type {
   SolutionRequest,
   SolutionResponse,
 } from "@/app/api/solutions/type";
-import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
+import type { MySolutionRequest, MySolutionResponse, SolutionsCurrentStatusResponse } from "@/app/api/type";
 
 export const getSolutionList = async ({
   problemId,
@@ -61,6 +61,16 @@ export const getExpiredMyGroupSolutions = async ({
   const response = await kyJsonWithTokenInstance
     .get<MySolutionResponse>(
       `api/groups/${groupId}/my-solutions/expired?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
+    )
+    .json();
+
+  return response;
+};
+
+export const getSolutionsCurrentStatus = async (groupId: number) => {
+  const response = await kyJsonWithTokenInstance
+    .get<SolutionsCurrentStatusResponse[]>(
+      `api/groups/${groupId}/solutions/current-status`,
     )
     .json();
 
