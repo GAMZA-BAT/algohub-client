@@ -20,9 +20,8 @@ const NoticeBanner = () => {
   const { content: noticeList } = useNoticesQuery({ groupId: +groupId });
 
   const recentNotice = noticeList?.length > 0 ? noticeList[0] : null;
-
+  console.info({recentNotice})
   return (
-    <>
       <section
         role="status"
         aria-live="polite"
@@ -41,7 +40,7 @@ const NoticeBanner = () => {
           </div>
           {recentNotice ? (
             <>
-              <Avatar size="mini" alt="방장 프로필 사진" />
+              <Avatar size="mini" src={recentNotice.authorImage} alt="방장 프로필 사진" />
               <h2 className={textStyle.category}>{recentNotice.category}</h2>
             </>
           ) : (
@@ -64,7 +63,6 @@ const NoticeBanner = () => {
           </div>
         )}
       </section>
-    </>
   );
 };
 
