@@ -9,11 +9,11 @@ import ProfileCreation from "./ProfileCreation";
 import useSignupForm from "./useSignupForm";
 
 const AccountRegister = ({ token }: { token: string }) => {
-  const { form, handleSubmit } = useSignupForm(token);
-
+  const { form, _handleSubmit } = useSignupForm();
   const [step, setStep] = useState(SIGNUP_STEPS.PASSWORD_SETUP);
-  const handleNextStep = () => setStep(SIGNUP_STEPS.PROFILE_CREATION);
 
+  const handleNextStep = () => setStep(SIGNUP_STEPS.PROFILE_CREATION);
+  const handleSubmit = _handleSubmit.bind(this, token);
   return (
     <div>
       <Stepper

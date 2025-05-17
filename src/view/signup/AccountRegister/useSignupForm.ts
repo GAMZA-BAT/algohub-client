@@ -12,7 +12,7 @@ export const defaultSignupMsg = {
   nicknameLoading: "로딩중",
 };
 
-const useSignupForm = (token: string) => {
+const useSignupForm = () => {
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     mode: "onTouched",
@@ -24,7 +24,10 @@ const useSignupForm = (token: string) => {
     },
   });
 
-  const handleSubmit = async (values: z.infer<typeof signupSchema>) => {
+  const _handleSubmit = async (
+    token: string,
+    values: z.infer<typeof signupSchema>,
+  ) => {
     const data = new FormData();
 
     if (values.profile) {
@@ -44,7 +47,7 @@ const useSignupForm = (token: string) => {
 
   return {
     form,
-    handleSubmit,
+    _handleSubmit,
   };
 };
 
