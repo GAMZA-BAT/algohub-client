@@ -1,8 +1,14 @@
 import Button from "@/common/component/Button";
 import { FormController } from "@/shared/component/Form";
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";
+import clsx from "clsx";
 import type { UseFormReturn } from "react-hook-form";
-import { descriptionStyle, formContainer } from "../SignupForm/index.css";
+import {
+  descriptionStyle,
+  formContainer,
+  passwordMatchStyle,
+} from "../SignupForm/index.css";
+import { defaultSignupMsg } from "./useSignupForm";
 
 type PasswordSetupProps = {
   passwordError: boolean;
@@ -27,6 +33,7 @@ const PasswordSetup = ({
   onNextStep,
   form,
 }: PasswordSetupProps) => {
+  const isPasswordMatch = defaultSignupMsg.validPassword === passwordMsg;
   return (
     <>
       <div className={formContainer}>
@@ -58,7 +65,10 @@ const PasswordSetup = ({
             id: "password-description",
             isError: passwordError,
             message: passwordMsg,
-            className: descriptionStyle,
+            className: clsx(
+              descriptionStyle,
+              isPasswordMatch && passwordMatchStyle,
+            ),
           }}
         />
       </div>
