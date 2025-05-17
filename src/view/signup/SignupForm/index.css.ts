@@ -1,3 +1,4 @@
+import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 
 export const formStyle = style({
@@ -27,4 +28,9 @@ export const formContainer = style({
 
 export const descriptionStyle = style({
   paddingBottom: "0.5rem",
+});
+
+export const passwordMatchStyle = style({
+  ...theme.font.Caption3_M_12,
+  color: theme.color.yellow,
 });
