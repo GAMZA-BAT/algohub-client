@@ -11,8 +11,6 @@ import {
 import { defaultSignupMsg } from "./useSignupForm";
 
 type PasswordSetupProps = {
-  passwordError: boolean;
-  passwordMsg: string;
   onNextStep: () => void;
   form: UseFormReturn<
     {
@@ -27,13 +25,24 @@ type PasswordSetupProps = {
   >;
 };
 
-const PasswordSetup = ({
-  passwordError,
-  passwordMsg,
-  onNextStep,
-  form,
-}: PasswordSetupProps) => {
-  const isPasswordMatch = defaultSignupMsg.validPassword === passwordMsg;
+const PasswordSetup = ({ onNextStep, form }: PasswordSetupProps) => {
+  const { errors } = form.formState;
+  const passwordError =
+    !!errors.password || errors.confirmPassword?.type === "custom";
+
+  const [password, confirmPassword] = form.watch([
+    "password",
+    "confirmPassword",
+  ]);
+  const isPasswordMatch =
+    password && confirmPassword && password === confirmPassword;
+
+  const passwordMsg =
+    errors.confirmPassword?.message ||
+    (isPasswordMatch
+      ? defaultSignupMsg.validPassword
+      : defaultSignupMsg.password);
+
   return (
     <>
       <div className={formContainer}>
@@ -41,6 +50,9 @@ const PasswordSetup = ({
           form={form}
           name="password"
           type="input"
+          revalidationHandlers={getMultipleRevalidationHandlers(
+            "confirmPassword",
+          )}
           fieldProps={{
             placeholder: "비밀번호",
             type: "password",

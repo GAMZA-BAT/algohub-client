@@ -1,4 +1,4 @@
-import { useCheckOnServer } from "@/shared/hook/useCheckOnServer";
+import { signUpAction } from "@/app/api/auth/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -12,7 +12,7 @@ export const defaultSignupMsg = {
   nicknameLoading: "로딩중",
 };
 
-const useSignupForm = () => {
+const useSignupForm = (token: string) => {
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     mode: "onTouched",
@@ -24,42 +24,27 @@ const useSignupForm = () => {
     },
   });
 
-  const nickname = form.watch("nickname");
+  const handleSubmit = async (values: z.infer<typeof signupSchema>) => {
+    const data = new FormData();
 
-  const { isNicknameLoading } = useCheckOnServer(form, nickname);
-  const { isValid, errors, dirtyFields } = form.formState;
+    if (values.profile) {
+      data.append("profileImage", values.profile);
+    }
 
-  const passwordError =
-    !!errors.password || errors.confirmPassword?.type === "custom";
+    data.append(
+      "request",
+      JSON.stringify({
+        password: values.password,
+        nickname: values.nickname,
+      }),
+    );
 
-  const password = form.watch("password");
-  const confirmPassword = form.watch("confirmPassword");
-  const isPasswordMatch =
-    password && confirmPassword && password === confirmPassword;
-
-  const passwordMsg =
-    errors.confirmPassword?.message ||
-    (isPasswordMatch
-      ? defaultSignupMsg.validPassword
-      : defaultSignupMsg.password);
-
-  const showNicknameMsg =
-    !(errors.nickname || isNicknameLoading) && dirtyFields.nickname;
-
-  const nicknameMsg = isNicknameLoading
-    ? defaultSignupMsg.nicknameLoading
-    : showNicknameMsg
-      ? defaultSignupMsg.validNickname
-      : errors.nickname?.message || defaultSignupMsg.nickname;
-
-  const isActive = isValid && !isNicknameLoading;
+    await signUpAction(token, data);
+  };
 
   return {
     form,
-    isActive,
-    passwordError,
-    passwordMsg,
-    nicknameMsg,
+    handleSubmit,
   };
 };
 
