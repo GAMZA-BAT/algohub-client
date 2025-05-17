@@ -42,6 +42,7 @@ export const tdStyle = recipe({
     justifyContent: "center",
 
     width: "6rem",
+    height: "100%",
 
     color: theme.color.mg2,
     ...theme.font.Caption3_M_12,
@@ -51,6 +52,7 @@ export const tdStyle = recipe({
       rank: {
         width: "3rem",
       },
+      nickname: {},
       totalScore: {
         marginRight: "6.6rem",
 

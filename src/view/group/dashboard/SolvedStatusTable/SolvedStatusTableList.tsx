@@ -21,14 +21,21 @@ const SolvedStatusTableList = ({
   return (
     <tr className={bodyWrapper}>
       <td className={tdStyle({ column: "rank" })}>{rank}</td>
-      <td className={tdStyle()}>{nickname}</td>
+      <td>
+        <Link href={`/${nickname}`} className={tdStyle({ column: "nickname" })}>
+          {nickname}
+        </Link>
+      </td>
       <td
         className={tdStyle({ column: "totalScore" })}
       >{`${totalSubmissionCount}/${totalPassedTime}`}</td>
       {problems.map((problem, idx) =>
         problem.solved ? (
-          <td className={tdStyle({ column: "solvedProblem" })} key={idx}>
-            <Link href={`/problem/${problem.problemId}`}>
+          <td key={idx}>
+            <Link
+              href={`/problem/${problem.problemId}`}
+              className={tdStyle({ column: "solvedProblem" })}
+            >
               {`${problem.submissionCount}/${problem.firstCorrectDuration}`}
             </Link>
           </td>
