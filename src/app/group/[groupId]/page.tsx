@@ -23,14 +23,19 @@ const GroupDashboardPage = async ({
   const solutionsCurrentStatusData = getSolutionsCurrentStatus(+groupId);
   const deadlineReachedData = getDeadlineReachedProblems(+groupId);
 
-  const [groupInfo, rankingInfo, memberInfo, deadlineReachedInfo, solutionsCurrentStatusInfo] =
-    await Promise.all([
-      groupInfoData,
-      rankingData,
-      memberData,
-      deadlineReachedData,
-      solutionsCurrentStatusData,
-    ]);
+  const [
+    groupInfo,
+    rankingInfo,
+    memberInfo,
+    deadlineReachedInfo,
+    solutionsCurrentStatusInfo,
+  ] = await Promise.all([
+    groupInfoData,
+    rankingData,
+    memberData,
+    deadlineReachedData,
+    solutionsCurrentStatusData,
+  ]);
 
   const firstPage = 1;
   const dehydratedState = await prefetchQuery({
@@ -48,10 +53,12 @@ const GroupDashboardPage = async ({
         <HydrationBoundary state={dehydratedState}>
           <Ranking rankingData={rankingInfo} />
         </HydrationBoundary>
-        <h2 className={titleStyle}>진행 중인 풀이 현황</h2>
-        <SolvedStatusTable solutionsCurrentStatus={solutionsCurrentStatusInfo} />
-        <h2 className={titleStyle}>풀어야 할 문제</h2>
         <section>
+          <h2 className={titleStyle}>진행 중인 풀이 현황</h2>
+          <SolvedStatusTable data={solutionsCurrentStatusInfo} />
+        </section>
+        <section>
+          <h2 className={titleStyle}>풀어야 할 문제</h2>
           <ProblemList.Header />
           <ProblemList>
             {deadlineReachedInfo.map((item) => (
