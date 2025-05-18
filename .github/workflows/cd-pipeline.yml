@@ -130,3 +130,9 @@ jobs:
             cd algohub
             pnpm install --frozen-lockfile
             pm2 start pnpm --name algohub -- start
+
+      - name: Remove Github Actions IP from Security group
+        if: always()
+        run: |
+          aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port ${{ secrets.AWS_SSH_PORT }} --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        
