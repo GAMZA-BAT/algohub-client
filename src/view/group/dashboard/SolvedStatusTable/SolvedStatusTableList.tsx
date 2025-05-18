@@ -1,4 +1,4 @@
-import { SolutionsCurrentStatusResponse } from "@/app/api/type";
+import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
 import {
   bodyWrapper,
   tdStyle,

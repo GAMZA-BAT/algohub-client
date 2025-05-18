@@ -2,8 +2,14 @@ import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+export const wrapperStyle = style({
+  width: "1000px", // jsx에 직접 style이나 recipe 함수 사용해서 동적으로 크기 조정하기
+  borderCollapse: "collapse",
+});
+
 export const tableWrapper = style({
   width: "100%",
+  borderCollapse: "collapse",
 
   overflowX: "scroll",
 });
