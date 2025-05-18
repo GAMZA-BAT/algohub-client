@@ -1,47 +1,27 @@
 import Button from "@/common/component/Button";
 import { FormController } from "@/shared/component/Form";
-import { getMultipleRevalidationHandlers } from "@/shared/util/form";
+import {
+  getMultipleRevalidationHandlers,
+  getPasswordValidation,
+} from "@/shared/util/form";
 import clsx from "clsx";
 import type { UseFormReturn } from "react-hook-form";
+import type { z } from "zod";
 import {
   descriptionStyle,
   formContainer,
   passwordMatchStyle,
 } from "../SignupForm/index.css";
-import { defaultSignupMsg } from "./useSignupForm";
+import type { baseSignupSchema } from "./schema";
 
 type PasswordSetupProps = {
   onNextStep: () => void;
-  form: UseFormReturn<
-    {
-      password: string;
-      confirmPassword: string;
-      nickname: string;
-      profile: string | File | null;
-    },
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    any,
-    undefined
-  >;
+  form: UseFormReturn<z.infer<typeof baseSignupSchema>>;
 };
 
 const PasswordSetup = ({ onNextStep, form }: PasswordSetupProps) => {
-  const { errors } = form.formState;
-  const passwordError =
-    !!errors.password || errors.confirmPassword?.type === "custom";
-
-  const [password, confirmPassword] = form.watch([
-    "password",
-    "confirmPassword",
-  ]);
-  const isPasswordMatch =
-    password && confirmPassword && password === confirmPassword;
-
-  const passwordMsg =
-    errors.confirmPassword?.message ||
-    (isPasswordMatch
-      ? defaultSignupMsg.validPassword
-      : defaultSignupMsg.password);
+  const { passwordError, isPasswordMatch, passwordMsg } =
+    getPasswordValidation(form);
 
   return (
     <>
@@ -84,11 +64,13 @@ const PasswordSetup = ({ onNextStep, form }: PasswordSetupProps) => {
           }}
         />
       </div>
+      {/* step형식이므로 이 단계에서 submit 금지 */}
       <Button
         style={{ marginTop: "4rem" }}
         type="button"
         size="large"
         onClick={onNextStep}
+        isActive={isPasswordMatch}
       >
         다음
       </Button>

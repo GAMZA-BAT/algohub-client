@@ -1,3 +1,5 @@
+import type { baseSignupSchema } from "@/view/signup/AccountRegister/schema";
+import { defaultSignupMsg } from "@/view/signup/AccountRegister/useSignupForm";
 import type { ChangeEvent } from "react";
 import type {
   ControllerRenderProps,
@@ -112,4 +114,59 @@ export const createFormDataFromDirtyFields = <T extends z.ZodRawShape>(
     JSON.stringify({ ...requestData, ...withoutImageField }),
   );
   return data;
+};
+
+export const getPasswordValidation = (
+  form: UseFormReturn<z.infer<typeof baseSignupSchema>>,
+) => {
+  const { errors } = form.formState;
+  const [password, confirmPassword] = form.watch([
+    "password",
+    "confirmPassword",
+  ]);
+
+  const passwordError =
+    !!errors.password || errors.confirmPassword?.type === "custom";
+  const isPasswordMatch = Boolean(
+    password && confirmPassword && password === confirmPassword,
+  );
+  const passwordMsg =
+    errors.confirmPassword?.message ||
+    (isPasswordMatch
+      ? defaultSignupMsg.validPassword
+      : defaultSignupMsg.password);
+
+  return {
+    passwordError,
+    isPasswordMatch,
+    passwordMsg,
+  };
+};
+
+export const getNicknameValidation = (
+  form: UseFormReturn<z.infer<typeof baseSignupSchema>>,
+  isNicknameLoading: boolean,
+) => {
+  const {
+    errors: { nickname: nicknameError },
+    dirtyFields: { nickname: nicknameDirty },
+    isValid,
+  } = form.formState;
+
+  const isNicknameValid = Boolean(
+    !(nicknameError || isNicknameLoading) && nicknameDirty,
+  );
+
+  const nicknameMsg = (() => {
+    if (isNicknameLoading) return defaultSignupMsg.nicknameLoading;
+    if (isNicknameValid) return defaultSignupMsg.validNickname;
+    return nicknameError?.message ?? defaultSignupMsg.nickname;
+  })();
+
+  const isActive = !isNicknameLoading && isValid;
+
+  return {
+    nicknameMsg,
+    isActive,
+  };
 };
