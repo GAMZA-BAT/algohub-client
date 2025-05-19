@@ -27,6 +27,7 @@ jobs:
           echo "NEXT_GITHUB_ID=${{ secrets.NEXT_RC_GITHUB_ID }}" >> $GITHUB_ENV
           echo "NEXT_GITHUB_SECRET=${{ secrets.NEXT_RC_GITHUB_SECRET }}" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_RC_HOST=${{ secrets.NEXT_PUBLIC_RC_HOST }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_MIXPANEL_TOKEN=${{ secrets.NEXT_PUBLIC_MIXPANEL_TOKEN }}" >> $GITHUB_ENV
 
       - name: Setup .env
         run: |
