@@ -55,6 +55,7 @@ jobs:
           echo "NEXT_GITHUB_ID=${{ secrets.NEXT_PROD_GITHUB_ID }}" >> .env.local
           echo "NEXT_GITHUB_SECRET=${{ secrets.NEXT_PROD_GITHUB_SECRET }}" >> .env.local
           echo "AUTH_SECRET=${{ secrets.AUTH_SECRET }}" >> .env.local
+          echo "NEXT_PUBLIC_MIXPANEL_TOKEN=${{ secrets.NEXT_PUBLIC_MIXPANEL_TOKEN }}" >> .env.local
 
       - name: Install Dependencies
         if: steps.cache-node.outputs.cache-hit != 'true'
