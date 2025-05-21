@@ -66,8 +66,8 @@
     "include": [
       "**/*.ts",
       "**/*.tsx",
-      "src/sdk/event/pv.event.mjs",
-      "src/sdk/webpackGenerateEventPlugin.cjs"
+      "apps/client/src/sdk/event/pv.event.mjs",
+      "apps/client/src/sdk/webpackGenerateEventPlugin.cjs"
     ]
   }
 }

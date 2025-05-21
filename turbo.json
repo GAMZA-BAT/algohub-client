@@ -1,0 +1,21 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+      "build": {
+        "dependsOn": ["^build"],
+        "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
+        "outputs": ["build/**", "dist/**"]
+      },
+      "lint": {
+        "dependsOn": ["//#relay", "^build"],
+        "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
+        "outputs": ["build/**", "dist/**"]
+      },
+      "dev": {
+        "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
+        "persistent": true,
+        "cache": false
+      }
+    }
+  }
+  
