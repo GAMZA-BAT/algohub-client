@@ -7,7 +7,8 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "dev": "turbo run dev",
-    "typecheck": "turbo typecheck",
+    "typecheck": "turbo run typecheck",
+    "check": "turbo run check",
     "client": "turbo run --filter=algohub-client"
   },
   "devDependencies": {
