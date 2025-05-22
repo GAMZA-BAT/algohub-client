@@ -1,0 +1,41 @@
+name: 'pnpm cache'
+description: 'pnpm install with actions/cache'
+
+inputs:
+  lock-file:
+    description: 'Path to the lock file'
+    required: true
+  modules-path:
+    description: 'Path to the node_modules directory'
+    required: true
+  pnpm-store-path:
+    description: 'Path to the pnpm store directory'
+    required: true
+  install-path:
+    description: 'Path to the install directory'
+    required: true
+
+runs:
+  # using composite to run this action in parallel with other workflows
+  using: 'composite' 
+  steps:
+    - name: Enable Corepack
+      working-directory: ${{ inputs.install-path }}
+      run: corepack enable
+      shell: bash
+
+    - name: Restore pnpm cache
+      id: restore-cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ inputs.pnpm-store-path }}
+          ${{ inputs.modules-path }}
+        key: ${{ runner.os }}/${{ runner.arch }}-pnpm-${{ hashFiles(inputs.lock-file) }}
+        restore-keys: |
+          ${{ runner.os }}/${{ runner.arch }}-pnpm-
+
+    - name: Run pnpm install
+      working-directory: ${{ inputs.install-path }}
+      run: pnpm install --frozen-lockfile
+      shell: bash
