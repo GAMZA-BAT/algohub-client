@@ -18,7 +18,13 @@ export const baseSignupSchema = z.object({
 });
 
 export const signupSchema = baseSignupSchema.refine(
-  (data) => data.password === data.confirmPassword,
+  (data) => {
+    const { password, confirmPassword } = data;
+    if (password.length < 8) return true;
+
+    // 현재까지 입력된 부분이 일치하는지 확인
+    return password.startsWith(confirmPassword);
+  },
   {
     message: "비밀번호와 비밀번호 확인이 일치하지 않습니다.",
     path: ["confirmPassword"],

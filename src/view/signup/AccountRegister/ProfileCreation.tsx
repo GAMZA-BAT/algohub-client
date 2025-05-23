@@ -1,30 +1,24 @@
 import Button from "@/common/component/Button";
 import { FormController } from "@/shared/component/Form";
-import { handleOnChangeMode } from "@/shared/util/form";
+import { useCheckOnServer } from "@/shared/hook/useCheckOnServer";
+import { getNicknameValidation, handleOnChangeMode } from "@/shared/util/form";
 import { controllerStyle, formContainer } from "@/view/signup/index.css";
 import type { UseFormReturn } from "react-hook-form";
+import type { z } from "zod";
+import type { baseSignupSchema } from "./schema";
 
 type ProfileCreationProps = {
-  isActive: boolean;
-  form: UseFormReturn<
-    {
-      password: string;
-      confirmPassword: string;
-      nickname: string;
-      profile: string | File | null;
-    },
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    any,
-    undefined
-  >;
-  nicknameMsg: string;
+  form: UseFormReturn<z.infer<typeof baseSignupSchema>>;
 };
 
-const ProfileCreation = ({
-  isActive,
-  form,
-  nicknameMsg,
-}: ProfileCreationProps) => {
+const ProfileCreation = ({ form }: ProfileCreationProps) => {
+  const nickname = form.watch("nickname");
+
+  const { isNicknameLoading } = useCheckOnServer(form, nickname);
+  const { isActive, nicknameMsg } = getNicknameValidation(
+    form,
+    isNicknameLoading,
+  );
   return (
     <>
       <div className={formContainer}>

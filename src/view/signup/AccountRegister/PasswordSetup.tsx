@@ -1,32 +1,28 @@
 import Button from "@/common/component/Button";
 import { FormController } from "@/shared/component/Form";
-import { getMultipleRevalidationHandlers } from "@/shared/util/form";
+import {
+  getMultipleRevalidationHandlers,
+  getPasswordValidation,
+} from "@/shared/util/form";
+import clsx from "clsx";
 import type { UseFormReturn } from "react-hook-form";
-import { descriptionStyle, formContainer } from "../SignupForm/index.css";
+import type { z } from "zod";
+import {
+  descriptionStyle,
+  formContainer,
+  passwordMatchStyle,
+} from "../SignupForm/index.css";
+import type { baseSignupSchema } from "./schema";
 
 type PasswordSetupProps = {
-  passwordError: boolean;
-  passwordMsg: string;
   onNextStep: () => void;
-  form: UseFormReturn<
-    {
-      password: string;
-      confirmPassword: string;
-      nickname: string;
-      profile: string | File | null;
-    },
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    any,
-    undefined
-  >;
+  form: UseFormReturn<z.infer<typeof baseSignupSchema>>;
 };
 
-const PasswordSetup = ({
-  passwordError,
-  passwordMsg,
-  onNextStep,
-  form,
-}: PasswordSetupProps) => {
+const PasswordSetup = ({ onNextStep, form }: PasswordSetupProps) => {
+  const { passwordError, isPasswordMatch, passwordMsg } =
+    getPasswordValidation(form);
+
   return (
     <>
       <div className={formContainer}>
@@ -34,6 +30,9 @@ const PasswordSetup = ({
           form={form}
           name="password"
           type="input"
+          revalidationHandlers={getMultipleRevalidationHandlers(
+            "confirmPassword",
+          )}
           fieldProps={{
             placeholder: "비밀번호",
             type: "password",
@@ -58,15 +57,20 @@ const PasswordSetup = ({
             id: "password-description",
             isError: passwordError,
             message: passwordMsg,
-            className: descriptionStyle,
+            className: clsx(
+              descriptionStyle,
+              isPasswordMatch && passwordMatchStyle,
+            ),
           }}
         />
       </div>
+      {/* step형식이므로 이 단계에서 submit 금지 */}
       <Button
         style={{ marginTop: "4rem" }}
         type="button"
         size="large"
         onClick={onNextStep}
+        isActive={isPasswordMatch}
       >
         다음
       </Button>
