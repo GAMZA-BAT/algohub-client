@@ -97,11 +97,15 @@ export const iconStyle = recipe({
     opacity: 0,
 
     transition: "all 0.3s ease",
+
+    ":hover": {
+      backgroundColor: theme.color.mg3,
+    },
   },
   variants: {
     variant: {
       edit: {
-        backgroundColor: theme.color.mg3,
+        backgroundColor: theme.color.mg4,
       },
       close: {
         backgroundColor: theme.color.mg4,
