@@ -137,7 +137,7 @@ const NoticeDetail = ({
             ref={textareaRef}
             defaultValue={content}
             disabled={!isEdit}
-            className={textareaStyle}
+            className={clsx(textareaStyle, isEdit && textareaEditStyle)}
           />
           <div className={iconContainerStyle}>
             <button
