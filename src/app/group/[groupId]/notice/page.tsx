@@ -13,7 +13,7 @@ const NoticeListPage = ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
   const router = useRouter();
-  const handleClose = () => router.push(`/group/${groupId}`);
+  const handleClose = () => router.replace(`/group/${groupId}`);
 
   return (
     <Modal

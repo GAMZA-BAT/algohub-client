@@ -41,6 +41,9 @@ const NoticeList = () => {
   });
   const noticeList = noticeData?.content;
 
+  const handleNavigateToCreateNotice = () =>
+    router.replace(`/group/${groupId}/notice/create`);
+
   return (
     <article className={wrapperStyle}>
       {noticeList && noticeList?.length > 0 ? (
@@ -60,7 +63,10 @@ const NoticeList = () => {
                 className={liStyle}
                 aria-labelledby={`notice-title-${noticeId}`}
               >
-                <Link href={`/group/${groupId}/notice/${noticeId}`}>
+                <Link
+                  replace={true}
+                  href={`/group/${groupId}/notice/${noticeId}`}
+                >
                   <article className={itemStyle}>
                     <div className={contentWrapper}>
                       <Avatar
@@ -107,7 +113,7 @@ const NoticeList = () => {
             size="small"
             color="gray"
             className={buttonStyle}
-            onClick={() => router.push(`/group/${groupId}/notice/create`)}
+            onClick={handleNavigateToCreateNotice}
           >
             글쓰기
           </Button>
