@@ -11,7 +11,7 @@ export const backgroundStyle = style({
   top: 0,
   left: 0,
 
-  zIndex: theme.zIndex.middle,
+  zIndex: theme.zIndex.top,
 
   width: "100%",
   height: "100%",
@@ -20,7 +20,7 @@ export const backgroundStyle = style({
 });
 
 export const dialogStyle = style({
-  zIndex: theme.zIndex.high,
+  zIndex: theme.zIndex.top,
 
   display: "flex",
   flexDirection: "column",

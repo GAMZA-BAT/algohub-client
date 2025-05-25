@@ -51,9 +51,10 @@ export const noticeInfoStyle = style({
 
 export const infoWrapper = style({
   display: "flex",
+  justifyContent: "space-between",
   gap: "3rem",
 
-  width: "77%",
+  width: "14.5rem",
 });
 
 export const avatarStyle = style({
@@ -71,7 +72,7 @@ export const wrapperStyle = style({
   justifyContent: "space-between",
   gap: "1.4rem",
 
-  height: "52.6rem",
+  height: "100%",
 });
 
 export const noNoticeGuideTextStyle = style({

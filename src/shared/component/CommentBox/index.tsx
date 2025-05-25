@@ -18,7 +18,9 @@ import {
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import { textareaEditStyle } from "@/view/group/dashboard/NoticeModal/NoticeDetail/index.css";
 import clsx from "clsx";
+import { useState } from "react";
 
 type CommentBoxProps = CommentContent & {
   variant: "detail" | "notice";
@@ -42,12 +44,19 @@ const CommentBox = ({
 
   const { register, control } = useEditForm(commentId, content);
 
+  const [isCommentEdit, setIsCommentEdit] = useState(false);
+
   const {
     isEditing,
-    handleEditBtnClick,
+    handleEditBtnClick: _handleEditBtnClick,
     handleHookFormSubmit,
     handleTextAreaKeyDown,
   } = control[variant];
+
+  const handleEditBtnClick = () => {
+    _handleEditBtnClick();
+    setIsCommentEdit(!isCommentEdit);
+  };
 
   return (
     <li
@@ -73,6 +82,7 @@ const CommentBox = ({
             <Textarea
               {...register("input")}
               onKeyDown={handleTextAreaKeyDown}
+              className={clsx(isCommentEdit && textareaEditStyle)}
             />
           </form>
         ) : (
@@ -83,6 +93,7 @@ const CommentBox = ({
       {isMine && (
         <div className={iconContainerStyle}>
           <button
+            title={isCommentEdit ? "댓글 수정 완료하기" : "댓글 수정하기"}
             onClick={handleEditBtnClick}
             className={iconStyle({
               variant: "edit",
@@ -92,6 +103,7 @@ const CommentBox = ({
             <IcnEdit width={18} height={18} />
           </button>
           <div
+            title="댓글 삭제하기"
             role="button"
             tabIndex={0}
             onClick={() => onDelete?.(commentId)}
