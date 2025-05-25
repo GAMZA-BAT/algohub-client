@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node ./esbuild.config.js",
     "dev": "nodemon",
-    "start": "node dist/index.js"
+    "start": "node --loader=extensionless ./dist/index.js"
   },
   "nodemonConfig": {
     "exec": "rm -rf ./dist && pnpm node ./esbuild.config.js",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@fastify/autoload": "^6.3.0",
     "@fastify/cors": "^11.0.1",
-    "esbuild": "^0.25.4",
+    "extensionless": "^1.9.9",
     "fastify": "^5.3.3",
     "fastify-plugin": "^5.0.1"
   },
