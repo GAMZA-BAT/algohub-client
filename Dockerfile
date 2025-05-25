@@ -16,14 +16,17 @@ WORKDIR /app
 
 RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
-COPY --from=builder --chown=nextjs:nextjs /app/apps/client/.next/standalone ./
-COPY --from=builder --chown=nextjs:nextjs /app/apps/client/.next/static ./apps/client/.next/static
-COPY --from=builder --chown=nextjs:nextjs /app/apps/client/public ./apps/client/public
-COPY --from=builder --chown=nextjs:nextjs /app/apps/client/package.json ./apps/client/package.json
+COPY --from=builder --chown=nextjs:nextjs \
+     /app/apps/client/.next/standalone ./
+COPY --from=builder --chown=nextjs:nextjs \
+     /app/apps/client/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nextjs \
+     /app/apps/client/public ./public
+
+RUN npm install --omit=dev
 
 USER nextjs
-
 EXPOSE 3001
-
 ENV PORT=3001
+
 CMD ["node", "server.js"]
