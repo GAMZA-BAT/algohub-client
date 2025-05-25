@@ -1,13 +1,13 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+RUN npm install -g corepack@latest
+RUN corepack prepare pnpm@10.0.0 --activate
 RUN corepack enable
+RUN corepack use pnpm@10.8.0
 
-COPY pnpm-lock.yaml ./
-COPY package.json ./
+COPY . ./
 RUN pnpm install --frozen-lockfile
-
-COPY . .
 
 RUN pnpm build
 
