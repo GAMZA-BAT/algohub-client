@@ -1,0 +1,33 @@
+{
+  "name": "algohub-remote-storage",
+  "version": "1.0.0",
+  "description": "algohub remote storage",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "build": "node ./esbuild.config.js",
+    "dev": "nodemon",
+    "start": "node dist/index.js"
+  },
+  "nodemonConfig": {
+    "exec": "rm -rf ./dist && pnpm node ./esbuild.config.js",
+    "ext": "ts",
+    "ignore": [
+      "dist/**, node_modules/**"
+    ],
+    "watch": [
+      "src"
+    ]
+  },
+  "dependencies": {
+    "esbuild": "^0.25.4",
+    "fastify": "^5.3.3",
+    "fastify-plugin": "^5.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.4",
+    "glob": "^11.0.2",
+    "nodemon": "^3.1.10"
+  },
+  "packageManager": "pnpm@10.8.0"
+}

@@ -9,7 +9,8 @@
 		"dev": "turbo run dev",
 		"typecheck": "turbo run typecheck",
 		"check": "turbo run check",
-		"client": "turbo run --filter=algohub-client"
+		"client": "pnpm --filter=algohub-client",
+		"remote-storage": "pnpm --filter=algohub-remote-storage"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
