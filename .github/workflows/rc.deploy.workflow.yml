@@ -39,6 +39,8 @@ jobs:
       - name: Setup environment variable from webdav
         run: |
           curl -u ${{ secrets.CREDENTIAL_NAME }}:${{ secrets.CREDENTIAL_PW }} -X GET https://webdav.hwangdo.kr/docker-registry/rc-deploy.txt -o docker.txt
+          echo "DOCKER_USERNAME=$(sed -n '1p' docker.txt)" >> $GITHUB_ENV
+          echo "DOCKER_PASSWORD=$(sed -n '2p' docker.txt)" >> $GITHUB_ENV
 
       - name: Setup .env
         run: |
