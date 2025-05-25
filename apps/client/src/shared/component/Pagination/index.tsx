@@ -45,7 +45,6 @@ const Pagination = ({
 
   return (
     <nav
-      role="navigation"
       aria-label="pagination"
       className={clsx(navStyle, className)}
       {...props}

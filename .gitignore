@@ -7,14 +7,14 @@
 .yarn/install-state.gz
 
 # testing
-/coverage
+**/coverage
 
 # next.js
 **/.next/
-/out/
+**/out/
 
 # production
-/build
+**/build
 
 # misc
 .DS_Store
@@ -26,7 +26,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+**/.env*.local
 
 # vercel
 .vercel
@@ -37,7 +37,7 @@ next-env.d.ts
 
 *storybook.log
 *.mdx
-.env
+**/.env
 
-#turbo
+# turbo
 .turbo
