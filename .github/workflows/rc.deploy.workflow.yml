@@ -1,0 +1,59 @@
+name: rc-deploy
+
+on:
+  workflow_call:
+    secrets:
+      CREDENTIAL_NAME:
+        required: true
+      CREDENTIAL_PW:
+        required: true
+      NEXT_RC_GITHUB_ID:
+        required: true
+      NEXT_RC_GITHUB_SECRET:
+        required: true
+      NEXT_PUBLIC_RC_HOST:
+        required: true
+      NEXT_PUBLIC_MIXPANEL_TOKEN:
+        required: true
+    inputs:
+      NEXT_PUBLIC_APP_ENV:
+        required: true
+        type: string
+
+env:
+  CREDENTIAL_NAME: ${{ secrets.CREDENTIAL_NAME }}
+  CREDENTIAL_PW: ${{ secrets.CREDENTIAL_PW }}
+  NEXT_RC_GITHUB_ID: ${{ secrets.NEXT_RC_GITHUB_ID }}
+  NEXT_RC_GITHUB_SECRET: ${{ secrets.NEXT_RC_GITHUB_SECRET }}
+  NEXT_PUBLIC_RC_HOST: ${{ secrets.NEXT_PUBLIC_RC_HOST }}
+  NEXT_PUBLIC_MIXPANEL_TOKEN: ${{ secrets.NEXT_PUBLIC_MIXPANEL_TOKEN }}
+  NEXT_PUBLIC_APP_ENV: ${{ inputs.NEXT_PUBLIC_APP_ENV }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04-arm
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup environment variable from webdav
+        run: |
+          curl -u ${{ secrets.CREDENTIAL_NAME }}:${{ secrets.CREDENTIAL_PW }} -X GET https://webdav.hwangdo.kr/docker-registry/rc-deploy.txt -o docker.txt
+          echo "DOCKER_USERNAME=$(sed -n '1p' docker.txt)" >> $GITHUB_ENV
+          echo "DOCKER_PASSWORD=$(sed -n '2p' docker.txt)" >> $GITHUB_ENV
+
+      - name: Setup .env
+        run: |
+          curl -u ${{ secrets.CREDENTIAL_NAME }}:${{ secrets.CREDENTIAL_PW }} -X GET https://webdav.hwangdo.kr/algohub-client/rc/env -o .env
+      
+      - name: Log in to Docker registry
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login docker.hwangdo.kr -u "$DOCKER_USERNAME" --password-stdin
+          
+      - name: Build docker image
+        run: |
+          docker build -t docker.hwangdo.kr/algohub-client-rc:latest .
+      
+      - name: Push docker image
+        run: |
+          docker push docker.hwangdo.kr/algohub-client-rc:latest
