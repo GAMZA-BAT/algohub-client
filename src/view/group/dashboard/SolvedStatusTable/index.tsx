@@ -1,18 +1,27 @@
 "use client";
 
+import { DataTable } from "@/shared/component/Table";
 import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
-import SolvedStatusTableContent from "./SolvedStatusTableContent";
-import { SolvedStatusTableProvider } from "./provider";
+import { SolvedStatusTableProvider, useSolvedStatusTable } from "./provider";
+import { tableWrapper, wrapperStyle } from "./index.css";
 
 type SolvedStatusTableProps = {
   data: SolutionsCurrentStatusResponse[];
 };
 
 const SolvedStatusTable = ({ data }: SolvedStatusTableProps) => {
-  console.log({ data });
+  const { col, row } = useSolvedStatusTable();
+
   return (
     <SolvedStatusTableProvider value={data}>
-      <SolvedStatusTableContent />
+      <div className={tableWrapper}>
+        <DataTable
+          rows={row}
+          cols={col}
+          wrapperClassName={wrapperStyle}
+          tableClassName={tableWrapper}
+        />
+      </div>
     </SolvedStatusTableProvider>
   );
 };
