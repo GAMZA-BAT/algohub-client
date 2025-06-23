@@ -18,23 +18,16 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Setup Pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: Prepare Corepack
+        run: corepack prepare pnpm@10.0.0 --activate
 
-      - name: Cache node modules
-        id: cache-node
-        uses: actions/cache@v4
+      - name: Resolve Dependencies
+        uses: ./.github/actions/pnpm-cache
         with:
-          path: |
-            **/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json', '**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+          lock-file: "./pnpm-lock.yaml"
+          modules-path: "./node_modules"
+          pnpm-store-path: "./pnpm-store"
+          install-path: "."
 
       - name: Check
         run: |

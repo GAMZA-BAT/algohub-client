@@ -1,13 +1,13 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-RUN npm install -g pnpm
+RUN npm install -g corepack@latest
+RUN corepack prepare pnpm@10.0.0 --activate
+RUN corepack enable
+RUN corepack use pnpm@10.8.0
 
-COPY pnpm-lock.yaml ./
-COPY package.json ./
+COPY . ./
 RUN pnpm install --frozen-lockfile
-
-COPY . .
 
 RUN pnpm build
 
@@ -16,15 +16,17 @@ WORKDIR /app
 
 RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
-COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nextjs /app/public ./public
-COPY --from=builder --chown=nextjs:nextjs /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nextjs \
+     /app/apps/client/.next/standalone ./
+COPY --from=builder --chown=nextjs:nextjs \
+     /app/apps/client/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nextjs \
+     /app/apps/client/public ./public
 
+RUN npm install --omit=dev
 
 USER nextjs
-
 EXPOSE 3001
-
 ENV PORT=3001
+
 CMD ["node", "server.js"]
