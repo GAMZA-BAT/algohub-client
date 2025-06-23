@@ -1,9 +1,9 @@
 "use client";
 
 import type { Session } from "next-auth";
+import { getSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
 import { setAccessToken } from "../../util/token";
-import { getSession } from "next-auth/react";
 
 const RefreshTokenExpireTime = ({
   session,

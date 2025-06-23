@@ -8,7 +8,7 @@ import RefreshTokenExpireTime from "@/shared/component/RefreshTokenExpireTime";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 
 const BrowserProvider = dynamic(
   () => import("@/shared/component/BrowserProvider/BrowserProvider"),
