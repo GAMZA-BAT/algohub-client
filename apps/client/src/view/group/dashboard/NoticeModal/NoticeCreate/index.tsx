@@ -90,9 +90,10 @@ const NoticeCreate = () => {
         </section>
         <div className={btnWrapper}>
           <Button
+            type="button"
             className={btnStyle}
             color="gray"
-            onClick={() => router.back()}
+            onClick={() => router.replace(`/group/${groupId}/notice`)}
           >
             취소
           </Button>

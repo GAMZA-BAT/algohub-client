@@ -13,7 +13,7 @@ const NoticeDetailPage = ({
   params: { noticeId, groupId },
 }: { params: { groupId: string; noticeId: string } }) => {
   const router = useRouter();
-  const handleClose = () => router.push(`/group/${groupId}/notice`);
+  const handleClose = () => router.replace(`/group/${groupId}/notice`);
 
   const { data: selectedNotice } = useNoticeByIdQuery(+noticeId);
 

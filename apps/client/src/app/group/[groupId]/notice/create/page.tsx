@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 const NoticeCreatePage = () => {
   const router = useRouter();
   const groupId = useGetGroupId();
-  const handleClose = () => router.push(`/group/${groupId}/notice`);
+  const handleClose = () => router.replace(`/group/${groupId}/notice`);
 
   return (
     <>

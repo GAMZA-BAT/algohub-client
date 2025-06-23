@@ -18,6 +18,8 @@ import {
   useNoticeCommentListQuery,
   useNoticeCommentMutation,
 } from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
+import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import { type FormEvent, useRef, useState } from "react";
 import {
   articleStyle,
@@ -33,6 +35,7 @@ import {
   noticeInfoStyle,
   sectionWrapper,
   textStyle,
+  textareaEditStyle,
   textareaStyle,
   textareaWrapper,
 } from "./index.css";
@@ -46,11 +49,13 @@ const NoticeDetail = ({
   data: { author, title, createdAt, category, noticeId, content, isRead },
   goBack,
 }: NoticeDetailProps) => {
+  const { data } = useSession();
   const { isActive, ...handlers } = useA11yHoverHandler();
 
   const [isEdit, setIsEdit] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [comment, setComment] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const commentListRef = useRef<HTMLUListElement>(null);
 
   const { data: commentList } = useNoticeCommentListQuery(noticeId);
   const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
@@ -67,7 +72,13 @@ const NoticeDetail = ({
     if (comment === "") return;
 
     commentMutate(comment, {
-      onSuccess: () => setComment(""),
+      onSuccess: () => {
+        commentListRef.current?.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        setComment("");
+      },
     });
   };
 
@@ -126,11 +137,12 @@ const NoticeDetail = ({
             ref={textareaRef}
             defaultValue={content}
             disabled={!isEdit}
-            className={textareaStyle}
+            className={clsx(textareaStyle, isEdit && textareaEditStyle)}
           />
           <div className={iconContainerStyle}>
             <button
               aria-label="공지 수정하기"
+              title={isEdit ? "공지 수정 완료하기" : "공지 수정하기"}
               onClick={handleEditClick}
               className={iconStyle({ isEdit, isActive })}
             >
@@ -138,6 +150,7 @@ const NoticeDetail = ({
             </button>
             <button
               aria-label="공지 삭제하기"
+              title="공지 삭제하기"
               onClick={handleDeleteClick}
               className={iconStyle({ isActive })}
             >
@@ -148,7 +161,7 @@ const NoticeDetail = ({
 
         <div className={sectionWrapper}>
           {/* 댓글란 */}
-          <ul className={listStyle}>
+          <ul ref={commentListRef} className={listStyle}>
             <NoticeCommentsProvider noticeId={noticeId}>
               {commentList?.map((item) => (
                 <div key={item.commentId} className={itemStyle}>
@@ -159,6 +172,7 @@ const NoticeDetail = ({
                     content={item.content}
                     writerNickname={item.writerNickname}
                     writerProfileImage={item.writerProfileImage}
+                    isMine={data?.user?.nickname === item.writerNickname}
                     onDelete={deleteCommentMutate}
                   />
                 </div>
