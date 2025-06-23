@@ -1,13 +1,12 @@
 import { postBjNickname } from "@/app/api/users";
-import Button from "@/common/component/Button";
-import Input from "@/common/component/Input";
-import SupportingText from "@/common/component/SupportingText";
 import { useToast } from "@/common/hook/useToast";
+import { Form, FormController } from "@/shared/component/Form";
+import SubmitButton from "@/shared/component/SubmitButton";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
-import { useZodHelper } from "@/shared/hook/useZodHelper";
+import { fullWidthStyle } from "@/styles/shared.css";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { HTTPError } from "ky";
-import { type FormEvent, useState } from "react";
-
+import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import {
   registerModalContainerStyle,
@@ -15,7 +14,7 @@ import {
   registerModalHeadingStyle,
   registerModalTextContainerStyle,
 } from "./index.css";
-import { formSchema } from "./schema";
+import { IdRegisterFormSchema } from "./schema";
 
 type IdRegisterFormProps = {
   onSuccess: (id: string) => void;
@@ -23,31 +22,24 @@ type IdRegisterFormProps = {
 
 const IdRegisterForm = ({ onSuccess }: IdRegisterFormProps) => {
   const { showToast } = useToast();
-  const [form, setForm] = useState<z.input<typeof formSchema>>({
-    bjNickname: "",
+
+  const form = useForm<z.infer<typeof IdRegisterFormSchema>>({
+    resolver: zodResolver(IdRegisterFormSchema),
+    mode: "onChange",
+    defaultValues: {
+      bjNickname: "",
+    },
   });
 
-  const { result } = useZodHelper(formSchema, form, {
-    asyncValidate: true,
-  });
-
-  const isInvalid = result?.success === false;
-
-  const errorMessage = result?.error?.issues
-    .filter((issue) => issue.code === "custom")
-    .at(0)?.message;
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (isInvalid) return;
-
+  const handleSubmit = async ({
+    bjNickname,
+  }: z.infer<typeof IdRegisterFormSchema>) => {
     try {
-      const response = await postBjNickname(form.bjNickname);
+      const response = await postBjNickname(bjNickname);
 
       if (response.ok) {
         showToast("등록이 완료되었습니다", "success");
-        onSuccess(form.bjNickname);
+        onSuccess(bjNickname);
       }
     } catch (error) {
       if (error instanceof HTTPError) {
@@ -63,33 +55,38 @@ const IdRegisterForm = ({ onSuccess }: IdRegisterFormProps) => {
     }
   };
 
+  const isActive = form.formState.isDirty && form.formState.isValid;
+
   return (
-    <form onSubmit={handleSubmit} className={registerModalContainerStyle}>
-      <div className={registerModalTextContainerStyle}>
-        <h2 className={registerModalHeadingStyle}> 백준 아이디 등록 </h2>
-        <p className={registerModalDescriptionStyle}>
-          그룹 가입 시 백준 아이디 등록이 필요합니다.
-        </p>
-      </div>
-      <Input
-        value={form.bjNickname}
-        onChange={(e) =>
-          setForm({
-            bjNickname: e.target.value,
-          })
-        }
-        type="text"
-        placeholder="백준 아이디를 입력해주세요"
-      />
-      {isInvalid ? (
-        <SupportingText isError={true} message={errorMessage} />
-      ) : (
-        <div style={{ height: "1.5rem", width: "100%" }} />
-      )}
-      <Button disabled={isInvalid} type="submit" size="medium" color="purple">
-        등록하기
-      </Button>
-    </form>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className={registerModalContainerStyle}
+      >
+        <div className={registerModalTextContainerStyle}>
+          <h2 className={registerModalHeadingStyle}>백준 아이디 등록</h2>
+          <p className={registerModalDescriptionStyle}>
+            그룹 가입 시 백준 아이디 등록이 필요합니다.
+          </p>
+        </div>
+        <FormController
+          form={form}
+          type="input"
+          name="bjNickname"
+          showDescription
+          fieldProps={{
+            placeholder: "백준 아이디를 입력해주세요",
+          }}
+        />
+        <SubmitButton
+          disabled={!isActive}
+          isActive={isActive}
+          className={fullWidthStyle}
+        >
+          등록하기
+        </SubmitButton>
+      </form>
+    </Form>
   );
 };
 

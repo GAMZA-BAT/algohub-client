@@ -32,3 +32,10 @@ export const githubButtonStyle = style({
 
   ...theme.font.Head2_SB_18,
 });
+
+export const linkWrapper = style({
+  display: "flex",
+  gap: "0.4rem",
+  alignItems: "center",
+  justifyContent: "center",
+});

@@ -20,7 +20,9 @@ export const noticeHeaderStyle = style({
 });
 
 export const buttonStyle = style({
+  width: "8.4rem",
   height: "4rem",
+  placeSelf: "end",
 
   margin: "1.2rem 2rem 0 0",
 

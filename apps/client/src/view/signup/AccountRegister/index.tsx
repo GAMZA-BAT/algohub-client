@@ -15,7 +15,7 @@ const AccountRegister = ({ token }: { token: string }) => {
   const handleNextStep = () => setStep(SIGNUP_STEPS.PROFILE_CREATION);
   const handleSubmit = _handleSubmit.bind(this, token);
   return (
-    <div>
+    <>
       <Stepper
         curStep={step}
         stepName={["메일 인증", "비밀번호 설정", "프로필 생성"]}
@@ -32,7 +32,7 @@ const AccountRegister = ({ token }: { token: string }) => {
           )}
         </form>
       </Form>
-    </div>
+    </>
   );
 };
 

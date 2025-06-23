@@ -66,9 +66,8 @@ const PasswordSetup = ({ onNextStep, form }: PasswordSetupProps) => {
       </div>
       {/* step형식이므로 이 단계에서 submit 금지 */}
       <Button
-        style={{ marginTop: "4rem" }}
         type="button"
-        size="large"
+        size="medium"
         onClick={onNextStep}
         isActive={isPasswordMatch}
       >

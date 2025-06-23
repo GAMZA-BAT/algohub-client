@@ -18,3 +18,7 @@ export const timeTextStyle = style({
   ...theme.font.Title2_M_16,
   color: theme.color.mg3,
 });
+
+export const buttonWrapper = style({
+  margin: "0 0 2.1rem",
+});

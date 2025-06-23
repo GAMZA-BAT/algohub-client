@@ -2,6 +2,7 @@ import { IcnStepperCurrent, IcnStepperDone, IcnStepperTodo } from "@/asset/svg";
 import {
   stepperLine,
   stepperSectionStyle,
+  stepperSectionWrapper,
   stepperTextColor,
   stepperTextStyle,
   stepperWrapper,
@@ -29,7 +30,7 @@ const Stepper = ({ curStep, stepName }: StepperProps) => {
         const color = isCurrent ? "active" : "inactive";
 
         return (
-          <div style={{ display: "flex" }} key={idx}>
+          <div className={stepperSectionWrapper} key={idx}>
             {idx !== 0 && <div className={stepperLine} />}
             <section className={stepperSectionStyle}>
               {StateIcon[isDone ? "done" : isCurrent ? "current" : "todo"]}

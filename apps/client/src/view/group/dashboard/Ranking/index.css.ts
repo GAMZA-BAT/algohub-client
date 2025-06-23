@@ -8,6 +8,10 @@ export const topRankingWrapper = style({
   paddingTop: "2.4rem",
 });
 
+export const rankingTabStyle = style({
+  height: "32.4rem",
+});
+
 export const rankingCardWrapper = style({
   position: "relative",
   width: "146px",

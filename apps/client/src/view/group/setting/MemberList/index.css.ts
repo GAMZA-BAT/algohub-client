@@ -44,3 +44,8 @@ export const trStyle = style({
     backgroundColor: "unset",
   },
 });
+
+export const chipWrapperStyle = style({
+  display: "flex",
+  width: "fit-content",
+});
