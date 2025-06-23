@@ -8,7 +8,7 @@ import RefreshTokenExpireTime from "@/shared/component/RefreshTokenExpireTime";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 
 const BrowserProvider = dynamic(
   () => import("@/shared/component/BrowserProvider/BrowserProvider"),
@@ -25,12 +25,14 @@ const Providers = ({ children }: ProvidersProps) => {
   const { data: session, update } = useSession();
   const { id, email, nickname, bjNickname } = session?.user ?? {};
 
-  mixpanelTracker.initialize({
-    $email: email ?? "",
-    $name: nickname ?? "",
-    id,
-    bjNickname,
-  });
+  useEffect(() => {
+    mixpanelTracker.initialize({
+      $email: email ?? "",
+      $name: nickname ?? "",
+      id,
+      bjNickname,
+    });
+  }, [email, nickname, id, bjNickname]);
 
   return (
     <QueryProvider>

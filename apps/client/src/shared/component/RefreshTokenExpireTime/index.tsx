@@ -24,10 +24,13 @@ const RefreshTokenExpireTime = ({
   };
 
   useEffect(() => {
+    watchAndUpdateIfExpire();
+  }, []);
+
+  useEffect(() => {
     if (interval.current) {
       clearInterval(interval.current);
     }
-    watchAndUpdateIfExpire();
     interval.current = setInterval(watchAndUpdateIfExpire, 1000 * 60);
 
     return () => clearInterval(interval.current);
