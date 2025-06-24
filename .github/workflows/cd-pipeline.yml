@@ -34,6 +34,7 @@ jobs:
           install-path: "."
 
       - name: Set environment variables for build
+        working-directory: ./apps/client
         run: |
           echo "NEXT_PUBLIC_HOST=${{ secrets.NEXT_PUBLIC_HOST }}" >> .env.local
           echo "NEXT_PUBLIC_RC_HOST=${{ secrets.NEXT_PUBLIC_RC_HOST }}" >> .env.local
@@ -44,10 +45,13 @@ jobs:
           echo "NEXT_PUBLIC_MIXPANEL_TOKEN=${{ secrets.NEXT_PUBLIC_MIXPANEL_TOKEN }}" >> .env.local
 
       - name: Build with Next.js
+        working-directory: ./apps/client
         run: pnpm build
 
       - name: Make zip file
-        run: zip -r algohub.zip . -x "node_modules/*"
+        run: |
+          cd apps/client
+          zip -r ../../algohub.zip . -x "node_modules/*"
         shell: bash
 
       - name: Upload artifact
