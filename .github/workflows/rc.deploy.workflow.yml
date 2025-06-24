@@ -55,7 +55,7 @@ jobs:
 
       - name: Setup .env
         run: |
-          curl -u ${{ secrets.CREDENTIAL_NAME }}:${{ secrets.CREDENTIAL_PW }} -X GET https://webdav.hwangdo.kr/algohub-client/rc/env -o .env
+          curl -u ${{ secrets.CREDENTIAL_NAME }}:${{ secrets.CREDENTIAL_PW }} -X GET https://webdav.hwangdo.kr/algohub-client/rc/env -o apps/client/.env
 
       - name: Log in to Docker registry
         run: |
