@@ -37,16 +37,16 @@ const baseColumns: TableDataType<SolutionsCurrentStatusResponse>[] = [
     width: 75,
   },
   {
-    key: "id",
-    Header: () => "아이디",
-    Cell: (data) => data.nickname,
-    width: 75,
-  },
-  {
     key: "total",
     Header: () => "총점",
     Cell: (data) => `${data.totalSubmissionCount}/${data.totalPassedTime}`,
     width: 200,
+  },
+  {
+    key: "id",
+    Header: () => "아이디",
+    Cell: (data) => data.nickname,
+    width: 75,
   },
 ];
 

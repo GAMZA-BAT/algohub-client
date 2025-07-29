@@ -20,7 +20,7 @@ const NoticeBanner = () => {
   const { content: noticeList } = useNoticesQuery({ groupId: +groupId });
 
   const recentNotice = noticeList?.length > 0 ? noticeList[0] : null;
-  console.info({ recentNotice });
+
   return (
     <section
       role="status"

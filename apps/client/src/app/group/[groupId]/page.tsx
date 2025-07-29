@@ -10,7 +10,7 @@ import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
 import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
 import Ranking from "@/view/group/dashboard/Ranking";
-import SolvedStatusTable from "@/view/group/dashboard/SolvedStatusTable";
+import SolvedStatusSection from "@/view/group/dashboard/SolvedStatusSection";
 import ExtensionAlertModalController from "@/view/user/index/ExtensionAlertModal";
 import { HydrationBoundary } from "@tanstack/react-query";
 
@@ -53,10 +53,9 @@ const GroupDashboardPage = async ({
         <HydrationBoundary state={dehydratedState}>
           <Ranking rankingData={rankingInfo} />
         </HydrationBoundary>
-        <section>
-          <h2 className={titleStyle}>진행 중인 풀이 현황</h2>
-          <SolvedStatusTable data={solutionsCurrentStatusInfo} />
-        </section>
+        <SolvedStatusSection
+          solutionsCurrentStatusInfo={solutionsCurrentStatusInfo}
+        />
         <section>
           <h2 className={titleStyle}>풀어야 할 문제</h2>
           <ProblemList.Header />
