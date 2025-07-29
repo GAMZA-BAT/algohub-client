@@ -11,7 +11,8 @@ type SolvedStatusSectionProps = {
 const SolvedStatusSection = ({
   solutionsCurrentStatusInfo,
 }: SolvedStatusSectionProps) => {
-  const hasInProgressProblems = solutionsCurrentStatusInfo[0].problems.length > 0;
+  const hasInProgressProblems =
+    solutionsCurrentStatusInfo[0].problems.length > 0;
 
   return (
     <section>

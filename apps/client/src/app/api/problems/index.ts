@@ -30,14 +30,6 @@ export const deleteProblem = (problemId: number) => {
   return response;
 };
 
-export const getDeadlineReachedProblems = async (groupId: number) => {
-  const response = await kyJsonWithTokenInstance
-    .get<ProblemContent[]>(`api/groups/${groupId}/problems/deadline-reached`)
-    .json();
-
-  return response;
-};
-
 export const getInProgressProblems = async ({
   groupId,
   page,

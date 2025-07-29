@@ -1,10 +1,8 @@
 import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
-import { getDeadlineReachedProblems } from "@/app/api/problems";
 import { getSolutionsCurrentStatus } from "@/app/api/solutions";
-import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
+import { listSectionStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
-import ProblemList from "@/shared/component/ProblemList";
 import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
 import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
@@ -21,21 +19,14 @@ const GroupDashboardPage = async ({
   const rankingData = getTopRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
   const solutionsCurrentStatusData = getSolutionsCurrentStatus(+groupId);
-  const deadlineReachedData = getDeadlineReachedProblems(+groupId);
 
-  const [
-    groupInfo,
-    rankingInfo,
-    memberInfo,
-    deadlineReachedInfo,
-    solutionsCurrentStatusInfo,
-  ] = await Promise.all([
-    groupInfoData,
-    rankingData,
-    memberData,
-    deadlineReachedData,
-    solutionsCurrentStatusData,
-  ]);
+  const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] =
+    await Promise.all([
+      groupInfoData,
+      rankingData,
+      memberData,
+      solutionsCurrentStatusData,
+    ]);
 
   const firstPage = 1;
   const dehydratedState = await prefetchQuery({
@@ -56,15 +47,6 @@ const GroupDashboardPage = async ({
         <SolvedStatusSection
           solutionsCurrentStatusInfo={solutionsCurrentStatusInfo}
         />
-        <section>
-          <h2 className={titleStyle}>풀어야 할 문제</h2>
-          <ProblemList.Header />
-          <ProblemList>
-            {deadlineReachedInfo.map((item) => (
-              <ProblemList.Item key={item.problemId} {...item} />
-            ))}
-          </ProblemList>
-        </section>
       </div>
       <ExtensionAlertModalController domain="group" />
     </main>
