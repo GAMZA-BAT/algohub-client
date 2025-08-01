@@ -63,7 +63,7 @@ const NoticeDetail = ({
   const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
   const { mutate: deleteCommentMutate } =
     useDeleteNoticeCommentMutation(noticeId);
-  const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
+  const { mutate: patchMutate } = usePatchNoticeMutation(groupId, noticeId);
   const { mutate: deleteNoticeMutate } = useDeleteNoticeMutation(
     groupId,
     noticeId,

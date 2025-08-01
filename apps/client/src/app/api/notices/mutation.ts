@@ -1,3 +1,4 @@
+import { groupQueryKey } from "@/app/api/groups/query";
 import { deleteNoticeComment, patchNoticeComment, postNoticeComment } from "@/app/api/notices";
 import { noticeQueryKey } from "@/app/api/notices/query";
 import type { NoticeRequest } from "@/app/api/notices/type";
@@ -60,7 +61,7 @@ export const useDeleteNoticeCommentMutation = (noticeId: number) => {
   });
 };
 
-export const usePatchNoticeMutation = (noticeId: number) => {
+export const usePatchNoticeMutation = (groupId: number, noticeId: number) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
@@ -69,7 +70,7 @@ export const usePatchNoticeMutation = (noticeId: number) => {
       patchNoticeAction(noticeId, requestData),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["notice", noticeId],
+        queryKey: groupQueryKey.notices(groupId),
       });
       showToast("정상적으로 수정되었어요.", "success");
     },
@@ -87,7 +88,7 @@ export const useDeleteNoticeMutation = (groupId: number, noticeId: number) => {
     mutationFn: () => deleteNoticeAction(noticeId),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["notices", groupId],
+        queryKey: groupQueryKey.notices(groupId),
       });
       showToast("정상적으로 삭제되었어요.", "success");
     },

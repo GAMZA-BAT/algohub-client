@@ -17,7 +17,9 @@ interface CodeClipboardProps {
 }
 
 const CodeClipboard = ({ label, code }: CodeClipboardProps) => {
-  const { data: groupInfo, isSuccess } = useQuery(useGroupByCodeQueryObject(code));
+  const { data: groupInfo, isSuccess } = useQuery(
+    useGroupByCodeQueryObject(code),
+  );
 
   const { isCopied, copy } = useClipboard(
     groupInfo?.ownerNickname ?? "",
