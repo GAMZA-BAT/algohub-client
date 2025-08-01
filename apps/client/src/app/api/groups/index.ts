@@ -1,13 +1,24 @@
 import { kyFormWithTokenInstance, kyJsonWithTokenInstance } from "@/app/api";
 import type {
   GroupCodeResponse,
-  GroupListResponse,
   GroupResponse,
   GroupSettingsContent,
   MemberResponse,
   MemberRoleRequest,
   Role,
 } from "@/app/api/groups/type";
+import type {
+  NoticeListRequest,
+  NoticeRequest,
+  NoticeResponse,
+} from "@/app/api/notices/type";
+import type {
+  GetProblemRequest,
+  ProblemContent,
+  ProblemListResponse,
+  ProblemRequest,
+} from "@/app/api/problems/type";
+import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
 import { notFound } from "next/navigation";
 
 export const postCreateGroup = async (formData: FormData) => {
@@ -15,14 +26,6 @@ export const postCreateGroup = async (formData: FormData) => {
     .post<GroupCodeResponse>("api/groups", {
       body: formData,
     })
-    .json();
-
-  return response;
-};
-
-export const getGroupList = async () => {
-  const response = await kyJsonWithTokenInstance
-    .get<GroupListResponse>("api/users/me/groups")
     .json();
 
   return response;
@@ -165,6 +168,125 @@ export const postGroupBookmark = async (groupId: number) => {
   const response = await kyJsonWithTokenInstance.post(
     `api/groups/${groupId}/bookmark`,
   );
+
+  return response;
+};
+
+export const getInProgressMyGroupSolutions = async ({
+  groupId,
+  problemNumber,
+  language,
+  result,
+  page,
+  size,
+}: MySolutionRequest) => {
+  const response = await kyJsonWithTokenInstance
+    .get<MySolutionResponse>(
+      `api/groups/${groupId}/my-solutions/in-progress?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
+    )
+    .json();
+
+  return response;
+};
+
+export const getExpiredMyGroupSolutions = async ({
+  groupId,
+  problemNumber,
+  language,
+  result,
+  page,
+  size,
+}: MySolutionRequest) => {
+  const response = await kyJsonWithTokenInstance
+    .get<MySolutionResponse>(
+      `api/groups/${groupId}/my-solutions/expired?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
+    )
+    .json();
+
+  return response;
+};
+
+export const getGroupNotices = async ({
+  groupId,
+  size = 5,
+  page = 0,
+}: NoticeListRequest) => {
+  const response = await kyJsonWithTokenInstance
+    .get<NoticeResponse>(
+      `api/groups/${groupId}/notices?page=${page}&size=${size}`,
+    )
+    .json();
+
+  return response;
+};
+
+export const postGroupNotice = (
+  groupId: number,
+  requestData: NoticeRequest,
+) => {
+  return kyJsonWithTokenInstance.post<NoticeRequest>(
+    `api/groups/${groupId}/notices`,
+    {
+      json: requestData,
+    },
+  );
+};
+
+export const postProblem = (groupId: number, body: ProblemRequest) => {
+  const response = kyJsonWithTokenInstance
+    .post(`api/groups/${groupId}/problems`, { json: body })
+    .json();
+
+  return response;
+};
+
+export const getDeadlineReachedProblems = async (groupId: number) => {
+  const response = await kyJsonWithTokenInstance
+    .get<ProblemContent[]>(`api/groups/${groupId}/problems/deadline-reached`)
+    .json();
+
+  return response;
+};
+
+export const getInProgressProblems = async ({
+  groupId,
+  page,
+  size,
+  isUnsolvedOnly,
+}: GetProblemRequest) => {
+  const response = await kyJsonWithTokenInstance
+    .get<ProblemListResponse>(
+      `api/groups/${groupId}/problems/in-progress?unsolved-only=${isUnsolvedOnly}&page=${page}&size=${size}`,
+    )
+    .json();
+
+  return response;
+};
+
+export const getExpiredProblems = async ({
+  groupId,
+  page,
+  size,
+}: GetProblemRequest) => {
+  const response = await kyJsonWithTokenInstance
+    .get<ProblemListResponse>(
+      `api/groups/${groupId}/problems/expired?page=${page}&size=${size}`,
+    )
+    .json();
+
+  return response;
+};
+
+export const getQueuedProblems = async ({
+  groupId,
+  page,
+  size,
+}: GetProblemRequest) => {
+  const response = await kyJsonWithTokenInstance
+    .get<ProblemListResponse>(
+      `api/groups/${groupId}/problems/queued?page=${page}&size=${size}`,
+    )
+    .json();
 
   return response;
 };

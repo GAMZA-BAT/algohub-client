@@ -1,13 +1,17 @@
+"use client";
 import {
   useBookmarkGroupMutation,
-  useMyGroupSettingsQuery,
   useVisibilityMutation,
-} from "@/app/[user]/setting/query";
+} from "@/app/api/groups/mutation";
+import { useMyGroupSettingsQueryObject } from "@/app/api/groups/query";
 import type { GroupSettingsContent } from "@/app/api/groups/type";
 import Modal from "@/common/component/Modal";
 import WithdrawDialog from "@/shared/component/WithdrawDialog";
 import { useWithdrawMutation } from "@/shared/component/WithdrawDialog/query";
-import type { UseMutateFunction } from "@tanstack/react-query";
+import {
+  type UseMutateFunction,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import type { HTTPError, KyResponse } from "ky";
 import type React from "react";
 import { createContext, useReducer, useState } from "react";
@@ -19,8 +23,8 @@ type TableDispatchContextType =
   | {
       dispatch: React.Dispatch<Actions>;
       mutation: UseMutateFunction<
-        KyResponse<unknown>,
-        HTTPError<unknown>,
+        KyResponse,
+        HTTPError,
         {
           groupId: number;
           flag: boolean;
@@ -28,8 +32,8 @@ type TableDispatchContextType =
         unknown
       >;
       bookmarkMutation: UseMutateFunction<
-        KyResponse<unknown>,
-        HTTPError<unknown>,
+        KyResponse,
+        HTTPError,
         number,
         unknown
       >;
@@ -82,24 +86,20 @@ const groupListTableReducer = (state: State, action: Actions): State => {
         const currentOrder = newSortCriteria[existingCriteriaIndex].order;
 
         if (currentOrder === "asc") {
-          // asc -> desc
           newSortCriteria[existingCriteriaIndex] = {
             key,
             order: "desc",
           };
         } else if (currentOrder === "desc") {
-          // desc -> 정렬 제거
           newSortCriteria.splice(existingCriteriaIndex, 1);
         }
       } else {
-        // 새로운 key인 경우, asc로 추가
         newSortCriteria = [{ key, order: "asc" }, ...newSortCriteria];
       }
 
       return {
         ...state,
         sortCriteria: newSortCriteria.sort((a, b) => {
-          // boolean 타입인 isBookmarked를 맨 앞으로
           if (a.key === "isBookmarked") return -1;
           if (b.key === "isBookmarked") return 1;
           return 0;
@@ -124,7 +124,6 @@ const groupListTableReducer = (state: State, action: Actions): State => {
   }
 };
 
-// Provider 컴포넌트
 type GroupListTableProviderProps = {
   children: React.ReactNode;
 };
@@ -137,7 +136,7 @@ export const GroupListTableProvider = ({
     filterKey: undefined,
     filterValue: "",
   } as State);
-  const { data } = useMyGroupSettingsQuery();
+  const { data } = useSuspenseQuery(useMyGroupSettingsQueryObject());
   const { mutate: visibilityMutate } = useVisibilityMutation();
   const { mutate: bookmarkMutate } = useBookmarkGroupMutation();
   const { mutate: withdrawMutate } = useWithdrawMutation();
@@ -154,13 +153,9 @@ export const GroupListTableProvider = ({
     setWithdrawGroupId(null);
   };
 
-  // 데이터 전처리 (정렬, 필터링)
   const processedData = data
     .filter((item) => {
-      // 필터가 적용되지 않은 경우 전체 데이터 반환
       if (!state.filterKey) return true;
-
-      // 필터 조건에 맞는 항목만 반환
       return item[state.filterKey] === state.filterValue;
     })
     .toSorted((a, b) => {
@@ -174,13 +169,11 @@ export const GroupListTableProvider = ({
             new Date(a[key]).getTime() - new Date(b[key]).getTime();
         }
 
-        // 오름차순/내림차순 적용
         if (compareResult !== 0) {
           return order === "asc" ? compareResult : -compareResult;
         }
       }
 
-      // 모든 조건이 동일한 경우
       return 0;
     });
 

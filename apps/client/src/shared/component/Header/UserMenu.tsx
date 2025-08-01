@@ -1,15 +1,16 @@
 "use client";
+import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import type { UserResponse } from "@/app/api/users/type";
-import { useNotificationsQuery } from "@/app/query";
 import Menu from "@/common/component/Menu/Menu";
 import Profile from "@/shared/component/Header/Profile";
 import { buttonContainer } from "@/shared/component/Header/index.css";
+import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Notification from "./Notification";
 
 const UserMenu = () => {
   const user = useSession().data?.user;
-  const { data } = useNotificationsQuery();
+  const { data } = useQuery(useNotificationsQueryObject());
 
   if (!data) return;
 

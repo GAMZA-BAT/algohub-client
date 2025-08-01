@@ -1,5 +1,4 @@
 "use client";
-import { getNotices } from "@/app/api/notices";
 import defaultImage from "@/asset/img/img_card_profile.png";
 import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
@@ -24,6 +23,7 @@ import {
   ulStyle,
   wrapperStyle,
 } from "./index.css";
+import { getGroupNotices } from "@/app/api/groups";
 
 const NoticeList = () => {
   const groupId = useGetGroupId();
@@ -37,7 +37,7 @@ const NoticeList = () => {
     setCurrentPage,
   } = usePaginationQuery({
     queryKey: ["notices", +groupId],
-    queryFn: (page) => getNotices({ groupId: +groupId, page }),
+    queryFn: (page) => getGroupNotices({ groupId: +groupId, page }),
   });
   const noticeList = noticeData?.content;
 

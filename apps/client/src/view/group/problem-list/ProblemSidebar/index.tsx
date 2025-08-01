@@ -1,12 +1,11 @@
 "use client";
-import { usePostProblemMutation } from "@/app/group/[groupId]/problem-list/query";
+import { usePostProblemMutation } from "@/app/api/groups/mutation";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { problemSidebarWrapper } from "@/view/group/problem-list/ProblemSidebar/index.css";
 import RegisterForm from "@/view/group/problem-list/RegisterForm";
-import type {} from "react";
 
 const ProblemSidebar = () => {
   const { open, isOpen, close } = useBooleanState();

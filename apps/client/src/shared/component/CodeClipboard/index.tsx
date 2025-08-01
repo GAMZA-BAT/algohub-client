@@ -1,4 +1,4 @@
-import { useGroupByCodeQuery } from "@/app/join-group/[code]/query";
+import { useGroupByCodeQueryObject } from "@/app/api/groups/query";
 import { IcnCopy, IcnCopyCheck } from "@/asset/svg";
 import {
   boxStyle,
@@ -9,6 +9,7 @@ import {
 } from "@/shared/component/CodeClipboard/index.css";
 import { useClipboard } from "@/shared/hook/useClipboard";
 import { theme } from "@/styles/themes.css";
+import { useQuery } from "@tanstack/react-query";
 
 interface CodeClipboardProps {
   label?: string;
@@ -16,7 +17,7 @@ interface CodeClipboardProps {
 }
 
 const CodeClipboard = ({ label, code }: CodeClipboardProps) => {
-  const { data: groupInfo, isSuccess } = useGroupByCodeQuery(code);
+  const { data: groupInfo, isSuccess } = useQuery(useGroupByCodeQueryObject(code));
 
   const { isCopied, copy } = useClipboard(
     groupInfo?.ownerNickname ?? "",

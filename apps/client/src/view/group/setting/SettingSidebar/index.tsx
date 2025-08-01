@@ -1,13 +1,25 @@
 "use client";
 
-import { groupSchema } from "@/app/api/groups/schema";
-import type { GroupResponse } from "@/app/api/groups/type";
 import {
   useDeleteGroupMutation,
   usePatchGroupMutation,
-} from "@/app/group/[groupId]/setting/query";
+} from "@/app/api/groups/mutation";
+import { groupSchema } from "@/app/api/groups/schema";
+import type { GroupResponse } from "@/app/api/groups/type";
+import SupportingText from "@/common/component/SupportingText";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import CodeClipboard from "@/shared/component/CodeClipboard";
+import { Form } from "@/shared/component/Form";
+import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";
+import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
+import ImageFormController from "@/shared/component/GroupInfoForm/ImageFormController";
+import NameFormController from "@/shared/component/GroupInfoForm/NameFormController";
+import {
+  dateWrapper,
+  formLabelStyle,
+  formStyle,
+} from "@/shared/component/GroupInfoForm/index.css";
+import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
 import PromptModal from "@/shared/component/PromptModal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import {
@@ -20,27 +32,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
-import SupportingText from "@/common/component/SupportingText";
-import { Form } from "@/shared/component/Form";
-import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";
-import DescFormController from "@/shared/component/GroupInfoForm/DescFormController";
-import ImageFormController from "@/shared/component/GroupInfoForm/ImageFormController";
-import NameFormController from "@/shared/component/GroupInfoForm/NameFormController";
-import {
-  dateWrapper,
-  formLabelStyle,
-  formStyle,
-} from "@/shared/component/GroupInfoForm/index.css";
-import { getGroupFormData } from "@/shared/component/GroupInfoForm/util";
-
 type SettingSidebarProps = {
   info: GroupResponse;
   code: string;
-  groupId: number;
 };
 
 const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
-  const groupId = useGetGroupId();
+  const groupId = +useGetGroupId();
   const { isOpen, open, close } = useBooleanState();
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: zodResolver(groupSchema),
@@ -55,7 +53,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
   });
 
   const { mutate: deleteMutate } = useDeleteGroupMutation();
-  const { mutate: patchMutate } = usePatchGroupMutation(+groupId);
+  const { mutate: patchMutate } = usePatchGroupMutation(groupId);
   const handleSubmit = (values: z.infer<typeof groupSchema>) => {
     const data = getGroupFormData(form, values);
     patchMutate(data);
@@ -73,7 +71,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
         <Form {...form}>
           <form
             className={formStyle({ variant: "group-setting" })}
-            onSubmit={form.handleSubmit((v) => handleSubmit(v))}
+            onSubmit={form.handleSubmit(handleSubmit)}
           >
             <ImageFormController form={form} />
             <NameFormController form={form} variant="group-setting" />
@@ -126,7 +124,7 @@ const SettingSidebar = ({ info, code }: SettingSidebarProps) => {
             "삭제 시 스터디와 관련된 모든 데이터가 영구적으로 삭제됩니다.\n복구할 수 없으니 신중히 결정해 주세요."
           }
           confirmText="삭제하기"
-          onConfirm={() => deleteMutate(+groupId)}
+          onConfirm={() => deleteMutate(groupId)}
         />
       </div>
     </>

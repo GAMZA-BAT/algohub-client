@@ -1,7 +1,6 @@
 "use client";
-import {} from "@/app/api/groups";
 import { joinGroupAction } from "@/app/join-group/[code]/action";
-import { useGroupByCodeQuery } from "@/app/join-group/[code]/query";
+import { useGroupByCodeQueryObject } from "@/app/api/groups/query";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
@@ -15,13 +14,14 @@ import {
   errorWrapper,
   wrapper,
 } from "@/view/user/join-group/index.css";
+import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
-  const { data: groupData } = useGroupByCodeQuery(code);
+  const { data: groupData } = useQuery(useGroupByCodeQueryObject(code));
   const userNickname = useSession().data?.user?.nickname;
   const router = useRouter();
 

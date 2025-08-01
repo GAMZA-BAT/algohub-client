@@ -1,4 +1,4 @@
-import { usePatchPasswordMutation } from "@/app/[user]/setting/query";
+import { usePatchPasswordMutation } from "@/app/api/users/mutation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
