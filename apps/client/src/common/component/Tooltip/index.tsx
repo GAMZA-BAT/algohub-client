@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  cloneElement,
-  HTMLAttributes,
-  isValidElement,
-  ReactNode,
-  useId,
-  useState,
-} from "react";
+import { cloneElement, isValidElement, useId, useState } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import * as styles from "./index.css";
 
 type TooltipPosition =
@@ -57,12 +51,12 @@ const Tooltip = ({
     >
       {trigger}
       {isOpen && (
-      <details className={styles.tooltipWrapper({ placement })}>
-        <summary className={styles.tooltipContentWrapper}>
-          <div className={styles.tooltipArrow({ placement })} />
-          {content}
-        </summary>
-      </details>
+        <details className={styles.tooltipWrapper({ placement })}>
+          <summary className={styles.tooltipContentWrapper}>
+            <div className={styles.tooltipArrow({ placement })} />
+            {content}
+          </summary>
+        </details>
       )}
     </div>
   );
