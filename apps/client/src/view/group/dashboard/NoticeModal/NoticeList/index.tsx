@@ -1,4 +1,5 @@
 "use client";
+import { getGroupNotices } from "@/app/api/groups";
 import defaultImage from "@/asset/img/img_card_profile.png";
 import { IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
@@ -23,7 +24,6 @@ import {
   ulStyle,
   wrapperStyle,
 } from "./index.css";
-import { getGroupNotices } from "@/app/api/groups";
 
 const NoticeList = () => {
   const groupId = useGetGroupId();
