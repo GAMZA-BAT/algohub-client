@@ -1,6 +1,6 @@
 "use client";
 
-import { useNotificationSettingMutation } from "@/app/[user]/setting/query";
+import { useNotificationSettingMutation } from "@/app/api/notifications/mutation";
 import type { NotificationSettingContent } from "@/app/api/notifications/type";
 import ToggleButton from "@/common/component/ToggleButton";
 import { handleA11yClick } from "@/common/util/dom";

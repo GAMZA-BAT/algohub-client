@@ -1,6 +1,5 @@
-import { getGroupList } from "@/app/api/groups";
 import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
-import { getGroupsByUsers } from "@/app/api/users";
+import { getGroupsByUsers, getUserGroupList } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
@@ -24,7 +23,9 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   let data: GroupListResponse;
   try {
     data =
-      nickname !== user ? await getGroupsByUsers(user) : await getGroupList();
+      nickname !== user
+        ? await getGroupsByUsers(user)
+        : await getUserGroupList();
   } catch (error) {
     if (error instanceof HTTPError) {
       return notFound();

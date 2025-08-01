@@ -1,9 +1,8 @@
-import { useDeleteMeMutation } from "@/app/[user]/setting/query";
+import { useDeleteMeMutation } from "@/app/api/users/mutation";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { Form, FormController } from "@/shared/component/Form";
 import { withdrawSchema } from "@/view/login/LoginForm/schema";
-
 import {
   descTextStyle,
   metaTextStyle,

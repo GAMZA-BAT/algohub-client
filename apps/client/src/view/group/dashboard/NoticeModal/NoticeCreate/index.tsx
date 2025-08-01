@@ -1,6 +1,6 @@
 "use client";
 
-import { useNoticeMutation } from "@/app/group/[groupId]/notice/query";
+import { useGroupNoticeMutation } from "@/app/api/groups/mutation";
 import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
@@ -24,7 +24,7 @@ import type { z } from "zod";
 const NoticeCreate = () => {
   const router = useRouter();
   const groupId = useGetGroupId();
-  const { mutate: noticeMutate } = useNoticeMutation(+groupId);
+  const { mutate: noticeMutate } = useGroupNoticeMutation(+groupId);
   const form = useForm<z.infer<typeof registerNoticeSchema>>({
     resolver: zodResolver(registerNoticeSchema),
     mode: "onTouched",

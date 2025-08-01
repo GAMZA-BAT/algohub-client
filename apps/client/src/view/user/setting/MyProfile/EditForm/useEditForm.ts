@@ -24,7 +24,6 @@ const useEditForm = (user: User) => {
       if (name === "profileImage" && type === "change") {
         const currentValue = value.profileImage;
         if (currentValue instanceof File) {
-          // 직접 dirty 상태 설정
           form.resetField("profileImage", {
             keepDirty: false,
             defaultValue: "",

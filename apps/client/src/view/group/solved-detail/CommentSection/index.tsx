@@ -1,16 +1,17 @@
 "use client";
 
 import {
-  useCommentListQuery,
-  useCommentMutataion,
+  useCommentMutation,
   useDeleteCommentMutation,
-} from "@/app/group/[groupId]/solved-detail/[id]/query";
+} from "@/app/api/comments/mutation";
+import { useCommentListQueryObject } from "@/app/api/comments/query";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
-import { CommentsProvider } from "@/view/group/solved-detail/CommentSection/provider";
+import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
+import { CommentsProvider } from "./provider";
 
 type CommentSectionProps = {
   solutionId: string;
@@ -19,11 +20,11 @@ type CommentSectionProps = {
 const CommentSection = ({ solutionId }: CommentSectionProps) => {
   const commentRef = useRef<HTMLUListElement>(null);
   const [comment, setComment] = useState("");
-  const { data } = useSession();
+  const { data: session } = useSession();
 
-  const { mutate: commentAction } = useCommentMutataion(+solutionId);
+  const { data: comments } = useQuery(useCommentListQueryObject(+solutionId));
+  const { mutate: commentAction } = useCommentMutation(+solutionId);
   const { mutate: deleteMutate } = useDeleteCommentMutation(+solutionId);
-  const { data: comments } = useCommentListQuery(+solutionId);
 
   const handleCommentSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,7 +52,7 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
                 key={item.commentId}
                 variant="detail"
                 onDelete={deleteMutate}
-                isMine={item.writerNickname === data?.user?.nickname}
+                isMine={item.writerNickname === session?.user?.nickname}
                 {...item}
               />
             ))}
@@ -62,7 +63,7 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
           name="comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          profileUrl={data?.user?.profileImage}
+          profileUrl={session?.user?.profileImage}
         />
       </form>
     </div>

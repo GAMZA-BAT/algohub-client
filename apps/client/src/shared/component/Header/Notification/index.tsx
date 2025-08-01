@@ -1,21 +1,19 @@
 "use client";
+import {
+  useDeleteNotiMutation,
+  useReadAllNotiMutation,
+  useReadNotiItemMutation,
+} from "@/app/api/notifications/mutation";
 import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
+import Empty from "@/shared/component/Empty";
 import {
   allReadButtonStyle,
   countStyle,
   notificationContainer,
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
-
 import { iconStyle } from "@/shared/component/Header/index.css";
-
-import {
-  useDeleteNotiMutation,
-  useReadAllNotiMutation,
-  useReadNotiItemMutation,
-} from "@/app/query";
-import Empty from "@/shared/component/Empty";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -39,7 +37,9 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
   const handleItemClick = (data: NotificationItem) => {
     if (!data.isRead) readNotiMutate(data.id);
     router.push(
-      `/group/${data.groupId}${data.problemId ? `/problem-list/${data.problemId}` : ""}${data.solutionId ? `/solved-detail/${data.solutionId}` : ""}`,
+      `/group/${data.groupId}${
+        data.problemId ? `/problem-list/${data.problemId}` : ""
+      }${data.solutionId ? `/solved-detail/${data.solutionId}` : ""}`,
     );
   };
 
@@ -71,7 +71,6 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
               {notifications.map((notification) => (
                 <motion.li
                   key={notification.id}
-                  // layout
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
