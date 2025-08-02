@@ -54,25 +54,25 @@ jobs:
         run: |
           echo "## 🚀 CI Check Results" > summary.md
           echo "" >> summary.md
-          echo "| Check Item | Status | Details |" >> summary.md
-          echo "|------------|--------|----------|" >> summary.md
+          echo "| Check Item | Status |" >> summary.md
+          echo "|------------|--------|" >> summary.md
           
           if [ "${{ steps.typecheck.outcome }}" == "success" ]; then
-            echo "| 🔷 **TypeScript** | ✅ Pass | No type errors |" >> summary.md
+            echo "| 🔷 **TypeScript** | ✅ Pass |" >> summary.md
           else
-            echo "| 🔷 **TypeScript** | ❌ Fail | [🔗 View TypeScript Step](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) |" >> summary.md
+            echo "| 🔷 **TypeScript** | ❌ Fail |" >> summary.md
           fi
           
           if [ "${{ steps.lint.outcome }}" == "success" ]; then
-            echo "| 🔍 **ESLint** | ✅ Pass | No lint errors |" >> summary.md
+            echo "| 🔍 **ESLint** | ✅ Pass |" >> summary.md
           else
-            echo "| 🔍 **ESLint** | ❌ Fail | [🔗 View ESLint Step](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) |" >> summary.md
+            echo "| 🔍 **ESLint** | ❌ Fail |" >> summary.md
           fi
           
           if [ "${{ steps.format.outcome }}" == "success" ]; then
-            echo "| 🎨 **Format** | ✅ Pass | No formatting issues |" >> summary.md
+            echo "| 🎨 **Format** | ✅ Pass |" >> summary.md
           else
-            echo "| 🎨 **Format** | ❌ Fail | [🔗 View Format Step](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) Need to run \`pnpm format\` |" >> summary.md
+            echo "| 🎨 **Format** | ❌ Fail |" >> summary.md
           fi
           
           echo "" >> summary.md
