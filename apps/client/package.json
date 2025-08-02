@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare-env": "sh ./prepare-env.sh",
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 8080",
