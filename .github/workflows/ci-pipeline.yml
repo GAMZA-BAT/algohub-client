@@ -6,6 +6,11 @@ on:
       - main
       - deploy
 
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -29,14 +34,59 @@ jobs:
           pnpm-store-path: "./pnpm-store"
           install-path: "."
 
-      - name: Check
-        run: |
-          set -o pipefail
-          pnpm check | tee result
+      - name: 🔷 TypeScript Check
+        id: typecheck
+        run: pnpm typecheck
+        continue-on-error: true
 
-      - name: Print Summary
+      - name: 🔍 ESLint Check
+        id: lint
+        run: pnpm lint:check
+        continue-on-error: true
+
+      - name: 🎨 Format Check
+        id: format
+        run: pnpm format:check
+        continue-on-error: true
+
+      - name: Generate Results Summary
+        if: always()
         run: |
-          echo "## Check Result" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "$(cat result)" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 CI 체크 결과" > summary.md
+          echo "" >> summary.md
+          echo "| 체크 항목 | 상태 | 세부사항 |" >> summary.md
+          echo "|---------|------|---------|" >> summary.md
+          
+          if [ "${{ steps.typecheck.outcome }}" == "success" ]; then
+            echo "| 🔷 **TypeScript** | ✅ 통과 | 타입 오류 없음 |" >> summary.md
+          else
+            echo "| 🔷 **TypeScript** | ❌ 실패 | [🔗 TypeScript 단계 보기](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) |" >> summary.md
+          fi
+          
+          if [ "${{ steps.lint.outcome }}" == "success" ]; then
+            echo "| 🔍 **ESLint** | ✅ 통과 | 린트 오류 없음 |" >> summary.md
+          else
+            echo "| 🔍 **ESLint** | ❌ 실패 | [🔗 ESLint 단계 보기](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) |" >> summary.md
+          fi
+          
+          if [ "${{ steps.format.outcome }}" == "success" ]; then
+            echo "| 🎨 **Format** | ✅ 통과 | 포매팅 문제 없음 |" >> summary.md
+          else
+            echo "| 🎨 **Format** | ❌ 실패 | [🔗 Format 단계 보기](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) \`pnpm format\` 실행 필요 |" >> summary.md
+          fi
+          
+          echo "---" >> summary.md
+          echo "💡 **Tip**: 워크플로우 링크를 클릭하면 각 단계의 상세 로그를 확인할 수 있습니다." >> summary.md
+          echo "" >> summary.md
+          echo "📋 [전체 워크플로우 보기](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> summary.md
+
+      - name: Comment PR
+        uses: yumemi-inc/comment-pull-request@v1
+        if: always()
+        with:
+          comment-path: summary.md
+          previous-comment: edit
+
+      - name: Check if any step failed
+        if: steps.typecheck.outcome == 'failure' || steps.lint.outcome == 'failure' || steps.format.outcome == 'failure'
+        run: exit 1
