@@ -75,8 +75,6 @@ jobs:
             echo "| 🎨 **Format** | ❌ Fail | [🔗 View Format Step](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) Need to run \`pnpm format\` |" >> summary.md
           fi
           
-          echo "---" >> summary.md
-          echo "💡 **Tip**: Click on workflow links to see detailed logs for each step." >> summary.md
           echo "" >> summary.md
           echo "📋 [View Full Workflow](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> summary.md
 
