@@ -1,6 +1,6 @@
 "use client";
 
-import { cloneElement, isValidElement, useId, useState } from "react";
+import { useId } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 import * as styles from "./index.css";
 
@@ -19,44 +19,46 @@ type TooltipPosition =
   | "right-bottom";
 
 interface TooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, "content"> {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   content: ReactNode;
   placement?: TooltipPosition;
 }
 
 const Tooltip = ({
+  open = false,
+  onOpenChange,
   children,
   content,
   placement = "bottom-left",
 }: TooltipProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const tooltipId = useId();
 
-  const handleMouseEnter = () => setIsOpen(true);
-  const handleMouseLeave = () => setIsOpen(false);
-
-  if (!isValidElement<HTMLAttributes<HTMLElement>>(children)) {
-    return <>{children}</>;
-  }
-
-  const trigger = cloneElement(children, {
-    "aria-describedby": isOpen ? tooltipId : undefined,
-    // TODO(@j-nary): 규한선배한테 코리받고 aria 추가하기
-  });
+  const handleMouseEnter = () => {
+    onOpenChange?.(true);
+  };
+  const handleMouseLeave = () => {
+    onOpenChange?.(false);
+  };
 
   return (
     <div
-      className={styles.triggerStyle}
+      className={styles.tooltipWrapper}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {trigger}
-      {isOpen && (
-        <details className={styles.tooltipWrapper({ placement })}>
-          <summary className={styles.tooltipContentWrapper}>
-            <div className={styles.tooltipArrow({ placement })} />
-            {content}
-          </summary>
-        </details>
+      <button
+        className={styles.triggerWrapper}
+        aria-describedby={tooltipId}
+        role="tooltip"
+      >
+        {children}
+      </button>
+      {open && (
+        <div className={styles.tooltipContainer({ placement })}>
+          <div className={styles.tooltipArrow({ placement })} />
+          {content}
+        </div>
       )}
     </div>
   );

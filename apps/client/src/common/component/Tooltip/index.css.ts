@@ -7,16 +7,25 @@ export const container = style({
   display: "inline-block",
 });
 
-export const triggerStyle = style({
+export const tooltipWrapper = style({
   position: "relative",
   width: "fit-content",
   height: "fit-content",
 });
 
-export const tooltipWrapper = recipe({
+export const triggerWrapper = style({
+  width: "fit-content",
+  height: "fit-content",
+});
+
+export const tooltipContainer = recipe({
   base: {
     position: "absolute",
     zIndex: theme.zIndex.high,
+
+    padding: "20px 16px",
+    borderRadius: "10px",
+    backgroundColor: theme.color.mg5,
   },
   variants: {
     placement: {
@@ -82,12 +91,6 @@ export const tooltipWrapper = recipe({
       },
     },
   },
-});
-
-export const tooltipContentWrapper = style({
-  padding: "20px 16px",
-  borderRadius: "10px",
-  backgroundColor: theme.color.mg5,
 });
 
 export const tooltipArrow = recipe({
