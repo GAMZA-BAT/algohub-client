@@ -34,7 +34,7 @@ const Tooltip = ({
   placement = "bottom-left",
 }: TooltipProps) => {
   const tooltipId = useId();
-  const { onFocus } = useA11yHoverHandler();
+  const { onFocus, onBlur } = useA11yHoverHandler();
 
   const handleMouseEnter = () => {
     onOpenChange?.(true);
@@ -44,19 +44,19 @@ const Tooltip = ({
   };
 
   return (
-    <div
-      className={styles.tooltipWrapper}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <button
+    <div className={styles.tooltipWrapper}>
+      <div
         className={styles.triggerWrapper}
         aria-describedby={tooltipId}
+        aria-expanded={open}
         role="tooltip"
         onFocus={onFocus}
+        onBlur={onBlur}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {children}
-      </button>
+      </div>
       {open && (
         <div className={styles.tooltipContainer({ placement })}>
           <div className={styles.tooltipArrow({ placement })} />
