@@ -38,16 +38,22 @@ jobs:
         id: typecheck
         run: pnpm typecheck
         continue-on-error: true
+        env:
+          FORCE_COLOR: 3
 
       - name: 🔍 ESLint Check
         id: lint
         run: pnpm lint:check
         continue-on-error: true
+        env:
+          FORCE_COLOR: 3
 
       - name: 🎨 Format Check
         id: format
         run: pnpm format:check
         continue-on-error: true
+        env:
+          FORCE_COLOR: 3
 
       - name: Generate Results Summary
         if: always()
