@@ -1,0 +1,74 @@
+name: deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: 'Deployment environment (rc or production)'
+        required: true
+        type: string
+      port:
+        description: 'Port to expose'
+        required: true
+        type: string
+    secrets:
+      CREDENTIAL_NAME:
+        required: true
+      CREDENTIAL_PW:
+        required: true
+     
+
+env:
+  CREDENTIAL_NAME: ${{ secrets.CREDENTIAL_NAME }}
+  CREDENTIAL_PW: ${{ secrets.CREDENTIAL_PW }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04-arm
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Prepare Corepack
+        run: corepack prepare pnpm@10.0.0 --activate
+
+      - name: Resolve Dependencies
+        uses: ./.github/actions/pnpm-cache
+        with:
+          lock-file: "./pnpm-lock.yaml"
+          modules-path: "./node_modules"
+          pnpm-store-path: "./pnpm-store"
+          install-path: "."
+
+      - name: Setup environment variable from webdav
+        run: |
+          curl -u ${{ secrets.CREDENTIAL_NAME }}:${{ secrets.CREDENTIAL_PW }} -X GET https://webdav.hwangdo.kr/docker-registry/rc-deploy.txt -o docker.txt
+          echo "DOCKER_USERNAME=$(sed -n '1p' docker.txt)" >> $GITHUB_ENV
+          echo "DOCKER_PASSWORD=$(sed -n '2p' docker.txt)" >> $GITHUB_ENV
+
+      - name: CREDENTIAL_NAME, CREDENTIAL_PW, STAGE
+        run: |
+          echo "CREDENTIAL_NAME=${{ secrets.CREDENTIAL_NAME }}" >> $GITHUB_ENV 
+          echo "CREDENTIAL_PW=${{ secrets.CREDENTIAL_PW }}" >> $GITHUB_ENV 
+          echo "ALGOHUB_STAGE=${{ inputs.environment }}" >> $GITHUB_ENV 
+
+      - name: Log in to Docker registry
+        uses: docker/login-action@v2
+        with:
+          registry: docker.hwangdo.kr
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build docker image
+        run: |
+          docker buildx build \
+            --secret id=CREDENTIAL_NAME,env=CREDENTIAL_NAME \
+            --secret id=CREDENTIAL_PW,env=CREDENTIAL_PW \
+            --build-arg PORT_ARG=${{ inputs.port }} \
+            --build-arg ALGOHUB_STAGE=${{ inputs.environment }} \
+            -t docker.hwangdo.kr/algohub-client-${{ inputs.environment }}:latest \
+            --push .
+
