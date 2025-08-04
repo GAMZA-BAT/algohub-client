@@ -36,21 +36,27 @@ jobs:
 
       - name: 🔷 TypeScript Check
         id: typecheck
-        run: pnpm typecheck
+        run: |
+          set -o pipefail
+          pnpm typecheck | tee typecheck-result
         continue-on-error: true
         env:
           FORCE_COLOR: 3
 
       - name: 🔍 ESLint Check
         id: lint
-        run: pnpm lint:check
+        run: |
+          set -o pipefail
+          pnpm lint:check | tee lint-result
         continue-on-error: true
         env:
           FORCE_COLOR: 3
 
       - name: 🎨 Format Check
         id: format
-        run: pnpm format:check
+        run: |
+          set -o pipefail
+          pnpm format:check | tee format-result
         continue-on-error: true
         env:
           FORCE_COLOR: 3
