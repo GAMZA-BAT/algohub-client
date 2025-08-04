@@ -1,7 +1,7 @@
 "use client";
 
-import { useId } from "react";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import { useId } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 import * as styles from "./index.css";
 
