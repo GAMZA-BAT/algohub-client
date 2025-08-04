@@ -1,12 +1,11 @@
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import type { Meta } from "@storybook/react";
 import type { ComponentProps } from "react";
-import Pagination from ".";
 import PromptModal from ".";
 
 const meta: Meta<typeof PromptModal> = {
-  title: "Shared/Pagination",
-  component: Pagination,
+  title: "Shared/PromptModal",
+  component: PromptModal,
   tags: ["autodocs"],
   argTypes: {
     isOpen: {

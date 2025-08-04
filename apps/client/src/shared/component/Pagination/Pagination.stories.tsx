@@ -1,6 +1,6 @@
 import type { Meta } from "@storybook/react";
 import { type ComponentProps, useState } from "react";
-import Pagination from ".";
+import Pagination from "./index";
 
 const meta: Meta<typeof Pagination> = {
   title: "Shared/Pagination",
