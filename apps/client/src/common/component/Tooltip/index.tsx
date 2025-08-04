@@ -47,6 +47,8 @@ const Tooltip = ({
     <div className={styles.tooltipWrapper}>
       <div
         className={styles.triggerWrapper}
+        tabIndex={0}
+        aria-describedby={`${tooltipId}-tooltip`}
         onFocus={onFocus}
         onBlur={onBlur}
         onMouseEnter={handleMouseEnter}
@@ -58,8 +60,7 @@ const Tooltip = ({
         <div
           className={styles.tooltipContainer({ placement })}
           role="tooltip"
-          tabIndex={0}
-          aria-describedby={`${tooltipId}-tooltip`}
+          id={`${tooltipId}-tooltip`}
         >
           <div className={styles.tooltipArrow({ placement })} />
           {content}
