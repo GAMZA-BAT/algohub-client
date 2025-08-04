@@ -3,6 +3,7 @@
 import { useId } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 import * as styles from "./index.css";
+import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 
 type TooltipPosition =
   | "top-center"
@@ -33,6 +34,7 @@ const Tooltip = ({
   placement = "bottom-left",
 }: TooltipProps) => {
   const tooltipId = useId();
+  const { onFocus } = useA11yHoverHandler();
 
   const handleMouseEnter = () => {
     onOpenChange?.(true);
@@ -51,6 +53,7 @@ const Tooltip = ({
         className={styles.triggerWrapper}
         aria-describedby={tooltipId}
         role="tooltip"
+        onFocus={onFocus}
       >
         {children}
       </button>
