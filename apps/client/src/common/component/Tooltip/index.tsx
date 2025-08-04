@@ -47,8 +47,7 @@ const Tooltip = ({
     <div className={styles.tooltipWrapper}>
       <div
         className={styles.triggerWrapper}
-        aria-describedby={tooltipId}
-        aria-expanded={open}
+        aria-describedby={`${tooltipId}-tooltip`}
         role="tooltip"
         onFocus={onFocus}
         onBlur={onBlur}
