@@ -20,14 +20,14 @@ type TooltipPosition =
   | "right-bottom";
 
 interface TooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, "content"> {
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   content: ReactNode;
   placement?: TooltipPosition;
 }
 
 const Tooltip = ({
-  open = false,
+  open,
   onOpenChange,
   children,
   content,
@@ -37,18 +37,16 @@ const Tooltip = ({
   const { onFocus, onBlur } = useA11yHoverHandler();
 
   const handleMouseEnter = () => {
-    onOpenChange?.(true);
+    onOpenChange(true);
   };
   const handleMouseLeave = () => {
-    onOpenChange?.(false);
+    onOpenChange(false);
   };
 
   return (
     <div className={styles.tooltipWrapper}>
       <div
         className={styles.triggerWrapper}
-        aria-describedby={`${tooltipId}-tooltip`}
-        role="tooltip"
         onFocus={onFocus}
         onBlur={onBlur}
         onMouseEnter={handleMouseEnter}
@@ -57,7 +55,12 @@ const Tooltip = ({
         {children}
       </div>
       {open && (
-        <div className={styles.tooltipContainer({ placement })}>
+        <div
+          className={styles.tooltipContainer({ placement })}
+          role="tooltip"
+          tabIndex={0}
+          aria-describedby={`${tooltipId}-tooltip`}
+        >
           <div className={styles.tooltipArrow({ placement })} />
           {content}
         </div>
