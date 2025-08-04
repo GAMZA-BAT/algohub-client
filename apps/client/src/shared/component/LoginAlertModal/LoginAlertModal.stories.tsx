@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import LoginAlertModal from ".";
+import LoginAlertModal from "./index";
 
 const meta: Meta<typeof LoginAlertModal> = {
   title: "Shared/LoginAlertModal",
