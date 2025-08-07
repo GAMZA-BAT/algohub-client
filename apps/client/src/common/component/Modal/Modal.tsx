@@ -1,15 +1,16 @@
 "use client";
 
 import { IcnBtnDelete, IcnBtnDeleteCircle } from "@/asset/svg";
+
+import { useOutsideClick } from "@/common/hook/useOutsideClick";
+import { type ComponentPropsWithoutRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   backgroundStyle,
   dialogContentStyle,
   dialogStyle,
   exitStyle,
-} from "@/common/component/Modal/index.css";
-import { useOutsideClick } from "@/common/hook/useOutsideClick";
-import { type ComponentPropsWithoutRef, useEffect } from "react";
-import { createPortal } from "react-dom";
+} from "./index.css";
 
 interface ModalProps extends ComponentPropsWithoutRef<"dialog"> {
   isOpen: boolean;
