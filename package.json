@@ -6,11 +6,13 @@
 		"build": "turbo run build",
 		"test": "turbo run test",
 		"lint": "turbo run lint",
+		"lint:check": "turbo run lint:check",
+		"format": "turbo run format",
+		"format:check": "turbo run format:check",
 		"dev": "turbo run dev",
 		"typecheck": "turbo run typecheck",
-		"check": "turbo run check",
 		"client": "turbo run --filter=algohub-client",
-    "pr": "gh pr create --web"
+    	"pr": "gh pr create --web"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",

@@ -7,9 +7,16 @@
         "outputs": [".next/**", "!.next/cache/**"]
       },
       "lint": {
-        "dependsOn": ["^build"],
-        "inputs": ["$TURBO_DEFAULT$", ".env", ".env.local"],
-        "outputs": [".next/**", "!.next/cache/**"]
+        "dependsOn": ["^typecheck"]
+      },
+      "lint:check": {
+        "dependsOn": ["^typecheck"]
+      },
+      "format": {
+        "dependsOn": ["^typecheck"]
+      },
+      "format:check": {
+        "dependsOn": ["^typecheck"]
       },
       "dev": {
         "persistent": true,
@@ -17,9 +24,6 @@
       },
       "typecheck": {
         "dependsOn": ["^typecheck"]
-      },
-      "check": {
-        "dependsOn": ["^check"]
       }
     }
   }
