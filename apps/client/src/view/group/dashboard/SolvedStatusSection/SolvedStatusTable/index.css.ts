@@ -38,6 +38,7 @@ export const tdStyle = recipe({
 
         background: theme.color.mg6,
         borderRadius: "5px",
+        padding: "0.65rem 0.95rem",
       },
       unsolvedProblem: {
         ...theme.font.Caption3_M_12,

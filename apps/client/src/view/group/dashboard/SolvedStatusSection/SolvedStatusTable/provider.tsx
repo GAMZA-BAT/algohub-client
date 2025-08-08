@@ -2,6 +2,7 @@
 
 import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
 import type { TableDataType } from "@/shared/type/table";
+import { tdStyle } from "@/view/group/dashboard/SolvedStatusSection/SolvedStatusTable/index.css";
 import { type ReactNode, createContext, useContext } from "react";
 
 type SolvedStatusTableContextValue = {
@@ -37,8 +38,18 @@ export const SolvedStatusTableProvider = ({
     value[0].problems.map((_, index) => ({
       key: `problem${index + 1}`,
       Header: () => `문제${index + 1}`,
-      Cell: (data) =>
-        `${data.problems[index].submissionCount}/${data.problems[index].firstCorrectDuration}`,
+      Cell: (data) => (
+        <>
+          {data.problems[index].submissionCount === 0 ? (
+            <p className={tdStyle({ column: "unsolvedProblem" })}>0/--</p>
+          ) : (
+            <p className={tdStyle({ column: "solvedProblem" })}>
+              {data.problems[index].submissionCount}/
+              {data.problems[index].firstCorrectDuration}
+            </p>
+          )}
+        </>
+      ),
       width: 84,
     }));
 

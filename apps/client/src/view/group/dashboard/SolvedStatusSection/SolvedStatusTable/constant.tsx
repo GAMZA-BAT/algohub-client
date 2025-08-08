@@ -24,7 +24,9 @@ const SOLVED_STATUS_BASE_COLUMNS: TableDataType<SolutionsCurrentStatusResponse>[
     {
       key: "id",
       Header: () => "아이디",
-      Cell: (data) => <p className={tdStyle({ column: "nickname" })}>{data.nickname}</p>,
+      Cell: (data) => (
+        <p className={tdStyle({ column: "nickname" })}>{data.nickname}</p>
+      ),
       width: 150,
     },
   ];
