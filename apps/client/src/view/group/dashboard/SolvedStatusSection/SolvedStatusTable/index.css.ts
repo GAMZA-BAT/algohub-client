@@ -2,10 +2,15 @@ import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-export const wrapperStyle = style({
+export const tableWrapper = style({
+  display: "flex",
   width: "100%",
+});
+
+export const wrapperStyle = style({
   overflowX: "scroll",
-  display: 'block'
+  display: "block",
+  width: "fit-content",
 });
 
 export const tableStyle = style({
@@ -22,7 +27,9 @@ export const tdStyle = recipe({
   variants: {
     column: {
       rank: {},
-      nickname: {},
+      nickname: {
+        color: theme.color.mg2,
+      },
       totalScore: {
         color: theme.color.yellow,
       },

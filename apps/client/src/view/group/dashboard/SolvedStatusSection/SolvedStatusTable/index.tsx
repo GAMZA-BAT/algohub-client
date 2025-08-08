@@ -2,18 +2,27 @@
 
 import { DataTable } from "@/shared/component/Table";
 import { useSolvedStatusTable } from "./provider";
-import { tableStyle, wrapperStyle } from "./index.css";
+import { tableStyle, tableWrapper, wrapperStyle } from "./index.css";
+import SOLVED_STATUS_BASE_COLUMNS from "@/view/group/dashboard/SolvedStatusSection/SolvedStatusTable/constant";
 
 const SolvedStatusTable = () => {
   const { col, row } = useSolvedStatusTable();
 
   return (
-    <DataTable
-      rows={row}
-      cols={col}
-      wrapperClassName={wrapperStyle}
-      tableClassName={tableStyle}
+    <div className={tableWrapper}>
+      <DataTable
+        rows={row}
+        cols={SOLVED_STATUS_BASE_COLUMNS}
+        wrapperClassName={wrapperStyle}
+        tableClassName={tableStyle}
       />
+      <DataTable
+        rows={row}
+        cols={col}
+        wrapperClassName={wrapperStyle}
+        tableClassName={tableStyle}
+      />
+    </div>
   );
 };
 

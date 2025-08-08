@@ -2,7 +2,6 @@
 
 import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
 import type { TableDataType } from "@/shared/type/table";
-import { tdStyle } from "@/view/group/dashboard/SolvedStatusSection/SolvedStatusTable/index.css";
 import { type ReactNode, createContext, useContext } from "react";
 
 type SolvedStatusTableContextValue = {
@@ -30,32 +29,6 @@ type SolvedStatusTableProviderProps = {
   value: SolutionsCurrentStatusResponse[];
 };
 
-const baseColumns: TableDataType<SolutionsCurrentStatusResponse>[] = [
-  {
-    key: "rank",
-    Header: () => "랭킹",
-    Cell: (data) => data.rank,
-    width: 56,
-  },
-  {
-    key: "total",
-    Header: () => "총점",
-    Cell: (data) => (
-      <p className={tdStyle({ column: "totalScore" })}>
-        {data.totalSubmissionCount === 0 ? "-" : data.totalSubmissionCount}/
-        {data.totalPassedTime}
-      </p>
-    ),
-    width: 84,
-  },
-  {
-    key: "id",
-    Header: () => "아이디",
-    Cell: (data) => data.nickname,
-    width: 150,
-  },
-];
-
 export const SolvedStatusTableProvider = ({
   children,
   value,
@@ -69,10 +42,10 @@ export const SolvedStatusTableProvider = ({
       width: 84,
     }));
 
-  const col = [...baseColumns, ...problemColumns];
-
   return (
-    <SolvedStatusTableContext.Provider value={{ col, row: value }}>
+    <SolvedStatusTableContext.Provider
+      value={{ col: problemColumns, row: value }}
+    >
       {children}
     </SolvedStatusTableContext.Provider>
   );
