@@ -30,10 +30,14 @@ export const usePostProblemMutation = (groupId: number) => {
           queryKey: ["queuedProblem", groupId],
         }),
       ]);
+      const start = new Date(variables.startDate);
+      const now = new Date();
+      const isPast =
+        start.getMonth() < now.getMonth() ||
+        (start.getMonth() === now.getMonth() &&
+          start.getDate() <= now.getDate());
       (
-        document.querySelector(
-          +variables.startDate < Date.now() ? "#tab-1" : "#tab-2",
-        ) as HTMLLIElement
+        document.querySelector(isPast ? "#tab-1" : "#tab-2") as HTMLLIElement
       )?.click();
 
       showToast("문제가 정상적으로 등록되었어요.", "success");
