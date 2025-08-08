@@ -1,5 +1,5 @@
 "use client";
-import { useNoticeByIdQuery } from "@/app/group/[groupId]/notice/query";
+import { useNoticeByIdQueryObject } from "@/app/api/notices/query";
 import Modal from "@/common/component/Modal";
 import NoticeDetail from "@/view/group/dashboard/NoticeModal/NoticeDetail";
 import {
@@ -7,6 +7,7 @@ import {
   noticeModalWrapper,
 } from "@/view/group/dashboard/NoticeModal/index.css";
 import { textStyle } from "@/view/group/dashboard/index.css";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const NoticeDetailPage = ({
@@ -15,7 +16,11 @@ const NoticeDetailPage = ({
   const router = useRouter();
   const handleClose = () => router.replace(`/group/${groupId}/notice`);
 
-  const { data: selectedNotice } = useNoticeByIdQuery(+noticeId);
+  const { data: selectedNotice } = useQuery(
+    useNoticeByIdQueryObject(+noticeId),
+  );
+
+  if (!selectedNotice) return null;
 
   return (
     <>

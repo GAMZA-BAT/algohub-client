@@ -1,8 +1,8 @@
 "use client";
 
-import { useEditCommentMutation } from "@/app/group/[groupId]/solved-detail/[id]/query";
+import { useEditCommentMutation } from "@/app/api/comments/mutation";
+import { usePatchNoticeCommentMutation } from "@/app/api/notices/mutation";
 import { NoticeCommentsContext } from "@/view/group/dashboard/NoticeModal/NoticeDetail/provider";
-import { useEditNoticeCommentMutation } from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
 import { CommentsContext } from "@/view/group/solved-detail/CommentSection/provider";
 import { type KeyboardEvent, useContext } from "react";
 import { flushSync } from "react-dom";
@@ -30,7 +30,7 @@ export const useEditForm = (commentId: number, defaultValue: string) => {
   });
 
   const { mutate: editMutate } = useEditCommentMutation(solutionId, commentId);
-  const { mutate: noticeEditMutate } = useEditNoticeCommentMutation(
+  const { mutate: noticeEditMutate } = usePatchNoticeCommentMutation(
     noticeId,
     commentId,
   );

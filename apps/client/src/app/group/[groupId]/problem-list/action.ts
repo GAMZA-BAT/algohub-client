@@ -1,6 +1,6 @@
 "use server";
 
-import { postProblem } from "@/app/api/problems";
+import { postProblem } from "@/app/api/groups";
 import type { ProblemRequest } from "@/app/api/problems/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { HTTPError } from "ky";

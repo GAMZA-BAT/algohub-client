@@ -1,5 +1,5 @@
 "use client";
-import { useSendEmailForResetPWMutation } from "@/app/reset-password/query";
+import { useSendEmailForResetPWMutation } from "@/app/api/auth/mutation";
 import { Form, FormController } from "@/shared/component/Form";
 import SubmitButton from "@/shared/component/SubmitButton";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";

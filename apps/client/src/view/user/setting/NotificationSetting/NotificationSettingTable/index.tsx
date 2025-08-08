@@ -1,12 +1,15 @@
 "use client";
-import { useNotificationSettingListQuery } from "@/app/[user]/setting/query";
+import { useNotificationSettingListQueryObject } from "@/app/api/notifications/query";
 import { DataTable } from "@/shared/component/Table";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { NOTIFICATION_SETTINGS_COLUMNS } from "./constant";
 import { tableStyle, tdStyle, theadStyle } from "./index.css";
 
 const NotificationSettingTable = () => {
-  const { data: notificationSettingsData } = useNotificationSettingListQuery();
+  const { data: notificationSettingsData } = useSuspenseQuery(
+    useNotificationSettingListQueryObject(),
+  );
 
   return (
     <DataTable

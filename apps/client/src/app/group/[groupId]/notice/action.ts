@@ -1,4 +1,5 @@
-import { deleteNotice, patchNotice, postNotice } from "@/app/api/notices";
+import { postGroupNotice } from "@/app/api/groups";
+import { deleteNotice, patchNotice } from "@/app/api/notices";
 import type { NoticeRequest } from "@/app/api/notices/type";
 
 export const noticeAction = async (
@@ -6,7 +7,7 @@ export const noticeAction = async (
   requestData: NoticeRequest,
 ) => {
   try {
-    const response = await postNotice(groupId, requestData);
+    const response = await postGroupNotice(groupId, requestData);
 
     return response;
   } catch {

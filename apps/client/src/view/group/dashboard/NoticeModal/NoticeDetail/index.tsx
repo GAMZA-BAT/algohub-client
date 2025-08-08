@@ -1,9 +1,12 @@
 "use client";
-import type { NoticeContent } from "@/app/api/notices/type";
 import {
+  useDeleteNoticeCommentMutation,
   useDeleteNoticeMutation,
+  useNoticeCommentMutation,
   usePatchNoticeMutation,
-} from "@/app/group/[groupId]/notice/query";
+} from "@/app/api/notices/mutation";
+import { useNoticeCommentListQueryObject } from "@/app/api/notices/query";
+import type { NoticeContent } from "@/app/api/notices/type";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -13,11 +16,7 @@ import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { NoticeCommentsProvider } from "@/view/group/dashboard/NoticeModal/NoticeDetail/provider";
-import {
-  useDeleteNoticeCommentMutation,
-  useNoticeCommentListQuery,
-  useNoticeCommentMutation,
-} from "@/view/group/dashboard/NoticeModal/NoticeDetail/query";
+import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { type FormEvent, useRef, useState } from "react";
@@ -49,7 +48,7 @@ const NoticeDetail = ({
   data: { author, title, createdAt, category, noticeId, content, isRead },
   goBack,
 }: NoticeDetailProps) => {
-  const { data } = useSession();
+  const { data: session } = useSession();
   const { isActive, ...handlers } = useA11yHoverHandler();
 
   const [isEdit, setIsEdit] = useState(false);
@@ -57,13 +56,16 @@ const NoticeDetail = ({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const commentListRef = useRef<HTMLUListElement>(null);
 
-  const { data: commentList } = useNoticeCommentListQuery(noticeId);
+  const groupId = +useGetGroupId();
+  const { data: commentList } = useQuery(
+    useNoticeCommentListQueryObject(noticeId),
+  );
   const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
   const { mutate: deleteCommentMutate } =
     useDeleteNoticeCommentMutation(noticeId);
-  const { mutate: patchMutate } = usePatchNoticeMutation(noticeId);
-  const { mutate: deleteMutate } = useDeleteNoticeMutation(
-    +useGetGroupId(),
+  const { mutate: patchMutate } = usePatchNoticeMutation(groupId, noticeId);
+  const { mutate: deleteNoticeMutate } = useDeleteNoticeMutation(
+    groupId,
     noticeId,
   );
 
@@ -98,8 +100,9 @@ const NoticeDetail = ({
   };
 
   const handleDeleteClick = () => {
-    deleteMutate();
-    goBack();
+    deleteNoticeMutate(undefined, {
+      onSuccess: goBack,
+    });
   };
 
   return (
@@ -107,7 +110,6 @@ const NoticeDetail = ({
       className={articleStyle}
       aria-labelledby={`notice-title-${noticeId}`}
     >
-      {/* 상세보기 헤더 */}
       <header className={headerStyle}>
         <div className={contentWrapper}>
           <Avatar size="small" alt="작성자 프로필 사진" />
@@ -131,7 +133,6 @@ const NoticeDetail = ({
       </header>
 
       <div className={contentWrapperStyle}>
-        {/* 상세보기 내용 */}
         <div className={textareaWrapper} {...handlers}>
           <Textarea
             ref={textareaRef}
@@ -160,7 +161,6 @@ const NoticeDetail = ({
         </div>
 
         <div className={sectionWrapper}>
-          {/* 댓글란 */}
           <ul ref={commentListRef} className={listStyle}>
             <NoticeCommentsProvider noticeId={noticeId}>
               {commentList?.map((item) => (
@@ -172,14 +172,13 @@ const NoticeDetail = ({
                     content={item.content}
                     writerNickname={item.writerNickname}
                     writerProfileImage={item.writerProfileImage}
-                    isMine={data?.user?.nickname === item.writerNickname}
+                    isMine={session?.user?.nickname === item.writerNickname}
                     onDelete={deleteCommentMutate}
                   />
                 </div>
               ))}
             </NoticeCommentsProvider>
           </ul>
-          {/* 댓글 입력란 */}
           <form onSubmit={handleSubmit} className={inputStyle}>
             <CommentInput
               name="comment"

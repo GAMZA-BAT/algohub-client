@@ -1,7 +1,9 @@
 "use client";
 import type { ProblemContent } from "@/app/api/problems/type";
-import { useSolutionListQuery } from "@/app/group/[groupId]/problem-list/[id]/query";
+import { useSolutionListQueryObject } from "@/app/api/solutions/query";
+import type { SolutionLanguage } from "@/app/api/solutions/type";
 import { IcnBtnArrowLeft } from "@/asset/svg";
+import { useDebounce } from "@/common/hook/useDebounce";
 import { handleA11yClick } from "@/common/util/dom";
 import SolvedFilterBar from "@/shared/component/SolvedFilterBar";
 import {
@@ -17,6 +19,7 @@ import {
   headerTextStyle,
   solvedListWrapper,
 } from "@/view/group/problem-list/SolvedList/index.css";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -36,15 +39,21 @@ const initOption = {
 const SolvedList = ({ problemId, groupId, problemInfo }: SolvedListProps) => {
   const [option, setOption] = useState<SolvedFilterType>(initOption);
   const [nicknameFilter, setNicknameFilter] = useState("");
+  const debouncedNicknameFilter = useDebounce(nicknameFilter, 200);
 
   const router = useRouter();
 
-  const { data } = useSolutionListQuery({
-    problemId,
-    groupId,
-    option,
-    nicknameFilter,
-  });
+  const { data } = useQuery(
+    useSolutionListQueryObject({
+      problemId,
+      language:
+        option.language === "모든 언어"
+          ? undefined
+          : (option.language as SolutionLanguage),
+      result: option.result === "모든 결과" ? undefined : option.result,
+      nickname: debouncedNicknameFilter,
+    }),
+  );
 
   const handleChangeIdFilter = (value: string) => {
     setNicknameFilter(value);

@@ -1,11 +1,12 @@
 "use client";
 
-import { useNoticesQuery } from "@/app/group/[groupId]/notice/query";
+import { useGroupNoticesQueryObject } from "@/app/api/groups/query";
 import { IcnNew, IcnNotifications } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import { formatDistanceDate } from "@/common/util/date";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { overlayStyle, textStyle } from "@/view/group/dashboard/index.css";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import {
   bannerWrapper,
@@ -17,10 +18,15 @@ import {
 const NoticeBanner = () => {
   const router = useRouter();
   const groupId = useGetGroupId();
-  const { content: noticeList } = useNoticesQuery({ groupId: +groupId });
+  const { data: noticeList } = useQuery({
+    ...useGroupNoticesQueryObject({ groupId: +groupId }),
+    select: (data) => data.content,
+  });
 
-  const recentNotice = noticeList?.length > 0 ? noticeList[0] : null;
-  console.info({ recentNotice });
+  if (!noticeList) return null;
+
+  const recentNotice = noticeList.length > 0 ? noticeList[0] : null;
+
   return (
     <section
       role="status"

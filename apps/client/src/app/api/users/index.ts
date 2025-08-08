@@ -21,6 +21,14 @@ export const getGroupsByUsers = async (userNickname: string) => {
   return response;
 };
 
+export const getUserGroupList = async () => {
+  const response = await kyJsonWithTokenInstance
+    .get<GroupListResponse>("api/users/me/groups")
+    .json();
+
+  return response;
+};
+
 export const getUsers = async (userNickname: string) => {
   const response = await kyJsonInstance
     .get<UserResponse>(`api/users/${userNickname}`)
