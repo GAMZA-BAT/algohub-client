@@ -19,12 +19,13 @@ const GroupDashboardLayout = async ({
   const memberData = getGroupMemberList(+groupId);
   const solutionsCurrentStatusData = getSolutionsCurrentStatus(+groupId);
 
-  const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] = await Promise.all([
-    groupInfoData,
-    rankingData,
-    memberData,
-    solutionsCurrentStatusData,
-  ]);
+  const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] =
+    await Promise.all([
+      groupInfoData,
+      rankingData,
+      memberData,
+      solutionsCurrentStatusData,
+    ]);
 
   return (
     <main className={sidebarWrapper}>
