@@ -1,9 +1,15 @@
 "use client";
 
 import { DataTable } from "@/shared/component/Table";
-import { useSolvedStatusTable } from "./provider";
-import { tableStyle, tableWrapper, wrapperStyle } from "./index.css";
 import SOLVED_STATUS_BASE_COLUMNS from "@/view/group/dashboard/SolvedStatusSection/SolvedStatusTable/constant";
+import {
+  table1Style,
+  table2Style,
+  tableWrapper,
+  wrapper1Style,
+  wrapper2Style,
+} from "./index.css";
+import { useSolvedStatusTable } from "./provider";
 
 const SolvedStatusTable = () => {
   const { col, row } = useSolvedStatusTable();
@@ -13,14 +19,14 @@ const SolvedStatusTable = () => {
       <DataTable
         rows={row}
         cols={SOLVED_STATUS_BASE_COLUMNS}
-        wrapperClassName={wrapperStyle}
-        tableClassName={tableStyle}
+        wrapperClassName={wrapper1Style}
+        tableClassName={table1Style}
       />
       <DataTable
         rows={row}
         cols={col}
-        wrapperClassName={wrapperStyle}
-        tableClassName={tableStyle}
+        wrapperClassName={wrapper2Style}
+        tableClassName={table2Style}
       />
     </div>
   );

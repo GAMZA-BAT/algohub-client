@@ -7,16 +7,27 @@ export const tableWrapper = style({
   width: "100%",
 });
 
-export const wrapperStyle = style({
-  overflowX: "scroll",
-  display: "block",
-  width: "fit-content",
+export const wrapper1Style = style({
+  width: "35%",
+  paddingBottom: "15px",
 });
 
-export const tableStyle = style({
+export const wrapper2Style = style({
+  width: "65%",
+});
+
+export const table1Style = style({
   width: "100%",
   height: "100%",
   borderCollapse: "collapse",
+});
+
+export const table2Style = style({
+  width: "100%",
+  height: "100%",
+  borderCollapse: "collapse",
+  display: "block",
+  overflowX: "scroll",
 });
 
 export const tdStyle = recipe({
