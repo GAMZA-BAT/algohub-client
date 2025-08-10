@@ -1,7 +1,7 @@
 "use client";
 
+import { usePatchGroupMutation } from "@/app/api/groups/mutation";
 import type { groupSchema } from "@/app/api/groups/schema";
-import { usePatchGroupMutation } from "@/app/group/[groupId]/setting/query";
 import SupportingText from "@/common/component/SupportingText";
 import { Form } from "@/shared/component/Form";
 import DateFormController from "@/shared/component/GroupInfoForm/DateFormController";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSolutionQuery } from "@/app/group/[groupId]/solved-detail/[id]/query";
+import { useSolutionQueryObject } from "@/app/api/solutions/query";
 import Modal from "@/common/component/Modal";
 import CodeSection from "@/view/group/solved-detail/CodeSection";
 import CommentSection from "@/view/group/solved-detail/CommentSection";
@@ -9,12 +9,15 @@ import {
   modalContainer,
   modalWrapper,
 } from "@/view/group/solved-detail/index.css";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
-  const { data: solutionInfo } = useSolutionQuery(+params.id);
+  const { data: solutionInfo } = useQuery(useSolutionQueryObject(+params.id));
+
+  if (!solutionInfo) return null;
 
   return (
     <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>

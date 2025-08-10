@@ -3,14 +3,15 @@
 import {
   useDeleteProblemMutation,
   usePatchProblemMutation,
-  useProblemInfoQuery,
-} from "@/app/group/[groupId]/problem-list/query";
+} from "@/app/api/problems/mutation";
+import { useProblemInfoQueryObject } from "@/app/api/problems/query";
 import { IcnEdit } from "@/asset/svg";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import { editIconStyle } from "@/shared/component/ProblemList/index.css";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import PatchForm from "@/view/group/problem-list/RegisterForm/PatchForm";
+import { useQuery } from "@tanstack/react-query";
 
 type ProblemEditProps = {
   problemId: number;
@@ -21,7 +22,7 @@ const ProblemEdit = ({ problemId, isActive }: ProblemEditProps) => {
   const { open, isOpen, close } = useBooleanState();
   const groupId = useGetGroupId();
   const { mutate: deleteMutate } = useDeleteProblemMutation(+groupId);
-  const { data: problemInfo } = useProblemInfoQuery(problemId);
+  const { data: problemInfo } = useQuery(useProblemInfoQueryObject(problemId));
   const { mutate: patchMutate } = usePatchProblemMutation(+groupId, problemId);
 
   const handleDelete = () => {

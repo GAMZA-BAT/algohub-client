@@ -1,14 +1,14 @@
 "use client";
-import type { MemberResponse, MemberRoleRequest } from "@/app/api/groups/type";
 import {
   useDeleteMemberMutation,
   usePatchMemberRoleMutation,
-} from "@/app/group/[groupId]/setting/query";
+} from "@/app/api/groups/mutation";
+import type { MemberResponse, MemberRoleRequest } from "@/app/api/groups/type";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import PromptModal from "@/shared/component/PromptModal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import type { UseMutateFunction } from "@tanstack/react-query";
-import type { HTTPError } from "ky";
+import type { HTTPError, KyResponse } from "ky";
 import { createContext, useReducer, useState } from "react";
 
 type TableDataContextType =
@@ -17,11 +17,12 @@ type TableDataContextType =
       state: State;
     }
   | undefined;
+
 type TableDispatchContextType =
   | {
       dispatch: React.Dispatch<Actions>;
       patchMemberRoleMutation: UseMutateFunction<
-        void,
+        KyResponse<unknown>,
         HTTPError<unknown>,
         MemberRoleRequest,
         unknown
@@ -159,19 +160,16 @@ export const MemberListProvider = ({
 
   const processedData = data
     .filter((item) => {
-      // 필터가 적용되지 않은 경우 전체 데이터 반환
       if (!state.filterKey) return true;
-
-      // 필터 조건에 맞는 항목만 반환
       return item[state.filterKey] === state.filterValue;
     })
     .toSorted((a, b) => {
       for (const { key, order } of state.sortCriteria) {
         let compareResult = 0;
 
-        if (key === "achievement" && key === "achievement") {
+        if (key === "achievement") {
           compareResult = +a[key].replace("%", "") - +b[key].replace("%", "");
-        } else if (key === "joinDate" && key === "joinDate") {
+        } else if (key === "joinDate") {
           compareResult =
             new Date(a[key]).getTime() - new Date(b[key]).getTime();
         }

@@ -45,16 +45,16 @@ export const Sizes: Story = {
   render: (args) => (
     <ul>
       <li>
-        <Avatar size="large" {...args} />
+        <Avatar size="large" {...args} alt="large" />
       </li>
       <li>
-        <Avatar size="medium" {...args} />
+        <Avatar size="medium" {...args} alt="medium" />
       </li>
       <li>
-        <Avatar size="small" {...args} />
+        <Avatar size="small" {...args} alt="small" />
       </li>
       <li>
-        <Avatar size="mini" {...args} />
+        <Avatar size="mini" {...args} alt="mini" />
       </li>
     </ul>
   ),
