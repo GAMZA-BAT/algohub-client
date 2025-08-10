@@ -1,4 +1,11 @@
-import { IcnCalculator, IcnCode, IcnHome, IcnMy, IcnPlus, IcnSquare } from "@/asset/svg";
+import {
+  IcnCalculator,
+  IcnCode,
+  IcnHome,
+  IcnMy,
+  IcnPlus,
+  IcnSquare,
+} from "@/asset/svg";
 import { auth } from "@/auth";
 import { PVTracker } from "@/common/component/PVTracker";
 import NavBar from "@/shared/component/NavBar";

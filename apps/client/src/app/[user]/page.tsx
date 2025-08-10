@@ -60,9 +60,15 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
 
   return (
     <main className={sidebarWrapper}>
-      <Sidebar></Sidebar>
-      <div className={userHomeWrapper}></div>
-      <Sidebar></Sidebar>
+      <Sidebar>
+        <div>임시로 만드는 좌측 사이드바</div>
+      </Sidebar>
+      <div className={userHomeWrapper}>
+        <div>임시로 만드는 중앙 피드공간</div>
+      </div>
+      <Sidebar>
+        <div>임시로 만드는 우측 패널</div>
+      </Sidebar>
     </main>
   );
 };
