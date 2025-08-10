@@ -1,5 +1,9 @@
 import { groupQueryKey } from "@/app/api/groups/query";
-import { deleteNoticeComment, patchNoticeComment, postNoticeComment } from "@/app/api/notices";
+import {
+  deleteNoticeComment,
+  patchNoticeComment,
+  postNoticeComment,
+} from "@/app/api/notices";
 import { noticeQueryKey } from "@/app/api/notices/query";
 import type { NoticeRequest } from "@/app/api/notices/type";
 import {
@@ -26,7 +30,10 @@ export const useNoticeCommentMutation = (noticeId: number) => {
   });
 };
 
-export const usePatchNoticeCommentMutation = (noticeId: number, commentId: number) => {
+export const usePatchNoticeCommentMutation = (
+  noticeId: number,
+  commentId: number,
+) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 

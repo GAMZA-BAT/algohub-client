@@ -1,6 +1,6 @@
 "use client";
-import { joinGroupAction } from "@/app/join-group/[code]/action";
 import { useGroupByCodeQueryObject } from "@/app/api/groups/query";
+import { joinGroupAction } from "@/app/join-group/[code]/action";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
