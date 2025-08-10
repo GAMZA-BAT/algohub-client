@@ -11,13 +11,21 @@ import {
 } from "@/view/group/solved-detail/index.css";
 import { useRouter } from "next/navigation";
 
-const page = ({ params }: { params: { id: string } }) => {
+const page = ({ params }: { params: { id: string; groupId: string } }) => {
   const router = useRouter();
 
   const { data: solutionInfo } = useSolutionQuery(+params.id);
 
+  const handleCloseClick = () => {
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push(`/group/${params.groupId}/my-solved`);
+    }
+  };
+
   return (
-    <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
+    <Modal isOpen={true} onClose={handleCloseClick} hasCloseBtn>
       <div className={modalWrapper}>
         <header>
           <SolvedDetail info={solutionInfo} />
