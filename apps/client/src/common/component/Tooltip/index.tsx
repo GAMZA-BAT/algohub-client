@@ -3,7 +3,7 @@
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { useId } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
-import * as styles from "./index.css";
+import { tooltipWrapper, triggerWrapper, tooltipContainer, tooltipArrow } from "./index.css";
 
 type TooltipPosition =
   | "top-center"
@@ -44,10 +44,11 @@ const Tooltip = ({
   };
 
   return (
-    <div className={styles.tooltipWrapper}>
+    <div className={tooltipWrapper}>
       <div
-        className={styles.triggerWrapper}
+        className={triggerWrapper}
         tabIndex={0}
+        role="button"
         aria-describedby={`${tooltipId}-tooltip`}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -58,11 +59,11 @@ const Tooltip = ({
       </div>
       {open && (
         <div
-          className={styles.tooltipContainer({ placement })}
+          className={tooltipContainer({ placement })}
           role="tooltip"
           id={`${tooltipId}-tooltip`}
         >
-          <div className={styles.tooltipArrow({ placement })} />
+          <div className={tooltipArrow({ placement })} />
           {content}
         </div>
       )}
