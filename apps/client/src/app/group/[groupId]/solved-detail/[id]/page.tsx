@@ -13,7 +13,7 @@ import { usePvEvent } from "@/shared/hook/usePvEvent";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
-const page = ({ params }: { params: { id: string } }) => {
+const page = ({ params }: { params: { id: string; groupId: string } }) => {
   const router = useRouter();
   const routeParams = useParams();
   const groupId = Array.isArray(routeParams.groupId)
@@ -29,8 +29,16 @@ const page = ({ params }: { params: { id: string } }) => {
 
   if (!solutionInfo) return null;
 
+  const handleCloseClick = () => {
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push(`/group/${params.groupId}/my-solved`);
+    }
+  };
+
   return (
-    <Modal isOpen={true} onClose={() => router.back()} hasCloseBtn>
+    <Modal isOpen={true} onClose={handleCloseClick} hasCloseBtn>
       <div className={modalWrapper}>
         <header>
           <SolvedDetail info={solutionInfo} />
