@@ -1,4 +1,7 @@
-import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
+import {
+  getGroupInfo,
+  getGroupMemberList
+} from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
 import { getSolutionsCurrentStatus } from "@/app/api/solutions";
 import { listSectionStyle } from "@/app/group/[groupId]/page.css";

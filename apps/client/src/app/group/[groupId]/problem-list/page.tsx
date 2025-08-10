@@ -1,7 +1,7 @@
 "use client";
 
-import { getExpiredProblems, getInProgressProblems } from "@/app/api/problems";
-import { useGroupRoleQuery } from "@/app/group/[groupId]/query";
+import { getExpiredProblems, getInProgressProblems } from "@/app/api/groups";
+import { useGroupRoleQueryObject } from "@/app/api/groups/query";
 import CheckBox from "@/common/component/CheckBox";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
@@ -21,13 +21,14 @@ import {
   titleStyle,
   unSolvedFilterTextStyle,
 } from "@/view/group/problem-list/index.css";
+import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useState } from "react";
 
 const ProblemListPage = ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
-  const { data: role } = useGroupRoleQuery(+groupId);
+  const { data: role } = useQuery(useGroupRoleQueryObject(+groupId));
   const isOwner = role !== "PARTICIPANT";
 
   const [isUnsolvedOnlyChecked, setIsUnsolvedOnlyChecked] = useState(false);

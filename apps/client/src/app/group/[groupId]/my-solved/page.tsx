@@ -1,10 +1,9 @@
 "use client";
 
-import {} from "@/app/[user]/my-solved/query";
 import {
   getExpiredMyGroupSolutions,
   getInProgressMyGroupSolutions,
-} from "@/app/api/solutions";
+} from "@/app/api/groups";
 import Sidebar from "@/common/component/Sidebar";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { sidebarWrapper, solvedSectionStyle } from "@/styles/shared.css";
