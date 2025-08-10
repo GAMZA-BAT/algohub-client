@@ -75,6 +75,7 @@ export const LanguageWithDivTrigger: Story = {
         <div
           className={clsx(storyDivStyle, className)}
           role="button"
+          tabIndex={0}
           {...props}
         >
           <span>모든 언어</span>{" "}

@@ -38,11 +38,11 @@
         "noReactSpecificProps": "off",
         "noArrayIndexKey": "off",
         "noEmptyBlockStatements": "off",
-        "noConsoleLog": "warn",
+        "noConsoleLog": "off",
         "useAwait": "off",
         "noCommentText": "error",
         "noDuplicateJsxProps": "error",
-        "noConsole": "warn"
+        "noConsole": "off"
       },
       "correctness": {
         "useExhaustiveDependencies": "off",

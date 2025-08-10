@@ -18,7 +18,6 @@ const queueEvent = async () => {
   try {
     await generateEvent();
   } catch (e) {
-    /** biome-ignore lint/suspicious/noConsoleLog: logging result of generateEvent */
     console.log("이벤트 생성에 실패하였어요.");
     console.error(e);
     setLock(false);
