@@ -35,6 +35,7 @@ const SelectBox = ({
   const handleClick = () => setClicked((prev) => !prev);
   const handleClose = () => setClicked(false);
   const ref = useOutsideClick<HTMLButtonElement>(handleClose);
+
   return (
     <button
       className={clsx(selectStyle, className)}
@@ -51,30 +52,29 @@ const SelectBox = ({
         height={20}
         className={icnStyle({ clicked })}
       />
-      <ul
+      <div
         aria-label={`${label} 선택하기`}
-        // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: <explanation>
         role="listbox"
+        tabIndex={0}
         aria-expanded={clicked}
         className={optionWrapper({ isActive: clicked, align })}
       >
         {options.map((option, idx) => (
-          <li
-            // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: <explanation>
+          <div
+            tabIndex={0}
             role="option"
             aria-selected={value === option}
             className={optionStyle}
             onClick={() => onChange(option)}
             onKeyDown={handleA11yClick(() => onChange(option))}
             key={idx}
-            tabIndex={0}
           >
             <p className={textStyle({ isActive: option !== label })}>
               {option}
             </p>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </button>
   );
 };
