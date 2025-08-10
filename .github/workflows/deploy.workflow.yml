@@ -69,6 +69,8 @@ jobs:
             --secret id=CREDENTIAL_PW,env=CREDENTIAL_PW \
             --build-arg PORT_ARG=${{ inputs.port }} \
             --build-arg ALGOHUB_STAGE=${{ inputs.environment }} \
+            --cache-from=type=gha \
+            --cache-to=type=gha,mode=max \
             -t docker.hwangdo.kr/algohub-client-${{ inputs.environment }}:latest \
             --push .
 

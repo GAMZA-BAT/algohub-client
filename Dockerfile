@@ -27,19 +27,20 @@ RUN apk add --no-cache curl
 RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
 COPY --from=builder --chown=nextjs:nextjs /app/apps/client/.next/standalone ./
-COPY --from=builder --chown=nextjs:nextjs /app/apps/client/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nextjs /app/apps/client/public ./public
-
-RUN npm install --omit=dev
+COPY --from=builder --chown=nextjs:nextjs /app/apps/client/.next/static ./apps/client/.next/static
+COPY --from=builder --chown=nextjs:nextjs /app/apps/client/public ./apps/client/public
 
 COPY --chown=nextjs:nextjs entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
+
+RUN chown -R nextjs:nextjs /app
 
 USER nextjs
 
 ARG PORT_ARG=3001
 EXPOSE ${PORT_ARG}
 ENV PORT=${PORT_ARG}
+ENV HOSTNAME="0.0.0.0"
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["node", "server.js"]
+CMD ["node", "apps/client/server.js"]
