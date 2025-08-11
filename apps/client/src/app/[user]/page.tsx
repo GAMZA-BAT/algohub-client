@@ -27,7 +27,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
 
   let memberData: GroupListResponse;
   try {
-    memberData = await getGroupsByUsers(user)
+    memberData = await getGroupsByUsers(user);
   } catch (error) {
     if (error instanceof HTTPError) {
       return notFound();
