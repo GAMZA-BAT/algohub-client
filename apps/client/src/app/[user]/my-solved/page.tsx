@@ -4,6 +4,7 @@ import {
   getExpiredMySolutions,
   getInProgressMySolutions,
 } from "@/app/api/users";
+import { userQueryKey } from "@/app/api/users/query";
 import Sidebar from "@/common/component/Sidebar";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { sidebarWrapper, solvedSectionStyle } from "@/styles/shared.css";
@@ -16,7 +17,7 @@ const MySolvedPage = () => {
     totalPages: inProgressTotalPages,
     setCurrentPage: setInProgressPage,
   } = usePaginationQuery({
-    queryKey: ["inProgressMySolutions"],
+    queryKey: userQueryKey.inProgressSolutions({}),
     queryFn: (page: number) =>
       getInProgressMySolutions({
         page,
@@ -31,7 +32,7 @@ const MySolvedPage = () => {
     totalPages: expiredTotalPages,
     setCurrentPage: setExpiredPage,
   } = usePaginationQuery({
-    queryKey: ["expiredMySolutions"],
+    queryKey: userQueryKey.expiredSolutions({}),
     queryFn: (page: number) =>
       getExpiredMySolutions({
         page,

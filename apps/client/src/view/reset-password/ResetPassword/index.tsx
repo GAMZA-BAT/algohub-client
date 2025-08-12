@@ -1,5 +1,5 @@
 "use client";
-import { useResetPasswordMutation } from "@/app/reset-password/query";
+import { useResetPasswordMutation } from "@/app/api/auth/mutation";
 import { Form, FormController } from "@/shared/component/Form";
 import SubmitButton from "@/shared/component/SubmitButton";
 import { getMultipleRevalidationHandlers } from "@/shared/util/form";

@@ -1,5 +1,5 @@
 "use client";
-import { useVerifyEmailMutation } from "@/app/signup/query";
+import { useVerifyEmailMutation } from "@/app/api/auth/mutation";
 import { useTimer } from "@/common/hook/useTimer";
 import { Form, FormController } from "@/shared/component/Form";
 import FormFooter from "@/shared/component/FormFooter";

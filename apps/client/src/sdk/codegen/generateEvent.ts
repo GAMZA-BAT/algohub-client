@@ -82,13 +82,11 @@ export const generateEvent = async () => {
       "utf-8",
     );
   }
-  /** biome-ignore lint/suspicious/noConsoleLog: logging result of generateEvent */
   console.log(chalk.blue("이벤트 생성을 완료하였어요."));
 };
 
 export const makeDocs = (name: string, docs: EventDoc[]) => {
-  const result = [];
-  result.push("/** biome-ignore: */");
+  const result: string[] = [];
   result.push(`export type ${capitalize(name)}Event = `);
 
   const makeEventRegex = () => {

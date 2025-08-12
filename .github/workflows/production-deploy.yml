@@ -1,0 +1,16 @@
+name: production-deploy
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  production-deploy:
+    uses: ./.github/workflows/deploy.workflow.yml
+    secrets:
+      CREDENTIAL_NAME: ${{ secrets.CREDENTIAL_NAME }}
+      CREDENTIAL_PW: ${{ secrets.CREDENTIAL_PW }}
+    with:
+      environment: production
+      port: 3002
