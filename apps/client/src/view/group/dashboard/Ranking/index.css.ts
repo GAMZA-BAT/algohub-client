@@ -58,7 +58,7 @@ export const infoTextStyle = recipe({
 });
 
 export const nicknameStyle = style({
-  color: theme.color.purple2,
+  color: theme.color.wg,
   ...theme.font.Title1_SB_16,
 });
 
