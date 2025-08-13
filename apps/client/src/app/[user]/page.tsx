@@ -1,5 +1,5 @@
 import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
-import { getGroupsByUsers, getUserGroupList } from "@/app/api/users";
+import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
@@ -9,7 +9,10 @@ import ListSection from "@/view/user/index/ListSection";
 import UserCard from "@/view/user/index/UserCard";
 import { userCardWrapper } from "@/view/user/index/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
-import { userDashboardWrapper } from "@/view/user/index/index.css";
+import {
+  userDashboardWrapper,
+  userHomeWrapper,
+} from "@/view/user/index/index.css";
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
 
@@ -20,12 +23,11 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   const { user } = params;
   const nickname = userInfo?.user?.nickname;
 
-  let data: GroupListResponse;
+  const isMe = nickname === user;
+
+  let memberData: GroupListResponse;
   try {
-    data =
-      nickname !== user
-        ? await getGroupsByUsers(user)
-        : await getUserGroupList();
+    memberData = await getGroupsByUsers(user);
   } catch (error) {
     if (error instanceof HTTPError) {
       return notFound();
@@ -33,24 +35,40 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
     throw error;
   }
 
+  if (!isMe) {
+    return (
+      <main className={sidebarWrapper}>
+        <Sidebar>
+          <div className={userCardWrapper}>
+            <UserCard userNickname={user} />
+          </div>
+        </Sidebar>
+        <div className={userDashboardWrapper}>
+          {GROUP_STATUS_MAPPING.map((list) => (
+            <ListSection
+              key={list.status}
+              status={list.status as GroupStatus}
+              groups={memberData[list.status as GroupStatus]}
+            />
+          ))}
+        </div>
+        <LoginAlertModalController />
+        <ExtensionAlertModalController domain="user" />
+      </main>
+    );
+  }
+
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <div className={userCardWrapper}>
-          <UserCard userNickname={user} />
-        </div>
+        <div>임시로 만드는 좌측 사이드바</div>
       </Sidebar>
-      <div className={userDashboardWrapper}>
-        {GROUP_STATUS_MAPPING.map((list) => (
-          <ListSection
-            key={list.status}
-            status={list.status as GroupStatus}
-            groups={data[list.status as GroupStatus]}
-          />
-        ))}
+      <div className={userHomeWrapper}>
+        <div>임시로 만드는 중앙 피드공간</div>
       </div>
-      <LoginAlertModalController />
-      <ExtensionAlertModalController domain="user" />
+      <Sidebar>
+        <div>임시로 만드는 우측 패널</div>
+      </Sidebar>
     </main>
   );
 };
