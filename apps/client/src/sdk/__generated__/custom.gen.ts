@@ -1,4 +1,3 @@
-/** biome-ignore: */
 export type CustomEvent = 
 {
         

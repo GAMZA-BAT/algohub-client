@@ -24,3 +24,7 @@ export const emptyWrapper = style({
   width: "100%",
   height: "19.2rem",
 });
+
+export const userHomeWrapper = style({
+  width: "60%",
+});

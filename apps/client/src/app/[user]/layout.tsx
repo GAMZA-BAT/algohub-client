@@ -1,4 +1,11 @@
-import { IcnCalculator, IcnMy, IcnPlus, IcnSquare } from "@/asset/svg";
+import {
+  IcnCalculator,
+  IcnCode,
+  IcnHome,
+  IcnMy,
+  IcnPlus,
+  IcnSquare,
+} from "@/asset/svg";
 import { auth } from "@/auth";
 import { PVTracker } from "@/common/component/PVTracker";
 import NavBar from "@/shared/component/NavBar";
@@ -24,15 +31,15 @@ export default async function UserLayout({
     <div>
       <PVTracker name="dashboard_page_view" params={{ user_id: user }} />
       <NavBar>
-        <NavBar.Item
-          icon={<IcnSquare width={24} height={24} />}
-          mode="fill"
-          href={`/${user}`}
-        >
-          대시보드
-        </NavBar.Item>
-        {isMe && (
+        {isMe ? (
           <>
+            <NavBar.Item
+              icon={<IcnHome width={24} height={24} />}
+              mode="stroke"
+              href={`/${user}`}
+            >
+              홈
+            </NavBar.Item>
             <NavBar.Item
               icon={<IcnPlus width={24} height={24} />}
               mode="stroke"
@@ -54,7 +61,22 @@ export default async function UserLayout({
             >
               마이페이지
             </NavBar.Item>
+            <NavBar.Item
+              icon={<IcnCode width={24} height={24} fill="#79829A" />}
+              mode="fill"
+              href={`/${user}/edge-case`}
+            >
+              반례게시판
+            </NavBar.Item>
           </>
+        ) : (
+          <NavBar.Item
+            icon={<IcnSquare width={24} height={24} />}
+            mode="fill"
+            href={`/${user}`}
+          >
+            대시보드
+          </NavBar.Item>
         )}
       </NavBar>
       {children}
