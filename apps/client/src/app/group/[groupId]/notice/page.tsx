@@ -1,6 +1,7 @@
 "use client";
 
 import Modal from "@/common/component/Modal";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
 import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
 import {
   noticeHeaderStyle,
@@ -12,6 +13,9 @@ import { useRouter } from "next/navigation";
 const NoticeListPage = ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
+  usePvEvent("group_notice_list_page_view", {
+    group_id: groupId,
+  });
   const router = useRouter();
   const handleClose = () => router.replace(`/group/${groupId}`);
 

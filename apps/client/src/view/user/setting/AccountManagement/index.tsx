@@ -1,3 +1,4 @@
+import { usePvEvent } from "@/shared/hook/usePvEvent";
 import AccountManagementForm from "@/view/user/setting/AccountManagement/AccountManagementForm";
 import { labelStyle } from "@/view/user/setting/AccountManagement/AccountManagementForm/index.css";
 import {
@@ -10,6 +11,10 @@ import { useSession } from "next-auth/react";
 const AccountManagement = () => {
   const session = useSession();
   const user = session.data?.user;
+
+  usePvEvent("user_setting_account_management_page_view", {
+    user_id: user?.id ?? "",
+  });
 
   return (
     <div className={containerStyle}>

@@ -6,6 +6,7 @@ import CheckBox from "@/common/component/CheckBox";
 import Sidebar from "@/common/component/Sidebar";
 import TabGroup from "@/common/component/Tab";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
 import {
   fullWidthStyle,
   sidebarWrapper,
@@ -28,6 +29,9 @@ import { useState } from "react";
 const ProblemListPage = ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
+  usePvEvent("group_problem_list_page_view", {
+    group_id: groupId,
+  });
   const { data: role } = useQuery(useGroupRoleQueryObject(+groupId));
   const isOwner = role !== "PARTICIPANT";
 
