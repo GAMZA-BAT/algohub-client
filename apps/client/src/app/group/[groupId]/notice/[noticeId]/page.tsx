@@ -1,15 +1,15 @@
 "use client";
 import { useNoticeByIdQueryObject } from "@/app/api/notices/query";
-import Modal from "@/common/component/Modal";
-import { usePvEvent } from "@/shared/hook/usePvEvent";
-import NoticeDetail from "@/view/group/dashboard/NoticeModal/NoticeDetail";
 import {
   noticeHeaderStyle,
   noticeModalWrapper,
-} from "@/view/group/dashboard/NoticeModal/index.css";
-import { textStyle } from "@/view/group/dashboard/index.css";
+} from "@/app/group/[groupId]/components/NoticeModal/index.css";
+import { textStyle } from "@/app/group/[groupId]/components/index.css";
+import Modal from "@/common/component/Modal";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import NoticeDetail from "../../components/NoticeModal/NoticeDetail";
 
 const NoticeDetailPage = ({
   params: { noticeId, groupId },

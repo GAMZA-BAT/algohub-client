@@ -1,8 +1,8 @@
+import { containerStyle, wrapper } from "@/app/login/components/index.css";
 import { checkPasswordTokenAction } from "@/app/reset-password/action";
+import ResetPassword from "@/app/reset-password/components/ResetPassword";
+import SendEmailForResetPW from "@/app/reset-password/components/SendEmailForResetPW";
 import AuthHeader from "@/shared/component/AuthHeader";
-import { containerStyle, wrapper } from "@/view/login/index.css";
-import ResetPassword from "@/view/reset-password/ResetPassword";
-import SendEmailForResetPW from "@/view/reset-password/SendEmailForResetPW";
 import { notFound } from "next/navigation";
 
 const ResetPasswordPage = async ({

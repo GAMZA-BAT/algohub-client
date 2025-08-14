@@ -2,13 +2,14 @@
 
 import Modal from "@/common/component/Modal";
 import { usePvEvent } from "@/shared/hook/usePvEvent";
-import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
+
+import { useRouter } from "next/navigation";
+import NoticeList from "../components/NoticeModal/NoticeList";
 import {
   noticeHeaderStyle,
   noticeModalWrapper,
-} from "@/view/group/dashboard/NoticeModal/index.css";
-import { textStyle } from "@/view/group/dashboard/index.css";
-import { useRouter } from "next/navigation";
+} from "../components/NoticeModal/index.css";
+import { textStyle } from "../components/index.css";
 
 const NoticeListPage = ({
   params: { groupId },

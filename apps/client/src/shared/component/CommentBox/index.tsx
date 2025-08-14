@@ -1,6 +1,7 @@
 "use client";
 
 import type { CommentContent } from "@/app/api/comments/type";
+import { textareaEditStyle } from "@/app/group/[groupId]/components/NoticeModal/NoticeDetail/index.css";
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -18,7 +19,6 @@ import {
   writerStyle,
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { textareaEditStyle } from "@/view/group/dashboard/NoticeModal/NoticeDetail/index.css";
 import clsx from "clsx";
 import { useState } from "react";
 

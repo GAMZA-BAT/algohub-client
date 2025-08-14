@@ -1,5 +1,5 @@
 import { validateNickname } from "@/app/api/users";
-import { baseSignupSchema } from "@/view/signup/AccountRegister/schema";
+import { baseSignupSchema } from "@/app/signup/components/AccountRegister/schema";
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";

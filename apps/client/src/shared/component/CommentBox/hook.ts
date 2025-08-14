@@ -2,8 +2,8 @@
 
 import { useEditCommentMutation } from "@/app/api/comments/mutation";
 import { usePatchNoticeCommentMutation } from "@/app/api/notices/mutation";
-import { NoticeCommentsContext } from "@/view/group/dashboard/NoticeModal/NoticeDetail/provider";
-import { CommentsContext } from "@/view/group/solved-detail/CommentSection/provider";
+import { NoticeCommentsContext } from "@/app/group/[groupId]/components/NoticeModal/NoticeDetail/provider";
+import { CommentsContext } from "@/app/group/[groupId]/solved-detail/components/CommentSection/provider";
 import { type KeyboardEvent, useContext } from "react";
 import { flushSync } from "react-dom";
 import { type SubmitHandler, useForm } from "react-hook-form";

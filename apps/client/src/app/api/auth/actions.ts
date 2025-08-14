@@ -1,7 +1,7 @@
 "use server";
 
+import type { loginSchema } from "@/app/login/components/LoginForm/schema";
 import { auth, signIn, signOut, update } from "@/auth";
-import type { loginSchema } from "@/view/login/LoginForm/schema";
 import { HTTPError } from "ky";
 import { AuthError, type Session } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";

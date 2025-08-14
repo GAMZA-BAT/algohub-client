@@ -1,9 +1,9 @@
 import { getProblemInfo } from "@/app/api/problems";
+import ProblemSidebar from "@/app/group/[groupId]/problem-list/components/ProblemSidebar";
+import SolvedList from "@/app/group/[groupId]/problem-list/components/SolvedList";
+import { contentWrapper } from "@/app/group/[groupId]/problem-list/components/index.css";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
-import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
-import SolvedList from "@/view/group/problem-list/SolvedList";
-import { contentWrapper } from "@/view/group/problem-list/index.css";
 
 const SolvedListPage = async ({
   params: { groupId, id },

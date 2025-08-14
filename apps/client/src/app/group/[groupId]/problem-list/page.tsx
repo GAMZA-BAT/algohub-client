@@ -12,19 +12,20 @@ import {
   sidebarWrapper,
   topBottomMarginStyle,
 } from "@/styles/shared.css";
-import PendingList from "@/view/group/problem-list/PendingList";
-import PendingListHeader from "@/view/group/problem-list/PendingListHeader";
-import ProblemSection from "@/view/group/problem-list/ProblemSection";
-import ProblemSidebar from "@/view/group/problem-list/ProblemSidebar";
+
+import { useQuery } from "@tanstack/react-query";
+import clsx from "clsx";
+import { useState } from "react";
+import PendingList from "./components/PendingList";
+import PendingListHeader from "./components/PendingListHeader";
+import ProblemSection from "./components/ProblemSection";
+import ProblemSidebar from "./components/ProblemSidebar";
 import {
   checkBoxStyle,
   pageStyle,
   titleStyle,
   unSolvedFilterTextStyle,
-} from "@/view/group/problem-list/index.css";
-import { useQuery } from "@tanstack/react-query";
-import clsx from "clsx";
-import { useState } from "react";
+} from "./components/index.css";
 
 const ProblemListPage = ({
   params: { groupId },
