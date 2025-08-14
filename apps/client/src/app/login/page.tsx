@@ -1,9 +1,13 @@
+import LoginForm from "@/app/login/components/LoginForm";
+import {
+  cardStyle,
+  containerStyle,
+  wrapper,
+} from "@/app/login/components/index.css";
 import { IcnLogo } from "@/asset/svg";
 import ToastProvider from "@/common/component/Toast";
 import AuthHeader from "@/shared/component/AuthHeader";
 import FormFooter from "@/shared/component/FormFooter";
-import LoginForm from "@/view/login/LoginForm";
-import { cardStyle, containerStyle, wrapper } from "@/view/login/index.css";
 
 const LoginPage = () => {
   return (

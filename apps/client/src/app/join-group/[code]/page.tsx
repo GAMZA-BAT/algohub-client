@@ -1,20 +1,20 @@
 "use client";
 import { useGroupByCodeQueryObject } from "@/app/api/groups/query";
 import { joinGroupAction } from "@/app/join-group/[code]/action";
-import Button from "@/common/component/Button";
-import Modal from "@/common/component/Modal";
-import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
-import { usePvEvent } from "@/shared/hook/usePvEvent";
-import { sidebarWrapper } from "@/styles/shared.css";
-import DecisionPrompt from "@/view/user/join-group/DecisionPrompt";
-import GroupInfoCard from "@/view/user/join-group/GroupInfoCard";
+import DecisionPrompt from "@/app/join-group/components/DecisionPrompt";
+import GroupInfoCard from "@/app/join-group/components/GroupInfoCard";
 import {
   btnWrapper,
   descErrorText,
   errorText,
   errorWrapper,
   wrapper,
-} from "@/view/user/join-group/index.css";
+} from "@/app/join-group/components/index.css";
+import Button from "@/common/component/Button";
+import Modal from "@/common/component/Modal";
+import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
+import { sidebarWrapper } from "@/styles/shared.css";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

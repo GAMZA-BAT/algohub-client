@@ -1,14 +1,14 @@
 "use client";
 
+import AccountManagement from "@/app/[user]/setting/components/AccountManagement";
+import GroupList from "@/app/[user]/setting/components/GroupList";
+import MyProfile from "@/app/[user]/setting/components/MyProfile";
+import NotificationSetting from "@/app/[user]/setting/components/NotificationSetting";
+import SettingStep from "@/app/[user]/setting/components/SettingStep";
+import type { SettingSteps } from "@/app/[user]/setting/components/type";
 import Sidebar from "@/common/component/Sidebar";
 import ToastProvider from "@/common/component/Toast";
 import { sidebarWrapper } from "@/styles/shared.css";
-import AccountManagement from "@/view/user/setting/AccountManagement";
-import GroupList from "@/view/user/setting/GroupList";
-import MyProfile from "@/view/user/setting/MyProfile";
-import NotificationSetting from "@/view/user/setting/NotificationSetting";
-import SettingStep from "@/view/user/setting/SettingStep";
-import type { SettingSteps } from "@/view/user/setting/type";
 import { useState } from "react";
 import { match } from "ts-pattern";
 

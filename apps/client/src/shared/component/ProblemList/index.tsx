@@ -1,5 +1,5 @@
+import ProblemListHeader from "@/app/group/[groupId]/components/ProblemListHeader";
 import ProblemListItem from "@/shared/component/ProblemList/Item";
-import ProblemListHeader from "@/view/group/dashboard/ProblemListHeader";
 import type { PropsWithChildren } from "react";
 
 type ProblemListProps = PropsWithChildren & {

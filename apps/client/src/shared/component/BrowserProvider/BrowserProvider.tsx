@@ -1,6 +1,6 @@
 "use client";
 
-import UnSupportedBrowser from "@/view/unsupported-browser";
+import UnSupportedBrowser from "@/app/unsupported-browser";
 import { type ReactNode, useLayoutEffect, useState } from "react";
 
 type BrowserProviderProps = { children: ReactNode };

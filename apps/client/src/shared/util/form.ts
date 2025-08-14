@@ -1,5 +1,5 @@
-import type { baseSignupSchema } from "@/view/signup/AccountRegister/schema";
-import { defaultSignupMsg } from "@/view/signup/AccountRegister/useSignupForm";
+import type { baseSignupSchema } from "@/app/signup/components/AccountRegister/schema";
+import { defaultSignupMsg } from "@/app/signup/components/AccountRegister/useSignupForm";
 import type { ChangeEvent } from "react";
 import type {
   ControllerRenderProps,
