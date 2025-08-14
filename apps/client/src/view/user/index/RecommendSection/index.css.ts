@@ -3,17 +3,17 @@ import { style } from "@vanilla-extract/css";
 
 export const recommendSectionWrapper = style({
   display: "flex",
+  flexDirection: "column",
   gap: "1.6rem",
 
-  margin: "2rem",
-  borderBottom: `1px solid ${theme.color.mg5}`,
+  borderBottom: `2px solid ${theme.color.mg5}`,
 });
 
 export const recommendHeaderWrapper = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-})
+});
 
 export const recommendStudyTitle = style({
   color: theme.color.lg2,
