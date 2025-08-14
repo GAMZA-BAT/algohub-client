@@ -4,6 +4,7 @@ import { joinGroupAction } from "@/app/join-group/[code]/action";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
 import { sidebarWrapper } from "@/styles/shared.css";
 import DecisionPrompt from "@/view/user/join-group/DecisionPrompt";
 import GroupInfoCard from "@/view/user/join-group/GroupInfoCard";
@@ -20,6 +21,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
+  usePvEvent("join_group_page_view", {
+    code: code,
+  });
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
   const { data: groupData } = useQuery(useGroupByCodeQueryObject(code));
   const userNickname = useSession().data?.user?.nickname;

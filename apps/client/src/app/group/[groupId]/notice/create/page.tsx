@@ -1,6 +1,7 @@
 "use client";
 import Modal from "@/common/component/Modal";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
 import NoticeCreate from "@/view/group/dashboard/NoticeModal/NoticeCreate";
 import {
   noticeHeaderStyle,
@@ -12,6 +13,10 @@ import { useRouter } from "next/navigation";
 const NoticeCreatePage = () => {
   const router = useRouter();
   const groupId = useGetGroupId();
+  
+  usePvEvent("group_notice_create_page_view", {
+    group_id: groupId?.toString() ?? "",
+  });
   const handleClose = () => router.replace(`/group/${groupId}/notice`);
 
   return (

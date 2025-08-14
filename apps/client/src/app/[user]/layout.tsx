@@ -7,7 +7,6 @@ import {
   IcnSquare,
 } from "@/asset/svg";
 import { auth } from "@/auth";
-import { PVTracker } from "@/common/component/PVTracker";
 import NavBar from "@/shared/component/NavBar";
 import type { Metadata } from "next";
 
@@ -29,7 +28,6 @@ export default async function UserLayout({
 
   return (
     <div>
-      <PVTracker name="dashboard_page_view" params={{ user_id: user }} />
       <NavBar>
         {isMe ? (
           <>
