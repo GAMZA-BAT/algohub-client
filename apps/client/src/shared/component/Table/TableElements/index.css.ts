@@ -71,6 +71,10 @@ export const tableRowStyle = style({
   },
 });
 
+export const tableRowHoveredStyle = style({
+  backgroundColor: theme.color.mg5,
+});
+
 export const tableCellStyle = recipe({
   base: {
     height: "4.6rem",
