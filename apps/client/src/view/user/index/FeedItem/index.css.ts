@@ -119,8 +119,8 @@ export const codeStyle = recipe({
 export const arrowStyle = recipe({
   variants: {
     direction: {
-      up: { transition: "transform 0.3s ease", transform: "rotate(0deg)" },
-      down: { transition: "transform 0.3s ease", transform: "rotate(180deg)" },
+      up: { transform: "rotate(0deg)" },
+      down: { transform: "rotate(180deg)" },
     },
   },
 });
@@ -177,5 +177,5 @@ export const leaveCommentWrapper = style({
   display: "flex",
   alignItems: "center",
 
-  padding: "0.8rem 1.2rem",
+  padding: "0.8rem 1.2rem 0.8rem 2rem",
 });

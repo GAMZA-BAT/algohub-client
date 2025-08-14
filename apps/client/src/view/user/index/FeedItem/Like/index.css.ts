@@ -1,10 +1,14 @@
 import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 
-export const heartStyle = style({
+export const heartWrapper = style({
   display: "flex",
   alignItems: "center",
   gap: "0.2rem",
+});
+
+export const heartStyle = style({
+  cursor: "pointer",
 });
 
 export const heartCountStyle = style({
