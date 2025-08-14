@@ -1,0 +1,181 @@
+import { theme } from "@/styles/themes.css";
+import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
+
+export const feedItemContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2.4rem",
+
+  padding: "2rem",
+});
+
+export const infoWrapper = style({
+  display: "flex",
+  gap: "1.2rem",
+
+  width: "100%",
+});
+
+export const infoTextWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.4rem",
+});
+
+export const descriptionStyle = style({
+  ...theme.font.Body1_M_14,
+  color: theme.color.mg2,
+});
+
+export const nameStyle = style({
+  ...theme.font.Body1_M_14,
+  color: theme.color.white,
+});
+
+export const studyNameStyle = style({
+  marginRight: "0.6rem",
+
+  ...theme.font.Caption1_R_12,
+  color: theme.color.purple,
+});
+
+export const agoMinuteStyle = style({
+  ...theme.font.Caption1_R_12,
+  color: theme.color.mg2,
+});
+
+export const solutionWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2.4rem",
+
+  padding: "2rem",
+});
+
+export const solutionHeader = style({
+  display: "flex",
+  justifyContent: "space-between",
+});
+
+export const titleWrapper = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "1.2rem",
+});
+
+export const titleStyle = style({
+  ...theme.font.Head2_B_18,
+  color: theme.color.white,
+});
+
+export const heartStyle = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.2rem",
+});
+
+export const heartCountStyle = style({
+  ...theme.font.Caption1_R_12,
+  color: theme.color.mg2,
+});
+
+export const inputTextStyle = style({
+  ...theme.font.Caption1_R_12,
+  color: theme.color.white,
+});
+
+export const codeCard = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+
+  width: "100%",
+  padding: "0.8rem 2rem",
+
+  backgroundColor: theme.color.black,
+  borderRadius: "10px",
+  border: `1px solid ${theme.color.mg5}`,
+});
+
+export const codeStyle = recipe({
+  base: {
+    width: "100%",
+
+    color: theme.color.yellow,
+    fontSize: "12px",
+    fontStyle: "normal",
+    fontWeight: 400,
+    lineHeight: "140%",
+    letterSpacing: "-0.3px",
+  },
+  variants: {
+    isExpand: {
+      false: { maxHeight: "10.2rem", overflow: "hidden" },
+    },
+  },
+});
+
+export const arrowStyle = recipe({
+  variants: {
+    direction: {
+      up: { transform: "rotate(0deg)" },
+      down: { transform: "rotate(180deg)" },
+    },
+  },
+});
+
+export const expandButtonStyle = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.4rem",
+
+  margin: "1.2rem",
+  padding: "0.2rem 0.6rem",
+
+  borderRadius: "4px",
+  backgroundColor: theme.color.mg5,
+
+  ...theme.font.Caption1_R_12,
+  color: theme.color.mg2,
+
+  cursor: "pointer",
+});
+
+export const commentListStyle = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2.4rem",
+});
+
+export const commentItemStyle = style({
+  display: "flex",
+  gap: "1.2rem",
+
+  paddingLeft: "2rem",
+});
+
+export const commentWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.6rem",
+});
+
+export const commentNameStyle = style({
+  ...theme.font.Body1_M_14,
+  color: theme.color.white,
+});
+
+export const commentStyle = style({
+  marginBottom: "0.25rem",
+
+  ...theme.font.Caption1_R_12,
+  color: theme.color.mg1,
+});
+
+export const leaveCommentWrapper = style({
+  display: "flex",
+  alignItems: "center",
+
+  padding: "0.8rem 1.2rem 0.8rem 2rem",
+});
