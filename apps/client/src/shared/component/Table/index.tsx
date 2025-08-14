@@ -4,9 +4,9 @@ import clsx from "clsx";
 import Body from "./TableElements/Body";
 import Header from "./TableElements/Header";
 import {
-  tableCaptionStyle,
-  tableStyle,
-  wrapperStyle,
+    tableCaptionStyle,
+    tableStyle,
+    wrapperStyle,
 } from "./TableElements/index.css";
 
 type DataTableProps<T> = {
@@ -25,6 +25,10 @@ type DataTableProps<T> = {
   /** tbody의 tr만 적용. thead의 tr은 적용되지 않음 */
   trClassName?: string;
   tdClassName?: string;
+  /** 행 호버 동기화 인덱스 */
+  hoveredRowIndex?: number | null;
+  /** 행 호버 변경 핸들러 */
+  onRowHoverChange?: (rowIndex: number | null) => void;
 };
 
 export const DataTable = <T,>({
@@ -38,6 +42,8 @@ export const DataTable = <T,>({
   thClassName,
   trClassName,
   tdClassName,
+  hoveredRowIndex,
+  onRowHoverChange,
 }: DataTableProps<T>) => {
   return (
     <div className={clsx(wrapperStyle, wrapperClassName)}>
@@ -57,6 +63,8 @@ export const DataTable = <T,>({
           cols={cols}
           trClassName={trClassName}
           tdClassName={tdClassName}
+          hoveredRowIndex={hoveredRowIndex}
+          onRowHoverChange={onRowHoverChange}
         />
       </table>
     </div>

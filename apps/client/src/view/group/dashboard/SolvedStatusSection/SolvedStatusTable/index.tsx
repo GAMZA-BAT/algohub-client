@@ -10,9 +10,11 @@ import {
   wrapper2Style,
 } from "./index.css";
 import { useSolvedStatusTable } from "./provider";
+import { useState } from "react";
 
 const SolvedStatusTable = () => {
   const { col, row } = useSolvedStatusTable();
+  const [hoveredRowIndex, setHoveredRowIndex] = useState<number | null>(null);
 
   return (
     <div className={tableWrapper}>
@@ -21,12 +23,16 @@ const SolvedStatusTable = () => {
         cols={SOLVED_STATUS_BASE_COLUMNS}
         wrapperClassName={wrapper1Style}
         tableClassName={table1Style}
+        hoveredRowIndex={hoveredRowIndex}
+        onRowHoverChange={setHoveredRowIndex}
       />
       <DataTable
         rows={row}
         cols={col}
         wrapperClassName={wrapper2Style}
         tableClassName={table2Style}
+        hoveredRowIndex={hoveredRowIndex}
+        onRowHoverChange={setHoveredRowIndex}
       />
     </div>
   );
