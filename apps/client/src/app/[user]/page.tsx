@@ -3,6 +3,7 @@ import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
+import UserHome from "@/view/user/index";
 import ExtensionAlertModalController from "@/view/user/index/ExtensionAlertModal";
 import LoginAlertModalController from "@/view/user/index/GroupCard/LoginAlertModalController";
 import ListSection from "@/view/user/index/ListSection";
@@ -64,7 +65,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
         <div>임시로 만드는 좌측 사이드바</div>
       </Sidebar>
       <div className={userHomeWrapper}>
-        <div>임시로 만드는 중앙 피드공간</div>
+        <UserHome />
       </div>
       <Sidebar>
         <div>임시로 만드는 우측 패널</div>
