@@ -14,7 +14,6 @@ const SolvedStatusSection = ({
   const hasInProgressProblems =
     solutionsCurrentStatusInfo[0].problems.length > 0;
 
-  console.info({ solutionsCurrentStatusInfo });
   return (
     <section>
       <h2 className={titleStyle}>진행 중인 풀이 현황</h2>

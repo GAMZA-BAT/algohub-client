@@ -30,6 +30,12 @@ export const table2Style = style({
   overflowX: "scroll",
 });
 
+export const problemTdWrapper = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+})
+
 export const tdStyle = recipe({
   base: {
     color: theme.color.mg2,
@@ -40,11 +46,18 @@ export const tdStyle = recipe({
       rank: {},
       nickname: {
         color: theme.color.mg2,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        maxWidth: '12.5rem',
       },
       totalScore: {
         color: theme.color.yellow,
       },
       solvedProblem: {
+        width: '6rem',
+        height: '3rem',
+
         color: theme.color.white,
 
         background: theme.color.mg6,
@@ -52,6 +65,10 @@ export const tdStyle = recipe({
         padding: "0.65rem 0.95rem",
       },
       unsolvedProblem: {
+        width: '6rem',
+        height: '3rem',
+        alignContent: 'center',
+
         ...theme.font.Caption3_M_12,
       },
     },

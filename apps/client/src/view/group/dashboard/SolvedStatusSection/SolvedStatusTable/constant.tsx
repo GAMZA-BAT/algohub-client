@@ -28,6 +28,7 @@ const SOLVED_STATUS_BASE_COLUMNS: TableDataType<SolutionsCurrentStatusResponse>[
         <p className={tdStyle({ column: "nickname" })}>{data.nickname}</p>
       ),
       width: 150,
+      align: "left",
     },
   ];
 
