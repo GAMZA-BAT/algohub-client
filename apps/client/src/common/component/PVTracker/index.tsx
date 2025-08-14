@@ -1,7 +1,5 @@
-"use client";
 import type { PvEvent } from "@/sdk/__generated__/pv.gen";
 import { mixpanelTracker } from "@/sdk/mixpanel";
-import { useEffect } from "react";
 
 type PVTrackerProps<TName, TParams> = {
   name: TName;
@@ -15,9 +13,7 @@ export const PVTracker = <
   name,
   params,
 }: PVTrackerProps<TName, TParams>) => {
-  useEffect(() => {
-    mixpanelTracker.tracePageView(name, params);
-  }, [name, params]);
+  mixpanelTracker.tracePageView(name, params);
 
   return null;
 };
