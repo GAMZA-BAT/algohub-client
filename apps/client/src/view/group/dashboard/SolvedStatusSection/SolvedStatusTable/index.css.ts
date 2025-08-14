@@ -30,6 +30,10 @@ export const table2Style = style({
   overflowX: "scroll",
 });
 
+export const theadStyle = style({
+  height: '4.1rem'
+})
+
 export const problemTdWrapper = style({
   display: "flex",
   alignItems: "center",

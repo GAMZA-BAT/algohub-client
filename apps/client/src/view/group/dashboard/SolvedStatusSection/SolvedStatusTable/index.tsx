@@ -6,6 +6,7 @@ import {
   table1Style,
   table2Style,
   tableWrapper,
+  theadStyle,
   wrapper1Style,
   wrapper2Style,
 } from "./index.css";
@@ -22,6 +23,7 @@ const SolvedStatusTable = () => {
         rows={row}
         cols={SOLVED_STATUS_BASE_COLUMNS}
         wrapperClassName={wrapper1Style}
+        theadClassName={theadStyle}
         tableClassName={table1Style}
         hoveredRowIndex={hoveredRowIndex}
         onRowHoverChange={setHoveredRowIndex}
@@ -30,6 +32,7 @@ const SolvedStatusTable = () => {
         rows={row}
         cols={col}
         wrapperClassName={wrapper2Style}
+        theadClassName={theadStyle}
         tableClassName={table2Style}
         hoveredRowIndex={hoveredRowIndex}
         onRowHoverChange={setHoveredRowIndex}
