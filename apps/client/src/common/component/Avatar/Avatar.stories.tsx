@@ -54,6 +54,9 @@ export const Sizes: Story = {
         <Avatar size="small" {...args} alt="small" />
       </li>
       <li>
+        <Avatar size="xSmall" {...args} alt="xSmall" />
+      </li>
+      <li>
         <Avatar size="mini" {...args} alt="mini" />
       </li>
     </ul>
