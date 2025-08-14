@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "deny": [
+      "Edit(**/node_modules/**)",
+      "Write(**/node_modules/**)",
+      "Read(**/build/**)",
+      "Edit(**/build/**)",
+      "Write(**/build/**)",
+      "Read(**/dist/**)",
+      "Edit(**/dist/**)",
+      "Write(**/dist/**)",
+      "Read(**/.turbo/**)",
+      "Edit(**/.turbo/**)",
+      "Write(**/.turbo/**)",
+      "Read(**/.next/**)",
+      "Edit(**/.next/**)",
+      "Write(**/.next/**)",
+      "Read(**/.cache/**)",
+      "Edit(**/.cache/**)",
+      "Write(**/.cache/**)",
+      "Read(**/.DS_Store)",
+      "Edit(**/.DS_Store)",
+      "Write(**/.DS_Store)",
+      "Read(**/out/**)",
+      "Edit(**/out/**)",
+      "Write(**/out/**)",
+      "Read(**/.vscode/**)",
+      "Edit(**/.vscode/**)",
+      "Write(**/.vscode/**)"
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "ENABLE_BACKGROUND_TASKS": "1"
+  }
+}
