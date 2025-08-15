@@ -1,18 +1,18 @@
+import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
 import {
   getDeadlineReachedProblems,
   getGroupInfo,
   getGroupMemberList,
 } from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
+import GroupSidebar from "@/app/group/[groupId]/components/GroupSidebar";
+import NoticeBanner from "@/app/group/[groupId]/components/NoticeBanner";
+import Ranking from "@/app/group/[groupId]/components/Ranking";
 import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";
 import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
-import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
-import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
-import Ranking from "@/view/group/dashboard/Ranking";
-import ExtensionAlertModalController from "@/view/user/index/ExtensionAlertModal";
 import { HydrationBoundary } from "@tanstack/react-query";
 
 const GroupDashboardPage = async ({

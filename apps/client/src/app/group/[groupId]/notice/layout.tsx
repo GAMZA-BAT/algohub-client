@@ -5,10 +5,10 @@ import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import ProblemList from "@/shared/component/ProblemList";
 import { sidebarWrapper } from "@/styles/shared.css";
-import GroupSidebar from "@/view/group/dashboard/GroupSidebar";
-import NoticeBanner from "@/view/group/dashboard/NoticeBanner";
-import Ranking from "@/view/group/dashboard/Ranking";
 import type { ReactNode } from "react";
+import GroupSidebar from "../components/GroupSidebar";
+import NoticeBanner from "../components/NoticeBanner";
+import Ranking from "../components/Ranking";
 
 const GroupDashboardLayout = async ({
   params: { groupId },

@@ -4,14 +4,19 @@ import {
   getExpiredMyGroupSolutions,
   getInProgressMyGroupSolutions,
 } from "@/app/api/groups";
+
 import Sidebar from "@/common/component/Sidebar";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
 import { sidebarWrapper, solvedSectionStyle } from "@/styles/shared.css";
-import MySolvedSection from "@/view/group/my-solved/Section";
+import MySolvedSection from "./components/Section";
 
 const MyGroupSolvedPage = ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
+  usePvEvent("group_my_solved_page_view", {
+    group_id: groupId,
+  });
   const {
     data: inProgressData,
     currentPage: inProgressPage,

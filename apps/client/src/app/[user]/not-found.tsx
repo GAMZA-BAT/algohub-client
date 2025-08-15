@@ -1,11 +1,11 @@
+import Footer from "@/app/components/Footer";
+import { notFoundPageStyle } from "@/app/index.css";
+import GuideSection from "@/app/not-found";
 import { notFoundPaddingStyle } from "@/styles/shared.css";
-import GuideSection from "@/view/not-found";
-import { pageStyle } from "@/view/not-found/index.css";
-import Footer from "@/view/onboarding/Footer";
 
 const NotFound = () => {
   return (
-    <main className={pageStyle}>
+    <main className={notFoundPageStyle}>
       <div className={notFoundPaddingStyle}>
         <GuideSection />
       </div>

@@ -5,12 +5,12 @@ import {
   usePatchProblemMutation,
 } from "@/app/api/problems/mutation";
 import { useProblemInfoQueryObject } from "@/app/api/problems/query";
+import PatchForm from "@/app/group/[groupId]/problem-list/components/RegisterForm/PatchForm";
 import { IcnEdit } from "@/asset/svg";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import { editIconStyle } from "@/shared/component/ProblemList/index.css";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
-import PatchForm from "@/view/group/problem-list/RegisterForm/PatchForm";
 import { useQuery } from "@tanstack/react-query";
 
 type ProblemEditProps = {
