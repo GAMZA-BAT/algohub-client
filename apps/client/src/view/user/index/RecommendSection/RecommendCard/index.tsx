@@ -2,7 +2,7 @@
 
 import Avatar from "@/common/component/Avatar";
 import { useId } from "react";
-import Tag from "./Tag";
+import RecommendTag from "./RecommendTag";
 import {
   cardStyle,
   descriptionWrapper,
@@ -29,7 +29,7 @@ const RecommendCard = () => {
       aria-describedby={`${descriptionId} ${badgeId}`}
     >
       <div className={descriptionWrapper}>
-        <Avatar className={iconStyle} alt="" role="presentation" />
+        <Avatar className={iconStyle} alt="알코칠 스터디의 프로필 사진" />
         <h3 id={nameId} className={studyNameStyle}>
           알코칠
         </h3>
@@ -39,9 +39,7 @@ const RecommendCard = () => {
         </p>
       </div>
 
-      <Tag id={badgeId} color="blue">
-        최근 가입률이 높은 스터디
-      </Tag>
+      <RecommendTag id={badgeId} variant="recentSignups" />
     </button>
   );
 };
