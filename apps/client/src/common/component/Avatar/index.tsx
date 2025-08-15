@@ -20,11 +20,11 @@ const Avatar = ({
   return (
     <div className={clsx(wrapperStyle, className)}>
       <Image
+        role="button"
         {...imageProps}
         src={src || defaultImg}
         width="100"
         height="100"
-        role="button"
         className={clsx(avatarStyle({ size, hasShadow }), className)}
         priority
       />

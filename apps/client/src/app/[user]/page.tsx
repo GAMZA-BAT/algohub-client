@@ -6,6 +6,7 @@ import { sidebarWrapper } from "@/styles/shared.css";
 import ExtensionAlertModalController from "@/view/user/index/ExtensionAlertModal";
 import LoginAlertModalController from "@/view/user/index/GroupCard/LoginAlertModalController";
 import ListSection from "@/view/user/index/ListSection";
+import RecommendStudySection from "@/view/user/index/RecommendSection";
 import UserCard from "@/view/user/index/UserCard";
 import { userCardWrapper } from "@/view/user/index/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
@@ -64,7 +65,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
         <div>임시로 만드는 좌측 사이드바</div>
       </Sidebar>
       <div className={userHomeWrapper}>
-        <div>임시로 만드는 중앙 피드공간</div>
+        <RecommendStudySection />
       </div>
       <Sidebar>
         <div>임시로 만드는 우측 패널</div>
