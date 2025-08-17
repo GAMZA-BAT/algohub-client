@@ -6,9 +6,14 @@ import {
 } from "./index.css";
 
 const RecommendStudySection = () => (
-  <section className={recommendSectionWrapper}>
+  <section
+    className={recommendSectionWrapper}
+    aria-labelledby="recommend-title"
+  >
     <div className={recommendHeaderWrapper}>
-      <h2 className={recommendStudyTitle}>추천 스터디</h2>
+      <h2 id="recommend-title" className={recommendStudyTitle}>
+        추천 스터디
+      </h2>
       <input />
     </div>
     <RecommendCard />

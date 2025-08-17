@@ -14,7 +14,7 @@ import {
 const RecommendCard = () => {
   const nameId = useId();
   const descriptionId = useId();
-  const badgeId = useId();
+  const tagId = useId();
 
   const handleClick = () => {
     /* 모달 열기 */
@@ -26,7 +26,7 @@ const RecommendCard = () => {
       className={cardStyle}
       onClick={handleClick}
       aria-labelledby={nameId}
-      aria-describedby={`${descriptionId} ${badgeId}`}
+      aria-describedby={`${descriptionId} ${tagId}`}
     >
       <div className={descriptionWrapper}>
         <Avatar className={iconStyle} alt="알코칠 스터디의 프로필 사진" />
@@ -39,7 +39,7 @@ const RecommendCard = () => {
         </p>
       </div>
 
-      <RecommendTag id={badgeId} variant="recentSignups" />
+      <RecommendTag id={tagId} variant="recentSignups" />
     </button>
   );
 };
