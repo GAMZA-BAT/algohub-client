@@ -1,6 +1,6 @@
 import { postSignin } from "@/app/api/auth";
 import { getMyInfo } from "@/app/api/users";
-import { loginSchema } from "@/view/login/LoginForm/schema";
+import { loginSchema } from "@/app/login/components/LoginForm/schema";
 import type { NextAuthConfig, User } from "next-auth";
 import credentials from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";

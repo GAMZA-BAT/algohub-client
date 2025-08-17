@@ -1,17 +1,22 @@
 "use client";
 
 import Modal from "@/common/component/Modal";
-import NoticeList from "@/view/group/dashboard/NoticeModal/NoticeList";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
+
+import { useRouter } from "next/navigation";
+import NoticeList from "../components/NoticeModal/NoticeList";
 import {
   noticeHeaderStyle,
   noticeModalWrapper,
-} from "@/view/group/dashboard/NoticeModal/index.css";
-import { textStyle } from "@/view/group/dashboard/index.css";
-import { useRouter } from "next/navigation";
+} from "../components/NoticeModal/index.css";
+import { textStyle } from "../components/index.css";
 
 const NoticeListPage = ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
+  usePvEvent("group_notice_list_page_view", {
+    group_id: groupId,
+  });
   const router = useRouter();
   const handleClose = () => router.replace(`/group/${groupId}`);
 
