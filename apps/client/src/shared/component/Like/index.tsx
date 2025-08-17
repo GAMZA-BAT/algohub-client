@@ -12,6 +12,7 @@ const Like = () => {
     <div className={heartWrapper}>
       <IcnFavoriteBorder
         role="button"
+        aria-label={`${"이진"}님의 댓글에 좋아요 추가`}
         width={20}
         height={20}
         className={heartStyle}
