@@ -58,3 +58,19 @@ export type MySolutionRequest = {
 export type MySolutionResponse = PaginationResponse & {
   content: SolutionContent[];
 };
+
+export type SolutionsCurrentStatus = {
+  problemId: number;
+  firstCorrectSolutionId?: number;
+  submissionCount: number;
+  firstCorrectDuration: string;
+  solved: boolean;
+};
+
+export type SolutionsCurrentStatusResponse = {
+  rank: number;
+  nickname: string;
+  totalSubmissionCount: number;
+  totalPassedTime: string;
+  problems: SolutionsCurrentStatus[];
+};

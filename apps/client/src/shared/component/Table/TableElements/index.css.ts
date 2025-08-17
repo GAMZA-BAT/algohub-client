@@ -91,6 +91,10 @@ export const tableCellStyle = recipe({
   },
 });
 
+export const tableRowHoveredStyle = style({
+  backgroundColor: theme.color.mg5,
+});
+
 export const tableCellTextStyle = style({
   ...theme.font.Caption3_M_12,
   color: theme.color.white,

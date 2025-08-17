@@ -1,16 +1,13 @@
 import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
-import {
-  getDeadlineReachedProblems,
-  getGroupInfo,
-  getGroupMemberList,
-} from "@/app/api/groups";
+import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
+import { getSolutionsCurrentStatus } from "@/app/api/solutions";
 import GroupSidebar from "@/app/group/[groupId]/components/GroupSidebar";
 import NoticeBanner from "@/app/group/[groupId]/components/NoticeBanner";
 import Ranking from "@/app/group/[groupId]/components/Ranking";
-import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
+import SolvedStatusSection from "@/app/group/[groupId]/components/SolvedStatusSection";
+import { listSectionStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
-import ProblemList from "@/shared/component/ProblemList";
 import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
 import { HydrationBoundary } from "@tanstack/react-query";
@@ -21,14 +18,14 @@ const GroupDashboardPage = async ({
   const groupInfoData = getGroupInfo(+groupId);
   const rankingData = getTopRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
-  const deadlineReachedData = getDeadlineReachedProblems(+groupId);
+  const solutionsCurrentStatusData = getSolutionsCurrentStatus(+groupId);
 
-  const [groupInfo, rankingInfo, memberInfo, deadlineReachedInfo] =
+  const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] =
     await Promise.all([
       groupInfoData,
       rankingData,
       memberData,
-      deadlineReachedData,
+      solutionsCurrentStatusData,
     ]);
 
   const firstPage = 1;
@@ -47,15 +44,12 @@ const GroupDashboardPage = async ({
         <HydrationBoundary state={dehydratedState}>
           <Ranking rankingData={rankingInfo} />
         </HydrationBoundary>
-        <h2 className={titleStyle}>풀어야 할 문제</h2>
-        <section>
-          <ProblemList.Header />
-          <ProblemList>
-            {deadlineReachedInfo.map((item) => (
-              <ProblemList.Item key={item.problemId} {...item} />
-            ))}
-          </ProblemList>
-        </section>
+        <SolvedStatusSection
+          solutionsCurrentStatusInfo={[
+            ...solutionsCurrentStatusInfo,
+            ...solutionsCurrentStatusInfo,
+          ]}
+        />
       </div>
       <ExtensionAlertModalController domain="group" />
     </main>

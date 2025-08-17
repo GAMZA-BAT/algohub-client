@@ -1,14 +1,14 @@
 import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
-import { getDeadlineReachedProblems } from "@/app/api/groups";
 import { getTopRanking } from "@/app/api/groups/ranking";
-import { listSectionStyle, titleStyle } from "@/app/group/[groupId]/page.css";
+import { listSectionStyle } from "@/app/group/[groupId]/page.css";
+import { getSolutionsCurrentStatus } from "@/app/api/solutions";
 import Sidebar from "@/common/component/Sidebar";
-import ProblemList from "@/shared/component/ProblemList";
 import { sidebarWrapper } from "@/styles/shared.css";
 import type { ReactNode } from "react";
 import GroupSidebar from "../components/GroupSidebar";
 import NoticeBanner from "../components/NoticeBanner";
 import Ranking from "../components/Ranking";
+import SolvedStatusSection from "@/app/group/[groupId]/components/SolvedStatusSection";
 
 const GroupDashboardLayout = async ({
   params: { groupId },
@@ -17,14 +17,14 @@ const GroupDashboardLayout = async ({
   const groupInfoData = getGroupInfo(+groupId);
   const rankingData = getTopRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
-  const deadlineReachedData = getDeadlineReachedProblems(+groupId);
+  const solutionsCurrentStatusData = getSolutionsCurrentStatus(+groupId);
 
-  const [groupInfo, rankingInfo, memberInfo, deadlineReachedInfo] =
+  const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] =
     await Promise.all([
       groupInfoData,
       rankingData,
       memberData,
-      deadlineReachedData,
+      solutionsCurrentStatusData,
     ]);
 
   return (
@@ -35,15 +35,9 @@ const GroupDashboardLayout = async ({
       <div className={listSectionStyle}>
         <NoticeBanner />
         <Ranking rankingData={rankingInfo} />
-        <h2 className={titleStyle}>풀어야 할 문제</h2>
-        <section>
-          <ProblemList.Header />
-          <ProblemList>
-            {deadlineReachedInfo.map((item) => (
-              <ProblemList.Item key={item.problemId} {...item} />
-            ))}
-          </ProblemList>
-        </section>
+        <SolvedStatusSection
+          solutionsCurrentStatusInfo={solutionsCurrentStatusInfo}
+        />
       </div>
       {children}
     </main>
