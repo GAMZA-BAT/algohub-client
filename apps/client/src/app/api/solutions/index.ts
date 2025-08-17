@@ -4,6 +4,7 @@ import type {
   SolutionRequest,
   SolutionResponse,
 } from "@/app/api/solutions/type";
+import { SolutionsCurrentStatusResponse } from "@/app/api/type";
 
 export const getSolutionList = async ({
   problemId,
@@ -27,6 +28,16 @@ export const getSolutionList = async ({
 export const getSolution = async (solutionId: number) => {
   const response = await kyJsonWithTokenInstance
     .get<SolutionContent>(`api/solutions/${solutionId}`)
+    .json();
+
+  return response;
+};
+
+export const getSolutionsCurrentStatus = async (groupId: number) => {
+  const response = await kyJsonWithTokenInstance
+    .get<SolutionsCurrentStatusResponse[]>(
+      `api/groups/${groupId}/solutions/current-status`,
+    )
     .json();
 
   return response;
