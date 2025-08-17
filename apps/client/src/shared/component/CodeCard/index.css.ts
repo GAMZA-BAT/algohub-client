@@ -76,8 +76,8 @@ export const codeStyle = recipe({
 export const arrowStyle = recipe({
   variants: {
     direction: {
-      up: { transform: "rotate(0deg)" },
-      down: { transform: "rotate(180deg)" },
+      up: { transform: "rotate(180deg)" },
+      down: { transform: "rotate(0deg)" },
     },
   },
 });
