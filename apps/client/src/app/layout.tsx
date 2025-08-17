@@ -1,3 +1,4 @@
+import ChannelTalk from "@/app/components/ChannelTalk";
 import Providers from "@/app/provider";
 import { auth } from "@/auth";
 import Header from "@/shared/component/Header";
@@ -28,6 +29,7 @@ export default async function RootLayout({
             <Header session={session} />
             {children}
           </Providers>
+          <ChannelTalk />
         </SessionProvider>
       </body>
     </html>
