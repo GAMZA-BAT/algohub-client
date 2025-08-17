@@ -1,7 +1,6 @@
 import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
 import LoginAlertModalController from "@/app/[user]/components/GroupCard/LoginAlertModalController";
 import ListSection from "@/app/[user]/components/ListSection";
-import SearchStudyInput from "@/app/[user]/components/SearchStudyInput";
 import UserCard from "@/app/[user]/components/UserCard";
 import { userCardWrapper } from "@/app/[user]/components/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/app/[user]/components/constant";
@@ -66,7 +65,6 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
       </Sidebar>
       <div className={userHomeWrapper}>
         <div>임시로 만드는 중앙 피드공간</div>
-        <SearchStudyInput />
       </div>
       <Sidebar>
         <div>임시로 만드는 우측 패널</div>
