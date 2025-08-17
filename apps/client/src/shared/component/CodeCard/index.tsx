@@ -16,7 +16,8 @@ import Like from "@/shared/component/Like";
 import { getTierImage } from "@/shared/util/img";
 import clsx from "clsx";
 import { M_PLUS_Rounded_1c } from "next/font/google";
-import { useState } from "react";
+
+import { useId, useState } from "react";
 
 const m_pluse_rounded_1c = M_PLUS_Rounded_1c({
   subsets: ["latin"],
@@ -25,6 +26,8 @@ const m_pluse_rounded_1c = M_PLUS_Rounded_1c({
 });
 
 const CodeCard = () => {
+  const codeId = useId();
+
   const Icon = getTierImage(5);
   const example =
     "1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.";
@@ -45,6 +48,7 @@ const CodeCard = () => {
 
       <div className={codeCard}>
         <p
+          id={codeId}
           className={clsx(
             codeStyle({ isExpanded }),
             m_pluse_rounded_1c.className,
@@ -55,10 +59,12 @@ const CodeCard = () => {
         <button
           onClick={() => setIsExpanded((prev) => !prev)}
           className={expandButtonStyle}
+          aria-expanded={isExpanded}
+          aria-controls={codeId}
         >
           <IcnBtnArrowDown
             width={12}
-            className={arrowStyle({ direction: isExpanded ? "down" : "up" })}
+            className={arrowStyle({ direction: isExpanded ? "up" : "down" })}
           />
           {isExpanded ? "다시 접기" : "펼쳐보기"} (20줄)
         </button>
