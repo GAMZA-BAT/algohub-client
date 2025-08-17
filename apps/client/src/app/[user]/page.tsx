@@ -1,6 +1,7 @@
 import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
 import LoginAlertModalController from "@/app/[user]/components/GroupCard/LoginAlertModalController";
 import ListSection from "@/app/[user]/components/ListSection";
+import RecommendStudySection from "@/app/[user]/components/RecommendSection";
 import UserCard from "@/app/[user]/components/UserCard";
 import { userCardWrapper } from "@/app/[user]/components/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/app/[user]/components/constant";
@@ -16,7 +17,6 @@ import { sidebarWrapper } from "@/styles/shared.css";
 
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
-import RecommendStudySection from "./components/RecommendSection";
 
 export const revalidate = 60;
 
