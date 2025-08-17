@@ -16,7 +16,6 @@ import Like from "@/shared/component/Like";
 import { getTierImage } from "@/shared/util/img";
 import clsx from "clsx";
 import { M_PLUS_Rounded_1c } from "next/font/google";
-
 import { useId, useState } from "react";
 
 const m_pluse_rounded_1c = M_PLUS_Rounded_1c({
