@@ -10,7 +10,12 @@ const Like = () => {
   // TODO: 좋아요 기능 구현
   return (
     <div className={heartWrapper}>
-      <IcnFavoriteBorder width={20} height={20} className={heartStyle} />
+      <IcnFavoriteBorder
+        role="button"
+        width={20}
+        height={20}
+        className={heartStyle}
+      />
       <span className={heartCountStyle}>16</span>
     </div>
   );
