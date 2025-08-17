@@ -29,11 +29,11 @@ const ChannelTalk = () => {
           mobileNumber: session.user.email ?? "",
           customField1: session.user.bjNickname ?? "",
         },
-        zIndex: Number(theme.zIndex.bottom),
+        zIndex: +theme.zIndex.bottom,
       });
     } else {
       // 게스트 모드
-      ChannelService.boot({ pluginKey, zIndex: Number(theme.zIndex.bottom) });
+      ChannelService.boot({ pluginKey, zIndex: +theme.zIndex.bottom });
     }
 
     bootedRef.current = true;
