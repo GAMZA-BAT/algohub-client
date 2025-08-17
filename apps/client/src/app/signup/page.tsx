@@ -1,7 +1,7 @@
+import { wrapper } from "@/app/login/components/index.css";
+import AccountRegister from "@/app/signup/components/AccountRegister";
+import EmailVerification from "@/app/signup/components/EmailVerification";
 import AuthHeader from "@/shared/component/AuthHeader";
-import { wrapper } from "@/view/login/index.css";
-import AccountRegister from "@/view/signup/AccountRegister";
-import EmailVerification from "@/view/signup/EmailVerification";
 import { getVerifyEmail } from "../api/auth";
 
 const SignupPage = async ({

@@ -1,21 +1,21 @@
+import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
+import LoginAlertModalController from "@/app/[user]/components/GroupCard/LoginAlertModalController";
+import ListSection from "@/app/[user]/components/ListSection";
+import UserCard from "@/app/[user]/components/UserCard";
+import { userCardWrapper } from "@/app/[user]/components/UserCard/index.css";
+import { GROUP_STATUS_MAPPING } from "@/app/[user]/components/constant";
+import {
+  userDashboardWrapper,
+  userHomeWrapper,
+} from "@/app/[user]/components/index.css";
 import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
 import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
-import ExtensionAlertModalController from "@/view/user/index/ExtensionAlertModal";
-import LoginAlertModalController from "@/view/user/index/GroupCard/LoginAlertModalController";
-import ListSection from "@/view/user/index/ListSection";
-import RecommendStudySection from "@/view/user/index/RecommendSection";
-import UserCard from "@/view/user/index/UserCard";
-import { userCardWrapper } from "@/view/user/index/UserCard/index.css";
-import { GROUP_STATUS_MAPPING } from "@/view/user/index/constant";
-import {
-  userDashboardWrapper,
-  userHomeWrapper,
-} from "@/view/user/index/index.css";
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
+import RecommendStudySection from "./components/RecommendSection";
 
 export const revalidate = 60;
 

@@ -1,7 +1,7 @@
-import MainWithFooter from "@/view/onboarding/Section";
-import Section1 from "@/view/onboarding/Section/Section1";
-import Section2 from "@/view/onboarding/Section/Section2";
-import Section3 from "@/view/onboarding/Section/Section3";
+import MainWithFooter from "./components/Section";
+import Section1 from "./components/Section/Section1";
+import Section2 from "./components/Section/Section2";
+import Section3 from "./components/Section/Section3";
 
 const OnboardingPage = () => {
   return (

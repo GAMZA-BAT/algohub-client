@@ -5,12 +5,20 @@ import {
   getInProgressMySolutions,
 } from "@/app/api/users";
 import { userQueryKey } from "@/app/api/users/query";
+import MySolvedSection from "@/app/group/[groupId]/my-solved/components/Section";
 import Sidebar from "@/common/component/Sidebar";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
+import { usePvEvent } from "@/shared/hook/usePvEvent";
 import { sidebarWrapper, solvedSectionStyle } from "@/styles/shared.css";
-import MySolvedSection from "@/view/group/my-solved/Section";
+import { useParams } from "next/navigation";
 
 const MySolvedPage = () => {
+  const params = useParams();
+  const userId = Array.isArray(params.user) ? params.user[0] : params.user;
+
+  usePvEvent("user_my_solved_page_view", {
+    user_id: userId ?? "",
+  });
   const {
     data: inProgressData,
     currentPage: inProgressPage,

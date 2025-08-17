@@ -1,15 +1,15 @@
 import { NotificationSettingsData } from "@/shared/constant/example";
 import { theme } from "@/styles/themes.css";
 
-import type { GroupSettingsContent } from "@/app/api/groups/type";
-import { STUDY_LIST_COLUMNS } from "@/view/user/setting/GroupList/GroupListTable/constant";
+import { STUDY_LIST_COLUMNS } from "@/app/[user]/setting/components/GroupList/GroupListTable/constant";
 import {
   tableCaptionStyle,
   tableStyle,
   theadStyle,
-} from "@/view/user/setting/GroupList/GroupListTable/index.css";
-import { NOTIFICATION_SETTINGS_COLUMNS } from "@/view/user/setting/NotificationSetting/NotificationSettingTable/constant";
-import { tdStyle } from "@/view/user/setting/NotificationSetting/NotificationSettingTable/index.css";
+} from "@/app/[user]/setting/components/GroupList/GroupListTable/index.css";
+import { NOTIFICATION_SETTINGS_COLUMNS } from "@/app/[user]/setting/components/NotificationSetting/NotificationSettingTable/constant";
+import { tdStyle } from "@/app/[user]/setting/components/NotificationSetting/NotificationSettingTable/index.css";
+import type { GroupSettingsContent } from "@/app/api/groups/type";
 import type { Meta } from "@storybook/react";
 import { DataTable } from ".";
 

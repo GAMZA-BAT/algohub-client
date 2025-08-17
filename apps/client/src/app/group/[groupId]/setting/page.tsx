@@ -1,8 +1,8 @@
 import { getGroupCode, getGroupInfo, getRoleByGroupId } from "@/app/api/groups";
+import MemberList from "@/app/group/[groupId]/setting/components/MemberList";
+import SettingSidebar from "@/app/group/[groupId]/setting/components/SettingSidebar";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
-import MemberList from "@/view/group/setting/MemberList";
-import SettingSidebar from "@/view/group/setting/SettingSidebar";
 import { notFound } from "next/navigation";
 
 const GroupSettingPage = async ({
