@@ -5,7 +5,7 @@ import {
 import { FormController } from "@/shared/component/Form";
 import SubmitButton from "@/shared/component/SubmitButton";
 import { useCheckOnServer } from "@/shared/hook/useCheckOnServer";
-import { getNicknameValidation, handleOnChangeMode } from "@/shared/util/form";
+import { getBaekjoonIdValidation, getNicknameValidation, handleOnChangeMode } from "@/shared/util/form";
 import { fullWidthStyle } from "@/styles/shared.css";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
@@ -17,12 +17,18 @@ type ProfileCreationProps = {
 
 const ProfileCreation = ({ form }: ProfileCreationProps) => {
   const nickname = form.watch("nickname");
+  const baekjoonId = form.watch("baekjoonId");
 
-  const { isNicknameLoading } = useCheckOnServer(form, nickname);
+  const { isNicknameLoading, isBaekjoonIdLoading } = useCheckOnServer(form, nickname, baekjoonId);
   const { isActive, nicknameMsg } = getNicknameValidation(
     form,
     isNicknameLoading,
   );
+  const { isActive: isBaekjoonIdActive, baekjoonIdMsg } = getBaekjoonIdValidation(
+    form,
+    isBaekjoonIdLoading,
+  );
+
   return (
     <>
       <div className={formContainer}>
@@ -47,8 +53,26 @@ const ProfileCreation = ({ form }: ProfileCreationProps) => {
             className: fullWidthStyle,
           }}
         />
+        <FormController
+          form={form}
+          name="baekjoonId"
+          type="input"
+          showDescription
+          revalidationHandlers={handleOnChangeMode}
+          fieldProps={{
+            placeholder: "백준 아이디",
+            size: "large",
+          }}
+          descriptionProps={{
+            showErrorIcon: false,
+            message: baekjoonIdMsg,
+          }}
+          wrapperProps={{
+            className: fullWidthStyle,
+          }}
+        />
       </div>
-      <SubmitButton size="large" isActive={isActive}>
+      <SubmitButton size="large" isActive={isActive && isBaekjoonIdActive}>
         완료
       </SubmitButton>
     </>

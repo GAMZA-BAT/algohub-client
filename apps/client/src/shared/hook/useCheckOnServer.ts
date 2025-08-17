@@ -7,11 +7,13 @@ import type { z } from "zod";
 export const useCheckOnServer = (
   form: UseFormReturn<z.infer<typeof baseSignupSchema>>,
   nickname: string,
+  baekjoonId: string,
 ) => {
   const [isNicknameLoading, setNicknameLoading] = useState(false);
+  const [isBaekjoonIdLoading, setBaekjoonIdLoading] = useState(false);
 
   const handleValidation = async (
-    fieldName: "nickname",
+    fieldName: "nickname" | "baekjoonId",
     value: string,
     validateFn: typeof validateNickname,
     loadingSetter: (value: boolean) => void,
@@ -65,5 +67,14 @@ export const useCheckOnServer = (
     );
   }, [nickname]);
 
-  return { isNicknameLoading };
+  useEffect(() => {
+    handleValidation(
+      "baekjoonId",
+      baekjoonId,
+      validateNickname,
+      setBaekjoonIdLoading,
+    );
+  }, [baekjoonId]);
+
+  return { isNicknameLoading, isBaekjoonIdLoading };
 };
