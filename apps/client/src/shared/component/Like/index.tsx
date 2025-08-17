@@ -1,8 +1,5 @@
 import { IcnFavoriteBorder } from "@/asset/svg";
-import {
-  heartCountStyle,
-  heartStyle,
-} from "@/view/user/index/FeedItem/Like/index.css";
+import { heartCountStyle, heartStyle } from "@/shared/component/Like/index.css";
 
 const Like = () => {
   // TODO: 좋아요 기능 구현
