@@ -14,7 +14,6 @@ import type {
 } from "@/app/api/notices/type";
 import type {
   GetProblemRequest,
-  ProblemContent,
   ProblemListResponse,
   ProblemRequest,
 } from "@/app/api/problems/type";
@@ -235,14 +234,6 @@ export const postGroupNotice = (
 export const postProblem = (groupId: number, body: ProblemRequest) => {
   const response = kyJsonWithTokenInstance
     .post(`api/groups/${groupId}/problems`, { json: body })
-    .json();
-
-  return response;
-};
-
-export const getDeadlineReachedProblems = async (groupId: number) => {
-  const response = await kyJsonWithTokenInstance
-    .get<ProblemContent[]>(`api/groups/${groupId}/problems/deadline-reached`)
     .json();
 
   return response;

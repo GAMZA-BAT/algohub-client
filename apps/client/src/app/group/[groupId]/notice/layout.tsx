@@ -1,5 +1,4 @@
 import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
-import { getDeadlineReachedProblems } from "@/app/api/groups";
 import { getTopRanking } from "@/app/api/groups/ranking";
 import { listSectionStyle } from "@/app/group/[groupId]/page.css";
 import { getSolutionsCurrentStatus } from "@/app/api/solutions";
@@ -18,7 +17,6 @@ const GroupDashboardLayout = async ({
   const groupInfoData = getGroupInfo(+groupId);
   const rankingData = getTopRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
-  const deadlineReachedData = getDeadlineReachedProblems(+groupId);
   const solutionsCurrentStatusData = getSolutionsCurrentStatus(+groupId);
 
   const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] =
@@ -28,7 +26,6 @@ const GroupDashboardLayout = async ({
       memberData,
       solutionsCurrentStatusData,
     ]);
-
 
   return (
     <main className={sidebarWrapper}>

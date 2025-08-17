@@ -1,5 +1,5 @@
 import { SolvedStatusTableProvider } from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/provider";
-import { SolutionsCurrentStatusResponse } from "@/app/api/type";
+import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
 import { titleStyle } from "@/app/group/[groupId]/page.css";
 import SolvedStatusTable from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable";
 import Empty from "@/shared/component/Empty";

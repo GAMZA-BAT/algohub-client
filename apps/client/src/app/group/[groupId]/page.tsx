@@ -1,9 +1,5 @@
 import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
-import {
-  getDeadlineReachedProblems,
-  getGroupInfo,
-  getGroupMemberList,
-} from "@/app/api/groups";
+import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
 import { getSolutionsCurrentStatus } from "@/app/api/solutions";
 import GroupSidebar from "@/app/group/[groupId]/components/GroupSidebar";
@@ -22,7 +18,6 @@ const GroupDashboardPage = async ({
   const groupInfoData = getGroupInfo(+groupId);
   const rankingData = getTopRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
-  const deadlineReachedData = getDeadlineReachedProblems(+groupId);
   const solutionsCurrentStatusData = getSolutionsCurrentStatus(+groupId);
 
   const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] =

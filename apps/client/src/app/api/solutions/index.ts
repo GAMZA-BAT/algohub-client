@@ -4,7 +4,7 @@ import type {
   SolutionRequest,
   SolutionResponse,
 } from "@/app/api/solutions/type";
-import { SolutionsCurrentStatusResponse } from "@/app/api/type";
+import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
 
 export const getSolutionList = async ({
   problemId,

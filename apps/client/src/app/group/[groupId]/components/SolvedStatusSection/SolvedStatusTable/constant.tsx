@@ -1,6 +1,6 @@
-import { SolutionsCurrentStatusResponse } from "@/app/api/type";
+import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
 import { tdStyle } from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/index.css";
-import { TableDataType } from "@/shared/type/table";
+import type { TableDataType } from "@/shared/type/table";
 
 const SOLVED_STATUS_BASE_COLUMNS: TableDataType<SolutionsCurrentStatusResponse>[] =
   [
