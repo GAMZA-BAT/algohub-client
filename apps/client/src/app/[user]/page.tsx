@@ -15,6 +15,7 @@ import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
+import RecommendStudySection from "./components/RecommendSection";
 
 export const revalidate = 60;
 
@@ -64,7 +65,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
         <div>임시로 만드는 좌측 사이드바</div>
       </Sidebar>
       <div className={userHomeWrapper}>
-        <div>임시로 만드는 중앙 피드공간</div>
+        <RecommendStudySection />
       </div>
       <Sidebar>
         <div>임시로 만드는 우측 패널</div>
