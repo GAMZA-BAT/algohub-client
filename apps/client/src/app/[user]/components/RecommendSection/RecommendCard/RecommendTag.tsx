@@ -1,11 +1,11 @@
 import { tagStyle, tagWrapper } from "./index.css";
 
-type TagType = {
+type RecommendTagType = {
   id: string;
-  variant: keyof typeof TAGMETA;
+  variant: keyof typeof TAG_META;
 };
 
-const TAGMETA = {
+const TAG_META = {
   recentSignups: { color: "blue", label: "최근 가입률이 높은 스터디" },
   mostActiveThisWeek: {
     color: "mint",
@@ -14,8 +14,8 @@ const TAGMETA = {
   similarDifficulty: { color: "yellow", label: "난이도가 유사한 스터디" },
 } as const;
 
-const RecommendTag = ({ id, variant: meta }: TagType) => {
-  const { color, label } = TAGMETA[meta];
+const RecommendTag = ({ id, variant: meta }: RecommendTagType) => {
+  const { color, label } = TAG_META[meta];
   return (
     <div className={tagWrapper({ color })}>
       <span id={id} className={tagStyle({ color })}>
