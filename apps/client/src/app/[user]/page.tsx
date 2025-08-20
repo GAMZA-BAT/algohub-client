@@ -1,21 +1,22 @@
+import { Suspense } from "react";
 import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
 import LoginAlertModalController from "@/app/[user]/components/GroupCard/LoginAlertModalController";
 import ListSection from "@/app/[user]/components/ListSection";
 import UserCard from "@/app/[user]/components/UserCard";
 import { userCardWrapper } from "@/app/[user]/components/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/app/[user]/components/constant";
-import {
-  userDashboardWrapper,
-  userHomeWrapper,
-} from "@/app/[user]/components/index.css";
+import { userDashboardWrapper, userHomeWrapper } from "@/app/[user]/components/index.css";
 import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
 import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
-import { sidebarWrapper } from "@/styles/shared.css";
+import { sidebarWrapper } from '@/styles/shared.css';
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
 import RecommendStudySection from "./components/RecommendSection";
+import UserPageLeftSidebar from "./components/LeftSidebar";
+import { LeftSidebarSkeleton } from "./components/LeftSidebar/LeftSidebarSkeleton";
+import Spinner from "@/common/component/Spinner";
 
 export const revalidate = 60;
 
@@ -26,17 +27,16 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
 
   const isMe = nickname === user;
 
-  let memberData: GroupListResponse;
-  try {
-    memberData = await getGroupsByUsers(user);
-  } catch (error) {
-    if (error instanceof HTTPError) {
-      return notFound();
-    }
-    throw error;
-  }
-
   if (!isMe) {
+    let memberData: GroupListResponse;
+    try {
+      memberData = await getGroupsByUsers(user);
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        return notFound();
+      }
+      throw error;
+    }
     return (
       <main className={sidebarWrapper}>
         <Sidebar>
@@ -62,7 +62,9 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   return (
     <main className={sidebarWrapper}>
       <Sidebar>
-        <div>임시로 만드는 좌측 사이드바</div>
+        <Suspense fallback={<Spinner />}>
+          <UserPageLeftSidebar />
+        </Suspense>
       </Sidebar>
       <div className={userHomeWrapper}>
         <RecommendStudySection />
