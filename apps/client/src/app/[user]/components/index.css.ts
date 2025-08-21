@@ -29,3 +29,7 @@ export const userHomeWrapper = style({
   width: "60%",
   padding: "2rem",
 });
+
+export const leftSidebarStyle = style({
+  padding: "4rem 0.4rem 4rem 2.4rem",
+});

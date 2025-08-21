@@ -1,7 +1,7 @@
 import {
+  type FetchQueryOptions,
   QueryClient,
-  type QueryFunction,
-  dehydrate,
+  type QueryKey,
 } from "@tanstack/react-query";
 import { cache } from "react";
 
@@ -15,29 +15,32 @@ const getQueryClient = cache(() => {
   });
 });
 
-export const prefetchQuery = async ({
-  queryKey,
-  queryFn,
-}: { queryKey: (string | number)[]; queryFn: QueryFunction }) => {
+export const prefetchQuery = async <
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  options: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+) => {
   const queryClient = getQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey,
-    queryFn,
-  });
-
-  return dehydrate(queryClient);
+  await queryClient.prefetchQuery(options);
+  return queryClient;
 };
 
-export const prefetchQueries = async (
-  queries: { queryKey: (string | number)[]; queryFn: QueryFunction }[],
+export const prefetchQueries = async <
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  queries: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>[],
 ) => {
   const queryClient = getQueryClient();
 
   await Promise.all(
-    queries.map(({ queryKey, queryFn }) =>
-      queryClient.prefetchQuery({ queryKey, queryFn }),
-    ),
+    queries.map((options) => queryClient.prefetchQuery(options)),
   );
 
-  return dehydrate(queryClient);
+  return queryClient;
 };
