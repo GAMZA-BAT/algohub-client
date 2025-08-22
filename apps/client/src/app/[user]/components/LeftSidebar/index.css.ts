@@ -97,13 +97,34 @@ export const chipTextStyleVariants = styleVariants({
 export const studyListContainerStyle = style({
   display: "flex",
   flexDirection: "column",
+});
+
+export const studyTitleWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   gap: "0.8rem",
-  width: "100%",
-  padding: "0 1.2rem",
 });
 
 export const studyListItemStyle = style({
-  ...theme.font.Body2_R_14,
-  color: theme.color.white,
-  padding: "0.8rem",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+
+  padding: "1.2rem 0",
+});
+
+export const profileStyle = style({
+  width: "2rem",
+  height: "2rem",
+});
+
+export const studyTitleStyle = style({
+  ...theme.font.Caption2_SB_12,
+  color: theme.color.wg2,
+});
+
+export const btnArrowStyle = style({
+  width: "1.2rem",
+  height: "1.2rem",
 });

@@ -5,12 +5,19 @@ import { useMyGroupsQueryObject } from "@/app/api/users/query";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import {
+  btnArrowStyle,
   chipContainerStyle,
   chipTextStyleVariants,
   chipWrapperVariants,
+  profileStyle,
   studyListContainerStyle,
   studyListItemStyle,
+  studyTitleStyle,
+  studyTitleWrapper,
 } from "./index.css";
+import Avatar from "@/common/component/Avatar";
+import { IcnBtnArrowRight } from "@/asset/svg";
+import Link from "next/link";
 
 const CHIP_LABELS = ["전체", "즐겨찾는", "진행 중", "예정된", "완료된"];
 
@@ -66,13 +73,22 @@ const LeftSidebarContent = () => {
           );
         })}
       </nav>
-      <div className={studyListContainerStyle}>
+      <ul className={studyListContainerStyle}>
         {filteredGroups.map((group) => (
-          <div key={group.id} className={studyListItemStyle}>
-            {group.name}
-          </div>
+          <li key={group.id} className={studyListItemStyle}>
+            <Link
+              href={`/groups/${group.id}`}
+              aria-label={`${group.name} 스터디 페이지로 이동`}
+            >
+              <div className={studyTitleWrapper}>
+                <Avatar className={profileStyle} alt="" />
+                <h3 className={studyTitleStyle}>{group.name}</h3>
+              </div>
+              <IcnBtnArrowRight className={btnArrowStyle} aria-hidden="true" />
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </>
   );
 };
