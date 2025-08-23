@@ -7,7 +7,6 @@ export const sidebarWrapper = style({
   gap: "1.6rem",
 
   height: "72.5vh",
-  paddingRight: "2.4rem",
   overflowY: "auto",
 
   ...scrollTheme.innerScrollbar,
@@ -49,6 +48,8 @@ export const chipContainerStyle = style({
   flexDirection: "row",
   flexWrap: "wrap",
   gap: "0.6rem",
+
+  marginLeft: "2px",
 });
 
 const chipBaseStyle = style({
@@ -56,7 +57,16 @@ const chipBaseStyle = style({
   alignItems: "center",
   padding: "0.4rem 1.2rem",
   borderRadius: "1.7rem",
-  transition: "background-color 0.2s ease-in-out",
+  transition:
+    "background-color 0.2s ease-in-out, box-shadow 0.2s, border-color 0.2s",
+  border: "1px solid transparent",
+  cursor: "pointer",
+  selectors: {
+    "&:hover": {
+      boxShadow: "0 4px 16px 0 rgba(0,0,0,0.08)",
+      borderColor: theme.color.mg3,
+    },
+  },
 });
 
 export const chipWrapperVariants = styleVariants({
@@ -97,21 +107,33 @@ export const chipTextStyleVariants = styleVariants({
 export const studyListContainerStyle = style({
   display: "flex",
   flexDirection: "column",
+
+  marginLeft: "2px",
 });
 
 export const studyTitleWrapper = style({
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "row",
   alignItems: "center",
   gap: "0.8rem",
 });
 
 export const studyListItemStyle = style({
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "row",
   justifyContent: "space-between",
 
-  padding: "1.2rem 0",
+  padding: "1.2rem",
+  border: "1px solid transparent",
+  borderRadius: "0.8rem",
+  transition: "box-shadow 0.2s, border-color 0.2s",
+  cursor: "pointer",
+  selectors: {
+    "&:hover": {
+      boxShadow: "0 4px 16px 0 rgba(0,0,0,0.08)",
+      borderColor: theme.color.mg3,
+    },
+  },
 });
 
 export const profileStyle = style({

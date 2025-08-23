@@ -31,5 +31,7 @@ export const userHomeWrapper = style({
 });
 
 export const leftSidebarStyle = style({
+  display: "flex",
+  justifyContent: "center",
   padding: "4rem 0.4rem 4rem 2.4rem",
 });

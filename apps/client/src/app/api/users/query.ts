@@ -51,9 +51,9 @@ export const useMyGroupsQueryObject = () =>
     queryKey: userQueryKey.myGroups(),
     queryFn: () => getUserGroupList(),
     select(data) {
-      Object.keys(data).forEach((key) => {
-        data[key] = data[key].filter(d => d.isVisible);
-      });
+      for (const key of Object.keys(data) as (keyof typeof data)[]) {
+        data[key] = data[key].filter((d) => d.isVisible);
+      }
       return data;
-    }
+    },
   });

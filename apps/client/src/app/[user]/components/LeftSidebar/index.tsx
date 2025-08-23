@@ -11,9 +11,9 @@ import {
 } from "./index.css";
 
 const UserPageLeftSidebar = async () => {
-  const { queryFn, queryKey } = useMyGroupsQueryObject();
-  const queryClient = await prefetchQuery({ queryKey, queryFn });
-  const myGroups = queryClient.getQueryData(queryKey);
+  const queryOption = useMyGroupsQueryObject();
+  const queryClient = await prefetchQuery(queryOption);
+  const myGroups = queryClient.getQueryData(queryOption.queryKey);
 
   const studyCount = myGroups
     ? Object.values(myGroups).reduce((acc, val) => acc + val.length, 0)

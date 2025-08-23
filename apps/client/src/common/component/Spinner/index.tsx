@@ -1,3 +1,4 @@
+"use client";
 import spinner from "@/asset/lottie/spinner.json";
 import Animation from "../Animation";
 

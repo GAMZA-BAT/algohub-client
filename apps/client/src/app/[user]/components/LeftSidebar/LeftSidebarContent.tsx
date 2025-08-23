@@ -2,7 +2,10 @@
 
 import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
 import { useMyGroupsQueryObject } from "@/app/api/users/query";
+import { IcnBtnArrowRight } from "@/asset/svg";
+import Avatar from "@/common/component/Avatar";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   btnArrowStyle,
@@ -15,9 +18,6 @@ import {
   studyTitleStyle,
   studyTitleWrapper,
 } from "./index.css";
-import Avatar from "@/common/component/Avatar";
-import { IcnBtnArrowRight } from "@/asset/svg";
-import Link from "next/link";
 
 const CHIP_LABELS = ["전체", "즐겨찾는", "진행 중", "예정된", "완료된"];
 
@@ -51,7 +51,11 @@ const LeftSidebarContent = () => {
 
   return (
     <>
-      <nav className={chipContainerStyle}>
+      <nav
+        className={chipContainerStyle}
+        role="tablist"
+        aria-label="스터디 필터"
+      >
         {CHIP_LABELS.map((label) => {
           const isSelected = label === selectedChip;
           return (
@@ -60,6 +64,9 @@ const LeftSidebarContent = () => {
               className={
                 chipWrapperVariants[isSelected ? "selected" : "default"]
               }
+              role="tab"
+              aria-selected={isSelected}
+              aria-controls="study-list"
               onClick={handleChipClick(label)}
             >
               <span
@@ -73,16 +80,17 @@ const LeftSidebarContent = () => {
           );
         })}
       </nav>
-      <ul className={studyListContainerStyle}>
+      <ul className={studyListContainerStyle} id="study-list">
         {filteredGroups.map((group) => (
-          <li key={group.id} className={studyListItemStyle}>
+          <li key={group.id}>
             <Link
-              href={`/groups/${group.id}`}
+              href={`/group/${group.id}`}
+              className={studyListItemStyle}
               aria-label={`${group.name} 스터디 페이지로 이동`}
             >
               <div className={studyTitleWrapper}>
-                <Avatar className={profileStyle} alt="" />
-                <h3 className={studyTitleStyle}>{group.name}</h3>
+                <Avatar className={profileStyle} alt="" role="presentation" />
+                <p className={studyTitleStyle}>{group.name}</p>
               </div>
               <IcnBtnArrowRight className={btnArrowStyle} aria-hidden="true" />
             </Link>
