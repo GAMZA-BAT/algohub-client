@@ -1,9 +1,10 @@
-import { useMyGroupsQueryObject } from "@/app/api/users/query";
-import { prefetchQuery } from "@/shared/util/prefetch";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import LeftSidebarContent from "./LeftSidebarContent";
+import Spinner from "@/common/component/Spinner";
+import { Suspense } from "react";
+import HydratedStudyList from "./HydratedStudyList";
+import { SidebarProvider } from "./SidebarProvider";
+import StudyCount from "./StudyCount";
+import StudyFilter from "./StudyFilter";
 import {
-  countTextStyle,
   countWrapper,
   sidebarWrapper,
   titleStyle,
@@ -11,25 +12,26 @@ import {
 } from "./index.css";
 
 const UserPageLeftSidebar = async () => {
-  const queryOption = useMyGroupsQueryObject();
-  const queryClient = await prefetchQuery(queryOption);
-  const myGroups = queryClient.getQueryData(queryOption.queryKey);
-
-  const studyCount = myGroups
-    ? Object.values(myGroups).reduce((acc, val) => acc + val.length, 0)
-    : 0;
-
   return (
     <div className={sidebarWrapper}>
       <div className={titleWrapper}>
         <h2 className={titleStyle}>내가 속한 스터디</h2>
-        <div className={countWrapper}>
-          <span className={countTextStyle}>{studyCount}</span>
-        </div>
+        <Suspense fallback={<div className={countWrapper} />}>
+          <StudyCount />
+        </Suspense>
       </div>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <LeftSidebarContent />
-      </HydrationBoundary>
+      <SidebarProvider>
+        <StudyFilter />
+        <Suspense
+          fallback={
+            <div style={{ margin: "0 auto" }}>
+              <Spinner />
+            </div>
+          }
+        >
+          <HydratedStudyList />
+        </Suspense>
+      </SidebarProvider>
     </div>
   );
 };
