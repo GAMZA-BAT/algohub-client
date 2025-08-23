@@ -17,7 +17,6 @@ import {
   studyTitleWrapper,
 } from "./index.css";
 
-export const CHIP_LABELS = ["전체", "즐겨찾는", "진행 중", "예정된", "완료된"];
 const CHIP_FILTER_MAP: Record<string, GroupStatus | "all"> = {
   전체: "all",
   즐겨찾는: "bookmarked",

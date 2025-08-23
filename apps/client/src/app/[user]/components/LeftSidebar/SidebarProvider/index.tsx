@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { CHIP_LABELS } from "../StudyList";
+import { CHIP_LABELS } from "../StudyFilter";
 
 type SidebarContextType = {
   selectedChip: string;

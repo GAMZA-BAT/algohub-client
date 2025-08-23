@@ -1,13 +1,13 @@
 "use client";
 
 import { useSidebrChip } from "./SidebarProvider/hook";
-import { CHIP_LABELS } from "./StudyList";
 import {
   chipContainerStyle,
   chipTextStyleVariants,
   chipWrapperVariants,
 } from "./index.css";
 
+export const CHIP_LABELS = ["전체", "즐겨찾는", "진행 중", "예정된", "완료된"];
 const StudyFilter = () => {
   const { selectedChip, setSelectedChip } = useSidebrChip();
 

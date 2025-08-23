@@ -6,7 +6,6 @@ import StudyList from "./StudyList";
 const HydratedStudyList = async () => {
   const queryOption = useMyGroupsQueryObject();
   const queryClient = await prefetchQuery(queryOption);
-  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

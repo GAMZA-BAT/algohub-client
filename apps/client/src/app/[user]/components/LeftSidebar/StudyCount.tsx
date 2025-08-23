@@ -6,7 +6,6 @@ const StudyCount = async () => {
   const queryOption = useMyGroupsQueryObject();
   const queryClient = await prefetchQuery(queryOption);
   const myGroups = queryClient.getQueryData(queryOption.queryKey);
-  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   const studyCount = myGroups
     ? Object.values(myGroups).reduce((acc, val) => acc + val.length, 0)
