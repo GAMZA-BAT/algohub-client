@@ -8,8 +8,11 @@ import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
 import Empty from "@/shared/component/Empty";
 import {
+  countChipStyle,
   countStyle,
+  headerStyle,
   notificationContainer,
+  titleStyle,
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
@@ -57,6 +60,10 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
 
   return (
     <div className={notificationContainer}>
+      <header className={headerStyle}>
+        <h2 className={titleStyle}>알림</h2>
+        <div className={countChipStyle}>신규 2</div>
+      </header>
       {notificationList.length > 0 ? (
         <>
           <ul className={ulStyle} {...props} aria-label="알림 목록">
