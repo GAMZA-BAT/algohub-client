@@ -5,15 +5,13 @@ export const inputWrapper = style({
   display: "flex",
   gap: "0.8rem",
 
-  width: "24rem",
+  maxWidth: "24rem",
   padding: "0.8rem 1.6rem",
 
   borderRadius: "4px",
   backgroundColor: theme.color.mg5,
 
   color: theme.color.mg2,
-
-  cursor: "pointer",
 });
 
 export const inputStyle = style({
