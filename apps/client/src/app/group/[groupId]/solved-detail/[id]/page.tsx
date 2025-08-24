@@ -33,7 +33,9 @@ const page = ({ params }: { params: { id: string; groupId: string } }) => {
     if (window.history.length > 1) {
       router.back();
     } else {
-      router.push(`/group/${params.groupId}/my-solved`);
+      router.replace(
+        `/group/${params.groupId}/problem-list/${solutionInfo.problemId}`,
+      );
     }
   };
 
