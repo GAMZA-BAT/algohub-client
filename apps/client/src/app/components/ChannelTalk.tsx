@@ -39,7 +39,7 @@ const ChannelTalk = () => {
       // 게스트 모드: 기본 설정으로 부팅
       ChannelService.boot({
         pluginKey,
-        zIndex: +theme.zIndex.bottom
+        zIndex: +theme.zIndex.bottom,
       });
     }
 
