@@ -4,17 +4,17 @@ import { recipe } from "@vanilla-extract/recipes";
 
 export const notificationContainer = style({
   position: "absolute",
-  top: "7.2rem",
-  right: "8rem",
+  top: "6.5rem",
+  right: "4rem",
 
   display: "flex",
   flexDirection: "column",
 
   zIndex: theme.zIndex.top,
-  minWidth: "26.9rem",
-  height: "27.4rem",
+  minWidth: "40rem",
+  height: "68.1rem",
 
-  borderRadius: "2rem",
+  borderRadius: "1.6rem",
 
   backdropFilter: "blur(2px)",
   backgroundColor: theme.color.mg6,
