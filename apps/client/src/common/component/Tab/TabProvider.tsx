@@ -6,7 +6,7 @@ import { createContext, useContext, useReducer } from "react";
 type Actions = { _TAG: "SetSelectedTab"; tabId: string | number };
 
 type State = {
-  variant: "primary" | "secondary";
+  variant: "primary" | "secondary" | "tertiary";
   selectedTabId: string | number;
 };
 
@@ -49,7 +49,7 @@ export const useTabDispatch = () => {
 };
 
 type TabProviderProps = PropsWithChildren<{
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "tertiary";
 }>;
 
 const TabProvider = ({ variant = "primary", children }: TabProviderProps) => {

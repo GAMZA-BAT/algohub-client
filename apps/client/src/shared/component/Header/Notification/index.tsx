@@ -6,6 +6,7 @@ import {
 } from "@/app/api/notifications/mutation";
 import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
+import TabGroup from "@/common/component/Tab";
 import Empty from "@/shared/component/Empty";
 import {
   countChipStyle,
@@ -66,6 +67,24 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
       </header>
       {notificationList.length > 0 ? (
         <>
+          <TabGroup.Tabs
+            variant="tertiary"
+            tag="section"
+            // className={rankingTabStyle}
+          >
+            <TabGroup.TabList>
+              <TabGroup.Tab tabId="1">전체</TabGroup.Tab>
+              <TabGroup.Tab tabId="2">문제</TabGroup.Tab>
+              <TabGroup.Tab tabId="3">코멘트</TabGroup.Tab>
+              <TabGroup.Tab tabId="4">스터디</TabGroup.Tab>
+            </TabGroup.TabList>
+            <TabGroup.TabPanels>
+              <div style={{ color: "white" }}>1번째 패널</div>
+              <div style={{ color: "white" }}>2번째 패널</div>
+              <div style={{ color: "white" }}>3번째 패널</div>
+              <div style={{ color: "white" }}>4번째 패널</div>
+            </TabGroup.TabPanels>
+          </TabGroup.Tabs>
           <ul className={ulStyle} {...props} aria-label="알림 목록">
             <AnimatePresence>
               {notifications.map((notification) => (
