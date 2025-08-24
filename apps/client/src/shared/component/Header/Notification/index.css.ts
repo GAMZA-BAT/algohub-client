@@ -13,6 +13,7 @@ export const notificationContainer = style({
   zIndex: theme.zIndex.top,
   minWidth: "40rem",
   height: "68.1rem",
+  padding: "2rem 2.4rem",
 
   borderRadius: "1.6rem",
 
@@ -20,12 +21,35 @@ export const notificationContainer = style({
   backgroundColor: theme.color.mg6,
 });
 
+export const headerStyle = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.8rem",
+});
+
+export const titleStyle = style({
+  color: theme.color.white,
+  ...theme.font.Head2_B_18,
+});
+
+export const countChipStyle = style({
+  display: "flex",
+  alignItems: "center",
+
+  height: "2.1rem",
+  padding: "0.2rem 0.6rem",
+
+  borderRadius: "99px",
+  backgroundColor: theme.color.mg5,
+
+  color: theme.color.purple,
+  ...theme.font.Caption3_M_12,
+});
+
 export const ulStyle = style({
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
-
-  padding: "0.8rem 2rem 3rem",
 
   // scroll bar
   overflowY: "scroll",
