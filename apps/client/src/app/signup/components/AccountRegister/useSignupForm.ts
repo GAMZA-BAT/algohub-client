@@ -10,6 +10,8 @@ export const defaultSignupMsg = {
   validNickname: "사용가능한 닉네임이에요.",
   validPassword: "비밀번호가 일치합니다.",
   nicknameLoading: "로딩중",
+  baekjoonLoading: "로딩중",
+  validBaekjoonId: "정상적으로 연동되었어요.",
 };
 
 const useSignupForm = () => {
@@ -21,6 +23,7 @@ const useSignupForm = () => {
       profile: null,
       confirmPassword: "",
       nickname: "",
+      baekjoonId: "",
     },
   });
 
@@ -39,6 +42,7 @@ const useSignupForm = () => {
       JSON.stringify({
         password: values.password,
         nickname: values.nickname,
+        baekjoonId: values.baekjoonId,
       }),
     );
 

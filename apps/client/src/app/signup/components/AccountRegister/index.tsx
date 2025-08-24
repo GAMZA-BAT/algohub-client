@@ -14,6 +14,7 @@ const AccountRegister = ({ token }: { token: string }) => {
 
   const handleNextStep = () => setStep(SIGNUP_STEPS.PROFILE_CREATION);
   const handleSubmit = _handleSubmit.bind(this, token);
+
   return (
     <>
       <Stepper
