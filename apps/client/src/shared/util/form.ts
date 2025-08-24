@@ -186,9 +186,9 @@ export const getBaekjoonIdValidation = (
   );
 
   const baekjoonIdMsg = (() => {
-    if (isBaekjoonIdLoading) return defaultSignupMsg.nicknameLoading;
-    if (isBaekjoonIdValid) return defaultSignupMsg.validNickname;
-    return baekjoonIdError?.message ?? defaultSignupMsg.nickname;
+    if (isBaekjoonIdLoading) return defaultSignupMsg.baekjoonLoading;
+    if (isBaekjoonIdValid) return defaultSignupMsg.validBaekjoonId;
+    return baekjoonIdError?.message;
   })();
 
   const isActive = !isBaekjoonIdLoading && isValid;

@@ -1,4 +1,4 @@
-import { validateNickname } from "@/app/api/users";
+import { validateBojNickname, validateNickname } from "@/app/api/users";
 import { baseSignupSchema } from "@/app/signup/components/AccountRegister/schema";
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
@@ -71,7 +71,7 @@ export const useCheckOnServer = (
     handleValidation(
       "baekjoonId",
       baekjoonId,
-      validateNickname,
+      validateBojNickname,
       setBaekjoonIdLoading,
     );
   }, [baekjoonId]);
