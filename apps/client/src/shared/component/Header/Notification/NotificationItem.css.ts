@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const containerStyle = style({
-  width: "22.9rem",
+  width: "100%",
   padding: "0.8rem 1.1rem",
   borderRadius: "0.8rem",
 

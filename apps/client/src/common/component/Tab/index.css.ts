@@ -49,7 +49,11 @@ export const tabStyle = recipe({
         paddingBottom: "1.6rem",
       },
       tertiary: {
-        padding: "1rem 3.225rem",
+        display: "flex",
+        justifyContent: "center",
+
+        width: "9.25rem",
+        padding: "1rem",
       },
     },
     isSelected: {
