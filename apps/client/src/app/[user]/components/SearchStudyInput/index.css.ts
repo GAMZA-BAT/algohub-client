@@ -25,6 +25,8 @@ export const inputStyle = style({
 
   color: theme.color.white,
 
+  appearance: "none",
+
   "::placeholder": {
     color: theme.color.mg2,
   },
