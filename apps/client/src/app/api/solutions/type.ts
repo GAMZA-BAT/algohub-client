@@ -11,6 +11,7 @@ export type SolutionRequest = {
 
 export type SolutionContent = {
   solutionId: number;
+  problemId: number;
   problemTitle: string;
   problemLevel: number;
   accuracy: number;
