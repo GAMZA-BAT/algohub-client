@@ -8,7 +8,6 @@ import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
 import Empty from "@/shared/component/Empty";
 import {
-  allReadButtonStyle,
   countStyle,
   notificationContainer,
   ulStyle,
@@ -60,12 +59,6 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
     <div className={notificationContainer}>
       {notificationList.length > 0 ? (
         <>
-          <button
-            onClick={() => readAllMutate()}
-            className={allReadButtonStyle}
-          >
-            모두 읽음 표시
-          </button>
           <ul className={ulStyle} {...props} aria-label="알림 목록">
             <AnimatePresence>
               {notifications.map((notification) => (
