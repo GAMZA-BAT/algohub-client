@@ -1,4 +1,5 @@
 import Spinner from "@/common/component/Spinner";
+import { alignCenterStyle } from "@/styles/shared.css";
 import { Suspense } from "react";
 import HydratedStudyList from "./HydratedStudyList";
 import { SidebarProvider } from "./SidebarProvider";
@@ -22,13 +23,7 @@ const UserPageLeftSidebar = async () => {
       </div>
       <SidebarProvider>
         <StudyFilter />
-        <Suspense
-          fallback={
-            <div style={{ margin: "0 auto" }}>
-              <Spinner />
-            </div>
-          }
-        >
+        <Suspense fallback={<Spinner className={alignCenterStyle} />}>
           <HydratedStudyList />
         </Suspense>
       </SidebarProvider>
