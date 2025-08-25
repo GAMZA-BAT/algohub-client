@@ -1,10 +1,15 @@
 import { sidebarStyle } from "@/common/component/Sidebar/index.css";
-import type { PropsWithChildren } from "react";
+import clsx from "clsx";
+import type { ComponentProps } from "react";
 
-type SidebarProps = PropsWithChildren;
+type SidebarProps = ComponentProps<"aside">;
 
-const Sidebar = ({ children }: SidebarProps) => {
-  return <aside className={sidebarStyle}>{children}</aside>;
+const Sidebar = ({ children, className, ...props }: SidebarProps) => {
+  return (
+    <aside className={clsx(sidebarStyle, className)} {...props}>
+      {children}
+    </aside>
+  );
 };
 
 export default Sidebar;

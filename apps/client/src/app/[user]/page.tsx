@@ -5,6 +5,7 @@ import UserCard from "@/app/[user]/components/UserCard";
 import { userCardWrapper } from "@/app/[user]/components/UserCard/index.css";
 import { GROUP_STATUS_MAPPING } from "@/app/[user]/components/constant";
 import {
+  leftSidebarStyle,
   userDashboardWrapper,
   userHomeWrapper,
 } from "@/app/[user]/components/index.css";
@@ -15,6 +16,7 @@ import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
+import UserPageLeftSidebar from "./components/LeftSidebar";
 import RecommendStudySection from "./components/RecommendSection";
 
 export const revalidate = 60;
@@ -26,17 +28,16 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
 
   const isMe = nickname === user;
 
-  let memberData: GroupListResponse;
-  try {
-    memberData = await getGroupsByUsers(user);
-  } catch (error) {
-    if (error instanceof HTTPError) {
-      return notFound();
-    }
-    throw error;
-  }
-
   if (!isMe) {
+    let memberData: GroupListResponse;
+    try {
+      memberData = await getGroupsByUsers(user);
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        return notFound();
+      }
+      throw error;
+    }
     return (
       <main className={sidebarWrapper}>
         <Sidebar>
@@ -61,8 +62,8 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
 
   return (
     <main className={sidebarWrapper}>
-      <Sidebar>
-        <div>임시로 만드는 좌측 사이드바</div>
+      <Sidebar className={leftSidebarStyle}>
+        <UserPageLeftSidebar />
       </Sidebar>
       <div className={userHomeWrapper}>
         <RecommendStudySection />

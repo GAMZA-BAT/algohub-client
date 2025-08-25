@@ -32,7 +32,7 @@ const insertNewToken: BeforeRetryHook = async ({
   request,
   retryCount,
 }) => {
-  if (retryCount === 2) throw ky.stop;
+  if (retryCount === 2) return ky.stop;
   const { response } = error as HTTPError;
   if (
     response?.status === HTTP_ERROR_STATUS.UNAUTHORIZED ||
@@ -45,7 +45,7 @@ const insertNewToken: BeforeRetryHook = async ({
       request.headers.set("Authorization", `Bearer ${reIssueData}`);
     } else if (reIssueData.status !== 500) {
       await logoutAction();
-      throw ky.stop;
+      return ky.stop;
     }
   }
 };
