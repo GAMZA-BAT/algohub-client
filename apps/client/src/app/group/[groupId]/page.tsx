@@ -10,7 +10,7 @@ import { listSectionStyle } from "@/app/group/[groupId]/page.css";
 import Sidebar from "@/common/component/Sidebar";
 import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { HydrationBoundary } from "@tanstack/react-query";
 
 const GroupDashboardPage = async ({
   params: { groupId },
@@ -29,7 +29,7 @@ const GroupDashboardPage = async ({
     ]);
 
   const firstPage = 1;
-  const queryClient = await prefetchQuery({
+  const dehydratedState = await prefetchQuery({
     queryKey: ["ranking", +groupId, firstPage],
     queryFn: () => getAllRanking(+groupId, 0),
   });
@@ -41,7 +41,7 @@ const GroupDashboardPage = async ({
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
-        <HydrationBoundary state={dehydrate(queryClient)}>
+        <HydrationBoundary state={dehydratedState}>
           <Ranking rankingData={rankingInfo} />
         </HydrationBoundary>
         <SolvedStatusSection
