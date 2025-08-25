@@ -13,11 +13,9 @@ import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
 import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
-import Spinner from "@/common/component/Spinner";
 import { sidebarWrapper } from "@/styles/shared.css";
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import UserPageLeftSidebar from "./components/LeftSidebar";
 import RecommendStudySection from "./components/RecommendSection";
 
@@ -65,9 +63,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   return (
     <main className={sidebarWrapper}>
       <Sidebar className={leftSidebarStyle}>
-        <Suspense fallback={<Spinner />}>
-          <UserPageLeftSidebar />
-        </Suspense>
+        <UserPageLeftSidebar />
       </Sidebar>
       <div className={userHomeWrapper}>
         <RecommendStudySection />

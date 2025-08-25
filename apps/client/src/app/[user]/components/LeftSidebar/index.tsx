@@ -12,7 +12,7 @@ import {
   titleWrapper,
 } from "./index.css";
 
-const UserPageLeftSidebar = async () => {
+const UserPageLeftSidebar = () => {
   return (
     <div className={sidebarWrapper}>
       <div className={titleWrapper}>
