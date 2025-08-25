@@ -1,13 +1,13 @@
 "use client";
 
-import type { GroupResponse, GroupStatus } from "@/app/api/groups/type";
+import type { GroupResponse } from "@/app/api/groups/type";
 import { useMyGroupsQueryObject } from "@/app/api/users/query";
 import { IcnBtnArrowRight } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useMemo } from "react";
-import { useSidebrChip } from "./SidebarProvider/hook";
+import { useSidebarChip } from "./SidebarProvider";
 import {
   btnArrowStyle,
   profileStyle,
@@ -17,27 +17,17 @@ import {
   studyTitleWrapper,
 } from "./index.css";
 
-const CHIP_FILTER_MAP: Record<string, GroupStatus | "all"> = {
-  전체: "all",
-  즐겨찾는: "bookmarked",
-  "진행 중": "inProgress",
-  예정된: "queued",
-  완료된: "done",
-};
 const StudyList = () => {
-  const { selectedChip } = useSidebrChip();
+  const { selectedChip } = useSidebarChip();
   const { data: myGroups } = useQuery(useMyGroupsQueryObject());
 
   const filteredGroups = useMemo((): GroupResponse[] => {
     if (!myGroups) return [];
 
-    const filterKey = CHIP_FILTER_MAP[selectedChip];
-
-    if (filterKey === "all") {
+    if (selectedChip === "all") {
       return Object.values<GroupResponse[]>(myGroups).flat();
     }
-
-    return myGroups[filterKey];
+    return myGroups[selectedChip] ?? [];
   }, [myGroups, selectedChip]);
 
   return (

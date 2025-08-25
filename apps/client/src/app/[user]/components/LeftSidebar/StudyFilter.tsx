@@ -1,24 +1,35 @@
 "use client";
 
-import { useSidebrChip } from "./SidebarProvider/hook";
+import { GROUP_STATUS_MAPPING } from "../constant";
+import { type SelectedChipType, useSidebarChip } from "./SidebarProvider";
 import {
   chipContainerStyle,
   chipTextStyleVariants,
   chipWrapperVariants,
 } from "./index.css";
 
-export const CHIP_LABELS = ["전체", "즐겨찾는", "진행 중", "예정된", "완료된"];
-const StudyFilter = () => {
-  const { selectedChip, setSelectedChip } = useSidebrChip();
+const filterOptions = [
+  {
+    label: "전체",
+    status: "all" as const,
+  },
+  ...GROUP_STATUS_MAPPING.map(({ label, status }) => ({
+    label: label.replace(" 스터디", ""),
+    status,
+  })),
+];
 
-  const handleChipClick = (label: string) => () => {
+const StudyFilter = () => {
+  const { selectedChip, setSelectedChip } = useSidebarChip();
+
+  const handleChipClick = (label: SelectedChipType) => () => {
     setSelectedChip(label);
   };
 
   return (
     <nav className={chipContainerStyle} role="tablist" aria-label="스터디 필터">
-      {CHIP_LABELS.map((label) => {
-        const isSelected = label === selectedChip;
+      {filterOptions.map(({ label, status }) => {
+        const isSelected = status === selectedChip;
         return (
           <button
             key={label}
@@ -26,7 +37,7 @@ const StudyFilter = () => {
             role="tab"
             aria-selected={isSelected}
             aria-controls="study-list"
-            onClick={handleChipClick(label)}
+            onClick={handleChipClick(status)}
           >
             <span
               className={
