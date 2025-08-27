@@ -24,3 +24,11 @@ export const controllerStyle = style({
   justifyContent: "center",
   marginBottom: "4rem",
 });
+
+export const formWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+
+  width: "100%",
+  gap: "3.2rem",
+});
