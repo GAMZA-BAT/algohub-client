@@ -60,11 +60,8 @@ export const codeStyle = recipe({
     width: "100%",
 
     color: theme.color.yellow,
-    fontSize: "12px",
-    fontStyle: "normal",
-    fontWeight: 400,
-    lineHeight: "140%",
-    letterSpacing: "-0.3px",
+
+    ...theme.font.Caption1_R_12,
   },
   variants: {
     isExpanded: {

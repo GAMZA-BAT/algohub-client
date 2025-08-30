@@ -14,15 +14,9 @@ import {
 } from "@/shared/component/CodeCard/index.css";
 import Like from "@/shared/component/Like";
 import { getTierImage } from "@/shared/util/img";
+import { m_pluse_rounded_1c } from "@/styles/fonts";
 import clsx from "clsx";
-import { M_PLUS_Rounded_1c } from "next/font/google";
 import { useId, useState } from "react";
-
-const m_pluse_rounded_1c = M_PLUS_Rounded_1c({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-mplus",
-});
 
 const CodeCard = () => {
   const codeId = useId();
@@ -46,13 +40,7 @@ const CodeCard = () => {
       <p className={inputTextStyle}>입력</p>
 
       <div className={codeCard}>
-        <p
-          id={codeId}
-          className={clsx(
-            codeStyle({ isExpanded }),
-            m_pluse_rounded_1c.className,
-          )}
-        >
+        <p id={codeId} className={clsx(codeStyle({ isExpanded }), m_pluse_rounded_1c.className)}>
           {example}
         </p>
         <button
@@ -61,10 +49,7 @@ const CodeCard = () => {
           aria-expanded={isExpanded}
           aria-controls={codeId}
         >
-          <IcnBtnArrowDown
-            width={12}
-            className={arrowStyle({ direction: isExpanded ? "up" : "down" })}
-          />
+          <IcnBtnArrowDown width={12} className={arrowStyle({ direction: isExpanded ? "up" : "down" })} />
           {isExpanded ? "다시 접기" : "펼쳐보기"} (20줄)
         </button>
       </div>
