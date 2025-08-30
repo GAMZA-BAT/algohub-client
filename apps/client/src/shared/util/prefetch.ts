@@ -1,6 +1,8 @@
 import {
+  type DehydratedState,
+  type FetchQueryOptions,
   QueryClient,
-  type QueryFunction,
+  type QueryKey,
   dehydrate,
 } from "@tanstack/react-query";
 import { cache } from "react";
@@ -15,29 +17,64 @@ const getQueryClient = cache(() => {
   });
 });
 
-export const prefetchQuery = async ({
-  queryKey,
-  queryFn,
-}: { queryKey: (string | number)[]; queryFn: QueryFunction }) => {
+export async function prefetchQuery<
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  options: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+  returnClient: true,
+): Promise<QueryClient>;
+export async function prefetchQuery<
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  options: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+  returnClient?: false,
+): Promise<DehydratedState>;
+export async function prefetchQuery(
+  options: FetchQueryOptions<unknown, unknown, unknown, QueryKey>,
+  returnClient?: boolean,
+): Promise<QueryClient | DehydratedState> {
   const queryClient = getQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey,
-    queryFn,
-  });
-
+  await queryClient.prefetchQuery(options);
+  if (returnClient) {
+    return queryClient;
+  }
   return dehydrate(queryClient);
-};
+}
 
-export const prefetchQueries = async (
-  queries: { queryKey: (string | number)[]; queryFn: QueryFunction }[],
-) => {
+export async function prefetchQueries<
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  queries: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>[],
+  returnClient: true,
+): Promise<QueryClient>;
+export async function prefetchQueries<
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  queries: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>[],
+  returnClient?: false,
+): Promise<DehydratedState>;
+export async function prefetchQueries(
+  queries: FetchQueryOptions<unknown, unknown, unknown, QueryKey>[],
+  returnClient?: boolean,
+): Promise<QueryClient | DehydratedState> {
   const queryClient = getQueryClient();
-
   await Promise.all(
-    queries.map(({ queryKey, queryFn }) =>
-      queryClient.prefetchQuery({ queryKey, queryFn }),
-    ),
+    queries.map((options) => queryClient.prefetchQuery(options)),
   );
-
+  if (returnClient) {
+    return queryClient;
+  }
   return dehydrate(queryClient);
-};
+}

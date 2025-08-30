@@ -166,4 +166,20 @@ export const scrollTheme = createGlobalTheme(":root", {
       boxShadow: "none",
     },
   },
+  innerScrollbar: {
+    "&::-webkit-scrollbar": {
+      width: "0.6rem",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      background: theme.color.mg4,
+      borderRadius: "0.7rem",
+    },
+    "&::-webkit-scrollbar-thumb:active": {
+      background: theme.color.mg3,
+    },
+    "&::-webkit-scrollbar-track": {
+      background: "transparent",
+      boxShadow: "none",
+    },
+  },
 });

@@ -15,7 +15,7 @@ export const GROUP_STATUS_MAPPING = [
     label: "완료된 스터디",
     status: "done",
   },
-];
+] as const;
 
 export const SECTION_TITLE = {
   bookmarked: "즐겨찾는 스터디",
