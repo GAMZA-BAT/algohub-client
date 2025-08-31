@@ -1,16 +1,12 @@
 import Spinner from "@/common/component/Spinner";
+import { countWrapper } from "@/shared/component/CountChip/index.css";
 import { alignCenterStyle } from "@/styles/shared.css";
 import { Suspense } from "react";
 import HydratedStudyList from "./HydratedStudyList";
 import { SidebarProvider } from "./SidebarProvider";
 import StudyCount from "./StudyCount";
 import StudyFilter from "./StudyFilter";
-import {
-  countWrapper,
-  sidebarWrapper,
-  titleStyle,
-  titleWrapper,
-} from "./index.css";
+import { sidebarWrapper, titleStyle, titleWrapper } from "./index.css";
 
 const UserPageLeftSidebar = () => {
   return (
