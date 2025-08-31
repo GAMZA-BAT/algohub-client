@@ -1,17 +1,14 @@
 "use client";
 import { useGroupByCodeQueryObject } from "@/app/api/groups/query";
 import { joinGroupAction } from "@/app/join-group/[code]/action";
-import DecisionPrompt from "@/app/join-group/components/DecisionPrompt";
-import GroupInfoCard from "@/app/join-group/components/GroupInfoCard";
 import {
-  btnWrapper,
   descErrorText,
   errorText,
   errorWrapper,
-  wrapper,
 } from "@/app/join-group/components/index.css";
 import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
+import GroupActionModal from "@/shared/component/GroupActionModal";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { usePvEvent } from "@/shared/hook/usePvEvent";
 import { sidebarWrapper } from "@/styles/shared.css";
@@ -52,30 +49,17 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   if (!groupData) return;
   return (
     <main className={sidebarWrapper}>
-      <Modal isOpen={isJoinModalOpen} onClose={handleReject} hasCloseBtn>
-        <div className={wrapper}>
-          <GroupInfoCard groupInfo={groupData} />
-          <DecisionPrompt owner={groupData.ownerNickname} />
-          <div className={btnWrapper}>
-            <Button
-              type="button"
-              size="medium"
-              color="lg"
-              onClick={handleReject}
-            >
-              거절하기
-            </Button>
-            <Button
-              type="button"
-              size="medium"
-              color="purple"
-              onClick={handleJoin}
-            >
-              수락하기
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      <GroupActionModal isOpen={isJoinModalOpen} onClose={handleReject}>
+        <GroupActionModal.Info groupInfo={groupData} />
+        <GroupActionModal.Prompt
+          variant="join"
+          ownerName={groupData.ownerNickname}
+        />
+        <GroupActionModal.Actions
+          onConfirm={handleJoin}
+          onReject={handleReject}
+        />
+      </GroupActionModal>
       <Modal isOpen={!isJoinModalOpen} onClose={handleReject2} hasCloseBtn>
         <div className={errorWrapper}>
           <p className={errorText({ isHighlight: false })}>
