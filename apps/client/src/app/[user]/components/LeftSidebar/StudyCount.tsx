@@ -1,5 +1,5 @@
 import { getUserGroupList } from "@/app/api/users";
-import { countTextStyle, countWrapper } from "./index.css";
+import CountChip from "@/shared/component/CountChip";
 
 const StudyCount = async () => {
   const myGroups = await getUserGroupList();
@@ -7,11 +7,7 @@ const StudyCount = async () => {
     ? Object.values(myGroups).reduce((acc, val) => acc + val.length, 0)
     : 0;
 
-  return (
-    <div className={countWrapper}>
-      <span className={countTextStyle}>{studyCount}</span>
-    </div>
-  );
+  return <CountChip count={studyCount} />;
 };
 
 export default StudyCount;
