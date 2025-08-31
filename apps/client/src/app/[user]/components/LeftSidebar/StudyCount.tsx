@@ -1,6 +1,6 @@
 import { useMyGroupsQueryObject } from "@/app/api/users/query";
+import CountChip from "@/shared/component/CountChip";
 import { prefetchQuery } from "@/shared/util/prefetch";
-import { countTextStyle, countWrapper } from "./index.css";
 
 const StudyCount = async () => {
   const queryOption = useMyGroupsQueryObject();
@@ -11,11 +11,7 @@ const StudyCount = async () => {
     ? Object.values(myGroups).reduce((acc, val) => acc + val.length, 0)
     : 0;
 
-  return (
-    <div className={countWrapper}>
-      <span className={countTextStyle}>{studyCount}</span>
-    </div>
-  );
+  return <CountChip count={studyCount} />;
 };
 
 export default StudyCount;
