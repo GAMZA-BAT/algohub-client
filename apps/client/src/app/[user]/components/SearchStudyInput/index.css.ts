@@ -5,7 +5,7 @@ export const inputWrapper = style({
   display: "flex",
   gap: "0.8rem",
 
-  maxWidth: "24rem",
+  minWidth: "24rem",
   padding: "0.8rem 1.6rem",
 
   borderRadius: "4px",

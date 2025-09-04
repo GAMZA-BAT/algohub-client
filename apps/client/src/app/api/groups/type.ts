@@ -85,3 +85,9 @@ export type GroupSettingsContent = {
   isVisible: boolean;
   status: GroupStatus;
 };
+
+export type SearchRequest = {
+  searchPattern: string;
+  page?: number;
+  size?: number;
+};
