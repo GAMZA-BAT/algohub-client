@@ -1,18 +1,17 @@
+"use client";
+
 import SearchStudyInput from "@/app/[user]/components/SearchStudyInput";
-import { useRef } from "react";
 import RecommendCard from "./RecommendCard";
 import { recommendHeaderWrapper, recommendSectionWrapper, recommendStudyTitle } from "./index.css";
 
 const RecommendStudySection = () => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
   return (
     <section className={recommendSectionWrapper} aria-labelledby="recommend-title">
       <div className={recommendHeaderWrapper}>
         <h2 id="recommend-title" className={recommendStudyTitle}>
           추천 스터디
         </h2>
-        <SearchStudyInput ref={inputRef} />
+        <SearchStudyInput />
       </div>
       <RecommendCard />
     </section>
