@@ -22,7 +22,7 @@ const MOCK_JOIN_REQUESTS = Array.from({ length: 8 }, (_, i) => ({
 
 const ITEMS_PER_PAGE = 3;
 
-const JoinRequestList = () => {
+const JoinRequestList = ({ groupName }: { groupName: string }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const totalPages = Math.ceil(MOCK_JOIN_REQUESTS.length / ITEMS_PER_PAGE);
@@ -85,8 +85,8 @@ const JoinRequestList = () => {
           {currentRequests.map((request) => (
             <li key={request.id}>
               <ApprovalCard
-                key={request.id}
                 name={request.name}
+                groupName={groupName}
                 avatarUrl={request.avatarUrl}
               />
             </li>
