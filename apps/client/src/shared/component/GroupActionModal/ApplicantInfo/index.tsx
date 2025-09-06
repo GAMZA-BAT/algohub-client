@@ -1,5 +1,5 @@
 import Avatar from "@/common/component/Avatar";
-import { applicantInfoWrapper, nameStyle } from "./index.css";
+import { applicantInfoWrapper, profileStyle } from "./index.css";
 
 type ApplicantInfoProps = {
   nickname: string;
@@ -9,8 +9,12 @@ type ApplicantInfoProps = {
 const ApplicantInfo = ({ nickname, profileImage }: ApplicantInfoProps) => {
   return (
     <div className={applicantInfoWrapper}>
-      <Avatar src={profileImage} alt={`${nickname} 프로필 사진`} size="large" />
-      <h1 className={nameStyle}>{nickname}</h1>
+      <Avatar
+        className={profileStyle}
+        src={profileImage}
+        alt={`${nickname} 프로필 사진`}
+        size="large"
+      />
     </div>
   );
 };

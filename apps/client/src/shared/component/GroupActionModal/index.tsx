@@ -1,4 +1,5 @@
 import Modal from "@/common/component/Modal";
+import clsx from "clsx";
 import type { ReactNode } from "react";
 import Actions from "./Actions";
 import ApplicantInfo from "./ApplicantInfo";
@@ -10,16 +11,18 @@ type GroupActionModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  className?: string;
 };
 
 const GroupActionModal = ({
   isOpen,
   onClose,
   children,
+  className,
 }: GroupActionModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} hasCloseBtn>
-      <div className={wrapper}>{children}</div>
+      <div className={clsx(wrapper, className)}>{children}</div>
     </Modal>
   );
 };
