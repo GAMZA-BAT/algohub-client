@@ -27,7 +27,7 @@ const GroupSettingPage = async ({
         <SettingSidebar info={groupInfo} code={inviteCode} />
       </Sidebar>
       <div className={sectionWrapper}>
-        <JoinRequestList />
+        <JoinRequestList groupName={groupInfo.name} />
         <MemberList groupId={+groupId} />
       </div>
     </section>

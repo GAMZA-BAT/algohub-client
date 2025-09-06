@@ -2,8 +2,8 @@ import Button from "@/common/component/Button";
 import { btnWrapper } from "./index.css";
 
 type ActionButtonsProps = {
-  onConfirm: () => void;
-  onReject: () => void;
+  onConfirm: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onReject: (e: React.MouseEvent<HTMLButtonElement>) => void;
   confirmText?: string;
   rejectText?: string;
 };
