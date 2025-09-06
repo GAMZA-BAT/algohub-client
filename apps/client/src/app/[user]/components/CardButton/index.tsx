@@ -21,14 +21,14 @@ import {
   studyNameStyle,
 } from "./index.css";
 
-interface ApprovalCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface CardButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   groupInfo: GroupResponse;
   tagVariant: ComponentProps<typeof RecommendTag>["variant"];
 }
 
 const ANIMATION_DURATION_MS = 300;
 
-const CardButton = ({ groupInfo, tagVariant, ...props }: ApprovalCardProps) => {
+const CardButton = ({ groupInfo, tagVariant, ...props }: CardButtonProps) => {
   const nameId = useId();
   const introductionId = useId();
   const tagId = useId();
@@ -67,6 +67,7 @@ const CardButton = ({ groupInfo, tagVariant, ...props }: ApprovalCardProps) => {
           <Avatar
             className={iconStyle}
             alt={`${displayedGroup.name} 스터디의 프로필 사진`}
+            role="img"
           />
           <h3 id={nameId} className={studyNameStyle}>
             {displayedGroup.name}

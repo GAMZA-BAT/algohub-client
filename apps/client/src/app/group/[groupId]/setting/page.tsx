@@ -4,6 +4,8 @@ import SettingSidebar from "@/app/group/[groupId]/setting/components/SettingSide
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
 import { notFound } from "next/navigation";
+import JoinRequestList from "./components/JoinRequestList";
+import { sectionWrapper } from "./components/index.css";
 
 const GroupSettingPage = async ({
   params: { groupId },
@@ -20,12 +22,15 @@ const GroupSettingPage = async ({
   ]);
 
   return (
-    <main className={sidebarWrapper}>
+    <section className={sidebarWrapper}>
       <Sidebar>
         <SettingSidebar info={groupInfo} code={inviteCode} />
       </Sidebar>
-      <MemberList groupId={+groupId} />
-    </main>
+      <div className={sectionWrapper}>
+        <JoinRequestList />
+        <MemberList groupId={+groupId} />
+      </div>
+    </section>
   );
 };
 

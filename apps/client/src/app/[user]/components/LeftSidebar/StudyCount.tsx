@@ -1,5 +1,5 @@
 import { getUserGroupList } from "@/app/api/users";
-import CountChip from "@/shared/component/CountChip";
+import CountChip from "../CountChip";
 
 const StudyCount = async () => {
   const myGroups = await getUserGroupList();
