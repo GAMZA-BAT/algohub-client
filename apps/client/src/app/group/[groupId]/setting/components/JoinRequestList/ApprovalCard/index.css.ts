@@ -86,3 +86,7 @@ export const actionButtonStyle = style({
   width: "9.6rem",
   height: "4rem",
 });
+
+export const modalStyle = style({
+  height: "fit-content",
+});
