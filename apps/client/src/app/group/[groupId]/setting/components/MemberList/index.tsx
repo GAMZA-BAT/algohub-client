@@ -15,7 +15,7 @@ const MemberList = ({ groupId }: { groupId: number }) => {
 
   return (
     <div className={memberListWrapper}>
-      <h1 className={labelStyle}>멤버 리스트</h1>
+      <h2 className={labelStyle}>멤버 리스트</h2>
       <MemberListProvider data={memberInfo}>
         <MemberListTable />
       </MemberListProvider>
