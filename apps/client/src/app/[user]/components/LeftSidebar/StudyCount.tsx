@@ -1,6 +1,6 @@
 import { useMyGroupsQueryObject } from "@/app/api/users/query";
-import CountChip from "@/shared/component/CountChip";
 import { prefetchQuery } from "@/shared/util/prefetch";
+import CountChip from "../CountChip";
 
 const StudyCount = async () => {
   const queryOption = useMyGroupsQueryObject();

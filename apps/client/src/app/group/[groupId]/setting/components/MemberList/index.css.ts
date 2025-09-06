@@ -5,9 +5,6 @@ export const memberListWrapper = style({
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
-
-  width: "80%",
-  padding: "4.8rem 4.2rem",
 });
 
 export const labelStyle = style({
