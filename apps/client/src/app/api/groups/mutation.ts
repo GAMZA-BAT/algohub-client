@@ -4,9 +4,12 @@ import {
   patchGroupInfo,
   patchGroupVisibility,
   patchMemberRole,
+  postApprovalRequest,
   postGroupBookmark,
   postGroupNotice,
+  postJoinRecommend,
   postProblem,
+  postRejectRequest,
 } from "@/app/api/groups/index";
 import type {
   GroupListResponse,
@@ -286,6 +289,63 @@ export const usePostProblemMutation = (groupId: number) => {
     },
     onError: (error: Error) => {
       showToast(error.message, "error");
+    },
+  });
+};
+
+export const useJoinRecommendMutation = () => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (id: number) => postJoinRecommend(id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: userQueryKey.recommendGroups(),
+      });
+      showToast("해당 스터디에 가입을 요청했어요.", "success");
+    },
+    onError: () => {
+      showToast("해당 스터디 가입 요청에 실패했어요.", "error");
+    },
+  });
+};
+
+export const useApprovalRequestMutation = (groupId: number) => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+  return useMutation({
+    mutationFn: () => postApprovalRequest(),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: groupQueryKey.joinRequests(groupId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: groupQueryKey.members(groupId),
+        }),
+      ]);
+      showToast("가입을 승인했어요.", "success");
+    },
+    onError: () => {
+      showToast("가입 승인에 실패했어요.", "error");
+    },
+  });
+};
+
+export const useRejectRequestMutation = (groupId: number) => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+  return useMutation({
+    mutationFn: () => postRejectRequest(),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: groupQueryKey.joinRequests(groupId),
+      });
+      showToast("가입을 거절했어요.", "success");
+    },
+    onError: () => {
+      showToast("가입 거절에 실패했어요.", "error");
     },
   });
 };

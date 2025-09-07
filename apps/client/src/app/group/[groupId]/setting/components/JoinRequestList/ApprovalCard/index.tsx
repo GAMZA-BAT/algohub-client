@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  useApprovalRequestMutation,
+  useRejectRequestMutation,
+} from "@/app/api/groups/mutation";
 import Avatar from "@/common/component/Avatar";
 import Button from "@/common/component/Button";
 import { useBooleanState } from "@/common/hook/useBooleanState";
@@ -21,30 +25,30 @@ type ApprovalCardProps = {
   name: string;
   groupName: string;
   avatarUrl: string;
+  groupId: number;
 };
 
 export const ApprovalCard = ({
   name,
   groupName,
   avatarUrl,
+  groupId,
 }: ApprovalCardProps) => {
   const { isOpen, open, close } = useBooleanState();
+  const { mutate: approvalRequestMutate } = useApprovalRequestMutation(groupId);
+  const { mutate: rejectRequestMutate } = useRejectRequestMutation(groupId);
   const nameId = useId();
 
   const handleApprove = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log(`Approving ${name}`);
+    approvalRequestMutate();
     close();
   };
 
   const handleReject = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log(`Rejecting ${name}`);
+    rejectRequestMutate();
     close();
-  };
-
-  const handleOpenModal = () => {
-    open();
   };
 
   return (
@@ -52,7 +56,7 @@ export const ApprovalCard = ({
       <button
         type="button"
         className={modalTriggerButtonStyle}
-        onClick={handleOpenModal}
+        onClick={open}
         aria-label={`${name}님의 스터디 가입 요청 상세 보기`}
       >
         <div className={descriptionWrapper}>

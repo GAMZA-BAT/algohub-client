@@ -7,6 +7,7 @@ import {
   getGroupNotices,
   getGroupsByCode,
   getInProgressMyGroupSolutions,
+  getJoinRequestList,
   getMyGroupSettings,
   getRoleByGroupId,
 } from "./index";
@@ -46,6 +47,8 @@ export const groupQueryKey = {
     ...groupQueryKey.problems(groupId),
     "queued",
   ],
+  joinRequests: (groupId: number) =>
+    [...groupQueryKey.detail(groupId), "join-requests"] as const,
 };
 
 export const useGroupRoleQueryObject = (groupId: number) =>
@@ -97,4 +100,10 @@ export const useGroupNoticesQueryObject = ({
     queryKey: groupQueryKey.noticeList({ groupId, page }),
     queryFn: () => getGroupNotices({ groupId, page }),
     staleTime: 0,
+  });
+
+export const useJoinRequestsQueryObject = (groupId: number) =>
+  queryOptions({
+    queryKey: groupQueryKey.joinRequests(groupId),
+    queryFn: () => getJoinRequestList(),
   });

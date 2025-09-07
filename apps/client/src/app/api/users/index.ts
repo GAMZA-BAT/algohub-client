@@ -3,7 +3,7 @@ import {
   kyJsonInstance,
   kyJsonWithTokenInstance,
 } from "@/app/api";
-import type { GroupListResponse } from "@/app/api/groups/type";
+import type { GroupListResponse, GroupResponse } from "@/app/api/groups/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
 import type {
   DeleteUserRequest,
@@ -194,6 +194,56 @@ export const deleteBjNickname = async () => {
   const response = await kyJsonWithTokenInstance.delete(
     "api/users/baekjoon-nickname",
   );
+
+  return response;
+};
+
+export const getRecommendStudy = async () => {
+  // const response = await kyJsonWithTokenInstance
+  //   .get("api/users/recommend-study")
+  //   .json();
+  const MOCK_RECOMMEND_STUDIES: GroupResponse[] = [
+    {
+      id: 1,
+      name: "알코칠",
+      introduction:
+        "BE Developer로 성장하고 싶은 숭실대학교 학생들의 알고리즘 스터디",
+      groupImage: "",
+      endDate: "2023-12-31",
+      ownerNickname: "홍길동",
+      startDate: "2023-01-01",
+      role: "PARTICIPANT",
+      isVisible: true,
+      isBookmarked: true,
+    },
+    {
+      id: 2,
+      name: "코칠마",
+      introduction: "FE Developer로 성장하고 싶은 주니어들의 스터디입니다.",
+      groupImage: "",
+      endDate: "2023-12-12",
+      ownerNickname: "홍서동",
+      startDate: "2023-05-01",
+      role: "PARTICIPANT",
+      isVisible: true,
+      isBookmarked: true,
+    },
+    {
+      id: 3,
+      name: "CS 마스터",
+      introduction: "컴퓨터 과학 기초를 탄탄히 다지고 싶은 분들을 위한 스터디",
+      groupImage: "",
+      endDate: "2024-06-30",
+      ownerNickname: "김철수",
+      startDate: "2024-01-01",
+      role: "OWNER",
+      isVisible: true,
+      isBookmarked: false,
+    },
+  ];
+  const response = await new Promise<GroupResponse[]>((res) => {
+    res(MOCK_RECOMMEND_STUDIES);
+  });
 
   return response;
 };

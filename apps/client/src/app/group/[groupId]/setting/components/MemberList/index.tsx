@@ -6,12 +6,11 @@ import {
   labelStyle,
   memberListWrapper,
 } from "@/app/group/[groupId]/setting/components/MemberList/index.css";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const MemberList = ({ groupId }: { groupId: number }) => {
-  const { data: memberInfo } = useSuspenseQuery(
-    useMemberListQueryObject(groupId),
-  );
+  const { data: memberInfo } = useQuery(useMemberListQueryObject(groupId));
+  if (!memberInfo) return null;
 
   return (
     <div className={memberListWrapper}>

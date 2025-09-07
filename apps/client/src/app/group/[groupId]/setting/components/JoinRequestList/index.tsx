@@ -1,6 +1,8 @@
 "use client";
 
+import { useJoinRequestsQueryObject } from "@/app/api/groups/query";
 import { IcnBtnArrowLeft, IcnBtnArrowRight } from "@/asset/svg";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { ApprovalCard } from "./ApprovalCard";
@@ -14,28 +16,32 @@ import {
   joinRequestStyle,
 } from "./index.css";
 
-const MOCK_JOIN_REQUESTS = Array.from({ length: 8 }, (_, i) => ({
-  id: i + 1,
-  name: `요청자 ${i + 1}`,
-  avatarUrl: "",
-}));
+type JoinRequestListProps = {
+  groupName: string;
+  groupId: number;
+};
 
 const ITEMS_PER_PAGE = 3;
-
-const JoinRequestList = ({ groupName }: { groupName: string }) => {
+const JoinRequestList = ({ groupName, groupId }: JoinRequestListProps) => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isDownDirection, setIsDownDirection] = useState(true);
+  const { data: joinRequests } = useSuspenseQuery(
+    useJoinRequestsQueryObject(groupId),
+  );
 
-  const totalPages = Math.ceil(MOCK_JOIN_REQUESTS.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(joinRequests.length / ITEMS_PER_PAGE);
   if (!totalPages) return null;
   const startIndex = currentPage * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentRequests = MOCK_JOIN_REQUESTS.slice(startIndex, endIndex);
+  const currentRequests = joinRequests.slice(startIndex, endIndex);
 
   const handlePrev = () => {
+    setIsDownDirection(false);
     setCurrentPage((prev) => Math.max(prev - 1, 0));
   };
 
   const handleNext = () => {
+    setIsDownDirection(true);
     setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
   };
 
@@ -49,7 +55,7 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
           <h2 id="join-requst-title" className={joinRequestStyle}>
             가입 요청
           </h2>
-          <span className={countStyle}>{MOCK_JOIN_REQUESTS.length}</span>
+          <span className={countStyle}>{joinRequests.length}</span>
         </div>
         <div>
           <button
@@ -77,10 +83,10 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
         <motion.ul
           key={currentPage}
           className={cardListWrapperStyle}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0.3, y: isDownDirection ? 10 : -10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.15, ease: "easeInOut" }}
+          exit={{ opacity: 0.3, y: isDownDirection ? -10 : 10 }}
+          transition={{ duration: 0.18, ease: "easeInOut" }}
         >
           {currentRequests.map((request) => (
             <li key={request.id}>
@@ -88,6 +94,7 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
                 name={request.name}
                 groupName={groupName}
                 avatarUrl={request.avatarUrl}
+                groupId={groupId}
               />
             </li>
           ))}
