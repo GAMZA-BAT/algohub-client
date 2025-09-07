@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Image, { type ImageProps } from "next/image";
 
 interface AvatarProps extends Omit<ImageProps, "src"> {
-  size?: "mini" | "xSmall" | "small" | "medium" | "large";
+  size?: "xMini" | "mini" | "xSmall" | "small" | "medium" | "large";
   hasShadow?: boolean;
   src?: string | null;
 }
