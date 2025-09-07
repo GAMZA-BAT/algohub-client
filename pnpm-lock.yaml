@@ -23,6 +23,9 @@ importers:
 
   apps/client:
     dependencies:
+      '@channel.io/channel-web-sdk-loader':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.0(react@18.3.1))
@@ -917,6 +920,9 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@channel.io/channel-web-sdk-loader@2.0.0':
+    resolution: {integrity: sha512-Z8DDpf2lAaYr/3aAnwQtxg0L8MYWgi/hhGV8c5/SLCV6Fx5Gssj7mfyHHrCVC315B0icmLYqZsXBlmbf6cN8Jg==}
 
   '@chromatic-com/storybook@1.9.0':
     resolution: {integrity: sha512-vYQ+TcfktEE3GHnLZXHCzXF/sN9dw+KivH8a5cmPyd9YtQs7fZtHrEgsIjWpYycXiweKMo1Lm1RZsjxk8DH3rA==}
@@ -5828,6 +5834,8 @@ snapshots:
 
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
+
+  '@channel.io/channel-web-sdk-loader@2.0.0': {}
 
   '@chromatic-com/storybook@1.9.0(react@18.3.1)':
     dependencies:
