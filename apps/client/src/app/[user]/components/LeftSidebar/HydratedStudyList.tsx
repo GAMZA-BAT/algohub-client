@@ -4,9 +4,8 @@ import { HydrationBoundary } from "@tanstack/react-query";
 import StudyList from "./StudyList";
 
 const HydratedStudyList = async () => {
-  const queryOption = useMyGroupsQueryObject();
-  const dehydratedState = await prefetchQuery(queryOption);
-
+  const dehydratedState = await prefetchQuery(useMyGroupsQueryObject());
+  
   return (
     <HydrationBoundary state={dehydratedState}>
       <StudyList />
