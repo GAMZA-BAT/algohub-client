@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
-import * as ChannelService from "@channel.io/channel-web-sdk-loader";
+import { loadScript, boot, shutdown } from "@channel.io/channel-web-sdk-loader";
 import { theme } from "@/styles/themes.css";
 
 const pluginKey = process.env.NEXT_PUBLIC_CHANNEL_IO_KEY;
@@ -14,7 +14,7 @@ const ChannelTalk = () => {
   useEffect(() => {
     if (!pluginKey) return;
 
-    ChannelService.loadScript();
+    loadScript();
   }, []);
 
   // 사용자 인증 상태에 따른 부팅 처리
@@ -25,7 +25,7 @@ const ChannelTalk = () => {
 
     if (status === "authenticated" && session?.user?.id) {
       // 인증된 사용자: 사용자 정보와 함께 부팅
-      ChannelService.boot({
+      boot({
         pluginKey,
         memberId: session.user.id,
         profile: {
@@ -37,14 +37,14 @@ const ChannelTalk = () => {
       });
     } else {
       // 게스트 모드: 기본 설정으로 부팅
-      ChannelService.boot({
+      boot({
         pluginKey,
         zIndex: +theme.zIndex.bottom,
       });
     }
 
     return () => {
-      ChannelService.shutdown();
+      shutdown();
     };
   }, [status, session?.user?.id]);
 
