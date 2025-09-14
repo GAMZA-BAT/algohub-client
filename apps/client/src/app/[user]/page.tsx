@@ -14,6 +14,7 @@ import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
+
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
 import UserPageLeftSidebar from "./components/LeftSidebar";

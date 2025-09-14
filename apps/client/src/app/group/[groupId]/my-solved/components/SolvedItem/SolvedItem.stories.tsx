@@ -18,6 +18,7 @@ export const Default = {
     const data: SolutionContent[] = [
       {
         solutionId: 1,
+        problemId: 1,
         problemTitle: "막대기",
         problemLevel: 6,
         accuracy: 100,
@@ -37,6 +38,7 @@ export const Default = {
       },
       {
         solutionId: 1,
+        problemId: 1,
         problemTitle: "막대기",
         problemLevel: 6,
         accuracy: 100,
@@ -56,6 +58,7 @@ export const Default = {
       },
       {
         solutionId: 1,
+        problemId: 1,
         problemTitle: "막대기",
         problemLevel: 6,
         accuracy: 100,
@@ -75,6 +78,7 @@ export const Default = {
       },
       {
         solutionId: 1,
+        problemId: 1,
         problemTitle: "막대기",
         problemLevel: 6,
         accuracy: 100,

@@ -170,3 +170,31 @@ export const getNicknameValidation = (
     isActive,
   };
 };
+
+export const getBaekjoonIdValidation = (
+  form: UseFormReturn<z.infer<typeof baseSignupSchema>>,
+  isBaekjoonIdLoading: boolean,
+) => {
+  const {
+    errors: { baekjoonId: baekjoonIdError },
+    dirtyFields: { baekjoonId: baekjoonIdDirty },
+    isValid,
+  } = form.formState;
+
+  const isBaekjoonIdValid = Boolean(
+    !(baekjoonIdError || isBaekjoonIdLoading) && baekjoonIdDirty,
+  );
+
+  const baekjoonIdMsg = (() => {
+    if (isBaekjoonIdLoading) return defaultSignupMsg.baekjoonLoading;
+    if (isBaekjoonIdValid) return defaultSignupMsg.validBaekjoonId;
+    return baekjoonIdError?.message;
+  })();
+
+  const isActive = !isBaekjoonIdLoading && isValid;
+
+  return {
+    baekjoonIdMsg,
+    isActive,
+  };
+};
