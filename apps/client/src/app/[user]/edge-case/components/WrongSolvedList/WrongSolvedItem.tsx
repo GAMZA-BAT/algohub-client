@@ -16,8 +16,8 @@ const WrongSolvedItem = () => {
   const TierIcon = getTierImage(1);
 
   return (
-    <li className={wrongSolvedItemWrapper}>
-      <Link href={`/problem/${1166}`}>
+    <li>
+      <Link href={`/problem/${1166}`} className={wrongSolvedItemWrapper}>
         <div className={wrongSolvedMetaStyle}>
           <Avatar size="xMini" alt="group image" />
           <div className={wrongSolvedTitleWrapper}>
