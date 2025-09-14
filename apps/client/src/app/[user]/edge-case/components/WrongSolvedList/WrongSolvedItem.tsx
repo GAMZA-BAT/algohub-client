@@ -16,10 +16,10 @@ const WrongSolvedItem = () => {
   const TierIcon = getTierImage(1);
 
   return (
-    <Link href={`/problem/${1166}`}>
-      <li className={wrongSolvedItemWrapper}>
+    <li className={wrongSolvedItemWrapper}>
+      <Link href={`/problem/${1166}`}>
         <div className={wrongSolvedMetaStyle}>
-          <Avatar size="xMini" alt="group image" />
+          <Avatar size="xMini" alt="group image" role="img" />
           <div className={wrongSolvedTitleWrapper}>
             <div className={wrongSolvedTitleContainer}>
               <TierIcon width={16} height={16} />
@@ -31,8 +31,8 @@ const WrongSolvedItem = () => {
           </div>
         </div>
         <IcnBtnArrowRight width={12} height={12} />
-      </li>
-    </Link>
+      </Link>
+    </li>
   );
 };
 
