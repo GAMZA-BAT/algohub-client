@@ -1,7 +1,6 @@
 "use client";
 
 import RecommendList from "@/app/[user]/components/RecommendSection/RecommendList";
-import SearchStudyInput from "@/app/[user]/components/SearchStudyInput";
 import { useSearchStudyQueryObject } from "@/app/api/groups/query";
 import type { GroupResponse } from "@/app/api/groups/type";
 import Spinner from "@/common/component/Spinner";
@@ -11,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CardButton from "../CardButton";
+import SearchStudyInput from "../SearchStudyInput";
 import {
   loadingWrapper,
   recommendHeaderContentWrapper,
