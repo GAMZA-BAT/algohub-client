@@ -19,7 +19,7 @@ const WrongSolvedItem = () => {
     <li className={wrongSolvedItemWrapper}>
       <Link href={`/problem/${1166}`}>
         <div className={wrongSolvedMetaStyle}>
-          <Avatar size="xMini" alt="group image" role="img" />
+          <Avatar size="xMini" alt="group image" />
           <div className={wrongSolvedTitleWrapper}>
             <div className={wrongSolvedTitleContainer}>
               <TierIcon width={16} height={16} />

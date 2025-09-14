@@ -20,7 +20,6 @@ const Avatar = ({
   return (
     <div className={clsx(wrapperStyle, className)}>
       <Image
-        role="button"
         {...imageProps}
         src={src || defaultImg}
         width="100"
