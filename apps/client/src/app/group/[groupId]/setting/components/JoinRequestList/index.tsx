@@ -79,27 +79,26 @@ const JoinRequestList = ({ groupName, groupId }: JoinRequestListProps) => {
         </div>
       </div>
 
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.ul
-          key={currentPage}
-          className={cardListWrapperStyle}
-          initial={{ opacity: 0.3, y: isDownDirection ? 10 : -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0.3, y: isDownDirection ? -10 : 10 }}
-          transition={{ duration: 0.18, ease: "easeInOut" }}
-        >
+      <motion.ul className={cardListWrapperStyle}>
+        <AnimatePresence mode="wait">
           {currentRequests.map((request) => (
-            <li key={request.id}>
+            <motion.li
+              key={request.id}
+              initial={{ opacity: 0.6, y: isDownDirection ? 3 : -3 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0.6, y: isDownDirection ? -3 : 3 }}
+              transition={{ duration: 0.15, ease: "easeInOut" }}
+            >
               <ApprovalCard
                 name={request.name}
                 groupName={groupName}
                 avatarUrl={request.avatarUrl}
                 groupId={groupId}
               />
-            </li>
+            </motion.li>
           ))}
-        </motion.ul>
-      </AnimatePresence>
+        </AnimatePresence>
+      </motion.ul>
     </section>
   );
 };
