@@ -6,6 +6,7 @@ import GroupActionModal from "@/shared/component/GroupActionModal";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import CardButton from "../CardButton";
+import SearchStudyInput from "../SearchStudyInput";
 import {
   recommendHeaderWrapper,
   recommendSectionWrapper,
@@ -50,7 +51,7 @@ const RecommendStudySection = () => {
         <h2 id="recommend-title" className={recommendStudyTitle}>
           추천 스터디
         </h2>
-        <input />
+        <SearchStudyInput />
       </div>
       <CardButton
         groupInfo={groupInfo}
