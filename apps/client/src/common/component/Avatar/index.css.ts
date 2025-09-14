@@ -15,6 +15,10 @@ export const avatarStyle = recipe({
   },
   variants: {
     size: {
+      xMini: {
+        width: "2rem",
+        height: "2rem",
+      },
       mini: {
         width: "2.5rem",
         height: "2.5rem",

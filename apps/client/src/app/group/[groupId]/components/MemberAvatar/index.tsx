@@ -25,6 +25,7 @@ const MemberAvatar = ({
 
   return (
     <Avatar
+      role="button"
       src={src}
       size="small"
       alt={`${nickname} 프로필`}

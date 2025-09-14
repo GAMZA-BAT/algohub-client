@@ -56,6 +56,7 @@ const EditAvatar = ({
     <Avatar
       src={pickedImage ?? (variant === "default" ? defaultImg : grayDefaultImg)}
       alt={alt}
+      role="button"
       size="large"
       {...props}
     >

@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Image, { type ImageProps } from "next/image";
 
 interface AvatarProps extends Omit<ImageProps, "src"> {
-  size?: "mini" | "xSmall" | "small" | "medium" | "large";
+  size?: "xMini" | "mini" | "xSmall" | "small" | "medium" | "large";
   hasShadow?: boolean;
   src?: string | null;
 }
@@ -20,7 +20,6 @@ const Avatar = ({
   return (
     <div className={clsx(wrapperStyle, className)}>
       <Image
-        role="button"
         {...imageProps}
         src={src || defaultImg}
         width="100"
