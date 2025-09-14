@@ -5,7 +5,7 @@ import StudyList from "./StudyList";
 
 const HydratedStudyList = async () => {
   const dehydratedState = await prefetchQuery(useMyGroupsQueryObject());
-  
+
   return (
     <HydrationBoundary state={dehydratedState}>
       <StudyList />
