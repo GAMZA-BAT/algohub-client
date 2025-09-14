@@ -24,6 +24,7 @@ const ITEMS_PER_PAGE = 3;
 
 const JoinRequestList = ({ groupName }: { groupName: string }) => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isDownDirection, setIsDownDirection] = useState(true);
 
   const totalPages = Math.ceil(MOCK_JOIN_REQUESTS.length / ITEMS_PER_PAGE);
   if (!totalPages) return null;
@@ -32,10 +33,12 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
   const currentRequests = MOCK_JOIN_REQUESTS.slice(startIndex, endIndex);
 
   const handlePrev = () => {
+    setIsDownDirection(false);
     setCurrentPage((prev) => Math.max(prev - 1, 0));
   };
 
   const handleNext = () => {
+    setIsDownDirection(true);
     setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
   };
 
@@ -73,26 +76,25 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
         </div>
       </div>
 
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.ul
-          key={currentPage}
-          className={cardListWrapperStyle}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.15, ease: "easeInOut" }}
-        >
+      <motion.ul className={cardListWrapperStyle}>
+        <AnimatePresence mode="wait">
           {currentRequests.map((request) => (
-            <li key={request.id}>
+            <motion.li
+              key={request.id}
+              initial={{ opacity: 0.6, y: isDownDirection ? 3 : -3 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0.6, y: isDownDirection ? -3 : 3 }}
+              transition={{ duration: 0.15, ease: "easeInOut" }}
+            >
               <ApprovalCard
                 name={request.name}
                 groupName={groupName}
                 avatarUrl={request.avatarUrl}
               />
-            </li>
+            </motion.li>
           ))}
-        </motion.ul>
-      </AnimatePresence>
+        </AnimatePresence>
+      </motion.ul>
     </section>
   );
 };
