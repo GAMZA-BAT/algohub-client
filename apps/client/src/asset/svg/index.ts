@@ -101,4 +101,6 @@ export { default as IcnUser3 } from "./icn_user3.svg";
 export { default as IcnHome } from "./icn_home.svg";
 export { default as IcnCode } from "./icn_code.svg";
 export { default as IcnFavoriteBorder } from "./icn_favorite_border.svg";
+export { default as IcnFavoriteFill } from "./icn_favorite_fill.svg";
 export { default as IcnEnter } from "./icn_enter.svg";
+export { default as IcnFileCopy } from "./icn_file_copy.svg";
