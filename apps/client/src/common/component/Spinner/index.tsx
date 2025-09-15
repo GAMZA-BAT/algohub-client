@@ -1,7 +1,9 @@
+"use client";
 import spinner from "@/asset/lottie/spinner.json";
+import type { HTMLAttributes } from "react";
 import Animation from "../Animation";
 
-interface SpinnerProps {
+interface SpinnerProps extends HTMLAttributes<HTMLDivElement> {
   size?: "large" | "medium" | "small";
 }
 
@@ -10,8 +12,8 @@ const sizeMap = {
   medium: "8rem",
   small: "6rem",
 };
-const Spinner = ({ size = "medium" }: SpinnerProps) => {
-  return <Animation animationJson={spinner} size={sizeMap[size]} />;
+const Spinner = ({ size = "medium", ...props }: SpinnerProps) => {
+  return <Animation {...props} animationJson={spinner} size={sizeMap[size]} />;
 };
 
 export default Spinner;

@@ -23,3 +23,7 @@ export const solvedSectionStyle = style({
   width: "80%",
   marginTop: "4.8rem",
 });
+
+export const alignCenterStyle = style({
+  margin: "0 auto",
+});
