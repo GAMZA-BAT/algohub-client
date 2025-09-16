@@ -2,7 +2,7 @@
 
 import { IcnBtnArrowLeft, IcnBtnArrowRight } from "@/asset/svg";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ApprovalCard } from "./ApprovalCard";
 import {
   buttonStyle,
@@ -26,11 +26,17 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isDownDirection, setIsDownDirection] = useState(true);
 
-  const totalPages = Math.ceil(MOCK_JOIN_REQUESTS.length / ITEMS_PER_PAGE);
-  if (!totalPages) return null;
+  const totalPages = useMemo(
+    () => Math.ceil(MOCK_JOIN_REQUESTS.length / ITEMS_PER_PAGE),
+    [MOCK_JOIN_REQUESTS.length],
+  );
   const startIndex = currentPage * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentRequests = MOCK_JOIN_REQUESTS.slice(startIndex, endIndex);
+  const currentRequests = MOCK_JOIN_REQUESTS.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE,
+  );
+
+  if (!totalPages) return null;
 
   const handlePrev = () => {
     setIsDownDirection(false);
@@ -45,11 +51,11 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
   return (
     <section
       className={joinRequestSectionWrapper}
-      aria-labelledby="join-requst-title"
+      aria-labelledby="join-request-title"
     >
       <div className={joinRequestHeaderWrapper}>
         <div className={joinRequestHeadStyle}>
-          <h2 id="join-requst-title" className={joinRequestStyle}>
+          <h2 id="join-request-title" className={joinRequestStyle}>
             가입 요청
           </h2>
           <span className={countStyle}>{MOCK_JOIN_REQUESTS.length}</span>
