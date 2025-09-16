@@ -4,7 +4,7 @@ import { useJoinRequestsQueryObject } from "@/app/api/groups/query";
 import { IcnBtnArrowLeft, IcnBtnArrowRight } from "@/asset/svg";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ApprovalCard } from "./ApprovalCard";
 import {
   buttonStyle,
@@ -29,11 +29,17 @@ const JoinRequestList = ({ groupName, groupId }: JoinRequestListProps) => {
     useJoinRequestsQueryObject(groupId),
   );
 
-  const totalPages = Math.ceil(joinRequests.length / ITEMS_PER_PAGE);
-  if (!totalPages) return null;
+  const totalPages = useMemo(
+    () => Math.ceil(joinRequests.length / ITEMS_PER_PAGE),
+    [joinRequests.length],
+  );
   const startIndex = currentPage * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentRequests = joinRequests.slice(startIndex, endIndex);
+  const currentRequests = joinRequests.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE,
+  );
+
+  if (!totalPages) return null;
 
   const handlePrev = () => {
     setIsDownDirection(false);
@@ -48,11 +54,11 @@ const JoinRequestList = ({ groupName, groupId }: JoinRequestListProps) => {
   return (
     <section
       className={joinRequestSectionWrapper}
-      aria-labelledby="join-requst-title"
+      aria-labelledby="join-request-title"
     >
       <div className={joinRequestHeaderWrapper}>
         <div className={joinRequestHeadStyle}>
-          <h2 id="join-requst-title" className={joinRequestStyle}>
+          <h2 id="join-request-title" className={joinRequestStyle}>
             가입 요청
           </h2>
           <span className={countStyle}>{joinRequests.length}</span>
