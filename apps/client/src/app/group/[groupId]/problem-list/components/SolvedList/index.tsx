@@ -30,7 +30,6 @@ type SolvedListProps = {
 };
 
 const initOption = {
-  problemId: 0,
   solvedId: null,
   language: SOLVED_LANGUAGE[0],
   result: SOLVED_RESULT[0],

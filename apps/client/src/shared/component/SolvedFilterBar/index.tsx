@@ -47,7 +47,6 @@ const SolvedFilterBar = ({
 
   return (
     <div className={solvedFilterWrapper}>
-      <Input className={inputStyle} placeholder="문제 번호" />
       <Input
         className={inputStyle}
         value={idFilterValue}
