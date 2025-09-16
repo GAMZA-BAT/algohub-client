@@ -3,9 +3,9 @@ import { style } from "@vanilla-extract/css";
 
 export const headerStyle = style({
   display: "grid",
-  gridTemplateColumns: "0.5fr 2fr 2fr 6fr",
+  gridTemplateColumns: "0.6fr 2.7fr 2fr 2fr 2fr 2fr",
   alignItems: "center",
-  gap: "1.6rem",
+  gap: "2.4rem",
 
   padding: "1rem 1.6rem",
 
