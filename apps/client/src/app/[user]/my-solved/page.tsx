@@ -31,6 +31,8 @@ const MySolvedPage = () => {
         page,
         size: 3,
       }),
+    isUrlSync: true,
+    searchParam: "inProgress",
   });
   const inProgressList = inProgressData?.content || [];
 
@@ -46,6 +48,8 @@ const MySolvedPage = () => {
         page,
         size: 3,
       }),
+    isUrlSync: true,
+    searchParam: "expired",
   });
   const expiredList = expiredData?.content || [];
 
