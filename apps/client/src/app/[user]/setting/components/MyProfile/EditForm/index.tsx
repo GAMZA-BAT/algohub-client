@@ -14,12 +14,14 @@ import SubmitButton from "@/shared/component/SubmitButton";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { handleOnChangeMode } from "@/shared/util/form";
 import { getSession, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import type { z } from "zod";
 import { contentStyle, formStyle, labelStyle } from "./index.css";
 import type { baseEditSchema } from "./schema";
 import useEditForm from "./useEditForm";
 
 const EditForm = () => {
+  const router = useRouter();
   const { data, update } = useSession();
   const {
     form,
@@ -34,6 +36,9 @@ const EditForm = () => {
   const handleSubmit = async (values: z.infer<typeof baseEditSchema>) => {
     const response = await _handleSubmit(values);
     if (response.status === 200) {
+      const originalNickname = data?.user?.nickname;
+      const { nickname: newNickname } = values;
+
       await update(await getSession());
 
       form.reset(values, {
@@ -41,6 +46,9 @@ const EditForm = () => {
         keepDirty: false, // dirty 상태 초기화
       });
 
+      if (originalNickname && newNickname && originalNickname !== newNickname) {
+        router.replace(`/${newNickname}/setting`);
+      }
       showToast("정상적으로 수정되었어요.", "success");
     } else if (response.status === HTTP_ERROR_STATUS.INTERNAL_SERVER_ERROR)
       showToast("정상적으로 수정되지 않았어요.", "error");
