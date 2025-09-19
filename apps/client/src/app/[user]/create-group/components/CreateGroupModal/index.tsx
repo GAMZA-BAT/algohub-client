@@ -1,7 +1,7 @@
 import {
   plusIconStyle,
   submitBtnStyle,
-} from "@/app/[user]/create-group/components/CreateGroupForm/index.css";
+} from "@/app/[user]/create-group/components/CreateGroupModal/index.css";
 import { groupSchema } from "@/app/api/groups/schema";
 import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
@@ -24,8 +24,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
+import { wrapper } from "../index.css";
 
-const CreateGroupForm = () => {
+const CreateGroupModal = () => {
   const { showToast } = useToast();
   const [code, setCode] = useState("");
 
@@ -51,48 +52,50 @@ const CreateGroupForm = () => {
   const error = form.formState.errors.endDate;
 
   return (
-    <Form {...form}>
-      <form
-        className={formStyle({ variant: "create-group" })}
-        onSubmit={form.handleSubmit((v) => handleSubmit(v))}
-      >
-        <ImageFormController form={form} />
-        <NameFormController form={form} variant="create-group" />
-        <div>
-          <p className={formLabelStyle({ variant: "create-group" })}>
-            스터디 기간
-          </p>
-          <div className={dateWrapper}>
-            <DateFormController
-              form={form}
-              variant="create-group"
-              dateType="startDate"
-            />
-            <DateFormController
-              form={form}
-              variant="create-group"
-              dateType="endDate"
-            />
-          </div>
-          {error && (
-            <SupportingText isError hasErrorIcon message={error.message} />
-          )}
-        </div>
-        <DescFormController form={form} variant="create-group" />
-        <Button
-          className={submitBtnStyle}
-          type="submit"
-          size="large"
-          disabled={!form.formState.isValid || form.formState.isSubmitted}
-          isActive={form.formState.isValid && !form.formState.isSubmitted}
+    <div className={wrapper}>
+      <Form {...form}>
+        <form
+          className={formStyle({ variant: "create-group" })}
+          onSubmit={form.handleSubmit((v) => handleSubmit(v))}
         >
-          <IcnPlus className={plusIconStyle} width={24} height={24} />
-          스터디 만들기
-        </Button>
-      </form>
-      {code && <CodeClipboard code={code} />}
-    </Form>
+          <ImageFormController form={form} />
+          <NameFormController form={form} variant="create-group" />
+          <div>
+            <p className={formLabelStyle({ variant: "create-group" })}>
+              스터디 기간
+            </p>
+            <div className={dateWrapper}>
+              <DateFormController
+                form={form}
+                variant="create-group"
+                dateType="startDate"
+              />
+              <DateFormController
+                form={form}
+                variant="create-group"
+                dateType="endDate"
+              />
+            </div>
+            {error && (
+              <SupportingText isError hasErrorIcon message={error.message} />
+            )}
+          </div>
+          <DescFormController form={form} variant="create-group" />
+          <Button
+            className={submitBtnStyle}
+            type="submit"
+            size="large"
+            disabled={!form.formState.isValid || form.formState.isSubmitted}
+            isActive={form.formState.isValid && !form.formState.isSubmitted}
+          >
+            <IcnPlus className={plusIconStyle} width={24} height={24} />
+            스터디 만들기
+          </Button>
+        </form>
+        {code && <CodeClipboard code={code} />}
+      </Form>
+    </div>
   );
 };
 
-export default CreateGroupForm;
+export default CreateGroupModal;
