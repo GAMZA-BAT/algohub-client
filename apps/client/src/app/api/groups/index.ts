@@ -7,6 +7,7 @@ import type {
   MemberRoleRequest,
   Role,
   SearchRequest,
+  SearchStudyResponse,
 } from "@/app/api/groups/type";
 import type { NoticeListRequest, NoticeRequest, NoticeResponse } from "@/app/api/notices/type";
 import type { GetProblemRequest, ProblemListResponse, ProblemRequest } from "@/app/api/problems/type";
@@ -234,7 +235,7 @@ export const getSearchStudy = async ({ searchPattern, page, size }: SearchReques
   }
 
   const response = await kyJsonWithTokenInstance
-    .get("api/groups/search", {
+    .get<SearchStudyResponse>("api/groups/search", {
       searchParams: params,
     })
     .json();
