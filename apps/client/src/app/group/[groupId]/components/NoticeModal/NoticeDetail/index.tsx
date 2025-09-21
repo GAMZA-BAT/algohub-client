@@ -19,6 +19,7 @@ import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { type FormEvent, useRef, useState } from "react";
 import {
   articleStyle,
@@ -41,18 +42,22 @@ import {
 
 type NoticeDetailProps = {
   data: NoticeContent;
-  goBack: () => void;
 };
 
 const NoticeDetail = ({
   data: { author, title, createdAt, category, noticeId, content, isRead },
-  goBack,
 }: NoticeDetailProps) => {
   const { data: session } = useSession();
+  const router = useRouter();
+  const handleClose = () => {
+    router.replace(`/group/${groupId}/notice`);
+  };
+
   const { isActive, ...handlers } = useA11yHoverHandler();
 
   const [isEdit, setIsEdit] = useState(false);
   const [comment, setComment] = useState("");
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const commentListRef = useRef<HTMLUListElement>(null);
 
@@ -101,7 +106,7 @@ const NoticeDetail = ({
 
   const handleDeleteClick = () => {
     deleteNoticeMutate(undefined, {
-      onSuccess: goBack,
+      onSuccess: handleClose,
     });
   };
 

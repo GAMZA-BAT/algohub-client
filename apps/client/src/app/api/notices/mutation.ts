@@ -6,12 +6,10 @@ import {
 } from "@/app/api/notices";
 import { noticeQueryKey } from "@/app/api/notices/query";
 import type { NoticeRequest } from "@/app/api/notices/type";
-import {
-  deleteNoticeAction,
-  patchNoticeAction,
-} from "@/app/group/[groupId]/notice/action";
+
 import { useToast } from "@/common/hook/useToast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteNoticeAction, patchNoticeAction } from "./action";
 
 export const useNoticeCommentMutation = (noticeId: number) => {
   const queryClient = useQueryClient();

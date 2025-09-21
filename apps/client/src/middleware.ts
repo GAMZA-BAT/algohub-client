@@ -6,6 +6,8 @@ export default auth(async (req) => {
   const {
     nextUrl: { pathname },
     auth,
+    url,
+    headers,
   } = req;
   const isLoggedIn = !!auth;
   const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
@@ -16,6 +18,25 @@ export default auth(async (req) => {
 
   if (!(isUserInfo || isLoggedIn || isPublicRoute)) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
+  }
+
+  const groupIdPattern = /^\/group\/([^/]+)\/notice(\/.*)?$/;
+  const match = pathname.match(groupIdPattern);
+  const isSoftNavigation = headers.get("next-url");
+
+  console.log({ pathname, isSoftNavigation });
+  if (!isSoftNavigation && match) {
+    const groupId = match[1];
+    const rewriteUrl = new URL(`/group/${groupId}`, url);
+
+    const response = NextResponse.rewrite(rewriteUrl);
+
+    response.cookies.set("modal-path", pathname, {
+      path: `/group/${groupId}`,
+      maxAge: 5,
+    });
+
+    return response;
   }
 
   return;

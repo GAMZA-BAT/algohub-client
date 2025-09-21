@@ -11,10 +11,14 @@ import Sidebar from "@/common/component/Sidebar";
 import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
 import { HydrationBoundary } from "@tanstack/react-query";
+import { cookies } from "next/headers";
 
 const GroupDashboardPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
+  const cookieStore = cookies();
+  const modalPath = cookieStore.get("modal-path")?.value || null;
+
   const groupInfoData = getGroupInfo(+groupId);
   const rankingData = getTopRanking(+groupId);
   const memberData = getGroupMemberList(+groupId);
@@ -40,7 +44,7 @@ const GroupDashboardPage = async ({
         <GroupSidebar info={groupInfo} memberList={memberInfo} />
       </Sidebar>
       <div className={listSectionStyle}>
-        <NoticeBanner />
+        <NoticeBanner modalPath={modalPath} />
         <HydrationBoundary state={dehydratedState}>
           <Ranking rankingData={rankingInfo} />
         </HydrationBoundary>
