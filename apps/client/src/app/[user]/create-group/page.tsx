@@ -1,9 +1,9 @@
 "use client";
 
-import CreateGroupModal from "@/app/[user]/create-group/components/CreateGroupModal";
+import CreateGroup from "@/app/[user]/create-group/components/CreateGroup";
 
 const CreateGroupPage = () => {
-  return <CreateGroupModal />;
+  return <CreateGroup />;
 };
 
 export default CreateGroupPage;

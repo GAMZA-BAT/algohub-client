@@ -1,7 +1,7 @@
 import {
   plusIconStyle,
   submitBtnStyle,
-} from "@/app/[user]/create-group/components/CreateGroupModal/index.css";
+} from "@/app/[user]/create-group/components/CreateGroup/index.css";
 import { groupSchema } from "@/app/api/groups/schema";
 import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
@@ -26,7 +26,7 @@ import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { wrapper } from "../index.css";
 
-const CreateGroupModal = () => {
+const CreateGroup = () => {
   const { showToast } = useToast();
   const [code, setCode] = useState("");
 
@@ -98,4 +98,4 @@ const CreateGroupModal = () => {
   );
 };
 
-export default CreateGroupModal;
+export default CreateGroup;
