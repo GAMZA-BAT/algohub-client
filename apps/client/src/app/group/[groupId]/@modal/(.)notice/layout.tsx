@@ -17,7 +17,7 @@ export default function InterceptingNoticeLayout({
 
   const handleClose = () => {
     /* 
-      /notice는 intercepting route 언마운트를 위해 back 사용
+      /notice는 parallel route 언마운트를 위해 back 사용
       /notice/:path는 url로 들어왔을 때 back할 history가 없으므로 replace 사용
     */
     endsWith ? router.back() : router.replace(`/group/${groupId}/notice`);

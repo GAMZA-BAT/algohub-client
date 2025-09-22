@@ -1,4 +1,3 @@
-import type { SolutionContent } from "@/app/api/solutions/type";
 import {
   checkboxStyle,
   commonStyle,
@@ -7,7 +6,8 @@ import {
   titleStyle,
   titleWrapperStyle,
   wrongCheckBoxStyle,
-} from "@/app/group/[groupId]/solved-detail/components/SolvedDetail/index.css";
+} from "@/app/@modal/(...)group/[groupId]/solved-detail/components/SolvedDetail/index.css";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import CheckBox from "@/common/component/CheckBox";
 import { getTierImage } from "@/shared/util/img";
 import { getSolvedStatusByResult } from "@/shared/util/result";

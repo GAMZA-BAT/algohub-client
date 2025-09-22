@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  getExpiredMyGroupSolutions,
-  getInProgressMyGroupSolutions,
-} from "@/app/api/groups";
-
+import { getMySolutions } from "@/app/api/users";
 import Sidebar from "@/common/component/Sidebar";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import { usePvEvent } from "@/shared/hook/usePvEvent";
@@ -25,10 +21,11 @@ const MyGroupSolvedPage = ({
   } = usePaginationQuery({
     queryKey: ["inProgressMyGroupSolutions", +groupId],
     queryFn: (page: number) =>
-      getInProgressMyGroupSolutions({
-        groupId: +groupId,
+      getMySolutions({
         page,
         size: 3,
+        status: "IN_PROGRESS",
+        groupId: +groupId,
       }),
   });
   const inProgressList = inProgressData?.content || [];
@@ -41,10 +38,11 @@ const MyGroupSolvedPage = ({
   } = usePaginationQuery({
     queryKey: ["expiredMyGroupSolutions", +groupId],
     queryFn: (page: number) =>
-      getExpiredMyGroupSolutions({
-        groupId: +groupId,
+      getMySolutions({
         page,
         size: 3,
+        status: "EXPIRED",
+        groupId: +groupId,
       }),
   });
   const expiredList = expiredData?.content || [];

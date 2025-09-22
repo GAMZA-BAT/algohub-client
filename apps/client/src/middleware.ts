@@ -1,6 +1,7 @@
 import { apiAuthPrefix, publicRoutes } from "@/routes";
 import { NextResponse } from "next/server";
 import { auth } from "./auth";
+import { handleInterceptingRoutes } from "./middleware.intercepting";
 
 export default auth(async (req) => {
   const {
@@ -20,23 +21,15 @@ export default auth(async (req) => {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
-  const groupIdPattern = /^\/group\/([^/]+)\/notice(\/.*)?$/;
-  const match = pathname.match(groupIdPattern);
   const isSoftNavigation = headers.get("next-url");
-
-  console.log({ pathname, isSoftNavigation });
-  if (!isSoftNavigation && match) {
-    const groupId = match[1];
-    const rewriteUrl = new URL(`/group/${groupId}`, url);
-
-    const response = NextResponse.rewrite(rewriteUrl);
-
-    response.cookies.set("modal-path", pathname, {
-      path: `/group/${groupId}`,
-      maxAge: 5,
-    });
-
-    return response;
+  const interceptingResponse = handleInterceptingRoutes({
+    url,
+    pathname,
+    isSoftNavigation,
+    auth,
+  });
+  if (interceptingResponse) {
+    return interceptingResponse;
   }
 
   return;

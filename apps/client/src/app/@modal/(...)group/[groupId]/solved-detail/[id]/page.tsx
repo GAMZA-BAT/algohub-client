@@ -1,19 +1,21 @@
 "use client";
 
-import { useSolutionQueryObject } from "@/app/api/solutions/query";
-import CodeSection from "@/app/group/[groupId]/solved-detail/components/CodeSection";
-import CommentSection from "@/app/group/[groupId]/solved-detail/components/CommentSection";
-import SolvedDetail from "@/app/group/[groupId]/solved-detail/components/SolvedDetail";
+import CodeSection from "@/app/@modal/(...)group/[groupId]/solved-detail/components/CodeSection";
+import CommentSection from "@/app/@modal/(...)group/[groupId]/solved-detail/components/CommentSection";
+import SolvedDetail from "@/app/@modal/(...)group/[groupId]/solved-detail/components/SolvedDetail";
 import {
   modalContainer,
   modalWrapper,
-} from "@/app/group/[groupId]/solved-detail/components/index.css";
+} from "@/app/@modal/(...)group/[groupId]/solved-detail/components/index.css";
+import { useSolutionQueryObject } from "@/app/api/solutions/query";
 import Modal from "@/common/component/Modal";
 import { usePvEvent } from "@/shared/hook/usePvEvent";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
-const page = ({ params }: { params: { id: string; groupId: string } }) => {
+const SolvedDetailPage = ({
+  params,
+}: { params: { id: string; groupId: string } }) => {
   const router = useRouter();
   const routeParams = useParams();
   const groupId = Array.isArray(routeParams.groupId)
@@ -57,4 +59,4 @@ const page = ({ params }: { params: { id: string; groupId: string } }) => {
   );
 };
 
-export default page;
+export default SolvedDetailPage;

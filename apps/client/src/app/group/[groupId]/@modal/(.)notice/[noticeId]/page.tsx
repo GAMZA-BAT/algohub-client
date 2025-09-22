@@ -22,13 +22,12 @@ const NoticeDetailPage = ({
   const { data: selectedNotice, isLoading } = useQuery(
     useNoticeByIdQueryObject(+noticeId),
   );
-
-  if (!isLoading) return <Spinner className={alignCenterStyle} />;
+  if (isLoading) return <Spinner className={alignCenterStyle} />;
 
   return (
     <div className={noticeModalWrapper}>
       <header className={noticeHeaderStyle}>
-        <h2 className={textStyle.head}>NOTICE44</h2>
+        <h2 className={textStyle.head}>NOTICE</h2>
       </header>
       <NoticeDetail data={selectedNotice!} />
     </div>

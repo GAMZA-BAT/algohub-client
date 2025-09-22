@@ -1,4 +1,4 @@
-import { CommentsProvider } from "@/app/group/[groupId]/solved-detail/components/CommentSection/provider";
+import { CommentsProvider } from "@/app/@modal/(...)group/[groupId]/solved-detail/components/CommentSection/provider";
 import type { Meta } from "@storybook/react";
 import { default as CommentBox } from ".";
 

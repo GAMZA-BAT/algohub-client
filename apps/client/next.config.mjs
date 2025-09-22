@@ -2,7 +2,6 @@
 import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
 import { WebpackGenerateEventPlugin } from "./src/sdk/webpackGenerateEventPlugin.cjs";
-import path from "path";
 
 const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
 const hostname = isProd 
@@ -11,7 +10,14 @@ const hostname = isProd
 
 const nextConfig = {
   output: "standalone",
-  outputFileTracingRoot: path.join(process.cwd(), '../../'),
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        "localhost:3000", // For local development
+        "https://probable-space-computing-machine-95jq965wq4phvpp-3000.app.github.dev", // For GitHub Codespaces
+      ]
+    }
+  },
   images: {
     remotePatterns: [
       {

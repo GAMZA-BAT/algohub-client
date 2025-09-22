@@ -1,8 +1,7 @@
 import type { MySolutionRequest } from "@/app/api/type";
 import {
-  getExpiredMySolutions,
   getGroupsByUsers,
-  getInProgressMySolutions,
+  getMySolutions,
   getUserGroupList,
 } from "@/app/api/users";
 import { queryOptions } from "@tanstack/react-query";
@@ -29,14 +28,15 @@ export const useInProgressMySolutionsQueryObject = (
 ) =>
   queryOptions({
     queryKey: userQueryKey.inProgressSolutions(params),
-    queryFn: () => getInProgressMySolutions({ ...params, size: 3 }),
+    queryFn: () =>
+      getMySolutions({ ...params, status: "IN_PROGRESS", size: 3 }),
     staleTime: 0,
   });
 
 export const useExpiredMySolutionsQueryObject = (params: MySolutionRequest) =>
   queryOptions({
     queryKey: userQueryKey.expiredSolutions(params),
-    queryFn: () => getExpiredMySolutions({ ...params, size: 3 }),
+    queryFn: () => getMySolutions({ ...params, status: "EXPIRED", size: 3 }),
     staleTime: 0,
   });
 

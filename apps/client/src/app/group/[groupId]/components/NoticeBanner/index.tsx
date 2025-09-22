@@ -11,7 +11,6 @@ import { formatDistanceDate } from "@/common/util/date";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import {
   bannerWrapper,
   contentWrapper,
@@ -19,19 +18,13 @@ import {
   notifyWrapper,
 } from "./index.css";
 
-const NoticeBanner = ({ modalPath }: { modalPath: string | null }) => {
+const NoticeBanner = () => {
   const router = useRouter();
   const groupId = useGetGroupId();
   const { data: noticeList } = useQuery({
     ...useGroupNoticesQueryObject({ groupId: +groupId }),
     select: (data) => data.content,
   });
-
-  useEffect(() => {
-    if (modalPath) {
-      router.push(modalPath);
-    }
-  }, [modalPath]);
 
   if (!noticeList) return null;
   const recentNotice = noticeList.length > 0 ? noticeList[0] : null;

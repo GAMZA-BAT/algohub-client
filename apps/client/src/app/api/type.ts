@@ -47,12 +47,15 @@ export type PaginationResponse = {
 };
 
 export type MySolutionRequest = {
-  groupId?: number;
-  problemNumber?: number;
-  language?: number;
-  result?: string;
   page?: number;
   size?: number;
+
+  groupId?: number;
+  problemNumber?: number;
+  language?: string;
+  result?: string;
+  status: "IN_PROGRESS" | "EXPIRED";
+  isIncorrect?: boolean;
 };
 
 export type MySolutionResponse = PaginationResponse & {

@@ -18,7 +18,7 @@ const NoticeCreatePage = ({
   return (
     <div className={noticeModalWrapper}>
       <header className={noticeHeaderStyle}>
-        <h2 className={textStyle.head}>공지 추가하기33</h2>
+        <h2 className={textStyle.head}>공지 추가하기</h2>
       </header>
       <NoticeCreate />
     </div>

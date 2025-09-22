@@ -19,7 +19,7 @@ import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { type FormEvent, useRef, useState } from "react";
 import {
   articleStyle,
