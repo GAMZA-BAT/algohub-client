@@ -1,7 +1,8 @@
 import {
+  wrapper,
   plusIconStyle,
   submitBtnStyle,
-} from "@/app/[user]/create-group/components/CreateGroup/index.css";
+} from "@/app/[user]/@modal/(.)create-group/components/CreateGroup/index.css";
 import { groupSchema } from "@/app/api/groups/schema";
 import { IcnPlus } from "@/asset/svg";
 import Button from "@/common/component/Button";
@@ -24,7 +25,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { wrapper } from "../index.css";
 
 const CreateGroup = () => {
   const { showToast } = useToast();

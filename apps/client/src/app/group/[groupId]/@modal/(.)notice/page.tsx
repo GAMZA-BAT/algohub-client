@@ -1,12 +1,12 @@
 "use client";
 
 import { usePvEvent } from "@/shared/hook/usePvEvent";
-import NoticeList from "../../components/NoticeModal/NoticeList";
+import { textStyle } from "../../components/index.css";
+import NoticeList from "./components/NoticeModal/NoticeList";
 import {
   noticeHeaderStyle,
   noticeModalWrapper,
-} from "../../components/NoticeModal/index.css";
-import { textStyle } from "../../components/index.css";
+} from "./components/NoticeModal/index.css";
 
 const InterceptingNoticeListPage = ({
   params: { groupId },

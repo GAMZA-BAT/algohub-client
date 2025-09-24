@@ -13,7 +13,7 @@ import { usePvEvent } from "@/shared/hook/usePvEvent";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
-const SolvedDetailPage = ({
+const InterceptingSolvedDetailPage = ({
   params,
 }: { params: { id: string; groupId: string } }) => {
   const router = useRouter();
@@ -32,13 +32,7 @@ const SolvedDetailPage = ({
   if (!solutionInfo) return null;
 
   const handleCloseClick = () => {
-    if (window.history.length > 1) {
-      router.back();
-    } else {
-      router.replace(
-        `/group/${params.groupId}/problem-list/${solutionInfo.problemId}`,
-      );
-    }
+    router.back();
   };
 
   return (
@@ -59,4 +53,4 @@ const SolvedDetailPage = ({
   );
 };
 
-export default SolvedDetailPage;
+export default InterceptingSolvedDetailPage;

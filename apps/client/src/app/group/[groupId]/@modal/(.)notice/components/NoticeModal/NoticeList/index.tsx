@@ -1,6 +1,6 @@
 "use client";
 import { getGroupNotices } from "@/app/api/groups";
-import { buttonStyle } from "@/app/group/[groupId]/components/NoticeModal/index.css";
+import { buttonStyle } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/index.css";
 import { textStyle } from "@/app/group/[groupId]/components/index.css";
 import defaultImage from "@/asset/img/img_card_profile.png";
 import { IcnNew } from "@/asset/svg";
@@ -12,6 +12,7 @@ import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import {
   contentStyle,
   contentWrapper,
@@ -26,9 +27,13 @@ import {
 } from "./index.css";
 
 const NoticeList = () => {
-  const groupId = useGetGroupId();
+  const groupId = +useGetGroupId();
 
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch(`/group/${groupId}/notice/create`);
+  }, [router]);
 
   const {
     data: noticeData,
@@ -36,8 +41,8 @@ const NoticeList = () => {
     totalPages,
     setCurrentPage,
   } = usePaginationQuery({
-    queryKey: ["notices", +groupId],
-    queryFn: (page) => getGroupNotices({ groupId: +groupId, page }),
+    queryKey: ["notices", groupId],
+    queryFn: (page) => getGroupNotices({ groupId, page }),
   });
   const noticeList = noticeData?.content;
 
@@ -72,7 +77,7 @@ const NoticeList = () => {
                       <Avatar
                         size="small"
                         src={authorImage || defaultImage}
-                        alt="작성자 프로필 사진"
+                        alt={`${author} 프로필 사진`}
                       />
                       <div className={contentStyle}>
                         <h3

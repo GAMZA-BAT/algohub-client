@@ -17,8 +17,12 @@ export const wrapper = style({
   backgroundColor: theme.color.mg6,
 });
 
-export const exitStyle = style({
-  position: "absolute",
-  top: "3.3rem",
-  right: "4.5rem",
+export const submitBtnStyle = style({
+  marginTop: "0.8rem",
+});
+
+export const plusIconStyle = style({
+  ["& path" as string]: {
+    stroke: theme.color.white,
+  },
 });

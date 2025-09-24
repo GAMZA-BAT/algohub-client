@@ -2,13 +2,13 @@
 import {
   noticeHeaderStyle,
   noticeModalWrapper,
-} from "@/app/group/[groupId]/components/NoticeModal/index.css";
+} from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/index.css";
 import { textStyle } from "@/app/group/[groupId]/components/index.css";
 import { usePvEvent } from "@/shared/hook/usePvEvent";
 
-import NoticeCreate from "@/app/group/[groupId]/components/NoticeModal/NoticeCreate";
+import NoticeCreate from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeCreate";
 
-const NoticeCreatePage = ({
+const InterceptingNoticeCreatePage = ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
   usePvEvent("group_notice_create_page_view", {
@@ -25,4 +25,4 @@ const NoticeCreatePage = ({
   );
 };
 
-export default NoticeCreatePage;
+export default InterceptingNoticeCreatePage;

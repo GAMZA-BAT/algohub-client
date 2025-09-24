@@ -7,7 +7,7 @@ import {
 } from "@/app/api/notices/mutation";
 import { useNoticeCommentListQueryObject } from "@/app/api/notices/query";
 import type { NoticeContent } from "@/app/api/notices/type";
-import { NoticeCommentsProvider } from "@/app/group/[groupId]/components/NoticeModal/NoticeDetail/provider";
+import { NoticeCommentsProvider } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeDetail/provider";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -20,7 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { type FormEvent, useRef, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import {
   articleStyle,
   contentStyle,
@@ -48,10 +48,15 @@ const NoticeDetail = ({
   data: { author, title, createdAt, category, noticeId, content, isRead },
 }: NoticeDetailProps) => {
   const { data: session } = useSession();
+  const groupId = +useGetGroupId();
+
   const router = useRouter();
   const handleClose = () => {
     router.replace(`/group/${groupId}/notice`);
   };
+  useEffect(() => {
+    router.prefetch(`/group/${groupId}/notice`);
+  }, [router]);
 
   const { isActive, ...handlers } = useA11yHoverHandler();
 
@@ -60,8 +65,7 @@ const NoticeDetail = ({
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const commentListRef = useRef<HTMLUListElement>(null);
-
-  const groupId = +useGetGroupId();
+  
   const { data: commentList } = useQuery(
     useNoticeCommentListQueryObject(noticeId),
   );
@@ -117,7 +121,7 @@ const NoticeDetail = ({
     >
       <header className={headerStyle}>
         <div className={contentWrapper}>
-          <Avatar size="small" alt="작성자 프로필 사진" />
+          <Avatar size="small" alt={`${author} 프로필 사진`} />
           <div className={contentStyle}>
             <h3 id={`notice-title-${noticeId}`} className={textStyle.category}>
               {category}

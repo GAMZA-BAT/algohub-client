@@ -11,20 +11,21 @@ import {
   sectionStyle,
   textareaStyle,
   titleWrapper,
-} from "@/app/group/[groupId]/components/NoticeModal/NoticeCreate/index.css";
-import { registerNoticeSchema } from "@/app/group/[groupId]/components/NoticeModal/NoticeCreate/schema";
+} from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeCreate/index.css";
+import { registerNoticeSchema } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeCreate/schema";
 import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
 import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
 const NoticeCreate = () => {
   const router = useRouter();
-  const groupId = useGetGroupId();
-  const { mutate: noticeMutate } = useGroupNoticeMutation(+groupId);
+  const groupId = +useGetGroupId();
+  const { mutate: noticeMutate } = useGroupNoticeMutation(groupId);
   const form = useForm<z.infer<typeof registerNoticeSchema>>({
     resolver: zodResolver(registerNoticeSchema),
     mode: "onTouched",
@@ -38,6 +39,10 @@ const NoticeCreate = () => {
   const handleSubmit = (values: z.infer<typeof registerNoticeSchema>) => {
     noticeMutate(values);
   };
+
+  useEffect(() => {
+    router.prefetch(`/group/${groupId}/notice`);
+  }, [router]);
 
   return (
     <Form {...form}>
