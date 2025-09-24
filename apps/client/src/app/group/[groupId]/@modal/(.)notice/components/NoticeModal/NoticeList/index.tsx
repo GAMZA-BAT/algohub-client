@@ -26,9 +26,11 @@ import {
   wrapperStyle,
 } from "./index.css";
 
-const NoticeList = () => {
-  const groupId = +useGetGroupId();
+type NoticeListProps = {
+  groupId: number;
+};
 
+const NoticeList = ({groupId}: NoticeListProps) => {
   const router = useRouter();
 
   useEffect(() => {

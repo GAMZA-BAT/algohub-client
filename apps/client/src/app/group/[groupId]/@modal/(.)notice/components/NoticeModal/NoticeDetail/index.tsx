@@ -15,7 +15,6 @@ import { formatDistanceDate } from "@/common/util/date";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
@@ -42,13 +41,14 @@ import {
 
 type NoticeDetailProps = {
   data: NoticeContent;
+  groupId: number;
 };
 
 const NoticeDetail = ({
   data: { author, title, createdAt, category, noticeId, content, isRead },
+  groupId,
 }: NoticeDetailProps) => {
   const { data: session } = useSession();
-  const groupId = +useGetGroupId();
 
   const router = useRouter();
   const handleClose = () => {
@@ -65,7 +65,7 @@ const NoticeDetail = ({
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const commentListRef = useRef<HTMLUListElement>(null);
-  
+
   const { data: commentList } = useQuery(
     useNoticeCommentListQueryObject(noticeId),
   );

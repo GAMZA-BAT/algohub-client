@@ -14,7 +14,7 @@ import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
 import { CommentsProvider } from "./provider";
 
 type CommentSectionProps = {
-  solutionId: string;
+  solutionId: number;
 };
 
 const CommentSection = ({ solutionId }: CommentSectionProps) => {
@@ -22,9 +22,9 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
   const [comment, setComment] = useState("");
   const { data: session } = useSession();
 
-  const { data: comments } = useQuery(useCommentListQueryObject(+solutionId));
-  const { mutate: commentAction } = useCommentMutation(+solutionId);
-  const { mutate: deleteMutate } = useDeleteCommentMutation(+solutionId);
+  const { data: comments } = useQuery(useCommentListQueryObject(solutionId));
+  const { mutate: commentAction } = useCommentMutation(solutionId);
+  const { mutate: deleteMutate } = useDeleteCommentMutation(solutionId);
 
   const handleCommentSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -20,7 +20,7 @@ const InterceptingNoticeCreatePage = ({
       <header className={noticeHeaderStyle}>
         <h2 className={textStyle.head}>공지 추가하기</h2>
       </header>
-      <NoticeCreate />
+      <NoticeCreate groupId={+groupId} />
     </div>
   );
 };

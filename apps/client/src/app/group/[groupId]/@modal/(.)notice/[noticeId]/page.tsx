@@ -29,7 +29,7 @@ const InterceptingNoticeDetailPage = ({
       <header className={noticeHeaderStyle}>
         <h2 className={textStyle.head}>NOTICE</h2>
       </header>
-      <NoticeDetail data={selectedNotice!} />
+      <NoticeDetail data={selectedNotice!} groupId={+groupId} />
     </div>
   );
 };

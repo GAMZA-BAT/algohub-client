@@ -15,16 +15,18 @@ import {
 import { registerNoticeSchema } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeCreate/schema";
 import Button from "@/common/component/Button";
 import { Form, FormController } from "@/shared/component/Form";
-import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
-const NoticeCreate = () => {
+type NoticeCreateProps = {
+  groupId: number;
+};
+
+const NoticeCreate = ({ groupId }: NoticeCreateProps) => {
   const router = useRouter();
-  const groupId = +useGetGroupId();
   const { mutate: noticeMutate } = useGroupNoticeMutation(groupId);
   const form = useForm<z.infer<typeof registerNoticeSchema>>({
     resolver: zodResolver(registerNoticeSchema),

@@ -46,7 +46,7 @@ const InterceptingSolvedDetailPage = ({
             code={solutionInfo.content}
             language={solutionInfo.language}
           />
-          <CommentSection solutionId={params.id} />
+          <CommentSection solutionId={+params.id} />
         </div>
       </div>
     </Modal>
