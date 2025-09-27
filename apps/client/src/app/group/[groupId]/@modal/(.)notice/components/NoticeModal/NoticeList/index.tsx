@@ -8,7 +8,6 @@ import Avatar from "@/common/component/Avatar";
 import Button from "@/common/component/Button";
 import { formatDistanceDate } from "@/common/util/date";
 import Pagination from "@/shared/component/Pagination";
-import useGetGroupId from "@/shared/hook/useGetGroupId";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,7 +29,7 @@ type NoticeListProps = {
   groupId: number;
 };
 
-const NoticeList = ({groupId}: NoticeListProps) => {
+const NoticeList = ({ groupId }: NoticeListProps) => {
   const router = useRouter();
 
   useEffect(() => {

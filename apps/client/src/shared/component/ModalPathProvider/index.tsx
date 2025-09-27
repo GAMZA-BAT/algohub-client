@@ -12,7 +12,6 @@ const ModalPathProvider = ({
 }: { children: React.ReactNode; modalPath?: string }) => {
   const router = useRouter();
   useEffect(() => {
-    console.log({ modalPath });
     if (modalPath) {
       router.push(modalPath);
     }
