@@ -1,3 +1,4 @@
+import EdgeCaseController from "@/app/[user]/edge-case/components/EdgeCaseController";
 import EdgeCaseList from "@/app/[user]/edge-case/components/EdgeCaseList";
 import { edgeCaseWrapper } from "@/app/[user]/edge-case/components/index.css";
 import WrongSolvedList from "@/app/[user]/edge-case/components/WrongSolvedList";
@@ -11,6 +12,7 @@ const EdgeCasePage = () => {
         <WrongSolvedList />
       </Sidebar>
       <div className={edgeCaseWrapper}>
+        <EdgeCaseController />
         <EdgeCaseList />
       </div>
     </main>
