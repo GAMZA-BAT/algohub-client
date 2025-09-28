@@ -32,7 +32,8 @@
         "noDefaultExport": "off",
         "noImplicitBoolean": "off",
         "useExplicitLengthCheck": "off",
-        "useDefaultSwitchClause": "off"
+        "useDefaultSwitchClause": "off",
+        "noUnusedTemplateLiteral": "off"
       },
       "suspicious": {
         "noReactSpecificProps": "off",
