@@ -12,6 +12,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormController } from "@/shared/component/Form";
 import Button from "@/common/component/Button";
+import { useEdgeCaseMutation } from "@/app/api/edge-case/mutation";
 
 const EdgeCaseCreateForm = () => {
   const form = useForm<z.infer<typeof edgeCaseCreateFormSchema>>({
@@ -23,10 +24,15 @@ const EdgeCaseCreateForm = () => {
       output: "",
     },
   });
+  const { mutate: createEdgeCase } = useEdgeCaseMutation();
 
   const handleSubmit = (values: z.infer<typeof edgeCaseCreateFormSchema>) => {
     const { problem, input, output } = values;
-    console.log(problem, input, output);
+    createEdgeCase({
+      link: problem,
+      input,
+      output,
+    });
   };
 
   return (
