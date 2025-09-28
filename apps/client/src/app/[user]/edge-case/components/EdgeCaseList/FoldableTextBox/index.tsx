@@ -31,14 +31,26 @@ const FoldableTextBox = ({ text }: { text: string }) => {
 
   return (
     <div className={foldableTextBoxWrapper}>
-      <button className={textCopyButtonStyle} onClick={() => copy(text)}>
-        <IcnFileCopy width={24} height={24} />
+      <button
+        className={textCopyButtonStyle}
+        onClick={() => copy(text)}
+        aria-label="내용 복사"
+      >
+        <IcnFileCopy width={16} height={16} aria-hidden="true" />
       </button>
-      <p className={clsx(foldableTextStyle, m_pluse_rounded_1c.className)}>
+      <p
+        id="foldable-content"
+        className={clsx(foldableTextStyle, m_pluse_rounded_1c.className)}
+      >
         {isFolded ? foldedText : text}
       </p>
       {isFoldable && (
-        <button className={foldButtonStyle} onClick={handleToggleFold}>
+        <button
+          className={foldButtonStyle}
+          onClick={handleToggleFold}
+          aria-expanded={!isFolded}
+          aria-controls="foldable-content"
+        >
           {isFolded ? (
             <>
               <IcnBtnArrowDown width={12} height={12} />

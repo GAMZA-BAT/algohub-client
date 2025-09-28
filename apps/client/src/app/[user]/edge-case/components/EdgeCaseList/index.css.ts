@@ -35,7 +35,10 @@ export const edgeCaseListWrapper = style({
   flexDirection: "column",
   gap: "2.4rem",
 
-  padding: "2rem 2rem 4.6rem",
+  padding: "2rem 0 4.6rem",
+  margin: "2rem",
+
+  borderBottom: `1px solid ${theme.color.mg5}`,
 });
 
 export const edgeCaseContentWrapper = style({
