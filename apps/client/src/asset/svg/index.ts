@@ -8,6 +8,7 @@ export { default as IcnBronze3 } from "./icn_bronze3.svg";
 export { default as IcnBronze4 } from "./icn_bronze4.svg";
 export { default as IcnBronze5 } from "./icn_bronze5.svg";
 export { default as IcnBtnArrowDown } from "./icn_btn_arrow_down.svg";
+export { default as IcnBtnArrowUp } from "./icn_btn_arrow_up.svg";
 export { default as IcnBtnArrowLeft } from "./icn_btn_arrow_left.svg";
 export { default as IcnBtnArrowRight } from "./icn_btn_arrow_right.svg";
 export { default as IcnBtnCheckbox } from "./icn_btn_checkbox.svg";

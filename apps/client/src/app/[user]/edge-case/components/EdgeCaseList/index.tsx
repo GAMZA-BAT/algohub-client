@@ -1,6 +1,16 @@
 "use client";
 
-import { edgeCaseFavoriteCountStyle, edgeCaseFavoriteWrapper, edgeCaseListWrapper, edgeCaseMetaWrapper, edgeCaseContentWrapper, edgeCaseTitleStyle, edgeCaseTitleWrapper, edgeCaseContentTitleStyle, edgeCaseContentContainer } from "@/app/[user]/edge-case/components/EdgeCaseList/index.css";
+import {
+  edgeCaseFavoriteCountStyle,
+  edgeCaseFavoriteWrapper,
+  edgeCaseListWrapper,
+  edgeCaseMetaWrapper,
+  edgeCaseContentWrapper,
+  edgeCaseTitleStyle,
+  edgeCaseTitleWrapper,
+  edgeCaseContentTitleStyle,
+  edgeCaseContentContainer,
+} from "@/app/[user]/edge-case/components/EdgeCaseList/index.css";
 import { getTierImage } from "@/shared/util/img";
 import { IcnFavoriteBorder, IcnFavoriteFill } from "@/asset/svg";
 import { useState } from "react";
@@ -12,12 +22,12 @@ const EdgeCaseList = () => {
 
   const handleOpenProblem = () => {
     //TODO(@jnary): 문제 링크 연결
-  }
+  };
 
   const handleToggleFavorite = () => {
     //TODO(@jnary): 좋아요 토글
-    setIsFavorite(prev => !prev);
-  }
+    setIsFavorite((prev) => !prev);
+  };
 
   return (
     <section className={edgeCaseListWrapper}>
@@ -26,19 +36,28 @@ const EdgeCaseList = () => {
           <TierIcon width={24} height={24} />
           <h2 className={edgeCaseTitleStyle}>1166번: 선물</h2>
         </button>
-        <button className={edgeCaseFavoriteWrapper} onClick={handleToggleFavorite}>
-          {isFavorite ? <IcnFavoriteFill width={20} height={20} /> : <IcnFavoriteBorder width={20} height={20} />}
+        <button
+          className={edgeCaseFavoriteWrapper}
+          onClick={handleToggleFavorite}
+        >
+          {isFavorite ? (
+            <IcnFavoriteFill width={20} height={20} />
+          ) : (
+            <IcnFavoriteBorder width={20} height={20} />
+          )}
           <span className={edgeCaseFavoriteCountStyle}>10</span>
         </button>
       </div>
       <div className={edgeCaseContentWrapper}>
         <div className={edgeCaseContentContainer}>
           <p className={edgeCaseContentTitleStyle}>입력</p>
-          <FoldableTextBox text="1000\n1000" />
+          <FoldableTextBox text={`1000\n1000`} />
         </div>
         <div className={edgeCaseContentContainer}>
           <p className={edgeCaseContentTitleStyle}>출력</p>
-          <FoldableTextBox text="1000 1000" />
+          <FoldableTextBox
+            text={`1000\n1000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000`}
+          />
         </div>
       </div>
     </section>
