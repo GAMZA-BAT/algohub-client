@@ -1,5 +1,5 @@
 import { kyJsonWithTokenInstance } from "@/app/api";
-import { EdgeCaseRequest } from "@/app/api/edge-case/type";
+import { EdgeCaseRequest, EdgeCaseResponse } from "@/app/api/edge-case/type";
 
 export const postEdgeCase = async (body: EdgeCaseRequest) => {
   const response = await kyJsonWithTokenInstance.post("api/edge-case", {
@@ -12,7 +12,7 @@ export const postEdgeCase = async (body: EdgeCaseRequest) => {
 export const getEdgeCaseList = async (problemNumber?: number) => {
   const response = await kyJsonWithTokenInstance.get("api/edge-case/list", {
     searchParams: problemNumber ? { problemNumber } : undefined,
-  });
+  }).json<{ edgeCaseList: EdgeCaseResponse[] }>();
 
-  return response;
+  return response.edgeCaseList;
 };

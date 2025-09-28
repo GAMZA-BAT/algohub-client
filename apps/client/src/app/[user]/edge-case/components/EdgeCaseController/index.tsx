@@ -9,7 +9,13 @@ import EdgeCaseCreateForm from "@/app/[user]/edge-case/components/EdgeCaseContro
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 
-const EdgeCaseController = () => {
+type EdgeCaseControllerProps = {
+  setProblemNumber: (problemNumber: number) => void;
+};
+
+const EdgeCaseController = ({
+  setProblemNumber,
+}: EdgeCaseControllerProps) => {
   const {
     open: createModalOpen,
     isOpen: isCreateModalOpen,
@@ -33,7 +39,7 @@ const EdgeCaseController = () => {
         </Button>
       </div>
       <Modal isOpen={isCreateModalOpen} onClose={closeCreateModal} hasCloseBtn>
-        <EdgeCaseCreateForm />
+        <EdgeCaseCreateForm onSuccess={closeCreateModal} />
       </Modal>
     </div>
   );

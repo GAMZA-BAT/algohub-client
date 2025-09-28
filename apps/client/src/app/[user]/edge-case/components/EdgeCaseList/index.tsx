@@ -16,9 +16,19 @@ import { IcnFavoriteBorder, IcnFavoriteFill } from "@/asset/svg";
 import { useState } from "react";
 import FoldableTextBox from "@/app/[user]/edge-case/components/EdgeCaseList/FoldableTextBox";
 import Link from "next/link";
+import { EdgeCaseResponse } from "@/app/api/edge-case/type";
 
-const EdgeCaseList = () => {
-  const TierIcon = getTierImage(1);
+type EdgeCaseListProps = EdgeCaseResponse;
+
+const EdgeCaseList = ({
+  level,
+  problemNumber,
+  input,
+  output,
+  title,
+  like,
+}: EdgeCaseListProps) => {
+  const TierIcon = getTierImage(level);
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleToggleFavorite = () => {
@@ -31,11 +41,11 @@ const EdgeCaseList = () => {
       <div className={edgeCaseMetaWrapper}>
         <Link
           className={edgeCaseTitleWrapper}
-          href={`https://www.acmicpc.net/problem/1166`}
+          href={`https://www.acmicpc.net/problem/${problemNumber}`}
           target="_blank"
         >
           <TierIcon width={24} height={24} />
-          <h2 className={edgeCaseTitleStyle}>1166번: 선물</h2>
+          <h2 className={edgeCaseTitleStyle}>{`${problemNumber}번: ${title}`}</h2>
         </Link>
         <button
           className={edgeCaseFavoriteWrapper}
@@ -53,20 +63,18 @@ const EdgeCaseList = () => {
             id="edge-case-favorite-count"
             className={edgeCaseFavoriteCountStyle}
           >
-            10
+            {like}
           </span>
         </button>
       </div>
       <div className={edgeCaseContentWrapper}>
         <div className={edgeCaseContentContainer}>
           <h3 className={edgeCaseContentTitleStyle}>입력</h3>
-          <FoldableTextBox text={`1000\n1000`} />
+          <FoldableTextBox text={input} />
         </div>
         <div className={edgeCaseContentContainer}>
           <h3 className={edgeCaseContentTitleStyle}>출력</h3>
-          <FoldableTextBox
-            text={`1000\n1000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000`}
-          />
+          <FoldableTextBox text={output} />
         </div>
       </div>
     </section>

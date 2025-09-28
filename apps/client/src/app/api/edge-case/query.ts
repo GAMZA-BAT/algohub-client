@@ -1,4 +1,5 @@
 import { getEdgeCaseList } from "@/app/api/edge-case";
+import { EdgeCaseResponse } from "@/app/api/edge-case/type";
 import { queryOptions } from "@tanstack/react-query";
 
 export const edgeCaseQueryKey = {
@@ -6,9 +7,9 @@ export const edgeCaseQueryKey = {
   list: (problemNumber?: number) => [...edgeCaseQueryKey.all(), "list", problemNumber] as const,
 };
 
-export const useEdgeCaseListQueryObject = () => {
-  return queryOptions({
-    queryKey: edgeCaseQueryKey.list(),
-    queryFn: () => getEdgeCaseList(),
+export const useEdgeCaseListQueryObject = (problemNumber?: number) => {
+  return queryOptions<EdgeCaseResponse[]>({
+    queryKey: edgeCaseQueryKey.list(problemNumber),
+    queryFn: () => getEdgeCaseList(problemNumber),
   })
 }

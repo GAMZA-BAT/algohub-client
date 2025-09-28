@@ -14,7 +14,7 @@ import { Form, FormController } from "@/shared/component/Form";
 import Button from "@/common/component/Button";
 import { useEdgeCaseMutation } from "@/app/api/edge-case/mutation";
 
-const EdgeCaseCreateForm = () => {
+const EdgeCaseCreateForm = ({onSuccess}: {onSuccess: () => void}) => {
   const form = useForm<z.infer<typeof edgeCaseCreateFormSchema>>({
     resolver: zodResolver(edgeCaseCreateFormSchema),
     mode: "onTouched",
@@ -33,6 +33,7 @@ const EdgeCaseCreateForm = () => {
       input,
       output,
     });
+    onSuccess();
   };
 
   return (
