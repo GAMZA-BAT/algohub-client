@@ -1,8 +1,5 @@
-import {
-  groupDateInfoWrapper,
-  groupDateStyle,
-} from "@/app/join-group/components/GroupInfoCard/GroupDateInfo.css";
 import { IcnCalenderCard } from "@/asset/svg";
+import { groupDateInfoWrapper, groupDateStyle } from "./GroupDateInfo.css";
 
 interface GroupDateInfoProps {
   startDate: string;
