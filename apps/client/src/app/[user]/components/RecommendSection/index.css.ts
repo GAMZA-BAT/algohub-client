@@ -15,12 +15,56 @@ export const recommendHeaderWrapper = style({
   justifyContent: "space-between",
 });
 
+export const recommendHeaderContentWrapper = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.8rem",
+});
+
 export const recommendStudyTitle = style({
   color: theme.color.lg2,
   ...theme.font.Head2_B_18,
 });
 
+export const searchedStudyCountStyle = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+  width: "2rem",
+  height: "2rem",
+  padding: "0.6rem",
+
+  borderRadius: "50px",
+  backgroundColor: theme.color.mg5,
+
+  color: theme.color.lg2,
+  ...theme.font.Caption3_M_12,
+});
+
 export const studyListWrapper = style({
   display: "flex",
   flexDirection: "column",
+});
+
+export const emptyWrapper = style({
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+
+  width: "100%",
+});
+
+export const emptyGuideStyle = style({
+  position: "absolute",
+  top: "70%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+
+  ...theme.font.Body2_R_14,
+  color: theme.color.mg4,
+
+  zIndex: 1,
 });

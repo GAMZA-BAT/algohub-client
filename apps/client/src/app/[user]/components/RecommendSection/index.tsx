@@ -2,10 +2,21 @@
 
 import SearchStudyInput from "@/app/[user]/components/SearchStudyInput";
 import { useSearchStudyQueryObject } from "@/app/api/groups/query";
+import imgEmpty from "@/asset/img/img_empty.png";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import RecommendCard from "./RecommendCard";
-import { recommendHeaderWrapper, recommendSectionWrapper, recommendStudyTitle, studyListWrapper } from "./index.css";
+import {
+  emptyGuideStyle,
+  emptyWrapper,
+  recommendHeaderContentWrapper,
+  recommendHeaderWrapper,
+  recommendSectionWrapper,
+  recommendStudyTitle,
+  searchedStudyCountStyle,
+  studyListWrapper,
+} from "./index.css";
 
 const RecommendStudySection = () => {
   const searchParam = useSearchParams();
@@ -16,26 +27,37 @@ const RecommendStudySection = () => {
   return (
     <section className={recommendSectionWrapper} aria-labelledby="recommend-title">
       <div className={recommendHeaderWrapper}>
-        <h2 id="recommend-title" className={recommendStudyTitle}>
-          추천 스터디
-        </h2>
+        <div className={recommendHeaderContentWrapper}>
+          <h2 id="recommend-title" className={recommendStudyTitle}>
+            {searchPattern ? "검색 결과" : "추천 스터디"}
+          </h2>
+          {searchPattern && <div className={searchedStudyCountStyle}>{studyList?.content.length || 0}</div>}
+        </div>
+
         <SearchStudyInput />
       </div>
 
-      <ul className={studyListWrapper}>
-        {studyList?.content?.length && studyList.content.length > 0 ? (
-          studyList.content.map((study) => (
-            <RecommendCard
-              key={study.id}
-              name={study.name}
-              introduction={study.introduction}
-              groupImage={study.groupImage}
-            />
-          ))
-        ) : (
-          <RecommendCard name={"기본 스터디"} introduction={"기본 스터디 입니다."} groupImage={null} />
-        )}
-      </ul>
+      {searchPattern ? (
+        <ul className={studyListWrapper}>
+          {studyList?.content && studyList.content.length > 0 ? (
+            studyList.content.map((study) => (
+              <RecommendCard
+                key={study.id}
+                name={study.name}
+                introduction={study.introduction}
+                groupImage={study.groupImage}
+              />
+            ))
+          ) : (
+            <div className={emptyWrapper}>
+              <Image src={imgEmpty} alt="검색 결과가 없습니다." width={369} height={192} />
+              <p className={emptyGuideStyle}>검색 결과가 없습니다.</p>
+            </div>
+          )}
+        </ul>
+      ) : (
+        <RecommendCard name={"기본 스터디"} introduction={"기본 스터디 입니다."} groupImage={null} />
+      )}
     </section>
   );
 };

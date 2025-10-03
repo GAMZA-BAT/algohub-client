@@ -3,10 +3,8 @@ import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
 import { WebpackGenerateEventPlugin } from "./src/sdk/webpackGenerateEventPlugin.cjs";
 
-const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
-const hostname = isProd 
-  ? 'algohubbucket.s3.ap-northeast-2.amazonaws.com'
-  : 'storage.hwangdo.kr';
+const isProd = process.env.NEXT_PUBLIC_APP_ENV === "production";
+const hostname = isProd ? "algohubbucket.s3.ap-northeast-2.amazonaws.com" : "storage.hwangdo.kr";
 
 const nextConfig = {
   output: "standalone",
@@ -21,21 +19,19 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'algohubbucket.s3.ap-northeast-2.amazonaws.com'
+        protocol: "https",
+        hostname: "algohubbucket.s3.ap-northeast-2.amazonaws.com",
       },
       {
-        protocol: 'https',
-        hostname: 'storage.hwangdo.kr'
-      }
-    ]
+        protocol: "https",
+        hostname: "storage.hwangdo.kr",
+      },
+    ],
   },
   reactStrictMode: false,
   webpack(config) {
     // SVG imports를 처리하는 기존 규칙 가져오기
-    const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg")
-    );
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.(".svg"));
 
     config.module.rules.push(
       // svg imports 중 ?url로 끝나는 것에 대해서만 기존 규칙을 재적용
