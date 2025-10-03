@@ -19,3 +19,8 @@ export const recommendStudyTitle = style({
   color: theme.color.lg2,
   ...theme.font.Head2_B_18,
 });
+
+export const studyListWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+});

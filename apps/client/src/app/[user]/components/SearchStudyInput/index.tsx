@@ -15,7 +15,11 @@ const SearchStudyInput = () => {
   const handleSearchStudy = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    router.replace(`/${params.user}?search=${searchKeyword}`);
+    if (searchKeyword) {
+      router.replace(`/${params.user}?search=${searchKeyword}`);
+    } else {
+      router.replace(`/${params.user}`);
+    }
   };
 
   return (

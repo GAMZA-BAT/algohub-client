@@ -28,7 +28,17 @@ const MOCK_RECOMMEND_STUDY: GroupResponse = {
   isBookmarked: true,
 };
 
-const RecommendCard = () => {
+interface RecommendCardProps {
+  name: string;
+  introduction: string;
+  groupImage: string | null;
+}
+
+const RecommendCard = ({
+  name,
+  introduction,
+  groupImage,
+}: RecommendCardProps) => {
   const nameId = useId();
   const descriptionId = useId();
   const tagId = useId();
@@ -55,14 +65,15 @@ const RecommendCard = () => {
       >
         <div className={descriptionWrapper}>
           <Avatar
+            src={groupImage}
             className={iconStyle}
-            alt={`${MOCK_RECOMMEND_STUDY.name} 스터디의 프로필 사진`}
+            alt="알코칠 스터디의 프로필 사진"
           />
           <h3 id={nameId} className={studyNameStyle}>
-            {MOCK_RECOMMEND_STUDY.name}
+            {name}
           </h3>
           <p id={descriptionId} className={studyDescriptionStyle}>
-            {MOCK_RECOMMEND_STUDY.introduction}
+            {introduction}
           </p>
         </div>
 
