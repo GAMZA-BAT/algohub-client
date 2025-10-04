@@ -20,9 +20,6 @@ export const tabListStyle = recipe({
         height: "fit-content",
         borderBottom: `1px solid ${theme.color.mg5}`,
       },
-      tertiary: {
-        padding: 0,
-      },
     },
   },
 });
@@ -48,13 +45,6 @@ export const tabStyle = recipe({
       secondary: {
         paddingBottom: "1.6rem",
       },
-      tertiary: {
-        display: "flex",
-        justifyContent: "center",
-
-        width: "9.25rem",
-        padding: "1rem",
-      },
     },
     isSelected: {
       true: {
@@ -72,9 +62,6 @@ export const textStyle = recipe({
       },
       secondary: {
         ...theme.font.Title1_SB_16,
-      },
-      tertiary: {
-        ...theme.font.Title2_M_16,
       },
     },
   },
@@ -98,10 +85,6 @@ export const indicatorStyle = recipe({
         backgroundColor: theme.color.purple2,
       },
       secondary: {
-        backgroundColor: theme.color.white,
-      },
-      tertiary: {
-        width: "7.25rem",
         backgroundColor: theme.color.white,
       },
     },
