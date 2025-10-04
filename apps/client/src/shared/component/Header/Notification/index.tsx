@@ -34,7 +34,11 @@ const notificationMap: Record<NotificationType, string> = {
   STUDY_GROUP: "스터디",
 };
 
-const Notification = () => {
+interface NotificationProps {
+  notiCounts: number;
+}
+
+const Notification = ({ notiCounts }: NotificationProps) => {
   const router = useRouter();
 
   const [notificationType, setNotificationType] = useState<NotificationType>("ALL");
@@ -69,7 +73,7 @@ const Notification = () => {
     <div className={notificationContainer}>
       <header className={headerStyle}>
         <h2 className={titleStyle}>알림</h2>
-        <div className={countChipStyle}>신규 2</div>
+        <div className={countChipStyle}>{`신규 ${notiCounts}`}</div>
       </header>
 
       <ul className={notificationTabListStyle}>
