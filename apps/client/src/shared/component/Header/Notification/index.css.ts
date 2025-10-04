@@ -120,3 +120,20 @@ export const allReadButtonStyle = style({
 
   color: theme.color.mg4,
 });
+
+export const moreButtonStyle = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.4rem",
+
+  padding: "0.2rem 0.6rem",
+  margin: "1.6rem auto 0",
+
+  backgroundColor: theme.color.mg5,
+  borderRadius: "4px",
+
+  color: theme.color.mg2,
+  ...theme.font.Caption1_R_12,
+
+  cursor: "pointer",
+});
