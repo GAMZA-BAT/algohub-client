@@ -10,13 +10,11 @@ import { queryOptions } from "@tanstack/react-query";
 
 export const userQueryKey = {
   all: () => ["users"] as const,
-
   mySolutions: (params: MySolutionRequest) => [
     ...userQueryKey.all(),
     "my-solutions",
     params,
   ],
-
   userGroups: (user: string) => [...userQueryKey.all(), "groups", user],
   myGroups: () => [...userQueryKey.all(), "me", "groups"] as const,
 };

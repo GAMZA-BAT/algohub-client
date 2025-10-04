@@ -1,6 +1,9 @@
 "use client";
 
-import { inputStyle, inputWrapper } from "@/app/[user]/components/SearchStudyInput/index.css";
+import {
+  inputStyle,
+  inputWrapper,
+} from "@/app/[user]/components/SearchStudyInput/index.css";
 import { IcnSearch } from "@/asset/svg";
 import { useParams, useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";

@@ -22,16 +22,25 @@ const RecommendStudySection = () => {
   const searchParam = useSearchParams();
   const searchPattern = searchParam.get("search");
 
-  const { data: studyList } = useQuery(useSearchStudyQueryObject({ searchPattern: searchPattern || "" }));
+  const { data: studyList } = useQuery(
+    useSearchStudyQueryObject({ searchPattern: searchPattern || "" }),
+  );
 
   return (
-    <section className={recommendSectionWrapper} aria-labelledby="recommend-title">
+    <section
+      className={recommendSectionWrapper}
+      aria-labelledby="recommend-title"
+    >
       <div className={recommendHeaderWrapper}>
         <div className={recommendHeaderContentWrapper}>
           <h2 id="recommend-title" className={recommendStudyTitle}>
             {searchPattern ? "검색 결과" : "추천 스터디"}
           </h2>
-          {searchPattern && <div className={searchedStudyCountStyle}>{studyList?.content.length || 0}</div>}
+          {searchPattern && (
+            <div className={searchedStudyCountStyle}>
+              {studyList?.content.length || 0}
+            </div>
+          )}
         </div>
 
         <SearchStudyInput />
@@ -50,13 +59,22 @@ const RecommendStudySection = () => {
             ))
           ) : (
             <div className={emptyWrapper}>
-              <Image src={imgEmpty} alt="검색 결과가 없습니다." width={369} height={192} />
+              <Image
+                src={imgEmpty}
+                alt="검색 결과가 없을 때 이미지"
+                width={369}
+                height={192}
+              />
               <p className={emptyGuideStyle}>검색 결과가 없습니다.</p>
             </div>
           )}
         </ul>
       ) : (
-        <RecommendCard name={"기본 스터디"} introduction={"기본 스터디 입니다."} groupImage={null} />
+        <RecommendCard
+          name={"기본 스터디"}
+          introduction={"기본 스터디 입니다."}
+          groupImage={null}
+        />
       )}
     </section>
   );
