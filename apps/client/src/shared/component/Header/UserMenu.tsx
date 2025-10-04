@@ -10,7 +10,7 @@ import Notification from "./Notification";
 
 const UserMenu = () => {
   const user = useSession().data?.user;
-  const { data } = useQuery(useNotificationsQueryObject());
+  const { data } = useQuery(useNotificationsQueryObject("ALL"));
 
   if (!data) return;
 
@@ -21,13 +21,11 @@ const UserMenu = () => {
       <Menu
         label="notification"
         renderTriggerButton={<Notification.TriggerButton count={notiCounts} />}
-        renderList={<Notification notificationList={data} />}
+        renderList={<Notification />}
       />
       <Menu
         label="profileMenu"
-        renderTriggerButton={
-          <Profile.TriggerButton src={(user as UserResponse)?.profileImage} />
-        }
+        renderTriggerButton={<Profile.TriggerButton src={(user as UserResponse)?.profileImage} />}
         renderList={<Profile />}
       />
     </div>

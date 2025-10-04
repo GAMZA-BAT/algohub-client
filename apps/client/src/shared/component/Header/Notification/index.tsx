@@ -4,6 +4,7 @@ import {
   useReadAllNotiMutation,
   useReadNotiItemMutation,
 } from "@/app/api/notifications/mutation";
+import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
 import Empty from "@/shared/component/Empty";
@@ -18,10 +19,10 @@ import {
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { type HTMLAttributes, useState } from "react";
+import { useState } from "react";
 import NotificationListItem from "./NotificationItem";
 
 export type NotificationType = "ALL" | "PROBLEM" | "COMMENT" | "STUDY_GROUP";
@@ -33,15 +34,11 @@ const notificationMap: Record<NotificationType, string> = {
   STUDY_GROUP: "스터디",
 };
 
-interface NotificationProps extends HTMLAttributes<HTMLUListElement> {
-  notificationList: NotificationItem[];
-}
-
-const Notification = ({ notificationList, ...props }: NotificationProps) => {
+const Notification = () => {
   const router = useRouter();
 
-  const [notifications, setNotifications] = useState(notificationList);
   const [notificationType, setNotificationType] = useState<NotificationType>("ALL");
+  const { data: notifications } = useQuery(useNotificationsQueryObject(notificationType));
 
   const queryClient = useQueryClient();
   const { mutate: readNotiMutate } = useReadNotiItemMutation();
@@ -58,14 +55,14 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
   };
 
   const handleItemDelete = (notificationId: number) => {
-    deleteMutate(notificationId, {
-      onSuccess: async () => {
-        setNotifications((prev) => prev.filter((item) => item.id !== notificationId));
-        await queryClient.invalidateQueries({
-          queryKey: ["notifications"],
-        });
-      },
-    });
+    // deleteMutate(notificationId, {
+    //   onSuccess: async () => {
+    //     setNotifications((prev) => prev.filter((item) => item.id !== notificationId));
+    //     await queryClient.invalidateQueries({
+    //       queryKey: ["notifications"],
+    //     });
+    //   },
+    // });
   };
 
   return (
@@ -88,31 +85,29 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
         ))}
       </ul>
 
-      {notificationList.length > 0 ? (
-        <>
-          <ul className={ulStyle} {...props} aria-label="알림 목록">
-            <AnimatePresence>
-              {notifications.map((notification) => (
-                <motion.li
-                  key={notification.id}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <NotificationListItem
-                    isRead={notification.isRead}
-                    name={notification.groupName}
-                    message={notification.message}
-                    date={notification.createdAt}
-                    profileImg={notification.groupImage}
-                    onClick={() => handleItemClick(notification)}
-                    onDelete={() => handleItemDelete(notification.id)}
-                  />
-                </motion.li>
-              ))}
-            </AnimatePresence>
-          </ul>
-        </>
+      {notifications ? (
+        <ul className={ulStyle} aria-label="알림 목록">
+          <AnimatePresence>
+            {notifications.map((notification) => (
+              <motion.li
+                key={notification.id}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <NotificationListItem
+                  isRead={notification.isRead}
+                  name={notification.groupName}
+                  message={notification.message}
+                  date={notification.createdAt}
+                  profileImg={notification.groupImage}
+                  onClick={() => handleItemClick(notification)}
+                  onDelete={() => handleItemDelete(notification.id)}
+                />
+              </motion.li>
+            ))}
+          </AnimatePresence>
+        </ul>
       ) : (
         <Empty guideText="지금은 알림이 없어요." />
       )}
