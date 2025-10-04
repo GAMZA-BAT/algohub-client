@@ -6,8 +6,9 @@ import {
 } from "@/app/api/notifications/mutation";
 import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader } from "@/asset/svg";
-import TabGroup from "@/common/component/Tab";
 import Empty from "@/shared/component/Empty";
+import { notificationTabListStyle } from "@/shared/component/Header/Notification/Notification.css";
+import NotificationTab from "@/shared/component/Header/Notification/NotificationTab";
 import {
   countChipStyle,
   countStyle,
@@ -23,6 +24,15 @@ import { useRouter } from "next/navigation";
 import { type HTMLAttributes, useState } from "react";
 import NotificationListItem from "./NotificationItem";
 
+export type NotificationType = "ALL" | "PROBLEM" | "COMMENT" | "STUDY_GROUP";
+
+const notificationMap: Record<NotificationType, string> = {
+  ALL: "전체",
+  PROBLEM: "문제",
+  COMMENT: "코멘트",
+  STUDY_GROUP: "스터디",
+};
+
 interface NotificationProps extends HTMLAttributes<HTMLUListElement> {
   notificationList: NotificationItem[];
 }
@@ -31,6 +41,7 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
   const router = useRouter();
 
   const [notifications, setNotifications] = useState(notificationList);
+  const [notificationType, setNotificationType] = useState<NotificationType>("ALL");
 
   const queryClient = useQueryClient();
   const { mutate: readNotiMutate } = useReadNotiItemMutation();
@@ -40,18 +51,16 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
   const handleItemClick = (data: NotificationItem) => {
     if (!data.isRead) readNotiMutate(data.id);
     router.push(
-      `/group/${data.groupId}${
-        data.problemId ? `/problem-list/${data.problemId}` : ""
-      }${data.solutionId ? `/solved-detail/${data.solutionId}` : ""}`,
+      `/group/${data.groupId}${data.problemId ? `/problem-list/${data.problemId}` : ""}${
+        data.solutionId ? `/solved-detail/${data.solutionId}` : ""
+      }`
     );
   };
 
   const handleItemDelete = (notificationId: number) => {
     deleteMutate(notificationId, {
       onSuccess: async () => {
-        setNotifications((prev) =>
-          prev.filter((item) => item.id !== notificationId),
-        );
+        setNotifications((prev) => prev.filter((item) => item.id !== notificationId));
         await queryClient.invalidateQueries({
           queryKey: ["notifications"],
         });
@@ -65,26 +74,22 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
         <h2 className={titleStyle}>알림</h2>
         <div className={countChipStyle}>신규 2</div>
       </header>
+
+      <ul className={notificationTabListStyle}>
+        {Object.entries(notificationMap).map(([tabId, tabText]) => (
+          <NotificationTab
+            key={tabId}
+            tabId={tabId as NotificationType}
+            notificationType={notificationType}
+            setNotificationType={setNotificationType}
+          >
+            {tabText}
+          </NotificationTab>
+        ))}
+      </ul>
+
       {notificationList.length > 0 ? (
         <>
-          <TabGroup.Tabs
-            variant="tertiary"
-            tag="section"
-            // className={rankingTabStyle}
-          >
-            <TabGroup.TabList>
-              <TabGroup.Tab tabId="1">전체</TabGroup.Tab>
-              <TabGroup.Tab tabId="2">문제</TabGroup.Tab>
-              <TabGroup.Tab tabId="3">코멘트</TabGroup.Tab>
-              <TabGroup.Tab tabId="4">스터디</TabGroup.Tab>
-            </TabGroup.TabList>
-            <TabGroup.TabPanels>
-              <div style={{ color: "white" }}>1번째 패널</div>
-              <div style={{ color: "white" }}>2번째 패널</div>
-              <div style={{ color: "white" }}>3번째 패널</div>
-              <div style={{ color: "white" }}>4번째 패널</div>
-            </TabGroup.TabPanels>
-          </TabGroup.Tabs>
           <ul className={ulStyle} {...props} aria-label="알림 목록">
             <AnimatePresence>
               {notifications.map((notification) => (
@@ -115,8 +120,7 @@ const Notification = ({ notificationList, ...props }: NotificationProps) => {
   );
 };
 
-interface TriggerButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface TriggerButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   count: number;
 }
 
