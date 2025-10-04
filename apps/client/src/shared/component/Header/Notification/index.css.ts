@@ -13,7 +13,7 @@ export const notificationContainer = style({
   zIndex: theme.zIndex.top,
   width: "40rem",
   height: "68.1rem",
-  padding: "2rem 2.4rem",
+  padding: "2.4rem 0.4rem 2.4rem 2rem",
 
   borderRadius: "1.6rem",
 
@@ -49,7 +49,7 @@ export const countChipStyle = style({
 export const ulStyle = style({
   display: "flex",
   flexDirection: "column",
-  gap: "1rem",
+  gap: "1.6rem",
 
   marginTop: "1.6rem",
 
@@ -62,7 +62,7 @@ export const ulStyle = style({
     "&::-webkit-scrollbar-button": {
       height: "1rem",
     },
-    ...scrollTheme.scrollbar,
+    ...scrollTheme.alarmScrollbar,
   },
 });
 
