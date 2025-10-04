@@ -51,12 +51,12 @@ export const ulStyle = style({
   flexDirection: "column",
   gap: "1rem",
 
+  marginTop: "1.6rem",
+
   // scroll bar
   overflowY: "scroll",
   overflowX: "hidden",
   overscrollBehavior: "contain",
-
-  // height: "26.6rem",
 
   selectors: {
     "&::-webkit-scrollbar-button": {

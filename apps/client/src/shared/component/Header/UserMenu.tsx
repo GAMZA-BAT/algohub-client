@@ -21,7 +21,7 @@ const UserMenu = () => {
       <Menu
         label="notification"
         renderTriggerButton={<Notification.TriggerButton count={notiCounts} />}
-        renderList={<Notification />}
+        renderList={<Notification notiCounts={notiCounts} />}
       />
       <Menu
         label="profileMenu"
