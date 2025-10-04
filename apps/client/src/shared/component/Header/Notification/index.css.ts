@@ -56,7 +56,7 @@ export const ulStyle = style({
   overflowX: "hidden",
   overscrollBehavior: "contain",
 
-  height: "26.6rem",
+  // height: "26.6rem",
 
   selectors: {
     "&::-webkit-scrollbar-button": {

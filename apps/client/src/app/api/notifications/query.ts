@@ -1,10 +1,11 @@
+import type { NotificationType } from "@/shared/component/Header/Notification";
 import { queryOptions } from "@tanstack/react-query";
 import { getNotificationList, getNotificationsSettings } from "./index";
 
 export const notificationQueryKey = {
   all: () => ["notifications"] as const,
   settings: () => [...notificationQueryKey.all(), "settings"] as const,
-  lists: () => [...notificationQueryKey.all(), "list"] as const,
+  lists: (notificationType?: NotificationType) => [...notificationQueryKey.all(), "list", notificationType] as const,
 };
 
 export const useNotificationSettingListQueryObject = () =>
@@ -13,9 +14,9 @@ export const useNotificationSettingListQueryObject = () =>
     queryFn: () => getNotificationsSettings(),
   });
 
-export const useNotificationsQueryObject = () =>
+export const useNotificationsQueryObject = (notificationType: NotificationType) =>
   queryOptions({
-    queryKey: notificationQueryKey.lists(),
-    queryFn: () => getNotificationList(),
+    queryKey: notificationQueryKey.lists(notificationType),
+    queryFn: () => getNotificationList({ notificationType }),
     staleTime: 0,
   });
