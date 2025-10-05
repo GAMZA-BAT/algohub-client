@@ -9,6 +9,7 @@ import {
 import { auth } from "@/auth";
 import NavBar from "@/shared/component/NavBar";
 import type { Metadata } from "next";
+import UserLayoutClient from "./Navbar";
 
 export const metadata: Metadata = {
   title: "AlgoHub 마이페이지",
@@ -18,14 +19,17 @@ export const metadata: Metadata = {
 export default async function UserLayout({
   children,
   params,
+  me,
+  profile,
 }: Readonly<{
   children: React.ReactNode;
   params: { user: string };
+  me: React.ReactNode;
+  profile: React.ReactNode;
 }>) {
   const session = await auth();
   const { user } = params;
   const isMe = session?.user?.nickname === user;
-
   return (
     <div>
       <NavBar>
@@ -77,7 +81,10 @@ export default async function UserLayout({
           </NavBar.Item>
         )}
       </NavBar>
-      {children}
+      {/* {isMe ? me : profile} */}
+      <UserLayoutClient me={me} profile={profile} isMe={isMe}>
+        {children}
+      </UserLayoutClient>
     </div>
   );
 }
