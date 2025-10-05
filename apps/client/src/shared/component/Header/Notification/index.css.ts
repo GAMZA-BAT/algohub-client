@@ -51,7 +51,8 @@ export const ulStyle = style({
   flexDirection: "column",
   gap: "1.6rem",
 
-  marginTop: "1.6rem",
+  marginTop: "0.8rem",
+  paddingTop: "0.8rem", // 첫 번째 아이템의 deleteIcon이 잘리지 않도록 상단 패딩 추가
 
   // scroll bar
   overflowY: "scroll",
