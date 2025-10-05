@@ -1,10 +1,15 @@
+import { useDeleteNotiMutation, useReadNotiItemMutation } from "@/app/api/notifications/mutation";
+import { notificationQueryKey } from "@/app/api/notifications/query";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import icnNew from "@/asset/svg/icn_new.svg?url";
 import { getDaysDifference } from "@/common/util/date";
 import { handleA11yClick } from "@/common/util/dom";
+import type { NotificationType } from "@/shared/component/Header/Notification";
 import { dateContainerStyle } from "@/shared/component/Header/Notification/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   containerStyle,
   dateStyle,
@@ -17,57 +22,89 @@ import {
 } from "./NotificationItem.css";
 
 type NotificationListProps = {
-  profileImg: string;
-  name: string;
+  id: number;
+  problemId: number | null;
+  solutionId: number | null;
+  groupId: number | null;
+  groupImage: string;
+  groupName: string;
   message: string;
-  date: string;
+  createdAt: string;
   isRead: boolean;
-  onClick: () => void;
-  onDelete: () => void;
+  notificationType: NotificationType;
 };
 
 const NotificationListItem = ({
-  onClick,
-  profileImg,
-  name,
+  id,
+  problemId,
+  solutionId,
+  groupId,
+  groupImage,
+  groupName,
   message,
-  date,
+  createdAt,
   isRead,
-  onDelete,
+  notificationType,
 }: NotificationListProps) => {
   const { isActive, ...handlers } = useA11yHoverHandler();
 
+  const router = useRouter();
+
+  const queryClient = useQueryClient();
+  const { mutate: readNotiMutate } = useReadNotiItemMutation();
+  const { mutate: deleteMutate } = useDeleteNotiMutation();
+
+  const handleItemClick = () => {
+    if (!isRead) readNotiMutate(id);
+
+    router.push(
+      `/group/${groupId}${problemId ? `/problem-list/${problemId}` : ""}${
+        solutionId ? `/solved-detail/${solutionId}` : ""
+      }`
+    );
+  };
+
+  const handleItemDelete = (notificationId: number) => {
+    deleteMutate(notificationId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: notificationQueryKey.lists(notificationType),
+        });
+      },
+    });
+  };
+
   return (
-    <li className={containerStyle} aria-label={`${name}님의 알림: ${message}, ${date}`} {...handlers}>
+    <li className={containerStyle} aria-label={`${groupName}님의 알림: ${message}, ${createdAt}`} {...handlers}>
       <div
         role="button"
         className={notificationContentStyle}
         onClick={(e) => {
           e.stopPropagation();
-          onClick();
+          handleItemClick();
         }}
         onKeyDown={(e) => {
           e.stopPropagation();
-          handleA11yClick(onClick);
+          handleA11yClick(handleItemClick);
         }}
         tabIndex={0}
       >
         <div className={profileStyle}>
           <Image
-            src={profileImg || icnNew}
+            src={groupImage || icnNew}
             width={25}
             height={25}
             className={profileImageStyle}
             alt={`${name}님의 프로필 이미지`}
           />
           <div>
-            <strong className={nameStyle}>{name} </strong>
+            <strong className={nameStyle}>{groupName} </strong>
             <span className={messageStyle({ isRead })}>{message}</span>
           </div>
         </div>
         <div className={dateContainerStyle}>
-          <time className={dateStyle} aria-label={date}>
-            {`${getDaysDifference(date)}일 전`}
+          <time className={dateStyle} aria-label={createdAt}>
+            {`${getDaysDifference(createdAt)}일 전`}
           </time>
         </div>
       </div>
@@ -79,11 +116,11 @@ const NotificationListItem = ({
         onClick={(e) => {
           e.stopPropagation();
 
-          onDelete();
+          handleItemDelete(id);
         }}
-        onKeyDown={handleA11yClick(onDelete)}
+        onKeyDown={handleA11yClick(() => handleItemDelete(id))}
         aria-hidden={!isActive}
-        aria-label={`${name}님의 알림 삭제`}
+        aria-label={`${groupName}님의 알림 삭제`}
         tabIndex={0}
       />
     </li>

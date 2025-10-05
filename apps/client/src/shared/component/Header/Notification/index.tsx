@@ -1,7 +1,5 @@
 "use client";
-import { useDeleteNotiMutation, useReadNotiItemMutation } from "@/app/api/notifications/mutation";
-import { notificationQueryKey, useNotificationsQueryObject } from "@/app/api/notifications/query";
-import type { NotificationItem } from "@/app/api/notifications/type";
+import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import { IcnBellHeader, IcnBtnArrowDown } from "@/asset/svg";
 import Empty from "@/shared/component/Empty";
 import { notificationTabListStyle } from "@/shared/component/Header/Notification/Notification.css";
@@ -16,9 +14,8 @@ import {
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import NotificationListItem from "./NotificationItem";
 
@@ -36,35 +33,12 @@ interface NotificationProps {
 }
 
 const Notification = ({ notiCounts }: NotificationProps) => {
-  const router = useRouter();
-
   const [notificationType, setNotificationType] = useState<NotificationType>("ALL");
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: notifications } = useQuery(useNotificationsQueryObject(notificationType));
+  const { data: notificationData, isFetching } = useQuery(useNotificationsQueryObject(notificationType));
 
-  const queryClient = useQueryClient();
-  const { mutate: readNotiMutate } = useReadNotiItemMutation();
-  const { mutate: deleteMutate } = useDeleteNotiMutation();
-
-  const handleItemClick = (data: NotificationItem) => {
-    if (!data.isRead) readNotiMutate(data.id);
-    router.push(
-      `/group/${data.groupId}${data.problemId ? `/problem-list/${data.problemId}` : ""}${
-        data.solutionId ? `/solved-detail/${data.solutionId}` : ""
-      }`
-    );
-  };
-
-  const handleItemDelete = (notificationId: number) => {
-    deleteMutate(notificationId, {
-      onSuccess:  () => {
-         queryClient.invalidateQueries({
-          queryKey: notificationQueryKey.lists(notificationType),
-        });
-      },
-    });
-  };
+  const notificationList = isOpen ? notificationData : notificationData?.slice(0, 6);
 
   return (
     <div className={notificationContainer}>
@@ -80,63 +54,39 @@ const Notification = ({ notiCounts }: NotificationProps) => {
             tabId={tabId as NotificationType}
             notificationType={notificationType}
             setNotificationType={setNotificationType}
+            setIsOpen={setIsOpen}
           >
             {tabText}
           </NotificationTab>
         ))}
       </ul>
 
-      {notifications ? (
+      {notificationList ? (
         <>
           <ul className={ulStyle} aria-label="알림 목록">
             <AnimatePresence>
-              {isOpen
-                ? notifications.map((notification) => (
-                    <motion.li
-                      key={notification.id}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <NotificationListItem
-                        isRead={notification.isRead}
-                        name={notification.groupName}
-                        message={notification.message}
-                        date={notification.createdAt}
-                        profileImg={notification.groupImage}
-                        onClick={() => handleItemClick(notification)}
-                        onDelete={() => handleItemDelete(notification.id)}
-                      />
-                    </motion.li>
-                  ))
-                : notifications.slice(0, 6).map((notification) => (
-                    <motion.li
-                      key={notification.id}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <NotificationListItem
-                        isRead={notification.isRead}
-                        name={notification.groupName}
-                        message={notification.message}
-                        date={notification.createdAt}
-                        profileImg={notification.groupImage}
-                        onClick={() => handleItemClick(notification)}
-                        onDelete={() => handleItemDelete(notification.id)}
-                      />
-                    </motion.li>
-                  ))}
+              {notificationList.map((notification) => (
+                <motion.li
+                  key={notification.id}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <NotificationListItem {...notification} notificationType={notificationType} />
+                </motion.li>
+              ))}
             </AnimatePresence>
           </ul>
 
           {!isOpen && (
-            <button className={moreButtonStyle} onClick={() => setIsOpen(!isOpen)}>
+            <button className={moreButtonStyle} onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen}>
               <IcnBtnArrowDown width={"1.2rem"} height={"1.2rem"} />
               더보기
             </button>
           )}
         </>
+      ) : isFetching ? (
+        <></>
       ) : (
         <Empty guideText="지금은 알림이 없어요." />
       )}
