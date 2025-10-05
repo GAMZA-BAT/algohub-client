@@ -6,9 +6,9 @@ export const notificationTabListStyle = style({
   display: "flex",
   alignItems: "center",
 
-  height: "7.2rem",
+  height: "4.5rem",
 
-  padding: 0,
+  marginTop: "1.6rem",
 });
 
 export const notificationTabStyle = recipe({
