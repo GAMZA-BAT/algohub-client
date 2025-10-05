@@ -11,15 +11,23 @@ type NotificationTabProps = {
   tabId: NotificationType;
   notificationType: NotificationType;
   setNotificationType: Dispatch<SetStateAction<NotificationType>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   children: string;
 };
 
-const NotificationTab = ({ tabId, notificationType, setNotificationType, children }: NotificationTabProps) => {
+const NotificationTab = ({
+  tabId,
+  notificationType,
+  setNotificationType,
+  setIsOpen,
+  children,
+}: NotificationTabProps) => {
   const isSelected = notificationType === tabId;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
     if (e.key === "Enter") {
       setNotificationType(tabId);
+      setIsOpen(false);
     }
   };
 
@@ -31,7 +39,10 @@ const NotificationTab = ({ tabId, notificationType, setNotificationType, childre
       tabIndex={-1}
       aria-selected={isSelected}
       className={notificationTabStyle({ isSelected })}
-      onClick={() => setNotificationType(tabId)}
+      onClick={() => {
+        setNotificationType(tabId);
+        setIsOpen(false);
+      }}
       onKeyDown={handleKeyDown}
     >
       <span className={textStyle}>{children}</span>
