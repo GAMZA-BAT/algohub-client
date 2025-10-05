@@ -95,7 +95,7 @@ const NotificationListItem = ({
             width={25}
             height={25}
             className={profileImageStyle}
-            alt={`${name}님의 프로필 이미지`}
+            alt={`${groupName}님의 프로필 이미지`}
           />
           <div>
             <strong className={nameStyle}>{groupName} </strong>

@@ -1,23 +1,20 @@
 "use client";
-import { useNotificationsQueryObject } from "@/app/api/notifications/query";
-import { IcnBellHeader, IcnBtnArrowDown } from "@/asset/svg";
-import Empty from "@/shared/component/Empty";
+import { IcnBellHeader } from "@/asset/svg";
+import Spinner from "@/common/component/Spinner";
 import { notificationTabListStyle } from "@/shared/component/Header/Notification/Notification.css";
+import NotificationList from "@/shared/component/Header/Notification/NotificationList";
 import NotificationTab from "@/shared/component/Header/Notification/NotificationTab";
 import {
   countChipStyle,
   countStyle,
   headerStyle,
-  moreButtonStyle,
+  loadingContainer,
   notificationContainer,
   titleStyle,
-  ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
-import { useQuery } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import NotificationListItem from "./NotificationItem";
+import {} from "framer-motion";
+import { Suspense, useState } from "react";
 
 export type NotificationType = "ALL" | "PROBLEM" | "COMMENT" | "STUDY_GROUP";
 
@@ -34,11 +31,15 @@ interface NotificationProps {
 
 const Notification = ({ notiCounts }: NotificationProps) => {
   const [notificationType, setNotificationType] = useState<NotificationType>("ALL");
-  const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const { data: notificationData, isFetching } = useQuery(useNotificationsQueryObject(notificationType));
+  const shrinkList = () => {
+    setIsExpanded(false);
+  };
 
-  const notificationList = isOpen ? notificationData : notificationData?.slice(0, 6);
+  const expandList = () => {
+    setIsExpanded(true);
+  };
 
   return (
     <div className={notificationContainer}>
@@ -54,42 +55,22 @@ const Notification = ({ notiCounts }: NotificationProps) => {
             tabId={tabId as NotificationType}
             notificationType={notificationType}
             setNotificationType={setNotificationType}
-            setIsOpen={setIsOpen}
+            shrinkList={shrinkList}
           >
             {tabText}
           </NotificationTab>
         ))}
       </ul>
 
-      {notificationList ? (
-        <>
-          <ul className={ulStyle} aria-label="알림 목록">
-            <AnimatePresence>
-              {notificationList.map((notification) => (
-                <motion.li
-                  key={notification.id}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <NotificationListItem {...notification} notificationType={notificationType} />
-                </motion.li>
-              ))}
-            </AnimatePresence>
-          </ul>
-
-          {!isOpen && (
-            <button className={moreButtonStyle} onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen}>
-              <IcnBtnArrowDown width={"1.2rem"} height={"1.2rem"} />
-              더보기
-            </button>
-          )}
-        </>
-      ) : isFetching ? (
-        <></>
-      ) : (
-        <Empty guideText="지금은 알림이 없어요." />
-      )}
+      <Suspense
+        fallback={
+          <div className={loadingContainer}>
+            <Spinner />
+          </div>
+        }
+      >
+        <NotificationList notificationType={notificationType} isExpanded={isExpanded} expandList={expandList} />
+      </Suspense>
     </div>
   );
 };
