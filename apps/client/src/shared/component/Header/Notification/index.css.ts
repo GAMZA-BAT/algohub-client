@@ -138,3 +138,10 @@ export const moreButtonStyle = style({
 
   cursor: "pointer",
 });
+
+export const loadingContainer = style({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100%",
+});
