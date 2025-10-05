@@ -1,10 +1,6 @@
 "use client";
-import {
-  useDeleteNotiMutation,
-  useReadAllNotiMutation,
-  useReadNotiItemMutation,
-} from "@/app/api/notifications/mutation";
-import { useNotificationsQueryObject } from "@/app/api/notifications/query";
+import { useDeleteNotiMutation, useReadNotiItemMutation } from "@/app/api/notifications/mutation";
+import { notificationQueryKey, useNotificationsQueryObject } from "@/app/api/notifications/query";
 import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBellHeader, IcnBtnArrowDown } from "@/asset/svg";
 import Empty from "@/shared/component/Empty";
@@ -49,7 +45,6 @@ const Notification = ({ notiCounts }: NotificationProps) => {
 
   const queryClient = useQueryClient();
   const { mutate: readNotiMutate } = useReadNotiItemMutation();
-  const { mutate: readAllMutate } = useReadAllNotiMutation();
   const { mutate: deleteMutate } = useDeleteNotiMutation();
 
   const handleItemClick = (data: NotificationItem) => {
@@ -62,14 +57,13 @@ const Notification = ({ notiCounts }: NotificationProps) => {
   };
 
   const handleItemDelete = (notificationId: number) => {
-    // deleteMutate(notificationId, {
-    //   onSuccess: async () => {
-    //     setNotifications((prev) => prev.filter((item) => item.id !== notificationId));
-    //     await queryClient.invalidateQueries({
-    //       queryKey: ["notifications"],
-    //     });
-    //   },
-    // });
+    deleteMutate(notificationId, {
+      onSuccess:  () => {
+         queryClient.invalidateQueries({
+          queryKey: notificationQueryKey.lists(notificationType),
+        });
+      },
+    });
   };
 
   return (
