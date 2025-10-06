@@ -281,3 +281,52 @@ export const getQueuedProblems = async ({
 
   return response;
 };
+
+export const postJoinRecommend = async (id: number) => {
+  // const response = await kyJsonWithTokenInstance.post("")
+
+  const response = await new Promise((res) => {
+    res({ status: 200, id });
+  });
+
+  return response;
+};
+
+export const getJoinRequestList = async () => {
+  // const response = await KyJsonWithTokenInstance.get("")
+  const response = await new Promise<
+    {
+      id: number;
+      name: string;
+      avatarUrl: string;
+    }[]
+  >((res) => {
+    res(
+      Array.from({ length: 8 }, (_, i) => ({
+        id: i + 1,
+        name: `요청자 ${i + 1}`,
+        avatarUrl: "",
+      })),
+    );
+  });
+
+  return response;
+};
+
+export const postApprovalRequest = async () => {
+  // const response = await KyJsonWithTokenInstance.post("")
+  const response = await new Promise((res) => {
+    res({ status: 200 });
+  });
+
+  return response;
+};
+
+export const postRejectRequest = async () => {
+  // const response = await KyJsonWithTokenInstance.post("")
+  const response = await new Promise((res) => {
+    res({ status: 200 });
+  });
+
+  return response;
+};
