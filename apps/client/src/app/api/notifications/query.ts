@@ -5,7 +5,7 @@ import { getNotificationList, getNotificationsSettings } from "./index";
 export const notificationQueryKey = {
   all: () => ["notifications"] as const,
   settings: () => [...notificationQueryKey.all(), "settings"] as const,
-  lists: (notificationType?: NotificationType) => [...notificationQueryKey.all(), "list", notificationType] as const,
+  lists: (notificationType: NotificationType) => [...notificationQueryKey.all(), "list", notificationType] as const,
 };
 
 export const useNotificationSettingListQueryObject = () =>

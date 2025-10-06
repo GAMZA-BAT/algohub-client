@@ -2,12 +2,11 @@ import { useDeleteNotiMutation, useReadNotiItemMutation } from "@/app/api/notifi
 import { notificationQueryKey } from "@/app/api/notifications/query";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import icnNew from "@/asset/svg/icn_new.svg?url";
-import { getDaysDifference } from "@/common/util/date";
-import { handleA11yClick } from "@/common/util/dom";
 import type { NotificationType } from "@/shared/component/Header/Notification";
 import { dateContainerStyle } from "@/shared/component/Header/Notification/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { useQueryClient } from "@tanstack/react-query";
+import { differenceInCalendarDays } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
@@ -64,8 +63,8 @@ const NotificationListItem = ({
     );
   };
 
-  const handleItemDelete = (notificationId: number) => {
-    deleteMutate(notificationId, {
+  const handleItemDelete = () => {
+    deleteMutate(id, {
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: notificationQueryKey.lists(notificationType),
@@ -75,19 +74,11 @@ const NotificationListItem = ({
   };
 
   return (
-    <li className={containerStyle} aria-label={`${groupName}님의 알림: ${message}, ${createdAt}`} {...handlers}>
-      <div
-        role="button"
+    <div className={containerStyle} aria-label={`${groupName}님의 알림: ${message}, ${createdAt}`} {...handlers}>
+      <button
         className={notificationContentStyle}
-        onClick={(e) => {
-          e.stopPropagation();
-          handleItemClick();
-        }}
-        onKeyDown={(e) => {
-          e.stopPropagation();
-          handleA11yClick(handleItemClick);
-        }}
-        tabIndex={0}
+        onClick={handleItemClick}
+        aria-label={`${groupName}의 알림으로 이동`}
       >
         <div className={profileStyle}>
           <Image
@@ -104,26 +95,18 @@ const NotificationListItem = ({
         </div>
         <div className={dateContainerStyle}>
           <time className={dateStyle} aria-label={createdAt}>
-            {`${getDaysDifference(createdAt)}일 전`}
+            {`${differenceInCalendarDays(new Date(), new Date(createdAt))}일 전`}
           </time>
         </div>
-      </div>
-      <IcnBtnDeleteCircle
-        role="button"
+      </button>
+      <button
         className={deleteIconStyle({ active: isActive })}
-        width={"1.6rem"}
-        height={"1.6rem"}
-        onClick={(e) => {
-          e.stopPropagation();
-
-          handleItemDelete(id);
-        }}
-        onKeyDown={handleA11yClick(() => handleItemDelete(id))}
-        aria-hidden={!isActive}
-        aria-label={`${groupName}님의 알림 삭제`}
-        tabIndex={0}
-      />
-    </li>
+        onClick={handleItemDelete}
+        aria-label={`${groupName}의 알림 삭제`}
+      >
+        <IcnBtnDeleteCircle width={"1.6rem"} height={"1.6rem"} aria-hidden />
+      </button>
+    </div>
   );
 };
 
