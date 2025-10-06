@@ -1,6 +1,8 @@
 "use client";
 
+import { useJoinRequestsQueryObject } from "@/app/api/groups/query";
 import { IcnBtnArrowLeft, IcnBtnArrowRight } from "@/asset/svg";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { ApprovalCard } from "./ApprovalCard";
@@ -14,30 +16,28 @@ import {
   joinRequestStyle,
 } from "./index.css";
 
-export const MOCK_JOIN_REQUESTS = Array.from({ length: 8 }, (_, i) => ({
-  id: i + 1,
-  name: `요청자 ${i + 1}`,
-  avatarUrl: "",
-  groupName: "스터디 이름",
-}));
+type JoinRequestListProps = {
+  groupId: number;
+};
 
 const ITEMS_PER_PAGE = 3;
-
-const JoinRequestList = ({ groupName }: { groupName: string }) => {
+const JoinRequestList = ({ groupId }: JoinRequestListProps) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isDownDirection, setIsDownDirection] = useState(true);
+  const { data: joinRequests } = useSuspenseQuery(
+    useJoinRequestsQueryObject(groupId),
+  );
 
   const totalPages = useMemo(
-    () => Math.ceil(MOCK_JOIN_REQUESTS.length / ITEMS_PER_PAGE),
-    [MOCK_JOIN_REQUESTS.length],
+    () => Math.ceil(joinRequests.length / ITEMS_PER_PAGE),
+    [joinRequests.length],
   );
+  if (!totalPages) return null;
   const startIndex = currentPage * ITEMS_PER_PAGE;
-  const currentRequests = MOCK_JOIN_REQUESTS.slice(
+  const currentRequests = joinRequests.slice(
     startIndex,
     startIndex + ITEMS_PER_PAGE,
   );
-
-  if (!totalPages) return null;
 
   const handlePrev = () => {
     setIsDownDirection(false);
@@ -59,7 +59,7 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
           <h2 id="join-request-title" className={joinRequestStyle}>
             가입 요청
           </h2>
-          <span className={countStyle}>{MOCK_JOIN_REQUESTS.length}</span>
+          <span className={countStyle}>{joinRequests.length}</span>
         </div>
         <div>
           <button
@@ -95,8 +95,8 @@ const JoinRequestList = ({ groupName }: { groupName: string }) => {
             >
               <ApprovalCard
                 name={request.name}
-                groupName={groupName}
                 avatarUrl={request.avatarUrl}
+                groupId={groupId}
               />
             </motion.li>
           ))}
