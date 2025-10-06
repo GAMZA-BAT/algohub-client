@@ -13,10 +13,12 @@ import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
 import { getGroupsByUsers } from "@/app/api/users";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
+import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
-
+import { HydrationBoundary } from "@tanstack/react-query";
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
+import { useRecommendStudyQueryObject } from "../api/users/query";
 import UserPageLeftSidebar from "./components/LeftSidebar";
 import RecommendStudySection from "./components/RecommendSection";
 
@@ -61,13 +63,18 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
     );
   }
 
+  // biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
+  const recommendGroups = await prefetchQuery(useRecommendStudyQueryObject());
+
   return (
     <main className={sidebarWrapper}>
       <Sidebar className={leftSidebarStyle}>
         <UserPageLeftSidebar />
       </Sidebar>
       <div className={userHomeWrapper}>
-        <RecommendStudySection />
+        <HydrationBoundary state={recommendGroups}>
+          <RecommendStudySection />
+        </HydrationBoundary>
       </div>
       <Sidebar>
         <div>임시로 만드는 우측 패널</div>
