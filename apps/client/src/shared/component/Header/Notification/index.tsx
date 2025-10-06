@@ -43,8 +43,10 @@ const Notification = ({ notiCounts }: NotificationProps) => {
 
   return (
     <div className={notificationContainer}>
-      <header className={headerStyle}>
-        <h2 className={titleStyle}>알림</h2>
+      <header className={headerStyle} aria-labelledby="notification-title">
+        <h2 className={titleStyle} id="notification-title">
+          알림
+        </h2>
         <div className={countChipStyle}>{`신규 ${notiCounts}`}</div>
       </header>
 

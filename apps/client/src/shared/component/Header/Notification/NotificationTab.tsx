@@ -24,29 +24,22 @@ const NotificationTab = ({
 }: NotificationTabProps) => {
   const isSelected = notificationType === tabId;
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
-    if (e.key === "Enter") {
-      setNotificationType(tabId);
-      shrinkList();
-    }
+  const handleTabClick = () => {
+    setNotificationType(tabId);
+    shrinkList();
   };
 
   return (
-    <li
-      // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole:
-      role="tab"
-      id={`tab-${notificationType}`}
-      tabIndex={-1}
-      aria-selected={isSelected}
-      className={notificationTabStyle({ isSelected })}
-      onClick={() => {
-        setNotificationType(tabId);
-        shrinkList();
-      }}
-      onKeyDown={handleKeyDown}
-    >
-      <span className={textStyle}>{children}</span>
-      {isSelected && <motion.div layoutId={"notification-tab-indicator"} className={indicatorStyle} />}
+    <li>
+      <button
+        role="tab"
+        aria-selected={isSelected}
+        className={notificationTabStyle({ isSelected })}
+        onClick={handleTabClick}
+      >
+        <span className={textStyle}>{children}</span>
+        {isSelected && <motion.div layoutId={"notification-tab-indicator"} className={indicatorStyle} />}
+      </button>
     </li>
   );
 };
