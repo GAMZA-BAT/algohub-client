@@ -14,10 +14,11 @@ import {
   joinRequestStyle,
 } from "./index.css";
 
-const MOCK_JOIN_REQUESTS = Array.from({ length: 8 }, (_, i) => ({
+export const MOCK_JOIN_REQUESTS = Array.from({ length: 8 }, (_, i) => ({
   id: i + 1,
   name: `요청자 ${i + 1}`,
   avatarUrl: "",
+  groupName: "스터디 이름",
 }));
 
 const ITEMS_PER_PAGE = 3;
