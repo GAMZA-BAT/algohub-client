@@ -6,7 +6,7 @@ import { useEffect } from "react";
 /**
  * hard-navigation으로 접근 시 modalPath에 따라 모달을 띄워줌
  */
-const ModalPathProvider = ({
+const ModalRouteHandler = ({
   children,
   modalPath,
 }: { children: React.ReactNode; modalPath?: string }) => {
@@ -20,4 +20,4 @@ const ModalPathProvider = ({
   return <>{children}</>;
 };
 
-export default ModalPathProvider;
+export default ModalRouteHandler;

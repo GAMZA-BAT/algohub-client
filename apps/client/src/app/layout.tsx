@@ -2,7 +2,7 @@ import ChannelTalk from "@/app/components/ChannelTalk";
 import Providers from "@/app/provider";
 import { auth } from "@/auth";
 import Header from "@/shared/component/Header";
-import ModalPathProvider from "@/shared/component/ModalPathProvider";
+import ModalRouteHandler from "@/shared/component/ModalPathProvider";
 import "@/styles/globalStyles.css";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
@@ -32,11 +32,11 @@ export default async function RootLayout({
       <body>
         <SessionProvider session={session}>
           <Providers>
-            <ModalPathProvider modalPath={modalPath}>
+            <ModalRouteHandler modalPath={modalPath}>
               <Header session={session} />
               {children}
               {modal}
-            </ModalPathProvider>
+            </ModalRouteHandler>
           </Providers>
           <ChannelTalk />
         </SessionProvider>
