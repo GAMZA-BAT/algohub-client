@@ -35,13 +35,11 @@ export const ApprovalCard = ({
   const handleApprove = (e: React.MouseEvent) => {
     e.stopPropagation();
     approvalRequestMutate();
-    close();
   };
 
   const handleReject = (e: React.MouseEvent) => {
     e.stopPropagation();
     rejectRequestMutate();
-    close();
   };
 
   return (

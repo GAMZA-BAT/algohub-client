@@ -1,5 +1,5 @@
-import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
-import { JoinRequestAlertModalController } from "@/app/[user]/components/JoinRequestAlertModal";
+import ExtensionAlertModalController from "@/app/components/ExtensionAlertModal";
+import { JoinRequestAlertModalController } from "@/app/components/JoinRequestAlertModal";
 import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
 import { getSolutionsCurrentStatus } from "@/app/api/solutions";

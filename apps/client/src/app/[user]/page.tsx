@@ -1,4 +1,3 @@
-import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
 import LoginAlertModalController from "@/app/[user]/components/GroupCard/LoginAlertModalController";
 import ListSection from "@/app/[user]/components/ListSection";
 import UserCard from "@/app/[user]/components/UserCard";
@@ -11,6 +10,7 @@ import {
 } from "@/app/[user]/components/index.css";
 import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
 import { getGroupsByUsers } from "@/app/api/users";
+import ExtensionAlertModalController from "@/app/components/ExtensionAlertModal";
 import { auth } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { prefetchQuery } from "@/shared/util/prefetch";
