@@ -1,11 +1,15 @@
 "use client";
 
 import type { PaginationResponse } from "@/app/api/type";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  type QueryOptions,
+  keepPreviousData,
+  useQuery,
+} from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { usePaginationSearchParams } from "./usePaginationSearchParams";
 
-type BasePaginationQueryProps<T> = {
+export type BasePaginationQueryProps<T> = {
   /** React Query의 queryKey */
   queryKey: (string | number | object)[];
   /** 페이지 번호를 인자로 받아 데이터를 fetching하는 비동기 함수 */
@@ -15,7 +19,7 @@ type BasePaginationQueryProps<T> = {
    * @default true
    */
   isUrlSync?: boolean;
-};
+} & Omit<QueryOptions<T>, "queryFn">;
 
 // URL 동기화를 사용하지 않을 경우의 props
 type UrlSyncDisabled = {
@@ -56,6 +60,7 @@ export const usePaginationQuery = <T>({
   isUrlSync = true,
   initialPage = 1,
   searchParam,
+  ...options
 }: UsePaginationQueryProps<T>) => {
   const { currentPage, setCurrentPage }: PaginationState = isUrlSync
     ? usePaginationSearchParams({
@@ -68,6 +73,7 @@ export const usePaginationQuery = <T>({
     queryFn: () => queryFn(currentPage - 1),
     placeholderData: keepPreviousData,
     enabled: Number.isInteger(currentPage) && currentPage > 0,
+    ...options,
   });
 
   const totalPages = (query.data as PaginationResponse)?.totalPages || 0;

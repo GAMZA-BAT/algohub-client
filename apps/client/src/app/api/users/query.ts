@@ -8,15 +8,9 @@ import { queryOptions } from "@tanstack/react-query";
 
 export const userQueryKey = {
   all: () => ["users"] as const,
-  mySolutions: () => [...userQueryKey.all(), "my-solutions"] as const,
-  inProgressSolutions: (params: MySolutionRequest) => [
-    ...userQueryKey.mySolutions(),
-    "in-progress",
-    params,
-  ],
-  expiredSolutions: (params: MySolutionRequest) => [
-    ...userQueryKey.mySolutions(),
-    "expired",
+  mySolutions: (params: MySolutionRequest) => [
+    ...userQueryKey.all(),
+    "my-solutions",
     params,
   ],
   userGroups: (user: string) => [...userQueryKey.all(), "groups", user],
@@ -24,21 +18,22 @@ export const userQueryKey = {
 };
 
 export const useInProgressMySolutionsQueryObject = (
-  params: MySolutionRequest,
-) =>
-  queryOptions({
-    queryKey: userQueryKey.inProgressSolutions(params),
-    queryFn: () =>
-      getMySolutions({ ...params, status: "IN_PROGRESS", size: 3 }),
-    staleTime: 0,
-  });
+  params?: MySolutionRequest,
+) => ({
+  queryKey: userQueryKey.mySolutions({ ...params, status: "IN_PROGRESS" }),
+  queryFn: (page: number) =>
+    getMySolutions({ ...params, page, status: "IN_PROGRESS", size: 3 }),
+  staleTime: 0,
+});
 
-export const useExpiredMySolutionsQueryObject = (params: MySolutionRequest) =>
-  queryOptions({
-    queryKey: userQueryKey.expiredSolutions(params),
-    queryFn: () => getMySolutions({ ...params, status: "EXPIRED", size: 3 }),
-    staleTime: 0,
-  });
+export const useExpiredMySolutionsQueryObject = (
+  params?: MySolutionRequest,
+) => ({
+  queryKey: userQueryKey.mySolutions({ ...params, status: "EXPIRED" }),
+  queryFn: (page: number) =>
+    getMySolutions({ ...params, page, status: "EXPIRED", size: 3 }),
+  staleTime: 0,
+});
 
 export const useUserGroupsQueryObject = (user: string) =>
   queryOptions({
