@@ -35,7 +35,7 @@ const GroupSettingPage = async ({
       </Sidebar>
       <div className={sectionWrapper}>
         <HydrationBoundary state={joinRequestState}>
-          <JoinRequestList groupName={groupInfo.name} groupId={numberGroupId} />
+          <JoinRequestList groupId={numberGroupId} />
         </HydrationBoundary>
         <HydrationBoundary state={memberListState}>
           <MemberList groupId={numberGroupId} />

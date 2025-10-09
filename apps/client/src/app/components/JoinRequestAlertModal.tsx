@@ -17,38 +17,35 @@ export const JoinRequestAlertModalController = ({
   groupId,
 }: JoinRequestAlertModalControllerProps) => {
   const router = useRouter();
-  const { data: joinRequests, isFetching } = useSuspenseQuery(
+  const { data: joinRequests } = useSuspenseQuery(
     useJoinRequestsQueryObject(groupId),
   );
   const sessionStorageKey = `joinRequestAlertShown-${groupId}`;
-  const [hasBeenShown, setHasBeenShown] = useState(true);
-  const prevJoinRequestIdsRef = useRef<number[]>([]);
 
+  const [hasBeenShown, setHasBeenShown] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return !!sessionStorage.getItem(sessionStorageKey);
+  });
+  const isOpen = joinRequests.length > 0 && !hasBeenShown;
+
+  // refetching시 데이터가 변경되었을 때만 모달을 다시 보여줄 수 있도록 함
+  const prevJoinRequestIdsRef = useRef<string>();
   useEffect(() => {
-    setHasBeenShown(!!sessionStorage.getItem(sessionStorageKey));
-  }, [sessionStorageKey]);
+    const currentRequestIds = joinRequests.map((req) => req.id).sort();
+    const currentRequestIdsString = JSON.stringify(currentRequestIds);
 
-  const shouldShowModal = joinRequests.length > 0 && !hasBeenShown;
-
-  // 데이터가 refetch되고 값이 변경되었을 때만 세션 스토리지를 초기화
-  useEffect(() => {
-    if (!isFetching) {
-      const currentRequestIds = joinRequests.map((req) => req.id);
-      const prevRequestIds = prevJoinRequestIdsRef.current;
-
-      if (
-        JSON.stringify(currentRequestIds) !== JSON.stringify(prevRequestIds)
-      ) {
-        sessionStorage.removeItem(sessionStorageKey);
-        setHasBeenShown(false);
-      }
-      prevJoinRequestIdsRef.current = currentRequestIds;
+    if (
+      prevJoinRequestIdsRef.current !== undefined &&
+      prevJoinRequestIdsRef.current !== currentRequestIdsString
+    ) {
+      sessionStorage.removeItem(sessionStorageKey);
+      setHasBeenShown(false);
     }
-  }, [isFetching, joinRequests, sessionStorageKey]);
 
-  if (!shouldShowModal) return null;
+    prevJoinRequestIdsRef.current = currentRequestIdsString;
+  }, [joinRequests, sessionStorageKey]);
 
-  const { name, avatarUrl } = joinRequests[0];
+  if (!isOpen) return null;
 
   const handleApprove = () => {
     router.push(`/group/${groupId}/setting`);
@@ -60,10 +57,12 @@ export const JoinRequestAlertModalController = ({
     sessionStorage.setItem(sessionStorageKey, "true");
   };
 
+  const { name, avatarUrl } = joinRequests[0];
+
   return (
     <GroupActionModal
       className={modalStyle}
-      isOpen={shouldShowModal}
+      isOpen={isOpen}
       onClose={handleClose}
     >
       <GroupActionModal.Applicant nickname={name} profileImage={avatarUrl} />
