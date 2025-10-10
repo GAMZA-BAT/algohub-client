@@ -1,11 +1,7 @@
 import SearchEmpty from "@/app/[user]/components/RecommendSection/SearchEmpty";
 import RecommendCard from "@/app/[user]/components/RecommendSection/RecommendCard";
-import {
-  
-  studyListWrapper,
-} from "@/app/[user]/components/RecommendSection/RecommendList/index.css";
+import { studyListWrapper } from "@/app/[user]/components/RecommendSection/RecommendList/index.css";
 import type { Study } from "@/app/api/groups/type";
-
 
 type RecommendListProps = {
   studyList: Study[];

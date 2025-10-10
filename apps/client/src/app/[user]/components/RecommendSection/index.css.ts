@@ -41,4 +41,3 @@ export const searchedStudyCountStyle = style({
   color: theme.color.lg2,
   ...theme.font.Caption3_M_12,
 });
-
