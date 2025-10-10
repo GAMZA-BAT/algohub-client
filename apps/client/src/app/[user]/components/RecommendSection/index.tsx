@@ -2,28 +2,25 @@
 
 import SearchStudyInput from "@/app/[user]/components/SearchStudyInput";
 import { useSearchStudyQueryObject } from "@/app/api/groups/query";
-import imgEmpty from "@/asset/img/img_empty.png";
+
+import RecommendList from "@/app/[user]/components/RecommendSection/RecommendList";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import RecommendCard from "./RecommendCard";
 import {
-  emptyGuideStyle,
-  emptyWrapper,
   recommendHeaderContentWrapper,
   recommendHeaderWrapper,
   recommendSectionWrapper,
   recommendStudyTitle,
   searchedStudyCountStyle,
-  studyListWrapper,
 } from "./index.css";
 
 const RecommendStudySection = () => {
   const searchParam = useSearchParams();
-  const searchPattern = searchParam.get("search");
+  const searchPattern = searchParam.get("search") || "";
 
   const { data: studyList } = useQuery(
-    useSearchStudyQueryObject({ searchPattern: searchPattern || "" }),
+    useSearchStudyQueryObject({ searchPattern }),
   );
 
   return (
@@ -47,28 +44,7 @@ const RecommendStudySection = () => {
       </div>
 
       {searchPattern ? (
-        <ul className={studyListWrapper}>
-          {studyList?.content && studyList.content.length > 0 ? (
-            studyList.content.map((study) => (
-              <RecommendCard
-                key={study.id}
-                name={study.name}
-                introduction={study.introduction}
-                groupImage={study.groupImage}
-              />
-            ))
-          ) : (
-            <div className={emptyWrapper}>
-              <Image
-                src={imgEmpty}
-                alt="검색 결과가 없을 때 이미지"
-                width={369}
-                height={192}
-              />
-              <p className={emptyGuideStyle}>검색 결과가 없습니다.</p>
-            </div>
-          )}
-        </ul>
+        <RecommendList studyList={studyList?.content || []} />
       ) : (
         <RecommendCard
           name={"기본 스터디"}
