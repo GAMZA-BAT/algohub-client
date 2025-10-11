@@ -8,7 +8,7 @@ const SOLVED_STATUS_BASE_COLUMNS: TableDataType<SolutionsCurrentStatusResponse>[
       key: "rank",
       Header: () => "랭킹",
       Cell: (data) => data.rank,
-      width: 56,
+      width: 40,
     },
     {
       key: "total",
@@ -19,7 +19,7 @@ const SOLVED_STATUS_BASE_COLUMNS: TableDataType<SolutionsCurrentStatusResponse>[
           {data.totalPassedTime}
         </p>
       ),
-      width: 84,
+      width: 120,
     },
     {
       key: "id",
@@ -27,7 +27,7 @@ const SOLVED_STATUS_BASE_COLUMNS: TableDataType<SolutionsCurrentStatusResponse>[
       Cell: (data) => (
         <p className={tdStyle({ column: "nickname" })}>{data.nickname}</p>
       ),
-      width: 150,
+      width: 130,
       align: "left",
     },
   ];

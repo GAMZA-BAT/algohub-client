@@ -1,4 +1,4 @@
-import { theme } from "@/styles/themes.css";
+import { scrollTheme, theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
@@ -8,12 +8,12 @@ export const tableWrapper = style({
 });
 
 export const wrapper1Style = style({
-  width: "35%",
+  width: "320px",
   paddingBottom: "15px",
 });
 
 export const wrapper2Style = style({
-  width: "65%",
+  width: "calc(100% - 320px)",
 });
 
 export const table1Style = style({
@@ -28,6 +28,8 @@ export const table2Style = style({
   borderCollapse: "collapse",
   display: "block",
   overflowX: "scroll",
+
+  ...scrollTheme.innerScrollbarX,
 });
 
 export const theadStyle = style({
