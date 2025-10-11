@@ -19,12 +19,8 @@ const Header = <T,>({
   return (
     <thead className={clsx(theadClassName, tableHeaderStyle)}>
       <tr>
-        {columns.map(({ key, Header, width, align }) => (
-          <TableHead
-            key={key?.toString()}
-            className={thClassName}
-            width={width}
-          >
+        {columns.map(({ key, Header, align, ...props }) => (
+          <TableHead key={key?.toString()} className={thClassName} {...props}>
             <div className={headWrapper({ align })}>
               <Header />
             </div>

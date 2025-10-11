@@ -11,7 +11,7 @@ const TableHead = ({ className, align, width, ...props }: TableHeadProps) => {
   return (
     <th
       className={clsx(tableHeadStyle({ align }), className)}
-      style={{ minWidth: `${width}px`, width: `${width}px` }}
+      style={width ? { minWidth: `${width}px`, width: `${width}px` } : {}}
       {...props}
     />
   );
