@@ -9,7 +9,7 @@ export const sidebarWrapper = style({
   height: "72.5vh",
   overflowY: "auto",
 
-  ...scrollTheme.innerScrollbar,
+  ...scrollTheme.innerScrollbarY,
 });
 
 export const titleWrapper = style({
