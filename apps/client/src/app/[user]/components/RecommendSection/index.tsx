@@ -4,6 +4,7 @@ import SearchStudyInput from "@/app/[user]/components/SearchStudyInput";
 import { useSearchStudyQueryObject } from "@/app/api/groups/query";
 
 import RecommendList from "@/app/[user]/components/RecommendSection/RecommendList";
+import Spinner from "@/common/component/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import RecommendCard from "./RecommendCard";
@@ -19,7 +20,7 @@ const RecommendStudySection = () => {
   const searchParam = useSearchParams();
   const searchPattern = searchParam.get("search") || "";
 
-  const { data: studyList } = useQuery(
+  const { data: studyList, isFetching } = useQuery(
     useSearchStudyQueryObject({ searchPattern }),
   );
 
@@ -44,7 +45,11 @@ const RecommendStudySection = () => {
       </div>
 
       {searchPattern ? (
-        <RecommendList studyList={studyList?.content || []} />
+        isFetching ? (
+          <Spinner />
+        ) : (
+          <RecommendList studyList={studyList?.content || []} />
+        )
       ) : (
         <RecommendCard
           name={"기본 스터디"}

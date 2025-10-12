@@ -6,21 +6,16 @@ import {
 } from "@/app/[user]/components/SearchStudyInput/index.css";
 import { IcnSearch } from "@/asset/svg";
 import { debounce } from "@/common/util/debounce";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
 
 const SearchStudyInput = () => {
   const params = useParams();
-
+  const searchParam = useSearchParams();
   const router = useRouter();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const searchInput = formData.get("study");
-    const encodedValue = encodeURIComponent(searchInput as string);
+  const performSearch = (searchText: string) => {
+    const encodedValue = encodeURIComponent(searchText);
 
     if (encodedValue) {
       router.replace(`/${params.user}?search=${encodedValue}`);
@@ -29,14 +24,18 @@ const SearchStudyInput = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const encodedValue = encodeURIComponent(e.target.value);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    if (encodedValue) {
-      router.replace(`/${params.user}?search=${encodedValue}`);
-    } else {
-      router.replace(`/${params.user}`);
-    }
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const searchInput = formData.get("study");
+
+    performSearch(searchInput as string);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    performSearch(e.target.value);
   };
 
   const debouncedChange = debounce(handleChange, 500);
@@ -46,6 +45,7 @@ const SearchStudyInput = () => {
       <label className={inputWrapper}>
         <IcnSearch width={16} height={16} />
         <input
+          defaultValue={searchParam.get("search") || ""}
           onChange={debouncedChange}
           type="search"
           name="study"
