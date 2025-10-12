@@ -10,9 +10,11 @@ export const postEdgeCase = async (body: EdgeCaseRequest) => {
 };
 
 export const getEdgeCaseList = async (problemNumber?: number) => {
-  const response = await kyJsonWithTokenInstance.get("api/edge-case/list", {
-    searchParams: problemNumber ? { problemNumber } : undefined,
-  }).json<{ edgeCaseList: EdgeCaseResponse[] }>();
+  const response = await kyJsonWithTokenInstance
+    .get("api/edge-case/list", {
+      searchParams: problemNumber ? { problemNumber } : undefined,
+    })
+    .json<{ edgeCaseList: EdgeCaseResponse[] }>();
 
   return response.edgeCaseList;
 };

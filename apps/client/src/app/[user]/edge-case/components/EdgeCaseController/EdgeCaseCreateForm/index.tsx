@@ -16,7 +16,7 @@ import { Form, FormController } from "@/shared/component/Form";
 import Button from "@/common/component/Button";
 import { useEdgeCaseMutation } from "@/app/api/edge-case/mutation";
 
-const EdgeCaseCreateForm = ({onSuccess}: {onSuccess: () => void}) => {
+const EdgeCaseCreateForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const form = useForm<z.infer<typeof edgeCaseCreateFormSchema>>({
     resolver: zodResolver(edgeCaseCreateFormSchema),
     mode: "onTouched",
@@ -31,7 +31,9 @@ const EdgeCaseCreateForm = ({onSuccess}: {onSuccess: () => void}) => {
   const handleSubmit = (values: z.infer<typeof edgeCaseCreateFormSchema>) => {
     const { problem, input, output } = values;
 
-    const link = isNaN(Number(problem)) ? problem : `https://www.acmicpc.net/problem/${problem}`;
+    const link = isNaN(Number(problem))
+      ? problem
+      : `https://www.acmicpc.net/problem/${problem}`;
 
     createEdgeCase({
       link,

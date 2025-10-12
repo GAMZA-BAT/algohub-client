@@ -45,7 +45,9 @@ const EdgeCaseList = ({
           target="_blank"
         >
           <TierIcon width={24} height={24} />
-          <h2 className={edgeCaseTitleStyle}>{`${problemNumber}번: ${title}`}</h2>
+          <h2
+            className={edgeCaseTitleStyle}
+          >{`${problemNumber}번: ${title}`}</h2>
         </Link>
         <button
           className={edgeCaseFavoriteWrapper}

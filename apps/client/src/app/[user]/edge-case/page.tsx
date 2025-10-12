@@ -11,8 +11,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 const EdgeCasePage = () => {
-  const [problemNumber, setProblemNumber] = useState<number |  null>(null);
-  const { data: edgeCaseList } = useQuery(useEdgeCaseListQueryObject(problemNumber ?? undefined));
+  const [problemNumber, setProblemNumber] = useState<number | null>(null);
+  const { data: edgeCaseList } = useQuery(
+    useEdgeCaseListQueryObject(problemNumber ?? undefined),
+  );
 
   return (
     <main className={sidebarWrapper}>
@@ -21,9 +23,10 @@ const EdgeCasePage = () => {
       </Sidebar>
       <div className={edgeCaseWrapper}>
         <EdgeCaseController setProblemNumber={setProblemNumber} />
-        {!!edgeCaseList && edgeCaseList?.map((edgeCase) => (
-          <EdgeCaseList key={edgeCase.edgeCaseId} {...edgeCase} />
-        ))}
+        {!!edgeCaseList &&
+          edgeCaseList?.map((edgeCase) => (
+            <EdgeCaseList key={edgeCase.edgeCaseId} {...edgeCase} />
+          ))}
       </div>
     </main>
   );

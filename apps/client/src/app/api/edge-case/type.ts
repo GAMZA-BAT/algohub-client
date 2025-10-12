@@ -2,7 +2,7 @@ export type EdgeCaseRequest = {
   link: string;
   input: string;
   output: string;
-}
+};
 
 export type EdgeCaseResponse = {
   edgeCaseId: number;
@@ -12,4 +12,4 @@ export type EdgeCaseResponse = {
   input: string;
   output: string;
   like: number;
-}
+};

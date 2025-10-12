@@ -13,9 +13,7 @@ type EdgeCaseControllerProps = {
   setProblemNumber: (problemNumber: number) => void;
 };
 
-const EdgeCaseController = ({
-  setProblemNumber,
-}: EdgeCaseControllerProps) => {
+const EdgeCaseController = ({ setProblemNumber }: EdgeCaseControllerProps) => {
   const {
     open: createModalOpen,
     isOpen: isCreateModalOpen,
