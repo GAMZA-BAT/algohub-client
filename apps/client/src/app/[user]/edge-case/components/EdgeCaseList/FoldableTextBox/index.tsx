@@ -27,7 +27,7 @@ const FoldableTextBox = ({ text }: { text: string }) => {
   const foldedText = useMemo(() => {
     const parts = text.split("\n");
     return parts.slice(0, DEFAULT_LINE_COUNT).join("\n");
-  }, []);
+  }, [text]);
 
   return (
     <div className={foldableTextBoxWrapper}>
@@ -53,12 +53,12 @@ const FoldableTextBox = ({ text }: { text: string }) => {
         >
           {isFolded ? (
             <>
-              <IcnBtnArrowDown width={12} height={12} />
+              <IcnBtnArrowDown width={12} height={12} aria-hidden="true" />
               {`펼쳐보기 (${lineCount}줄)`}
             </>
           ) : (
             <>
-              <IcnBtnArrowUp width={12} height={12} />
+              <IcnBtnArrowUp width={12} height={12} aria-hidden="true" />
               접기
             </>
           )}

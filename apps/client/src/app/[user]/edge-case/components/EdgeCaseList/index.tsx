@@ -15,14 +15,11 @@ import { getTierImage } from "@/shared/util/img";
 import { IcnFavoriteBorder, IcnFavoriteFill } from "@/asset/svg";
 import { useState } from "react";
 import FoldableTextBox from "@/app/[user]/edge-case/components/EdgeCaseList/FoldableTextBox";
+import Link from "next/link";
 
 const EdgeCaseList = () => {
   const TierIcon = getTierImage(1);
   const [isFavorite, setIsFavorite] = useState(false);
-
-  const handleOpenProblem = () => {
-    //TODO(@jnary): 문제 링크 연결
-  };
 
   const handleToggleFavorite = () => {
     //TODO(@jnary): 좋아요 토글
@@ -32,29 +29,41 @@ const EdgeCaseList = () => {
   return (
     <section className={edgeCaseListWrapper}>
       <div className={edgeCaseMetaWrapper}>
-        <button className={edgeCaseTitleWrapper} onClick={handleOpenProblem}>
+        <Link
+          className={edgeCaseTitleWrapper}
+          href={`https://www.acmicpc.net/problem/1166`}
+          target="_blank"
+        >
           <TierIcon width={24} height={24} />
           <h2 className={edgeCaseTitleStyle}>1166번: 선물</h2>
-        </button>
+        </Link>
         <button
           className={edgeCaseFavoriteWrapper}
           onClick={handleToggleFavorite}
+          aria-label="좋아요 토글"
+          aria-pressed={isFavorite}
+          aria-controls="edge-case-favorite-count"
         >
           {isFavorite ? (
-            <IcnFavoriteFill width={20} height={20} />
+            <IcnFavoriteFill width={20} height={20} aria-label="좋아요 취소" />
           ) : (
-            <IcnFavoriteBorder width={20} height={20} />
+            <IcnFavoriteBorder width={20} height={20} aria-label="좋아요" />
           )}
-          <span className={edgeCaseFavoriteCountStyle}>10</span>
+          <span
+            id="edge-case-favorite-count"
+            className={edgeCaseFavoriteCountStyle}
+          >
+            10
+          </span>
         </button>
       </div>
       <div className={edgeCaseContentWrapper}>
         <div className={edgeCaseContentContainer}>
-          <p className={edgeCaseContentTitleStyle}>입력</p>
+          <h3 className={edgeCaseContentTitleStyle}>입력</h3>
           <FoldableTextBox text={`1000\n1000`} />
         </div>
         <div className={edgeCaseContentContainer}>
-          <p className={edgeCaseContentTitleStyle}>출력</p>
+          <h3 className={edgeCaseContentTitleStyle}>출력</h3>
           <FoldableTextBox
             text={`1000\n1000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000\n100000`}
           />
