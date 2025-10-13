@@ -13,7 +13,7 @@ const RecommendList = ({ studyList }: RecommendListProps) => {
   }
 
   return (
-    <ul className={studyListWrapper}>
+    <ul className={studyListWrapper} aria-label="검색된 스터디 목록">
       {studyList.map((study) => (
         <li key={study.id}>
           <RecommendCard
