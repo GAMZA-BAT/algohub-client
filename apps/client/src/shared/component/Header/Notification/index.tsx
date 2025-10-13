@@ -1,4 +1,5 @@
 "use client";
+import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import { IcnBellHeader } from "@/asset/svg";
 import Spinner from "@/common/component/Spinner";
 import { notificationTabListStyle } from "@/shared/component/Header/Notification/Notification.css";
@@ -13,8 +14,9 @@ import {
   titleStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
+import { useQueryClient } from "@tanstack/react-query";
 import {} from "framer-motion";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export type NotificationType = "ALL" | "PROBLEM" | "COMMENT" | "STUDY_GROUP";
 
@@ -30,8 +32,17 @@ interface NotificationProps {
 }
 
 const Notification = ({ notiCounts }: NotificationProps) => {
-  const [notificationType, setNotificationType] = useState<NotificationType>("ALL");
+  const [notificationType, setNotificationType] =
+    useState<NotificationType>("ALL");
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.prefetchQuery(useNotificationsQueryObject("COMMENT"));
+    queryClient.prefetchQuery(useNotificationsQueryObject("PROBLEM"));
+    queryClient.prefetchQuery(useNotificationsQueryObject("STUDY_GROUP"));
+  }, [queryClient]);
 
   const shrinkList = () => {
     setIsExpanded(false);
@@ -71,13 +82,18 @@ const Notification = ({ notiCounts }: NotificationProps) => {
           </div>
         }
       >
-        <NotificationList notificationType={notificationType} isExpanded={isExpanded} expandList={expandList} />
+        <NotificationList
+          notificationType={notificationType}
+          isExpanded={isExpanded}
+          expandList={expandList}
+        />
       </Suspense>
     </div>
   );
 };
 
-interface TriggerButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface TriggerButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   count: number;
 }
 
