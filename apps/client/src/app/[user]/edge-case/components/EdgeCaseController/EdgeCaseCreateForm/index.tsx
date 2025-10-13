@@ -31,7 +31,7 @@ const EdgeCaseCreateForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const handleSubmit = (values: z.infer<typeof edgeCaseCreateFormSchema>) => {
     const { problem, input, output } = values;
 
-    const link = isNaN(Number(problem))
+    const link = Number.isNaN(problem)
       ? problem
       : `https://www.acmicpc.net/problem/${problem}`;
 
