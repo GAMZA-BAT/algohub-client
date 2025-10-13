@@ -3,12 +3,13 @@
 import SearchStudyInput from "@/app/[user]/components/SearchStudyInput";
 import { useSearchStudyQueryObject } from "@/app/api/groups/query";
 
+import RecommendCard from "@/app/[user]/components/RecommendSection/RecommendCard";
 import RecommendList from "@/app/[user]/components/RecommendSection/RecommendList";
 import Spinner from "@/common/component/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import RecommendCard from "./RecommendCard";
 import {
+  loadingWrapper,
   recommendHeaderContentWrapper,
   recommendHeaderWrapper,
   recommendSectionWrapper,
@@ -26,7 +27,9 @@ const RecommendStudySection = () => {
 
   return (
     <section
-      className={recommendSectionWrapper}
+      className={recommendSectionWrapper({
+        noBorderBottom: !!searchPattern && studyList?.content.length === 0,
+      })}
       aria-labelledby="recommend-title"
     >
       <div className={recommendHeaderWrapper}>
@@ -46,7 +49,9 @@ const RecommendStudySection = () => {
 
       {searchPattern ? (
         isFetching ? (
-          <Spinner />
+          <div className={loadingWrapper}>
+            <Spinner />
+          </div>
         ) : (
           <RecommendList studyList={studyList?.content || []} />
         )
