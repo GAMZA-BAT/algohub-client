@@ -12,7 +12,7 @@ export const notificationContainer = style({
 
   zIndex: theme.zIndex.top,
   width: "40rem",
-  height: "68.1rem",
+  maxHeight: "70rem",
   padding: "2.4rem 0.4rem 2.4rem 2rem",
 
   borderRadius: "1.6rem",
@@ -53,6 +53,7 @@ export const ulStyle = style({
 
   marginTop: "0.8rem",
   paddingTop: "0.8rem", // 첫 번째 아이템의 deleteIcon이 잘리지 않도록 상단 패딩 추가
+  height: "100%",
 
   // scroll bar
   overflowY: "scroll",

@@ -21,5 +21,4 @@ export const useNotificationsQueryObject = (
   queryOptions({
     queryKey: notificationQueryKey.lists(notificationType),
     queryFn: () => getNotificationList({ notificationType }),
-    staleTime: 0,
   });

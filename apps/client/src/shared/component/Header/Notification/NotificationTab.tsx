@@ -1,9 +1,11 @@
+import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import type { NotificationType } from "@/shared/component/Header/Notification";
 import {
   indicatorStyle,
   notificationTabStyle,
   textStyle,
 } from "@/shared/component/Header/Notification/Notification.css";
+import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -12,6 +14,7 @@ type NotificationTabProps = {
   notificationType: NotificationType;
   setNotificationType: Dispatch<SetStateAction<NotificationType>>;
   shrinkList: () => void;
+
   children: string;
 };
 
@@ -20,8 +23,16 @@ const NotificationTab = ({
   notificationType,
   setNotificationType,
   shrinkList,
+
   children,
 }: NotificationTabProps) => {
+  const queryClient = useQueryClient();
+
+  const prefetchNotification = (notificationType: NotificationType) => {
+    // biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
+    queryClient.prefetchQuery(useNotificationsQueryObject(notificationType));
+  };
+
   const isSelected = notificationType === tabId;
 
   const handleTabClick = () => {
@@ -30,7 +41,10 @@ const NotificationTab = ({
   };
 
   return (
-    <li>
+    <li
+      onMouseEnter={() => prefetchNotification(tabId)}
+      onFocus={() => prefetchNotification(tabId)}
+    >
       <button
         role="tab"
         aria-selected={isSelected}

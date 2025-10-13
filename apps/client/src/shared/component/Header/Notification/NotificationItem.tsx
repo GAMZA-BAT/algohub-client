@@ -53,7 +53,7 @@ const NotificationListItem = ({
   const router = useRouter();
 
   const queryClient = useQueryClient();
-  const { mutate: readNotiMutate } = useReadNotiItemMutation();
+  const { mutate: readNotiMutate } = useReadNotiItemMutation(notificationType);
   const { mutate: deleteMutate } = useDeleteNotiMutation();
 
   const handleItemClick = () => {

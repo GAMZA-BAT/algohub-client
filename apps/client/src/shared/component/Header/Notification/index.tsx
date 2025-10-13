@@ -1,7 +1,5 @@
 "use client";
-import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import { IcnBellHeader } from "@/asset/svg";
-import Spinner from "@/common/component/Spinner";
 import { notificationTabListStyle } from "@/shared/component/Header/Notification/Notification.css";
 import NotificationList from "@/shared/component/Header/Notification/NotificationList";
 import NotificationTab from "@/shared/component/Header/Notification/NotificationTab";
@@ -9,22 +7,25 @@ import {
   countChipStyle,
   countStyle,
   headerStyle,
-  loadingContainer,
   notificationContainer,
   titleStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
-import { useQueryClient } from "@tanstack/react-query";
 import {} from "framer-motion";
-import { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 
-export type NotificationType = "ALL" | "PROBLEM" | "COMMENT" | "STUDY_GROUP";
+export enum NotificationType {
+  ALL = "ALL",
+  PROBLEM = "PROBLEM",
+  COMMENT = "COMMENT",
+  STUDY_GROUP = "STUDY_GROUP",
+}
 
 const notificationMap: Record<NotificationType, string> = {
-  ALL: "전체",
-  PROBLEM: "문제",
-  COMMENT: "코멘트",
-  STUDY_GROUP: "스터디",
+  [NotificationType.ALL]: "전체",
+  [NotificationType.PROBLEM]: "문제",
+  [NotificationType.COMMENT]: "코멘트",
+  [NotificationType.STUDY_GROUP]: "스터디",
 };
 
 interface NotificationProps {
@@ -32,17 +33,10 @@ interface NotificationProps {
 }
 
 const Notification = ({ notiCounts }: NotificationProps) => {
-  const [notificationType, setNotificationType] =
-    useState<NotificationType>("ALL");
+  const [notificationType, setNotificationType] = useState<NotificationType>(
+    NotificationType.ALL,
+  );
   const [isExpanded, setIsExpanded] = useState(false);
-
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    queryClient.prefetchQuery(useNotificationsQueryObject("COMMENT"));
-    queryClient.prefetchQuery(useNotificationsQueryObject("PROBLEM"));
-    queryClient.prefetchQuery(useNotificationsQueryObject("STUDY_GROUP"));
-  }, [queryClient]);
 
   const shrinkList = () => {
     setIsExpanded(false);
@@ -75,19 +69,11 @@ const Notification = ({ notiCounts }: NotificationProps) => {
         ))}
       </ul>
 
-      <Suspense
-        fallback={
-          <div className={loadingContainer}>
-            <Spinner />
-          </div>
-        }
-      >
-        <NotificationList
-          notificationType={notificationType}
-          isExpanded={isExpanded}
-          expandList={expandList}
-        />
-      </Suspense>
+      <NotificationList
+        notificationType={notificationType}
+        isExpanded={isExpanded}
+        expandList={expandList}
+      />
     </div>
   );
 };

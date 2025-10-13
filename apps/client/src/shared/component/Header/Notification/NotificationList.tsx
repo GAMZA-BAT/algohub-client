@@ -8,7 +8,6 @@ import {
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
 
 interface NotificationListProps {
   notificationType: NotificationType;
@@ -32,21 +31,13 @@ const NotificationList = ({
   return notificationList ? (
     <>
       <ul className={ulStyle} aria-label="알림 목록">
-        <AnimatePresence>
-          {notificationList.map((notification) => (
-            <motion.li
-              key={notification.id}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <NotificationListItem
-                {...notification}
-                notificationType={notificationType}
-              />
-            </motion.li>
-          ))}
-        </AnimatePresence>
+        {notificationList.map((notification) => (
+          <NotificationListItem
+            key={notification.id}
+            {...notification}
+            notificationType={notificationType}
+          />
+        ))}
       </ul>
 
       {!isExpanded && (
