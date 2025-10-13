@@ -3,10 +3,10 @@ import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
 import { WebpackGenerateEventPlugin } from "./src/sdk/webpackGenerateEventPlugin.cjs";
 
-const isProd = process.env.NEXT_PUBLIC_APP_ENV === "production";
-const hostname = isProd
-  ? "algohubbucket.s3.ap-northeast-2.amazonaws.com"
-  : "storage.hwangdo.kr";
+const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
+const hostname = isProd 
+  ? 'algohubbucket.s3.ap-northeast-2.amazonaws.com'
+  : 'storage.hwangdo.kr';
 
 const nextConfig = {
   output: "standalone",
@@ -21,20 +21,20 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "algohubbucket.s3.ap-northeast-2.amazonaws.com",
+        protocol: 'https',
+        hostname: 'algohubbucket.s3.ap-northeast-2.amazonaws.com'
       },
       {
-        protocol: "https",
-        hostname: "storage.hwangdo.kr",
-      },
-    ],
+        protocol: 'https',
+        hostname: 'storage.hwangdo.kr'
+      }
+    ]
   },
   reactStrictMode: false,
   webpack(config) {
     // SVG imports를 처리하는 기존 규칙 가져오기
     const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg"),
+      rule.test?.test?.(".svg")
     );
 
     config.module.rules.push(
@@ -50,7 +50,7 @@ const nextConfig = {
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
         use: ["@svgr/webpack"],
-      },
+      }
     );
 
     // 처리가 완료된 *.svg를 무시하도록 파일 로더 규칙을 수정
