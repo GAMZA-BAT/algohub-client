@@ -1,4 +1,7 @@
-import { useDeleteNotiMutation, useReadNotiItemMutation } from "@/app/api/notifications/mutation";
+import {
+  useDeleteNotiMutation,
+  useReadNotiItemMutation,
+} from "@/app/api/notifications/mutation";
 import { notificationQueryKey } from "@/app/api/notifications/query";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import icnNew from "@/asset/svg/icn_new.svg?url";
@@ -59,7 +62,7 @@ const NotificationListItem = ({
     router.push(
       `/group/${groupId}${problemId ? `/problem-list/${problemId}` : ""}${
         solutionId ? `/solved-detail/${solutionId}` : ""
-      }`
+      }`,
     );
   };
 
@@ -74,7 +77,11 @@ const NotificationListItem = ({
   };
 
   return (
-    <div className={containerStyle} aria-label={`${groupName}님의 알림: ${message}, ${createdAt}`} {...handlers}>
+    <div
+      className={containerStyle}
+      aria-label={`${groupName}님의 알림: ${message}, ${createdAt}`}
+      {...handlers}
+    >
       <button
         className={notificationContentStyle}
         onClick={handleItemClick}

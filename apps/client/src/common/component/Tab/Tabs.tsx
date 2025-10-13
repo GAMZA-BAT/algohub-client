@@ -6,7 +6,12 @@ interface TabsProps extends HTMLAttributes<HTMLDivElement> {
   variant?: "primary" | "secondary";
 }
 
-const Tabs = ({ tag = "div", variant = "primary", children, ...props }: TabsProps) => {
+const Tabs = ({
+  tag = "div",
+  variant = "primary",
+  children,
+  ...props
+}: TabsProps) => {
   const Tag = tag;
 
   return (

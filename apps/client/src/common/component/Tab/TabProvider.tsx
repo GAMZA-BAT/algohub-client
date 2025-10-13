@@ -58,7 +58,11 @@ const TabProvider = ({ variant = "primary", children }: TabProviderProps) => {
     selectedTabId: "1",
   });
 
-  return <TabContext.Provider value={{ state, dispatch }}>{children}</TabContext.Provider>;
+  return (
+    <TabContext.Provider value={{ state, dispatch }}>
+      {children}
+    </TabContext.Provider>
+  );
 };
 
 export default TabProvider;

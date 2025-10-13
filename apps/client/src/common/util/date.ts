@@ -22,8 +22,16 @@ export const getDaysDifference = (dateString: string): number => {
   const today = new Date();
 
   // 날짜만 비교하기 위해 시간을 00:00:00으로 설정
-  const targetDateOnly = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-  const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const targetDateOnly = new Date(
+    targetDate.getFullYear(),
+    targetDate.getMonth(),
+    targetDate.getDate(),
+  );
+  const todayOnly = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate(),
+  );
 
   // 밀리초를 일로 변환
   const diffTime = todayOnly.getTime() - targetDateOnly.getTime();

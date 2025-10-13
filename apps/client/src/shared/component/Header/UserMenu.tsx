@@ -25,7 +25,9 @@ const UserMenu = () => {
       />
       <Menu
         label="profileMenu"
-        renderTriggerButton={<Profile.TriggerButton src={(user as UserResponse)?.profileImage} />}
+        renderTriggerButton={
+          <Profile.TriggerButton src={(user as UserResponse)?.profileImage} />
+        }
         renderList={<Profile />}
       />
     </div>

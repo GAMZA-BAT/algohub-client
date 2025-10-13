@@ -46,8 +46,10 @@ export const theme = createGlobalTheme(":root", {
     transparent_mg4: "rgba(70, 79, 103, 0.2)",
     transparent_purple2_50: "rgba(163, 156, 255, 0.50)",
     transparent_black_50: "rgba(0, 0, 0, 0.50)",
-    gradi_card: "linear-gradient(271deg, rgba(14, 16, 20, 0.90) -12.2%, rgba(33, 37, 46, 0.00) 99.36%)",
-    gradi_BG: "radial-gradient(96.85% 96.85% at 50% 3.15%, rgba(163, 156, 255, 0.80) 0%, rgba(16, 18, 23, 0.00) 100%)",
+    gradi_card:
+      "linear-gradient(271deg, rgba(14, 16, 20, 0.90) -12.2%, rgba(33, 37, 46, 0.00) 99.36%)",
+    gradi_BG:
+      "radial-gradient(96.85% 96.85% at 50% 3.15%, rgba(163, 156, 255, 0.80) 0%, rgba(16, 18, 23, 0.00) 100%)",
     error: "#ff3c53",
   },
   font: {

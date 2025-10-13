@@ -38,7 +38,12 @@ const NotificationTab = ({
         onClick={handleTabClick}
       >
         <span className={textStyle}>{children}</span>
-        {isSelected && <motion.div layoutId={"notification-tab-indicator"} className={indicatorStyle} />}
+        {isSelected && (
+          <motion.div
+            layoutId={"notification-tab-indicator"}
+            className={indicatorStyle}
+          />
+        )}
       </button>
     </li>
   );
