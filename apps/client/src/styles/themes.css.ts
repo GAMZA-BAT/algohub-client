@@ -166,7 +166,7 @@ export const scrollTheme = createGlobalTheme(":root", {
       boxShadow: "none",
     },
   },
-  innerScrollbar: {
+  innerScrollbarY: {
     "&::-webkit-scrollbar": {
       width: "0.6rem",
     },
@@ -178,8 +178,26 @@ export const scrollTheme = createGlobalTheme(":root", {
       background: theme.color.mg3,
     },
     "&::-webkit-scrollbar-track": {
-      background: "transparent",
+      background: theme.color.mg6,
       boxShadow: "none",
+    },
+  },
+  innerScrollbarX: {
+    "&::-webkit-scrollbar": {
+      height: "1.4rem",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      background: theme.color.mg4,
+      borderRadius: "0.6rem",
+      borderTop: `0.4rem solid ${theme.color.mg6}`,
+      borderBottom: `0.4rem solid ${theme.color.mg6}`,
+    },
+    "&::-webkit-scrollbar-thumb:active": {
+      background: theme.color.mg3,
+    },
+    "&::-webkit-scrollbar-track": {
+      borderRadius: "0.7rem",
+      background: theme.color.mg6,
     },
   },
 });

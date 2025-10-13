@@ -5,5 +5,5 @@ export type TableDataType<T> = {
   Header: FC;
   Cell: FC<T>;
   align?: "left" | "right";
-  width: number;
+  width?: number;
 };

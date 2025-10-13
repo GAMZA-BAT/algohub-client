@@ -1,7 +1,7 @@
-import { SolvedStatusTableProvider } from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/provider";
 import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
-import { titleStyle } from "@/app/group/[groupId]/page.css";
 import SolvedStatusTable from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable";
+import { SolvedStatusTableProvider } from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/provider";
+import { titleStyle } from "@/app/group/[groupId]/page.css";
 import Empty from "@/shared/component/Empty";
 
 type SolvedStatusSectionProps = {

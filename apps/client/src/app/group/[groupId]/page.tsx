@@ -45,10 +45,7 @@ const GroupDashboardPage = async ({
           <Ranking rankingData={rankingInfo} />
         </HydrationBoundary>
         <SolvedStatusSection
-          solutionsCurrentStatusInfo={[
-            ...solutionsCurrentStatusInfo,
-            ...solutionsCurrentStatusInfo,
-          ]}
+          solutionsCurrentStatusInfo={solutionsCurrentStatusInfo}
         />
       </div>
       <ExtensionAlertModalController domain="group" />
