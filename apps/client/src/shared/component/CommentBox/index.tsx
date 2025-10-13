@@ -1,7 +1,7 @@
 "use client";
 
 import type { CommentContent } from "@/app/api/comments/type";
-import { textareaEditStyle } from "@/app/group/[groupId]/components/NoticeModal/NoticeDetail/index.css";
+import { textareaEditStyle } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeDetail/index.css";
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";

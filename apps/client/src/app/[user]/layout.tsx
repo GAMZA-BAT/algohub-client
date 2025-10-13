@@ -18,8 +18,10 @@ export const metadata: Metadata = {
 export default async function UserLayout({
   children,
   params,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
   params: { user: string };
 }>) {
   const session = await auth();
@@ -78,6 +80,7 @@ export default async function UserLayout({
         )}
       </NavBar>
       {children}
+      {modal}
     </div>
   );
 }

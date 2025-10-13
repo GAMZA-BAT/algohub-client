@@ -17,9 +17,11 @@ export const metadata: Metadata = {
 export default async function GroupLayout({
   children,
   params: { groupId },
+  modal,
 }: Readonly<{
   children: React.ReactNode;
   params: { groupId: string };
+  modal: React.ReactNode;
 }>) {
   const role = await getRoleByGroupId(+groupId);
   const isOwner = role !== "PARTICIPANT";
@@ -68,6 +70,7 @@ export default async function GroupLayout({
         )}
       </NavBar>
       {children}
+      {modal}
     </main>
   );
 }

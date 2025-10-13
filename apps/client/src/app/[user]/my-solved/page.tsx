@@ -1,10 +1,8 @@
 "use client";
-
 import {
-  getExpiredMySolutions,
-  getInProgressMySolutions,
-} from "@/app/api/users";
-import { userQueryKey } from "@/app/api/users/query";
+  useExpiredMySolutionsQueryObject,
+  useInProgressMySolutionsQueryObject,
+} from "@/app/api/users/query";
 import MySolvedSection from "@/app/group/[groupId]/my-solved/components/Section";
 import Sidebar from "@/common/component/Sidebar";
 import { usePaginationQuery } from "@/shared/hook/usePaginationQuery";
@@ -24,16 +22,7 @@ const MySolvedPage = () => {
     currentPage: inProgressPage,
     totalPages: inProgressTotalPages,
     setCurrentPage: setInProgressPage,
-  } = usePaginationQuery({
-    queryKey: userQueryKey.inProgressSolutions({}),
-    queryFn: (page: number) =>
-      getInProgressMySolutions({
-        page,
-        size: 3,
-      }),
-    isUrlSync: true,
-    searchParam: "inProgress",
-  });
+  } = usePaginationQuery(useInProgressMySolutionsQueryObject());
   const inProgressList = inProgressData?.content || [];
 
   const {
@@ -41,16 +30,7 @@ const MySolvedPage = () => {
     currentPage: expiredPage,
     totalPages: expiredTotalPages,
     setCurrentPage: setExpiredPage,
-  } = usePaginationQuery({
-    queryKey: userQueryKey.expiredSolutions({}),
-    queryFn: (page: number) =>
-      getExpiredMySolutions({
-        page,
-        size: 3,
-      }),
-    isUrlSync: true,
-    searchParam: "expired",
-  });
+  } = usePaginationQuery(useExpiredMySolutionsQueryObject());
   const expiredList = expiredData?.content || [];
 
   return (

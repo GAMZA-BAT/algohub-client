@@ -27,7 +27,6 @@ const NoticeBanner = () => {
   });
 
   if (!noticeList) return null;
-
   const recentNotice = noticeList.length > 0 ? noticeList[0] : null;
 
   return (

@@ -1,11 +1,14 @@
 import { apiAuthPrefix, publicRoutes } from "@/routes";
 import { NextResponse } from "next/server";
 import { auth } from "./auth";
+import { handleInterceptingRoutes } from "./middleware.intercepting";
 
 export default auth(async (req) => {
   const {
     nextUrl: { pathname },
     auth,
+    url,
+    headers,
   } = req;
   const isLoggedIn = !!auth;
   const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
@@ -16,6 +19,17 @@ export default auth(async (req) => {
 
   if (!(isUserInfo || isLoggedIn || isPublicRoute)) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
+  }
+
+  const isSoftNavigation = headers.get("next-url");
+  const interceptingResponse = handleInterceptingRoutes({
+    url,
+    pathname,
+    isSoftNavigation,
+    auth,
+  });
+  if (interceptingResponse) {
+    return interceptingResponse;
   }
 
   return;
