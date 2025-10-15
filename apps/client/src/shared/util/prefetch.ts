@@ -17,6 +17,10 @@ const getQueryClient = cache(() => {
   });
 });
 
+/**
+ * @param options - prefetchQuery에 전달할 옵션 객체
+ * @param returnClient - true일 경우 QueryClient 인스턴스를, false(기본값)일 경우 DehydratedState를 반환
+ */
 export async function prefetchQuery<
   TQueryFnData = unknown,
   TError = unknown,
@@ -47,32 +51,34 @@ export async function prefetchQuery(
   return dehydrate(queryClient);
 }
 
+/**
+ * @param options - prefetchQuery에 전달할 옵션 객체의 배열
+ * @param returnClient - true일 경우 QueryClient 인스턴스를, false(기본값)일 경우 DehydratedState를 반환
+ */
 export async function prefetchQueries<
-  TQueryFnData = unknown,
-  TError = unknown,
-  TData = TQueryFnData,
-  TQueryKey extends QueryKey = QueryKey,
+  T extends FetchQueryOptions
 >(
-  queries: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>[],
+  options: readonly T[],
   returnClient: true,
 ): Promise<QueryClient>;
 export async function prefetchQueries<
-  TQueryFnData = unknown,
-  TError = unknown,
-  TData = TQueryFnData,
-  TQueryKey extends QueryKey = QueryKey,
+  T extends FetchQueryOptions
 >(
-  queries: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>[],
+  options: readonly T[],
   returnClient?: false,
 ): Promise<DehydratedState>;
-export async function prefetchQueries(
-  queries: FetchQueryOptions<unknown, unknown, unknown, QueryKey>[],
+export async function prefetchQueries<
+  T extends FetchQueryOptions
+>(
+  options: readonly T[],
   returnClient?: boolean,
 ): Promise<QueryClient | DehydratedState> {
   const queryClient = getQueryClient();
+
   await Promise.all(
-    queries.map((options) => queryClient.prefetchQuery(options)),
+    options.map((option) => queryClient.prefetchQuery(option)),
   );
+
   if (returnClient) {
     return queryClient;
   }
