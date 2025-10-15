@@ -22,7 +22,10 @@ const MySolvedPage = () => {
     currentPage: inProgressPage,
     totalPages: inProgressTotalPages,
     setCurrentPage: setInProgressPage,
-  } = usePaginationQuery(useInProgressMySolutionsQueryObject());
+  } = usePaginationQuery({
+    ...useInProgressMySolutionsQueryObject(),
+    searchParam: "inProgress",
+  });
   const inProgressList = inProgressData?.content || [];
 
   const {
@@ -30,7 +33,10 @@ const MySolvedPage = () => {
     currentPage: expiredPage,
     totalPages: expiredTotalPages,
     setCurrentPage: setExpiredPage,
-  } = usePaginationQuery(useExpiredMySolutionsQueryObject());
+  } = usePaginationQuery({
+    ...useExpiredMySolutionsQueryObject(),
+    searchParam: "expired",
+  });
   const expiredList = expiredData?.content || [];
 
   return (
