@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { loadScript, boot, shutdown } from "@channel.io/channel-web-sdk-loader";
 import { theme } from "@/styles/themes.css";
+import { boot, loadScript, shutdown } from "@channel.io/channel-web-sdk-loader";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const pluginKey = process.env.NEXT_PUBLIC_CHANNEL_IO_KEY;
 

@@ -1,5 +1,4 @@
-import EdgeCaseList from "@/app/[user]/edge-case/components/EdgeCaseList";
-import { edgeCaseWrapper } from "@/app/[user]/edge-case/components/index.css";
+import EdgeCaseContent from "@/app/[user]/edge-case/components/EdgeCaseContent";
 import WrongSolvedList from "@/app/[user]/edge-case/components/WrongSolvedList";
 import Sidebar from "@/common/component/Sidebar";
 import { sidebarWrapper } from "@/styles/shared.css";
@@ -10,9 +9,7 @@ const EdgeCasePage = () => {
       <Sidebar>
         <WrongSolvedList />
       </Sidebar>
-      <div className={edgeCaseWrapper}>
-        <EdgeCaseList />
-      </div>
+      <EdgeCaseContent />
     </main>
   );
 };

@@ -17,7 +17,7 @@ export const useCommentMutation = (solutionId: number) => {
     mutationFn: (content: string) => postCommentInput(solutionId, content),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: commentQueryKey.list(solutionId),
+        queryKey: commentQueryKey.all(),
       });
     },
     onError: () => {

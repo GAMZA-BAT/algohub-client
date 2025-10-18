@@ -62,11 +62,14 @@ export const usePaginationQuery = <T>({
   searchParam,
   ...options
 }: UsePaginationQueryProps<T>) => {
+  const urlState = usePaginationSearchParams({
+    queryKey: searchParam || queryKey[0].toString(),
+  }); // URL 동기화
+  const localState = useLocalPaginationState(initialPage); // 로컬 상태 관리
+
   const { currentPage, setCurrentPage }: PaginationState = isUrlSync
-    ? usePaginationSearchParams({
-        queryKey: searchParam || queryKey[0].toString(),
-      }) // URL 동기화
-    : useLocalPaginationState(initialPage); // 로컬 상태 관리
+    ? urlState
+    : localState;
 
   const query = useQuery({
     queryKey: [...queryKey, currentPage],

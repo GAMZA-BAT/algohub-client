@@ -4,10 +4,10 @@ import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { useId } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 import {
+  tooltipArrow,
+  tooltipContainer,
   tooltipWrapper,
   triggerWrapper,
-  tooltipContainer,
-  tooltipArrow,
 } from "./index.css";
 
 type TooltipPosition =
