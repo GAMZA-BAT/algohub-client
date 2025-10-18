@@ -1,22 +1,22 @@
 "use client";
 
+import FoldableTextBox from "@/app/[user]/edge-case/components/EdgeCaseList/FoldableTextBox";
 import {
+  edgeCaseContentContainer,
+  edgeCaseContentTitleStyle,
+  edgeCaseContentWrapper,
   edgeCaseFavoriteCountStyle,
   edgeCaseFavoriteWrapper,
   edgeCaseListWrapper,
   edgeCaseMetaWrapper,
-  edgeCaseContentWrapper,
   edgeCaseTitleStyle,
   edgeCaseTitleWrapper,
-  edgeCaseContentTitleStyle,
-  edgeCaseContentContainer,
 } from "@/app/[user]/edge-case/components/EdgeCaseList/index.css";
-import { getTierImage } from "@/shared/util/img";
+import type { EdgeCaseResponse } from "@/app/api/edge-case/type";
 import { IcnFavoriteBorder, IcnFavoriteFill } from "@/asset/svg";
-import { useState } from "react";
-import FoldableTextBox from "@/app/[user]/edge-case/components/EdgeCaseList/FoldableTextBox";
+import { getTierImage } from "@/shared/util/img";
 import Link from "next/link";
-import { EdgeCaseResponse } from "@/app/api/edge-case/type";
+import { useState } from "react";
 
 type EdgeCaseListProps = EdgeCaseResponse;
 

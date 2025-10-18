@@ -1,6 +1,9 @@
 "use client";
 
+import SOLVED_STATUS_BASE_COLUMNS from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/constant";
+import { useSolvedStatusTable } from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/provider";
 import { DataTable } from "@/shared/component/Table";
+import { useState } from "react";
 import {
   table1Style,
   table2Style,
@@ -9,9 +12,6 @@ import {
   wrapper1Style,
   wrapper2Style,
 } from "./index.css";
-import { useState } from "react";
-import { useSolvedStatusTable } from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/provider";
-import SOLVED_STATUS_BASE_COLUMNS from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/constant";
 
 const SolvedStatusTable = () => {
   const { col, row } = useSolvedStatusTable();

@@ -1,5 +1,8 @@
 import { kyJsonWithTokenInstance } from "@/app/api";
-import { EdgeCaseRequest, EdgeCaseResponse } from "@/app/api/edge-case/type";
+import type {
+  EdgeCaseRequest,
+  EdgeCaseResponse,
+} from "@/app/api/edge-case/type";
 
 export const postEdgeCase = async (body: EdgeCaseRequest) => {
   const response = await kyJsonWithTokenInstance.post("api/edge-case", {

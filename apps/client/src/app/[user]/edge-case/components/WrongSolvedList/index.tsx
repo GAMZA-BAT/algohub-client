@@ -1,3 +1,4 @@
+import WrongSolvedItem from "@/app/[user]/edge-case/components/WrongSolvedList/WrongSolvedItem";
 import {
   wrongSolvedListContainer,
   wrongSolvedListCountStyle,
@@ -5,7 +6,6 @@ import {
   wrongSolvedListTitleWrapper,
   wrongSolvedListWrapper,
 } from "@/app/[user]/edge-case/components/WrongSolvedList/index.css";
-import WrongSolvedItem from "@/app/[user]/edge-case/components/WrongSolvedList/WrongSolvedItem";
 
 const WrongSolvedList = () => {
   return (

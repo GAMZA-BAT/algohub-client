@@ -1,11 +1,11 @@
 "use client";
 
-import Button from "@/common/component/Button";
-import {
-  edgeCaseControllerWrapper,
-  addEdgeCaseButtonWrapper,
-} from "@/app/[user]/edge-case/components/EdgeCaseController/index.css";
 import EdgeCaseCreateForm from "@/app/[user]/edge-case/components/EdgeCaseController/EdgeCaseCreateForm";
+import {
+  addEdgeCaseButtonWrapper,
+  edgeCaseControllerWrapper,
+} from "@/app/[user]/edge-case/components/EdgeCaseController/index.css";
+import Button from "@/common/component/Button";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 

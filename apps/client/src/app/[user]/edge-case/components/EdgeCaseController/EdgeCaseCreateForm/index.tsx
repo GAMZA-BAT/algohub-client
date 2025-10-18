@@ -1,20 +1,20 @@
 "use client";
 
 import {
+  buttonWrapper,
+  createFormContainer,
   createFormWrapper,
   createTitleStyle,
-  createFormContainer,
   labelStyle,
   textAreaStyle,
-  buttonWrapper,
 } from "@/app/[user]/edge-case/components/EdgeCaseController/EdgeCaseCreateForm/index.css";
 import { edgeCaseCreateFormSchema } from "@/app/[user]/edge-case/components/EdgeCaseController/EdgeCaseCreateForm/schema";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormController } from "@/shared/component/Form";
-import Button from "@/common/component/Button";
 import { useEdgeCaseMutation } from "@/app/api/edge-case/mutation";
+import Button from "@/common/component/Button";
+import { Form, FormController } from "@/shared/component/Form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import type { z } from "zod";
 
 const EdgeCaseCreateForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const form = useForm<z.infer<typeof edgeCaseCreateFormSchema>>({

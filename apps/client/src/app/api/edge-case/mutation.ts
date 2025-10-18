@@ -1,6 +1,6 @@
 import { postEdgeCase } from "@/app/api/edge-case";
 import { edgeCaseQueryKey } from "@/app/api/edge-case/query";
-import { EdgeCaseRequest } from "@/app/api/edge-case/type";
+import type { EdgeCaseRequest } from "@/app/api/edge-case/type";
 import { useToast } from "@/common/hook/useToast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

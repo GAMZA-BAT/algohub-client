@@ -1,7 +1,7 @@
 import {
-  wrapper,
   plusIconStyle,
   submitBtnStyle,
+  wrapper,
 } from "@/app/[user]/@modal/(.)create-group/components/CreateGroup/index.css";
 import { groupSchema } from "@/app/api/groups/schema";
 import { IcnPlus } from "@/asset/svg";

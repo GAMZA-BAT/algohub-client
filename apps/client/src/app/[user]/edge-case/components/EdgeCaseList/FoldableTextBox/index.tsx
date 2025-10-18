@@ -1,16 +1,16 @@
 "use client";
 
 import {
-  foldableTextBoxWrapper,
-  textCopyButtonStyle,
-  foldableTextStyle,
   foldButtonStyle,
+  foldableTextBoxWrapper,
+  foldableTextStyle,
+  textCopyButtonStyle,
 } from "@/app/[user]/edge-case/components/EdgeCaseList/FoldableTextBox/index.css";
-import { useMemo, useState } from "react";
 import { IcnBtnArrowDown, IcnBtnArrowUp, IcnFileCopy } from "@/asset/svg";
 import { useClipboard } from "@/shared/hook/useClipboard";
-import clsx from "clsx";
 import { m_pluse_rounded_1c } from "@/styles/fonts";
+import clsx from "clsx";
+import { useMemo, useState } from "react";
 
 const DEFAULT_LINE_COUNT = 3;
 

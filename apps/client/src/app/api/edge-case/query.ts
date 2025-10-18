@@ -1,5 +1,5 @@
 import { getEdgeCaseList } from "@/app/api/edge-case";
-import { EdgeCaseResponse } from "@/app/api/edge-case/type";
+import type { EdgeCaseResponse } from "@/app/api/edge-case/type";
 import { queryOptions } from "@tanstack/react-query";
 
 export const edgeCaseQueryKey = {

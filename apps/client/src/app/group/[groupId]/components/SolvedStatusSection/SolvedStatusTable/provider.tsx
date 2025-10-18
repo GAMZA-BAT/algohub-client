@@ -1,11 +1,11 @@
 "use client";
 
 import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
-import type { TableDataType } from "@/shared/type/table";
 import {
   problemTdWrapper,
   tdStyle,
 } from "@/app/group/[groupId]/components/SolvedStatusSection/SolvedStatusTable/index.css";
+import type { TableDataType } from "@/shared/type/table";
 import { type ReactNode, createContext, useContext } from "react";
 
 type SolvedStatusTableContextValue = {
