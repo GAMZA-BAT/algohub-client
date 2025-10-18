@@ -12,6 +12,7 @@ import {
   edgeCaseTitleStyle,
   edgeCaseTitleWrapper,
 } from "@/app/[user]/edge-case/components/EdgeCaseList/index.css";
+import { useEdgeCaseLikeMutation } from "@/app/api/edge-case/mutation";
 import type { EdgeCaseResponse } from "@/app/api/edge-case/type";
 import { IcnFavoriteBorder, IcnFavoriteFill } from "@/asset/svg";
 import { getTierImage } from "@/shared/util/img";
@@ -21,6 +22,7 @@ import { useState } from "react";
 type EdgeCaseListProps = EdgeCaseResponse;
 
 const EdgeCaseList = ({
+  edgeCaseId,
   level,
   problemNumber,
   input,
@@ -30,10 +32,14 @@ const EdgeCaseList = ({
 }: EdgeCaseListProps) => {
   const TierIcon = getTierImage(level);
   const [isFavorite, setIsFavorite] = useState(false);
+  const { mutate: toggleFavorite } = useEdgeCaseLikeMutation();
 
   const handleToggleFavorite = () => {
-    //TODO(@jnary): 좋아요 토글
-    setIsFavorite((prev) => !prev);
+    toggleFavorite(edgeCaseId, {
+      onSuccess: () => {
+        setIsFavorite((prev) => !prev);
+      },
+    });
   };
 
   return (

@@ -1,4 +1,4 @@
-import { postEdgeCase } from "@/app/api/edge-case";
+import { patchEdgeCaseLike, postEdgeCase } from "@/app/api/edge-case";
 import { edgeCaseQueryKey } from "@/app/api/edge-case/query";
 import type { EdgeCaseRequest } from "@/app/api/edge-case/type";
 import { useToast } from "@/common/hook/useToast";
@@ -21,3 +21,20 @@ export const useEdgeCaseMutation = () => {
     },
   });
 };
+
+export const useEdgeCaseLikeMutation = () => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (edgeCaseId: number) => patchEdgeCaseLike(edgeCaseId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: edgeCaseQueryKey.list(),
+      });
+    },
+    onError: () => {
+      showToast("좋아요 요청에 실패하였어요", "error");
+    },
+  });
+}
