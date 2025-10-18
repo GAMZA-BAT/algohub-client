@@ -6,7 +6,7 @@ import { inputStyle, inputWrapper } from "./index.css";
 
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
-  size?: "small" |"medium" | "large";
+  size?: "small" | "medium" | "large";
   isError?: boolean;
   leftContent?: React.ReactNode;
   rightContent?: React.ReactNode;
@@ -14,11 +14,20 @@ export interface InputProps
 
 const Input = forwardRef(
   (
-    { size = "medium", isError = false, className, leftContent, rightContent, ...props }: InputProps,
+    {
+      size = "medium",
+      isError = false,
+      className,
+      leftContent,
+      rightContent,
+      ...props
+    }: InputProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
-      <div className={inputWrapper({ size, isError, disabled: props.disabled })}>
+      <div
+        className={inputWrapper({ size, isError, disabled: props.disabled })}
+      >
         {leftContent}
         <input
           ref={ref}

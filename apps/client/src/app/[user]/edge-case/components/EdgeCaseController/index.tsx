@@ -4,14 +4,14 @@ import EdgeCaseCreateForm from "@/app/[user]/edge-case/components/EdgeCaseContro
 import {
   addEdgeCaseButtonWrapper,
   edgeCaseControllerWrapper,
-  edgeCaseSearchInputWrapper
+  edgeCaseSearchInputWrapper,
 } from "@/app/[user]/edge-case/components/EdgeCaseController/index.css";
 import { IcnSearch } from "@/asset/svg";
 import Button from "@/common/component/Button";
 import Input from "@/common/component/Input";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
-import { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 
 type EdgeCaseControllerProps = {
   setProblemNumber: (problemNumber: number) => void;

@@ -14,8 +14,8 @@ export const addEdgeCaseButtonWrapper = style({
 });
 
 export const edgeCaseSearchInputWrapper = style({
-width: "32rem",
-height: "4rem",
+  width: "32rem",
+  height: "4rem",
 });
 
 export const edgeCaseSearchInputStyle = style({

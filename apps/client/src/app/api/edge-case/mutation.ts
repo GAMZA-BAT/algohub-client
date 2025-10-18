@@ -37,4 +37,4 @@ export const useEdgeCaseLikeMutation = () => {
       showToast("좋아요 요청에 실패하였어요", "error");
     },
   });
-}
+};
