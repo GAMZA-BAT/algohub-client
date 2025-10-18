@@ -25,6 +25,10 @@ export const inputWrapper = recipe({
 
   variants: {
     size: {
+      small: {
+        height: "4rem",
+        padding: "0.8rem 1.6rem",
+      },
       medium: {
         height: "4.4rem",
         padding: "0rem 0.8rem",
@@ -69,10 +73,12 @@ export const inputStyle = recipe({
 
   variants: {
     size: {
+      small: {
+        ...theme.font.Caption3_M_12,
+      },
       medium: {
         ...theme.font.Body1_M_14,
       },
-
       large: {
         ...theme.font.Title2_M_16,
       },

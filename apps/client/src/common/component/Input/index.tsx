@@ -6,7 +6,7 @@ import { inputStyle, inputWrapper } from "./index.css";
 
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
-  size?: "medium" | "large";
+  size?: "small" |"medium" | "large";
   isError?: boolean;
   leftContent?: React.ReactNode;
   rightContent?: React.ReactNode;
