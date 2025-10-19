@@ -52,9 +52,14 @@ export const useDeleteGroupMutation = () => {
   return useMutation({
     mutationFn: (groupId: number) => deleteGroup(groupId),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: groupQueryKey.settings(),
-      });
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: groupQueryKey.settings(),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: userQueryKey.myGroups(),
+        }),
+      ]);
       showToast("그룹이 정상적으로 삭제되었어요.", "success");
       setTimeout(() => {
         router.push(`/${userNickname}`);
