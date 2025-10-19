@@ -16,19 +16,20 @@ import {
   descriptionWrapper,
   iconStyle,
   introductionStyle,
+  overlayButtonStyle,
   slideInAnimation,
   slideOutAnimation,
   studyNameStyle,
 } from "./index.css";
 
-interface ApprovalCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface CardButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   groupInfo: GroupResponse;
   tagVariant: ComponentProps<typeof RecommendTag>["variant"];
 }
 
 const ANIMATION_DURATION_MS = 300;
 
-const CardButton = ({ groupInfo, tagVariant, ...props }: ApprovalCardProps) => {
+const CardButton = ({ groupInfo, tagVariant, ...props }: CardButtonProps) => {
   const nameId = useId();
   const introductionId = useId();
   const tagId = useId();
@@ -54,15 +55,8 @@ const CardButton = ({ groupInfo, tagVariant, ...props }: ApprovalCardProps) => {
   }, [groupInfo, tagVariant, displayedGroup.id]);
 
   return (
-    <button
-      type="button"
-      className={cardStyle}
-      aria-labelledby={nameId}
-      aria-describedby={`${introductionId} ${tagId}`}
-      title={displayedGroup.introduction}
-      {...props}
-    >
-      <div className={`${contentWrapperStyle} ${animation}`}>
+    <div className={cardStyle}>
+      <div className={`${contentWrapperStyle} ${animation}`} aria-hidden="true">
         <div className={descriptionWrapper}>
           <Avatar
             className={iconStyle}
@@ -77,7 +71,15 @@ const CardButton = ({ groupInfo, tagVariant, ...props }: ApprovalCardProps) => {
         </div>
         <RecommendTag id={tagId} variant={displayedTag} />
       </div>
-    </button>
+
+      <button
+        type="button"
+        className={overlayButtonStyle}
+        aria-labelledby={`${nameId} ${introductionId} ${tagId}`}
+        title={displayedGroup.introduction}
+        {...props}
+      />
+    </div>
   );
 };
 

@@ -31,7 +31,7 @@ const StudyList = () => {
   }, [myGroups, selectedChip]);
 
   return (
-    <ul className={studyListContainerStyle} id="study-list">
+    <ul className={studyListContainerStyle}>
       {filteredGroups.map((group) => (
         <li key={group.id}>
           <Link

@@ -43,7 +43,7 @@ const chipBaseStyle = style({
   borderRadius: "1.7rem",
   transition:
     "background-color 0.2s ease-in-out, box-shadow 0.2s, border-color 0.2s",
-  border: "1px solid transparent",
+  border: `1px solid ${theme.color.mg4}`,
   cursor: "pointer",
   selectors: {
     "&:hover": {
@@ -57,7 +57,7 @@ export const chipWrapperVariants = styleVariants({
   default: [
     chipBaseStyle,
     {
-      backgroundColor: theme.color.mg5,
+      backgroundColor: theme.color.mg6,
     },
   ],
   selected: [

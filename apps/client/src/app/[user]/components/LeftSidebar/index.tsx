@@ -1,7 +1,7 @@
 import Spinner from "@/common/component/Spinner";
-import { countWrapper } from "@/shared/component/CountChip/index.css";
 import { alignCenterStyle } from "@/styles/shared.css";
 import { Suspense } from "react";
+import { countWrapper } from "../CountChip/index.css";
 import HydratedStudyList from "./HydratedStudyList";
 import { SidebarProvider } from "./SidebarProvider";
 import StudyCount from "./StudyCount";

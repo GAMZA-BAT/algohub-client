@@ -1,8 +1,8 @@
 "use client";
 
 import { useMyGroupsQueryObject } from "@/app/api/users/query";
-import CountChip from "@/shared/component/CountChip";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import CountChip from "../CountChip";
 
 const StudyCount = () => {
   const { data: studyCount } = useSuspenseQuery({
