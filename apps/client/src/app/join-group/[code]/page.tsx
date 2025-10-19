@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import SignedupStudyModal from "../components/SignedupStudyModal";
+import AlreadyJoinedModal from "../components/AlreadyJoinedModal";
 
 const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   usePvEvent("join_group_page_view", {
@@ -18,7 +18,7 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
   });
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
   const { data: groupData } = useQuery(useGroupByCodeQueryObject(code));
-  const userNickname = useSession().data?.user?.nickname!;
+  const userNickname = useSession().data?.user?.nickname;
   const router = useRouter();
 
   const handleJoin = async () => {
@@ -37,7 +37,7 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
     if (isJoinModalOpen) router.push(`/${userNickname}`);
   };
 
-  if (!groupData) return;
+  if (!(groupData && userNickname)) return null;
   return (
     <main className={sidebarWrapper}>
       <GroupActionModal isOpen={isJoinModalOpen} onClose={handleReject}>
@@ -51,7 +51,7 @@ const JoinGroupPage = ({ params: { code } }: { params: { code: string } }) => {
           onReject={handleReject}
         />
       </GroupActionModal>
-      <SignedupStudyModal
+      <AlreadyJoinedModal
         isOpen={!isJoinModalOpen}
         userNickname={userNickname}
         groupId={groupData.id}

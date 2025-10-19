@@ -3,19 +3,19 @@ import Modal from "@/common/component/Modal";
 import { useRouter } from "next/navigation";
 import { descErrorText, errorText, errorWrapper } from "./index.css";
 
-type SignedupStudyModalProps = {
+type AlreadyJoinedModalProps = {
   isOpen: boolean;
   userNickname: string;
   groupId: number;
   groupName: string;
 };
 
-const SignedupStudyModal = ({
+const AlreadyJoinedModal = ({
   isOpen,
   userNickname,
   groupId,
   groupName,
-}: SignedupStudyModalProps) => {
+}: AlreadyJoinedModalProps) => {
   const router = useRouter();
 
   const handleReject = () => {
@@ -49,4 +49,4 @@ const SignedupStudyModal = ({
   );
 };
 
-export default SignedupStudyModal;
+export default AlreadyJoinedModal;
