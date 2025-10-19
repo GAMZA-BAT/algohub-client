@@ -13,23 +13,39 @@ export const cardStyle = style({
   padding: "2rem",
   marginBottom: "2.6rem",
 
-  border: `1px solid ${theme.color.mg5}`,
-  borderRadius: "1rem",
-
   overflow: "hidden",
-  transition: "box-shadow 0.2s, border-color 0.2s",
-  cursor: "pointer",
-  selectors: {
-    "&:hover": {
-      boxShadow: "0 4px 16px 0 rgba(0,0,0,0.08)",
-      borderColor: theme.color.mg3,
-    },
-  },
 });
 
 export const iconStyle = style({
   width: "2.4rem",
   height: "2.4rem",
+});
+
+export const overlayButtonStyle = style({
+  position: "absolute",
+  top: 0,
+  left: 0,
+
+  width: "100%",
+  height: "100%",
+  padding: 0,
+
+  border: `1px solid ${theme.color.mg5}`,
+  borderRadius: "1rem",
+  cursor: "pointer",
+
+  transition: "outline 0.2s, box-shadow 0.2s, border-color 0.2s",
+  selectors: {
+    "&:hover": {
+      borderColor: theme.color.mg3,
+      borderRadius: "1rem",
+    },
+    "&:focus-visible": {
+      outline: "none",
+      borderColor: theme.color.mg3,
+      borderRadius: "1rem",
+    },
+  },
 });
 
 export const descriptionWrapper = style({
