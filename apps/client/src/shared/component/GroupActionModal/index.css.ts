@@ -11,7 +11,7 @@ export const wrapper = style({
 
   width: "54rem",
   height: "65.6rem",
-  padding: "7.4rem 2.2rem 2.6rem",
+  padding: "8.4rem 2.2rem 2.6rem",
 
   borderRadius: "16px",
   backgroundColor: theme.color.bg,
