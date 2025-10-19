@@ -1,5 +1,4 @@
-import type { GroupResponse } from "@/app/api/groups/type";
-
+import type { RecommendStudyGroup } from "@/app/api/users/type";
 import { IcnGroupInfoCard } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import GroupDateInfo from "./GroupDateInfo";
@@ -10,7 +9,7 @@ import {
   infoWrapper,
 } from "./index.css";
 
-const GroupInfoCard = ({ groupInfo }: { groupInfo: GroupResponse }) => {
+const GroupInfoCard = ({ groupInfo }: { groupInfo: RecommendStudyGroup }) => {
   const { name, groupImage, startDate, endDate, introduction } = groupInfo;
 
   return (

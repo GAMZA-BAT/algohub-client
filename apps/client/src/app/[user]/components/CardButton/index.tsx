@@ -23,7 +23,7 @@ import {
 } from "./index.css";
 
 interface CardButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  groupInfo: GroupResponse;
+  groupInfo: Partial<GroupResponse>;
   tagVariant: ComponentProps<typeof RecommendTag>["variant"];
 }
 

@@ -13,32 +13,42 @@ import {
   recommendStudyTitle,
 } from "./index.css";
 
-const ROTATION_INTERVAL_MS = 5000;
+type RecommendStudySectionProps = {
+  userId: string;
+};
 
-const RecommendStudySection = () => {
+const ROTATION_INTERVAL_MS = 5000;
+const RecommendStudySection = ({ userId }: RecommendStudySectionProps) => {
   const { mutate: joinRecommendMutate } = useJoinRecommendMutation();
-  const { data: groupInfos } = useSuspenseQuery(useRecommendStudyQueryObject());
+  const { data: recommendationItems } = useSuspenseQuery({
+    ...useRecommendStudyQueryObject(userId),
+    select(data) {
+      return Object.values(data);
+    },
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
   const { isOpen, open, close } = useBooleanState();
 
-  const groupInfo = groupInfos?.[currentIndex];
-
+  const recommendationItem = recommendationItems?.[currentIndex];
+  const groupInfo = recommendationItem?.studyGroup;
   const handleConfirm = () => {
-    joinRecommendMutate(groupInfo!.id);
+    joinRecommendMutate(groupInfo.id);
     close();
   };
 
   useEffect(() => {
-    if (isOpen || groupInfos.length <= 1) return;
+    if (isOpen || recommendationItems.length <= 1) return;
 
     const intervalId = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % groupInfos.length);
+      setCurrentIndex(
+        (prevIndex) => (prevIndex + 1) % recommendationItems.length,
+      );
     }, ROTATION_INTERVAL_MS);
 
     return () => clearInterval(intervalId);
-  }, [isOpen, groupInfos]);
+  }, [isOpen, recommendationItems]);
 
-  if (!groupInfo) {
+  if (!recommendationItem) {
     return null;
   }
 
@@ -55,7 +65,7 @@ const RecommendStudySection = () => {
       </div>
       <CardButton
         groupInfo={groupInfo}
-        tagVariant="recentSignups"
+        tagVariant="HIGH_JOIN_RATE_RECENT"
         onClick={open}
       />
       <GroupActionModal isOpen={isOpen} onClose={close}>
