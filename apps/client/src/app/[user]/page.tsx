@@ -12,7 +12,7 @@ import {
 import type { GroupListResponse, GroupStatus } from "@/app/api/groups/type";
 import { getGroupsByUsers } from "@/app/api/users";
 import ExtensionAlertModalController from "@/app/components/ExtensionAlertModal";
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
 import Sidebar from "@/common/component/Sidebar";
 import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
@@ -29,9 +29,13 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   const userInfo = await auth();
   const { user } = params;
   const nickname = userInfo?.user?.nickname;
+  const id = userInfo?.user?.id;
+
+  if (!(id && nickname)) {
+    return signOut();
+  }
 
   const isMe = nickname === user;
-
   if (!isMe) {
     let memberData: GroupListResponse;
     try {
@@ -65,7 +69,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   }
 
   // biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
-  const recommendGroups = await prefetchQuery(useRecommendStudyQueryObject());
+  const recommendGroups = await prefetchQuery(useRecommendStudyQueryObject(id));
 
   return (
     <main className={sidebarWrapper}>
@@ -74,7 +78,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
       </Sidebar>
       <div className={userHomeWrapper}>
         <HydrationBoundary state={recommendGroups}>
-          <RecommendStudySection />
+          <RecommendStudySection userId={id} />
         </HydrationBoundary>
       </div>
       <Sidebar>
