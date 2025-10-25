@@ -3,7 +3,7 @@ import { applicantInfoWrapper, profileStyle } from "./index.css";
 
 type ApplicantInfoProps = {
   nickname: string;
-  profileImage: string | null;
+  profileImage?: string;
 };
 
 const ApplicantInfo = ({ nickname, profileImage }: ApplicantInfoProps) => {

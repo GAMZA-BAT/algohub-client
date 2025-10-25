@@ -8,6 +8,16 @@ import type {
   Role,
   SearchRequest,
   SearchStudyResponse,
+import {
+  type GroupCodeResponse,
+  type GroupResponse,
+  type GroupSettingsContent,
+  JOIN_REQUEST_STATUS,
+  type JoinRequestItem,
+  type MemberResponse,
+  type MemberRoleRequest,
+  type Role,
+  type UpdateJoinRequestPayload,
 } from "@/app/api/groups/type";
 import type {
   NoticeListRequest,
@@ -327,51 +337,50 @@ export const getSearchStudy = async ({
   return response;
 };
 
-export const postJoinRecommend = async (id: number) => {
-  // const response = await kyJsonWithTokenInstance.post("")
-
-  const response = await new Promise((res) => {
-    res({ status: 200, id });
-  });
+export const getJoinRequestsByGroup = async (groupId: number) => {
+  const response = await kyJsonWithTokenInstance
+    .get<JoinRequestItem[]>(`api/groups/${groupId}/join-request`)
+    .json();
 
   return response;
 };
 
-export const getJoinRequestList = async () => {
-  // const response = await KyJsonWithTokenInstance.get("")
-  const response = await new Promise<
+export const postJoinRequest = async (groupId: number) => {
+  const response = await kyJsonWithTokenInstance.post(
+    `api/groups/${groupId}/join-request`,
+  );
+
+  return response;
+};
+
+const updateJoinRequest = async ({
+  requestId,
+  status,
+}: {
+  requestId: number;
+  status: UpdateJoinRequestPayload["status"];
+}) => {
+  const response = await kyJsonWithTokenInstance.post(
+    `api/groups/join-request/${requestId}`,
     {
-      id: number;
-      name: string;
-      avatarUrl: string;
-    }[]
-  >((res) => {
-    res(
-      Array.from({ length: 8 }, (_, i) => ({
-        id: i + 1,
-        name: `요청자 ${i + 1}`,
-        avatarUrl: "",
-      })),
-    );
-  });
-
+      json: { status },
+    },
+  );
   return response;
 };
 
-export const postApprovalRequest = async () => {
-  // const response = await KyJsonWithTokenInstance.post("")
-  const response = await new Promise((res) => {
-    res({ status: 200 });
+export const postApproveJoinRequest = async (requestId: number) => {
+  const response = await updateJoinRequest({
+    requestId,
+    status: JOIN_REQUEST_STATUS.APPROVE,
   });
-
   return response;
 };
 
-export const postRejectRequest = async () => {
-  // const response = await KyJsonWithTokenInstance.post("")
-  const response = await new Promise((res) => {
-    res({ status: 200 });
+export const postRejectJoinRequest = async (requestId: number) => {
+  const response = await updateJoinRequest({
+    requestId,
+    status: JOIN_REQUEST_STATUS.REJECT,
   });
-
   return response;
 };

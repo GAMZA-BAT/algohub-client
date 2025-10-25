@@ -4,12 +4,12 @@ import {
   patchGroupInfo,
   patchGroupVisibility,
   patchMemberRole,
-  postApprovalRequest,
+  postApproveJoinRequest,
   postGroupBookmark,
   postGroupNotice,
-  postJoinRecommend,
+  postJoinRequest,
   postProblem,
-  postRejectRequest,
+  postRejectJoinRequest,
 } from "@/app/api/groups/index";
 import type {
   GroupListResponse,
@@ -303,7 +303,7 @@ export const useJoinRecommendMutation = () => {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (id: number) => postJoinRecommend(id),
+    mutationFn: (id: number) => postJoinRequest(id),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: userQueryKey.recommendGroups(),
@@ -320,7 +320,7 @@ export const useApprovalRequestMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   return useMutation({
-    mutationFn: () => postApprovalRequest(),
+    mutationFn: () => postApproveJoinRequest(groupId),
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({
@@ -342,7 +342,7 @@ export const useRejectRequestMutation = (groupId: number) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   return useMutation({
-    mutationFn: () => postRejectRequest(),
+    mutationFn: () => postRejectJoinRequest(groupId),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: groupQueryKey.joinRequests(groupId),
