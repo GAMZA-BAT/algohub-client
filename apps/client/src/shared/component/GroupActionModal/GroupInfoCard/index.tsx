@@ -9,7 +9,9 @@ import {
   infoWrapper,
 } from "./index.css";
 
-const GroupInfoCard = ({ groupInfo }: { groupInfo: RecommendStudyGroup }) => {
+const GroupInfoCard = ({
+  groupInfo,
+}: { groupInfo: Omit<RecommendStudyGroup, "tags"> }) => {
   const { name, groupImage, startDate, endDate, introduction } = groupInfo;
 
   return (

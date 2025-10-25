@@ -57,7 +57,7 @@ export const JoinRequestAlertModalController = ({
     sessionStorage.setItem(sessionStorageKey, "true");
   };
 
-  const { name, avatarUrl } = joinRequests[0];
+  const { nickname, profileImage } = joinRequests[0].user;
 
   return (
     <GroupActionModal
@@ -65,10 +65,13 @@ export const JoinRequestAlertModalController = ({
       isOpen={isOpen}
       onClose={handleClose}
     >
-      <GroupActionModal.Applicant nickname={name} profileImage={avatarUrl} />
+      <GroupActionModal.Applicant
+        nickname={nickname}
+        profileImage={profileImage}
+      />
       <GroupActionModal.Prompt
         variant="applicant"
-        applicantName={name}
+        applicantName={nickname}
         groupName={groupName}
         count={joinRequests.length}
       />

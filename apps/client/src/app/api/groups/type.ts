@@ -1,4 +1,5 @@
 import type { PaginationResponse } from "@/app/api/type";
+import type { UserResponse } from "../users/type";
 
 export type GroupCodeResponse = {
   inviteCode: string;
@@ -84,4 +85,25 @@ export type GroupSettingsContent = {
   isBookmarked: boolean;
   isVisible: boolean;
   status: GroupStatus;
+};
+
+export const JOIN_REQUEST_STATUS = {
+  PENDING: "pending",
+  APPROVE: "approve",
+  CANCEL: "cancel",
+  REJECT: "reject",
+} as const;
+
+export type JoinRequestStatus =
+  (typeof JOIN_REQUEST_STATUS)[keyof typeof JOIN_REQUEST_STATUS];
+
+export type JoinRequestItem = {
+  id: number;
+  user: UserResponse;
+};
+
+export type UpdateJoinRequestPayload = {
+  status:
+    | typeof JOIN_REQUEST_STATUS.APPROVE
+    | typeof JOIN_REQUEST_STATUS.REJECT;
 };
