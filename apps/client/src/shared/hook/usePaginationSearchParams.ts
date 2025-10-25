@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type UsePaginationSearchParamsProps = {
   queryKey: string;
@@ -19,19 +19,40 @@ export const usePaginationSearchParams = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const currentPage = useMemo(() => {
-    const pageFromUrl = searchParams.get(queryKey);
-    return pageFromUrl ? Number(pageFromUrl) : 1;
-  }, [searchParams, queryKey]);
+  const [currentPage, _setCurrentPage] = useState(() => {
+    return parseSafePositiveInteger(searchParams.get(queryKey));
+  });
+
+  useEffect(() => {
+    const pageFromUrlQuery = searchParams.get(queryKey);
+
+    if (pageFromUrlQuery !== null) {
+      const pageFromUrl = parseSafePositiveInteger(pageFromUrlQuery);
+      if (pageFromUrl !== currentPage) {
+        _setCurrentPage(pageFromUrl);
+      }
+    }
+  }, [searchParams, queryKey, currentPage]);
 
   const setCurrentPage = useCallback(
     (page: number) => {
+      _setCurrentPage(page);
+
       const params = new URLSearchParams(searchParams.toString());
       params.set(queryKey, String(page));
-      router.replace(`${pathname}?${params.toString()}`);
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     },
     [pathname, queryKey, router, searchParams],
   );
 
   return { currentPage, setCurrentPage };
+};
+
+const parseSafePositiveInteger = (value: string | null): number => {
+  if (value === null) return 1;
+  const parsedNumber = Number.parseInt(value, 10);
+  if (Number.isNaN(parsedNumber) || parsedNumber < 1) {
+    return 1;
+  }
+  return parsedNumber;
 };

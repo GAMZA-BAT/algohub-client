@@ -54,7 +54,7 @@ const ProblemListPage = ({
         groupId: +groupId,
         page,
         size: 3,
-        isUnsolvedOnly: isUnsolvedOnlyChecked,
+        unsolvedOnly: isUnsolvedOnlyChecked,
       }),
   });
   const inProgressList = inProgressData?.content;
