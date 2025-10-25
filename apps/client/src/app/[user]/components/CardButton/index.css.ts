@@ -1,11 +1,11 @@
 import { colorToRgba } from "@/common/util/string";
 import { theme } from "@/styles/themes.css";
-import { style } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const cardStyle = style({
   display: "flex",
-  justifyContent: "space-between",
+  position: "relative",
   alignItems: "center",
   gap: "1rem",
 
@@ -14,22 +14,39 @@ export const cardStyle = style({
   padding: "2rem",
   marginBottom: "2.6rem",
 
-  border: `1px solid ${theme.color.mg5}`,
-  borderRadius: "1rem",
-
-  transition: "box-shadow 0.2s, border-color 0.2s",
-  cursor: "pointer",
-  selectors: {
-    "&:hover": {
-      boxShadow: "0 4px 16px 0 rgba(0,0,0,0.08)",
-      borderColor: theme.color.mg3,
-    },
-  },
+  overflow: "hidden",
 });
 
 export const iconStyle = style({
-  width: "24px",
-  height: "24px",
+  width: "2.4rem",
+  height: "2.4rem",
+});
+
+export const overlayButtonStyle = style({
+  position: "absolute",
+  top: 0,
+  left: 0,
+
+  width: "100%",
+  height: "100%",
+  padding: 0,
+
+  border: `1px solid ${theme.color.mg5}`,
+  borderRadius: "1rem",
+  cursor: "pointer",
+
+  transition: "outline 0.2s, box-shadow 0.2s, border-color 0.2s",
+  selectors: {
+    "&:hover": {
+      borderColor: theme.color.mg3,
+      borderRadius: "1rem",
+    },
+    "&:focus-visible": {
+      outline: "none",
+      borderColor: theme.color.mg3,
+      borderRadius: "1rem",
+    },
+  },
 });
 
 export const descriptionWrapper = style({
@@ -37,6 +54,7 @@ export const descriptionWrapper = style({
   flexDirection: "row",
   alignItems: "center",
   gap: "1.2rem",
+  minWidth: 0,
 });
 
 export const studyNameStyle = style({
@@ -45,10 +63,12 @@ export const studyNameStyle = style({
   whiteSpace: "nowrap",
 });
 
-export const studyDescriptionStyle = style({
+export const introductionStyle = style({
   color: theme.color.mg2,
   ...theme.font.Body1_M_14,
   whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 });
 
 export const tagWrapper = recipe({
@@ -57,8 +77,9 @@ export const tagWrapper = recipe({
     alignItems: "center",
     gap: "1rem",
 
-    padding: "2px 5px",
-    borderRadius: "4px",
+    padding: "0.2rem 0.5rem",
+    borderRadius: "0.4rem",
+    flexShrink: 0,
   },
   variants: {
     color: {
@@ -95,4 +116,44 @@ export const tagStyle = recipe({
   defaultVariants: {
     color: "blue",
   },
+});
+
+const slideOutUp = keyframes({
+  from: {
+    transform: "translateY(0)",
+    opacity: 1,
+  },
+  to: {
+    transform: "translateY(-50%)",
+    opacity: 0,
+  },
+});
+
+const slideInUp = keyframes({
+  from: {
+    transform: "translateY(50%)",
+    opacity: 0,
+  },
+  to: {
+    transform: "translateY(0)",
+    opacity: 1,
+  },
+});
+
+export const slideOutAnimation = style({
+  animation: `${slideOutUp} 0.3s ease-out forwards`,
+});
+
+export const slideInAnimation = style({
+  animation: `${slideInUp} 0.3s ease-in`,
+});
+
+export const contentWrapperStyle = style({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  gap: "1rem",
+
+  width: "100%",
+  height: "100%",
 });

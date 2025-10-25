@@ -4,7 +4,7 @@ import type { GroupResponse } from "@/app/api/groups/type";
 import { useMyGroupsQueryObject } from "@/app/api/users/query";
 import { IcnBtnArrowRight } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useMemo } from "react";
 import { useSidebarChip } from "./SidebarProvider";
@@ -19,7 +19,7 @@ import {
 
 const StudyList = () => {
   const { selectedChip } = useSidebarChip();
-  const { data: myGroups } = useQuery(useMyGroupsQueryObject());
+  const { data: myGroups } = useSuspenseQuery(useMyGroupsQueryObject());
 
   const filteredGroups = useMemo((): GroupResponse[] => {
     if (!myGroups) return [];
@@ -31,7 +31,7 @@ const StudyList = () => {
   }, [myGroups, selectedChip]);
 
   return (
-    <ul className={studyListContainerStyle} id="study-list">
+    <ul className={studyListContainerStyle}>
       {filteredGroups.map((group) => (
         <li key={group.id}>
           <Link
