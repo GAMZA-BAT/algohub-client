@@ -85,3 +85,43 @@ export type GroupSettingsContent = {
   isVisible: boolean;
   status: GroupStatus;
 };
+
+export type SearchRequest = {
+  searchPattern: string;
+  page?: number;
+  size?: number;
+};
+
+export type Pageable = {
+  pageNumber: number;
+  pageSize: number;
+  sort: Sort;
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+};
+
+export type Study = {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  introduction: string;
+  groupImage: string | null;
+  role: Role;
+  ownerNickname: string | null;
+};
+
+export type SearchStudyResponse = {
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  content: Study[];
+  number: number;
+  sort: Sort;
+  first: boolean;
+  last: boolean;
+  numberOfElements: number;
+  pageable: Pageable;
+  empty: boolean;
+};

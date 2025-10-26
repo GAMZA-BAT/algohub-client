@@ -6,6 +6,8 @@ import type {
   MemberResponse,
   MemberRoleRequest,
   Role,
+  SearchRequest,
+  SearchStudyResponse,
 } from "@/app/api/groups/type";
 import type {
   NoticeListRequest,
@@ -18,6 +20,7 @@ import type {
   ProblemRequest,
 } from "@/app/api/problems/type";
 import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
+
 import { notFound } from "next/navigation";
 
 export const postCreateGroup = async (formData: FormData) => {
@@ -181,7 +184,9 @@ export const getInProgressMyGroupSolutions = async ({
 }: MySolutionRequest) => {
   const response = await kyJsonWithTokenInstance
     .get<MySolutionResponse>(
-      `api/groups/${groupId}/my-solutions/in-progress?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
+      `api/groups/${groupId}/my-solutions/in-progress?page=${page}&size=${size}${
+        problemNumber ? `&problemNumber=${problemNumber}` : ""
+      }${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
     )
     .json();
 
@@ -198,7 +203,9 @@ export const getExpiredMyGroupSolutions = async ({
 }: MySolutionRequest) => {
   const response = await kyJsonWithTokenInstance
     .get<MySolutionResponse>(
-      `api/groups/${groupId}/my-solutions/expired?page=${page}&size=${size}${problemNumber ? `&problemNumber=${problemNumber}` : ""}${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
+      `api/groups/${groupId}/my-solutions/expired?page=${page}&size=${size}${
+        problemNumber ? `&problemNumber=${problemNumber}` : ""
+      }${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
     )
     .json();
 
@@ -277,6 +284,31 @@ export const getQueuedProblems = async ({
     .get<ProblemListResponse>(
       `api/groups/${groupId}/problems/queued?page=${page}&size=${size}`,
     )
+    .json();
+
+  return response;
+};
+
+export const getSearchStudy = async ({
+  searchPattern,
+  page,
+  size,
+}: SearchRequest) => {
+  const params: SearchRequest = {
+    searchPattern,
+  };
+
+  if (page !== undefined) {
+    params.page = page;
+  }
+  if (size !== undefined) {
+    params.size = size;
+  }
+
+  const response = await kyJsonWithTokenInstance
+    .get<SearchStudyResponse>("api/groups/search", {
+      searchParams: params,
+    })
     .json();
 
   return response;

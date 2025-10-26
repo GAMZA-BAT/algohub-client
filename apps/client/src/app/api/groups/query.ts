@@ -1,3 +1,4 @@
+import type { SearchRequest } from "@/app/api/groups/type";
 import type { MySolutionRequest } from "@/app/api/type";
 import { queryOptions } from "@tanstack/react-query";
 import type { NoticeListRequest } from "../notices/type";
@@ -9,6 +10,7 @@ import {
   getInProgressMyGroupSolutions,
   getMyGroupSettings,
   getRoleByGroupId,
+  getSearchStudy,
 } from "./index";
 
 export const groupQueryKey = {
@@ -46,6 +48,7 @@ export const groupQueryKey = {
     ...groupQueryKey.problems(groupId),
     "queued",
   ],
+  search: (params: SearchRequest) => [...groupQueryKey.all(), "search", params],
 };
 
 export const useGroupRoleQueryObject = (groupId: number) =>
@@ -97,4 +100,14 @@ export const useGroupNoticesQueryObject = ({
     queryKey: groupQueryKey.noticeList({ groupId, page }),
     queryFn: () => getGroupNotices({ groupId, page }),
     staleTime: 0,
+  });
+
+export const useSearchStudyQueryObject = ({
+  searchPattern,
+  page,
+  size,
+}: SearchRequest) =>
+  queryOptions({
+    queryKey: groupQueryKey.search({ searchPattern, page, size }),
+    queryFn: () => getSearchStudy({ searchPattern, page, size }),
   });

@@ -117,6 +117,24 @@ export const validateBojNickname = async (nickname: string) => {
   }
 };
 
+export const getExpiredMySolutions = async ({
+  problemNumber,
+  language,
+  result,
+  page,
+  size,
+}: MySolutionRequest) => {
+  const response = await kyJsonWithTokenInstance
+    .get<MySolutionResponse>(
+      `api/users/my-solutions/expired?page=${page}&size=${size}${
+        problemNumber ? `&problemNumber=${problemNumber}` : ""
+      }${language ? `&language=${language}` : ""}${result ? `&result=${result}` : ""}`,
+    )
+    .json();
+
+  return response;
+};
+
 export const deleteMe = async ({
   password,
   isOAuthAccount,

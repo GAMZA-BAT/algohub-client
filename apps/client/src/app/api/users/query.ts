@@ -1,9 +1,11 @@
 import type { MySolutionRequest } from "@/app/api/type";
+
 import {
   getGroupsByUsers,
   getMySolutions,
   getUserGroupList,
 } from "@/app/api/users";
+
 import { queryOptions } from "@tanstack/react-query";
 
 export const userQueryKey = {
