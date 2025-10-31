@@ -309,7 +309,7 @@ const updateJoinRequest = async ({
   status: UpdateJoinRequestPayload["status"];
 }) => {
   const response = await kyJsonWithTokenInstance.post(
-    `api/groups/join-request/${requestId}`,
+    `api/join-request/${requestId}`,
     {
       json: { status },
     },

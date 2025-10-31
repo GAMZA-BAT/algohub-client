@@ -13,15 +13,11 @@ import {
   recommendStudyTitle,
 } from "./index.css";
 
-type RecommendStudySectionProps = {
-  userId: string;
-};
-
 const ROTATION_INTERVAL_MS = 5000;
-const RecommendStudySection = ({ userId }: RecommendStudySectionProps) => {
+const RecommendStudySection = () => {
   const { mutate: joinRecommendMutate } = useJoinRecommendMutation();
   const { data: recommendationItems } = useSuspenseQuery({
-    ...useRecommendStudyQueryObject(userId),
+    ...useRecommendStudyQueryObject(),
     select(data) {
       return Object.values(data);
     },

@@ -94,8 +94,8 @@ const JoinRequestList = ({ groupId }: JoinRequestListProps) => {
               transition={{ duration: 0.15, ease: "easeInOut" }}
             >
               <ApprovalCard
-                name={request.user.nickname}
-                avatarUrl={request.user.profileImage || ""}
+                name={request.requester.nickname}
+                avatarUrl={request.requester.profileImage || ""}
                 groupId={groupId}
               />
             </motion.li>
