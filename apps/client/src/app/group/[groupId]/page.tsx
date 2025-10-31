@@ -1,5 +1,5 @@
-import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
-import { JoinRequestAlertModalController } from "@/app/[user]/components/JoinRequestAlertModal";
+import ExtensionAlertModalController from "@/app/components/ExtensionAlertModal";
+import { JoinRequestAlertModalController } from "@/app/components/JoinRequestAlertModal";
 import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
 import { getSolutionsCurrentStatus } from "@/app/api/solutions";
@@ -16,10 +16,11 @@ import { HydrationBoundary } from "@tanstack/react-query";
 const GroupDashboardPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
-  const groupInfoData = getGroupInfo(+groupId);
-  const rankingData = getTopRanking(+groupId);
-  const memberData = getGroupMemberList(+groupId);
-  const solutionsCurrentStatusData = getSolutionsCurrentStatus(+groupId);
+  const numberGroupId = +groupId;
+  const groupInfoData = getGroupInfo(numberGroupId);
+  const rankingData = getTopRanking(numberGroupId);
+  const memberData = getGroupMemberList(numberGroupId);
+  const solutionsCurrentStatusData = getSolutionsCurrentStatus(numberGroupId);
 
   const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] =
     await Promise.all([
@@ -31,8 +32,8 @@ const GroupDashboardPage = async ({
 
   const firstPage = 1;
   const dehydratedState = await prefetchQuery({
-    queryKey: ["ranking", +groupId, firstPage],
-    queryFn: () => getAllRanking(+groupId, 0),
+    queryKey: ["ranking", numberGroupId, firstPage],
+    queryFn: () => getAllRanking(numberGroupId, 0),
   });
 
   return (
@@ -55,7 +56,7 @@ const GroupDashboardPage = async ({
       <ExtensionAlertModalController domain="group" />
       <JoinRequestAlertModalController
         groupName={groupInfo.name}
-        groupId={groupId}
+        groupId={numberGroupId}
       />
     </main>
   );

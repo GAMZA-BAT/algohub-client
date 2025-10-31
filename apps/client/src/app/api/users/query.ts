@@ -3,6 +3,7 @@ import {
   getExpiredMySolutions,
   getGroupsByUsers,
   getInProgressMySolutions,
+  getRecommendStudy,
   getUserGroupList,
 } from "@/app/api/users";
 import { queryOptions } from "@tanstack/react-query";
@@ -22,6 +23,7 @@ export const userQueryKey = {
   ],
   userGroups: (user: string) => [...userQueryKey.all(), "groups", user],
   myGroups: () => [...userQueryKey.all(), "me", "groups"] as const,
+  recommendGroups: () => [...userQueryKey.all(), "recommend-groups"] as const,
 };
 
 export const useInProgressMySolutionsQueryObject = (
@@ -50,4 +52,10 @@ export const useMyGroupsQueryObject = () =>
   queryOptions({
     queryKey: userQueryKey.myGroups(),
     queryFn: () => getUserGroupList(),
+  });
+
+export const useRecommendStudyQueryObject = () =>
+  queryOptions({
+    queryKey: userQueryKey.recommendGroups(),
+    queryFn: () => getRecommendStudy(),
   });
