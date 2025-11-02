@@ -14,6 +14,7 @@ export type DecisionPromptProps =
       variant: "applicant";
       applicantName: string;
       groupName: string;
+      count: number;
     };
 
 const getTexts = (props: DecisionPromptProps) => {
@@ -30,16 +31,30 @@ const getTexts = (props: DecisionPromptProps) => {
         title: <h1 className={metaStyle}>스터디를 수락하시겠어요?</h1>,
         description: `[${props.groupName}] 스터디에 가입을 요청합니다.\n스터디장의 수락 후 멤버가 될 수 있습니다.`,
       };
-    case "applicant":
+    case "applicant": {
+      const { count, applicantName, groupName } = props;
+      const isSingular = count === 1;
       return {
         title: (
           <h1 className={textStyle}>
-            <span className={metaStyle}>{props.applicantName}</span>님이 스터디
-            가입을 신청했습니다.
+            {isSingular ? (
+              <>
+                <span className={metaStyle}>{applicantName}님</span>이
+              </>
+            ) : (
+              <>
+                <span className={metaStyle}>{applicantName}님</span> 외{" "}
+                <span className={metaStyle}>{count - 1}명</span>이{" "}
+              </>
+            )}
+            {/** 홍길동님이 / 홍길동님 외 n명이 */}
+            스터디 가입을 신청했습니다.
           </h1>
         ),
-        description: `${props.applicantName}님께서 [${props.groupName}] 스터디에 가입을 요청했어요.\n거절한 요청은 다시 승인할 수 없습니다.`,
+        // 홍길동님께서 / 홍길동님 외 n명이 스터디에 ...
+        description: `${isSingular ? `${applicantName}님께서` : `${applicantName}님 외 ${count - 1}명이`} [${groupName}] 스터디에 가입을 요청했어요.\n거절한 요청은 다시 승인할 수 없습니다.`,
       };
+    }
     default:
       return { title: "", description: "" };
   }
