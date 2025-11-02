@@ -246,45 +246,58 @@ export const postProblem = (groupId: number, body: ProblemRequest) => {
   return response;
 };
 
-export const getInProgressProblems = async ({
+export const getProblems = async ({
   groupId,
+  status,
   page,
   size,
-  isUnsolvedOnly,
-}: GetProblemRequest) => {
+  unsolvedOnly,
+}: GetProblemRequest): Promise<ProblemListResponse> => {
+  const searchParams = {
+    status,
+    page,
+    size,
+    unsolvedOnly: `${unsolvedOnly}`,
+  };
+
   const response = await kyJsonWithTokenInstance
-    .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/in-progress?unsolved-only=${isUnsolvedOnly}&page=${page}&size=${size}`,
-    )
-    .json();
+    .get(`api/groups/${groupId}/problems`, {
+      searchParams,
+    })
+    .json<ProblemListResponse>();
 
   return response;
 };
 
-export const getExpiredProblems = async ({
-  groupId,
-  page,
-  size,
-}: GetProblemRequest) => {
-  const response = await kyJsonWithTokenInstance
-    .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/expired?page=${page}&size=${size}`,
-    )
-    .json();
+export const getInProgressProblems = async (
+  props: Omit<GetProblemRequest, "status">,
+) => {
+  const response = await getProblems({
+    ...props,
+    status: "IN_PROGRESS",
+  });
 
   return response;
 };
 
-export const getQueuedProblems = async ({
-  groupId,
-  page,
-  size,
-}: GetProblemRequest) => {
-  const response = await kyJsonWithTokenInstance
-    .get<ProblemListResponse>(
-      `api/groups/${groupId}/problems/queued?page=${page}&size=${size}`,
-    )
-    .json();
+export const getExpiredProblems = async (
+  props: Omit<GetProblemRequest, "status" | "unsolvedOnly">,
+) => {
+  const response = await getProblems({
+    ...props,
+    status: "EXPIRED",
+  });
+
+  return response;
+};
+
+export const getQueuedProblems = async (
+  props: Omit<GetProblemRequest, "status" | "unsolvedOnly">,
+) => {
+  const response = await getProblems({
+    ...props,
+    status: "QUEUED",
+  });
 
   return response;
 };

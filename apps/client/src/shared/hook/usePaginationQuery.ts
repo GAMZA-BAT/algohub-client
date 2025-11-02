@@ -23,14 +23,14 @@ export type BasePaginationQueryProps<T> = {
 
 // URL 동기화를 사용하지 않을 경우의 props
 type UrlSyncDisabled = {
-  isUrlSync?: false;
+  isUrlSync: false;
   searchParam?: never;
   initialPage?: number;
 };
 
 // URL 동기화를 사용할 경우의 props
 type UrlSyncEnabled = {
-  isUrlSync: true;
+  isUrlSync?: true;
   searchParam?: string;
   initialPage?: never; // isUrlSync가 true일 때 initialPage 사용 방지
 };
@@ -54,7 +54,7 @@ const useLocalPaginationState = (initialPage = 1): PaginationState => {
 /**
  * 데이터 fetching과 페이지네이션 상태 관리를 통합한 훅
  */
-export const usePaginationQuery = <T>({
+export const usePaginationQuery = <T extends PaginationResponse>({
   queryKey,
   queryFn,
   isUrlSync = true,

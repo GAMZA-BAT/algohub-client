@@ -34,7 +34,8 @@ export type EditProblemRequest = {
 
 export type GetProblemRequest = {
   groupId: number;
+  status: "IN_PROGRESS" | "EXPIRED" | "QUEUED";
   page: number;
   size: number;
-  isUnsolvedOnly?: boolean;
+  unsolvedOnly?: boolean;
 };
