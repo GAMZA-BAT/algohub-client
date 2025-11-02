@@ -12,4 +12,5 @@ export type EdgeCaseResponse = {
   input: string;
   output: string;
   like: number;
+  isLiked: boolean;
 };

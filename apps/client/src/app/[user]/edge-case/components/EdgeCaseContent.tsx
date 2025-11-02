@@ -10,7 +10,10 @@ import { useState } from "react";
 
 const EdgeCaseContent = () => {
   const [problemNumber, setProblemNumber] = useState<number | null>(null);
-  const debouncedProblemNumber = useDebounce(problemNumber?.toString() ?? "", 300);
+  const debouncedProblemNumber = useDebounce(
+    problemNumber?.toString() ?? "",
+    300,
+  );
   const { data: edgeCaseList } = useQuery(
     useEdgeCaseListQueryObject(Number(debouncedProblemNumber) ?? undefined),
   );

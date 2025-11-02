@@ -17,7 +17,6 @@ import type { EdgeCaseResponse } from "@/app/api/edge-case/type";
 import { IcnFavoriteBorder, IcnFavoriteFill } from "@/asset/svg";
 import { getTierImage } from "@/shared/util/img";
 import Link from "next/link";
-import { useState } from "react";
 
 type EdgeCaseListProps = EdgeCaseResponse;
 
@@ -29,17 +28,13 @@ const EdgeCaseList = ({
   output,
   title,
   like,
+  isLiked,
 }: EdgeCaseListProps) => {
   const TierIcon = getTierImage(level);
-  const [isFavorite, setIsFavorite] = useState(false);
   const { mutate: toggleFavorite } = useEdgeCaseLikeMutation();
 
   const handleToggleFavorite = () => {
-    toggleFavorite(edgeCaseId, {
-      onSuccess: () => {
-        setIsFavorite((prev) => !prev);
-      },
-    });
+    toggleFavorite(edgeCaseId);
   };
 
   return (
@@ -59,10 +54,10 @@ const EdgeCaseList = ({
           className={edgeCaseFavoriteWrapper}
           onClick={handleToggleFavorite}
           aria-label="좋아요 토글"
-          aria-pressed={isFavorite}
+          aria-pressed={isLiked}
           aria-controls="edge-case-favorite-count"
         >
-          {isFavorite ? (
+          {isLiked ? (
             <IcnFavoriteFill width={20} height={20} aria-label="좋아요 취소" />
           ) : (
             <IcnFavoriteBorder width={20} height={20} aria-label="좋아요" />
