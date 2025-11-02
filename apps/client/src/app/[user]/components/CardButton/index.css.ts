@@ -5,6 +5,7 @@ import { recipe } from "@vanilla-extract/recipes";
 
 export const cardStyle = style({
   display: "flex",
+  position: "relative",
   alignItems: "center",
   gap: "1rem",
 

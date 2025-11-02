@@ -1,6 +1,6 @@
 "use client";
 
-import type { GroupResponse } from "@/app/api/groups/type";
+import type { Study } from "@/app/api/groups/type";
 import Avatar from "@/common/component/Avatar";
 import {
   type ButtonHTMLAttributes,
@@ -23,8 +23,8 @@ import {
 } from "./index.css";
 
 interface CardButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  groupInfo: GroupResponse;
-  tagVariant: ComponentProps<typeof RecommendTag>["variant"];
+  groupInfo: Study;
+  tagVariant?: ComponentProps<typeof RecommendTag>["variant"];
 }
 
 const ANIMATION_DURATION_MS = 300;
@@ -69,7 +69,7 @@ const CardButton = ({ groupInfo, tagVariant, ...props }: CardButtonProps) => {
             {displayedGroup.introduction}
           </p>
         </div>
-        <RecommendTag id={tagId} variant={displayedTag} />
+        {displayedTag && <RecommendTag id={tagId} variant={displayedTag} />}
       </div>
 
       <button

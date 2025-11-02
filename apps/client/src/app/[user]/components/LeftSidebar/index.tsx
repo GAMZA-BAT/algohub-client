@@ -12,20 +12,22 @@ import { sidebarWrapper, titleStyle, titleWrapper } from "./index.css";
 const UserPageLeftSidebar = () => {
   return (
     <div className={sidebarWrapper}>
-      <HydratedStudyList>
-        <div className={titleWrapper}>
-          <h2 className={titleStyle}>내가 속한 스터디</h2>
-          <Suspense fallback={<div className={countWrapper} />}>
+      <div className={titleWrapper}>
+        <h2 className={titleStyle}>내가 속한 스터디</h2>
+        <Suspense fallback={<div className={countWrapper} />}>
+          <HydratedStudyList>
             <StudyCount />
-          </Suspense>
-        </div>
-        <SidebarProvider>
-          <StudyFilter />
-          <Suspense fallback={<Spinner className={alignCenterStyle} />}>
+          </HydratedStudyList>
+        </Suspense>
+      </div>
+      <SidebarProvider>
+        <StudyFilter />
+        <Suspense fallback={<Spinner className={alignCenterStyle} />}>
+          <HydratedStudyList>
             <StudyList />
-          </Suspense>
-        </SidebarProvider>
-      </HydratedStudyList>
+          </HydratedStudyList>
+        </Suspense>
+      </SidebarProvider>
     </div>
   );
 };
