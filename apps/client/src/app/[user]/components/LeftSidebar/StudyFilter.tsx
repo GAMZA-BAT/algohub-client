@@ -27,7 +27,12 @@ const StudyFilter = () => {
   };
 
   return (
-    <nav className={chipContainerStyle} role="tablist" aria-label="스터디 필터">
+    <nav
+      className={chipContainerStyle}
+      role="tablist"
+      id="study-list"
+      aria-label="스터디 필터"
+    >
       {filterOptions.map(({ label, status }) => {
         const isSelected = status === selectedChip;
         return (

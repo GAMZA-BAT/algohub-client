@@ -27,22 +27,6 @@ export const titleStyle = style({
   color: theme.color.lg2,
 });
 
-export const countWrapper = style({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-
-  width: "2rem",
-  height: "2rem",
-  borderRadius: "5rem",
-  backgroundColor: theme.color.mg5,
-});
-
-export const countTextStyle = style({
-  ...theme.font.Caption3_M_12,
-  color: theme.color.mg2,
-});
-
 export const chipContainerStyle = style({
   display: "flex",
   flexDirection: "row",
@@ -59,7 +43,7 @@ const chipBaseStyle = style({
   borderRadius: "1.7rem",
   transition:
     "background-color 0.2s ease-in-out, box-shadow 0.2s, border-color 0.2s",
-  border: "1px solid transparent",
+  border: `1px solid ${theme.color.mg4}`,
   cursor: "pointer",
   selectors: {
     "&:hover": {
@@ -73,7 +57,7 @@ export const chipWrapperVariants = styleVariants({
   default: [
     chipBaseStyle,
     {
-      backgroundColor: theme.color.mg5,
+      backgroundColor: theme.color.mg6,
     },
   ],
   selected: [
