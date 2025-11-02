@@ -1,4 +1,5 @@
 import ExtensionAlertModalController from "@/app/[user]/components/ExtensionAlertModal";
+import { JoinRequestAlertModalController } from "@/app/[user]/components/JoinRequestAlertModal";
 import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
 import { getSolutionsCurrentStatus } from "@/app/api/solutions";
@@ -49,6 +50,10 @@ const GroupDashboardPage = async ({
         />
       </div>
       <ExtensionAlertModalController domain="group" />
+      <JoinRequestAlertModalController
+        groupName={groupInfo.name}
+        groupId={groupId}
+      />
     </main>
   );
 };
