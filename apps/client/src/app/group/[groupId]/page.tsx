@@ -1,8 +1,8 @@
-import ExtensionAlertModalController from "@/app/components/ExtensionAlertModal";
-import { JoinRequestAlertModalController } from "@/app/components/JoinRequestAlertModal";
 import { getGroupInfo, getGroupMemberList } from "@/app/api/groups";
 import { getAllRanking, getTopRanking } from "@/app/api/groups/ranking";
 import { getSolutionsCurrentStatus } from "@/app/api/solutions";
+import ExtensionAlertModalController from "@/app/components/ExtensionAlertModal";
+import { JoinRequestAlertModalController } from "@/app/components/JoinRequestAlertModal";
 import GroupSidebar from "@/app/group/[groupId]/components/GroupSidebar";
 import NoticeBanner from "@/app/group/[groupId]/components/NoticeBanner";
 import Ranking from "@/app/group/[groupId]/components/Ranking";
@@ -21,20 +21,25 @@ const GroupDashboardPage = async ({
   const rankingData = getTopRanking(numberGroupId);
   const memberData = getGroupMemberList(numberGroupId);
   const solutionsCurrentStatusData = getSolutionsCurrentStatus(numberGroupId);
-
-  const [groupInfo, rankingInfo, memberInfo, solutionsCurrentStatusInfo] =
-    await Promise.all([
-      groupInfoData,
-      rankingData,
-      memberData,
-      solutionsCurrentStatusData,
-    ]);
-
   const firstPage = 1;
-  const dehydratedState = await prefetchQuery({
+  const allRankingData = prefetchQuery({
     queryKey: ["ranking", numberGroupId, firstPage],
     queryFn: () => getAllRanking(numberGroupId, 0),
   });
+
+  const [
+    groupInfo,
+    rankingInfo,
+    memberInfo,
+    solutionsCurrentStatusInfo,
+    allRankingInfo,
+  ] = await Promise.all([
+    groupInfoData,
+    rankingData,
+    memberData,
+    solutionsCurrentStatusData,
+    allRankingData,
+  ]);
 
   return (
     <main className={sidebarWrapper}>
@@ -43,7 +48,7 @@ const GroupDashboardPage = async ({
       </Sidebar>
       <div className={listSectionStyle}>
         <NoticeBanner />
-        <HydrationBoundary state={dehydratedState}>
+        <HydrationBoundary state={allRankingInfo}>
           <Ranking rankingData={rankingInfo} />
         </HydrationBoundary>
         <SolvedStatusSection

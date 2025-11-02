@@ -57,7 +57,7 @@ export const JoinRequestAlertModalController = ({
     sessionStorage.setItem(sessionStorageKey, "true");
   };
 
-  const { nickname, profileImage } = joinRequests[0].user;
+  const { nickname, profileImage } = joinRequests[0].requester;
 
   return (
     <GroupActionModal

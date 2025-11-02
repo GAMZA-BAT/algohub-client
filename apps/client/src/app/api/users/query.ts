@@ -51,8 +51,8 @@ export const useMyGroupsQueryObject = () =>
     queryFn: () => getUserGroupList(),
   });
 
-export const useRecommendStudyQueryObject = (userId: string) =>
+export const useRecommendStudyQueryObject = () =>
   queryOptions({
     queryKey: userQueryKey.recommendGroups(),
-    queryFn: () => getRecommendStudy(userId),
+    queryFn: () => getRecommendStudy(),
   });

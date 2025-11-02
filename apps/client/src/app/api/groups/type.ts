@@ -139,11 +139,28 @@ export type JoinRequestStatus =
 
 export type JoinRequestItem = {
   id: number;
-  user: UserResponse;
+  group: JoinRequestGroup;
+  requester: UserResponse & {
+    id: number;
+    deletedAt: string;
+    role: "USER" | "ADMIN";
+  };
+  status: keyof typeof JOIN_REQUEST_STATUS;
 };
 
 export type UpdateJoinRequestPayload = {
   status:
     | typeof JOIN_REQUEST_STATUS.APPROVE
     | typeof JOIN_REQUEST_STATUS.REJECT;
+};
+
+export type JoinRequestGroup = {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  introduction: string;
+  groupImage: string;
+  groupCode: string;
+  deletedAt: string;
 };

@@ -1,13 +1,4 @@
 import { kyFormWithTokenInstance, kyJsonWithTokenInstance } from "@/app/api";
-import type {
-  GroupCodeResponse,
-  GroupResponse,
-  GroupSettingsContent,
-  MemberResponse,
-  MemberRoleRequest,
-  Role,
-  SearchRequest,
-  SearchStudyResponse,
 import {
   type GroupCodeResponse,
   type GroupResponse,
@@ -17,6 +8,8 @@ import {
   type MemberResponse,
   type MemberRoleRequest,
   type Role,
+  type SearchRequest,
+  type SearchStudyResponse,
   type UpdateJoinRequestPayload,
 } from "@/app/api/groups/type";
 import type {
@@ -361,7 +354,7 @@ const updateJoinRequest = async ({
   status: UpdateJoinRequestPayload["status"];
 }) => {
   const response = await kyJsonWithTokenInstance.post(
-    `api/groups/join-request/${requestId}`,
+    `api/join-request/${requestId}`,
     {
       json: { status },
     },

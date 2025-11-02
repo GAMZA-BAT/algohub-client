@@ -195,11 +195,9 @@ export const deleteBjNickname = async () => {
   return response;
 };
 
-export const getRecommendStudy = async (userId: string) => {
+export const getRecommendStudy = async () => {
   const response = await kyJsonWithTokenInstance
-    .get<RecommendStudyResponse>("api/home/recommendations", {
-      searchParams: { userId },
-    })
+    .get<RecommendStudyResponse>("api/home/recommendations")
     .json();
 
   return response;

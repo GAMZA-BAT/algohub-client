@@ -21,12 +21,8 @@ import {
   searchedStudyCountStyle,
 } from "./index.css";
 
-type RecommendStudySectionProps = {
-  userId: string;
-};
-
 const ROTATION_INTERVAL_MS = 5000;
-const RecommendStudySection = ({ userId }: RecommendStudySectionProps) => {
+const RecommendStudySection = () => {
   const searchParam = useSearchParams();
   const searchPattern = searchParam.get("search") || "";
 
@@ -34,7 +30,7 @@ const RecommendStudySection = ({ userId }: RecommendStudySectionProps) => {
     useSearchStudyQueryObject({ searchPattern }),
   );
   const { data: recommendationItems } = useSuspenseQuery({
-    ...useRecommendStudyQueryObject(userId),
+    ...useRecommendStudyQueryObject(),
     select(data) {
       return Object.values(data);
     },
