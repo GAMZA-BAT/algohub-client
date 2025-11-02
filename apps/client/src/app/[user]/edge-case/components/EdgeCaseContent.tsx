@@ -4,13 +4,15 @@ import EdgeCaseController from "@/app/[user]/edge-case/components/EdgeCaseContro
 import EdgeCaseList from "@/app/[user]/edge-case/components/EdgeCaseList";
 import { edgeCaseWrapper } from "@/app/[user]/edge-case/components/index.css";
 import { useEdgeCaseListQueryObject } from "@/app/api/edge-case/query";
+import { useDebounce } from "@/common/hook/useDebounce";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 const EdgeCaseContent = () => {
   const [problemNumber, setProblemNumber] = useState<number | null>(null);
+  const debouncedProblemNumber = useDebounce(problemNumber?.toString() ?? "", 300);
   const { data: edgeCaseList } = useQuery(
-    useEdgeCaseListQueryObject(problemNumber ?? undefined),
+    useEdgeCaseListQueryObject(Number(debouncedProblemNumber) ?? undefined),
   );
 
   return (
