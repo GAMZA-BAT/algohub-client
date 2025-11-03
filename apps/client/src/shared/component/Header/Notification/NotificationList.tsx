@@ -28,6 +28,8 @@ const NotificationList = ({
     ? notificationData
     : notificationData?.slice(0, 6);
 
+  const shouldShowMoreButton = notificationList.length >= 6 && !isExpanded;
+
   return notificationList ? (
     <>
       <ul className={ulStyle} aria-label="알림 목록">
@@ -40,7 +42,7 @@ const NotificationList = ({
         ))}
       </ul>
 
-      {!isExpanded && (
+      {shouldShowMoreButton && (
         <button
           className={moreButtonStyle}
           onClick={handleExpandList}
