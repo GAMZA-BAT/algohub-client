@@ -9,7 +9,7 @@ export const getNotificationList = async ({
   notificationType,
 }: { notificationType: NotificationType }) => {
   const requestOptions =
-    notificationType === "ALL" ? {} : { searchParams: { notificationType } };
+    notificationType === "ALL" ? {} : { searchParams: { type:notificationType } };
 
   const response = await kyJsonWithTokenInstance
     .get<NotificationItem[]>("api/notifications", requestOptions)
