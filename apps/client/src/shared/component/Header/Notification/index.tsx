@@ -1,4 +1,5 @@
 "use client";
+import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import { IcnBellHeader } from "@/asset/svg";
 import { notificationTabListStyle } from "@/shared/component/Header/Notification/Notification.css";
 import NotificationList from "@/shared/component/Header/Notification/NotificationList";
@@ -11,6 +12,7 @@ import {
   titleStyle,
 } from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
+import { useQuery } from "@tanstack/react-query";
 import {} from "framer-motion";
 import { useState } from "react";
 
@@ -28,15 +30,14 @@ const notificationMap: Record<NotificationType, string> = {
   [NotificationType.STUDY_GROUP]: "스터디",
 };
 
-interface NotificationProps {
-  notiCounts: number;
-}
-
-const Notification = ({ notiCounts }: NotificationProps) => {
+const Notification = () => {
   const [notificationType, setNotificationType] = useState<NotificationType>(
     NotificationType.ALL,
   );
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const { data } = useQuery(useNotificationsQueryObject(notificationType));
+  const notiCounts = data ? data.filter((item) => !item.isRead).length : 0;
 
   const shrinkList = () => {
     setIsExpanded(false);
