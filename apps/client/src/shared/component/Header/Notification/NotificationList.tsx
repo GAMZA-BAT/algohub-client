@@ -4,6 +4,7 @@ import Empty from "@/shared/component/Empty";
 import type { NotificationType } from "@/shared/component/Header/Notification";
 import NotificationListItem from "@/shared/component/Header/Notification/NotificationItem";
 import {
+  emptyWrapper,
   moreButtonStyle,
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
@@ -30,7 +31,7 @@ const NotificationList = ({
 
   const shouldShowMoreButton = notificationList.length >= 6 && !isExpanded;
 
-  return notificationList ? (
+  return notificationList.length > 0 ? (
     <>
       <ul className={ulStyle} aria-label="알림 목록">
         {notificationList.map((notification) => (
@@ -54,7 +55,9 @@ const NotificationList = ({
       )}
     </>
   ) : (
-    <Empty guideText="지금은 알림이 없어요." />
+    <div className={emptyWrapper}>
+      <Empty guideText="아직 도착한 알림이 없습니다" />
+    </div>
   );
 };
 

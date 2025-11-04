@@ -64,6 +64,7 @@ export const profileStyle = style({
   display: "flex",
   alignItems: "center",
   gap: "0.8rem",
+  height: "3.4rem",
 
   textAlign: "justify",
 });
