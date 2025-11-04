@@ -4,7 +4,11 @@ import {
   kyJsonWithTokenInstance,
 } from "@/app/api";
 import type { GroupListResponse } from "@/app/api/groups/type";
-import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
+import type {
+  MyFeedsResponse,
+  MySolutionRequest,
+  MySolutionResponse,
+} from "@/app/api/type";
 import type {
   DeleteUserRequest,
   PasswordRequest,
@@ -199,6 +203,14 @@ export const getRecommendStudy = async () => {
   const response = await kyJsonWithTokenInstance
     .get<RecommendStudyResponse>("api/home/recommendations")
     .json();
+
+  return response;
+};
+
+export const getMyFeeds = async (): Promise<MyFeedsResponse> => {
+  const response = await kyJsonWithTokenInstance
+    .get(`api/users/me/feed`)
+    .json<MyFeedsResponse>();
 
   return response;
 };
