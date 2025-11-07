@@ -4,10 +4,14 @@ import EdgeCaseCreateForm from "@/app/[user]/edge-case/components/EdgeCaseContro
 import {
   addEdgeCaseButtonWrapper,
   edgeCaseControllerWrapper,
+  edgeCaseSearchInputWrapper,
 } from "@/app/[user]/edge-case/components/EdgeCaseController/index.css";
+import { IcnSearch } from "@/asset/svg";
 import Button from "@/common/component/Button";
+import Input from "@/common/component/Input";
 import Modal from "@/common/component/Modal";
 import { useBooleanState } from "@/common/hook/useBooleanState";
+import type { ChangeEvent } from "react";
 
 type EdgeCaseControllerProps = {
   setProblemNumber: (problemNumber: number) => void;
@@ -24,8 +28,21 @@ const EdgeCaseController = ({ setProblemNumber }: EdgeCaseControllerProps) => {
     createModalOpen();
   };
 
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setProblemNumber(Number(value));
+  };
+
   return (
     <div className={edgeCaseControllerWrapper}>
+      <div className={edgeCaseSearchInputWrapper}>
+        <Input
+          leftContent={<IcnSearch width={16} height={16} />}
+          placeholder="문제 번호 검색"
+          onChange={handleSearch}
+          size="small"
+        />
+      </div>
       <div className={addEdgeCaseButtonWrapper}>
         <Button
           size="small"

@@ -2,29 +2,41 @@
 
 import clsx from "clsx";
 import { type ForwardedRef, type InputHTMLAttributes, forwardRef } from "react";
-import { inputStyle } from "./index.css";
+import { inputStyle, inputWrapper } from "./index.css";
 
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
-  size?: "medium" | "large";
+  size?: "small" | "medium" | "large";
   isError?: boolean;
+  leftContent?: React.ReactNode;
+  rightContent?: React.ReactNode;
 }
 
 const Input = forwardRef(
   (
-    { size = "medium", isError = false, className, ...props }: InputProps,
+    {
+      size = "medium",
+      isError = false,
+      className,
+      leftContent,
+      rightContent,
+      ...props
+    }: InputProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
-      <input
-        ref={ref}
-        className={clsx(
-          inputStyle({ size, isError, disabled: props.disabled }),
-          className,
-        )}
-        aria-invalid={isError}
-        {...props}
-      />
+      <div
+        className={inputWrapper({ size, isError, disabled: props.disabled })}
+      >
+        {leftContent}
+        <input
+          ref={ref}
+          className={clsx(inputStyle({ size }), className)}
+          aria-invalid={isError}
+          {...props}
+        />
+        {rightContent}
+      </div>
     );
   },
 );

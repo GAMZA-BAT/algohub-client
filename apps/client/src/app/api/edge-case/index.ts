@@ -21,3 +21,11 @@ export const getEdgeCaseList = async (problemNumber?: number) => {
 
   return response.edgeCaseList;
 };
+
+export const patchEdgeCaseLike = async (edgeCaseId: number) => {
+  const response = await kyJsonWithTokenInstance
+    .patch(`api/edge-case/${edgeCaseId}/like`)
+    .json();
+
+  return response;
+};
