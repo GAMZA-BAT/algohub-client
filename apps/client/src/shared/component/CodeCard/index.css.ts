@@ -55,19 +55,20 @@ export const codeCard = style({
   border: `1px solid ${theme.color.mg5}`,
 });
 
-export const codeStyle = recipe({
-  base: {
-    width: "100%",
-
-    color: theme.color.yellow,
-
-    ...theme.font.Caption1_R_12,
-  },
+export const codeWrapper = recipe({
   variants: {
     isExpanded: {
       false: { maxHeight: "10.2rem", overflow: "hidden" },
     },
   },
+});
+
+export const codeStyle = style({
+  width: "100%",
+
+  color: theme.color.yellow,
+
+  ...theme.font.Caption1_R_12,
 });
 
 export const arrowStyle = recipe({
