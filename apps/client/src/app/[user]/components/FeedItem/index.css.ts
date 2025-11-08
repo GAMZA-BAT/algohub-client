@@ -75,9 +75,4 @@ export const commentStyle = style({
   color: theme.color.mg1,
 });
 
-export const leaveCommentWrapper = style({
-  display: "flex",
-  alignItems: "center",
 
-  padding: "0.8rem 1.2rem 0.8rem 2rem",
-});
