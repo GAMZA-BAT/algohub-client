@@ -10,11 +10,20 @@ import Spinner from "@/common/component/Spinner";
 import { alignCenterStyle } from "@/styles/shared.css";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useId } from "react";
 
 const MyFeedSection = () => {
+  const searchParams = useSearchParams();
+  const hasSearchQuery = Boolean(searchParams.get("search"));
+
   const { data } = useQuery(useMyFeedsQueryObject());
+
   const titleId = useId();
+
+  if (hasSearchQuery) {
+    return null;
+  }
 
   return (
     <section aria-labelledby={titleId}>

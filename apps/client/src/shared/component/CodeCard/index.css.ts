@@ -56,6 +56,10 @@ export const codeCard = style({
 });
 
 export const codeWrapper = recipe({
+  base: {
+    alignSelf: "stretch",
+    width: "100%",
+  },
   variants: {
     isExpanded: {
       false: { maxHeight: "10.2rem", overflow: "hidden" },
@@ -64,8 +68,8 @@ export const codeWrapper = recipe({
 });
 
 export const codeStyle = style({
+  textAlign: "left",
   width: "100%",
-
   color: theme.color.yellow,
 
   ...theme.font.Caption1_R_12,
