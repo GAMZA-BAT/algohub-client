@@ -80,4 +80,6 @@ export type SolutionsCurrentStatusResponse = {
 
 export type FeedIds = { solutionId: number; groupId: number };
 
-export type MyFeedsResponse = FeedIds[];
+export type MyFeedsResponse = {
+  solutionCommentActivityList: FeedIds[];
+};
