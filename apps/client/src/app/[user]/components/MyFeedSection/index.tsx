@@ -6,8 +6,11 @@ import {
   titleStyle,
 } from "@/app/[user]/components/MyFeedSection/index.css";
 import { useMyFeedsQueryObject } from "@/app/api/users/query";
+import Spinner from "@/common/component/Spinner";
+import { alignCenterStyle } from "@/styles/shared.css";
 import { useQuery } from "@tanstack/react-query";
-import { useId } from "react";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import { Suspense, useId } from "react";
 
 const MyFeedSection = () => {
   const { data } = useQuery(useMyFeedsQueryObject());
@@ -19,15 +22,19 @@ const MyFeedSection = () => {
         내 피드
       </h2>
 
-      <ul className={listStyle}>
-        {data?.solutionCommentActivityList.map((item) => (
-          <FeedItem
-            key={item.solutionId}
-            solutionId={item.solutionId}
-            groupId={item.groupId}
-          />
-        ))}
-      </ul>
+      <Suspense fallback={<Spinner className={alignCenterStyle} />}>
+        <ul className={listStyle}>
+          {data?.solutionCommentActivityList.map((item) => (
+            <ErrorBoundary key={item.solutionId} errorComponent={() => <></>}>
+              <FeedItem
+                key={item.solutionId}
+                solutionId={item.solutionId}
+                groupId={item.groupId}
+              />
+            </ErrorBoundary>
+          ))}
+        </ul>
+      </Suspense>
     </section>
   );
 };

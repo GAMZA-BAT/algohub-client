@@ -32,6 +32,7 @@ const CommentInput = ({
     e.preventDefault();
 
     postComment(comment);
+    setComment("");
   };
 
   return (

@@ -1,10 +1,8 @@
 "use client";
-import { IcnEnter } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
-import Input from "@/common/component/Input";
 import CodeCard from "@/shared/component/CodeCard";
-import Like from "@/shared/component/Like";
 
+import CommentInput from "@/app/[user]/components/CommentInput";
 import {
   agoMinuteStyle,
   commentItemStyle,
@@ -16,55 +14,103 @@ import {
   feedItemContainer,
   infoTextWrapper,
   infoWrapper,
-  leaveCommentWrapper,
   nameStyle,
   studyNameStyle,
 } from "@/app/[user]/components/FeedItem/index.css";
+import { useCommentListQueryObject } from "@/app/api/comments/query";
+import { useGroupInfoQueryObject } from "@/app/api/groups/query";
+import { useSolutionQueryObject } from "@/app/api/solutions/query";
+import Like from "@/shared/component/Like";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { differenceInMinutes } from "date-fns";
 
-const FeedItem = () => {
+interface FeedItemProps {
+  solutionId: number;
+  groupId: number;
+}
+
+const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
+  const { data: solution, error: solutionError } = useSuspenseQuery({
+    ...useSolutionQueryObject(solutionId),
+    retry: 0,
+  });
+
+  const { data: comments, error: commentsError } = useSuspenseQuery({
+    ...useCommentListQueryObject(solutionId),
+    retry: 0,
+  });
+
+  const { data: group, error: groupError } = useSuspenseQuery({
+    ...useGroupInfoQueryObject(groupId),
+    retry: 0,
+  });
+
+  if (solutionError || commentsError || groupError) {
+    return null;
+  }
+
+  // 나를 제외한 최신 댓글
+  const triggerComment = comments?.find(
+    (comment) => comment.writerNickname !== solution?.nickname,
+  );
+  const [triggerCommentWritterName, triggerCommentWritterProfileImage] = [
+    triggerComment?.writerNickname,
+    triggerComment?.writerProfileImage,
+  ];
+
   return (
     <article className={feedItemContainer}>
       <section className={infoWrapper}>
         {/* * TODO: 피드 조회 api 연결 후 이름 넣기 */}
-        <Avatar alt={`${"이진"}님의 프로필 사진`} size="small" />
+        <Avatar
+          alt={`${triggerCommentWritterProfileImage}님의 프로필 사진`}
+          size="small"
+          src={triggerCommentWritterProfileImage}
+        />
         <div className={infoTextWrapper}>
           <p className={descriptionStyle}>
-            <span className={nameStyle}>이진</span>님이{" "}
-            <span className={nameStyle}>최주용</span>님의 풀이에 댓글을
-            남겼습니다.
+            <span className={nameStyle}>{triggerCommentWritterName}</span>님이{" "}
+            <span className={nameStyle}>{solution?.nickname}</span>님의 풀이에
+            댓글을 남겼습니다.
           </p>
           <p>
-            <span className={studyNameStyle}>알고대학 알고리즘 스터디</span>
-            <span className={agoMinuteStyle}>20분 전</span>
+            <span className={studyNameStyle}>{group?.name}</span>
+            <span className={agoMinuteStyle}>
+              {differenceInMinutes(new Date(), comments?.[0]?.createdAt || "")}
+              분 전
+            </span>
           </p>
         </div>
       </section>
 
-      <CodeCard />
+      <CodeCard
+        problemTitle={solution?.problemTitle || ""}
+        problemLevel={solution?.problemLevel || 0}
+        content={solution?.content || ""}
+      />
 
       <ul className={commentListStyle}>
-        <li className={commentItemStyle}>
-          <Avatar size="small" alt="댓글을 단 유저" />
-          <div className={commentWrapper}>
-            <p className={commentNameStyle}>이진</p>
-            <p className={commentStyle}>
-              이 접근 방식이 문제를 해결하는 데 충분히 효율적일까요? 추가적인
-              최적화 방법이 있을까요? 이 접근 방식이 문제를 해결하는 데 충분히
-              효율적일까요? 추가적인 최적화 방법이 있을까요?
-            </p>
-            <Like />
-          </div>
-        </li>
+        {comments?.reverse().map((comment) => (
+          <li key={comment.commentId} className={commentItemStyle}>
+            <Avatar
+              size="small"
+              alt={`${comment.writerNickname}님의 프로필 사진`}
+              src={comment.writerProfileImage}
+            />
+            <div className={commentWrapper}>
+              <p className={commentNameStyle}>{comment.writerNickname}</p>
+              <p className={commentStyle}>{comment.content}</p>
+              <Like />
+            </div>
+          </li>
+        ))}
       </ul>
 
-      <section className={leaveCommentWrapper}>
-        <IcnEnter width={24} height={24} />
-        <Avatar size="small" alt="유저" />
-        <Input
-          placeholder="의견을 남겨주세요."
-          aria-label="풀이에 대한 의견을 남기는 input"
-        />
-      </section>
+      <CommentInput
+        solutionId={solutionId}
+        profileUrl={solution?.profileImage}
+        nickname={solution?.nickname}
+      />
     </article>
   );
 };
