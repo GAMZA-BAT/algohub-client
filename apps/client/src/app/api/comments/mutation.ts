@@ -7,6 +7,7 @@ import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
+import { useParams } from "next/navigation";
 import { commentQueryKey } from "./query";
 
 export const useCommentMutation = (solutionId: number) => {
@@ -19,9 +20,10 @@ export const useCommentMutation = (solutionId: number) => {
       await queryClient.invalidateQueries({
         queryKey: commentQueryKey.all(),
       });
+      showToast("댓글이 작성되었어요.", "success");
     },
     onError: () => {
-      showToast("댓글을 작성하는데 실패하였어요", "error");
+      showToast("댓글 작성에 실패했어요", "error");
     },
   });
 };
@@ -36,6 +38,7 @@ export const useDeleteCommentMutation = (solutionId: number) => {
       await queryClient.invalidateQueries({
         queryKey: commentQueryKey.list(solutionId),
       });
+      showToast("댓글이 삭제되었어요.", "success");
     },
     onError: (error: HTTPError) => {
       if (!error.response) return;
@@ -47,19 +50,22 @@ export const useDeleteCommentMutation = (solutionId: number) => {
   });
 };
 
-export const useEditCommentMutation = (
-  solutionId: number,
-  commentId: number,
-) => {
+export const useEditCommentMutation = () => {
   const queryClient = useQueryClient();
+  const params = useParams();
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (content: string) => editComment(commentId, content),
+    mutationFn: ({
+      commentId,
+      content,
+    }: { commentId: number; content: string }) =>
+      editComment(commentId, content),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: commentQueryKey.list(solutionId),
+        queryKey: commentQueryKey.list(+params.id),
       });
+      showToast("댓글이 수정되었어요.", "success");
     },
     onError: (error: HTTPError) => {
       if (!error.response) return;

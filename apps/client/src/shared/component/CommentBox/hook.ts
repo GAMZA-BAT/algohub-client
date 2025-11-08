@@ -1,44 +1,43 @@
 "use client";
-
-import { CommentsContext } from "@/app/@modal/(...)group/[groupId]/solved-detail/components/CommentSection/provider";
-import { useEditCommentMutation } from "@/app/api/comments/mutation";
-import { usePatchNoticeCommentMutation } from "@/app/api/notices/mutation";
-import { NoticeCommentsContext } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeDetail/provider";
-import { type KeyboardEvent, useContext } from "react";
+import { useAtomValue, useSetAtom } from "jotai";
+import type { KeyboardEvent } from "react";
 import { flushSync } from "react-dom";
 import { type SubmitHandler, useForm } from "react-hook-form";
+import {
+  editingItemIdAtom,
+  resetEditingItemAtom,
+  toggleEditingItemAtom,
+} from "./store";
 
 type EditForm = {
   input: string;
 };
+type EditFormProps = {
+  commentId: number;
+  defaultValue: string;
+  onCommentEdit: (commentId: number, content: string) => void;
+};
 
-export const useEditForm = (commentId: number, defaultValue: string) => {
-  const { editingItem, handleEditItem, handleReset, solutionId } =
-    useContext(CommentsContext);
-
+export const useEditForm = ({
+  commentId,
+  defaultValue,
+  onCommentEdit,
+}: EditFormProps) => {
+  const isEditing = useAtomValue(editingItemIdAtom) === commentId;
+  const handleEditItem = useSetAtom(toggleEditingItemAtom);
+  const handleReset = useSetAtom(resetEditingItemAtom);
   const {
-    noticeEditingItem,
-    handleNoticeEditItem,
-    handleNoticeReset,
-    noticeId,
-  } = useContext(NoticeCommentsContext);
-
-  const { register, setValue, setFocus, handleSubmit } = useForm<EditForm>({
+    register,
+    setValue,
+    setFocus,
+    handleSubmit: _handleSubmit,
+  } = useForm<EditForm>({
     defaultValues: {
       input: defaultValue,
     },
   });
 
-  const { mutate: editMutate } = useEditCommentMutation(solutionId, commentId);
-  const { mutate: noticeEditMutate } = usePatchNoticeCommentMutation(
-    noticeId,
-    commentId,
-  );
-
-  const isEditing = editingItem === commentId;
-  const isNoticeEditing = noticeEditingItem === commentId;
-
-  const handleDetailEditBtnClick = () => {
+  const handleEditBtnClick = () => {
     flushSync(() => {
       handleEditItem(commentId);
     });
@@ -46,17 +45,18 @@ export const useEditForm = (commentId: number, defaultValue: string) => {
     setFocus("input");
   };
 
-  const handleDetailEditSubmit: SubmitHandler<EditForm> = (data) => {
-    editMutate(data.input);
+  const handleEditSubmit: SubmitHandler<EditForm> = (data) => {
+    onCommentEdit(commentId, data.input);
 
     handleReset();
   };
+  const handleSubmit = _handleSubmit(handleEditSubmit);
 
-  const handleDetailTextAreaKeyDown = (e: KeyboardEvent) => {
+  const handleTextAreaKeyDown = (e: KeyboardEvent) => {
     e.stopPropagation();
 
     if (e.key === "Enter" && !e.shiftKey) {
-      handleSubmit(handleDetailEditSubmit)();
+      handleSubmit();
     }
 
     if (e.key === "Escape") {
@@ -66,54 +66,11 @@ export const useEditForm = (commentId: number, defaultValue: string) => {
     }
   };
 
-  const handleNoticeTextAreaKeyDown = (e: KeyboardEvent) => {
-    e.stopPropagation();
-
-    if (e.key === "Enter" && !e.shiftKey) {
-      handleSubmit(handleNoticeEditSubmit)();
-    }
-
-    if (e.key === "Escape") {
-      handleNoticeReset();
-
-      setValue("input", defaultValue);
-    }
-  };
-
-  const handleNoticeEditBtnClick = () => {
-    flushSync(() => {
-      handleNoticeEditItem(commentId);
-    });
-
-    setFocus("input");
-  };
-
-  const handleNoticeEditSubmit: SubmitHandler<EditForm> = (data) => {
-    noticeEditMutate(data.input);
-
-    handleNoticeReset();
-  };
-
-  const handleDetailHookFormSubmit = handleSubmit(handleDetailEditSubmit);
-  const handleNoticeHookFormSubmit = handleSubmit(handleNoticeEditSubmit);
-
-  const control = {
-    detail: {
-      isEditing,
-      handleEditBtnClick: handleDetailEditBtnClick,
-      handleTextAreaKeyDown: handleDetailTextAreaKeyDown,
-      handleHookFormSubmit: handleDetailHookFormSubmit,
-    },
-    notice: {
-      isEditing: isNoticeEditing,
-      handleEditBtnClick: handleNoticeEditBtnClick,
-      handleTextAreaKeyDown: handleNoticeTextAreaKeyDown,
-      handleHookFormSubmit: handleNoticeHookFormSubmit,
-    },
-  };
-
   return {
     register,
-    control,
+    isEditing,
+    handleEditBtnClick,
+    handleTextAreaKeyDown,
+    handleSubmit,
   };
 };

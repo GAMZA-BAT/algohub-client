@@ -3,11 +3,11 @@ import {
   useDeleteNoticeCommentMutation,
   useDeleteNoticeMutation,
   useNoticeCommentMutation,
+  usePatchNoticeCommentMutation,
   usePatchNoticeMutation,
 } from "@/app/api/notices/mutation";
 import { useNoticeCommentListQueryObject } from "@/app/api/notices/query";
 import type { NoticeContent } from "@/app/api/notices/type";
-import { NoticeCommentsProvider } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeDetail/provider";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
@@ -49,6 +49,7 @@ const NoticeDetail = ({
   groupId,
 }: NoticeDetailProps) => {
   const { data: session } = useSession();
+  const nickname = session?.user?.nickname;
 
   const router = useRouter();
   const handleClose = () => {
@@ -77,6 +78,11 @@ const NoticeDetail = ({
     groupId,
     noticeId,
   );
+  const { mutate: commentEditMutate } = usePatchNoticeCommentMutation();
+
+  const handleCommentEdit = (commentId: number, content: string) => {
+    commentEditMutate({ commentId, content });
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -171,22 +177,16 @@ const NoticeDetail = ({
 
         <div className={sectionWrapper}>
           <ul ref={commentListRef} className={listStyle}>
-            <NoticeCommentsProvider noticeId={noticeId}>
-              {commentList?.map((item) => (
-                <div key={item.commentId} className={itemStyle}>
-                  <CommentBox
-                    variant="notice"
-                    commentId={item.commentId}
-                    createdAt={item.createdAt}
-                    content={item.content}
-                    writerNickname={item.writerNickname}
-                    writerProfileImage={item.writerProfileImage}
-                    isMine={session?.user?.nickname === item.writerNickname}
-                    onDelete={deleteCommentMutate}
-                  />
-                </div>
-              ))}
-            </NoticeCommentsProvider>
+            {commentList?.map((commentContent) => (
+              <div key={commentContent.commentId} className={itemStyle}>
+                <CommentBox
+                  commentContent={commentContent}
+                  isMine={nickname === commentContent.writerNickname}
+                  onDelete={deleteCommentMutate}
+                  onCommentEdit={handleCommentEdit}
+                />
+              </div>
+            ))}
           </ul>
           <form onSubmit={handleSubmit} className={inputStyle}>
             <CommentInput

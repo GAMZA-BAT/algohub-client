@@ -20,69 +20,62 @@ import {
 } from "@/shared/component/CommentBox/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import clsx from "clsx";
-import { useState } from "react";
 
-type CommentBoxProps = CommentContent & {
-  variant: "detail" | "notice";
-  onDelete?: (commentId: number) => void;
+type CommentBoxProps = {
+  commentContent: CommentContent;
   className?: string;
   isMine?: boolean;
+  onDelete?: (commentId: number) => void;
+  onCommentEdit: (itemId: number, content: string) => void;
 };
 
 const CommentBox = ({
-  variant,
-  commentId,
-  writerNickname,
-  writerProfileImage,
-  content,
-  createdAt,
-  onDelete,
+  commentContent: {
+    commentId,
+    content,
+    createdAt,
+    writerNickname,
+    writerProfileImage,
+  },
   className,
   isMine,
+  onDelete,
+  onCommentEdit,
 }: CommentBoxProps) => {
   const { isActive, ...handlers } = useA11yHoverHandler();
 
-  const { register, control } = useEditForm(commentId, content);
-
-  const [isCommentEdit, setIsCommentEdit] = useState(false);
-
   const {
+    register,
     isEditing,
-    handleEditBtnClick: _handleEditBtnClick,
-    handleHookFormSubmit,
+    handleEditBtnClick,
     handleTextAreaKeyDown,
-  } = control[variant];
-
-  const handleEditBtnClick = () => {
-    _handleEditBtnClick();
-    setIsCommentEdit(!isCommentEdit);
-  };
+    handleSubmit,
+  } = useEditForm({
+    commentId,
+    defaultValue: content,
+    onCommentEdit,
+  });
 
   return (
-    <li
-      {...handlers}
-      aria-label={`코멘트 ${commentId}`}
-      className={clsx(containerStyle({ isActive }), className)}
-    >
+    <li {...handlers} className={clsx(containerStyle({ isActive }), className)}>
       <Avatar
         src={writerProfileImage}
         alt={`${writerNickname} 프로필 이미지`}
         size="small"
       />
-      <div className={contentWrapperStyle({ variant })}>
+      <div className={contentWrapperStyle}>
         <div className={topContentStyle}>
           <p className={writerStyle}>{writerNickname}</p>
-          <p className={createdAtStyle}>{formatDistanceDate(createdAt)}</p>
+          <time className={createdAtStyle} dateTime={createdAt}>
+            {formatDistanceDate(createdAt)}
+          </time>
         </div>
         {isEditing ? (
-          <form
-            onSubmit={handleHookFormSubmit}
-            className={editInputWrapperStyle}
-          >
+          <form onSubmit={handleSubmit} className={editInputWrapperStyle}>
             <Textarea
               {...register("input")}
               onKeyDown={handleTextAreaKeyDown}
-              className={clsx(isCommentEdit && textareaEditStyle)}
+              className={clsx(textareaEditStyle)}
             />
           </form>
         ) : (
@@ -93,30 +86,27 @@ const CommentBox = ({
       {isMine && (
         <div className={iconContainerStyle}>
           <button
-            title={isCommentEdit ? "댓글 수정 완료하기" : "댓글 수정하기"}
+            title={isEditing ? "댓글 수정 완료하기" : "댓글 수정하기"}
+            aria-label={isEditing ? "댓글 수정 완료하기" : "댓글 수정하기"}
             onClick={handleEditBtnClick}
             className={iconStyle({
               variant: "edit",
               isActive: isActive,
             })}
           >
-            <IcnEdit width={18} height={18} />
+            <IcnEdit width={18} height={18} aria-hidden />
           </button>
-          <div
+          <button
             title="댓글 삭제하기"
-            role="button"
-            tabIndex={0}
+            aria-label="댓글 삭제하기"
             onClick={() => onDelete?.(commentId)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") onDelete?.(commentId);
-            }}
             className={iconStyle({
               variant: "close",
               isActive: isActive,
             })}
           >
-            <IcnClose width={16} height={16} />
-          </div>
+            <IcnClose width={16} height={16} aria-hidden />
+          </button>
         </div>
       )}
     </li>

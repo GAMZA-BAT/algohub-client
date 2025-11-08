@@ -131,7 +131,7 @@ export const iconStyle = recipe({
 export const listStyle = style({
   width: "100%",
 
-  padding: "1.2rem 2.4rem 0 2.4rem",
+  padding: "1.2rem 0 0 2.4rem",
   overflowY: "scroll",
 
   ...scrollTheme.scrollbar,

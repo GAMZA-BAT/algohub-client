@@ -9,6 +9,7 @@ import type { NoticeRequest } from "@/app/api/notices/type";
 
 import { useToast } from "@/common/hook/useToast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 import { deleteNoticeAction, patchNoticeAction } from "./action";
 
 export const useNoticeCommentMutation = (noticeId: number) => {
@@ -21,29 +22,35 @@ export const useNoticeCommentMutation = (noticeId: number) => {
       await queryClient.invalidateQueries({
         queryKey: noticeQueryKey.comments(noticeId),
       });
+      showToast("댓글이 작성되었어요.", "success");
     },
     onError: () => {
-      showToast("댓글 작성에 실패했습니다.", "error");
+      showToast("댓글 작성에 실패했어요.", "error");
     },
   });
 };
 
-export const usePatchNoticeCommentMutation = (
-  noticeId: number,
-  commentId: number,
-) => {
+export const usePatchNoticeCommentMutation = () => {
   const queryClient = useQueryClient();
+  const params = useParams();
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (content: string) => patchNoticeComment(commentId, content),
+    mutationFn: ({
+      commentId,
+      content,
+    }: {
+      commentId: number;
+      content: string;
+    }) => patchNoticeComment(commentId, content),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: noticeQueryKey.comments(noticeId),
+        queryKey: noticeQueryKey.comments(+params.noticeId),
       });
+      showToast("댓글이 수정되었어요.", "success");
     },
     onError: () => {
-      showToast("댓글 수정에 실패했습니다.", "error");
+      showToast("댓글 수정에 실패했어요.", "error");
     },
   });
 };
@@ -58,10 +65,10 @@ export const useDeleteNoticeCommentMutation = (noticeId: number) => {
       await queryClient.invalidateQueries({
         queryKey: noticeQueryKey.comments(noticeId),
       });
-      showToast("댓글이 삭제되었습니다.", "success");
+      showToast("댓글이 삭제되었어요.", "success");
     },
     onError: () => {
-      showToast("댓글 삭제에 실패했습니다.", "error");
+      showToast("댓글 삭제에 실패했어요.", "error");
     },
   });
 };

@@ -3,6 +3,7 @@
 import {
   useCommentMutation,
   useDeleteCommentMutation,
+  useEditCommentMutation,
 } from "@/app/api/comments/mutation";
 import { useCommentListQueryObject } from "@/app/api/comments/query";
 import CommentBox from "@/shared/component/CommentBox";
@@ -11,7 +12,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
-import { CommentsProvider } from "./provider";
 
 type CommentSectionProps = {
   solutionId: number;
@@ -21,10 +21,15 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
   const commentRef = useRef<HTMLUListElement>(null);
   const [comment, setComment] = useState("");
   const { data: session } = useSession();
-
+  const nickname = session?.user?.nickname;
   const { data: comments } = useQuery(useCommentListQueryObject(solutionId));
   const { mutate: commentAction } = useCommentMutation(solutionId);
   const { mutate: deleteMutate } = useDeleteCommentMutation(solutionId);
+  const { mutate: commentEditMutate } = useEditCommentMutation();
+
+  const onCommentEdit = (commentId: number, content: string) => {
+    commentEditMutate({ commentId, content });
+  };
 
   const handleCommentSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,19 +49,17 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
   return (
     <div className={sectionWrapper}>
       <ul className={ulStyle} ref={commentRef}>
-        <CommentsProvider solutionId={+solutionId}>
-          {comments
-            ?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
-            .map((item) => (
-              <CommentBox
-                key={item.commentId}
-                variant="detail"
-                onDelete={deleteMutate}
-                isMine={item.writerNickname === session?.user?.nickname}
-                {...item}
-              />
-            ))}
-        </CommentsProvider>
+        {comments
+          ?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
+          .map((commentContent) => (
+            <CommentBox
+              key={commentContent.commentId}
+              commentContent={commentContent}
+              isMine={commentContent.writerNickname === nickname}
+              onDelete={deleteMutate}
+              onCommentEdit={onCommentEdit}
+            />
+          ))}
       </ul>
       <form onSubmit={handleCommentSubmit} className={commentInputStyle}>
         <CommentInput
