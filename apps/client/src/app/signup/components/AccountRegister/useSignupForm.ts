@@ -42,7 +42,7 @@ const useSignupForm = () => {
       JSON.stringify({
         password: values.password,
         nickname: values.nickname,
-        baekjoonId: values.baekjoonId,
+        bjNickname: values.baekjoonId,
       }),
     );
 
