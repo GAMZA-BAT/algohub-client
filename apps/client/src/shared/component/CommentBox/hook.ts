@@ -72,10 +72,6 @@ export const useEditComment = ({
     handleSubmit,
   ]);
 
-  useEffect(() => {
-    return () => handleEdit();
-  }, []);
-
   const handleEditBtnClick = () => {
     if (isCurrentEditing) {
       handleEdit();
