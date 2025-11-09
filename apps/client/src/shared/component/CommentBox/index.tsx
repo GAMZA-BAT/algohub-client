@@ -5,8 +5,9 @@ import { textareaEditStyle } from "@/app/group/[groupId]/@modal/(.)notice/compon
 import { IcnClose, IcnEdit } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Textarea from "@/common/component/Textarea";
+import { useOutsideClick } from "@/common/hook/useOutsideClick";
 import { formatDistanceDate } from "@/common/util/date";
-import { useEditForm } from "@/shared/component/CommentBox/hook";
+import { useEditComment } from "@/shared/component/CommentBox/hook";
 import {
   containerStyle,
   contentStyle,
@@ -24,8 +25,8 @@ import clsx from "clsx";
 type CommentBoxProps = {
   commentContent: CommentContent;
   className?: string;
-  isMine?: boolean;
-  onDelete?: (commentId: number) => void;
+  isMine: boolean;
+  onDelete: (commentId: number) => void;
   onCommentEdit: (itemId: number, content: string) => void;
 };
 
@@ -43,21 +44,37 @@ const CommentBox = ({
   onCommentEdit,
 }: CommentBoxProps) => {
   const { isActive, ...handlers } = useA11yHoverHandler();
-
   const {
     register,
     isEditing,
+    handleEdit,
     handleEditBtnClick,
+    handleEditCancel,
     handleTextAreaKeyDown,
     handleSubmit,
-  } = useEditForm({
+  } = useEditComment({
     commentId,
     defaultValue: content,
     onCommentEdit,
   });
+  const ref = useOutsideClick<HTMLLIElement>(handleEdit);
+
+  const handleDeleteBtnClick = () => {
+    if (isEditing) {
+      handleEditCancel();
+      return;
+    }
+    onDelete(commentId);
+  };
+  const editTitle = isEditing ? "댓글 수정 완료하기" : "댓글 수정하기";
+  const deleteTitle = isEditing ? "댓글 수정 취소하기" : "댓글 삭제하기";
 
   return (
-    <li {...handlers} className={clsx(containerStyle({ isActive }), className)}>
+    <li
+      ref={ref}
+      {...handlers}
+      className={clsx(containerStyle({ isActive }), className)}
+    >
       <Avatar
         src={writerProfileImage}
         alt={`${writerNickname} 프로필 이미지`}
@@ -86,8 +103,8 @@ const CommentBox = ({
       {isMine && (
         <div className={iconContainerStyle}>
           <button
-            title={isEditing ? "댓글 수정 완료하기" : "댓글 수정하기"}
-            aria-label={isEditing ? "댓글 수정 완료하기" : "댓글 수정하기"}
+            title={editTitle}
+            aria-label={editTitle}
             onClick={handleEditBtnClick}
             className={iconStyle({
               variant: "edit",
@@ -97,9 +114,9 @@ const CommentBox = ({
             <IcnEdit width={18} height={18} aria-hidden />
           </button>
           <button
-            title="댓글 삭제하기"
-            aria-label="댓글 삭제하기"
-            onClick={() => onDelete?.(commentId)}
+            title={deleteTitle}
+            aria-label={deleteTitle}
+            onClick={handleDeleteBtnClick}
             className={iconStyle({
               variant: "close",
               isActive: isActive,

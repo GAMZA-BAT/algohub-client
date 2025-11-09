@@ -10,6 +10,7 @@ import type { NoticeRequest } from "@/app/api/notices/type";
 import { useToast } from "@/common/hook/useToast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import type { CommentContent } from "../comments/type";
 import { deleteNoticeAction, patchNoticeAction } from "./action";
 
 export const useNoticeCommentMutation = (noticeId: number) => {
@@ -34,23 +35,47 @@ export const usePatchNoticeCommentMutation = () => {
   const queryClient = useQueryClient();
   const params = useParams();
   const { showToast } = useToast();
+  const noticeId = +params.noticeId;
 
   return useMutation({
     mutationFn: ({
       commentId,
       content,
-    }: {
-      commentId: number;
-      content: string;
-    }) => patchNoticeComment(commentId, content),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: noticeQueryKey.comments(+params.noticeId),
-      });
-      showToast("댓글이 수정되었어요.", "success");
+    }: { commentId: number; content: string }) =>
+      patchNoticeComment(commentId, content),
+
+    onMutate: async (updatedComment) => {
+      const queryKey = noticeQueryKey.comments(noticeId);
+      await queryClient.cancelQueries({ queryKey });
+
+      const previousComments =
+        queryClient.getQueryData<CommentContent[]>(queryKey);
+
+      if (previousComments) {
+        const newComments = previousComments.map((comment) =>
+          comment.commentId === updatedComment.commentId
+            ? { ...comment, content: updatedComment.content }
+            : comment,
+        );
+        queryClient.setQueryData(queryKey, newComments);
+      }
+
+      return { previousComments, queryKey };
     },
-    onError: () => {
+
+    onError: (_err, _variables, context) => {
       showToast("댓글 수정에 실패했어요.", "error");
+      if (context?.previousComments) {
+        queryClient.setQueryData(context.queryKey, context.previousComments);
+      }
+    },
+
+    onSettled: (_data, _error, _variables, context) => {
+      queryClient.invalidateQueries({ queryKey: context?.queryKey });
+    },
+
+    onSuccess: () => {
+      showToast("댓글이 수정되었어요.", "success");
     },
   });
 };

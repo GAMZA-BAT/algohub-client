@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 import { useParams } from "next/navigation";
 import { commentQueryKey } from "./query";
+import type { CommentContent } from "./type";
 
 export const useCommentMutation = (solutionId: number) => {
   const queryClient = useQueryClient();
@@ -54,6 +55,7 @@ export const useEditCommentMutation = () => {
   const queryClient = useQueryClient();
   const params = useParams();
   const { showToast } = useToast();
+  const itemId = +params.id;
 
   return useMutation({
     mutationFn: ({
@@ -61,18 +63,51 @@ export const useEditCommentMutation = () => {
       content,
     }: { commentId: number; content: string }) =>
       editComment(commentId, content),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: commentQueryKey.list(+params.id),
-      });
-      showToast("댓글이 수정되었어요.", "success");
+
+    onMutate: async (updatedComment) => {
+      const queryKey = commentQueryKey.list(itemId);
+
+      await queryClient.cancelQueries({ queryKey });
+
+      const previousComments =
+        queryClient.getQueryData<CommentContent[]>(queryKey);
+
+      if (previousComments) {
+        const newComments = previousComments.map((comment) =>
+          comment.commentId === updatedComment.commentId
+            ? { ...comment, content: updatedComment.content }
+            : comment,
+        );
+        queryClient.setQueryData(queryKey, newComments);
+      }
+
+      return { previousComments, queryKey };
     },
-    onError: (error: HTTPError) => {
-      if (!error.response) return;
+
+    onError: (error: HTTPError, _variables, context) => {
+      if (context?.previousComments) {
+        queryClient.setQueryData(context.queryKey, context.previousComments);
+      }
+
+      if (!error.response) {
+        showToast("댓글 수정에 실패했어요.", "error");
+        return;
+      }
+
       const { status } = error.response;
       if (status === HTTP_ERROR_STATUS.BAD_REQUEST) {
-        showToast("댓글 작성자가 아닙니다", "error");
+        showToast("댓글 작성자가 아니거나, 요청이 잘못되었습니다.", "error");
+      } else {
+        showToast("댓글 수정에 실패했어요.", "error");
       }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: commentQueryKey.list(itemId) });
+    },
+
+    onSuccess: () => {
+      showToast("댓글이 수정되었어요.", "success");
     },
   });
 };

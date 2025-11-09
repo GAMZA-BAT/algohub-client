@@ -19,7 +19,13 @@ import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import {
+  type FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   articleStyle,
   contentStyle,
@@ -80,9 +86,12 @@ const NoticeDetail = ({
   );
   const { mutate: commentEditMutate } = usePatchNoticeCommentMutation();
 
-  const handleCommentEdit = (commentId: number, content: string) => {
-    commentEditMutate({ commentId, content });
-  };
+  const handleCommentEdit = useCallback(
+    (commentId: number, content: string) => {
+      commentEditMutate({ commentId, content });
+    },
+    [],
+  );
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

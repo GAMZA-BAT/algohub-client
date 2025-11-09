@@ -3,12 +3,14 @@ import { useCallback, useEffect, useRef } from "react";
 
 /**
  * @param callback toggle 관리용 setState 핸들러
+ * @param mouseEvent mousedown(매우 빠름), click 이벤트 중 선택 (기본값: click)
  * @example
  *  const callback = () => setShowMenu(false);
     const ref = useOutsideClick(callback);
  */
 export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(
   callback: () => void,
+  mouseEvent: "click" | "mousedown" = "click",
 ) => {
   const ref = useRef<T | null>(null);
   const handleOutsideClick = useCallback(
@@ -26,11 +28,10 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(
   );
 
   useEffect(() => {
-    // click대신 mousedown으로 빠르게 진행
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener(mouseEvent, handleOutsideClick);
     document.addEventListener("keydown", handleESCKeyDown);
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener(mouseEvent, handleOutsideClick);
       document.removeEventListener("keydown", handleESCKeyDown);
     };
   }, [handleOutsideClick]);

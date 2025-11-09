@@ -10,7 +10,13 @@ import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import {
+  type FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { commentInputStyle, sectionWrapper, ulStyle } from "./index.css";
 
 type CommentSectionProps = {
@@ -27,9 +33,9 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
   const { mutate: deleteMutate } = useDeleteCommentMutation(solutionId);
   const { mutate: commentEditMutate } = useEditCommentMutation();
 
-  const onCommentEdit = (commentId: number, content: string) => {
+  const onCommentEdit = useCallback((commentId: number, content: string) => {
     commentEditMutate({ commentId, content });
-  };
+  }, []);
 
   const handleCommentSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
