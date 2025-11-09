@@ -39,6 +39,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
   const { data: comments } = useSuspenseQuery({
     ...useCommentListQueryObject(solutionId),
     retry: 0,
+    select: (data) => [...data].reverse(),
   });
 
   const { data: group } = useSuspenseQuery({
@@ -96,7 +97,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
       />
 
       <ul className={commentListStyle}>
-        {comments?.reverse().map((comment) => (
+        {comments?.map((comment) => (
           <li
             key={comment.commentId}
             className={commentItemStyle}
