@@ -96,7 +96,7 @@ const JoinRequestList = ({ groupId }: JoinRequestListProps) => {
               <ApprovalCard
                 name={request.requester.nickname}
                 avatarUrl={request.requester.profileImage || ""}
-                groupId={groupId}
+                requesterId={request.id}
               />
             </motion.li>
           ))}

@@ -20,16 +20,17 @@ import {
 type ApprovalCardProps = {
   name: string;
   avatarUrl: string;
-  groupId: number;
+  requesterId: number;
 };
 
 export const ApprovalCard = ({
   name,
   avatarUrl,
-  groupId,
+  requesterId,
 }: ApprovalCardProps) => {
-  const { mutate: approvalRequestMutate } = useApprovalRequestMutation(groupId);
-  const { mutate: rejectRequestMutate } = useRejectRequestMutation(groupId);
+  const { mutate: approvalRequestMutate } =
+    useApprovalRequestMutation(requesterId);
+  const { mutate: rejectRequestMutate } = useRejectRequestMutation(requesterId);
   const nameId = useId();
 
   const handleApprove = (e: React.MouseEvent) => {

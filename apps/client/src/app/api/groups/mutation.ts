@@ -24,7 +24,8 @@ import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import type { APIResponse } from "../type";
 import { groupQueryKey } from "./query";
 
 export const useDeleteMemberMutation = (groupId: number) => {
@@ -310,24 +311,31 @@ export const useJoinRecommendMutation = () => {
       });
       showToast("해당 스터디에 가입을 요청했어요.", "success");
     },
-    onError: () => {
-      showToast("해당 스터디 가입 요청에 실패했어요.", "error");
+    onError: async (e: HTTPError) => {
+      const errorResponse = await e.response.json<APIResponse>();
+      if ("error" in errorResponse) {
+        showToast(errorResponse.error, "error");
+      } else {
+        showToast("스터디 가입 요청에 실패했어요.", "error");
+      }
     },
   });
 };
 
-export const useApprovalRequestMutation = (groupId: number) => {
+export const useApprovalRequestMutation = (requesterId: number) => {
   const queryClient = useQueryClient();
+  const params = useParams();
+  const { groupId } = params;
   const { showToast } = useToast();
   return useMutation({
-    mutationFn: () => postApproveJoinRequest(groupId),
+    mutationFn: () => postApproveJoinRequest(requesterId),
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: groupQueryKey.joinRequests(groupId),
+          queryKey: groupQueryKey.joinRequests(+groupId),
         }),
         queryClient.invalidateQueries({
-          queryKey: groupQueryKey.members(groupId),
+          queryKey: groupQueryKey.members(+groupId),
         }),
       ]);
       showToast("가입을 승인했어요.", "success");
@@ -338,14 +346,16 @@ export const useApprovalRequestMutation = (groupId: number) => {
   });
 };
 
-export const useRejectRequestMutation = (groupId: number) => {
+export const useRejectRequestMutation = (requesterId: number) => {
   const queryClient = useQueryClient();
+  const params = useParams();
+  const { groupId } = params;
   const { showToast } = useToast();
   return useMutation({
-    mutationFn: () => postRejectJoinRequest(groupId),
+    mutationFn: () => postRejectJoinRequest(requesterId),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: groupQueryKey.joinRequests(groupId),
+        queryKey: groupQueryKey.joinRequests(+groupId),
       });
       showToast("가입을 거절했어요.", "success");
     },

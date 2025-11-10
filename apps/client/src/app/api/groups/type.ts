@@ -128,10 +128,10 @@ export type SearchStudyResponse = {
 };
 
 export const JOIN_REQUEST_STATUS = {
-  PENDING: "pending",
-  APPROVE: "approve",
-  CANCEL: "cancel",
-  REJECT: "reject",
+  PENDING: "PENDING",
+  APPROVE: "APPROVE",
+  CANCEL: "CANCEL",
+  REJECT: "REJECT",
 } as const;
 
 export type JoinRequestStatus =
