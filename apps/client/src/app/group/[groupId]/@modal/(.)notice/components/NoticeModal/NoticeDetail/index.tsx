@@ -10,10 +10,11 @@ import type { NoticeContent } from "@/app/api/notices/type";
 import { NoticeCommentsProvider } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeDetail/provider";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
-import Textarea from "@/common/component/Textarea";
 import { formatDistanceDate } from "@/common/util/date";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
+import MarkdownEditor from "@/shared/component/MdEditor";
+import { editorWrapperStyle } from "@/shared/component/MdEditor/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
@@ -63,7 +64,7 @@ const NoticeDetail = ({
   const [isEdit, setIsEdit] = useState(false);
   const [comment, setComment] = useState("");
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [text, setText] = useState<string | undefined>(content);
   const commentListRef = useRef<HTMLUListElement>(null);
 
   const { data: commentList } = useQuery(
@@ -96,14 +97,13 @@ const NoticeDetail = ({
   const handleEditClick = () => {
     if (!isEdit) {
       setIsEdit(true);
-      setTimeout(() => textareaRef.current?.focus());
       return;
     }
 
     setIsEdit(false);
     patchMutate({
       title,
-      content: textareaRef.current?.value || "",
+      content: text || "",
       category,
     });
   };
@@ -142,13 +142,22 @@ const NoticeDetail = ({
       </header>
 
       <div className={contentWrapperStyle}>
-        <div className={textareaWrapper} {...handlers}>
-          <Textarea
+        <div
+          className={clsx(textareaWrapper, editorWrapperStyle)}
+          {...handlers}
+        >
+          <MarkdownEditor
+            initialValue={content}
+            disabled={!isEdit}
+            onChange={(value) => setText(value)}
+            className={clsx(textareaStyle, isEdit && textareaEditStyle)}
+          />
+          {/* <Textarea
             ref={textareaRef}
             defaultValue={content}
             disabled={!isEdit}
             className={clsx(textareaStyle, isEdit && textareaEditStyle)}
-          />
+          /> */}
           <div className={iconContainerStyle}>
             <button
               aria-label="공지 수정하기"
