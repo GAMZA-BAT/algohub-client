@@ -52,27 +52,34 @@ export const codeCard = style({
 
   backgroundColor: theme.color.black,
   borderRadius: "10px",
-  border: `1px solid ${theme.color.mg5}`,
+  border: "none",
 });
 
 export const codeWrapper = recipe({
   base: {
     alignSelf: "stretch",
     width: "100%",
+    margin: 0,
+    padding: "1.6rem !important",
+    borderRadius: "8px",
+    backgroundColor: `${theme.color.black} !important`,
+    overflow: "hidden !important",
   },
   variants: {
     isExpanded: {
-      false: { maxHeight: "10.2rem", overflow: "hidden" },
+      false: {
+        maxHeight: "11.7rem",
+      },
+      true: {
+        maxHeight: "none",
+      },
     },
   },
 });
 
 export const codeStyle = style({
-  textAlign: "left",
   width: "100%",
-  color: theme.color.yellow,
-
-  ...theme.font.Caption1_R_12,
+  textAlign: "left",
 });
 
 export const arrowStyle = recipe({

@@ -18,12 +18,11 @@ import {
   studyNameStyle,
 } from "@/app/[user]/components/FeedItem/index.css";
 import { useCommentListQueryObject } from "@/app/api/comments/query";
+import type { CommentContent } from "@/app/api/comments/type";
 import { useGroupInfoQueryObject } from "@/app/api/groups/query";
 import { useSolutionQueryObject } from "@/app/api/solutions/query";
-import Like from "@/shared/component/Like";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { formatDistanceToNow } from "date-fns";
-import { ko } from "date-fns/locale";
+import { formatDistanceDate } from "@/common/util/date";
+import { useSuspenseQueries } from "@tanstack/react-query";
 
 interface FeedItemProps {
   solutionId: number;
@@ -31,21 +30,24 @@ interface FeedItemProps {
 }
 
 const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
-  const { data: solution } = useSuspenseQuery({
-    ...useSolutionQueryObject(solutionId),
-    retry: 0,
-  });
-
-  const { data: comments } = useSuspenseQuery({
-    ...useCommentListQueryObject(solutionId),
-    retry: 0,
-    select: (data) => [...data].reverse(),
-  });
-
-  const { data: group } = useSuspenseQuery({
-    ...useGroupInfoQueryObject(groupId),
-    retry: 0,
-  });
+  const [{ data: solution }, { data: comments }, { data: group }] =
+    useSuspenseQueries({
+      queries: [
+        {
+          ...useSolutionQueryObject(solutionId),
+          retry: 0,
+        },
+        {
+          ...useCommentListQueryObject(solutionId),
+          retry: 0,
+          select: (data: CommentContent[]) => [...data].reverse(),
+        },
+        {
+          ...useGroupInfoQueryObject(groupId),
+          retry: 0,
+        },
+      ],
+    });
 
   // 피드에 뜨게한 댓글 찾기 - 나를 제외한 최신 댓글
   const triggerComment = comments?.find(
@@ -62,10 +64,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
   ];
 
   return (
-    <li
-      className={feedItemContainer}
-      aria-label={`${solution?.problemTitle}문제 풀이 피드`}
-    >
+    <li className={feedItemContainer}>
       <section className={infoWrapper}>
         <Avatar
           alt={`${triggerCommentWritterProfileImage}님의 프로필 사진`}
@@ -80,12 +79,9 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
           </p>
           <p>
             <span className={studyNameStyle}>{group?.name}</span>
-            <span className={agoMinuteStyle}>
-              {formatDistanceToNow(new Date(triggerCommentCreatedAt || ""), {
-                addSuffix: true,
-                locale: ko,
-              })}
-            </span>
+            <time className={agoMinuteStyle} dateTime={triggerCommentCreatedAt}>
+              {formatDistanceDate(triggerCommentCreatedAt || "")}
+            </time>
           </p>
         </div>
       </section>
@@ -94,6 +90,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         problemTitle={solution?.problemTitle || ""}
         problemLevel={solution?.problemLevel || 0}
         content={solution?.content || ""}
+        language={solution?.language || "Python"}
       />
 
       <ul className={commentListStyle}>
@@ -111,7 +108,6 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
             <div className={commentWrapper}>
               <p className={commentNameStyle}>{comment.writerNickname}</p>
               <p className={commentStyle}>{comment.content}</p>
-              <Like />
             </div>
           </li>
         ))}
