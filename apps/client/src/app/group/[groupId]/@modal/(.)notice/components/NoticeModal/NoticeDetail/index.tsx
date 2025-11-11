@@ -14,7 +14,6 @@ import { formatDistanceDate } from "@/common/util/date";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
 import MarkdownEditor from "@/shared/component/MdEditor";
-import { editorWrapperStyle } from "@/shared/component/MdEditor/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
@@ -142,22 +141,16 @@ const NoticeDetail = ({
       </header>
 
       <div className={contentWrapperStyle}>
-        <div
-          className={clsx(textareaWrapper, editorWrapperStyle)}
-          {...handlers}
-        >
+        <div className={clsx(textareaWrapper)} {...handlers}>
           <MarkdownEditor
             initialValue={content}
+            onChange={setText}
             disabled={!isEdit}
-            onChange={(value) => setText(value)}
-            className={clsx(textareaStyle, isEdit && textareaEditStyle)}
+            className={clsx(
+              textareaStyle,
+              isEdit && textareaEditStyle,
+            )}
           />
-          {/* <Textarea
-            ref={textareaRef}
-            defaultValue={content}
-            disabled={!isEdit}
-            className={clsx(textareaStyle, isEdit && textareaEditStyle)}
-          /> */}
           <div className={iconContainerStyle}>
             <button
               aria-label="공지 수정하기"
