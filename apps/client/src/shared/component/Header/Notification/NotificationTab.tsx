@@ -28,9 +28,9 @@ const NotificationTab = ({
 }: NotificationTabProps) => {
   const queryClient = useQueryClient();
 
-  const prefetchNotification = (notificationType: NotificationType) => {
+  const prefetchNotification = () => {
     // biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
-    queryClient.prefetchQuery(useNotificationsQueryObject(notificationType));
+    queryClient.prefetchQuery(useNotificationsQueryObject(tabId));
   };
 
   const isSelected = notificationType === tabId;
@@ -41,15 +41,14 @@ const NotificationTab = ({
   };
 
   return (
-    <li
-      onMouseEnter={() => prefetchNotification(tabId)}
-      onFocus={() => prefetchNotification(tabId)}
-    >
+    <li role="presentation">
       <button
         role="tab"
         aria-selected={isSelected}
         className={notificationTabStyle({ isSelected })}
         onClick={handleTabClick}
+        onMouseEnter={prefetchNotification}
+        onFocus={prefetchNotification}
       >
         <span className={textStyle}>{children}</span>
         {isSelected && (

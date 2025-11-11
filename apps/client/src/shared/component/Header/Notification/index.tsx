@@ -56,7 +56,7 @@ const Notification = () => {
         <div className={countChipStyle}>{`신규 ${notiCounts}`}</div>
       </header>
 
-      <ul className={notificationTabListStyle}>
+      <ul role="tablist" className={notificationTabListStyle}>
         {Object.entries(notificationMap).map(([tabId, tabText]) => (
           <NotificationTab
             key={tabId}

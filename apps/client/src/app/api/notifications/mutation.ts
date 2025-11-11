@@ -108,9 +108,16 @@ export const useReadNotiItemMutation = (notificationType: NotificationType) => {
   });
 };
 
-export const useDeleteNotiMutation = () => {
+export const useDeleteNotiMutation = (notificationType: NotificationType) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (id: number) => deleteNotification(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: notificationQueryKey.lists(notificationType),
+      });
+    },
   });
 };
 

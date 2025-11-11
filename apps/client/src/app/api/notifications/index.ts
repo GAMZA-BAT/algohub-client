@@ -3,13 +3,13 @@ import type {
   NotificationItem,
   NotificationSettingContent,
 } from "@/app/api/notifications/type";
-import type { NotificationType } from "@/shared/component/Header/Notification";
+import { NotificationType } from "@/shared/component/Header/Notification";
 
 export const getNotificationList = async ({
   notificationType,
 }: { notificationType: NotificationType }) => {
   const requestOptions =
-    notificationType === "ALL" ? {} : { searchParams: { type:notificationType } };
+    notificationType === NotificationType.ALL ? {} : { searchParams: { type:notificationType } };
 
   const response = await kyJsonWithTokenInstance
     .get<NotificationItem[]>("api/notifications", requestOptions)

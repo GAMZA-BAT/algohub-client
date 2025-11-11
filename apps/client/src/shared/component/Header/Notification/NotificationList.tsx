@@ -31,7 +31,15 @@ const NotificationList = ({
 
   const shouldShowMoreButton = notificationList.length >= 6 && !isExpanded;
 
-  return notificationList.length > 0 ? (
+  if (notificationList.length === 0) {
+    return (
+      <div className={emptyWrapper}>
+        <Empty guideText="아직 도착한 알림이 없습니다" />
+      </div>
+    );
+  }
+
+  return (
     <>
       <ul className={ulStyle} aria-label="알림 목록">
         {notificationList.map((notification) => (
@@ -49,15 +57,15 @@ const NotificationList = ({
           onClick={handleExpandList}
           aria-expanded={isExpanded}
         >
-          <IcnBtnArrowDown width={"1.2rem"} height={"1.2rem"} />
+          <IcnBtnArrowDown
+            width={"1.2rem"}
+            height={"1.2rem"}
+            aria-hidden={"true"}
+          />
           더보기
         </button>
       )}
     </>
-  ) : (
-    <div className={emptyWrapper}>
-      <Empty guideText="아직 도착한 알림이 없습니다" />
-    </div>
   );
 };
 

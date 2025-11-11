@@ -2,16 +2,14 @@ import {
   useDeleteNotiMutation,
   useReadNotiItemMutation,
 } from "@/app/api/notifications/mutation";
-import { notificationQueryKey } from "@/app/api/notifications/query";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import icnNew from "@/asset/svg/icn_new.svg?url";
 import type { NotificationType } from "@/shared/component/Header/Notification";
 import { dateContainerStyle } from "@/shared/component/Header/Notification/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
-import { useQueryClient } from "@tanstack/react-query";
 import { differenceInCalendarDays } from "date-fns";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   containerStyle,
   dateStyle,
@@ -50,42 +48,28 @@ const NotificationListItem = ({
 }: NotificationListProps) => {
   const { isActive, ...handlers } = useA11yHoverHandler();
 
-  const router = useRouter();
-
-  const queryClient = useQueryClient();
   const { mutate: readNotiMutate } = useReadNotiItemMutation(notificationType);
-  const { mutate: deleteMutate } = useDeleteNotiMutation();
+  const { mutate: deleteMutate } = useDeleteNotiMutation(notificationType);
+
+  const notificationLink = `/group/${groupId}${problemId ? `/problem-list/${problemId}` : ""}${
+    solutionId ? `/solved-detail/${solutionId}` : ""
+  }`;
 
   const handleItemClick = () => {
     if (!isRead) readNotiMutate(id);
-
-    router.push(
-      `/group/${groupId}${problemId ? `/problem-list/${problemId}` : ""}${
-        solutionId ? `/solved-detail/${solutionId}` : ""
-      }`,
-    );
   };
 
   const handleItemDelete = () => {
-    deleteMutate(id, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: notificationQueryKey.lists(notificationType),
-        });
-      },
-    });
+    deleteMutate(id);
   };
 
   return (
-    <div
-      className={containerStyle}
-      aria-label={`${groupName}님의 알림: ${message}, ${createdAt}`}
-      {...handlers}
-    >
-      <button
+    <li className={containerStyle} {...handlers}>
+      <Link
+        href={notificationLink}
         className={notificationContentStyle}
-        onClick={handleItemClick}
         aria-label={`${groupName}의 알림으로 이동`}
+        onClick={handleItemClick}
       >
         <div className={profileStyle}>
           <Image
@@ -101,11 +85,12 @@ const NotificationListItem = ({
           </div>
         </div>
         <div className={dateContainerStyle}>
-          <time className={dateStyle} aria-label={createdAt}>
+          <time className={dateStyle} dateTime={createdAt}>
             {`${differenceInCalendarDays(new Date(), new Date(createdAt))}일 전`}
           </time>
         </div>
-      </button>
+      </Link>
+
       <button
         className={deleteIconStyle({ active: isActive })}
         onClick={handleItemDelete}
@@ -113,7 +98,7 @@ const NotificationListItem = ({
       >
         <IcnBtnDeleteCircle width={"1.6rem"} height={"1.6rem"} aria-hidden />
       </button>
-    </div>
+    </li>
   );
 };
 
