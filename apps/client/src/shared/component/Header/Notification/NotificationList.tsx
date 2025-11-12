@@ -1,4 +1,4 @@
-import { useNotificationsQueryObject } from "@/app/api/notifications/query";
+import type { NotificationItem, NotificationResponse } from "@/app/api/notifications/type";
 import { IcnBtnArrowDown } from "@/asset/svg";
 import Empty from "@/shared/component/Empty";
 import type { NotificationType } from "@/shared/component/Header/Notification";
@@ -8,23 +8,20 @@ import {
   moreButtonStyle,
   ulStyle,
 } from "@/shared/component/Header/Notification/index.css";
-import { useSuspenseQuery } from "@tanstack/react-query";
 
 interface NotificationListProps {
   notificationType: NotificationType;
   isExpanded: boolean;
   expandList: () => void;
+  notificationData: NotificationItem[];
 }
 
 const NotificationList = ({
   notificationType,
   isExpanded,
   expandList: handleExpandList,
+  notificationData,
 }: NotificationListProps) => {
-  const { data: notificationData } = useSuspenseQuery(
-    useNotificationsQueryObject(notificationType),
-  );
-
   const notificationList = isExpanded
     ? notificationData
     : notificationData?.slice(0, 6);

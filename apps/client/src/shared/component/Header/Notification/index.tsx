@@ -1,9 +1,9 @@
 "use client";
 import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import { IcnBellHeader } from "@/asset/svg";
-import { notificationTabListStyle } from "@/shared/component/Header/Notification/Notification.css";
 import NotificationList from "@/shared/component/Header/Notification/NotificationList";
 import NotificationTab from "@/shared/component/Header/Notification/NotificationTab";
+import { notificationTabListStyle } from "@/shared/component/Header/Notification/index.css";
 import {
   countChipStyle,
   countStyle,
@@ -74,6 +74,7 @@ const Notification = () => {
         notificationType={notificationType}
         isExpanded={isExpanded}
         expandList={expandList}
+        notificationData={data ?? []}
       />
     </div>
   );

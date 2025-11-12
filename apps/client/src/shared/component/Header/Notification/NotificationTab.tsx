@@ -4,7 +4,8 @@ import {
   indicatorStyle,
   notificationTabStyle,
   textStyle,
-} from "@/shared/component/Header/Notification/Notification.css";
+} from "@/shared/component/Header/Notification/index.css";
+
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import type { Dispatch, SetStateAction } from "react";
