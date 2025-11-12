@@ -84,11 +84,10 @@ const NoticeCreate = ({ groupId }: NoticeCreateProps) => {
             <FormController
               form={form}
               name="content"
-              type="textarea"
+              type="mdEditor"
               showLabel
               labelProps={{ children: "내용", className: metaStyle }}
               fieldProps={{
-                placeholder: "내용을 입력해주세요.",
                 className: textareaStyle,
               }}
               showDescription

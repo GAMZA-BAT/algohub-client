@@ -77,10 +77,6 @@ const MarkdownEditor = ({
       data-color-mode="dark"
     >
       <MDEditor
-        {...props}
-        onChange={handleEditorChange}
-        value={value}
-        className={editorWrapperStyle}
         preview="edit"
         previewOptions={{
           rehypePlugins: [[rehypeSanitize]],
@@ -93,6 +89,10 @@ const MarkdownEditor = ({
           commands.codeLive,
         ]}
         height={"100%"}
+        {...props}
+        className={editorWrapperStyle}
+        onChange={handleEditorChange}
+        value={value}
       />
     </div>
   );

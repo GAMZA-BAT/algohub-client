@@ -75,7 +75,7 @@ export const textareaStyle = style({
 
   width: "100%",
   height: "100%",
-  padding: "0.175rem",
+  padding: "0.2rem",
   border: "1px solid transparent",
   borderRadius: "5px",
   outline: "none",
