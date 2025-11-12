@@ -74,5 +74,3 @@ export const commentStyle = style({
   ...theme.font.Caption1_R_12,
   color: theme.color.mg1,
 });
-
-

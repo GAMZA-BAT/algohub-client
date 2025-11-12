@@ -37,7 +37,7 @@ const CommentInput = ({
 
   return (
     <section className={leaveCommentWrapper}>
-      <IcnEnter width={24} height={24} aria-hidden/>
+      <IcnEnter width={24} height={24} aria-hidden />
       <Avatar
         size="small"
         alt={`${nickname}님의 프로필 사진`}
