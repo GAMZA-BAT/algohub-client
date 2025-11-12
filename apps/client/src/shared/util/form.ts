@@ -30,7 +30,11 @@ export const getMultipleRevalidationHandlers =
         trigger(fieldNames);
       },
       onChange: (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | Date,
+        e:
+          | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+          | Date
+          | string
+          | undefined,
       ) => {
         field.onChange(e);
         trigger(fieldNames);
