@@ -1,4 +1,5 @@
 "use client";
+import { useGroupRoleQueryObject } from "@/app/api/groups/query";
 import {
   useDeleteNoticeCommentMutation,
   useDeleteNoticeMutation,
@@ -69,6 +70,8 @@ const NoticeDetail = ({
   const { data: commentList } = useQuery(
     useNoticeCommentListQueryObject(noticeId),
   );
+  const { data: role } = useQuery(useGroupRoleQueryObject(+groupId));
+
   const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
   const { mutate: deleteCommentMutate } =
     useDeleteNoticeCommentMutation(noticeId);
@@ -146,29 +149,28 @@ const NoticeDetail = ({
             initialValue={content}
             onChange={setText}
             disabled={!isEdit}
-            className={clsx(
-              textareaStyle,
-              isEdit && textareaEditStyle,
-            )}
+            className={clsx(textareaStyle, isEdit && textareaEditStyle)}
           />
-          <div className={iconContainerStyle}>
-            <button
-              aria-label="공지 수정하기"
-              title={isEdit ? "공지 수정 완료하기" : "공지 수정하기"}
-              onClick={handleEditClick}
-              className={iconStyle({ isEdit, isActive })}
-            >
-              <IcnEdit width={18} height={18} />
-            </button>
-            <button
-              aria-label="공지 삭제하기"
-              title="공지 삭제하기"
-              onClick={handleDeleteClick}
-              className={iconStyle({ isActive })}
-            >
-              <IcnClose width={16} height={16} />
-            </button>
-          </div>
+          {role !== "PARTICIPANT" && (
+            <div className={iconContainerStyle}>
+              <button
+                aria-label="공지 수정하기"
+                title={isEdit ? "공지 수정 완료하기" : "공지 수정하기"}
+                onClick={handleEditClick}
+                className={iconStyle({ isEdit, isActive })}
+              >
+                <IcnEdit width={18} height={18} />
+              </button>
+              <button
+                aria-label="공지 삭제하기"
+                title="공지 삭제하기"
+                onClick={handleDeleteClick}
+                className={iconStyle({ isActive })}
+              >
+                <IcnClose width={16} height={16} />
+              </button>
+            </div>
+          )}
         </div>
 
         <div className={sectionWrapper}>
