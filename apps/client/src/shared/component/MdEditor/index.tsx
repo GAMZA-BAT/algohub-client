@@ -85,8 +85,8 @@ const MarkdownEditor = ({
         commands={CUSTOM_COMMANDS}
         extraCommands={[
           commands.codeEdit,
-          commands.codePreview,
           commands.codeLive,
+          commands.codePreview,
         ]}
         height={"100%"}
         {...props}

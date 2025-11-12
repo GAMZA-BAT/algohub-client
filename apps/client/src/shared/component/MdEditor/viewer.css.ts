@@ -19,6 +19,10 @@ globalStyle(selector(".wmde-markdown"), {
   backgroundColor: "transparent",
 });
 
+globalStyle(selector("b, strong"), {
+  fontWeight: 800,
+});
+
 globalStyle(selector("*"), {
   ...theme.font.Caption3_M_12,
 });
