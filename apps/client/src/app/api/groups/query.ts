@@ -8,6 +8,7 @@ import {
   getGroupNotices,
   getGroupsByCode,
   getInProgressMyGroupSolutions,
+  getJoinRequestsByGroup,
   getMyGroupSettings,
   getRoleByGroupId,
   getSearchStudy,
@@ -49,6 +50,8 @@ export const groupQueryKey = {
     "queued",
   ],
   search: (params: SearchRequest) => [...groupQueryKey.all(), "search", params],
+  joinRequests: (groupId: number) =>
+    [...groupQueryKey.detail(groupId), "join-requests"] as const,
 };
 
 export const useGroupRoleQueryObject = (groupId: number) =>
@@ -110,4 +113,11 @@ export const useSearchStudyQueryObject = ({
   queryOptions({
     queryKey: groupQueryKey.search({ searchPattern, page, size }),
     queryFn: () => getSearchStudy({ searchPattern, page, size }),
+  });
+
+export const useJoinRequestsQueryObject = (groupId: number) =>
+  queryOptions({
+    queryKey: groupQueryKey.joinRequests(groupId),
+    queryFn: () => getJoinRequestsByGroup(groupId),
+    staleTime: 30 * 1000,
   });

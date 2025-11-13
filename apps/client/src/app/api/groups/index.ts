@@ -1,13 +1,16 @@
 import { kyFormWithTokenInstance, kyJsonWithTokenInstance } from "@/app/api";
-import type {
-  GroupCodeResponse,
-  GroupResponse,
-  GroupSettingsContent,
-  MemberResponse,
-  MemberRoleRequest,
-  Role,
-  SearchRequest,
-  SearchStudyResponse,
+import {
+  type GroupCodeResponse,
+  type GroupResponse,
+  type GroupSettingsContent,
+  JOIN_REQUEST_STATUS,
+  type JoinRequestItem,
+  type MemberResponse,
+  type MemberRoleRequest,
+  type Role,
+  type SearchRequest,
+  type SearchStudyResponse,
+  type UpdateJoinRequestPayload,
 } from "@/app/api/groups/type";
 import type {
   NoticeListRequest,
@@ -324,5 +327,53 @@ export const getSearchStudy = async ({
     })
     .json();
 
+  return response;
+};
+
+export const getJoinRequestsByGroup = async (groupId: number) => {
+  const response = await kyJsonWithTokenInstance
+    .get<JoinRequestItem[]>(`api/groups/${groupId}/join-request`)
+    .json();
+
+  return response;
+};
+
+export const postJoinRequest = async (groupId: number) => {
+  const response = await kyJsonWithTokenInstance.post(
+    `api/groups/${groupId}/join-request`,
+  );
+
+  return response;
+};
+
+const updateJoinRequest = async ({
+  requestId,
+  status,
+}: {
+  requestId: number;
+  status: UpdateJoinRequestPayload["status"];
+}) => {
+  const response = await kyJsonWithTokenInstance.post(
+    `api/join-request/${requestId}`,
+    {
+      json: { status },
+    },
+  );
+  return response;
+};
+
+export const postApproveJoinRequest = async (requestId: number) => {
+  const response = await updateJoinRequest({
+    requestId,
+    status: JOIN_REQUEST_STATUS.APPROVE,
+  });
+  return response;
+};
+
+export const postRejectJoinRequest = async (requestId: number) => {
+  const response = await updateJoinRequest({
+    requestId,
+    status: JOIN_REQUEST_STATUS.REJECT,
+  });
   return response;
 };

@@ -1,4 +1,5 @@
 import type { PaginationResponse } from "@/app/api/type";
+import type { UserResponse } from "../users/type";
 
 export type GroupCodeResponse = {
   inviteCode: string;
@@ -124,4 +125,42 @@ export type SearchStudyResponse = {
   numberOfElements: number;
   pageable: Pageable;
   empty: boolean;
+};
+
+export const JOIN_REQUEST_STATUS = {
+  PENDING: "PENDING",
+  APPROVE: "APPROVE",
+  CANCEL: "CANCEL",
+  REJECT: "REJECT",
+} as const;
+
+export type JoinRequestStatus =
+  (typeof JOIN_REQUEST_STATUS)[keyof typeof JOIN_REQUEST_STATUS];
+
+export type JoinRequestItem = {
+  id: number;
+  group: JoinRequestGroup;
+  requester: UserResponse & {
+    id: number;
+    deletedAt: string;
+    role: "USER" | "ADMIN";
+  };
+  status: keyof typeof JOIN_REQUEST_STATUS;
+};
+
+export type UpdateJoinRequestPayload = {
+  status:
+    | typeof JOIN_REQUEST_STATUS.APPROVE
+    | typeof JOIN_REQUEST_STATUS.REJECT;
+};
+
+export type JoinRequestGroup = {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  introduction: string;
+  groupImage: string;
+  groupCode: string;
+  deletedAt: string;
 };

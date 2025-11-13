@@ -4,9 +4,12 @@ import {
   patchGroupInfo,
   patchGroupVisibility,
   patchMemberRole,
+  postApproveJoinRequest,
   postGroupBookmark,
   postGroupNotice,
+  postJoinRequest,
   postProblem,
+  postRejectJoinRequest,
 } from "@/app/api/groups/index";
 import type {
   GroupListResponse,
@@ -21,7 +24,8 @@ import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import type { APIResponse } from "../type";
 import { groupQueryKey } from "./query";
 
 export const useDeleteMemberMutation = (groupId: number) => {
@@ -291,6 +295,72 @@ export const usePostProblemMutation = (groupId: number) => {
     },
     onError: (error: Error) => {
       showToast(error.message, "error");
+    },
+  });
+};
+
+export const useJoinRecommendMutation = () => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (id: number) => postJoinRequest(id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: userQueryKey.recommendGroups(),
+      });
+      showToast("해당 스터디에 가입을 요청했어요.", "success");
+    },
+    onError: async (e: HTTPError) => {
+      const errorResponse = await e.response.json<APIResponse>();
+      if ("error" in errorResponse) {
+        showToast(errorResponse.error, "error");
+      } else {
+        showToast("스터디 가입 요청에 실패했어요.", "error");
+      }
+    },
+  });
+};
+
+export const useApprovalRequestMutation = (requesterId: number) => {
+  const queryClient = useQueryClient();
+  const params = useParams();
+  const { groupId } = params;
+  const { showToast } = useToast();
+  return useMutation({
+    mutationFn: () => postApproveJoinRequest(requesterId),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: groupQueryKey.joinRequests(+groupId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: groupQueryKey.members(+groupId),
+        }),
+      ]);
+      showToast("가입을 승인했어요.", "success");
+    },
+    onError: () => {
+      showToast("가입 승인에 실패했어요.", "error");
+    },
+  });
+};
+
+export const useRejectRequestMutation = (requesterId: number) => {
+  const queryClient = useQueryClient();
+  const params = useParams();
+  const { groupId } = params;
+  const { showToast } = useToast();
+  return useMutation({
+    mutationFn: () => postRejectJoinRequest(requesterId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: groupQueryKey.joinRequests(+groupId),
+      });
+      showToast("가입을 거절했어요.", "success");
+    },
+    onError: () => {
+      showToast("가입 거절에 실패했어요.", "error");
     },
   });
 };

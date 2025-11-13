@@ -1,8 +1,14 @@
 import { getGroupCode, getGroupInfo, getRoleByGroupId } from "@/app/api/groups";
+import {
+  useJoinRequestsQueryObject,
+  useMemberListQueryObject,
+} from "@/app/api/groups/query";
 import MemberList from "@/app/group/[groupId]/setting/components/MemberList";
 import SettingSidebar from "@/app/group/[groupId]/setting/components/SettingSidebar";
 import Sidebar from "@/common/component/Sidebar";
+import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
+import { HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import JoinRequestList from "./components/JoinRequestList";
 import { sectionWrapper } from "./components/index.css";
@@ -10,16 +16,17 @@ import { sectionWrapper } from "./components/index.css";
 const GroupSettingPage = async ({
   params: { groupId },
 }: { params: { groupId: string } }) => {
-  const role = await getRoleByGroupId(+groupId);
+  const numberGroupId = +groupId;
+  const role = await getRoleByGroupId(numberGroupId);
   if (role === "PARTICIPANT") notFound();
 
-  const groupInfoData = getGroupInfo(+groupId);
-  const inviteCodeData = getGroupCode(+groupId);
-
-  const [groupInfo, { inviteCode }] = await Promise.all([
-    groupInfoData,
-    inviteCodeData,
-  ]);
+  const [groupInfo, { inviteCode }, joinRequestState, memberListState] =
+    await Promise.all([
+      getGroupInfo(numberGroupId),
+      getGroupCode(numberGroupId),
+      prefetchQuery(useJoinRequestsQueryObject(numberGroupId)),
+      prefetchQuery(useMemberListQueryObject(numberGroupId)),
+    ]);
 
   return (
     <section className={sidebarWrapper}>
@@ -27,8 +34,12 @@ const GroupSettingPage = async ({
         <SettingSidebar info={groupInfo} code={inviteCode} />
       </Sidebar>
       <div className={sectionWrapper}>
-        <JoinRequestList groupName={groupInfo.name} />
-        <MemberList groupId={+groupId} />
+        <HydrationBoundary state={joinRequestState}>
+          <JoinRequestList groupId={numberGroupId} />
+        </HydrationBoundary>
+        <HydrationBoundary state={memberListState}>
+          <MemberList groupId={numberGroupId} />
+        </HydrationBoundary>
       </div>
     </section>
   );

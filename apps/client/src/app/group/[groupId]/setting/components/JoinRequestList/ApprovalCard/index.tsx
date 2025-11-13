@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  useApprovalRequestMutation,
+  useRejectRequestMutation,
+} from "@/app/api/groups/mutation";
 import Avatar from "@/common/component/Avatar";
 import Button from "@/common/component/Button";
 import { useId } from "react";
@@ -15,21 +19,28 @@ import {
 
 type ApprovalCardProps = {
   name: string;
-  groupName: string;
   avatarUrl: string;
+  requesterId: number;
 };
 
-export const ApprovalCard = ({ name, avatarUrl }: ApprovalCardProps) => {
+export const ApprovalCard = ({
+  name,
+  avatarUrl,
+  requesterId,
+}: ApprovalCardProps) => {
+  const { mutate: approvalRequestMutate } =
+    useApprovalRequestMutation(requesterId);
+  const { mutate: rejectRequestMutate } = useRejectRequestMutation(requesterId);
   const nameId = useId();
 
   const handleApprove = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log(`Approving ${name}`);
+    approvalRequestMutate();
   };
 
   const handleReject = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log(`Rejecting ${name}`);
+    rejectRequestMutate();
   };
 
   return (

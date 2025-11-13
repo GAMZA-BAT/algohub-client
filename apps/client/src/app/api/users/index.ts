@@ -8,6 +8,7 @@ import type { MySolutionRequest, MySolutionResponse } from "@/app/api/type";
 import type {
   DeleteUserRequest,
   PasswordRequest,
+  RecommendStudyResponse,
   UserResponse,
 } from "@/app/api/users/type";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
@@ -190,6 +191,14 @@ export const deleteBjNickname = async () => {
   const response = await kyJsonWithTokenInstance.delete(
     "api/users/baekjoon-nickname",
   );
+
+  return response;
+};
+
+export const getRecommendStudy = async () => {
+  const response = await kyJsonWithTokenInstance
+    .get<RecommendStudyResponse>("api/home/recommendations")
+    .json();
 
   return response;
 };

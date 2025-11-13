@@ -1,6 +1,7 @@
 "use client";
 
-import type { Study } from "@/app/api/groups/type";
+import type {} from "@/app/api/groups/type";
+import type { RecommendStudyGroup } from "@/app/api/users/type";
 import Avatar from "@/common/component/Avatar";
 import {
   type ButtonHTMLAttributes,
@@ -23,7 +24,7 @@ import {
 } from "./index.css";
 
 interface CardButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  groupInfo: Study;
+  groupInfo: RecommendStudyGroup;
   tagVariant?: ComponentProps<typeof RecommendTag>["variant"];
 }
 
