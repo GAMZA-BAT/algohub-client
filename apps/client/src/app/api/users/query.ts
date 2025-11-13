@@ -2,6 +2,7 @@ import type { MySolutionRequest } from "@/app/api/type";
 
 import {
   getGroupsByUsers,
+  getMyFeeds,
   getMySolutions,
   getRecommendStudy,
   getUserGroupList,
@@ -19,6 +20,7 @@ export const userQueryKey = {
   userGroups: (user: string) => [...userQueryKey.all(), "groups", user],
   myGroups: () => [...userQueryKey.all(), "me", "groups"] as const,
   recommendGroups: () => [...userQueryKey.all(), "recommend-groups"] as const,
+  myFeeds: () => [...userQueryKey.all(), "me", "feeds"],
 };
 
 export const useInProgressMySolutionsQueryObject = (
@@ -55,4 +57,10 @@ export const useRecommendStudyQueryObject = () =>
   queryOptions({
     queryKey: userQueryKey.recommendGroups(),
     queryFn: () => getRecommendStudy(),
+  });
+
+export const useMyFeedsQueryObject = () =>
+  queryOptions({
+    queryKey: userQueryKey.myFeeds(),
+    queryFn: () => getMyFeeds(),
   });

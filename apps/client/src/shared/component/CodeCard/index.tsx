@@ -1,10 +1,21 @@
 "use client";
+import Prism from "prismjs";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-clike";
 
+import "@/app/@modal/(...)group/[groupId]/solved-detail/components/CodeSection/CodeHighlighter/code.css";
+import "@/app/@modal/(...)group/[groupId]/solved-detail/components/CodeSection/CodeHighlighter/prism-vsc-dark-plus.min.css";
+import {
+  addCustomPatternsToAllLanguages,
+  languageMapper,
+} from "@/app/@modal/(...)group/[groupId]/solved-detail/components/CodeSection/CodeHighlighter/rule";
+import type { SolutionLanguage } from "@/app/api/solutions/type";
 import { IcnBtnArrowDown } from "@/asset/svg";
 import {
   arrowStyle,
   codeCard,
   codeStyle,
+  codeWrapper,
   expandButtonStyle,
   inputTextStyle,
   solutionHeader,
@@ -12,55 +23,95 @@ import {
   titleStyle,
   titleWrapper,
 } from "@/shared/component/CodeCard/index.css";
-import Like from "@/shared/component/Like";
 import { getTierImage } from "@/shared/util/img";
-import { m_pluse_rounded_1c } from "@/styles/fonts";
 import clsx from "clsx";
-import { useId, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 
-const CodeCard = () => {
+const getCodeLineCount = (content: string) => {
+  if (content === "") return 0;
+
+  const lines = content.split("\n");
+
+  return content.endsWith("\n") ? lines.length - 1 : lines.length;
+};
+
+interface CodeCardProps {
+  problemTitle: string;
+  problemLevel: number;
+  content: string;
+  language: SolutionLanguage;
+}
+
+const DEFAULT_LINE_COUNT = 5;
+
+const CodeCard = ({
+  problemTitle,
+  problemLevel,
+  content,
+  language,
+}: CodeCardProps) => {
   const codeId = useId();
-
-  const Icon = getTierImage(5);
-  const example =
-    "1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.1 2 3 4 5\n이 예시는 줄바꿈이 포함된 긴 문장입니다.\nCSS white-space 속성이나 텍스트 래핑이 어떻게 적용되는지 테스트할 수 있습니다.\n각 줄마다 다른 내용을 넣어서 줄바꿈 동작을 명확하게 확인할 수 있습니다.\n마지막 줄입니다.";
+  const Icon = getTierImage(problemLevel);
+  const mappedLanguage = languageMapper[language];
 
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const lineCount = useMemo(() => getCodeLineCount(content), [content]);
+
+  const isExpandable = lineCount > DEFAULT_LINE_COUNT;
+
+  useEffect(() => {
+    const highlight = async () => {
+      await import(
+        `prismjs/components/prism-${mappedLanguage}` as string
+      ).catch(() => null);
+      addCustomPatternsToAllLanguages();
+      Prism.highlightAll();
+    };
+
+    highlight();
+  }, [content, mappedLanguage]);
 
   return (
     <section className={solutionWrapper}>
       <div className={solutionHeader}>
         <div className={titleWrapper}>
           <Icon height={24} width={18.75} />
-          <h3 className={titleStyle}>1166번: 선물</h3>
+          <h3 className={titleStyle}>{problemTitle}</h3>
         </div>
-        <Like />
       </div>
 
       <p className={inputTextStyle}>입력</p>
 
       <div className={codeCard}>
-        <p
-          id={codeId}
+        <pre
           className={clsx(
-            codeStyle({ isExpanded }),
-            m_pluse_rounded_1c.className,
+            codeWrapper({
+              isExpanded: isExpandable ? isExpanded : true,
+            }),
           )}
         >
-          {example}
-        </p>
-        <button
-          onClick={() => setIsExpanded((prev) => !prev)}
-          className={expandButtonStyle}
-          aria-expanded={isExpanded}
-          aria-controls={codeId}
-        >
-          <IcnBtnArrowDown
-            width={12}
-            className={arrowStyle({ direction: isExpanded ? "up" : "down" })}
-          />
-          {isExpanded ? "다시 접기" : "펼쳐보기"} (20줄)
-        </button>
+          <code
+            id={codeId}
+            className={clsx(codeStyle, `language-${mappedLanguage}`)}
+          >
+            {content}
+          </code>
+        </pre>
+        {isExpandable && (
+          <button
+            onClick={() => setIsExpanded((prev) => !prev)}
+            className={expandButtonStyle}
+            aria-expanded={isExpanded}
+            aria-controls={codeId}
+          >
+            <IcnBtnArrowDown
+              width={12}
+              className={arrowStyle({ direction: isExpanded ? "up" : "down" })}
+            />
+            {isExpanded ? "다시 접기" : "펼쳐보기"} ({lineCount}줄)
+          </button>
+        )}
       </div>
     </section>
   );

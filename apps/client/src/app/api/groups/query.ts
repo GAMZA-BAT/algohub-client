@@ -4,6 +4,7 @@ import { queryOptions } from "@tanstack/react-query";
 import type { NoticeListRequest } from "../notices/type";
 import {
   getExpiredMyGroupSolutions,
+  getGroupInfo,
   getGroupMemberList,
   getGroupNotices,
   getGroupsByCode,
@@ -53,6 +54,12 @@ export const groupQueryKey = {
   joinRequests: (groupId: number) =>
     [...groupQueryKey.detail(groupId), "join-requests"] as const,
 };
+
+export const useGroupInfoQueryObject = (groupId: number) =>
+  queryOptions({
+    queryKey: groupQueryKey.detail(groupId),
+    queryFn: () => getGroupInfo(groupId),
+  });
 
 export const useGroupRoleQueryObject = (groupId: number) =>
   queryOptions({

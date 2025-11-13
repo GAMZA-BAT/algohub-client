@@ -77,3 +77,9 @@ export type SolutionsCurrentStatusResponse = {
   totalPassedTime: string;
   problems: SolutionsCurrentStatus[];
 };
+
+export type FeedIds = { solutionId: number; groupId: number };
+
+export type MyFeedsResponse = {
+  solutionCommentActivityList: FeedIds[];
+};
