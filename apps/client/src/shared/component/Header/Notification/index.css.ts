@@ -63,7 +63,7 @@ export const ulStyle = style({
     "&::-webkit-scrollbar-button": {
       height: "1rem",
     },
-    ...scrollTheme.alarmScrollbar,
+    ...scrollTheme.innerScrollbarY,
   },
 });
 
