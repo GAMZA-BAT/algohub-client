@@ -1,4 +1,4 @@
-import type { NotificationItem, NotificationResponse } from "@/app/api/notifications/type";
+import type { NotificationItem } from "@/app/api/notifications/type";
 import { IcnBtnArrowDown } from "@/asset/svg";
 import Empty from "@/shared/component/Empty";
 import type { NotificationType } from "@/shared/component/Header/Notification";
@@ -38,7 +38,12 @@ const NotificationList = ({
 
   return (
     <>
-      <ul className={ulStyle} aria-label="알림 목록">
+      <ul
+        id={"notification-list"}
+        role="tabpanel"
+        aria-label="알림 목록"
+        className={ulStyle}
+      >
         {notificationList.map((notification) => (
           <NotificationListItem
             key={notification.id}

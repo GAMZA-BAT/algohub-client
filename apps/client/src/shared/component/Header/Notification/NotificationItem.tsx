@@ -68,7 +68,6 @@ const NotificationListItem = ({
       <Link
         href={notificationLink}
         className={notificationContentStyle}
-        aria-label={`${groupName}의 알림으로 이동`}
         onClick={handleItemClick}
       >
         <div className={profileStyle}>
@@ -77,7 +76,7 @@ const NotificationListItem = ({
             width={25}
             height={25}
             className={profileImageStyle}
-            alt={`${groupName}님의 프로필 이미지`}
+            alt=""
           />
           <div>
             <strong className={nameStyle}>{groupName} </strong>

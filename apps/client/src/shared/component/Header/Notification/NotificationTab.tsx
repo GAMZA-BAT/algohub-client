@@ -42,10 +42,11 @@ const NotificationTab = ({
   };
 
   return (
-    <li role="presentation">
+    <li>
       <button
         role="tab"
         aria-selected={isSelected}
+        aria-controls="notification-list"
         className={notificationTabStyle({ isSelected })}
         onClick={handleTabClick}
         onMouseEnter={prefetchNotification}
