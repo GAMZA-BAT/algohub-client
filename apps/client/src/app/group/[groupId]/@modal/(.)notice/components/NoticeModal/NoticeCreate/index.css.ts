@@ -5,6 +5,7 @@ export const formStyle = style({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+  gap: "1rem",
 
   paddingTop: "3.4rem",
   height: "100%",
