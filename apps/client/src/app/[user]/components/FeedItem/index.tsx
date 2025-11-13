@@ -64,60 +64,65 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
   ];
 
   return (
-    <li className={feedItemContainer}>
-      <section className={infoWrapper}>
-        <Avatar
-          alt={`${triggerCommentWritterProfileImage}님의 프로필 사진`}
-          size="small"
-          src={triggerCommentWritterProfileImage}
+    <li>
+      <article className={feedItemContainer}>
+        <section className={infoWrapper}>
+          <Avatar
+            alt={`${triggerCommentWritterName}님의 프로필 사진`}
+            size="small"
+            src={triggerCommentWritterProfileImage}
+          />
+          <div className={infoTextWrapper}>
+            <p className={descriptionStyle}>
+              <span className={nameStyle}>{triggerCommentWritterName}</span>님이{" "}
+              <span className={nameStyle}>{solution?.nickname}</span>님의 풀이에
+              댓글을 남겼습니다.
+            </p>
+            <p>
+              <span className={studyNameStyle}>{group?.name}</span>
+              <time
+                className={agoMinuteStyle}
+                dateTime={triggerCommentCreatedAt}
+              >
+                {formatDistanceDate(triggerCommentCreatedAt || "")}
+              </time>
+            </p>
+          </div>
+        </section>
+
+        <CodeCard
+          problemTitle={solution?.problemTitle || ""}
+          problemLevel={solution?.problemLevel || 0}
+          content={solution?.content || ""}
+          language={solution?.language || "Python"}
         />
-        <div className={infoTextWrapper}>
-          <p className={descriptionStyle}>
-            <span className={nameStyle}>{triggerCommentWritterName}</span>님이{" "}
-            <span className={nameStyle}>{solution?.nickname}</span>님의 풀이에
-            댓글을 남겼습니다.
-          </p>
-          <p>
-            <span className={studyNameStyle}>{group?.name}</span>
-            <time className={agoMinuteStyle} dateTime={triggerCommentCreatedAt}>
-              {formatDistanceDate(triggerCommentCreatedAt || "")}
-            </time>
-          </p>
-        </div>
-      </section>
 
-      <CodeCard
-        problemTitle={solution?.problemTitle || ""}
-        problemLevel={solution?.problemLevel || 0}
-        content={solution?.content || ""}
-        language={solution?.language || "Python"}
-      />
+        <ul className={commentListStyle}>
+          {comments?.map((comment) => (
+            <li
+              key={comment.commentId}
+              className={commentItemStyle}
+              aria-label={`${comment.writerNickname}님의 댓글`}
+            >
+              <Avatar
+                size="small"
+                alt={`${comment.writerNickname}님의 프로필 사진`}
+                src={comment.writerProfileImage}
+              />
+              <div className={commentWrapper}>
+                <p className={commentNameStyle}>{comment.writerNickname}</p>
+                <p className={commentStyle}>{comment.content}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-      <ul className={commentListStyle}>
-        {comments?.map((comment) => (
-          <li
-            key={comment.commentId}
-            className={commentItemStyle}
-            aria-label={`${comment.writerNickname}님의 댓글`}
-          >
-            <Avatar
-              size="small"
-              alt={`${comment.writerNickname}님의 프로필 사진`}
-              src={comment.writerProfileImage}
-            />
-            <div className={commentWrapper}>
-              <p className={commentNameStyle}>{comment.writerNickname}</p>
-              <p className={commentStyle}>{comment.content}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <CommentInput
-        solutionId={solutionId}
-        profileUrl={solution?.profileImage}
-        nickname={solution?.nickname}
-      />
+        <CommentInput
+          solutionId={solutionId}
+          profileUrl={solution?.profileImage}
+          nickname={solution?.nickname}
+        />
+      </article>
     </li>
   );
 };
