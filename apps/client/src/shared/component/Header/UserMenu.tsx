@@ -6,11 +6,11 @@ import Profile from "@/shared/component/Header/Profile";
 import { buttonContainer } from "@/shared/component/Header/index.css";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import Notification from "./Notification";
+import Notification, { NotificationType } from "./Notification";
 
 const UserMenu = () => {
   const user = useSession().data?.user;
-  const { data } = useQuery(useNotificationsQueryObject());
+  const { data } = useQuery(useNotificationsQueryObject(NotificationType.ALL));
 
   if (!data) return;
 
@@ -21,7 +21,7 @@ const UserMenu = () => {
       <Menu
         label="notification"
         renderTriggerButton={<Notification.TriggerButton count={notiCounts} />}
-        renderList={<Notification notificationList={data} />}
+        renderList={<Notification />}
       />
       <Menu
         label="profileMenu"

@@ -1,13 +1,15 @@
+import {
+  useDeleteNotiMutation,
+  useReadNotiItemMutation,
+} from "@/app/api/notifications/mutation";
 import { IcnBtnDeleteCircle } from "@/asset/svg";
 import icnNew from "@/asset/svg/icn_new.svg?url";
-import { formatDistanceDate } from "@/common/util/date";
-import { handleA11yClick } from "@/common/util/dom";
-import {
-  dateContainerStyle,
-  dotStyle,
-} from "@/shared/component/Header/Notification/index.css";
+import type { NotificationType } from "@/shared/component/Header/Notification";
+import { dateContainerStyle } from "@/shared/component/Header/Notification/index.css";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
+import { differenceInCalendarDays } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 import {
   containerStyle,
   dateStyle,
@@ -20,80 +22,81 @@ import {
 } from "./NotificationItem.css";
 
 type NotificationListProps = {
-  profileImg: string;
-  name: string;
+  id: number;
+  problemId: number | null;
+  solutionId: number | null;
+  groupId: number | null;
+  groupImage: string;
+  groupName: string;
   message: string;
-  date: string;
+  createdAt: string;
   isRead: boolean;
-  onClick: () => void;
-  onDelete: () => void;
+  notificationType: NotificationType;
 };
 
 const NotificationListItem = ({
-  onClick,
-  profileImg,
-  name,
+  id,
+  problemId,
+  solutionId,
+  groupId,
+  groupImage,
+  groupName,
   message,
-  date,
+  createdAt,
   isRead,
-  onDelete,
+  notificationType,
 }: NotificationListProps) => {
   const { isActive, ...handlers } = useA11yHoverHandler();
 
+  const { mutate: readNotiMutate } = useReadNotiItemMutation(notificationType);
+  const { mutate: deleteMutate } = useDeleteNotiMutation(notificationType);
+
+  const notificationLink = `/group/${groupId}${problemId ? `/problem-list/${problemId}` : ""}${
+    solutionId ? `/solved-detail/${solutionId}` : ""
+  }`;
+
+  const handleItemClick = () => {
+    if (!isRead) readNotiMutate(id);
+  };
+
+  const handleItemDelete = () => {
+    deleteMutate(id);
+  };
+
   return (
-    <li
-      className={containerStyle}
-      aria-label={`${name}님의 알림: ${message}, ${date}`}
-      {...handlers}
-    >
-      <div
-        role="button"
+    <li className={containerStyle} {...handlers}>
+      <Link
+        href={notificationLink}
         className={notificationContentStyle}
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}
-        onKeyDown={(e) => {
-          e.stopPropagation();
-          handleA11yClick(onClick);
-        }}
-        tabIndex={0}
+        onClick={handleItemClick}
       >
         <div className={profileStyle}>
           <Image
-            src={profileImg || icnNew}
+            src={groupImage || icnNew}
             width={25}
             height={25}
             className={profileImageStyle}
-            alt={`${name}님의 프로필 이미지`}
+            alt=""
           />
           <div>
-            <strong className={nameStyle}>{name} </strong>
-            <span className={messageStyle}>{message}</span>
+            <strong className={nameStyle}>{groupName} </strong>
+            <span className={messageStyle({ isRead })}>{message}</span>
           </div>
         </div>
         <div className={dateContainerStyle}>
-          <div className={dotStyle({ isRead })} />
-          <time className={dateStyle} aria-label={date}>
-            {formatDistanceDate(date)}
+          <time className={dateStyle} dateTime={createdAt}>
+            {`${differenceInCalendarDays(new Date(), new Date(createdAt))}일 전`}
           </time>
         </div>
-      </div>
-      <IcnBtnDeleteCircle
-        role="button"
-        className={deleteIconStyle({ active: isActive })}
-        width={"1.6rem"}
-        height={"1.6rem"}
-        onClick={(e) => {
-          e.stopPropagation();
+      </Link>
 
-          onDelete();
-        }}
-        onKeyDown={handleA11yClick(onDelete)}
-        aria-hidden={!isActive}
-        aria-label={`${name}님의 알림 삭제`}
-        tabIndex={0}
-      />
+      <button
+        className={deleteIconStyle({ active: isActive })}
+        onClick={handleItemDelete}
+        aria-label={`${groupName}의 알림 삭제`}
+      >
+        <IcnBtnDeleteCircle width={"1.6rem"} height={"1.6rem"} aria-hidden />
+      </button>
     </li>
   );
 };

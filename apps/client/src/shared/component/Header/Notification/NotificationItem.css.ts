@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const containerStyle = style({
-  width: "22.9rem",
+  maxWidth: "36rem",
   padding: "0.8rem 1.1rem",
   borderRadius: "0.8rem",
 
@@ -64,22 +64,34 @@ export const profileStyle = style({
   display: "flex",
   alignItems: "center",
   gap: "0.8rem",
+  height: "3.4rem",
 
   textAlign: "justify",
 });
 
 export const nameStyle = style({
-  ...theme.font.Caption2_SB_12,
+  ...theme.font.Caption1_R_12,
   color: theme.color.purple,
 });
 
-export const messageStyle = style({
-  ...theme.font.Caption3_M_12,
-  color: theme.color.wg2,
+export const messageStyle = recipe({
+  base: {
+    ...theme.font.Caption1_R_12,
+  },
+  variants: {
+    isRead: {
+      true: {
+        color: theme.color.mg3,
+      },
+      false: {
+        color: theme.color.white,
+      },
+    },
+  },
 });
 
 export const dateStyle = style({
   fontSize: "1rem",
   lineHeight: "1.2rem",
-  color: theme.color.mg4,
+  color: theme.color.mg3,
 });
