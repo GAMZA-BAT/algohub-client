@@ -120,6 +120,7 @@ export const useSearchStudyQueryObject = ({
   queryOptions({
     queryKey: groupQueryKey.search({ searchPattern, page, size }),
     queryFn: () => getSearchStudy({ searchPattern, page, size }),
+    enabled: !!searchPattern,
   });
 
 export const useJoinRequestsQueryObject = (groupId: number) =>
