@@ -69,7 +69,30 @@ export const textareaWrapper = style({
 export const sectionWrapper = style([textareaWrapper]);
 
 export const textareaStyle = style({
+  display: "flex",
+  gap: "1rem",
+  alignItems: "flex-start",
+
+  width: "100%",
   height: "100%",
+  padding: "0.2rem",
+  border: "1px solid transparent",
+  borderRadius: "5px",
+  outline: "none",
+
+  backgroundColor: theme.color.mg5,
+
+  ":focus": {
+    border: `1px solid ${theme.color.purple}`,
+  },
+
+  ...theme.font.Caption3_M_12,
+  color: theme.color.white,
+  "::placeholder": {
+    color: theme.color.mg4,
+  },
+
+  ...scrollTheme.scrollbar,
 });
 
 export const textareaEditStyle = style({

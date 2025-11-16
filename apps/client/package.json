@@ -24,6 +24,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@tanstack/react-query": "^5.59.16",
     "@tanstack/react-query-devtools": "^5.59.20",
+    "@uiw/react-md-editor": "^4.0.8",
     "@vanilla-extract/css": "^1.15.5",
     "@vanilla-extract/recipes": "^0.5.5",
     "clsx": "^2.1.1",
@@ -43,6 +44,8 @@
     "react-datepicker": "^7.3.0",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
+    "rehype-sanitize": "^6.0.0",
+    "remark-breaks": "^4.0.0",
     "ts-pattern": "^5.4.0",
     "zod": "^3.23.8"
   },
