@@ -40,7 +40,12 @@ const StudyList = () => {
             aria-label={`${group.name} 스터디 페이지로 이동`}
           >
             <div className={studyTitleWrapper}>
-              <Avatar className={profileStyle} alt="" role="presentation" />
+              <Avatar
+                className={profileStyle}
+                src={group.groupImage}
+                alt=""
+                role="presentation"
+              />
               <p className={studyTitleStyle}>{group.name}</p>
             </div>
             <IcnBtnArrowRight className={btnArrowStyle} aria-hidden="true" />
