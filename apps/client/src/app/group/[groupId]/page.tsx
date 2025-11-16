@@ -40,6 +40,7 @@ const GroupDashboardPage = async ({
     solutionsCurrentStatusData,
     allRankingData,
   ]);
+  const isOwner = groupInfo.role !== "PARTICIPANT";
 
   return (
     <main className={sidebarWrapper}>
@@ -56,10 +57,12 @@ const GroupDashboardPage = async ({
         />
       </div>
       <ExtensionAlertModalController domain="group" />
-      <JoinRequestAlertModalController
-        groupName={groupInfo.name}
-        groupId={numberGroupId}
-      />
+      {isOwner && (
+        <JoinRequestAlertModalController
+          groupName={groupInfo.name}
+          groupId={numberGroupId}
+        />
+      )}
     </main>
   );
 };
