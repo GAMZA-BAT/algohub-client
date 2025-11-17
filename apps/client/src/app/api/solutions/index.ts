@@ -5,6 +5,8 @@ import type {
   SolutionResponse,
 } from "@/app/api/solutions/type";
 import type { SolutionsCurrentStatusResponse } from "@/app/api/type";
+import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
+import { HTTPError } from "ky";
 
 export const getSolutionList = async ({
   problemId,
@@ -26,11 +28,20 @@ export const getSolutionList = async ({
 };
 
 export const getSolution = async (solutionId: number) => {
-  const response = await kyJsonWithTokenInstance
-    .get<SolutionContent>(`api/solutions/${solutionId}`)
-    .json();
-
-  return response;
+  try {
+    const response = await kyJsonWithTokenInstance
+      .get(`api/solutions/${solutionId}`)
+      .json<SolutionContent>();
+    return response;
+  } catch (error) {
+    if (
+      error instanceof HTTPError &&
+      error.response.status === HTTP_ERROR_STATUS.BAD_REQUEST
+    ) {
+      return null;
+    }
+    throw error;
+  }
 };
 
 export const getSolutionsCurrentStatus = async (groupId: number) => {

@@ -28,8 +28,8 @@ const getTexts = (props: DecisionPromptProps) => {
       };
     case "recommend":
       return {
-        title: <h1 className={metaStyle}>스터디를 수락하시겠어요?</h1>,
-        description: `[${props.groupName}] 스터디에 가입을 요청합니다.\n스터디장의 수락 후 멤버가 될 수 있습니다.`,
+        title: <h1 className={metaStyle}>스터디를 신청하시겠어요?</h1>,
+        description: `[${props.groupName}] 스터디에 가입을 신청합니다.\n스터디장의 수락 후 멤버가 될 수 있습니다.`,
       };
     case "applicant": {
       const { count, applicantName, groupName } = props;
@@ -51,8 +51,9 @@ const getTexts = (props: DecisionPromptProps) => {
             스터디 가입을 신청했습니다.
           </h1>
         ),
-        // 홍길동님께서 / 홍길동님 외 n명이 스터디에 ...
-        description: `${isSingular ? `${applicantName}님께서` : `${applicantName}님 외 ${count - 1}명이`} [${groupName}] 스터디에 가입을 요청했어요.\n거절한 요청은 다시 승인할 수 없습니다.`,
+        // 홍길동님께서 / 홍길동님 외 n명이 스터디에 가입을 요청했어요.
+        description: `${isSingular ? `${applicantName}님께서` : `${applicantName}님 외 ${count - 1}명이`} [${groupName}] 스터디에 가입을 요청했어요.
+        \n거절한 요청은 다시 승인할 수 없습니다.`,
       };
     }
     default:

@@ -1,12 +1,23 @@
 import { kyJsonWithTokenInstance } from "@/app/api";
 import type { CommentContent } from "@/app/api/comments/type";
+import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
+import { HTTPError } from "ky";
 
 export const getCommentList = async (solutionId: number) => {
-  const response = await kyJsonWithTokenInstance
-    .get<CommentContent[]>(`api/solutions/${solutionId}/comments`)
-    .json();
-
-  return response;
+  try {
+    const response = await kyJsonWithTokenInstance
+      .get<CommentContent[]>(`api/solutions/${solutionId}/comments`)
+      .json();
+    return response;
+  } catch (error) {
+    if (
+      error instanceof HTTPError &&
+      error.response.status === HTTP_ERROR_STATUS.BAD_REQUEST
+    ) {
+      return [];
+    }
+    throw error;
+  }
 };
 
 export const postCommentInput = async (solutionId: number, content: string) => {
