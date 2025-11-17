@@ -53,6 +53,11 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
   const triggerComment = comments?.find(
     (comment) => comment.writerNickname !== solution?.nickname,
   );
+
+  if (!triggerComment) {
+    return null;
+  }
+
   const [
     triggerCommentWritterName,
     triggerCommentWritterProfileImage,
