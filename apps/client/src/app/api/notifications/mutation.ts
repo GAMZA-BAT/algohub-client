@@ -1,11 +1,12 @@
 import { groupQueryKey } from "@/app/api/groups/query";
 import { useToast } from "@/common/hook/useToast";
-import type { NotificationType } from "@/shared/component/Header/Notification";
+import { NotificationType } from "@/shared/component/Header/Notification";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 import {
   deleteNotification,
+  patchAllNotificationRead,
   patchNotificationRead,
   patchNotificationsSettings,
 } from "./index";
@@ -121,29 +122,39 @@ export const useDeleteNotiMutation = (notificationType: NotificationType) => {
   });
 };
 
-// export const useReadAllNotiMutation = () => {
-//   const queryClient = useQueryClient();
+export const useReadAllNotiMutation = (notificationType: NotificationType) => {
+  const queryClient = useQueryClient();
 
-//   return useMutation({
-//     mutationFn: patchAllNotificationRead,
-//     onMutate: async () => {
-//       await queryClient.cancelQueries({
-//         queryKey: notificationQueryKey.lists(),
-//       });
-//       const prev = queryClient.getQueryData<NotificationItem[]>(
-//         notificationQueryKey.lists(),
-//       );
-//       const newData = prev?.map((item) => ({ ...item, isRead: true }));
-//       queryClient.setQueryData(notificationQueryKey.lists(), newData);
-//       return { prev };
-//     },
-//     onSettled: async () => {
-//       await queryClient.invalidateQueries({
-//         queryKey: notificationQueryKey.lists(),
-//       });
-//     },
-//     onError: (_err, _new, context) => {
-//       queryClient.setQueryData(notificationQueryKey.lists(), context?.prev);
-//     },
-//   });
-// };
+  return useMutation({
+    mutationFn: patchAllNotificationRead,
+    onMutate: async () => {
+      await queryClient.cancelQueries({
+        queryKey: notificationQueryKey.lists(notificationType),
+      });
+      const prev = queryClient.getQueryData<NotificationItem[]>(
+        notificationQueryKey.lists(notificationType),
+      );
+      const newData = prev?.map((item) => ({ ...item, isRead: true }));
+      queryClient.setQueryData(
+        notificationQueryKey.lists(notificationType),
+        newData,
+      );
+      return { prev };
+    },
+    onSettled: async () => {
+      if (notificationType === NotificationType.ALL) {
+        await queryClient.invalidateQueries({
+          queryKey: [...notificationQueryKey.all(), "list"],
+        });
+      }
+      await queryClient.invalidateQueries({
+        queryKey: notificationQueryKey.lists(notificationType),
+      });
+    },
+    onError: (_err, _new, context) =>
+      queryClient.setQueryData(
+        notificationQueryKey.lists(notificationType),
+        context?.prev,
+      ),
+  });
+};

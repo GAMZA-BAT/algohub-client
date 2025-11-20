@@ -1,15 +1,18 @@
 "use client";
+import { useReadAllNotiMutation } from "@/app/api/notifications/mutation";
 import { useNotificationsQueryObject } from "@/app/api/notifications/query";
 import { IcnBellHeader } from "@/asset/svg";
 import NotificationList from "@/shared/component/Header/Notification/NotificationList";
 import NotificationTab from "@/shared/component/Header/Notification/NotificationTab";
-import { notificationTabListStyle } from "@/shared/component/Header/Notification/index.css";
 import {
   countChipStyle,
   countStyle,
   headerStyle,
   notificationContainer,
+  notificationTabListStyle,
+  readAllButtonStyle,
   titleStyle,
+  titleWrapper,
 } from "@/shared/component/Header/Notification/index.css";
 import { iconStyle } from "@/shared/component/Header/index.css";
 import { useQuery } from "@tanstack/react-query";
@@ -39,6 +42,9 @@ const Notification = () => {
   const { data } = useQuery(useNotificationsQueryObject(notificationType));
   const notiCounts = data ? data.filter((item) => !item.isRead).length : 0;
 
+  const { mutate: readAllNotifications } =
+    useReadAllNotiMutation(notificationType);
+
   const shrinkList = () => {
     setIsExpanded(false);
   };
@@ -50,10 +56,19 @@ const Notification = () => {
   return (
     <div className={notificationContainer}>
       <header className={headerStyle} aria-labelledby="notification-title">
-        <h2 className={titleStyle} id="notification-title">
-          알림
-        </h2>
-        <div className={countChipStyle}>{`신규 ${notiCounts}`}</div>
+        <div className={titleWrapper}>
+          <h2 className={titleStyle} id="notification-title">
+            알림
+          </h2>
+          <div className={countChipStyle}>{`신규 ${notiCounts}`}</div>
+        </div>
+        <button
+          className={readAllButtonStyle({ isAllRead: notiCounts === 0 })}
+          onClick={() => readAllNotifications()}
+          disabled={notiCounts === 0}
+        >
+          모두 읽음
+        </button>
       </header>
 
       <ul
