@@ -17,7 +17,6 @@ import {
   codeStyle,
   codeWrapper,
   expandButtonStyle,
-  inputTextStyle,
   solutionHeader,
   solutionWrapper,
   titleStyle,
@@ -80,8 +79,6 @@ const CodeCard = ({
           <h3 className={titleStyle}>{problemTitle}</h3>
         </div>
       </div>
-
-      <p className={inputTextStyle}>입력</p>
 
       <div className={codeCard}>
         <pre
