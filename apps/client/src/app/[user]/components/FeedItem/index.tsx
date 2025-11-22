@@ -23,6 +23,7 @@ import { useGroupInfoQueryObject } from "@/app/api/groups/query";
 import { useSolutionQueryObject } from "@/app/api/solutions/query";
 import { formatDistanceDate } from "@/common/util/date";
 import { useSuspenseQueries } from "@tanstack/react-query";
+import { useMemo, useRef } from "react";
 
 interface FeedItemProps {
   solutionId: number;
@@ -30,6 +31,8 @@ interface FeedItemProps {
 }
 
 const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
+  const commentCountRef = useRef(3);
+
   const [{ data: solution }, { data: comments }, { data: group }] =
     useSuspenseQueries({
       queries: [
@@ -40,7 +43,10 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         {
           ...useCommentListQueryObject(solutionId),
           retry: 0,
-          select: (data: CommentContent[]) => [...data].reverse(),
+          select: (data: CommentContent[]) =>
+            [...data]
+              .reverse()
+              .slice(data.length - commentCountRef.current, data.length),
         },
         {
           ...useGroupInfoQueryObject(groupId),
@@ -50,13 +56,13 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
     });
 
   // 피드에 뜨게한 댓글 찾기 - 나를 제외한 최신 댓글
-  const triggerComment = comments?.find(
-    (comment) => comment.writerNickname !== solution?.nickname,
+  const triggerComment = useMemo(
+    () =>
+      comments?.find(
+        (comment) => comment.writerNickname !== solution?.nickname,
+      ),
+    [comments, solution?.nickname],
   );
-
-  if (!triggerComment) {
-    return null;
-  }
 
   const [
     triggerCommentWritterName,
@@ -67,6 +73,10 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
     triggerComment?.writerProfileImage,
     triggerComment?.createdAt,
   ];
+
+  const handleCommentCountPlus = () => {
+    commentCountRef.current += 1;
+  };
 
   return (
     <li>
@@ -123,6 +133,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         </ul>
 
         <CommentInput
+          onCommentCountPlus={handleCommentCountPlus}
           solutionId={solutionId}
           profileUrl={solution?.profileImage}
           nickname={solution?.nickname}
