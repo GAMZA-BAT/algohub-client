@@ -13,12 +13,14 @@ interface CommentInputProps {
   profileUrl?: string;
   nickname?: string;
   solutionId: number;
+  onCommentCountPlus: () => void;
 }
 
 const CommentInput = ({
   profileUrl,
   nickname,
   solutionId,
+  onCommentCountPlus,
 }: CommentInputProps) => {
   const [comment, setComment] = useState("");
 
@@ -33,6 +35,7 @@ const CommentInput = ({
 
     postComment(comment);
     setComment("");
+    onCommentCountPlus();
   };
 
   return (
