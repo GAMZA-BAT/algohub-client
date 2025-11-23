@@ -26,7 +26,7 @@ export const emptyWrapper = style({
 });
 
 export const userHomeWrapper = style({
-  width: "60%",
+  width: "calc(100% - 27rem)", // 우측 사이드바 추가 시 calc(100%-27rem-27rem)
   padding: "2rem",
 });
 

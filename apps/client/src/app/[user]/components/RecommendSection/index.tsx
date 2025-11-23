@@ -1,10 +1,9 @@
 "use client";
 
-import RecommendList from "@/app/[user]/components/RecommendSection/RecommendList";
+import SearchResult from "@/app/[user]/components/RecommendSection/SearchResult";
 import { useJoinRecommendMutation } from "@/app/api/groups/mutation";
 import { useSearchStudyQueryObject } from "@/app/api/groups/query";
 import { useRecommendStudyQueryObject } from "@/app/api/users/query";
-import Spinner from "@/common/component/Spinner";
 import { useBooleanState } from "@/common/hook/useBooleanState";
 import GroupActionModal from "@/shared/component/GroupActionModal";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
@@ -13,7 +12,6 @@ import { useEffect, useState } from "react";
 import CardButton from "../CardButton";
 import SearchStudyInput from "../SearchStudyInput";
 import {
-  loadingWrapper,
   recommendHeaderContentWrapper,
   recommendHeaderWrapper,
   recommendSectionWrapper,
@@ -41,9 +39,9 @@ const RecommendStudySection = () => {
   const { isOpen, open, close } = useBooleanState();
 
   const recommendationItem = recommendationItems?.[currentIndex];
-  const groupInfo = recommendationItem?.studyGroup;
+  const recommendationGroupInfo = recommendationItem?.studyGroup;
   const handleConfirm = () => {
-    joinRecommendMutate(groupInfo.id);
+    joinRecommendMutate(recommendationGroupInfo.id);
     close();
   };
 
@@ -58,10 +56,6 @@ const RecommendStudySection = () => {
 
     return () => clearInterval(intervalId);
   }, [isOpen, recommendationItems]);
-
-  if (!recommendationItem) {
-    return null;
-  }
 
   return (
     <section
@@ -86,25 +80,22 @@ const RecommendStudySection = () => {
       </div>
 
       {searchPattern ? (
-        isFetching ? (
-          <div className={loadingWrapper}>
-            <Spinner />
-          </div>
-        ) : (
-          <RecommendList studyList={studyList?.content || []} />
-        )
+        <SearchResult
+          studyList={studyList?.content || []}
+          isFetching={isFetching}
+        />
       ) : (
         <>
           <CardButton
-            groupInfo={groupInfo}
-            tagVariant={groupInfo.tags?.[0]}
+            groupInfo={recommendationGroupInfo}
+            tagVariant={recommendationGroupInfo.tags?.[0]}
             onClick={open}
           />
           <GroupActionModal isOpen={isOpen} onClose={close}>
-            <GroupActionModal.Info groupInfo={groupInfo} />
+            <GroupActionModal.Info groupInfo={recommendationGroupInfo} />
             <GroupActionModal.Prompt
               variant="recommend"
-              groupName={groupInfo.name}
+              groupName={recommendationGroupInfo.name}
             />
             <GroupActionModal.Actions
               onConfirm={handleConfirm}

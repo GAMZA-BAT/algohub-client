@@ -9,7 +9,6 @@ import { useMyFeedsQueryObject } from "@/app/api/users/query";
 import Spinner from "@/common/component/Spinner";
 import { alignCenterStyle } from "@/styles/shared.css";
 import { useQuery } from "@tanstack/react-query";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useId } from "react";
 
@@ -34,13 +33,11 @@ const MyFeedSection = () => {
       <Suspense fallback={<Spinner className={alignCenterStyle} />}>
         <ul className={listStyle}>
           {data?.solutionCommentActivityList.map((item) => (
-            <ErrorBoundary key={item.solutionId} errorComponent={() => <></>}>
-              <FeedItem
-                key={item.solutionId}
-                solutionId={item.solutionId}
-                groupId={item.groupId}
-              />
-            </ErrorBoundary>
+            <FeedItem
+              key={item.solutionId}
+              solutionId={item.solutionId}
+              groupId={item.groupId}
+            />
           ))}
         </ul>
       </Suspense>

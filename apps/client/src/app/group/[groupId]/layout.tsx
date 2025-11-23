@@ -50,7 +50,7 @@ export default async function GroupLayout({
         >
           내가 푼 문제
         </NavBar.Item>
-        {isOwner && (
+        {isOwner ? (
           <NavBar.Item
             icon={<IcnSetting width={16} height={16} />}
             mode="stroke"
@@ -58,8 +58,7 @@ export default async function GroupLayout({
           >
             스터디 관리
           </NavBar.Item>
-        )}
-        {!isOwner && (
+        ) : (
           <NavBar.Item
             icon={<IcnExit width={24} height={24} />}
             mode="stroke"

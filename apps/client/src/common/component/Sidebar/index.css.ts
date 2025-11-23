@@ -2,11 +2,8 @@ import { theme } from "@/styles/themes.css";
 import { style } from "@vanilla-extract/css";
 
 export const sidebarStyle = style({
-  position: "sticky",
-  left: 0,
-
   minWidth: "27rem",
-  width: "20%",
+  width: "27rem",
 
   zIndex: theme.zIndex.high,
 
