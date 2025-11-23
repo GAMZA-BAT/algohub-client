@@ -10,6 +10,7 @@ export default {
     GithubProvider({
       clientId: process.env.NEXT_GITHUB_ID,
       clientSecret: process.env.NEXT_GITHUB_SECRET,
+      checks: ["state"],
     }),
     credentials({
       async authorize(credentials) {
