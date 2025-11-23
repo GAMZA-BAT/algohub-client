@@ -80,9 +80,7 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
           <MyFeedSection />
         </HydrationBoundary>
       </div>
-      {/* <Sidebar>
-        <div>임시로 만드는 우측 패널</div>
-      </Sidebar> */}
+      <Sidebar>{/* <div>임시로 만드는 우측 패널</div> */}</Sidebar>
     </main>
   );
 };
