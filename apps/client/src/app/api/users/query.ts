@@ -41,6 +41,15 @@ export const useExpiredMySolutionsQueryObject = (
   staleTime: 0,
 });
 
+export const useIncorrectMySolutionsQueryObject = (
+  params?: MySolutionRequest,
+) => queryOptions({
+  queryKey: userQueryKey.mySolutions({ ...params, isIncorrect: true }),
+    queryFn: () =>
+      getMySolutions({ ...params, isIncorrect: true, size: 100 }),
+    staleTime: 0,
+  });
+
 export const useUserGroupsQueryObject = (user: string) =>
   queryOptions({
     queryKey: userQueryKey.userGroups(user),

@@ -54,7 +54,7 @@ export type MySolutionRequest = {
   problemNumber?: number;
   language?: string;
   result?: string;
-  status: "IN_PROGRESS" | "EXPIRED";
+  status?: "IN_PROGRESS" | "EXPIRED";
   isIncorrect?: boolean;
 };
 
