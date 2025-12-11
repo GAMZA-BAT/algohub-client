@@ -65,8 +65,6 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
     [comments, solution?.nickname],
   );
 
-  console.log(comments?.length, commentCountRef.current);
-
   const [
     triggerCommentWritterName,
     triggerCommentWritterProfileImage,
