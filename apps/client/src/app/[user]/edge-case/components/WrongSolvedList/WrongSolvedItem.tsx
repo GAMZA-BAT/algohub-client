@@ -29,7 +29,9 @@ const WrongSolvedItem = ({ solutionInfo }: WrongSolvedItemProps) => {
           <div className={wrongSolvedTitleWrapper}>
             <div className={wrongSolvedTitleContainer}>
               <TierIcon width={16} height={16} />
-              <h3 className={wrongSolvedTitleStyle}>{`${problemId}번: ${problemTitle}`}</h3>
+              <h3
+                className={wrongSolvedTitleStyle}
+              >{`${problemId}번: ${problemTitle}`}</h3>
             </div>
             <div className={solvedResultTagStyle}>
               <span className={solvedResultTagTextStyle}>{result}</span>
