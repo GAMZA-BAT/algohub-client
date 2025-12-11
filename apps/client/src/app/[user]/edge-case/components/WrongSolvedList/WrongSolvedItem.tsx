@@ -7,7 +7,7 @@ import {
   wrongSolvedTitleStyle,
   wrongSolvedTitleWrapper,
 } from "@/app/[user]/edge-case/components/WrongSolvedList/index.css";
-import { SolutionContent } from "@/app/api/solutions/type";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import { IcnBtnArrowRight } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import { getTierImage } from "@/shared/util/img";

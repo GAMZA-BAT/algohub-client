@@ -62,7 +62,7 @@ export const useEdgeCaseLikeMutation = () => {
 
       return { previousData };
     },
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       if (context?.previousData) {
         queryClient.setQueryData(edgeCaseQueryKey.list(), context.previousData);
       }
