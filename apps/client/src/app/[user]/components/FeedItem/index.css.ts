@@ -75,29 +75,38 @@ export const commentStyle = style({
   color: theme.color.mg1,
 });
 
-export const moreCommentWrapper = style({
+export const moreCommentContainer = style({
   display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "0.4rem",
 
-  padding: "0.6rem 0",
+  paddingLeft: "2rem",
 
-  color: theme.color.mg1,
-  ...theme.font.Caption1_R_12,
+  cursor: "pointer",
+  color: theme.color.mg2,
 
   ":hover": {
     color: theme.color.mg1,
   },
 });
 
+export const moreCommentWrapper = style({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "0.8rem",
+
+  padding: "0.6rem 0",
+
+  color: "inherit",
+  ...theme.font.Caption1_R_12,
+});
+
 export const moreCommentButtonStyle = style({
-  padding: "0.2rem 0.8rem",
+  padding: "0.1rem 0.4rem",
 
   backgroundColor: theme.color.mg5,
   borderRadius: "4px",
 
-  color: theme.color.mg2,
+  color: "inherit",
 
   cursor: "pointer",
 });

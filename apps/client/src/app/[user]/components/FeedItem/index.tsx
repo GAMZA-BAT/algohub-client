@@ -15,6 +15,7 @@ import {
   infoTextWrapper,
   infoWrapper,
   moreCommentButtonStyle,
+  moreCommentContainer,
   moreCommentWrapper,
   nameStyle,
   studyNameStyle,
@@ -46,10 +47,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         {
           ...useCommentListQueryObject(solutionId),
           retry: 0,
-          select: (data: CommentContent[]) =>
-            [...data]
-              .reverse()
-              .slice(data.length - commentCountRef.current, data.length),
+          select: (data: CommentContent[]) => [...data].reverse(),
         },
         {
           ...useGroupInfoQueryObject(groupId),
@@ -66,6 +64,8 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
       ),
     [comments, solution?.nickname],
   );
+
+  console.log(comments?.length, commentCountRef.current);
 
   const [
     triggerCommentWritterName,
@@ -116,7 +116,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         />
 
         <ul className={commentListStyle}>
-          {comments?.map((comment) => (
+          {comments?.slice(0, commentCountRef.current).map((comment) => (
             <li
               key={comment.commentId}
               className={commentItemStyle}
@@ -136,14 +136,16 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         </ul>
 
         {comments?.length > commentCountRef.current && (
-          <div className={moreCommentWrapper}>
-            <span>{`댓글 +${comments?.length - commentCountRef.current}`}</span>
-            <Link
-              href={`/group/${groupId}/solved-detail/${solutionId}`}
-              className={moreCommentButtonStyle}
-            >
-              더보기
-            </Link>
+          <div className={moreCommentContainer}>
+            <div className={moreCommentWrapper}>
+              <span>{`댓글 +${comments?.length - commentCountRef.current}`}</span>
+              <Link
+                href={`/group/${groupId}/solved-detail/${solutionId}`}
+                className={moreCommentButtonStyle}
+              >
+                더보기
+              </Link>
+            </div>
           </div>
         )}
 
