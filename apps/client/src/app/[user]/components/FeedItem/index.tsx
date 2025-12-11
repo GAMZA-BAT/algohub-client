@@ -14,6 +14,8 @@ import {
   feedItemContainer,
   infoTextWrapper,
   infoWrapper,
+  moreCommentButtonStyle,
+  moreCommentWrapper,
   nameStyle,
   studyNameStyle,
 } from "@/app/[user]/components/FeedItem/index.css";
@@ -23,6 +25,7 @@ import { useGroupInfoQueryObject } from "@/app/api/groups/query";
 import { useSolutionQueryObject } from "@/app/api/solutions/query";
 import { formatDistanceDate } from "@/common/util/date";
 import { useSuspenseQueries } from "@tanstack/react-query";
+import Link from "next/link";
 import { useMemo, useRef } from "react";
 
 interface FeedItemProps {
@@ -131,6 +134,18 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
             </li>
           ))}
         </ul>
+
+        {comments?.length > commentCountRef.current && (
+          <div className={moreCommentWrapper}>
+            <span>{`댓글 +${comments?.length - commentCountRef.current}`}</span>
+            <Link
+              href={`/group/${groupId}/solved-detail/${solutionId}`}
+              className={moreCommentButtonStyle}
+            >
+              더보기
+            </Link>
+          </div>
+        )}
 
         <CommentInput
           onCommentCountPlus={handleCommentCountPlus}
