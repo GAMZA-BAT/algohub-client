@@ -136,17 +136,15 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         </ul>
 
         {comments?.length > commentCountRef.current && (
-          <div className={moreCommentContainer}>
+          <Link
+            href={`/group/${groupId}/solved-detail/${solutionId}`}
+            className={moreCommentContainer}
+          >
             <div className={moreCommentWrapper}>
               <span>{`댓글 +${comments?.length - commentCountRef.current}`}</span>
-              <Link
-                href={`/group/${groupId}/solved-detail/${solutionId}`}
-                className={moreCommentButtonStyle}
-              >
-                더보기
-              </Link>
+              <span className={moreCommentButtonStyle}>더보기</span>
             </div>
-          </div>
+          </Link>
         )}
 
         <CommentInput
