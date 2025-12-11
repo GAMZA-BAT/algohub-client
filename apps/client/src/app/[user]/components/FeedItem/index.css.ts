@@ -74,3 +74,30 @@ export const commentStyle = style({
   ...theme.font.Caption1_R_12,
   color: theme.color.mg1,
 });
+
+export const moreCommentWrapper = style({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "0.4rem",
+
+  padding: "0.6rem 0",
+
+  color: theme.color.mg1,
+  ...theme.font.Caption1_R_12,
+
+  ":hover": {
+    color: theme.color.mg1,
+  },
+});
+
+export const moreCommentButtonStyle = style({
+  padding: "0.2rem 0.8rem",
+
+  backgroundColor: theme.color.mg5,
+  borderRadius: "4px",
+
+  color: theme.color.mg2,
+
+  cursor: "pointer",
+});
