@@ -34,8 +34,12 @@ interface FeedItemProps {
   groupId: number;
 }
 
+const DEFAULT_COMMENT_COUNT = 3;
+
 const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
-  const commentCountRef = useRef(3);
+  const myAddedCommentsRef = useRef(0);
+  const displayedCommentCount =
+    myAddedCommentsRef.current + DEFAULT_COMMENT_COUNT;
 
   const [{ data: solution }, { data: comments }, { data: group }] =
     useSuspenseQueries({
@@ -76,7 +80,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
   ];
 
   const handleCommentCountPlus = () => {
-    commentCountRef.current += 1;
+    myAddedCommentsRef.current += 1;
   };
 
   return (
@@ -114,7 +118,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         />
 
         <ul className={commentListStyle}>
-          {comments?.slice(0, commentCountRef.current).map((comment) => (
+          {comments?.slice(0, displayedCommentCount).map((comment) => (
             <li
               key={comment.commentId}
               className={commentItemStyle}
@@ -133,13 +137,13 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
           ))}
         </ul>
 
-        {comments?.length > commentCountRef.current && (
+        {comments?.length > displayedCommentCount && (
           <Link
             href={`/group/${groupId}/solved-detail/${solutionId}`}
             className={moreCommentContainer}
           >
             <div className={moreCommentWrapper}>
-              <span>{`댓글 +${comments?.length - commentCountRef.current}`}</span>
+              <span>{`댓글 +${comments?.length - displayedCommentCount}`}</span>
               <span className={moreCommentButtonStyle}>더보기</span>
             </div>
           </Link>
