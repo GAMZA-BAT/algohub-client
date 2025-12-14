@@ -7,13 +7,19 @@ import {
   wrongSolvedTitleStyle,
   wrongSolvedTitleWrapper,
 } from "@/app/[user]/edge-case/components/WrongSolvedList/index.css";
+import type { SolutionContent } from "@/app/api/solutions/type";
 import { IcnBtnArrowRight } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import { getTierImage } from "@/shared/util/img";
 import Link from "next/link";
 
-const WrongSolvedItem = () => {
-  const TierIcon = getTierImage(1);
+type WrongSolvedItemProps = {
+  solutionInfo: SolutionContent;
+};
+
+const WrongSolvedItem = ({ solutionInfo }: WrongSolvedItemProps) => {
+  const { problemId, problemTitle, problemLevel, result } = solutionInfo;
+  const TierIcon = getTierImage(problemLevel);
 
   return (
     <li>
@@ -23,10 +29,12 @@ const WrongSolvedItem = () => {
           <div className={wrongSolvedTitleWrapper}>
             <div className={wrongSolvedTitleContainer}>
               <TierIcon width={16} height={16} />
-              <h3 className={wrongSolvedTitleStyle}>1166번: 선물</h3>
+              <h3
+                className={wrongSolvedTitleStyle}
+              >{`${problemId}번: ${problemTitle}`}</h3>
             </div>
             <div className={solvedResultTagStyle}>
-              <span className={solvedResultTagTextStyle}>시간 초과</span>
+              <span className={solvedResultTagTextStyle}>{result}</span>
             </div>
           </div>
         </div>
