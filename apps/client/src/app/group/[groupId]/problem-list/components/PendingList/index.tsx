@@ -17,6 +17,7 @@ const PendingList = ({ groupId }: { groupId: number }) => {
   } = usePaginationQuery({
     queryKey: groupQueryKey.queuedProblems(groupId),
     queryFn: (page) => getQueuedProblems({ groupId, page, size: 7 }),
+    searchParam: "queued",
   });
   const queuedList = queuedData?.content;
 
