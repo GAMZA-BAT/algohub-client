@@ -55,7 +55,7 @@ const ProblemListPage = ({
         size: 3,
         unsolvedOnly: isUnsolvedOnlyChecked,
       }),
-      searchParam: "inProgress"
+    searchParam: "inProgress",
   });
   const inProgressList = inProgressData?.content;
 
@@ -72,7 +72,7 @@ const ProblemListPage = ({
         page,
         size: 3,
       }),
-      searchParam: "expired"
+    searchParam: "expired",
   });
   const expiredList = expiredData?.content;
 
