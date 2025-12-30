@@ -114,10 +114,42 @@ export const useDeleteNotiMutation = (notificationType: NotificationType) => {
 
   return useMutation({
     mutationFn: (id: number) => deleteNotification(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onMutate: async (id: number) => {
+      await queryClient.cancelQueries({
         queryKey: notificationQueryKey.lists(notificationType),
       });
+      const prev = queryClient.getQueryData<NotificationItem[]>(
+        notificationQueryKey.lists(notificationType),
+      );
+      const newData = prev?.filter((item) => item.id !== id);
+      queryClient.setQueryData(
+        notificationQueryKey.lists(notificationType),
+        newData,
+      );
+      return { prev, id };
+    },
+    onSuccess: (_data, id) => {
+      if (notificationType !== NotificationType.ALL) return;
+
+      // NotificationType.ALL 리스트에서도 제거
+      const allList = queryClient.getQueryData<NotificationItem[]>(
+        notificationQueryKey.lists(NotificationType.ALL),
+      );
+
+      if (!allList) return;
+
+      queryClient.setQueryData(
+        notificationQueryKey.lists(NotificationType.ALL),
+        allList.filter((item) => item.id !== id),
+      );
+    },
+    onError: (_err, _new, context) => {
+      if (context?.prev) {
+        queryClient.setQueryData(
+          notificationQueryKey.lists(notificationType),
+          context.prev,
+        );
+      }
     },
   });
 };
@@ -146,7 +178,9 @@ export const useReadAllNotiMutation = (notificationType: NotificationType) => {
         await queryClient.invalidateQueries({
           queryKey: [...notificationQueryKey.all(), "list"],
         });
+        return;
       }
+
       await queryClient.invalidateQueries({
         queryKey: notificationQueryKey.lists(notificationType),
       });
