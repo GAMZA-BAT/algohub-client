@@ -13,6 +13,7 @@ import {
   type UseFormReturn,
 } from "react-hook-form";
 import EditAvatar from "../EditAvatar";
+import MarkdownEditor from "../MdEditor";
 import FormDescription from "./FormDescription";
 import FormLabel from "./FormLabel";
 import { itemDefaultStyle, itemStyle } from "./index.css";
@@ -34,6 +35,7 @@ type FormFieldProps<
 } & (
   | { type: "input"; fieldProps?: ComponentProps<typeof Input> }
   | { type: "textarea"; fieldProps?: ComponentProps<typeof Textarea> }
+  | { type: "mdEditor"; fieldProps?: ComponentProps<typeof MarkdownEditor> }
   | { type: "date"; fieldProps?: ComponentProps<typeof Calendar> }
   | { type: "image"; fieldProps?: ComponentProps<typeof EditAvatar> }
 );
@@ -84,34 +86,45 @@ const FormController = <
             {...descriptionProps}
           />
         );
-        let FormField: ReactNode;
-        if (type === "input") {
-          FormField = <Input size="large" {...fieldProps} {...props} />;
-        } else if (type === "textarea") {
-          FormField = <Textarea {...fieldProps} {...props} />;
-        } else if (type === "date") {
-          FormField = (
-            <Calendar
-              name={name}
-              id={fieldId}
-              {...fieldProps}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              {...revalidationHandlers?.(
-                form as UseFormReturn,
-                field as ControllerRenderProps,
-              )}
-            />
-          );
-        } else {
-          FormField = (
-            <EditAvatar
-              name={name}
-              src={field.value}
-              {...fieldProps}
-              onChange={field.onChange}
-            />
-          );
+        let FormField: ReactNode = null;
+        switch (type) {
+          case "input":
+            FormField = <Input size="large" {...fieldProps} {...props} />;
+            break;
+          case "textarea":
+            FormField = <Textarea {...fieldProps} {...props} />;
+            break;
+          case "mdEditor": {
+            FormField = (
+              <MarkdownEditor {...props} {...fieldProps} preview="live" />
+            );
+            break;
+          }
+          case "date":
+            FormField = (
+              <Calendar
+                name={name}
+                id={fieldId}
+                {...fieldProps}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                {...revalidationHandlers?.(
+                  form as UseFormReturn,
+                  field as ControllerRenderProps,
+                )}
+              />
+            );
+            break;
+          case "image":
+            FormField = (
+              <EditAvatar
+                name={name}
+                src={field.value}
+                {...fieldProps}
+                onChange={field.onChange}
+              />
+            );
+            break;
         }
         return (
           <div

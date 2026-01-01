@@ -1,4 +1,5 @@
 "use client";
+import { useGroupRoleQueryObject } from "@/app/api/groups/query";
 import {
   useDeleteNoticeCommentMutation,
   useDeleteNoticeMutation,
@@ -10,10 +11,10 @@ import type { NoticeContent } from "@/app/api/notices/type";
 import { NoticeCommentsProvider } from "@/app/group/[groupId]/@modal/(.)notice/components/NoticeModal/NoticeDetail/provider";
 import { IcnClose, IcnEdit, IcnNew } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
-import Textarea from "@/common/component/Textarea";
 import { formatDistanceDate } from "@/common/util/date";
 import CommentBox from "@/shared/component/CommentBox";
 import CommentInput from "@/shared/component/CommentInput";
+import MarkdownEditor from "@/shared/component/MdEditor";
 import useA11yHoverHandler from "@/shared/hook/useA11yHandler";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
@@ -63,12 +64,14 @@ const NoticeDetail = ({
   const [isEdit, setIsEdit] = useState(false);
   const [comment, setComment] = useState("");
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [text, setText] = useState<string | undefined>(content);
   const commentListRef = useRef<HTMLUListElement>(null);
 
   const { data: commentList } = useQuery(
     useNoticeCommentListQueryObject(noticeId),
   );
+  const { data: role } = useQuery(useGroupRoleQueryObject(+groupId));
+
   const { mutate: commentMutate } = useNoticeCommentMutation(noticeId);
   const { mutate: deleteCommentMutate } =
     useDeleteNoticeCommentMutation(noticeId);
@@ -96,14 +99,13 @@ const NoticeDetail = ({
   const handleEditClick = () => {
     if (!isEdit) {
       setIsEdit(true);
-      setTimeout(() => textareaRef.current?.focus());
       return;
     }
 
     setIsEdit(false);
     patchMutate({
       title,
-      content: textareaRef.current?.value || "",
+      content: text || "",
       category,
     });
   };
@@ -142,31 +144,33 @@ const NoticeDetail = ({
       </header>
 
       <div className={contentWrapperStyle}>
-        <div className={textareaWrapper} {...handlers}>
-          <Textarea
-            ref={textareaRef}
-            defaultValue={content}
+        <div className={clsx(textareaWrapper)} {...handlers}>
+          <MarkdownEditor
+            initialValue={content}
+            onChange={setText}
             disabled={!isEdit}
             className={clsx(textareaStyle, isEdit && textareaEditStyle)}
           />
-          <div className={iconContainerStyle}>
-            <button
-              aria-label="공지 수정하기"
-              title={isEdit ? "공지 수정 완료하기" : "공지 수정하기"}
-              onClick={handleEditClick}
-              className={iconStyle({ isEdit, isActive })}
-            >
-              <IcnEdit width={18} height={18} />
-            </button>
-            <button
-              aria-label="공지 삭제하기"
-              title="공지 삭제하기"
-              onClick={handleDeleteClick}
-              className={iconStyle({ isActive })}
-            >
-              <IcnClose width={16} height={16} />
-            </button>
-          </div>
+          {role !== "PARTICIPANT" && (
+            <div className={iconContainerStyle}>
+              <button
+                aria-label="공지 수정하기"
+                title={isEdit ? "공지 수정 완료하기" : "공지 수정하기"}
+                onClick={handleEditClick}
+                className={iconStyle({ isEdit, isActive })}
+              >
+                <IcnEdit width={18} height={18} />
+              </button>
+              <button
+                aria-label="공지 삭제하기"
+                title="공지 삭제하기"
+                onClick={handleDeleteClick}
+                className={iconStyle({ isActive })}
+              >
+                <IcnClose width={16} height={16} />
+              </button>
+            </div>
+          )}
         </div>
 
         <div className={sectionWrapper}>
