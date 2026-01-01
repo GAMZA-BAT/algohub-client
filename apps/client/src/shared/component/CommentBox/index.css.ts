@@ -43,22 +43,11 @@ export const contentStyle = style({
   whiteSpace: "pre-line",
 });
 
-export const contentWrapperStyle = recipe({
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-  },
-  variants: {
-    variant: {
-      notice: {
-        gap: "0.8rem",
-      },
-      detail: {
-        gap: "1.6rem",
-      },
-    },
-  },
+export const contentWrapperStyle = style({
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  gap: "0.8rem",
 });
 
 export const topContentStyle = style({
