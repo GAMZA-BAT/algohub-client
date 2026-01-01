@@ -50,6 +50,10 @@ export const groupQueryKey = {
     ...groupQueryKey.problems(groupId),
     "queued",
   ],
+  expiredProblems: (groupId: number) => [
+    ...groupQueryKey.problems(groupId),
+    "expired",
+  ],
   search: (params: SearchRequest) => [...groupQueryKey.all(), "search", params],
   joinRequests: (groupId: number) =>
     [...groupQueryKey.detail(groupId), "join-requests"] as const,

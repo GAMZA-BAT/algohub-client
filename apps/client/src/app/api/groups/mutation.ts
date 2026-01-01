@@ -22,6 +22,7 @@ import { userQueryKey } from "@/app/api/users/query";
 import { useToast } from "@/common/hook/useToast";
 import { HTTP_ERROR_STATUS } from "@/shared/constant/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { isBefore, startOfTomorrow } from "date-fns";
 import type { HTTPError } from "ky";
 import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
@@ -287,7 +288,9 @@ export const usePostProblemMutation = (groupId: number) => {
       ]);
       (
         document.querySelector(
-          +variables.startDate < Date.now() ? "#tab-1" : "#tab-2",
+          isBefore(variables.startDate, startOfTomorrow())
+            ? "#tab-1"
+            : "#tab-2",
         ) as HTMLLIElement
       )?.click();
 

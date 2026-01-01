@@ -1,4 +1,5 @@
 import { getQueuedProblems } from "@/app/api/groups";
+import { groupQueryKey } from "@/app/api/groups/query";
 import PendingListItem from "@/app/group/[groupId]/problem-list/components/PendingList/Item";
 import {
   listStyle,
@@ -14,8 +15,9 @@ const PendingList = ({ groupId }: { groupId: number }) => {
     totalPages: queuedTotalPages,
     setCurrentPage: setQueuedPage,
   } = usePaginationQuery({
-    queryKey: ["queuedProblem", groupId],
+    queryKey: groupQueryKey.queuedProblems(groupId),
     queryFn: (page) => getQueuedProblems({ groupId, page, size: 7 }),
+    searchParam: "queued",
   });
   const queuedList = queuedData?.content;
 
