@@ -5,8 +5,9 @@ import { getNotificationList, getNotificationsSettings } from "./index";
 export const notificationQueryKey = {
   all: () => ["notifications"] as const,
   settings: () => [...notificationQueryKey.all(), "settings"] as const,
-  lists: (notificationType: NotificationType) =>
-    [...notificationQueryKey.all(), "list", notificationType] as const,
+  list: () => [...notificationQueryKey.all(), "list"] as const,
+  typeList: (notificationType?: NotificationType) =>
+    [...notificationQueryKey.list(), notificationType] as const,
 };
 
 export const useNotificationSettingListQueryObject = () =>
@@ -19,6 +20,6 @@ export const useNotificationsQueryObject = (
   notificationType: NotificationType,
 ) =>
   queryOptions({
-    queryKey: notificationQueryKey.lists(notificationType),
+    queryKey: notificationQueryKey.typeList(notificationType),
     queryFn: () => getNotificationList({ notificationType }),
   });
