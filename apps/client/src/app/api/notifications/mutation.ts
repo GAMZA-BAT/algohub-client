@@ -95,10 +95,16 @@ export const useReadNotiItemMutation = (notificationType: NotificationType) => {
       );
       return { prev };
     },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: notificationQueryKey.lists(notificationType),
-      });
+    onSuccess: (_data, id) => {
+      queryClient.setQueriesData<NotificationItem[]>(
+        { queryKey: [...notificationQueryKey.all(), "list"] },
+        (oldData) => {
+          if (!oldData) return [];
+          return oldData.map((item) =>
+            item.id === id ? { ...item, isRead: true } : item,
+          );
+        },
+      );
     },
     onError: (_err, _new, context) => {
       queryClient.setQueryData(
@@ -129,18 +135,13 @@ export const useDeleteNotiMutation = (notificationType: NotificationType) => {
       return { prev, id };
     },
     onSuccess: (_data, id) => {
-      if (notificationType !== NotificationType.ALL) return;
-
-      // NotificationType.ALL 리스트에서도 제거
-      const allList = queryClient.getQueryData<NotificationItem[]>(
-        notificationQueryKey.lists(NotificationType.ALL),
-      );
-
-      if (!allList) return;
-
-      queryClient.setQueryData(
-        notificationQueryKey.lists(NotificationType.ALL),
-        allList.filter((item) => item.id !== id),
+      // 모든 알림 리스트 쿼리에서 해당 알림 제거
+      queryClient.setQueriesData<NotificationItem[]>(
+        { queryKey: [...notificationQueryKey.all(), "list"] },
+        (oldData) => {
+          if (!oldData) return [];
+          return oldData.filter((item) => item.id !== id);
+        },
       );
     },
     onError: (_err, _new, context) => {
