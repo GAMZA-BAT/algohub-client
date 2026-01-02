@@ -76,13 +76,13 @@ export const commentStyle = style({
 });
 
 export const moreCommentContainer = style({
-  display: "flex",
+  alignSelf: "flex-start",
 
   paddingLeft: "2rem",
 
-  cursor: "pointer",
   color: theme.color.mg2,
 
+  cursor: "pointer",
   ":hover": {
     color: theme.color.mg1,
   },
@@ -101,7 +101,7 @@ export const moreCommentWrapper = style({
 });
 
 export const moreCommentButtonStyle = style({
-  padding: "0.1rem 0.4rem",
+  padding: "0.2rem 0.8rem",
 
   backgroundColor: theme.color.mg5,
   borderRadius: "4px",
