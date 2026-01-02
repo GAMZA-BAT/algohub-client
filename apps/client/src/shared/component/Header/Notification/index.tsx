@@ -42,8 +42,7 @@ const Notification = () => {
   const { data } = useQuery(useNotificationsQueryObject(notificationType));
   const notiCounts = data ? data.filter((item) => !item.isRead).length : 0;
 
-  const { mutate: readAllNotifications } =
-    useReadAllNotiMutation(notificationType);
+  const { mutate: readAllNotifications } = useReadAllNotiMutation();
 
   const shrinkList = () => {
     setIsExpanded(false);
