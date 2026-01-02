@@ -2,14 +2,13 @@ import { scrollTheme, theme } from "@/styles/themes.css";
 import { style, styleVariants } from "@vanilla-extract/css";
 
 export const sidebarWrapper = style({
+  position: "sticky",
   display: "flex",
   flexDirection: "column",
   gap: "1.6rem",
 
-  height: "72.5vh",
-  overflowY: "auto",
-
-  ...scrollTheme.innerScrollbarY,
+  height: "100%",
+  top: 0,
 });
 
 export const titleWrapper = style({
@@ -93,6 +92,9 @@ export const studyListContainerStyle = style({
   flexDirection: "column",
 
   marginLeft: "2px",
+
+  overflowY: "auto",
+  ...scrollTheme.innerScrollbarY,
 });
 
 export const studyTitleWrapper = style({
