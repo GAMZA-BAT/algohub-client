@@ -24,12 +24,41 @@ export const notificationContainer = style({
 export const headerStyle = style({
   display: "flex",
   alignItems: "center",
+  justifyContent: "space-between",
+
+  marginRight: "1.6rem",
+});
+
+export const titleWrapper = style({
+  display: "flex",
+  alignItems: "center",
   gap: "0.8rem",
 });
 
 export const titleStyle = style({
   color: theme.color.white,
   ...theme.font.Head2_B_18,
+});
+
+export const readAllButtonStyle = recipe({
+  base: {
+    padding: "0.4rem 0.8rem",
+
+    borderRadius: "17px",
+    backgroundColor: theme.color.mg5,
+
+    ...theme.font.Body1_M_14,
+  },
+  variants: {
+    isAllRead: {
+      true: {
+        color: theme.color.mg3,
+      },
+      false: {
+        color: theme.color.lg1,
+      },
+    },
+  },
 });
 
 export const countChipStyle = style({

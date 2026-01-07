@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { HTTPError } from "ky";
 import {
   deleteNotification,
+  patchAllNotificationRead,
   patchNotificationRead,
   patchNotificationsSettings,
 } from "./index";
@@ -80,28 +81,34 @@ export const useReadNotiItemMutation = (notificationType: NotificationType) => {
     mutationFn: (id: number) => patchNotificationRead(id),
     onMutate: async (id: number) => {
       await queryClient.cancelQueries({
-        queryKey: notificationQueryKey.lists(notificationType),
+        queryKey: notificationQueryKey.typeList(notificationType),
       });
       const prev = queryClient.getQueryData<NotificationItem[]>(
-        notificationQueryKey.lists(notificationType),
+        notificationQueryKey.typeList(notificationType),
       );
       const newData = prev?.map((item) =>
         item.id === id ? { ...item, isRead: true } : item,
       );
       queryClient.setQueryData(
-        notificationQueryKey.lists(notificationType),
+        notificationQueryKey.typeList(notificationType),
         newData,
       );
       return { prev };
     },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: notificationQueryKey.lists(notificationType),
-      });
+    onSuccess: (_data, id) => {
+      queryClient.setQueriesData<NotificationItem[]>(
+        { queryKey: [...notificationQueryKey.all(), "list"] },
+        (oldData) => {
+          if (!oldData) return [];
+          return oldData.map((item) =>
+            item.id === id ? { ...item, isRead: true } : item,
+          );
+        },
+      );
     },
     onError: (_err, _new, context) => {
       queryClient.setQueryData(
-        notificationQueryKey.lists(notificationType),
+        notificationQueryKey.typeList(notificationType),
         context?.prev,
       );
     },
@@ -113,37 +120,79 @@ export const useDeleteNotiMutation = (notificationType: NotificationType) => {
 
   return useMutation({
     mutationFn: (id: number) => deleteNotification(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: notificationQueryKey.lists(notificationType),
+    onMutate: async (id: number) => {
+      await queryClient.cancelQueries({
+        queryKey: notificationQueryKey.typeList(notificationType),
       });
+      const prev = queryClient.getQueryData<NotificationItem[]>(
+        notificationQueryKey.typeList(notificationType),
+      );
+      const newData = prev?.filter((item) => item.id !== id);
+      queryClient.setQueryData(
+        notificationQueryKey.typeList(notificationType),
+        newData,
+      );
+      return { prev, id };
+    },
+    onSuccess: (_data, id) => {
+      // 모든 알림 리스트 쿼리에서 해당 알림 제거
+      queryClient.setQueriesData<NotificationItem[]>(
+        { queryKey: [...notificationQueryKey.all(), "list"] },
+        (oldData) => {
+          if (!oldData) return [];
+          return oldData.filter((item) => item.id !== id);
+        },
+      );
+    },
+    onError: (_err, _new, context) => {
+      if (context?.prev) {
+        queryClient.setQueryData(
+          notificationQueryKey.typeList(notificationType),
+          context.prev,
+        );
+      }
     },
   });
 };
 
-// export const useReadAllNotiMutation = () => {
-//   const queryClient = useQueryClient();
+export const useReadAllNotiMutation = () => {
+  const queryClient = useQueryClient();
 
-//   return useMutation({
-//     mutationFn: patchAllNotificationRead,
-//     onMutate: async () => {
-//       await queryClient.cancelQueries({
-//         queryKey: notificationQueryKey.lists(),
-//       });
-//       const prev = queryClient.getQueryData<NotificationItem[]>(
-//         notificationQueryKey.lists(),
-//       );
-//       const newData = prev?.map((item) => ({ ...item, isRead: true }));
-//       queryClient.setQueryData(notificationQueryKey.lists(), newData);
-//       return { prev };
-//     },
-//     onSettled: async () => {
-//       await queryClient.invalidateQueries({
-//         queryKey: notificationQueryKey.lists(),
-//       });
-//     },
-//     onError: (_err, _new, context) => {
-//       queryClient.setQueryData(notificationQueryKey.lists(), context?.prev);
-//     },
-//   });
-// };
+  return useMutation({
+    mutationFn: patchAllNotificationRead,
+    onMutate: async () => {
+      await queryClient.cancelQueries({
+        queryKey: notificationQueryKey.list(),
+      });
+
+      // 모든 매칭되는 쿼리의 이전 데이터 저장
+      const previousQueries = queryClient.getQueriesData<NotificationItem[]>({
+        queryKey: notificationQueryKey.list(),
+      });
+
+      // 모든 쿼리를 optimistic update
+      queryClient.setQueriesData<NotificationItem[]>(
+        { queryKey: notificationQueryKey.list() },
+        (oldData) => {
+          if (!oldData) return [];
+          return oldData.map((item) => ({ ...item, isRead: true }));
+        },
+      );
+
+      return { previousQueries };
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: notificationQueryKey.list(),
+      });
+    },
+    onError: (_err, _new, context) => {
+      // 실패 시 모든 쿼리를 이전 데이터로 롤백
+      if (context?.previousQueries) {
+        for (const [queryKey, data] of context.previousQueries) {
+          queryClient.setQueryData(queryKey, data);
+        }
+      }
+    },
+  });
+};

@@ -14,6 +14,9 @@ import {
   feedItemContainer,
   infoTextWrapper,
   infoWrapper,
+  moreCommentButtonStyle,
+  moreCommentContainer,
+  moreCommentWrapper,
   nameStyle,
   studyNameStyle,
 } from "@/app/[user]/components/FeedItem/index.css";
@@ -23,13 +26,21 @@ import { useGroupInfoQueryObject } from "@/app/api/groups/query";
 import { useSolutionQueryObject } from "@/app/api/solutions/query";
 import { formatDistanceDate } from "@/common/util/date";
 import { useSuspenseQueries } from "@tanstack/react-query";
+import Link from "next/link";
+import { useMemo, useRef } from "react";
 
 interface FeedItemProps {
   solutionId: number;
   groupId: number;
 }
 
+const DEFAULT_COMMENT_COUNT = 3;
+
 const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
+  const myAddedCommentsRef = useRef(0);
+  const displayedCommentCount =
+    myAddedCommentsRef.current + DEFAULT_COMMENT_COUNT;
+
   const [{ data: solution }, { data: comments }, { data: group }] =
     useSuspenseQueries({
       queries: [
@@ -50,13 +61,13 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
     });
 
   // 피드에 뜨게한 댓글 찾기 - 나를 제외한 최신 댓글
-  const triggerComment = comments?.find(
-    (comment) => comment.writerNickname !== solution?.nickname,
+  const triggerComment = useMemo(
+    () =>
+      comments?.find(
+        (comment) => comment.writerNickname !== solution?.nickname,
+      ),
+    [comments, solution?.nickname],
   );
-
-  if (!triggerComment) {
-    return null;
-  }
 
   const [
     triggerCommentWritterName,
@@ -67,6 +78,10 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
     triggerComment?.writerProfileImage,
     triggerComment?.createdAt,
   ];
+
+  const handleCommentCountPlus = () => {
+    myAddedCommentsRef.current += 1;
+  };
 
   return (
     <li>
@@ -103,7 +118,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         />
 
         <ul className={commentListStyle}>
-          {comments?.map((comment) => (
+          {comments?.slice(0, displayedCommentCount).map((comment) => (
             <li
               key={comment.commentId}
               className={commentItemStyle}
@@ -122,7 +137,20 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
           ))}
         </ul>
 
+        {comments?.length > displayedCommentCount && (
+          <Link
+            href={`/group/${groupId}/solved-detail/${solutionId}`}
+            className={moreCommentContainer}
+          >
+            <div className={moreCommentWrapper}>
+              <span>{`댓글 +${comments?.length - displayedCommentCount}`}</span>
+              <span className={moreCommentButtonStyle}>더보기</span>
+            </div>
+          </Link>
+        )}
+
         <CommentInput
+          onCommentCountPlus={handleCommentCountPlus}
           solutionId={solutionId}
           profileUrl={solution?.profileImage}
           nickname={solution?.nickname}
