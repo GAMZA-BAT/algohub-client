@@ -69,6 +69,10 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
     [comments, solution?.nickname],
   );
 
+  if (!triggerComment) {
+    return null;
+  }
+
   const [
     triggerCommentWritterName,
     triggerCommentWritterProfileImage,
