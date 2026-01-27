@@ -6,8 +6,13 @@ on:
       - main
       - deploy
 
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
 jobs:
-  check:
+  ci-pipeline:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,32 +23,79 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Setup Pnpm
-        uses: pnpm/action-setup@v4
+      - name: Prepare Corepack
+        run: corepack prepare pnpm@10.0.0 --activate
+
+      - name: Resolve Dependencies
+        uses: ./.github/actions/pnpm-cache
         with:
-          version: 9
+          lock-file: "./pnpm-lock.yaml"
+          modules-path: "./node_modules"
+          pnpm-store-path: "./pnpm-store"
+          install-path: "."
 
-      - name: Cache node modules
-        id: cache-node
-        uses: actions/cache@v4
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json', '**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Check
+      - name: 🔷 TypeScript Check
+        id: typecheck
         run: |
           set -o pipefail
-          pnpm check | tee result
+          pnpm typecheck | tee typecheck-result
+        continue-on-error: true
+        env:
+          FORCE_COLOR: 3
 
-      - name: Print Summary
+      - name: 🔍 ESLint Check
+        id: lint
         run: |
-          echo "## Check Result" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "$(cat result)" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          set -o pipefail
+          pnpm lint:check | tee lint-result
+        continue-on-error: true
+        env:
+          FORCE_COLOR: 3
+
+      - name: 🎨 Format Check
+        id: format
+        run: |
+          set -o pipefail
+          pnpm format:check | tee format-result
+        continue-on-error: true
+        env:
+          FORCE_COLOR: 3
+
+      - name: Generate Results Summary
+        if: always()
+        run: |
+          echo "## 🚀 CI Check Results" > summary.md
+          echo "" >> summary.md
+          echo "| Check Item | Status |" >> summary.md
+          echo "|------------|--------|" >> summary.md
+          
+          if [ "${{ steps.typecheck.outcome }}" == "success" ]; then
+            echo "| 🔷 **TypeScript** | ✅ Pass |" >> summary.md
+          else
+            echo "| 🔷 **TypeScript** | ❌ Fail |" >> summary.md
+          fi
+          
+          if [ "${{ steps.lint.outcome }}" == "success" ]; then
+            echo "| 🔍 **ESLint** | ✅ Pass |" >> summary.md
+          else
+            echo "| 🔍 **ESLint** | ❌ Fail |" >> summary.md
+          fi
+          
+          if [ "${{ steps.format.outcome }}" == "success" ]; then
+            echo "| 🎨 **Format** | ✅ Pass |" >> summary.md
+          else
+            echo "| 🎨 **Format** | ❌ Fail |" >> summary.md
+          fi
+          
+          echo "" >> summary.md
+          echo "📋 [View Full Workflow](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> summary.md
+
+      - name: Comment on PR
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: summary.md
+
+      - name: Check if any step failed
+        if: steps.typecheck.outcome == 'failure' || steps.lint.outcome == 'failure' || steps.format.outcome == 'failure'
+        run: exit 1

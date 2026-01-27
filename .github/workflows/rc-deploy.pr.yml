@@ -1,0 +1,16 @@
+name: rc-deploy
+
+on:
+  pull_request:
+    types: [labeled, unlabeled, synchronize, opened]
+  
+jobs:
+  rc-deploy:
+    if: contains(github.event.pull_request.labels.*.name, 'rc-deploy')
+    uses: ./.github/workflows/deploy.workflow.yml
+    secrets:
+      CREDENTIAL_NAME: ${{ secrets.CREDENTIAL_NAME }}
+      CREDENTIAL_PW: ${{ secrets.CREDENTIAL_PW }}
+    with:
+      environment: rc
+      port: 3001

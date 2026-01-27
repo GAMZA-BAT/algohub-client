@@ -1,0 +1,98 @@
+"use client";
+
+import {
+  buttonWrapper,
+  createFormContainer,
+  createFormWrapper,
+  createTitleStyle,
+  labelStyle,
+  textAreaStyle,
+} from "@/app/[user]/edge-case/components/EdgeCaseController/EdgeCaseCreateForm/index.css";
+import { edgeCaseCreateFormSchema } from "@/app/[user]/edge-case/components/EdgeCaseController/EdgeCaseCreateForm/schema";
+import { useEdgeCaseMutation } from "@/app/api/edge-case/mutation";
+import Button from "@/common/component/Button";
+import { Form, FormController } from "@/shared/component/Form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import type { z } from "zod";
+
+const EdgeCaseCreateForm = ({ onSuccess }: { onSuccess: () => void }) => {
+  const form = useForm<z.infer<typeof edgeCaseCreateFormSchema>>({
+    resolver: zodResolver(edgeCaseCreateFormSchema),
+    mode: "onTouched",
+    defaultValues: {
+      problem: "",
+      input: "",
+      output: "",
+    },
+  });
+  const { mutate: createEdgeCase } = useEdgeCaseMutation();
+
+  const handleSubmit = (values: z.infer<typeof edgeCaseCreateFormSchema>) => {
+    const { problem, input, output } = values;
+
+    const link = Number.isNaN(problem)
+      ? problem
+      : `https://www.acmicpc.net/problem/${problem}`;
+
+    createEdgeCase({
+      link,
+      input,
+      output,
+    });
+    onSuccess();
+  };
+
+  return (
+    <div className={createFormWrapper}>
+      <h2 className={createTitleStyle}>반례 추가하기</h2>
+      <Form {...form}>
+        <form
+          className={createFormContainer}
+          onSubmit={form.handleSubmit(handleSubmit)}
+        >
+          <FormController
+            form={form}
+            name="problem"
+            type="input"
+            showLabel
+            labelProps={{
+              children: "문제 번호 및 링크",
+              className: labelStyle,
+            }}
+            fieldProps={{ placeholder: "문제 번호 및 링크를 입력해주세요." }}
+            showDescription
+          />
+          <FormController
+            form={form}
+            name="input"
+            type="textarea"
+            showLabel
+            labelProps={{ children: "입력", className: labelStyle }}
+            fieldProps={{ className: textAreaStyle }}
+          />
+          <FormController
+            form={form}
+            name="output"
+            type="textarea"
+            showLabel
+            labelProps={{ children: "출력", className: labelStyle }}
+            fieldProps={{ className: textAreaStyle }}
+          />
+          <div className={buttonWrapper}>
+            <Button
+              type="submit"
+              size="small"
+              disabled={!form.formState.isValid}
+              isActive={form.formState.isValid}
+            >
+              등록하기
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  );
+};
+
+export default EdgeCaseCreateForm;

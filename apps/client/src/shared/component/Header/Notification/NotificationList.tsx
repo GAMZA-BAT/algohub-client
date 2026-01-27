@@ -1,0 +1,74 @@
+import type { NotificationItem } from "@/app/api/notifications/type";
+import { IcnBtnArrowDown } from "@/asset/svg";
+import Empty from "@/shared/component/Empty";
+import type { NotificationType } from "@/shared/component/Header/Notification";
+import NotificationListItem from "@/shared/component/Header/Notification/NotificationItem";
+import {
+  emptyWrapper,
+  moreButtonStyle,
+  ulStyle,
+} from "@/shared/component/Header/Notification/index.css";
+
+interface NotificationListProps {
+  notificationType: NotificationType;
+  isExpanded: boolean;
+  expandList: () => void;
+  notificationData: NotificationItem[];
+}
+
+const NotificationList = ({
+  notificationType,
+  isExpanded,
+  expandList: handleExpandList,
+  notificationData,
+}: NotificationListProps) => {
+  const notificationList = isExpanded
+    ? notificationData
+    : notificationData?.slice(0, 6);
+
+  const shouldShowMoreButton = notificationList.length >= 6 && !isExpanded;
+
+  if (notificationList.length === 0) {
+    return (
+      <div className={emptyWrapper}>
+        <Empty guideText="아직 도착한 알림이 없습니다" />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <ul
+        id={"notification-list"}
+        role="tabpanel"
+        aria-label="알림 목록"
+        className={ulStyle}
+      >
+        {notificationList.map((notification) => (
+          <NotificationListItem
+            key={notification.id}
+            {...notification}
+            notificationType={notificationType}
+          />
+        ))}
+      </ul>
+
+      {shouldShowMoreButton && (
+        <button
+          className={moreButtonStyle}
+          onClick={handleExpandList}
+          aria-expanded={isExpanded}
+        >
+          <IcnBtnArrowDown
+            width={"1.2rem"}
+            height={"1.2rem"}
+            aria-hidden={"true"}
+          />
+          더보기
+        </button>
+      )}
+    </>
+  );
+};
+
+export default NotificationList;
