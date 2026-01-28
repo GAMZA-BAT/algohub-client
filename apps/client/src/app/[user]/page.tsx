@@ -17,9 +17,8 @@ import Sidebar from "@/common/component/Sidebar";
 import { prefetchQuery } from "@/shared/util/prefetch";
 import { sidebarWrapper } from "@/styles/shared.css";
 
-import { HydrationBoundary } from "@tanstack/react-query";
-
 import MyFeedSection from "@/app/[user]/components/MyFeedSection";
+import { HydrationBoundary } from "@tanstack/react-query";
 import { HTTPError } from "ky";
 import { notFound } from "next/navigation";
 import { useRecommendStudyQueryObject } from "../api/users/query";
@@ -77,8 +76,8 @@ const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
       <div className={userHomeWrapper}>
         <HydrationBoundary state={recommendGroups}>
           <RecommendStudySection />
-          <MyFeedSection />
         </HydrationBoundary>
+        <MyFeedSection />
       </div>
       <Sidebar>{/* <div>임시로 만드는 우측 패널</div> */}</Sidebar>
     </main>
