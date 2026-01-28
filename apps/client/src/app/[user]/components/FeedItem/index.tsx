@@ -21,7 +21,6 @@ import {
   studyNameStyle,
 } from "@/app/[user]/components/FeedItem/index.css";
 import { useCommentListQueryObject } from "@/app/api/comments/query";
-import type { CommentContent } from "@/app/api/comments/type";
 import { useGroupInfoQueryObject } from "@/app/api/groups/query";
 import { useSolutionQueryObject } from "@/app/api/solutions/query";
 import { formatDistanceDate } from "@/common/util/date";
@@ -51,7 +50,6 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         {
           ...useCommentListQueryObject(solutionId),
           retry: 0,
-          select: (data: CommentContent[]) => [...data].reverse(),
         },
         {
           ...useGroupInfoQueryObject(groupId),
@@ -156,8 +154,6 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         <CommentInput
           onCommentCountPlus={handleCommentCountPlus}
           solutionId={solutionId}
-          profileUrl={solution?.profileImage}
-          nickname={solution?.nickname}
         />
       </article>
     </li>

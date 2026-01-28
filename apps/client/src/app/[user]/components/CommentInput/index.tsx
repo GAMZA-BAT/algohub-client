@@ -1,3 +1,5 @@
+"use client";
+
 import {
   commentFormStyle,
   commentInputStyle,
@@ -7,21 +9,19 @@ import { useCommentMutation } from "@/app/api/comments/mutation";
 import { IcnEnter } from "@/asset/svg";
 import Avatar from "@/common/component/Avatar";
 import Input from "@/common/component/Input";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 interface CommentInputProps {
-  profileUrl?: string;
-  nickname?: string;
   solutionId: number;
   onCommentCountPlus: () => void;
 }
 
 const CommentInput = ({
-  profileUrl,
-  nickname,
   solutionId,
   onCommentCountPlus,
 }: CommentInputProps) => {
+  const { data } = useSession();
   const [comment, setComment] = useState("");
 
   const { mutate: postComment } = useCommentMutation(solutionId);
@@ -43,8 +43,8 @@ const CommentInput = ({
       <IcnEnter width={24} height={24} aria-hidden />
       <Avatar
         size="small"
-        alt={`${nickname}님의 프로필 사진`}
-        src={profileUrl}
+        alt={`${data?.user?.nickname}님의 프로필 사진`}
+        src={data?.user?.profileImage}
       />
       <form onSubmit={handleCommentSubmit} className={commentFormStyle}>
         <Input
