@@ -2,7 +2,7 @@
 
 import {
   commentFormStyle,
-  commentInputStyle,
+  enterSvgStyle,
   leaveCommentWrapper,
 } from "@/app/[user]/components/CommentInput/index.css";
 import { useCommentMutation } from "@/app/api/comments/mutation";
@@ -40,7 +40,7 @@ const CommentInput = ({
 
   return (
     <section className={leaveCommentWrapper}>
-      <IcnEnter width={24} height={24} aria-hidden />
+      <IcnEnter width={24} height={24} aria-hidden className={enterSvgStyle} />
       <Avatar
         size="small"
         alt={`${data?.user?.nickname}님의 프로필 사진`}
@@ -50,7 +50,6 @@ const CommentInput = ({
         <Input
           placeholder="의견을 남겨주세요."
           aria-label="풀이에 대한 의견을 남기는 input"
-          className={commentInputStyle}
           value={comment}
           onChange={handleCommentChange}
         />
