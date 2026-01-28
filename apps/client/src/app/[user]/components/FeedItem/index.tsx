@@ -16,6 +16,7 @@ import {
   infoWrapper,
   moreCommentButtonStyle,
   moreCommentContainer,
+  moreCommentTextStyle,
   moreCommentWrapper,
   nameStyle,
   studyNameStyle,
@@ -145,7 +146,9 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
             className={moreCommentContainer}
           >
             <div className={moreCommentWrapper}>
-              <span>{`댓글 +${comments?.length - displayedCommentCount}`}</span>
+              <span
+                className={moreCommentTextStyle}
+              >{`댓글 +${comments?.length - displayedCommentCount}`}</span>
               <span className={moreCommentButtonStyle}>더보기</span>
             </div>
           </Link>
