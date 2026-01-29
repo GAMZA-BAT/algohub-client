@@ -1,3 +1,4 @@
+import type { CommentContent } from "@/app/api/comments/type";
 import { queryOptions } from "@tanstack/react-query";
 import { getCommentList } from "./index";
 
@@ -12,4 +13,5 @@ export const useCommentListQueryObject = (solutionId: number) =>
   queryOptions({
     queryKey: commentQueryKey.list(solutionId),
     queryFn: () => getCommentList(solutionId),
+    select: (data: CommentContent[]) => [...data].reverse(),
   });

@@ -59,9 +59,10 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
       ],
     });
 
-  const displayedComments = comments
-    ?.toReversed()
-    .slice(comments.length - displayedCommentCount, comments.length);
+  const displayedComments = comments?.slice(
+    comments.length - displayedCommentCount,
+    comments.length,
+  );
 
   // 피드에 뜨게한 댓글 찾기 - 나를 제외한 최신 댓글
   const triggerComment = useMemo(
