@@ -13,5 +13,5 @@ export const useCommentListQueryObject = (solutionId: number) =>
   queryOptions({
     queryKey: commentQueryKey.list(solutionId),
     queryFn: () => getCommentList(solutionId),
-    select: (data: CommentContent[]) => [...data].reverse(),
+    select: (data: CommentContent[]) => data.toReversed(),
   });
