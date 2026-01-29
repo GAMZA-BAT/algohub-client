@@ -39,7 +39,7 @@ const DEFAULT_COMMENT_COUNT = 3;
 const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
   const myAddedCommentsRef = useRef(0);
   const displayedCommentCount =
-    myAddedCommentsRef.current + DEFAULT_COMMENT_COUNT;
+    DEFAULT_COMMENT_COUNT + myAddedCommentsRef.current;
 
   const [{ data: solution }, { data: comments }, { data: group }] =
     useSuspenseQueries({
@@ -58,6 +58,10 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         },
       ],
     });
+
+  const displayedComments = comments
+    ?.toReversed()
+    .slice(comments.length - displayedCommentCount, comments.length);
 
   // 피드에 뜨게한 댓글 찾기 - 나를 제외한 최신 댓글
   const triggerComment = useMemo(
@@ -121,7 +125,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         />
 
         <ul className={commentListStyle}>
-          {comments?.slice(0, displayedCommentCount).map((comment) => (
+          {displayedComments.map((comment) => (
             <li
               key={comment.commentId}
               className={commentItemStyle}
