@@ -7,8 +7,8 @@ export const leaveCommentWrapper = style({
   padding: "0.8rem 2rem",
 });
 
-export const commentFormStyle = style({ width: "100%" });
-
-export const commentInputStyle = style({
-  marginLeft: "1.2rem",
+export const enterSvgStyle = style({
+  marginRight: "0.4rem",
 });
+
+export const commentFormStyle = style({ width: "100%", marginLeft: "1.2rem" });

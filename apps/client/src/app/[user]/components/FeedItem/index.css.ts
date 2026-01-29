@@ -97,9 +97,11 @@ export const moreCommentWrapper = style({
   padding: "0.6rem 0",
 
   color: "inherit",
-  ...theme.font.Caption1_R_12,
 });
 
+export const moreCommentTextStyle = style({
+  ...theme.font.Caption1_R_12,
+});
 export const moreCommentButtonStyle = style({
   padding: "0.2rem 0.8rem",
 
@@ -107,6 +109,7 @@ export const moreCommentButtonStyle = style({
   borderRadius: "4px",
 
   color: "inherit",
+  ...theme.font.Caption1_R_12,
 
   cursor: "pointer",
 });

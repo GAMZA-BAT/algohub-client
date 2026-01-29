@@ -16,12 +16,12 @@ import {
   infoWrapper,
   moreCommentButtonStyle,
   moreCommentContainer,
+  moreCommentTextStyle,
   moreCommentWrapper,
   nameStyle,
   studyNameStyle,
 } from "@/app/[user]/components/FeedItem/index.css";
 import { useCommentListQueryObject } from "@/app/api/comments/query";
-import type { CommentContent } from "@/app/api/comments/type";
 import { useGroupInfoQueryObject } from "@/app/api/groups/query";
 import { useSolutionQueryObject } from "@/app/api/solutions/query";
 import { formatDistanceDate } from "@/common/util/date";
@@ -39,7 +39,7 @@ const DEFAULT_COMMENT_COUNT = 3;
 const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
   const myAddedCommentsRef = useRef(0);
   const displayedCommentCount =
-    myAddedCommentsRef.current + DEFAULT_COMMENT_COUNT;
+    DEFAULT_COMMENT_COUNT + myAddedCommentsRef.current;
 
   const [{ data: solution }, { data: comments }, { data: group }] =
     useSuspenseQueries({
@@ -51,7 +51,6 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         {
           ...useCommentListQueryObject(solutionId),
           retry: 0,
-          select: (data: CommentContent[]) => [...data].reverse(),
         },
         {
           ...useGroupInfoQueryObject(groupId),
@@ -59,6 +58,11 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         },
       ],
     });
+
+  const displayedComments = comments?.slice(
+    comments.length - displayedCommentCount,
+    comments.length,
+  );
 
   // 피드에 뜨게한 댓글 찾기 - 나를 제외한 최신 댓글
   const triggerComment = useMemo(
@@ -122,7 +126,7 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         />
 
         <ul className={commentListStyle}>
-          {comments?.slice(0, displayedCommentCount).map((comment) => (
+          {displayedComments.map((comment) => (
             <li
               key={comment.commentId}
               className={commentItemStyle}
@@ -147,7 +151,9 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
             className={moreCommentContainer}
           >
             <div className={moreCommentWrapper}>
-              <span>{`댓글 +${comments?.length - displayedCommentCount}`}</span>
+              <span
+                className={moreCommentTextStyle}
+              >{`댓글 +${comments?.length - displayedCommentCount}`}</span>
               <span className={moreCommentButtonStyle}>더보기</span>
             </div>
           </Link>
@@ -156,8 +162,6 @@ const FeedItem = ({ solutionId, groupId }: FeedItemProps) => {
         <CommentInput
           onCommentCountPlus={handleCommentCountPlus}
           solutionId={solutionId}
-          profileUrl={solution?.profileImage}
-          nickname={solution?.nickname}
         />
       </article>
     </li>

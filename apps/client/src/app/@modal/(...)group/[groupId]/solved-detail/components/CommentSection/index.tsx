@@ -45,17 +45,15 @@ const CommentSection = ({ solutionId }: CommentSectionProps) => {
     <div className={sectionWrapper}>
       <ul className={ulStyle} ref={commentRef}>
         <CommentsProvider solutionId={+solutionId}>
-          {comments
-            ?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
-            .map((item) => (
-              <CommentBox
-                key={item.commentId}
-                variant="detail"
-                onDelete={deleteMutate}
-                isMine={item.writerNickname === session?.user?.nickname}
-                {...item}
-              />
-            ))}
+          {comments?.map((item) => (
+            <CommentBox
+              key={item.commentId}
+              variant="detail"
+              onDelete={deleteMutate}
+              isMine={item.writerNickname === session?.user?.nickname}
+              {...item}
+            />
+          ))}
         </CommentsProvider>
       </ul>
       <form onSubmit={handleCommentSubmit} className={commentInputStyle}>
