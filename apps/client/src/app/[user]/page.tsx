@@ -25,8 +25,6 @@ import { useRecommendStudyQueryObject } from "../api/users/query";
 import UserPageLeftSidebar from "./components/LeftSidebar";
 import RecommendStudySection from "./components/RecommendSection";
 
-export const revalidate = 60;
-
 const UserDashboardPage = async ({ params }: { params: { user: string } }) => {
   const userInfo = await auth();
   const { user } = params;
