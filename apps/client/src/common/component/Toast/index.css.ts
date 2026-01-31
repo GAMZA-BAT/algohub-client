@@ -15,7 +15,7 @@ export const containerStyle = style({
 
   width: "100vw",
 
-  zIndex: theme.zIndex.top,
+  zIndex: 999,
 });
 
 export const toastStyle = recipe({

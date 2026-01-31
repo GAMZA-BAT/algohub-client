@@ -1,4 +1,3 @@
-import { CommentsProvider } from "@/app/@modal/(...)group/[groupId]/solved-detail/components/CommentSection/provider";
 import type { Meta } from "@storybook/react";
 import { default as CommentBox } from ".";
 
@@ -12,9 +11,7 @@ const meta: Meta<typeof CommentBox> = {
   decorators: [
     (Story) => (
       <div style={{ width: "24rem" }}>
-        <CommentsProvider solutionId={1}>
-          <Story />
-        </CommentsProvider>
+        <Story />
       </div>
     ),
   ],
@@ -109,9 +106,10 @@ export const CommentList = {
         {data.map((item) => (
           <CommentBox
             key={item.commentId}
-            {...item}
-            variant={item.variant as "notice"}
-            createdAt="2024-10-10"
+            commentContent={item}
+            isMine={item.commentId % 2 === 1}
+            onDelete={() => {}}
+            onCommentEdit={() => {}}
           />
         ))}
       </ul>
